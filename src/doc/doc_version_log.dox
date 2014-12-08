@@ -1,0 +1,265 @@
+namespace Carna
+{
+
+/** \page   VersionLog  API 2.x Version Log
+  *
+  * This page gives you an overview over the recent API changes.
+  *
+  * \section VersioningPolicies Versioning Policies
+  *
+  * The <em>major version number</em> names the overall API version.
+  * It is incremented on wide-ranged API changes.
+  * There is absolutely no downward compatibility guaranteed:
+  * The compatibility of the API is usually broken when this version number is incremented.
+  *
+  * The <em>minor version number</em> tells the \em "local" API version.
+  * It is incremeted on such API changes, that do break downward compatibility on the one hand, but do have only restricted, local impact on the other hand.
+  * This means that for the library's user there usually are only a few tweaks neccessary - if any - in order to upgrade.
+  *
+  * The <em>release version number</em> is incremeted on such changes that neither of the two prior rules apply to:
+  * Full downward compatibility is guaranteed, thus one should always try to use the most recent release.
+  *
+  * \section ChangeLog Change Log
+  *
+  * \subsection v_2 API Version 2.0
+  *
+  * See \ref From1xTo2x
+  *
+  * \subsection v_2_1 API Version 2.1
+  *
+  * The changes introduced in this release emerged from migration of CRA and DICOM Viewer to the %Carna 2.x API.
+  *
+  * Added methods:
+  *
+  * - \c VisualizationEnvironment::paintText
+  * - \c VolumeRendererMode::invalidate
+  *
+  * \subsubsection v_2_1_1 API Version 2.1 Release 1
+  *
+  * The build system has been switched from QMake to CMake.
+  * The method \c ModelFactory::computeVoidThreshold has been added,
+  * in order to to allow an easy estimation of a proper value for \c Model::setRecommendedVoidThreshold
+  * when instantiating \c %Model without \c %ModelFactory.
+  *
+  * \subsubsection v_2_1_2 API Version 2.1 Release 2
+  *
+  * The \c WARN_IF_UNDOCUMENTED flag has been switched to \em on in \c Doxyfile,
+  * thus yet undocumented entities have been documented. Also several new constraints have been introduced:
+  *
+  * - Pre- and post-conditions on \c Object3DChooser::selectObject
+  * - Post-conditions on \c AbsorptionProjection::AbsorptionProjection::setPositionedObject
+  * - Post-conditions on \c AbsorptionProjection::AbsorptionProjection::removePositionedObject
+  * - Post-conditions on \c AbsorptionProjection::AbsorptionProjection::setLightAmplitude
+  * - Post-conditions on \c AbsorptionProjection::AbsorptionProjection::setLightBias
+  * - Post-conditions on \c AbsorptionProjection::AbsorptionProjection::setLighting
+  * - Post-conditions on \c AbsorptionProjection::AbsorptionProjection::setLightBackFaceAmount
+  * - Post-conditions on \c AbsorptionProjection::AbsorptionProjection::setPickingSaturation
+  * - Post-conditions on \c AxialPlane::AxialPlaneControllerUI::setDeletedWhenEmpty
+  *
+  * Further tweaks:
+  *
+  * - Span::operator== is now defined through \c isEqual.
+  * - \c Object3DChooser::getSelectedObject3D has been renamed to \c Object3DChooser::selectedObject3D.
+  *
+  * \subsubsection v_2_1_3 API Version 2.1 Release 3
+  *
+  * Fixed bug that caused an access violation within \c UInt16TextureUploader::uploadTexture in rare cases.
+  * Also fixed access violation in \ref MinimalExample that occurred when the opening dialog was canceled.
+  *
+  * \paragraph v_2_1_3_added_functionallity Added Functionallity
+  *
+  * The classes \c OffscreenDisplay and \c OffscreenVisualizationEnvironment have been added,
+  * introducing easy offscreen rendering support. The environment can operate both, providing an exclusive
+  * OpenGL context or sharing the context with any other \c VisualizationEnvironment, such as that
+  * from a regular \c Display. Thus, exclusive-mode \c SlicePlane constructor has been marked deprecated.
+  *
+  * The \ref Version.h header file has been added, introducing set of new macros:
+  *
+  * - \ref CARNA_MAJOR_VERSION, \ref CARNA_MINOR_VERSION and \ref CARNA_RELEASE_VERSION
+  * - \ref CARNA_ASSERT_API_VERSION
+  *
+  * \subsubsection v_2_1_4 API Version 2.1 Release 4
+  *
+  * This release focuses upon improvements (including bug fixes) to parallelization support and DICOM data loading routines.
+  *
+  * API changes:
+  *
+  * - Cleaned up the parallelization API:
+  *   The \c Parallelization template has been modified,
+  *   but also the \c ParallelizationUI interface has been updated.
+  * - Dropped the <code>SeriesElement::SeriesElement(const std::string&)</code> constructor.
+  *
+  * Bug fixes:
+  *
+  * - Fixed strange assertion failure, that only arised in release mode, when scanning certain DICOM directories.
+  * - Fixed access violation arising frequently during DICOM directory scanning and switched to \em dicom-interface-carna version 0.2.0 in this context.
+  * - Fixed issue with access violation arising after \c DicomController destruction in rare cases, due to thread lifetime inconsistencies.
+  * - Fixed the \ref CARNA_FAIL, \ref CARNA_ASSERT and \ref CARNA_ASSERT_EX macros in release mode.
+  *
+  * \subsubsection v_2_1_5 API Version 2.1 Release 5
+  *
+  * This release focuses upon bug fixes and testing:
+  *
+  * - Bindings of the \c FramebufferObject now work across multiple GL contexts as expected.
+  * - \c OffscreenDisplay is working now. The bug fixed was making the first frame being rendered - ever by a Renderer instance or after \c Renderer::setTargetSize - always be 'wrong'.
+  *   Particularily the frame was renderer with wrong projection matrix, due to the viewport being set up \em after, but not \em before, the projection matrix computation.
+  *   An \ref OffscreenRenderingExample "example on offscreen rendering" has been added to the \ref QuickStart page.
+  * - Added \em OffscreenDisplayDemo and \em InteractiveOffscreenDisplayDemo to \em CarnaInteractiveTest.
+  * - Fixed bug in \c Parallelization::run that caused invocations to return too early in rare cases.
+  *
+  * \subsubsection v_2_1_6 API Version 2.1 Release 6
+  *
+  * This release fixes the z-spacing recognition within the DICOM directory reading routine.
+  * Therefor it now relies on \em dicom-interface-carna version 0.2.1 instead of 0.2.
+  *
+  * \subsection v_2_2 API Version 2.2
+  *
+  * Although this release focuses on bug fixing and testing,
+  * 100% downward compatibility of the API is not given,
+  * since several pre-conditions have been added to the \c Model constructor.
+  * However, it is highly unlikely that you are affected by this modification.
+  *
+  * The other changes are in detail:
+  *
+  * - An automatical test suite infrastructure has been added to the project, including an unit test of the \c Model class and a module test for offscreen rendering exemplary.
+  *   QTestLib has been utilized as the testing framework.
+  * - Bug has been fixed in \c OffscreenDisplay (by adding a missing \c glewInit directive) which could have prevented the class from working as expected on certain systems.
+  * - Added the \c BreakForDebug class to control the behavior of the \ref CARNA_BREAK_FOR_DEBUG macro at runtime.
+  * - The \c Model::recommendedVoidThresholdChanged signal has been added.
+  * - Added \c qRegisterMetaType directive to the \c Model constructor, making the \c Model::objectsChanged signal work out of the box.
+  *
+  * \warning
+  * The \ref CARNA_BREAK_FOR_DEBUG macro definition is partially broken in this realease:
+  * If used by a client application or library, it is necessary to add either one of the following
+  * directives in the same scope, that the \c %CARNA_BREAK_FOR_DEBUG macro is used in.
+  * \code
+  * using Carna::BreakForDebug;
+  *
+  * // or
+  *
+  * using namespace Carna;
+  * \endcode
+  * This issue did not exist prior to \ref v_2_2 and has been fixed in \ref v_2_2_1.
+  *
+  * \subsubsection v_2_2_1 API Version 2.2 Release 1
+  *
+  * Bug fixes:
+  *
+  * - The \ref CARNA_BREAK_FOR_DEBUG macro definition, that was partially broken since \ref v_2_2, has been fixed.
+  * - In prior releases user interface interaction often lead to assertion failures,
+  *   commonly due to failing post-conditions. This issue has been fixed through an adjustion
+  *   to the \c epsilon class, as documented below.
+  *
+  * Other modifications:
+  *
+  * - Post-conditions have been added to \c OffscreenDisplay::resize
+  * - The <em>double</em>-datatype specialization of \c epsilon has been changed from \f$10^{-8}\f$ to \f$10^{-6}\f$.
+  *
+  * \subsubsection v_2_2_2 API Version 2.2 Release 2
+  *
+  * The vessel enhancement controls (not working properly anyway) have been removed from \c XRay.
+  * Built-in support for factorial and binary volume masks has been added.
+  * New methods, types and attributes are in detail:
+  *
+  * - \c BufferedMask, \c BufferedMaskAdapter
+  * - \c Model::setMask, \c Model::unsetMask, \c Model::hasMask, \c Model::mask, \c Model::maskExchanged
+  * - \c Scene::ResourceContext::maskTextureID, \c Scene::ResourceContext::updateContext
+  *
+  * Currently only the \c XRay volume rendering mode supports masks.
+  * Masks are ignored by renderers that do not support them.
+  *
+  * Further added entities:
+  *
+  * - \c Model::intensityAt
+  * - \c Polyline::isVisible, \c Polyline::setVisible
+  * - \c Object3DEvent::flags
+  *
+  * Fixed bug which prevented \c ShaderCompilationError occurrences from being reported properly.
+  * Also fixed \c GenericVolume::getBuffer.
+  *
+  * \subsection v_2_3 API Version 2.3
+  *
+  * The main changes of this release are the introduction of abstract renderer generalizations and the re-organization of namespaces.
+  * Concerning the former, refer to the \ref OverallDesign section for details.
+  * When upgrading from erlier versions, modify all renderer and visualization instantiations by prefixing the instantiated class with \c Default, i.e.
+  * \code
+  * VolumeVisualization* const view = new VolumeVisualization();
+  * \endcode
+  * becomes
+  * \code
+  * VolumeVisualization* const view = new DefaultVolumeVisualization();
+  * \endcode
+  * and
+  * \code
+  * SlicePlaneRenderer* const view = new SlicePlaneRenderer( module, provider );
+  * \endcode
+  * becomes
+  * \code
+  * SlicePlaneRenderer* const view = new DefaultSlicePlaneRenderer( module, provider );
+  * \endcode
+  *
+  * Further changes:
+  *
+  * - The concept of ''controller decorators'' has been renamed to the more adequate term ''controller filters''.
+  * - \c Scene has been renamed to \ref base::view::SceneProvider
+  * - \c Model has been renamed to \ref base::model::Scene
+  * - \c Model::mask has been renamed to \ref base::model::Scene::volumeMask
+  * - \c Model::setMask has been renamed to \ref base::model::Scene::setVolumeMask
+  * - \c Model::unsetMask has been renamed to \ref base::model::Scene::removeVolumeMask
+  * - \c Model::hasMask has been renamed to \ref base::model::Scene::hasVolumeMask
+  * - \c Model::maskExchanged has been renamed to \ref base::model::Scene::volumeMaskExchanged
+  * - All signals and slots use full-qualified argument types now, so it is not necessary to use typedef- or using-directives when connecting those any longer.
+  *
+  * \subsection v_2_4 API Version 2.4
+  *
+  * The offscreen rendering module has been moved from \c %Carna::base::view to \c %Carna::base:
+  * - \c Carna::base::view::OffscreenDisplay now is \ref Carna::base::OffscreenDisplay
+  * - \c Carna::base::view::OffscreenVisualizationEnvironment now is \ref Carna::base::OffscreenVisualizationEnvironment
+  *
+  * New entities:
+  * - Methods for voxel-value to HU-value conversion and vice-versa have been added to \ref Carna::base::model::GenericVolume "GenericVolume":
+  *   - \ref base::model::GenericVolume::bufferValueToHUV
+  *   - \ref base::model::GenericVolume::HUVToBufferValue
+  * - An API extension considering the computation of histograms has been added:
+  *   - \ref base::model::Counter
+  *   - \ref base::model::IndexedCounter
+  *   - \ref base::model::AssociativeCounter
+  *   - \ref base::model::Histogram
+  *   - \ref base::model::VolumeHistogramVolumeAdapter
+  *   - \ref base::model::VolumeHistogram
+  *   - \ref base::model::HistogramClassDetector
+  *
+  * Bug fixes:
+  * - Fixed bug within the \c VolumeRenderings::AbsorptionProjection::AbsorptionProjection::createControllerUI "controller UI of the AbsorptionProjection" considering a missing signal.
+  * - The result of the GLEW initialization routine is now checked before performing any other GL operations.
+  *
+  * Further changes:
+  * - \c Carna::base::glTranslate, \c Carna::base::glMultMatrix and \c Carna::base::glLoadMatrix have been moved to the global namespace since they are overloads of functions from the standard \c GL.h header.
+  * - Moved \ref Carna::base::Vector3 operators to global namespace.
+  * - Dropped \c Carna::base::clearLayout for it wasn't used any more.
+  * - Splitted \c common.h into \ref Math.h, \ref Memory.h and \ref Text.h.
+  * - The "absorption projection" sub-module of the \ref VolumeRenderings module has been renamed to \ref VolumeRenderings::DVR "direct volume rendering", for this is the term mainly used for it in the literature.
+  * - Renamed \c Object3DNullFilter to \ref base::model::Object3DUniformFilter "Object3DUniformFilter", cause this fits better what the class does.
+  * - Renamed \c SceneProvider::ResourceContext to \ref base::view::SceneProvider::ResourceClient "SceneProvider::ResourceClient".
+  * - Renamed \c ExpendableGroupBox to \ref base::qt::ExpandableGroupBox "ExpandableGroupBox" for the class name contained a typo.
+  * - Moved \c base::RotatingColor to \ref base::qt::RotatingColor.
+  * - Moved \c Scene::max3DTextureSize to \ref base::view::SceneProvider::max3DTextureSize "SceneProvider::max3DTextureSize".
+  *
+  * \subsection v_2_5 API Version 2.5
+  *
+  * Added:
+  * - \ref base::model::SceneFactory::setMaximumAllowedSideLength
+  * - \ref base::model::SceneFactory::maximumAllowedSideLength
+  * - \ref VolumeRenderings::DVR::DirectVolumeRendering::commitColorMap
+  * - \ref base::qt::Display::setModule
+  * - \ref base::qt::Display::hasModule
+  *
+  * Fixes:
+  * - The image returned by \ref Carna::base::OffscreenDisplay::framebuffer "OffscreenDisplay::framebuffer" is flipped properly now.
+  * - The \ref Carna::base::view::DefaultCamera "DefaultCamera" class behaves properly now when used with scenes of different physical dimensions.
+  *
+  * Other changes:
+  * - Dropped the \c model argument of the \ref MPR::AxialPlaneController::AxialPlaneController "AxialPlaneController constructor".
+  */
+  
+}  // namespace Carna

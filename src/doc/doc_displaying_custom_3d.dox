@@ -1,0 +1,133 @@
+namespace Carna
+{
+
+namespace base
+{
+
+/** \page   DisplayingCustom3D Displaying Custom 3D Geometry
+  *
+  * %Carna defines an interface that objects must implement that do represent 3D geometry.
+  * This interface is provided by the abstract \ref model::Object3D class.
+  *
+  * \section Object3D_Rendering Rendering 3D objects
+  *
+  * The moment an \c Object3D implementation is instantiated it is automatically added
+  * to the \ref model::Scene "scene" that is provided to it's constructor. It's destructor
+  * takes care of removing the object from the scene analogously. However, this does not
+  * mean necessarily that every instantiated 3D object is always rendered. There are
+  * several ways of turning objects invisible. But lets first take a look at how the 3D
+  * geometry, such a \c Object3D implementation specifies, is rendered.
+  *
+  * \warning
+  * If the scene is destroyed while there are still objects associated with it, these
+  * objects are also destroyed automatically.
+  *
+  * Remember that a renderer's task is to visualize a given scene. This task includes
+  * rendering the 3D volume data in particular, but also rendering all the 3D geometry.
+  * The renderers, that are provided out-of-the-box, are designed to perform the
+  * rendering of the 3D volume data in a certain way. For the sake of decoupling, the
+  * latter sub-task, the rendering of the additional 3D geometry, is delegated to other
+  * objects. Note that this is not something, a custom renderer implementation would
+  * have to do necessarily.
+  *
+  * The out-of-the-box mechanisms do delegate the task of rendering the additional 3D
+  * geometry not only once. Actually, it is handed over to a whole sequence of stages.
+  * These stages are described below. You can modify each of these stages to achieve
+  * the results you require.
+  *
+  * \par Stage 1: the renderer's level
+  *
+  * What renderers typically do in the first place is invoking their
+  * \ref view::Renderer::paintObjects3D "paintObjects3D" method at some point of their
+  * \ref view::Renderer::renderColor "rendering routine".
+  * 
+  * If you needed to modify the 3D objects rendering behaviour at a renderer's level,
+  * you could derive a custom renderer from an out-of-the-box renderer and override
+  * it's \c paintObjects3D method to do whatever you desire.
+  *
+  * \par Stage 2: the objects entirety level
+  *
+  * Each \c Renderer instance is associated with an
+  * \ref view::Object3DPainter "Object3DPainter" object. This describes the
+  * \em entirety of additional 3D geometry that is to be rendered. The default
+  * implementation of a renderer's \c paintObjects3D method invokes it's
+  * \ref view::Object3DPainter::paint "paint" method.
+  *
+  * \note
+  * The set of existing \c Object3D instances can be retrieved via
+  * \ref model::Scene::objectsCount "Scene::objectsCount" and
+  * \ref model::Scene::objectByIndex "Scene::objectByIndex" from the scene.
+  *
+  * If you needed to modify the 3D objects rendering behaviour for more than one
+  * renderer in the same way, or if you do not want to use a custom renderer for any
+  * reason, it is a good idea to implement your own \c Object3DPainter and
+  * \ref view::Renderer::setObject3DPainter "set it on the renderer".
+  *
+  * \attention
+  * This is the recommended way of modifying the objects rendering behaviour.
+  *
+  * There is a small set of predefined classes that are meant to be used in
+  * combination with \c DefaultObject3DPainter to easily exclude certain objects
+  * from being rendered:
+  *
+  * -# Use a \ref model::Object3DWhitelist to render only explicitly specified objects.
+  * -# Use a \ref model::Object3DBlacklist to render all objects except those that are blacklisted.
+  *
+  * They are used like this:
+  *
+  * \code
+  * Carna::base::view::Renderer& renderer;       //< some renderer
+  * const Carna::base::model::Object3D& object;  //< only object to be painted
+  *
+  * auto const whitelist = new Carna::base::model::Object3DWhitelist();
+  * whitelist->put( object );
+  *
+  * auto const painter = new Carna::base::view::DefaultObject3DPainter( renderer.provider.scene, whitelist );
+  * renderer.setObjectPainter( painter );
+  * \endcode
+  *
+  * If you wanted to disable the rendering of additional geometry on this level,
+  * you could simply set a null implementation of \c Object3DPainter on the renderer:
+  * In terms of software design patterns, this is an implementation whose \c paint
+  * method does nothing.
+  *
+  * \par Stage 3: the painting routine level
+  *
+  * When a renderer invokes the \c paint method of a \c Object3DPainter object, it
+  * also provides it a \ref view::Object3DPaintingRoutine "Object3DPaintingRoutine"
+  * object. This one defines the routine that is to be used for rendering a
+  * \em single 3D object. The
+  * \ref view::DefaultObject3DPainter "default \c Object3DPainter implementation"
+  * simply invokes this routine on each object that exists within the scene.
+  *
+  * The renderer's default \c paintObjects3D uses an instance of the
+  * \ref view::DefaultObject3DPaintingRoutine "DefaultObject3DPaintingRoutine" class
+  * here. It calls the \ref model::Object3D::paint "paint" method of the \c Object3D
+  * that it is given.
+  *
+  * Note that the \c Renderer class also defines an overloaded \c paintObjects3D
+  * method that takes any custom \c Object3DPaintingRoutine to use in place of
+  * \c DefaultObject3DPaintingRoutine. This mechanism is utilized by
+  * \ref view::Renderer::pickObject3D "renderers to implement picking" by
+  * \ref view::IncrementalColorPaintingRoutine "painting each object in an unique color code".
+  *
+  * \par Stage 4: the object's level
+  *
+  * This is the way the \c paint method of an \c Object3D implementation is usually
+  * called. Here the object defines it's own geometry by implementing a code that is
+  * necessary to render it.
+  *
+  * \see
+  * Read more on how to create custom \c Object3D implementations \ref Object3D_Deriving "here".
+  *
+  * \section Object3D_out_of_the_box Existing Implementations
+  *
+  * Out-of-the-box provided \c Object3D implementations are:
+  *
+  * - \ref Carna::base::view::Point3D for displaying dots
+  * - \ref Carna::base::view::Polyline3DVertex for displaying polylines
+  */
+
+}  // namespace base
+
+}  // namespace Carna

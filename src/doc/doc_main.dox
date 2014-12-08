@@ -1,0 +1,76 @@
+/** \mainpage
+  *
+  * %Carna provides classes for simple and fast visualization of CT data.
+  * It is named after the greek god of organs (yup, they really did have even one for organs).
+  * It is based on Qt 4.8, OpenGL 2.1 and TRTK.
+  *
+  * Jump to: \ref QuickStart | \ref VersionLog | \ref Carna::testing "Test Suite Documentation"
+  *
+  * \image html api_overview01.png
+  *
+  * As you might guess from the above illustration, visualizations are the core components
+  * the framework is organized around. There are different kinds of visualizations provided
+  * as ready-to-use, being supposed to work out-of-the-box: those are configurations of the
+  * \c %Visualization class, each being made up by particular \c %Renderer and
+  * \c %InteractionStrategy implementations. Refer to the \ref GettingStarted section for details.
+  *
+  * \section TOC Table of Contents
+  *
+  * \subsection ChangeLogs Change Logs
+  *
+  * - \ref From1xTo2x
+  * - \ref VersionLog
+  *
+  * \subsection GettingStarted Getting Started
+  * 
+  * You can find a \ref MinimalExample as well as some more extensive examples on the \ref QuickStart page.
+  *
+  * Essential classes:
+  * - \ref Carna::base::model::Scene "Scene" - represents the data model.
+  * - \ref Carna::base::qt::Display "Display" - \c QWidget that shows a particular visualization.
+  * - \ref Carna::base::OffscreenDisplay "OffscreenDisplay" - performs offscreen rendering of a particular visualization.
+  * - \ref Carna::base::Visualization "Visualization" - combines a view and a controller component.
+  * - \ref Carna::base::controller::InteractionStrategy "InteractionStrategy" - represents the controller component of a visualization.
+  * - \ref Carna::base::view::Renderer "Renderer" - is the view component of a visualization and implements its rendering logic.
+  * - \ref Carna::base::view::SceneProvider "SceneProvider" - interfaces the data model and provides OpenGL-equivalents of model elements, shared among renderers.
+  * - \ref Carna::base::view::Camera "Camera" - defines the coordinate mapping from scene space into screen space.
+  *
+  * Provided visualizations:
+  *
+  * - Multi Planar Reformat (MPR) \ref MPRExample "Example" | \ref Carna::MPR::AxialPlaneRenderer "API"
+  * - Slice Plane Visualization \ref SlicePlaneExample "Example" | \ref Carna::SlicePlanes::SlicePlaneRenderer "API"
+  * - Volume Rendering \ref VolumeRenderingExample "Example" | \ref Carna::VolumeRenderings::VolumeRenderer "API"
+  *
+  * \subsection AdditionalTasks Additional Tasks
+  *
+  * Managing additional geometries:
+  *
+  * - \ref DisplayingCustom3D "Displaying custom 3D geometry?"
+  * - \ref CoordinateSystems "Positioning 3D objects?"
+  * - \ref PolylineGettingStarted "Using polylines?"
+  *
+  * Implementing your own views and visualizations:
+  *
+  * - \ref CreatingViews
+  * - \ref VolumeFromCPU "Operating with HU values?"
+  *
+  * \subsection Tools Tool Classes and Functions
+  *
+  * Application design:
+  *
+  * - \ref Carna::base::Association "Associations"
+  *   - \ref Carna::base::Aggregation "Aggregations"
+  *   - \ref Carna::base::Composition "Compositions"
+  * - \ref NON_COPYABLE "Non-copyable classes"
+  * - \ref Carna::base::Singleton "Singletons"
+  * - \ref Carna::base::Flags "Type-safe bit operations (Flags)"
+  *
+  * Application flow control:
+  *
+  * - \ref ParallelizationTools
+  * - \ref MathTools
+  * - \ref MemoryTools
+  * - \ref StringTools
+  *
+  * There is also a \ref Widgets "set of widgets" you might find useful when working with %Carna.
+  */

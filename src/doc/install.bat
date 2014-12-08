@@ -1,0 +1,1 @@
+@xcopy "../../doc/html/*" "\\idefix\library_documentation\Carna" /w /f /s /y

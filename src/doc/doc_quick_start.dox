@@ -1,0 +1,552 @@
+/** \page QuickStart Quick Start Guide
+  *
+  * On this page you will find some \ref OverallDesign "introducting notes on the overall design" of the framework, along with several code snippets that are supposed to run out-of-the-box.
+  * Refer to \ref CreatingViews if you are looking for an example on how to implement an own visualization or renderer.
+  *
+  * This page offers these examples in particular:
+  *
+  * - \ref MinimalExample
+  * - \ref VolumeRenderingExample
+  * - \ref SlicePlaneExample
+  * - \ref MPRExample
+  * - \ref OffscreenRenderingExample
+  *
+  * \see \ref QuickStartLifetimes at the bottom of this page.
+  *
+  * \section OverallDesign Overall Design Notes
+  *
+  * The overall framework design is characterized by the MVC pattern.
+  * The model is to be unterstood as one loaded CT dataset.
+  * Controllers are such components that define the interaction behavior of visalizations.
+  * Beside of exactly one controller, each visualization is made up by a renderer, representing the view in the MVC context.
+  *
+  * It is an important contribution of the MVC pattern, that models, views and controllers are generally interchangable.
+  * However, there are some restrictions to keep in mind.
+  * For example, the expected interaction behavior of a 3D volume rendering is different from that of a MPR:
+  * The latter one must allow the intuitive displacement of the planes, using drag-and-drop-like behavior.
+  * Therefore, the MPR controller must expect the renderer's interface to provide methods in order to access the planes' state.
+  *
+  * This is the motivation behind abstract renderer interfaces, which were introduced in \ref v_2_3.
+  * For example, the \ref Carna::MPR::AxialPlaneRenderer "AxialPlaneRenderer" is an abstract generalization of the \ref Carna::MPR::DefaultAxialPlaneRenderer "DefaultAxialPlaneRenderer" class, that defines as less logic as possible.
+  * Since the \ref Carna::MPR::AxialPlaneController "AxialPlaneController" depends on this minimal interface, it is possible to use the controller with any custom renderer implementation, the only requirement being that the renderer supports the interface defined by the abstract generalization.
+  *
+  * \note
+  * Always use the abstract renderer classes instead of the concrete implementations.
+  * This keeps flexibility high and the efforts for any future renderer customizations low.
+  *
+  * \section MinimalExample Minimal Example
+  *
+  * Consider the code provided here as a full-working, minimal example, that produces a rendering
+  * similar to the one illustrated below. As visualization module, a volume renderer is used exemplary,
+  * configured to produce digitally reconstructed radiographs.
+  *
+  * \image html XRay01.png Illustration of the renderings produced by the code in this example
+  *
+  * Also see the \ref VolumeRenderingExample for a more detailed example on volume renderings.
+  *
+  * \code
+  * #include <QApplication>
+  * #include <Carna/VolumeRenderings/DRR/XRay.h>
+  * #include <Carna/VolumeRenderings/VolumeRenderer.h>
+  * #include <Carna/VolumeRenderings/DefaultVolumeVisualization.h>
+  * #include <Carna/base/model/SceneFactory.h>
+  * #include <Carna/base/model/Scene.h>
+  * #include <Carna/base/view/SceneProvider.h>
+  * #include <Carna/base/qt/Display.h>
+  * 
+  * int main( int argc, char** argv )
+  * {
+  *     QApplication app( argc, argv );
+  *
+  *  // create data model
+  *
+  *     Carna::base::model::SceneFactory modelFactory;
+  *
+  *     std::unique_ptr< Carna::base::model::Scene > scene( modelFactory.createFromUserInput() );
+  *     if( scene.get() == nullptr )
+  *     {
+  *         return 0;
+  *     }
+  *
+  *  // create view
+  * 
+  *     Carna::VolumeRenderings::VolumeVisualization* const view = new Carna::VolumeRenderings::DefaultVolumeVisualization();
+  *
+  *  // setup renderer
+  *
+  *     view->doAfterInitialization( [&]()
+  *         {
+  *             view->renderer().installMode( new Carna::VolumeRenderings::DRR::XRay( *model ) );
+  *
+  *          // set initial mode
+  *
+  *             view->renderer().setMode( Carna::VolumeRenderings::DRR::XRay::NAME );
+  *         }
+  *     );
+  * 
+  *  // setup view
+  *
+  *     Carna::base::view::SceneProvider provider( *scene );
+  *     Carna::base::qt::Display* const display
+  *         = new Carna::base::qt::Display( view, provider ); // takes ownership of 'view'
+  *
+  *     display->setAttribute( Qt::WA_DeleteOnClose );
+  *     display->show();
+  *
+  *  // run demo
+  *
+  *     return app.exec();
+  * }
+  * \endcode
+  *
+  * Note the utilization of \c doAfterInitialization for renderer setup:
+  * \ref Carna::base::Visualization::renderer "Querying a visualization's renderer" is only legal when \ref Carna::base::Visualization::initialize "Visualization::initialize" has been invoked priorly.
+  * However, the moment of this happening depends on externalities.
+  * By using \c doAfterInitialization it is guaranteed that the supplied code will be executed as soon as it is safe to access the renderer - this may be immediately as well as at any later moment.
+  *
+  * \subsection LambdaExpressions Lamda Closures
+  *
+  * Be cautious when using lambda expressions;
+  * it's your responsibility to choose the right capture specification.
+  * Capturing any referenced variable by reference with <code>[&]</code> works well often, but may also lead to undefined behavior as in this example:
+  *
+  * \code
+  * void adjustInteractionStrategy( Carna::MPR::AxialPlaneVisualization* module )
+  * {
+  *     module->doAfterInitialization( [&]
+  *         {
+  *             static_cast< Carna::MPR::AxialPlaneController& >
+  *                 ( module->rawController() )
+  *                     .setParentHavingContextMenu( true );
+  *         }
+  *     );
+  * }
+  * \endcode
+  *
+  * Since \c module is captured by reference,
+  * it's value will propably be lost by the moment that the lambda function is invoked.
+  * In this case one should choose <code>[module]</code> as capture specification or <code>[=]</code> at least.
+  * Below is a listing of all available closures - the closures can be combined using commas.
+  *
+  * <table>
+  * <tr><th>Closure</th><th>Meaning</th></tr>
+  * <tr><td><code>[]</code></td><td>Nothing is captured.</td></tr>
+  * <tr><td><code>[&]</code></td><td>All used variables are captured by reference.</td></tr>
+  * <tr><td><code>[=]</code></td><td>All used variables are captured by value (making a copy).</td></tr>
+  * <tr><td><code>[module]</code></td><td>The only thing captured is \c module (making a copy).</td></tr>
+  * <tr><td><code>[&module]</code></td><td>The only thing captured is \c module (by reference).</td></tr>
+  * </table>
+  *
+  * Using <code>[this]</code> closure will capture the enclosing class' \c this pointer (by value) particularly.
+  *
+  * \subsection Exceptions Error Handling
+  *
+  * Remember that %Carna does use exceptions for error handling, therefore, you should take care of catching them when using %Carna.
+  * The most simplest way of accomplishing this is using \ref Carna::base::Application instead of QApplication:
+  * When doing so, all exceptions - that are not catched anyway - will be reported to the user as alert dialogs:
+  * you can still catch any specific exceptions on your own and process them in any way you like when using \ref Carna::base::Application.
+  * All further examples on this page do use \ref Carna::base::Application.
+  *
+  * \section FullExamples Full Examples
+  *
+  * This section offers these examples:
+  *
+  * - \ref VolumeRenderingExample
+  * - \ref SlicePlaneExample
+  * - \ref MPRExample
+  *
+  * Take the below code snippet as a basic frame:
+  *
+  * \code
+  * #include <Carna/base/model/SceneFactory.h>
+  * #include <Carna/base/model/Scene.h>
+  *
+  * template< typename Demo >
+  * static int runDemo( int argc, char** argv )
+  * {
+  *     Demo demo( argc, argv );
+  *
+  *  // create data model
+  *
+  *     Carna::base::model::SceneFactory sceneFactory;
+  *
+  *     std::unique_ptr< Carna::base::model::Scene > scene( sceneFactory.createFromUserInput() );
+  *
+  *  // run demo
+  *
+  *     return demo.exec( *scene );
+  * };
+  * \endcode
+  *
+  * Then, for any of the following examples, proceed like this:
+  *
+  * \code
+  * int main( int argc, char** argv )
+  * {
+  *     return runDemo< VolumeVisualizationDemo >( argc, argv );
+  * }
+  * \endcode
+  *
+  * \subsection VolumeRenderingExample Volume Visualization Example Code
+  *
+  * The nomenclature of %Carna entitles such visualizations as <em>volume visualizations</em>,
+  * which do utilize \ref VolumeRendererRayMarching as their rendering technique.
+  * The image below shows screenshots of exemplary renderings,
+  * produced by the code that is provided here.
+  *
+  * \image html VolumeRenderer2.png Exemplary volume renderings, from left to right: digitally reconstructed radiograph, direct volume rendering, maximum intensity projection
+  *
+  * Interface definition:
+  *
+  * \code
+  * #include <Carna/base/Application.h>
+  * #include <Carna/base/view/SceneProvider.h>
+  * #include <Carna/base/qt/Display.h>
+  *
+  * #include <Carna/VolumeRenderings/DefaultVolumeVisualization.h>
+  * #include <Carna/VolumeRenderings/VolumeRenderer.h>
+  * #include <Carna/VolumeRenderings/VolumeControllerUI.h>
+  * #include <Carna/VolumeRenderings/DRR/XRay.h>
+  * #include <Carna/VolumeRenderings/MIP/MaximumIntensityProjection.h>
+  * #include <Carna/VolumeRenderings/DVR/DirectVolumeRendering.h>
+  *
+  * class VolumeVisualizationDemo : public Carna::base::Application
+  * {
+  *
+  * public:
+  *
+  *     VolumeVisualizationDemo( int argc, char** argv );
+  *
+  *     int exec( Carna::Model& model );
+  *
+  * };
+  *
+  * VolumeVisualizationDemo::VolumeVisualizationDemo( int argc, char** argv )
+  *     : Carna::base::Application( argc, argv )
+  * {
+  * }
+  * \endcode
+  *
+  * Implementation:
+  *
+  * \code
+  * int VolumeVisualizationDemo::exec( Carna::base::model::Scene& scene )
+  * {
+  *     Carna::VolumeRenderings::VolumeVisualization* const view = new Carna::VolumeRenderings::DefaultVolumeVisualization();
+  *
+  *  // setup renderer
+  *
+  *     view->doAfterInitialization( [&]()
+  *         {
+  *             view->renderer().installMode( new Carna::VolumeRenderings::DRR::XRay( scene ) );
+  *             view->renderer().installMode( new Carna::VolumeRenderings::MIP::MaximumIntensityProjection() );
+  *             view->renderer().installMode( new Carna::VolumeRenderings::DVR::DirectVolumeRendering( scene ) );
+  *
+  *          // set initial mode
+  *
+  *             view->renderer().setMode( Carna::VolumeRenderings::DVR::DirectVolumeRendering::NAME );
+  *         }
+  *     );
+  *
+  *  // create controller UI
+  *
+  *     view->doAfterInitialization( [&]()
+  *         {
+  *             Carna::VolumeRenderings::VolumeControllerUI* const controller_ui =
+  *                 new Carna::VolumeRenderings::VolumeControllerUI( view->renderer(), model );
+  *
+  *             controller_ui->setAttribute( Qt::WA_DeleteOnClose );
+  *             controller_ui->show();
+  *         }
+  *     );
+  * 
+  *  // run
+  *
+  *     Carna::base::view::SceneProvider provider( scene );
+  *     Carna::base::qt::Display* const display
+  *         = new Carna::base::qt::Display( view, provider ); // takes ownership of 'view'
+  *
+  *     display->setAttribute( Qt::WA_DeleteOnClose );
+  *     display->show();
+  *
+  *     return QApplication::exec();
+  * }
+  * \endcode
+  *
+  * Refer to the \ref Carna::VolumeRenderings::VolumeRenderer "VolumeRenderer" documentation for detailed information on how to adjust the volume visualization.
+  *
+  * \subsection SlicePlaneExample Slice Plane Visualization Example Code
+  *
+  * The image below is a screenshot of an exemplary rendering,
+  * produced by the code that is provided here.
+  *
+  * \image html SlicePlaneView02.png Exemplary rendering of a cross section plane with <em>(1,1,1)</em> normal vector
+  *
+  * The plane is defined by a normal vector and it's distance to the origin in \ref VolumeSpace "volume space coordinates".
+  * Refer to the \ref Carna::SlicePlanes::SlicePlaneRenderer::setPlane "SlicePlaneRenderer::setPlane" method for details,
+  * or to the \ref Carna::SlicePlanes::SlicePlaneRenderer "SlicePlaneRenderer" class for the full API documentation.
+  *
+  * Interface definition:
+  *
+  * \code
+  * #include <Carna/base/Application.h>
+  * #include <Carna/base/view/SceneProvider.h>
+  * #include <Carna/base/qt/Display.h>
+  *
+  * #include <Carna/SlicePlanes/DefaultSlicePlaneVisualization.h>
+  * #include <Carna/SlicePlanes/SlicePlaneRenderer.h>
+  * #include <Carna/SlicePlanes/SlicePlaneControllerUI.h>
+  *
+  * class SlicePlaneVisualizationDemo : public Carna::base::Application
+  * {
+  *
+  * public:
+  *
+  *     SlicePlaneVisualizationDemo( int argc, char** argv );
+  *
+  *     int exec( Carna::base::model::Scene& scene );
+  *
+  * };
+  * \endcode
+  *
+  * Implementation:
+  *
+  * \code
+  * SlicePlaneVisualizationDemo::SlicePlaneVisualizationDemo( int argc, char** argv )
+  *     : Carna::base::Application( argc, argv )
+  * {
+  * }
+  *
+  * int SlicePlaneVisualizationDemo::exec( Carna::base::model::Scene& scene )
+  * {
+  *     Carna::SlicePlanes::SlicePlaneVisualization* const view = new Carna::SlicePlanes::DefaultSlicePlaneVisualization();
+  *
+  *  // setup renderer
+  *
+  *     view->doAfterInitialization( [&]()
+  *         {
+  *             view->renderer().setPlane( TRTK::Coordinate< double >( 0, 0, 1 ), 0.5 );
+  *         }
+  *     );
+  *
+  *  // create controller UI
+  *
+  *     view->doAfterInitialization( [&]()
+  *         {
+  *             Carna::SlicePlanes::SlicePlaneControllerUI* const controller_ui =
+  *                 new Carna::SlicePlanes::SlicePlaneControllerUI( view->renderer() );
+  *
+  *             controller_ui->setAttribute( Qt::WA_DeleteOnClose );
+  *             controller_ui->show();
+  *         }
+  *     );
+  * 
+  *  // run
+  *
+  *     Carna::base::view::SceneProvider provider( scene );
+  *     Carna::base::qt::Display* const display
+  *         = new Carna::base::qt::Display( view, provider ); // takes ownership of 'view'
+  *
+  *     display->setAttribute( Qt::WA_DeleteOnClose );
+  *     display->show();
+  *
+  *     return QApplication::exec();
+  * }
+  * \endcode
+  *
+  * Refer to the \ref Carna::SlicePlanes::SlicePlaneRenderer "SlicePlaneRenderer" documentation for detailed information on how to adjust the slice plane visualization.
+  *
+  * \subsection MPRExample MPR Example Code
+  *
+  * The image below is a screenshot of an exemplary MPR rendering.
+  *
+  * \image html MPR01.png Exemplary MPR rendering
+  *
+  * With %Carna, <em>multi planar reformats</em> are typically realized through an array of three-four \ref Carna::MPR::DefaultAxialPlaneVisualization "axial-plane visualizations".
+  * Nevertheless, those of course can also be used singly instead of in an array.
+  *
+  * Interface definition:
+  *
+  * \code
+  * #include <Carna/base/Application.h>
+  * #include <Carna/base/view/SceneProvider.h>
+  * #include <Carna/base/qt/Display.h>
+  *
+  * #include <Carna/MPR/DefaultAxialPlaneVisualization.h>
+  * #include <Carna/MPR/AxialPlaneRenderer.h>
+  * #include <Carna/MPR/AxialPlaneControllerUI.h>
+  * #include <Carna/MPR/IntersectionSynchronisationFactory.h>
+  *
+  * class MPRDemo : public Carna::base::Application
+  * {
+  *
+  *     unsigned int initializedVisualizationsCount;
+  *     std::vector< Carna::MPR::AxialPlaneVisualization* > views;
+  *     Carna::MPR::AxialPlaneControllerUI* controller_ui;
+  *
+  * public:
+  *
+  *     MPRDemo( int argc, char** argv );
+  *
+  *     int exec( Carna::base::model::Scene& scene );
+  *
+  * private:
+  *
+  *     void setupRenderers();
+  *
+  * };
+  * \endcode
+  *
+  * Implementation:
+  *
+  * \code
+  * MPRDemo::MPRDemo( int argc, char** argv )
+  *     : Carna::base::Application( argc, argv )
+  *     , views( 4 )
+  * {
+  * }
+  *
+  * int MPRDemo::exec( Carna::base::model::Scene& scene )
+  * {
+  *     controller_ui = new Carna::MPR::AxialPlaneControllerUI( scene );
+  *
+  *     for( unsigned int i = 0; i < 4; ++i )
+  *     {
+  *         views[ i ] = new Carna::MPR::DefaultAxialPlaneVisualization( scene );
+  *     }
+  *
+  *  // configure
+  * 
+  *     views[ 0 ]->makeFrontView();
+  *     views[ 1 ]->makeLeftView();
+  *     views[ 2 ]->makeTopView();
+  *     views[ 3 ]->makeRotatableView();
+  *
+  *  // run
+  *
+  *     initializedVisualizationsCount = 0;
+  *     Carna::base::view::SceneProvider provider( scene );
+  *     for( unsigned int i = 0; i < 4; ++i )
+  *     {
+  *         Carna::base::qt::Display* const display
+  *             = new Carna::base::qt::Display( views[ i ], provider ); // takes ownership of 'views[ i ]'
+  *
+  *         display->setAttribute( Qt::WA_DeleteOnClose );
+  *         display->resize( 200, 200 );
+  *         display->show();
+  *
+  *         views[ i ]->doAfterInitialization( [&]()
+  *             {
+  *                 if( ++initializedVisualizationsCount == 4 )
+  *                 {
+  *                     setupRenderers();
+  *                 }
+  *             }
+  *         );
+  *     }
+  *
+  *     return QApplication::exec();
+  * }
+  *
+  * void MPRDemo::setupRenderers()
+  * {
+  *     Carna::MPR::IntersectionSynchronisationFactory intersection_sync;
+  *
+  *     for( unsigned int i = 0; i < 4; ++i )
+  *     {
+  *         intersection_sync.addRenderer( views[ i ]->renderer() );
+  *         controller_ui->addRenderer( views[ i ]->renderer() );
+  *     }
+  *
+  *     intersection_sync.create();
+  *
+  *     controller_ui->setDeletedWhenEmpty( true );
+  *     controller_ui->setAttribute( Qt::WA_DeleteOnClose );
+  *     controller_ui->show();
+  * }
+  * \endcode
+  *
+  * \subsection OffscreenRenderingExample Offscreen Rendering Example Code
+  *
+  * Offscreen rendering as an "out of the box" feature is supported since %Carna \ref v_2_1_5.
+  *
+  * Interface definition:
+  *
+  * \code
+  * #include <Carna/base/Application.h>
+  * #include <Carna/base/view/SceneProvider.h>
+  * #include <Carna/Version.h>
+  *
+  * #include <Carna/base/view/OffscreenDisplay.h>
+  * #include <Carna/base/view/OffscreenVisualizationEnvironment.h>
+  *
+  * #include <Carna/VolumeRenderings/VolumeRenderer.h>
+  * #include <Carna/VolumeRenderings/DefaultVolumeVisualization.h>
+  * #include <Carna/VolumeRenderings/DRR/XRay.h>
+  *
+  * static_assert(
+  *         CARNA_MAJOR_VERSION == 2 &&
+  *                 ( CARNA_MINOR_VERSION > 1 || ( CARNA_MINOR_VERSION == 1 && CARNA_RELEASE_VERSION == 5 ) ) );
+  *
+  * class OffscreenRenderingDemo : public Carna::base::Application
+  * {
+  *
+  * public:
+  *
+  *     OffscreenRenderingDemo( int argc, char** argv );
+  *
+  *     int exec( Carna::base::model::Scene& scene );
+  *
+  * };
+  *
+  * OffscreenRenderingDemo::OffscreenRenderingDemo( int argc, char** argv )
+  *     : Carna::base::Application( argc, argv )
+  * {
+  * }
+  * \endcode
+  *
+  * Implementation:
+  *
+  * \code
+  * int OffscreenRenderingDemo::exec( Carna::base::model::Scene& scene )
+  * {
+  *     Carna::VolumeRenderings::VolumeVisualization* visualization = new Carna::VolumeRenderings::DefaultVolumeVisualization();
+  *         visualization->doAfterInitialization( [&]()
+  *         {
+  *             visualization->renderer().installMode( new Carna::VolumeRenderings::DRR::XRay( scene ) );
+  *             visualization->renderer().setMode( Carna::VolumeRenderings::DRR::XRay::NAME );
+  *         }
+  *     );
+  *
+  *     Carna::base::view::SceneProvider provider( scene );
+  *     Carna::base::OffscreenVisualizationEnvironment enviroment;
+  *     Carna::base::OffscreenDisplay display( enviroment, 500, 300, visualization, provider );
+  *
+  *     QLabel window;
+  *     window.setPixmap( QPixmap::fromImage( display.framebuffer() ) );
+  *     window.setFixedSize( display.width(), display.height() );
+  *     window.show();
+  *
+  *     return Carna::base::Application::exec();
+  * }
+  * \endcode
+  *
+  * Notice that in versions prior to \ref v_2_5 it was necessary to mirror the image retrieved via \ref Carna::base::OffscreenDisplay::framebuffer "OffscreenDisplay::framebuffer" before displaying,
+  * in order to produce the same results as with on-screen rendering, since OpenGL textures are conventionally upside-down.
+  *
+  * \section QuickStartLifetimes Objects Lifetime Considerations
+  *
+  * The lifetimes of the involved objects are defined as follows:
+  *
+  * - \c modelFactory is of no value after \c createFromUserInput has been invoked.
+  *   It may be destroyed right after.
+  * - \c model is aggregated by \c scene.
+  *   It must exist at least as long as \c scene.
+  * - \c Every \c view is aggregated with a \c scene instance.
+  *   Therefore, the lifetime of \c scene must be at least as long as the lifetime of all aggregating views.
+  * - The lifetime of a \c view is not further specified.
+  *
+  * In %Carna, passing a C++ reference is always as sign of \em aggregation.
+  * In contrast, a pointer is typically returned when ownership is given up and a pointer is taken when ownership is received respectively:
+  * Pointers in interfaces always indicate \em composition.
+  */
