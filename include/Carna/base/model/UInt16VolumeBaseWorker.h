@@ -34,7 +34,7 @@ namespace model
 // UInt16VolumeBaseWorker
 // ----------------------------------------------------------------------------------
 
-class UInt16VolumeBaseWorker : public QObject
+class CARNA_EXPORT UInt16VolumeBaseWorker : public QObject
 {
 
     Q_OBJECT
