@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef VOLUMEDETAILS_H_6014714286
-#define VOLUMEDETAILS_H_6014714286
+#ifndef UINT16VOLUMEBASEWORKER_H_6014714286
+#define UINT16VOLUMEBASEWORKER_H_6014714286
 
 #include <QThread>
 #include <vector>
@@ -18,8 +18,6 @@
 #include <Carna/base/model/UInt16Volume.h>
 #include <Carna/base/model/SceneFactory.h>
 #include <Carna/base/CarnaException.h>
-
-class DicomSeries;  // from dicom-interface
 
 namespace Carna
 {
@@ -137,40 +135,10 @@ protected:
 
 
 
-// ----------------------------------------------------------------------------------
-// UInt16VolumeMaskingWorker
-// ----------------------------------------------------------------------------------
-
-class UInt16VolumeMaskingWorker : public UInt16VolumeBaseWorker
-{
-
-    Q_OBJECT
-
-public:
-
-    UInt16VolumeMaskingWorker( const Volume& baseVolume
-                             , const SceneFactory::FactorizedScalarField& mask
-                             , DestinationBuffer& dst );
-
-
-public slots:
-
-    virtual void run() override;
-
-
-private:
-
-    const Volume& baseVolume;
-    const SceneFactory::FactorizedScalarField& mask;
-
-}; // UInt16VolumeMaskingWorker
-
-
-
 }  // namespace Carna :: base :: model
 
 }  // namespace Carna :: base
 
 }  // namespace Carna
 
-#endif // VOLUMEDETAILS_H_6014714286
+#endif // UINT16VOLUMEBASEWORKER_H_6014714286

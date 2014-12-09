@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/model/VolumeDetails.h>
+#include <Carna/base/model/UInt16VolumeMaskingWorker.h>
 #include <Carna/base/Transformation.h>
 #include <QApplication>
 
@@ -21,26 +21,6 @@ namespace base
 
 namespace model
 {
-
-
-
-// ----------------------------------------------------------------------------------
-// UInt16VolumeBaseWorker
-// ----------------------------------------------------------------------------------
-
-UInt16VolumeBaseWorker::UInt16VolumeBaseWorker( DestinationBuffer& dst )
-    : canceled( false )
-    , dst( dst )
-{
-}
-
-
-std::size_t UInt16VolumeBaseWorker::array_element_index( const Vector3ui& size, unsigned int x, unsigned int y, unsigned int z ) const
-{
-    const unsigned int index = x + y * size.x + z * size.x * size.y;
-    CARNA_ASSERT( index < size.x * size.y * size.z );
-    return index;
-}
 
 
 

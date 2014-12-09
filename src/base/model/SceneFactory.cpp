@@ -13,7 +13,7 @@
 #include <Carna/base/model/Scene.h>
 #include <Carna/base/model/SceneFactory.h>
 #include <Carna/base/model/Volume.h>
-#include <Carna/base/model/VolumeDetails.h>
+#include <Carna/base/model/UInt16VolumeMaskingWorker.h>
 #include <Carna/base/qt/CarnaProgressDialog.h>
 #include <Carna/base/view/SceneProvider.h>
 #include <Carna/base/CarnaException.h>

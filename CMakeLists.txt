@@ -67,6 +67,7 @@ set( PUBLIC_QOBJECT_HEADERS
 		include/${PROJECT_NAME}/base/model/Scene.h
 		include/${PROJECT_NAME}/base/model/SceneFactory.h
 		include/${PROJECT_NAME}/base/model/Object3D.h
+		include/${PROJECT_NAME}/base/model/UInt16VolumeBaseWorker.h
 		include/${PROJECT_NAME}/base/qt/CarnaProgressDialog.h
 		include/${PROJECT_NAME}/base/qt/ColorPicker.h
 		include/${PROJECT_NAME}/base/qt/Display.h
@@ -209,7 +210,7 @@ include_directories(${CMAKE_PROJECT_DIR}src/include)
 set( PRIVATE_QOBJECT_HEADERS
 		src/include/Carna/base/controller/DefaultInteractionStrategyDetails.h
 		src/include/Carna/base/model/SceneDetails.h
-		src/include/Carna/base/model/VolumeDetails.h
+		src/include/Carna/base/model/UInt16VolumeMaskingWorker.h
 		src/include/Carna/base/qt/DisplayDetails.h
 		src/include/Carna/base/qt/Object3DChooserDetails.h
 		src/include/Carna/base/view/RendererDetails.h
@@ -261,7 +262,8 @@ set( SRC
 		src/base/model/Position.cpp
 		src/base/model/RotatableObject3D.cpp
 		src/base/model/Volume.cpp
-		src/base/model/VolumeDetails.cpp
+		src/base/model/UInt16VolumeBaseWorker.cpp
+		src/base/model/UInt16VolumeMaskingWorker.cpp
 		src/base/qt/CarnaProgressDialog.cpp
 		src/base/qt/ColorPicker.cpp
 		src/base/qt/ColorPickerPainter.cpp
