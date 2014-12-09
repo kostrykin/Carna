@@ -542,7 +542,7 @@
   *   It may be destroyed right after.
   * - \c model is aggregated by \c scene.
   *   It must exist at least as long as \c scene.
-  * - \c Every \c view is aggregated with a \c scene instance.
+  * - Every \c view is aggregated with a \c scene instance.
   *   Therefore, the lifetime of \c scene must be at least as long as the lifetime of all aggregating views.
   * - The lifetime of a \c view is not further specified.
   *
