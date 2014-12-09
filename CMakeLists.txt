@@ -60,6 +60,7 @@ include( $ENV{MEDITEC_LIBS}/TRTK/0.13.1/configure.cmake )
 # Project
 
 include_directories(${CMAKE_PROJECT_DIR}include)
+include_directories(${CMAKE_PROJECT_DIR}include/Carna/base/qt)	# required by FlowLayout.h
 set( PUBLIC_QOBJECT_HEADERS
 		include/${PROJECT_NAME}/base/controller/DefaultCameraController.h
 		include/${PROJECT_NAME}/base/controller/DefaultInteractionStrategy.h
@@ -133,6 +134,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/model/Volume.h
 		include/${PROJECT_NAME}/base/qt/ColorPickerPainter.h
 		include/${PROJECT_NAME}/base/qt/DisplayVisualizationEnvironment.h
+		include/${PROJECT_NAME}/base/qt/FlowLayout.h
 		include/${PROJECT_NAME}/base/qt/IntSpanPainter.h
 		include/${PROJECT_NAME}/base/qt/MultiSpanSliderModelViewMapping.h
 		include/${PROJECT_NAME}/base/qt/MultiSpanSliderTracker.h
@@ -204,7 +206,6 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/Version.h
 	)
 include_directories(${CMAKE_PROJECT_DIR}src/include)
-include_directories(${CMAKE_PROJECT_DIR}src/include/Carna/base/qt)	# required for /src/include/Carna/base/flowlayout.h
 set( PRIVATE_QOBJECT_HEADERS
 		src/include/Carna/base/controller/DefaultInteractionStrategyDetails.h
 		src/include/Carna/base/model/SceneDetails.h
@@ -268,6 +269,7 @@ set( SRC
 		src/base/qt/DisplayDetails.cpp
 		src/base/qt/DisplayVisualizationEnvironment.cpp
 		src/base/qt/ExpandableGroupBox.cpp
+		src/base/qt/FlowLayout.cpp
 		src/base/qt/MultiSpanSlider.cpp
 		src/base/qt/MultiSpanSliderTracker.cpp
 		src/base/qt/Object3DChooser.cpp

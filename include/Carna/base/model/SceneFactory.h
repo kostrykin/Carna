@@ -22,8 +22,6 @@
 #include <Carna/base/Vector3.h>
 #include <QWidget>
 
-class DicomSeries;  // from dicom-interface
-
 namespace Carna
 {
 
@@ -49,10 +47,6 @@ namespace model
   * - The requested number of parallelized workers is not supported by implementation.
   * - The requested target volume size is larger than the original data.
   * - The requested target volume size is lower than 2 pixels along at least one axis.
-  *
-  * \c std::runtime_error is thrown when at least one of these cases applies:
-  *
-  * - The DICOM image size is not consistent.
   *
   * \author Leonid Kostrykin
   * \date   26.10.11 - 21.2.13
@@ -117,30 +111,15 @@ public:
     static int computeVoidThreshold( const Volume& );
 
 
-public slots:
-
-    /** \brief  Prompts the user for the data set to load using a \ref qt::DicomController dialog.
-      */
-    Scene* createFromUserInput();
-    
-    /** \brief  Dispatches the given request.
-      *
-      * Refer to the \ref qt::DicomController documentation for an example.
-      */
-    Scene* createFromRequest( const Carna::base::model::SeriesLoadingRequest& );
-
-
-private:
+protected:
 
     QWidget* const dialogParent;
 
     const ParallelizationSettings parallelizationSettings;
 
     unsigned int max_allowed_side_length;
-    
 
-    Scene* createFromDicomSeries( const DicomSeries& dicomSeries
-                                , const Vector3ui& targetVolumeSize );
+    unsigned int getWorkerCount();
 
 }; // SceneFactory
 

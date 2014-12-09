@@ -138,36 +138,6 @@ protected:
 
 
 // ----------------------------------------------------------------------------------
-// UInt16VolumeComputationWorker
-// ----------------------------------------------------------------------------------
-
-class UInt16VolumeComputationWorker : public UInt16VolumeBaseWorker
-{
-
-    Q_OBJECT
-
-public:
-
-    UInt16VolumeComputationWorker( const DicomSeries& dicomSeries
-                                 , const Vector3ui& size
-                                 , DestinationBuffer& dst );
-
-
-public slots:
-
-    virtual void run() override;
-
-
-private:
-
-    const DicomSeries& dicomSeries;
-    const Vector3ui size;
-
-}; // UInt16VolumeComputationWorker
-
-
-
-// ----------------------------------------------------------------------------------
 // UInt16VolumeMaskingWorker
 // ----------------------------------------------------------------------------------
 

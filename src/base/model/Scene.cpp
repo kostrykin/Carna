@@ -15,7 +15,6 @@
 #include <Carna/base/model/Volume.h>
 #include <Carna/base/CarnaException.h>
 #include <Carna/base/Vector3.h>
-#include <dicom-interface/dicomSeries.h>
 #include <QTimer>
 #include <QDebug>
 #include <mmintrin.h>
