@@ -57,10 +57,6 @@ include( $ENV{MEDITEC_LIBS}/GLEW/1.7.0/configure.cmake )
 
 include( $ENV{MEDITEC_LIBS}/TRTK/0.13.1/configure.cmake )
 
-# dicom-interface
-
-include( $ENV{MEDITEC_LIBS}/dicom-interface-carna/0.2.1/configure.cmake )
-
 # Project
 
 include_directories(${CMAKE_PROJECT_DIR}include)
@@ -72,7 +68,6 @@ set( PUBLIC_QOBJECT_HEADERS
 		include/${PROJECT_NAME}/base/model/Object3D.h
 		include/${PROJECT_NAME}/base/qt/CarnaProgressDialog.h
 		include/${PROJECT_NAME}/base/qt/ColorPicker.h
-		include/${PROJECT_NAME}/base/qt/DicomController.h
 		include/${PROJECT_NAME}/base/qt/Display.h
 		include/${PROJECT_NAME}/base/qt/ExpandableGroupBox.h
 		include/${PROJECT_NAME}/base/qt/MultiSpanSlider.h
@@ -134,9 +129,6 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/model/Position.h
 		include/${PROJECT_NAME}/base/model/RotatableObject3D.h
 		include/${PROJECT_NAME}/base/model/ScalarField.h
-		include/${PROJECT_NAME}/base/model/Series.h
-		include/${PROJECT_NAME}/base/model/SeriesElement.h
-		include/${PROJECT_NAME}/base/model/SeriesLoadingRequest.h
 		include/${PROJECT_NAME}/base/model/UInt16Volume.h
 		include/${PROJECT_NAME}/base/model/Volume.h
 		include/${PROJECT_NAME}/base/qt/ColorPickerPainter.h
@@ -215,17 +207,10 @@ include_directories(${CMAKE_PROJECT_DIR}src/include)
 include_directories(${CMAKE_PROJECT_DIR}src/include/Carna/base/qt)	# required for /src/include/Carna/base/flowlayout.h
 set( PRIVATE_QOBJECT_HEADERS
 		src/include/Carna/base/controller/DefaultInteractionStrategyDetails.h
-		src/include/Carna/base/model/DicomManager.h
 		src/include/Carna/base/model/SceneDetails.h
-		src/include/Carna/base/model/SeriesLoadingWorker.h
 		src/include/Carna/base/model/VolumeDetails.h
-		src/include/Carna/base/qt/DicomOpeningDialog.h
 		src/include/Carna/base/qt/DisplayDetails.h
 		src/include/Carna/base/qt/Object3DChooserDetails.h
-		src/include/Carna/base/qt/QtDicomSeriesOpeningController.h
-		src/include/Carna/base/qt/SeriesPreview.h
-		src/include/Carna/base/qt/SeriesView.h
-		src/include/Carna/base/qt/ToggleSeriesPreview.h
 		src/include/Carna/base/view/RendererDetails.h
 		src/include/Carna/base/view/SceneProviderDetails.h
 		src/include/Carna/MPR/AxialPlaneControllerDetails.h
@@ -243,11 +228,8 @@ set( PRIVATE_HEADERS
 		${PRIVATE_QOBJECT_HEADERS}
 		src/include/Carna/base/model/BufferedMaskAdapterDetails.h
 		src/include/Carna/base/model/Object3DDetails.h
-		src/include/Carna/base/model/Patient.h
 		src/include/Carna/base/model/RotatableObject3DDetails.h
-		src/include/Carna/base/model/Study.h
 		src/include/Carna/base/qt/ExpandableGroupBoxDetails.h
-		src/include/Carna/base/qt/FlowLayout.h
 		src/include/Carna/base/view/DefaultCameraDetails.h
 		src/include/Carna/base/view/gl.h
 		src/include/Carna/base/view/glew.h
@@ -271,40 +253,27 @@ set( SRC
 		src/base/controller/Object3DMovementIntentProcessor.cpp
 		src/base/controller/VolumeSpaceMovementIntentProcessor.cpp
 		src/base/model/BufferedMaskAdapter.cpp
-		src/base/model/DicomManager.cpp
 		src/base/model/Scene.cpp
 		src/base/model/SceneFactory.cpp
 		src/base/model/Object3D.cpp
 		src/base/model/Object3DEvent.cpp
-		src/base/model/Patient.cpp
 		src/base/model/Position.cpp
 		src/base/model/RotatableObject3D.cpp
-		src/base/model/Series.cpp
-		src/base/model/SeriesElement.cpp
-		src/base/model/SeriesLoadingWorker.cpp
-		src/base/model/Study.cpp
 		src/base/model/Volume.cpp
 		src/base/model/VolumeDetails.cpp
 		src/base/qt/CarnaProgressDialog.cpp
 		src/base/qt/ColorPicker.cpp
 		src/base/qt/ColorPickerPainter.cpp
-		src/base/qt/DicomController.cpp
-		src/base/qt/DicomOpeningDialog.cpp
 		src/base/qt/Display.cpp
 		src/base/qt/DisplayDetails.cpp
 		src/base/qt/DisplayVisualizationEnvironment.cpp
 		src/base/qt/ExpandableGroupBox.cpp
-		src/base/qt/FlowLayout.cpp
 		src/base/qt/MultiSpanSlider.cpp
 		src/base/qt/MultiSpanSliderTracker.cpp
 		src/base/qt/Object3DChooser.cpp
-		src/base/qt/QtDicomSeriesOpeningController.cpp
 		src/base/qt/RotatingColor.cpp
 		src/base/qt/RotationEdit.cpp
 		src/base/qt/RotationView.cpp
-		src/base/qt/SeriesPreview.cpp
-		src/base/qt/SeriesView.cpp
-		src/base/qt/ToggleSeriesPreview.cpp
 		src/base/qt/WideColorPicker.cpp
 		src/base/view/DefaultCamera.cpp
 		src/base/view/DefaultObject3DPainter.cpp
