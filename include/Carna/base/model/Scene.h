@@ -98,14 +98,14 @@ namespace model
   *         ( new UInt16Volume( Vector3ui( 128, 128, 128 ) ) )
   *         , spacingXY, spacingXY, spacingZ );
   *
-  * // using SceneFactory (1)
+  * // using SceneFactory from Carna-DICOM project (1)
+  * // https://github.com/RWTHmediTEC/Carna-DICOM
   *
-  * SceneFactory modelFactory;
+  * using Carna::dicom::DicomSceneFactory;
+  * DicomSceneFactory modelFactory;
   *
   * std::unique_ptr< Scene > model3( modelFactory.createFromUserInput() );
   * \endcode
-  *
-  * Another useful factory method is \ref SceneFactory::createFromRequest.
   *
   * \author Leonid Kostrykin
   * \date   26.10.11 - 15.3.13

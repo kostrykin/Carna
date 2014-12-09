@@ -113,13 +113,22 @@ public:
 
 protected:
 
+    /** \brief  The dialog parent that was passed to the constructor.
+      */
     QWidget* const dialogParent;
 
+    /** \brief  The parallelization settings that were passed to the constructor.,
+      */
     const ParallelizationSettings parallelizationSettings;
 
-    unsigned int max_allowed_side_length;
-
+    /** \brief  Computes suggested number of worker threads to use based on \ref parallelizationSettings.
+      */
     unsigned int getWorkerCount();
+
+
+private:
+
+    unsigned int max_allowed_side_length;
 
 }; // SceneFactory
 
