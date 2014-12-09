@@ -113,7 +113,7 @@ signals:
       */
     void progressed( int amount );
 
-    /** \brief	Emitted when job has finished.
+    /** \brief  Emitted when job has finished.
       */
     void finished();
 
@@ -132,6 +132,72 @@ protected:
     DestinationBuffer& dst;
 
 }; // UInt16VolumeBaseWorker
+
+
+
+// ----------------------------------------------------------------------------------
+// configureWorkers
+// ----------------------------------------------------------------------------------
+
+/** \relates UInt16VolumeBaseWorker
+  */
+template< typename ConcreteParallelization >
+static void configureWorkers( ConcreteParallelization& job, const Vector3ui& size )
+{
+    qDebug() << "*** configuring" << job.countWorkers() << "workers...";
+    switch( job.countWorkers() )
+    {
+
+        case 1:
+        {
+            job.workerByIndex( 0 ).setSetup( new UInt16VolumeBaseWorker::Setup
+                ( Vector3ui( 0, 0, 0 )
+                , Vector3ui( size.x - 1, size.y - 1, size.z - 1 ) ) );
+
+            break;
+        }
+
+        case 2:
+        {
+            job.workerByIndex( 0 ).setSetup( new UInt16VolumeBaseWorker::Setup
+                ( Vector3ui( 0, 0, 0 )
+                , Vector3ui( size.x - 1, size.y - 1, size.z / 2 - 1 ) ) );
+
+            job.workerByIndex( 1 ).setSetup( new UInt16VolumeBaseWorker::Setup
+                ( Vector3ui( 0, 0, size.z / 2 )
+                , Vector3ui( size.x - 1, size.y - 1, size.z - 1 ) ) );
+
+            break;
+        }
+
+        case 4:
+        {
+            job.workerByIndex( 0 ).setSetup( new UInt16VolumeBaseWorker::Setup
+                ( Vector3ui( 0, 0, 0 )
+                , Vector3ui( size.x - 1, size.y / 2 - 1, size.z / 2 - 1 ) ) );
+
+            job.workerByIndex( 1 ).setSetup( new UInt16VolumeBaseWorker::Setup
+                ( Vector3ui( 0, 0, size.z / 2 )
+                , Vector3ui( size.x - 1, size.y / 2 - 1, size.z - 1 ) ) );
+
+            job.workerByIndex( 2 ).setSetup( new UInt16VolumeBaseWorker::Setup
+                ( Vector3ui( 0, size.y / 2, 0 )
+                , Vector3ui( size.x - 1, size.y - 1, size.z / 2 - 1 ) ) );
+
+            job.workerByIndex( 3 ).setSetup( new UInt16VolumeBaseWorker::Setup
+                ( Vector3ui( 0, size.y / 2, size.z / 2 )
+                , Vector3ui( size.x - 1, size.y - 1, size.z - 1 ) ) );
+
+            break;
+        }
+
+        default:
+        {
+            CARNA_FAIL( "unsupported workers count (" << job.countWorkers() << ")" );
+        }
+
+    }
+}
 
 
 
