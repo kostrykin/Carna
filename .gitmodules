@@ -1,0 +1,4 @@
+[submodule "doc/html"]
+	path = doc/html
+	url = https://github.com/RWTHmediTEC/Carna.git
+	branch = gh-pages
