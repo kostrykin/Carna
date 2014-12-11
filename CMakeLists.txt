@@ -27,12 +27,13 @@ option(BUILD_TEST	"Build the unit tests" OFF)
 ############################################
 
 # Qt
-find_package( Qt4 4.8.0 REQUIRED Main OpenGL Xml )
+find_package( Qt4 4.8.0 COMPONENTS QtCore QtGui QtOpenGL QtXml REQUIRED )
 include( ${QT_USE_FILE} )
 add_definitions( ${QT_DEFINITIONS} )
 
 # GLEW
 find_package( GLEW 1.7.0 REQUIRED )
+include( ${GLEW_INCLUDE_DIRS} )
 
 # TRTK
 find_package( TRTK 0.13.1 REQUIRED )
@@ -43,7 +44,7 @@ find_package( TRTK 0.13.1 REQUIRED )
 
 # GDCM
 find_package( GDCM 2.0.16 )
-if( GDCM_FOUND )
+if( GDCM_FOUND STREQUAL "YES" )
 	add_definitions( -D_BUILD_DICOM_SUPPORT )
 	add_subdirectory( test/CarnaInteractiveTest )
 endif( GDCM_FOUND )
@@ -553,7 +554,7 @@ add_definitions( -D${PROJECT_NAME_UPPER}_LIB -DNOMINMAX -D_NO_FRAMEBUFFER_DEBUG 
 target_link_libraries( ${TARGET_NAME}
 			opengl32
 			glu32
-			${GLEW_LIBLIST}
+			${GLEW_LIBRARIES}
 			${QT_LIBRARIES}
 			${TRTK_LIBLIST}
 			${DICOM_INTERFACE_LIBLIST}
