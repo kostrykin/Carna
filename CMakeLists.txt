@@ -14,14 +14,6 @@ set(FULL_VERSION ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION})
 set(TARGET_NAME ${PROJECT_NAME}-${FULL_VERSION})
 
 ############################################
-
-configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/misc/Version.h.in
-				${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/Version.h @ONLY)
-
-configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile.in
-				${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile @ONLY)
-
-############################################
 # Set default options for this build
 ############################################
 
@@ -84,6 +76,17 @@ get_filename_component(	INSTALL_HEADERS_DIR
 
 get_filename_component(	INSTALL_CMAKE_DIR
 						"${INSTALL_CMAKE_DIR}" ABSOLUTE)
+
+############################################
+
+configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/misc/Version.h.in
+				${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/Version.h @ONLY)
+
+configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile.in
+				${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile @ONLY)
+
+configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/misc/FindCarna.cmake.in
+				${CMAKE_CURRENT_BINARY_DIR}/misc/FindCarna.cmake @ONLY)
 
 ############################################
 # Find required dependencies
@@ -652,6 +655,10 @@ if( WIN32 )
 			DESTINATION ${INSTALL_LIBRARY_DIR}
 			OPTIONAL)
 endif( WIN32 )
+
+# install CMake Find<Module> file
+install(	FILES ${CMAKE_CURRENT_BINARY_DIR}/misc/FindCarna.cmake
+			DESTINATION ${INSTALL_CMAKE_DIR})
 
 ############################################
 # Build interactive demo

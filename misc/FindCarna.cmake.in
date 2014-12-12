@@ -1,0 +1,40 @@
+############################################
+# Locates Carna library.
+#-------------------------------------------
+# The following variables are set:
+#	CARNA_INCLUDE_DIR	points to headers
+#	CARNA_LIBRARIES		points to lib files
+#	CARNA_FOUND			indicates success
+#-------------------------------------------
+# Leonid Kostrykin, 12.12.2014
+############################################
+
+set(FOUND_VERSION %FULL_VERSION%)
+
+# set directory where headers are located
+get_filename_component(CARNA_INCLUDE_DIR @INSTALL_HEADERS_DIR@ ABSOLUTE)
+
+# set path to RELEASE library file
+find_library(	CARNA_LIBRARY_RELEASE
+				NAMES @TARGET_NAME@
+				PATHS @INSTALL_LIBRARY_DIR@
+				DOC "Carna library (Release)" )
+
+# set path to DEBUG library file
+find_library(	CARNA_LIBRARY_DEBUG
+				NAMES @TARGET_NAME@@CMAKE_DEBUG_POSTFIX@
+				PATHS @INSTALL_LIBRARY_DIR@
+				DOC "Carna library (Debug)" )
+
+# handles REQUIRED, QUIET and version-related
+# arguments and also sets the _FOUND variable
+find_package_handle_standard_args( CARNA
+	REQUIRED_VARS CARNA_INCLUDE_DIR CARNA_LIBRARY_RELEASE CARNA_LIBRARY_DEBUG
+	VERSION_VAR FOUND_VERSION)
+
+# set paths to library files
+if( DEFINED CARNA_LIBRARY_RELEASE AND DEFINED CARNA_LIBRARY_DEBUG )
+	set( CARNA_LIBRARIES
+			optimized	${CARNA_LIBRARY_RELEASE}
+			debug		${CARNA_LIBRARY_DEBUG} )
+endif()
