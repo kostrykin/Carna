@@ -23,9 +23,13 @@ configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile.in ${CMAKE_CURRENT_
 option(BUILD_DOC	"Build and install the API documentation" OFF)
 option(BUILD_TEST	"Build the unit tests" OFF)
 ############################################
+# Locate Find<ModuleName>.cmake scripts
+############################################
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/misc/CMake/Modules)
+############################################
 # Run MediTEC compatiblity script
 ############################################
-include("misc/MediTEC/meditec.cmake")
+include("misc/CMake/meditec.cmake")
 ############################################
 # Find required dependencies
 ############################################
@@ -38,6 +42,10 @@ add_definitions( ${QT_DEFINITIONS} )
 # GLEW
 find_package( GLEW 1.7.0 REQUIRED )
 include_directories( ${GLEW_INCLUDE_DIRS} )
+
+# Eigen
+FIND_PACKAGE( Eigen3 REQUIRED )
+include_directories( ${EIGEN3_INCLUDE_DIR} )
 
 # TRTK
 find_package( TRTK 0.13.1 REQUIRED )
@@ -52,6 +60,8 @@ find_package( GDCM 2.0.16 )
 if( GDCM_FOUND STREQUAL "YES" )
 	add_definitions( -D_BUILD_DICOM_SUPPORT )
 	add_subdirectory( test/CarnaInteractiveTest )
+else( GDCM_FOUND STREQUAL "YES" )
+	set( GDCM_LIBRARY "" )
 endif( GDCM_FOUND STREQUAL "YES" )
 
 ############################################
@@ -559,10 +569,10 @@ add_definitions( -D${PROJECT_NAME_UPPER}_LIB -DNOMINMAX -D_NO_FRAMEBUFFER_DEBUG 
 target_link_libraries( ${TARGET_NAME}
 			opengl32
 			glu32
-			${GLEW_LIBRARIES}
+			glew32
 			${QT_LIBRARIES}
-			${TRTK_LIBLIST}
-			${DICOM_INTERFACE_LIBLIST}
+			${TRTK_LIBRARY}
+			${GDCM_LIBRARY}
 		)
 ############################################
 # Define installation routines
