@@ -1,4 +1,4 @@
 Carna
 =====
 
-Simple and Fast Visualization of DICOM Data Sets
+Documentation: https://rwthmeditec.github.io/Carna/
