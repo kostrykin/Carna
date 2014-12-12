@@ -25,7 +25,7 @@ option(BUILD_TEST	"Build the unit tests" OFF)
 ############################################
 # Run MediTEC compatiblity script
 ############################################
-include("misc/meditec.cmake")
+include("misc/MediTEC/meditec.cmake")
 ############################################
 # Find required dependencies
 ############################################
@@ -41,6 +41,7 @@ include_directories( ${GLEW_INCLUDE_DIRS} )
 
 # TRTK
 find_package( TRTK 0.13.1 REQUIRED )
+include_directories( ${TRTK_INCLUDE_DIRS} )
 
 ############################################
 # Find optional dependencies
@@ -51,7 +52,7 @@ find_package( GDCM 2.0.16 )
 if( GDCM_FOUND STREQUAL "YES" )
 	add_definitions( -D_BUILD_DICOM_SUPPORT )
 	add_subdirectory( test/CarnaInteractiveTest )
-endif( GDCM_FOUND )
+endif( GDCM_FOUND STREQUAL "YES" )
 
 ############################################
 # Project
