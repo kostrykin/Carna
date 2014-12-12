@@ -1,4 +1,4 @@
-#Carna
+﻿#Carna
 
 Carna provides classes for simple and fast visualization of CT data.
 It is named after the greek god of organs (yup, they really did have even one for organs).
@@ -22,17 +22,16 @@ Go to: [Library Documentation](https://rwthmeditec.github.io/Carna/)
 Carna is supposed to work on Linux and Windows,
 although it has only been tested on Windows lately.
 
-* Qt = 4.8
-* GLEW = 1.7
-* [TRTK](https://github.com/Haenisch/TRTK) = 0.13.1
-* [Eigen](http://eigen.tuxfamily.org/) = 3.0.5
-* OpenGL 2.1
+* Qt ≥ 4.8
+* GLEW ≥ 1.7
+* [TRTK](https://github.com/Haenisch/TRTK) ≥ 0.13.1
+* [Eigen](http://eigen.tuxfamily.org/) ≥ 3.0.5
 
 **Currently there are serious issues with non-NVIDIA graphics hardware.**
 
 ## Build instructions
 
-The default build process requires CMake = 3.0.2.
+The default build process requires CMake ≥ 3.0.2.
 
 This section explains three ways of building Carna:
 
