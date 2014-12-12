@@ -49,7 +49,7 @@ include_directories( ${EIGEN3_INCLUDE_DIR} )
 
 # TRTK
 find_package( TRTK 0.13.1 REQUIRED )
-include_directories( ${TRTK_INCLUDE_DIRS} )
+include_directories( ${TRTK_INCLUDE_DIR} )
 
 ############################################
 # Find optional dependencies
@@ -57,12 +57,12 @@ include_directories( ${TRTK_INCLUDE_DIRS} )
 
 # GDCM
 find_package( GDCM 2.0.16 )
-if( GDCM_FOUND STREQUAL "YES" )
+if( DEFINED GDCM_FOUND )
 	add_definitions( -D_BUILD_DICOM_SUPPORT )
 	add_subdirectory( test/CarnaInteractiveTest )
-else( GDCM_FOUND STREQUAL "YES" )
+else( DEFINED GDCM_FOUND )
 	set( GDCM_LIBRARY "" )
-endif( GDCM_FOUND STREQUAL "YES" )
+endif( DEFINED GDCM_FOUND )
 
 ############################################
 # Project
@@ -571,7 +571,7 @@ target_link_libraries( ${TARGET_NAME}
 			glu32
 			glew32
 			${QT_LIBRARIES}
-			${TRTK_LIBRARY}
+			${TRTK_LIBRARIES}
 			${GDCM_LIBRARY}
 		)
 ############################################
