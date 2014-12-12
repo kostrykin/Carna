@@ -15,7 +15,8 @@ Go to: [Library Documentation](https://rwthmeditec.github.io/Carna/)
 * [Build instructions](#2-build-instructions)
 	* [Creating Visual Studio project files](#21-creating-visual-studio-project-files)
 	* [Building directly](#22-building-directly)
-	* [The MediTEC-way](#23-the-meditec-way)
+	* [Installation notes](#23-installation-notes)
+	* [The MediTEC-way](#24-the-meditec-way)
 * [Including in your project](#3-including-in-your-project)
 	* [The CMake-way](#31-the-cmake-way)
 	* [Manually](#32-manually)
@@ -148,7 +149,23 @@ nmake
 
 Run `nmake install` (again) if you want to install the "release" version.
 
-### 2.3. The MediTEC-way
+### 2.3. Installation notes
+
+You may need finer control of the installation routines' destinations.
+Regardless which of the methods presented above you choose,
+you can specify the destinations for the
+headers, the library and the generated CMake files
+by passing particular parameters to `cmake`:
+
+* `INSTALL_CMAKE_DIR` specifies where the `FindCarna.cmake` file goes to.
+* `INSTALL_LIBRARY_DIR` specifies where the built binary files go to.
+* `INSTALL_HEADERS_DIR` specifies where the headers are going to installed to.
+
+If you use relative paths for these parameters,
+they will be resolved relatively to `CMAKE_INSTALL_PREFIX`.
+Consider using absolute paths if you don't want that.
+
+### 2.4. The MediTEC-way
 
 Make sure you have the environmental variable `%MEDITEC_LIBS%` set
 and it is poiting to an existing directory that you have permissions to write to,
@@ -165,11 +182,52 @@ or you have fetched the binaries and the corresponding headers from somewhere.
 
 ### 3.1. The CMake-way
 
-*yet to be written*
+Add a `find_package` directive to your project's `CMakeLists.txt` file, e.g.:
+
+```CMake
+find_package( Carna REQUIRED )
+include_directories( ${CARNA_INCLUDE_DIR} )
+```
+
+If you need to put a constraint on the version, use `find_package(Carna 2.5.0 REQUIRED)`
+to pick a package with a version *compatible* to 2.5.0,
+or use `find_package(Carna 2.5.0 EXACT REQUIRED)` to pick a package by the exact version.
+
+```CMake
+find_package( Carna 2.5.0 REQUIRED )
+include_directories( ${CARNA_INCLUDE_DIR} )
+```
+
+Also add the libraries from the package to the linking stage:
+
+```CMake
+target_link_libraries( ${TARGET_NAME} ${SOME_OTHER_LIBRARIES} ${CARNA_LIBRARIES} )
+```
+
+This method relies on CMake being able to locate the proper `FindCarna.cmake` file.
+If you've built Carna from source,
+than you have determined it's location either through `CMAKE_INSTALL_PREFIX`
+or `INSTALL_CMAKE_DIR` as described in ["installation notes"](#23-installation-notes).
+You can specify the paths CMake searches for `FindCarna.cmake` by adjustung the
+`CMAKE_MODULE_PATH` variable, e.g.:
+
+```CMake
+list(APPEND "C:/CMake/Modules")
+```
 
 ### 3.2. Manually
 
-*yet to be written*
+Find where your header files are located. You might look for `Carna.h` or `Version.h`.
+Both of these files are contained by a directory named `Carna`.
+Add the *parent* directory of the `Carna` directory,
+that contains `Carna.h` and `Version.h` in turn,
+to your project's include directories.
+
+Then find the appropriate library file.
+It's name depends on your platform and Carna version,
+e.g. `Carna-2.5.0.lib` for the release and `Carna-2.5.0d.lib`
+for the debug version respectively of Carna 2.5.0 on Windows.
+Add both of these files to your project's linker stage.
 
 ---
 ## 4. See also
