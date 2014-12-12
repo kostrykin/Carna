@@ -94,7 +94,7 @@ find_package( GLEW 1.7.0 REQUIRED )
 include_directories( ${GLEW_INCLUDE_DIRS} )
 
 # Eigen
-FIND_PACKAGE( Eigen3 REQUIRED )
+find_package( Eigen3 REQUIRED )
 include_directories( ${EIGEN3_INCLUDE_DIR} )
 
 # TRTK
