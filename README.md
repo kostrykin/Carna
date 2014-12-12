@@ -212,7 +212,7 @@ You can specify the paths CMake searches for `FindCarna.cmake` by adjustung the
 `CMAKE_MODULE_PATH` variable, e.g.:
 
 ```CMake
-list(APPEND "C:/CMake/Modules")
+list(APPEND CMAKE_MODULE_PATH "C:/CMake/Modules")
 ```
 
 ### 3.2. Manually
