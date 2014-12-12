@@ -7,17 +7,17 @@ Go to: [Library Documentation](https://rwthmeditec.github.io/Carna/)
 
 ## Contents
 
-* Dependencies
-* Build instructions
-	* Creating Visual Studio project files
-	* Building directly
-    * The MediTEC-way
-* Including in your project
-	* The CMake-way
-    * Manually
-* See also
+* [Dependencies](#1-dependencies)
+* [Build instructions](#2-build-instructions)
+	* [Creating Visual Studio project files](#21-creating-visual-studio-project-files)
+	* [Building directly](#22-building-directly)
+	* [The MediTEC-way](#23-the-meditec-way)
+* [Including in your project](#3-including-in-your-project)
+	* [The CMake-way](#31-the-cmake-way)
+	* [Manually](#32-manually)
+* [See also](#4-see-also)
     
-## Dependencies
+## 1. Dependencies
 
 Carna is supposed to work on Linux and Windows,
 although it has only been tested on Windows lately.
@@ -29,7 +29,7 @@ although it has only been tested on Windows lately.
 
 **Currently there are serious issues with non-NVIDIA graphics hardware.**
 
-## Build instructions
+## 2. Build instructions
 
 The default build process requires CMake ≥ 3.0.2.
 
@@ -50,7 +50,7 @@ from within the directory where you want to download the sources:
 After a few seconds there should be a new folder named `Carna`
 at your current working directory.
 
-### Creating Visual Studio project files
+### 2.1. Creating Visual Studio project files
 
 First create the directory where the Visual Studio files should go to:
 
@@ -81,7 +81,7 @@ Note that building the `INSTALL` project from the solution
 actually triggers the installation routine
 to the destination you configured via `-DCMAKE_INSTALL_PREFIX`.
 
-### Building directly
+### 2.2. Building directly
 
 The first step is to create the directories
 where the results of the building process will be stored.
@@ -124,7 +124,7 @@ run the build for the "release" version:
 
 Run `nmake install` (again) if you want to install the "release" version.
 
-### The MediTEC-way
+### 2.3. The MediTEC-way
 
 Make sure you have the environmental variable `%MEDITEC_LIBS%` set
 and it is poiting to an existing directory that you have permissions to write to,
@@ -133,20 +133,20 @@ than
 * run `create_msvc10_project.bat` to create the Visual Studio project files, or
 * run `win32_msvc10_build.bat` to build and install the whole package.
 
-## Including in your project
+## 3. Including in your project
 
 It is assumed at this point that you either have built and installed Carna with CMake,
 or you have fetched the binaries and the corresponding headers from somewhere.
 
-### The CMake-way
+### 3.1. The CMake-way
 
 *yet to be written*
 
-### Manually
+### 3.2. Manually
 
 *yet to be written*
 
-## See also
+## 4. See also
 
 The additional [Carna-DICOM module](https://github.com/RWTHmediTEC/Carna-DICOM)
 provides classes for loading DICOM data sets.
