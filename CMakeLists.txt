@@ -27,6 +27,7 @@ configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile.in
 
 option(BUILD_DOC	"Build and install the API documentation" OFF)
 option(BUILD_TEST	"Build the unit tests" OFF)
+option(BUILD_DEMO	"Build interactive demo" ON)
 
 ############################################
 # Macro that sets variable to default value
@@ -651,6 +652,14 @@ if( WIN32 )
 			DESTINATION ${INSTALL_LIBRARY_DIR}
 			OPTIONAL)
 endif( WIN32 )
+
+############################################
+# Build interactive demo
+############################################
+
+if( BUILD_DEMO )
+	add_subdirectory( test/CarnaInteractiveTest )
+endif()
 
 ############################################
 # Process unit tests

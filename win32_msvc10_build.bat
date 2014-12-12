@@ -4,6 +4,7 @@ echo ############################################################
 echo ### Build script for installation inside MEDITEC_LIBS    ###
 echo ###                                                      ###
 echo ### Specify command line parameters for build options:   ###
+echo ###    "-DBUILD_DEMO=OFF"    Skip interactive demo build ###
 echo ###    "-DBUILD_TEST=ON"     Build unit tests            ###
 echo ###    "-DBUILD_DOC=ON"      Build API documentation     ###
 echo ###                                                      ###
@@ -19,16 +20,16 @@ mkdir build\nmake_release
 mkdir build\VisualStudio2010
 
 cd build\nmake_debug
-cmake -G"NMake Makefiles" %1 %2 -DCMAKE_INSTALL_PREFIX="%MEDITEC_LIBS%" ..\..
+cmake -G"NMake Makefiles" %1 %2 %3 -DCMAKE_INSTALL_PREFIX="%MEDITEC_LIBS%" ..\..
 nmake
 nmake install
 
 cd ..\nmake_release
-cmake -G"NMake Makefiles" %1 %2 -DCMAKE_INSTALL_PREFIX="%MEDITEC_LIBS%" -DBUILD_DOC=OFF -DCMAKE_BUILD_TYPE=Release ..\..
+cmake -G"NMake Makefiles" %1 %2 %3 -DCMAKE_INSTALL_PREFIX="%MEDITEC_LIBS%" -DBUILD_DOC=OFF -DCMAKE_BUILD_TYPE=Release ..\..
 nmake
 nmake install
 
 cd ..\VisualStudio2010
-cmake -G"Visual Studio 10" -DCMAKE_INSTALL_PREFIX="%MEDITEC_LIBS%" -DBUILD_TEST=ON ..\..
+cmake -G"Visual Studio 10" -DCMAKE_INSTALL_PREFIX="%MEDITEC_LIBS%" -DBUILD_TEST=ON -DBUILD_DEMO=ON ..\..
 
 cd ..\..
