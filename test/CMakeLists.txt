@@ -156,6 +156,20 @@ target_link_libraries( ${TARGET_NAME}-testsuite
 # Run the tests
 ############################################
 
+# CMake 2.8.12 and lower allowed reading the LOCATION target property (and 
+# configuration-specific variants) to determine the eventual location of build 
+# targets. This relies on the assumption that all necessary information is 
+# available at configure-time to determine the final location and filename of the 
+# target. However, this property is not fully determined until later at 
+# generate-time. [...] The OLD behavior for this policy is to allow reading the 
+# LOCATION properties from build-targets. The NEW behavior for this policy is to 
+# not to allow reading the LOCATION properties from build-targets.
+#
+# --> http://www.cmake.org/cmake/help/v3.0/policy/CMP0026.html
+if( POLICY CMP0026 )
+	cmake_policy(SET CMP0026 OLD)
+endif()
+
 get_property( TEST_SUITE_EXECUTABLE TARGET ${TARGET_NAME}-testsuite PROPERTY LOCATION )
 add_custom_target( RUN_TESTSUITE
 			ALL
