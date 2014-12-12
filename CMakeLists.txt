@@ -1,35 +1,89 @@
 cmake_minimum_required(VERSION 3.0.2)
+project(Carna)
 
-project( Carna )
+set(MAJOR_VERSION	2)
+set(MINOR_VERSION	5)
+set(PATCH_VERSION	0)
 
 ############################################
-set( MAJOR_VERSION	2 )
-set( MINOR_VERSION	5 )
-set( PATCH_VERSION	0 )
+
+set(CMAKE_DEBUG_POSTFIX d)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/bin)
+set(FULL_VERSION ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION})
+set(TARGET_NAME ${PROJECT_NAME}-${FULL_VERSION})
+
 ############################################
-set( CMAKE_DEBUG_POSTFIX d )
-set( EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/bin )
-set( LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/bin )
-############################################
-set( FULL_VERSION ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION} )
-set( TARGET_NAME ${PROJECT_NAME}-${FULL_VERSION} )
-############################################
-configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/misc/configure.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/misc/configure.cmake @ONLY )
-configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/misc/Version.h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/Version.h @ONLY )
-configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile.in ${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile @ONLY )
+
+configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/misc/Version.h.in
+				${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/Version.h @ONLY)
+
+configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile.in
+				${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile @ONLY)
+
 ############################################
 # Set default options for this build
 ############################################
+
 option(BUILD_DOC	"Build and install the API documentation" OFF)
 option(BUILD_TEST	"Build the unit tests" OFF)
+
+############################################
+# Macro that sets variable to default value
+# only when the variable isn't defined yet
+############################################
+
+macro( option_default_to var_name default_val )
+	if( NOT DEFINED ${var_name} )
+		set(${var_name} ${default_val})
+	endif()
+endmacro()
+macro( option_default_to2 var_name default_val var_type doc_string )
+	option_default_to(var_name default_val)
+	set(${var_name} ${${var_name}} CACHE ${var_type} ${doc_string} FORCE)
+endmacro()
+
 ############################################
 # Locate Find<ModuleName>.cmake scripts
 ############################################
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/misc/CMake/Modules)
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/misc/CMake-Modules)
+
 ############################################
 # Run MediTEC compatiblity script
 ############################################
-include("misc/CMake/meditec.cmake")
+
+add_subdirectory(misc/MediTEC)
+
+############################################
+# Define default paths for the installation
+############################################
+
+# set default library and header destinations (relative to CMAKE_INSTALL_PREFIX)
+option_default_to2(INSTALL_LIBRARY_DIR "lib" String "Installation directory for libraries")
+option_default_to2(INSTALL_HEADERS_DIR "include" String "Installation directory for headers")
+
+# set default destination for CMake modules
+if( WIN32 )
+	option_default_to2(INSTALL_CMAKE_DIR "CMake/Modules" String "Installation directory for CMake files")
+else( WIN32 )
+	option_default_to2(INSTALL_CMAKE_DIR "lib/cmake/Modules" String "Installation directory for CMake files")
+endif( WIN32 )
+
+############################################
+# Normalize installation paths
+# (get rid of Windows-style delimiters)
+############################################
+
+get_filename_component(	INSTALL_LIBRARY_DIR
+						"${INSTALL_LIBRARY_DIR}" ABSOLUTE)
+
+get_filename_component(	INSTALL_HEADERS_DIR
+						"${INSTALL_HEADERS_DIR}" ABSOLUTE)
+
+get_filename_component(	INSTALL_CMAKE_DIR
+						"${INSTALL_CMAKE_DIR}" ABSOLUTE)
+
 ############################################
 # Find required dependencies
 ############################################
@@ -54,6 +108,7 @@ include_directories( ${TRTK_INCLUDE_DIR} )
 ############################################
 # Project
 ############################################
+
 include_directories(${CMAKE_PROJECT_DIR}include)
 include_directories(${CMAKE_PROJECT_DIR}include/Carna/base/qt)	# required by FlowLayout.h
 set( PUBLIC_QOBJECT_HEADERS
@@ -402,11 +457,14 @@ set( SHADERS_SRC
 		src/res/zalman.frag
 		src/res/zalman.vert
 	)
+	
 ############################################
+
 QT4_WRAP_CPP( PUBLIC_HEADERS_MOC ${PUBLIC_QOBJECT_HEADERS} )
 QT4_WRAP_CPP( PRIVATE_HEADERS_MOC ${PRIVATE_QOBJECT_HEADERS} )
 QT4_WRAP_UI( FORMS_HEADERS ${FORMS} )
 QT4_ADD_RESOURCES( RESOURCES_RCC ${RESOURCES} )
+
 ############################################
 # Setup Visual Studio filters
 ############################################
@@ -505,6 +563,7 @@ SOURCE_GROUP( "Miscellaneous\\Generated Files"
 # Exclude all source files from build,
 # since we are using unity build.
 ############################################
+
 set_source_files_properties(	${SRC}
 								${PUBLIC_HEADERS_MOC}
 								${PRIVATE_HEADERS_MOC}
@@ -514,6 +573,7 @@ set_source_files_properties(	${SRC}
 								${SHADERS_SRC}
 	PROPERTIES
 	HEADER_FILE_ONLY TRUE )
+
 ############################################
 # Write unity build file
 ############################################
@@ -535,6 +595,7 @@ endforeach( QT_GENERATED_SOURCE_FILE )
 ############################################	
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 ############################################
+
 add_library( ${TARGET_NAME} SHARED
 			${SRC}
 			${UNITY_BUILD_FILE}
@@ -547,12 +608,16 @@ add_library( ${TARGET_NAME} SHARED
 			${DOC_SRC}
 			${SHADERS_SRC}
 		)
+
 ############################################
+
 string( TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER )
 add_definitions( -D${PROJECT_NAME_UPPER}_LIB -DNOMINMAX -D_NO_FRAMEBUFFER_DEBUG )
+
 ############################################
 # Add dependencies to the linker
 ############################################
+
 target_link_libraries( ${TARGET_NAME}
 			opengl32
 			glu32
@@ -560,54 +625,47 @@ target_link_libraries( ${TARGET_NAME}
 			${QT_LIBRARIES}
 			${TRTK_LIBRARIES}
 		)
+
 ############################################
 # Define installation routines
 ############################################
 
-string( REGEX REPLACE "\\\\" "/" INSTALL_DIR $ENV{MEDITEC_LIBS}/${PROJECT_NAME}/${FULL_VERSION} )
+install(TARGETS	${TARGET_NAME}
+		RUNTIME DESTINATION	${INSTALL_LIBRARY_DIR})
 
-install(	TARGETS	${TARGET_NAME}
-		RUNTIME	DESTINATION	$ENV{MEDITEC_LIBS}/bin
-		)
-install(	TARGETS	${TARGET_NAME}
-		RUNTIME	DESTINATION	${INSTALL_DIR}/bin
-		ARCHIVE	DESTINATION	${INSTALL_DIR}/bin
-		LIBRARY	DESTINATION	${INSTALL_DIR}/bin
-		)
-install(	FILES	${CMAKE_CURRENT_BINARY_DIR}/misc/configure.cmake ${CMAKE_CURRENT_BINARY_DIR}/misc/install.bat
-		DESTINATION 	${INSTALL_DIR}
-		)
-install(	DIRECTORY	${CMAKE_PROJECT_DIR}include
-		DESTINATION 	${INSTALL_DIR}
-		)
-if (WIN32)
-	install(	FILES	${CMAKE_CURRENT_BINARY_DIR}/bin/${TARGET_NAME}${CMAKE_DEBUG_POSTFIX}.pdb
-			DESTINATION		$ENV{MEDITEC_LIBS}/bin
-			OPTIONAL
-			)
-	install(	FILES	${CMAKE_CURRENT_BINARY_DIR}/bin/${TARGET_NAME}${CMAKE_DEBUG_POSTFIX}.pdb
-			DESTINATION		${INSTALL_DIR}/bin
-			OPTIONAL
-			)
-endif()
+install(TARGETS	${TARGET_NAME}
+		RUNTIME	DESTINATION	${INSTALL_LIBRARY_DIR}
+		ARCHIVE	DESTINATION	${INSTALL_LIBRARY_DIR}
+		LIBRARY	DESTINATION	${INSTALL_LIBRARY_DIR})
+
+# install headers
+install(DIRECTORY ${CMAKE_PROJECT_DIR}include
+		DESTINATION ${INSTALL_HEADERS_DIR})
+
+# also install '.PDB' files on Windows
+if( WIN32 )
+	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/bin/${TARGET_NAME}${CMAKE_DEBUG_POSTFIX}.pdb
+			DESTINATION ${INSTALL_LIBRARY_DIR}
+			OPTIONAL)
+	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/bin/${TARGET_NAME}${CMAKE_DEBUG_POSTFIX}.pdb
+			DESTINATION ${INSTALL_LIBRARY_DIR}
+			OPTIONAL)
+endif( WIN32 )
+
 ############################################
 # Process unit tests
 ############################################
+
 if( BUILD_TEST )
-	add_subdirectory( test )
+	add_subdirectory(test)
 endif()
+
 ############################################
 # Doxygen API documentation
 ############################################
+
 if( BUILD_DOC )
-	find_package( Doxygen REQUIRED )
-	if( DOXYGEN_FOUND )
-		add_custom_target(	doc ALL
-							${DOXYGEN_EXECUTABLE} 
-							WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src/doc
-							COMMENT "Generating API documentation with Doxygen" VERBATIM )
-		install(	DIRECTORY	${CMAKE_CURRENT_SOURCE_DIR}/doc
-					DESTINATION	${INSTALL_DIR} )
-	endif( DOXYGEN_FOUND )
+	add_subdirectory(src/doc)
 endif()
+
 ############################################
