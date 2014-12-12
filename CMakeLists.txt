@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.7)
+cmake_minimum_required(VERSION 3.0.2)
 
 project( Carna )
 
@@ -23,6 +23,10 @@ configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile.in ${CMAKE_CURRENT_
 option(BUILD_DOC	"Build and install the API documentation" OFF)
 option(BUILD_TEST	"Build the unit tests" OFF)
 ############################################
+# Run MediTEC compatiblity script
+############################################
+include("misc/meditec.cmake")
+############################################
 # Find required dependencies
 ############################################
 
@@ -33,7 +37,7 @@ add_definitions( ${QT_DEFINITIONS} )
 
 # GLEW
 find_package( GLEW 1.7.0 REQUIRED )
-include( ${GLEW_INCLUDE_DIRS} )
+include_directories( ${GLEW_INCLUDE_DIRS} )
 
 # TRTK
 find_package( TRTK 0.13.1 REQUIRED )
