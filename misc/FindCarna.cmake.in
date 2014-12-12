@@ -9,21 +9,21 @@
 # Leonid Kostrykin, 12.12.2014
 ############################################
 
-set(FOUND_VERSION %FULL_VERSION%)
+set(FOUND_VERSION @FULL_VERSION@)
 
 # set directory where headers are located
-get_filename_component(CARNA_INCLUDE_DIR @INSTALL_HEADERS_DIR@ ABSOLUTE)
+get_filename_component(CARNA_INCLUDE_DIR "@CMAKE_INSTALL_PREFIX@/@INSTALL_HEADERS_DIR@" ABSOLUTE)
 
 # set path to RELEASE library file
 find_library(	CARNA_LIBRARY_RELEASE
 				NAMES @TARGET_NAME@
-				PATHS @INSTALL_LIBRARY_DIR@
+				PATHS "@CMAKE_INSTALL_PREFIX@/@INSTALL_LIBRARY_DIR@"
 				DOC "Carna library (Release)" )
 
 # set path to DEBUG library file
 find_library(	CARNA_LIBRARY_DEBUG
 				NAMES @TARGET_NAME@@CMAKE_DEBUG_POSTFIX@
-				PATHS @INSTALL_LIBRARY_DIR@
+				PATHS "@CMAKE_INSTALL_PREFIX@/@INSTALL_LIBRARY_DIR@"
 				DOC "Carna library (Debug)" )
 
 # handles REQUIRED, QUIET and version-related

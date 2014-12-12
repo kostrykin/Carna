@@ -4,7 +4,7 @@ echo ############################################################
 echo ### Build script for installation inside MEDITEC_LIBS    ###
 echo ###                                                      ###
 echo ### Specify command line parameters for build options:   ###
-echo ###    "-DBUILD_DEMO=OFF"    Skip interactive demo build ###
+echo ###    "-DBUILD_DEMO=ON"     Build interactive demo      ###
 echo ###    "-DBUILD_TEST=ON"     Build unit tests            ###
 echo ###    "-DBUILD_DOC=ON"      Build API documentation     ###
 echo ###                                                      ###

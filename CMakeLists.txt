@@ -19,20 +19,17 @@ set(TARGET_NAME ${PROJECT_NAME}-${FULL_VERSION})
 
 option(BUILD_DOC	"Build and install the API documentation" OFF)
 option(BUILD_TEST	"Build the unit tests" OFF)
-option(BUILD_DEMO	"Build interactive demo" ON)
+option(BUILD_DEMO	"Build interactive demo" OFF)
 
 ############################################
 # Macro that sets variable to default value
 # only when the variable isn't defined yet
 ############################################
 
-macro( option_default_to var_name default_val )
+macro( option_default_to var_name default_val var_type doc_string )
 	if( NOT DEFINED ${var_name} )
 		set(${var_name} ${default_val})
 	endif()
-endmacro()
-macro( option_default_to2 var_name default_val var_type doc_string )
-	option_default_to(var_name default_val)
 	set(${var_name} ${${var_name}} CACHE ${var_type} ${doc_string} FORCE)
 endmacro()
 
@@ -53,14 +50,14 @@ add_subdirectory(misc/MediTEC)
 ############################################
 
 # set default library and header destinations (relative to CMAKE_INSTALL_PREFIX)
-option_default_to2(INSTALL_LIBRARY_DIR "lib" String "Installation directory for libraries")
-option_default_to2(INSTALL_HEADERS_DIR "include" String "Installation directory for headers")
+option_default_to(INSTALL_LIBRARY_DIR "lib" String "Installation directory for libraries")
+option_default_to(INSTALL_HEADERS_DIR "include" String "Installation directory for headers")
 
 # set default destination for CMake modules
 if( WIN32 )
-	option_default_to2(INSTALL_CMAKE_DIR "share/cmake-3.0/Modules" String "Installation directory for CMake files")
+	option_default_to(INSTALL_CMAKE_DIR "share/cmake-3.0/Modules" String "Installation directory for CMake files")
 else( WIN32 )
-	option_default_to2(INSTALL_CMAKE_DIR "share/cmake/Modules" String "Installation directory for CMake files")
+	option_default_to(INSTALL_CMAKE_DIR "share/cmake/Modules" String "Installation directory for CMake files")
 endif( WIN32 )
 
 ############################################
@@ -68,14 +65,9 @@ endif( WIN32 )
 # (get rid of Windows-style delimiters)
 ############################################
 
-get_filename_component(	INSTALL_LIBRARY_DIR
-						"${INSTALL_LIBRARY_DIR}" ABSOLUTE)
-
-get_filename_component(	INSTALL_HEADERS_DIR
-						"${INSTALL_HEADERS_DIR}" ABSOLUTE)
-
-get_filename_component(	INSTALL_CMAKE_DIR
-						"${INSTALL_CMAKE_DIR}" ABSOLUTE)
+file(	TO_CMAKE_PATH	${INSTALL_LIBRARY_DIR}	INSTALL_LIBRARY_DIR )
+file(	TO_CMAKE_PATH	${INSTALL_HEADERS_DIR}	INSTALL_HEADERS_DIR )
+file(	TO_CMAKE_PATH	${INSTALL_CMAKE_DIR}	INSTALL_CMAKE_DIR )
 
 ############################################
 
@@ -625,7 +617,7 @@ add_definitions( -D${PROJECT_NAME_UPPER}_LIB -DNOMINMAX -D_NO_FRAMEBUFFER_DEBUG 
 target_link_libraries( ${TARGET_NAME}
 			opengl32
 			glu32
-			glew32
+			${GLEW_LIBRARIES}
 			${QT_LIBRARIES}
 			${TRTK_LIBRARIES}
 		)
@@ -633,9 +625,6 @@ target_link_libraries( ${TARGET_NAME}
 ############################################
 # Define installation routines
 ############################################
-
-install(TARGETS	${TARGET_NAME}
-		RUNTIME DESTINATION	${INSTALL_LIBRARY_DIR})
 
 install(TARGETS	${TARGET_NAME}
 		RUNTIME	DESTINATION	${INSTALL_LIBRARY_DIR}
@@ -659,6 +648,9 @@ endif( WIN32 )
 # install CMake Find<Module> file
 install(	FILES ${CMAKE_CURRENT_BINARY_DIR}/misc/FindCarna.cmake
 			DESTINATION ${INSTALL_CMAKE_DIR})
+
+# install MediTEC-specific files			
+add_meditec_install_routines()
 
 ############################################
 # Build interactive demo
