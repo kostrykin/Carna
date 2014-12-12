@@ -52,19 +52,6 @@ find_package( TRTK 0.13.1 REQUIRED )
 include_directories( ${TRTK_INCLUDE_DIR} )
 
 ############################################
-# Find optional dependencies
-############################################
-
-# GDCM
-find_package( GDCM 2.0.16 )
-if( DEFINED GDCM_FOUND )
-	add_definitions( -D_BUILD_DICOM_SUPPORT )
-	add_subdirectory( test/CarnaInteractiveTest )
-else( DEFINED GDCM_FOUND )
-	set( GDCM_LIBRARY "" )
-endif( DEFINED GDCM_FOUND )
-
-############################################
 # Project
 ############################################
 include_directories(${CMAKE_PROJECT_DIR}include)
@@ -572,7 +559,6 @@ target_link_libraries( ${TARGET_NAME}
 			glew32
 			${QT_LIBRARIES}
 			${TRTK_LIBRARIES}
-			${GDCM_LIBRARY}
 		)
 ############################################
 # Define installation routines
