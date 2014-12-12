@@ -65,9 +65,9 @@ option_default_to2(INSTALL_HEADERS_DIR "include" String "Installation directory 
 
 # set default destination for CMake modules
 if( WIN32 )
-	option_default_to2(INSTALL_CMAKE_DIR "CMake/Modules" String "Installation directory for CMake files")
+	option_default_to2(INSTALL_CMAKE_DIR "share/cmake-3.0/Modules" String "Installation directory for CMake files")
 else( WIN32 )
-	option_default_to2(INSTALL_CMAKE_DIR "lib/cmake/Modules" String "Installation directory for CMake files")
+	option_default_to2(INSTALL_CMAKE_DIR "share/cmake/Modules" String "Installation directory for CMake files")
 endif( WIN32 )
 
 ############################################
