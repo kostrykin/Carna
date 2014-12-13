@@ -197,7 +197,7 @@ You also need to add the headers (usually *only* the headers) from TRTK and Eige
 
 ```CMake
 # Eigen
-find_package( Eigen3 REQUIRED )
+find_package( Eigen3 3.0.5 REQUIRED )
 include_directories( ${EIGEN3_INCLUDE_DIR} )
 
 # TRTK
@@ -219,7 +219,7 @@ You can specify the paths CMake searches for `FindCarna.cmake` by adjustung the
 `CMAKE_MODULE_PATH` variable, e.g.:
 
 ```CMake
-list(APPEND CMAKE_MODULE_PATH "C:/CMake/Modules")
+list( APPEND CMAKE_MODULE_PATH "C:/CMake/Modules" )
 ```
 
 ### 3.2. Manually
