@@ -12,6 +12,9 @@ if( DEFINED ENV{MEDITEC_LIBS} )
 	# normalize paths so we can compare them
 	get_filename_component(MEDITEC_LIBS $ENV{MEDITEC_LIBS} ABSOLUTE)
 	set(MEDITEC_LIBS ${MEDITEC_LIBS} PARENT_SCOPE)
+	
+	# add %MEDITEC_LIBS% to CMAKE_MODULE_PATH
+	list(APPEND CMAKE_MODULE_PATH ${MEDITEC_LIBS}/CMake/Modules)
 
 	# print warning if CMAKE_INSTALL_PREFIX isn't set to %MEDITEC_LIBS%
 	if( NOT CMAKE_INSTALL_PREFIX STREQUAL ${MEDITEC_LIBS} )
