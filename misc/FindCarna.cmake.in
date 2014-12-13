@@ -36,6 +36,5 @@ find_package_handle_standard_args( CARNA
 if( DEFINED CARNA_LIBRARY_RELEASE AND DEFINED CARNA_LIBRARY_DEBUG )
 	set( CARNA_LIBRARIES
 			optimized	${CARNA_LIBRARY_RELEASE}
-			debug		${CARNA_LIBRARY_DEBUG}
-		PARENT_SCOPE )
+			debug		${CARNA_LIBRARY_DEBUG} )
 endif()
