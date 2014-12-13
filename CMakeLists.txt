@@ -632,7 +632,7 @@ install(TARGETS	${TARGET_NAME}
 		LIBRARY	DESTINATION	${INSTALL_LIBRARY_DIR})
 
 # install headers
-install(DIRECTORY ${CMAKE_PROJECT_DIR}include
+install(DIRECTORY ${CMAKE_PROJECT_DIR}include/${PROJECT_NAME}
 		DESTINATION ${INSTALL_HEADERS_DIR})
 
 # also install '.PDB' files on Windows
