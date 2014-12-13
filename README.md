@@ -193,12 +193,19 @@ If you need to put a constraint on the version, use `find_package(Carna 2.5.0 RE
 to pick a package with a version *compatible* to 2.5.0,
 or use `find_package(Carna 2.5.0 EXACT REQUIRED)` to pick a package by the exact version.
 
+You also need to add the headers (usually *only* the headers) from TRTK and Eigen:
+
 ```CMake
-find_package( Carna 2.5.0 REQUIRED )
-include_directories( ${CARNA_INCLUDE_DIR} )
+# Eigen
+find_package( Eigen3 REQUIRED )
+include_directories( ${EIGEN3_INCLUDE_DIR} )
+
+# TRTK
+find_package( TRTK 0.13.1 REQUIRED )
+include_directories( ${TRTK_INCLUDE_DIR} )
 ```
 
-Also add the libraries from the package to the linking stage:
+Finally add Carna to the linking stage:
 
 ```CMake
 target_link_libraries( ${TARGET_NAME} ${SOME_OTHER_LIBRARIES} ${CARNA_LIBRARIES} )
