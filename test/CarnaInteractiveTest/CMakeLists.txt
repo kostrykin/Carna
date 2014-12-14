@@ -49,6 +49,10 @@ include_directories( ${CMAKE_SOURCE_DIR}/include )
 link_directories( ${CMAKE_BINARY_DIR}/bin )
 message( STATUS ${CMAKE_BINARY_DIR}/bin )
 
+# Carna-DICOM
+
+find_package(CarnaDICOM QUIET)
+
 # Project
 
 include_directories(${CMAKE_PROJECT_DIR}src)
@@ -93,7 +97,20 @@ QT4_ADD_RESOURCES( RESOURCES_RCC ${RESOURCES} )
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
-add_executable( ${TARGET_NAME} WIN32
+if( CARNA_DICOM_FOUND )
+	add_definitions(
+			-DNOMINMAX
+			-DBOOST_IOSTREAMS_NO_LIB
+			-D_SCL_SECURE_NO_WARNINGS
+			-DEXPECTED_MAJOR_VERSION=${MAJOR_VERSION}
+			-DEXPECTED_MINOR_VERSION=${MINOR_VERSION}
+			-DEXPECTED_RELEASE_VERSION=${PATCH_VERSION}
+		)
+	remove_definitions( -DCARNA_LIB )
+	
+	include_directories(${CARNA_DICOM_INCLUDE_DIR})
+	
+	add_executable( ${TARGET_NAME} WIN32
 			${SRC}
 			${HEADERS}
 			${QOBJECT_HEADERS}
@@ -102,30 +119,17 @@ add_executable( ${TARGET_NAME} WIN32
 			${RESOURCES_RCC}
 		)
 
-add_definitions(
-			-DNOMINMAX
-			-DBOOST_IOSTREAMS_NO_LIB
-			-D_SCL_SECURE_NO_WARNINGS
-			-DEXPECTED_MAJOR_VERSION=${MAJOR_VERSION}
-			-DEXPECTED_MINOR_VERSION=${MINOR_VERSION}
-			-DEXPECTED_RELEASE_VERSION=${RELEASE_VERSION}
-		)
-		
-remove_definitions( -DCARNA_LIB )
-
-
-
-############################################
-# Add dependencies to the linker
-############################################
-
-target_link_libraries( ${TARGET_NAME}
+	target_link_libraries( ${TARGET_NAME}
 			opengl32
 			glu32
 			${GLEW_LIBLIST}
 			${QT_LIBRARIES}
 			${TRTK_LIBLIST}
 			${BOOST_LIBLIST}
+			${CARNA_DICOM_LIBRARIES}
 			optimized	Carna-${FULL_VERSION}
 			debug		Carna-${FULL_VERSION}${CMAKE_DEBUG_POSTFIX}
 		)
+else( CARNA_DICOM_FOUND )
+	message(WARNING "\nCarnaDICOM not found, skipping ${PROJECT_NAME}\n")
+endif( CARNA_DICOM_FOUND )
