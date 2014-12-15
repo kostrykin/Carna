@@ -1,9 +1,9 @@
 #pragma once
 
 #include <Carna/Carna.h>
-#include <Carna/base/model/SceneFactory.h>
 #include <Carna/base/model/Scene.h>
-#include <Carna/base/qt/DicomController.h>
+#include <Carna/dicom/DicomSceneFactory.h>
+#include <Carna/dicom/DicomController.h>
 #include <QMainWindow>
 #include <QDialog>
 #include <QVBoxLayout>
@@ -24,7 +24,7 @@ class OpeningDialog : public QDialog
 
 private:
 
-    Carna::base::model::SceneFactory sceneFactory;
+    Carna::dicom::DicomSceneFactory sceneFactory;
     std::unique_ptr< Carna::base::model::Scene > scene;
 
 public:
@@ -39,7 +39,7 @@ public:
 
         QMainWindow* const mainWindow = new QMainWindow();
         QVBoxLayout* const master = new QVBoxLayout( this );
-        Carna::base::qt::DicomController* const sceneFactoryUI = new Carna::base::qt::DicomController();
+        Carna::dicom::DicomController* const sceneFactoryUI = new Carna::dicom::DicomController();
 
         QObject::connect
             ( sceneFactoryUI, SIGNAL( seriesLoadingRequested( const Carna::base::model::SeriesLoadingRequest& ) )
@@ -67,7 +67,7 @@ public:
 
 public slots:
 
-    void createFromRequest( const Carna::base::model::SeriesLoadingRequest& request )
+    void createFromRequest( const Carna::dicom::SeriesLoadingRequest& request )
     {
         scene.reset( sceneFactory.createFromRequest( request ) );
         this->accept();
