@@ -72,12 +72,6 @@ namespace Carna
             class RotatableObject3D;
             class Scene;
             class SceneFactory;
-            class Series;
-            class SeriesElement;
-            class SelectSeries;
-            class SeriesLoadingRequest;
-            class SeriesLoadingWorker;
-            class UInt16VolumeComputationWorker;
             class Volume;
             class VolumeData;
         }
@@ -120,7 +114,6 @@ namespace Carna
             class CarnaProgressDialog;
             class ColorPicker;
             class ColorPickerPainter;
-            class DicomController;
             class Display;
             class DisplayVisualizationEnvironment;
             class ExpandableGroupBox;
@@ -129,8 +122,6 @@ namespace Carna
             class MultiSpanSliderTracker;
             class NullIntSpanPainter;
             class Object3DChooser;
-            class QtDicomSeriesFileIterator;
-            class QtDicomSeriesOpeningController;
 			class RotatingColor;
             class RotationEdit;
             class RotationView;
