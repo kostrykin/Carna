@@ -193,6 +193,14 @@ If you need to put a constraint on the version, use `find_package(Carna 2.5.0 RE
 to pick a package with a version *compatible* to 2.5.0,
 or use `find_package(Carna 2.5.0 EXACT REQUIRED)` to pick a package by the exact version.
 
+**If you are a MediTEC colleague:**
+Users at MediTEC must also add the following line of code
+*before* `find_package`:
+
+```CMake
+list(APPEND CMAKE_MODULE_PATH "${MEDITEC_LIBS}/Carna/2.5")
+```
+
 You also need to add the headers (usually *only* the headers) from TRTK and Eigen:
 
 ```CMake
