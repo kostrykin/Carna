@@ -3,9 +3,9 @@
 # Carna version installed in %MEDITEC_LIBS%.
 #-------------------------------------------
 # The following variables are set:
-#	Carna_INCLUDE_DIR   points to headers
-#	Carna_LIBRARIES     points to lib files
-#	Carna_FOUND         indicates success
+#	CARNA_INCLUDE_DIR   points to headers
+#	CARNA_LIBRARIES     points to lib files
+#	CARNA_FOUND         indicates success
 #-------------------------------------------
 # Leonid Kostrykin, 15.12.2014
 ############################################
@@ -40,5 +40,5 @@ endforeach()
 if(NOT LATEST_VERSION STREQUAL "" AND NOT @PATCH_VERSION@ LESS "${LATEST_VERSION}")
 	include("${CMAKE_CURRENT_LIST_DIR}/../@MAJOR_VERSION@.@MINOR_VERSION@.${LATEST_VERSION}/Find@PROJECT_NAME@.cmake")
 else()
-	find_package_handle_standard_args(@PROJECT_NAME@ REQUIRED_VARS @PROJECT_NAME@_INCLUDE_DIR @PROJECT_NAME@_LIBRARIES)
+	find_package_handle_standard_args(@PROJECT_NAME_CAPS@ REQUIRED_VARS @PROJECT_NAME_CAPS@_INCLUDE_DIR @PROJECT_NAME_CAPS@_LIBRARIES)
 endif()

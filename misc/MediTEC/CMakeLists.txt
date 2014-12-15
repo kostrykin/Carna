@@ -12,6 +12,10 @@ if( DEFINED ENV{MEDITEC_LIBS} )
 	# normalize paths so we can compare them
 	get_filename_component(MEDITEC_LIBS $ENV{MEDITEC_LIBS} ABSOLUTE)
 	set(MEDITEC_LIBS ${MEDITEC_LIBS} PARENT_SCOPE)
+	
+	# adjust CMAKE_MODULE_PATH so that proper dependency versions are found
+	set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" PARENT_SCOPE)
+	list(APPEND CMAKE_MODULE_PATH "${MEDITEC_LIBS}/CarnaDICOM/0.1")
 
 	# print warning if CMAKE_INSTALL_PREFIX isn't set to %MEDITEC_LIBS%
 	if( NOT CMAKE_INSTALL_PREFIX STREQUAL ${MEDITEC_LIBS} )
@@ -43,6 +47,9 @@ if( DEFINED ENV{MEDITEC_LIBS} )
 
 endif( DEFINED ENV{MEDITEC_LIBS} )
 
+# export CMAKE_MODULE_PATH to parent scope
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} PARENT_SCOPE)
+
 # installs MediTEC-specific files
 function( add_meditec_install_routines )
 	if( DEFINED ENV{MEDITEC_LIBS} )
@@ -58,10 +65,10 @@ function( add_meditec_install_routines )
 						${CMAKE_CURRENT_BINARY_DIR}/misc/MediTEC/install.bat
 					DESTINATION "${PROJECT_NAME}/${FULL_VERSION}")
 			
-			configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/misc/MediTEC/FindCarna.cmake.in
-							${CMAKE_CURRENT_BINARY_DIR}/misc/MediTEC/FindCarna.cmake @ONLY )
+			configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/misc/MediTEC/Find${PROJECT_NAME}.cmake.in
+							${CMAKE_CURRENT_BINARY_DIR}/misc/MediTEC/Find${PROJECT_NAME}.cmake @ONLY )
 			
-			install(FILES ${CMAKE_CURRENT_BINARY_DIR}/misc/MediTEC/FindCarna.cmake
+			install(FILES ${CMAKE_CURRENT_BINARY_DIR}/misc/MediTEC/Find${PROJECT_NAME}.cmake
 					DESTINATION "${PROJECT_NAME}/${MAJOR_VERSION}.${MINOR_VERSION}")
 			
 			install(	TARGETS	${TARGET_NAME}

@@ -97,7 +97,7 @@ QT4_ADD_RESOURCES( RESOURCES_RCC ${RESOURCES} )
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
-if( CARNA_DICOM_FOUND )
+if( CARNADICOM_FOUND )
 	add_definitions(
 			-DNOMINMAX
 			-DBOOST_IOSTREAMS_NO_LIB
@@ -108,7 +108,7 @@ if( CARNA_DICOM_FOUND )
 		)
 	remove_definitions( -DCARNA_LIB )
 	
-	include_directories(${CARNA_DICOM_INCLUDE_DIR})
+	include_directories(${CARNADICOM_INCLUDE_DIR})
 	
 	add_executable( ${TARGET_NAME} WIN32
 			${SRC}
@@ -126,11 +126,11 @@ if( CARNA_DICOM_FOUND )
 			${QT_LIBRARIES}
 			${TRTK_LIBLIST}
 			${BOOST_LIBLIST}
-			${CARNA_DICOM_LIBRARIES}
+			${CARNADICOM_LIBRARIES}
 			optimized	Carna-${FULL_VERSION}
 			debug		Carna-${FULL_VERSION}${CMAKE_DEBUG_POSTFIX}
 		)
-else( CARNA_DICOM_FOUND )
+else( CARNADICOM_FOUND )
 	message(WARNING
 		"\nCarnaDICOM not found, skipping ${PROJECT_NAME}.\n"
 		  "You don't have to worry about this unless you need "
@@ -138,4 +138,4 @@ else( CARNA_DICOM_FOUND )
 		  "development environment, i.e. when you are going to "
 		  "work on Carna. In this case, build and install the "
 		  "Carna-DICOM module and then re-run Carna CMake script.\n")
-endif( CARNA_DICOM_FOUND )
+endif( CARNADICOM_FOUND )

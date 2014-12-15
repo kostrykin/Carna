@@ -12,6 +12,7 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/bin)
 set(FULL_VERSION ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION})
 set(TARGET_NAME ${PROJECT_NAME}-${FULL_VERSION})
+string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_CAPS)
 
 ############################################
 # Set default options for this build
@@ -77,8 +78,8 @@ configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/misc/Version.h.in
 configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile.in
 				${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile @ONLY)
 
-configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/misc/FindCarna.cmake.in
-				${CMAKE_CURRENT_BINARY_DIR}/misc/FindCarna.cmake @ONLY)
+configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/misc/Find${PROJECT_NAME}.cmake.in
+				${CMAKE_CURRENT_BINARY_DIR}/misc/Find${PROJECT_NAME}.cmake @ONLY)
 
 ############################################
 # Find required dependencies
@@ -607,8 +608,7 @@ add_library( ${TARGET_NAME} SHARED
 
 ############################################
 
-string( TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER )
-add_definitions( -D${PROJECT_NAME_UPPER}_LIB -DNOMINMAX -D_NO_FRAMEBUFFER_DEBUG )
+add_definitions( -D${PROJECT_NAME_CAPS}_LIB -DNOMINMAX -D_NO_FRAMEBUFFER_DEBUG )
 
 ############################################
 # Add dependencies to the linker
@@ -646,7 +646,7 @@ if( WIN32 )
 endif( WIN32 )
 
 # install CMake Find<Module> file
-install(	FILES ${CMAKE_CURRENT_BINARY_DIR}/misc/FindCarna.cmake
+install(	FILES ${CMAKE_CURRENT_BINARY_DIR}/misc/Find${PROJECT_NAME}.cmake
 			DESTINATION ${INSTALL_CMAKE_DIR})
 
 # install MediTEC-specific files			
