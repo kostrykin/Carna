@@ -131,5 +131,11 @@ if( CARNA_DICOM_FOUND )
 			debug		Carna-${FULL_VERSION}${CMAKE_DEBUG_POSTFIX}
 		)
 else( CARNA_DICOM_FOUND )
-	message(WARNING "\nCarnaDICOM not found, skipping ${PROJECT_NAME}\n")
+	message(WARNING
+		"\nCarnaDICOM not found, skipping ${PROJECT_NAME}.\n"
+		  "You don't have to worry about this unless you need "
+		  "an executable demo project within your Carna "
+		  "development environment, i.e. when you are going to "
+		  "work on Carna. In this case, build and install the "
+		  "Carna-DICOM module and then re-run Carna CMake script.\n")
 endif( CARNA_DICOM_FOUND )
