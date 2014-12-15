@@ -19,7 +19,8 @@ Go to: [Library Documentation](https://rwthmeditec.github.io/Carna/)
 	* [The MediTEC-way](#24-the-meditec-way)
 * [Including in your project](#3-including-in-your-project)
 	* [The CMake-way](#31-the-cmake-way)
-	* [Manually](#32-manually)
+	* [The MediTEC-way](#32-the-meditec-way)
+	* [Manually](#33-manually)
 * [See also](#4-see-also)
  
 ---
@@ -193,14 +194,6 @@ If you need to put a constraint on the version, use `find_package(Carna 2.5.0 RE
 to pick a package with a version *compatible* to 2.5.0,
 or use `find_package(Carna 2.5.0 EXACT REQUIRED)` to pick a package by the exact version.
 
-**If you are a MediTEC colleague:**
-Users at MediTEC must also add the following line of code
-*before* `find_package`:
-
-```CMake
-list(APPEND CMAKE_MODULE_PATH "${MEDITEC_LIBS}/Carna/2.5")
-```
-
 You also need to add the headers (usually *only* the headers) from TRTK and Eigen:
 
 ```CMake
@@ -230,7 +223,16 @@ You can specify the paths CMake searches for `FindCarna.cmake` by adjustung the
 list( APPEND CMAKE_MODULE_PATH "C:/CMake/Modules" )
 ```
 
-### 3.2. Manually
+### 3.2 The MediTEC-way
+
+If you are a colleague from MediTEC, you must also add the following line of code
+*before* `find_package`, otherwise CMake will not find Carna:
+
+```CMake
+list(APPEND CMAKE_MODULE_PATH "${MEDITEC_LIBS}/Carna/2.5")
+```
+
+### 3.3. Manually
 
 Find where your header files are located. You might look for `Carna.h` or `Version.h`.
 Both of these files are contained by a directory named `Carna`.
