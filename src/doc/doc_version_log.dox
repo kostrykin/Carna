@@ -75,7 +75,7 @@ namespace Carna
   *
   * The \ref Version.h header file has been added, introducing set of new macros:
   *
-  * - \ref CARNA_MAJOR_VERSION, \ref CARNA_MINOR_VERSION and \ref CARNA_RELEASE_VERSION
+  * - \ref CARNA_MAJOR_VERSION, \ref CARNA_MINOR_VERSION and CARNA_RELEASE_VERSION
   * - \ref CARNA_ASSERT_API_VERSION
   *
   * \subsubsection v_2_1_4 API Version 2.1.4
