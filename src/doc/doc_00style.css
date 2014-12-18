@@ -751,7 +751,7 @@ div.contents li,
 div.contents div.textblock
 {
 	font-size: 13pt;
-	font-family: Sans;
+	font-family: sans-serif;
 }
 
 div.contents p.formulaDsp
@@ -764,7 +764,7 @@ div.contents td.mdescRight,
 div.contents td.mdescRight p
 {
 	font-size: 12pt;
-	font-family: Sans;
+	font-family: sans-serif;
 }
 
 div.contents table.memberdecls td.memItemLeft,
@@ -862,7 +862,7 @@ td.indexkey
 td.indexvalue
 {
 	font-size: 12pt;
-	font-family: Sans;
+	font-family: sans-serif;
 	margin-bottom: 1em;
 	margin-left: 1em;
 	margin-right: 1em;
@@ -873,7 +873,7 @@ td.indexvalue
 
 dl
 {
-	font-family: Sans;
+	font-family: sans-serif;
 	font-size: 13pt;
 }
 
@@ -934,7 +934,7 @@ dl.date dt,
 dl.todo dt,
 dl.since dt
 {
-	font-family: Sans;
+	font-family: sans-serif;
 	display: inline-block;
 	position: absolute;
 	vertical-align: top;
@@ -978,7 +978,7 @@ dl.invariant dd code
 
 .params td
 {
-	font-family: Sans;
+	font-family: sans-serif;
 	font-size: 12pt;
 }
 
