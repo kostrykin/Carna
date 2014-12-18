@@ -3,6 +3,12 @@
   * On this page you will find some \ref OverallDesign "introducting notes on the overall design" of the framework, along with several code snippets that are supposed to run out-of-the-box.
   * Refer to \ref CreatingViews if you are looking for an example on how to implement an own visualization or renderer.
   *
+  * \note
+  * %Carna is a visualization framework, hence it is not responsible of \em loading the data.
+  * Several ways of accomplishing this are described \ref Scene_Instantiation "here".
+  * To achieve maximum simlicity, the examples below all use the additional class \c DicomSceneFactory
+  * from the <a href="https://github.com/RWTHmediTEC/Carna-DICOM"><b>Carna-DICOM</b></a> package.
+  *
   * This page offers these examples in particular:
   *
   * - \ref MinimalExample
@@ -16,9 +22,9 @@
   * \section OverallDesign Overall Design Notes
   *
   * The overall framework design is characterized by the MVC pattern.
-  * The model is to be unterstood as one loaded CT dataset.
-  * Controllers are such components that define the interaction behavior of visalizations.
-  * Beside of exactly one controller, each visualization is made up by a renderer, representing the view in the MVC context.
+  * The \em model is to be unterstood as one loaded CT dataset.
+  * \em Controllers are such components that define the interaction behavior of visalizations.
+  * Beside of exactly one controller, each visualization is made up by a renderer, representing the \em view in the MVC context.
   *
   * It is an important contribution of the MVC pattern, that models, views and controllers are generally interchangable.
   * However, there are some restrictions to keep in mind.
@@ -49,7 +55,7 @@
   * #include <Carna/VolumeRenderings/DRR/XRay.h>
   * #include <Carna/VolumeRenderings/VolumeRenderer.h>
   * #include <Carna/VolumeRenderings/DefaultVolumeVisualization.h>
-  * #include <Carna/base/model/SceneFactory.h>
+  * #include <Carna/dicom/DicomSceneFactory.h>
   * #include <Carna/base/model/Scene.h>
   * #include <Carna/base/view/SceneProvider.h>
   * #include <Carna/base/qt/Display.h>
@@ -60,8 +66,7 @@
   *
   *  // create data model
   *
-  *     Carna::base::model::SceneFactory modelFactory;
-  *
+  *     Carna::dicom::DicomSceneFactory modelFactory;
   *     std::unique_ptr< Carna::base::model::Scene > scene( modelFactory.createFromUserInput() );
   *     if( scene.get() == nullptr )
   *     {
@@ -70,7 +75,8 @@
   *
   *  // create view
   * 
-  *     Carna::VolumeRenderings::VolumeVisualization* const view = new Carna::VolumeRenderings::DefaultVolumeVisualization();
+  *     Carna::VolumeRenderings::VolumeVisualization* const view
+  *			= new Carna::VolumeRenderings::DefaultVolumeVisualization();
   *
   *  // setup renderer
   *
@@ -142,9 +148,9 @@
   * \subsection Exceptions Error Handling
   *
   * Remember that %Carna does use exceptions for error handling, therefore, you should take care of catching them when using %Carna.
-  * The most simplest way of accomplishing this is using \ref Carna::base::Application instead of QApplication:
-  * When doing so, all exceptions - that are not catched anyway - will be reported to the user as alert dialogs:
-  * you can still catch any specific exceptions on your own and process them in any way you like when using \ref Carna::base::Application.
+  * The most simple way of accomplishing this is using \ref Carna::base::Application instead of QApplication:
+  * When doing so, all exceptions - that are not catched in some other way - will be reported to the user as alert dialogs.
+  * You can still catch any specific exceptions on your own and process them in any way you like when using \ref Carna::base::Application.
   * All further examples on this page do use \ref Carna::base::Application.
   *
   * \section FullExamples Full Examples
@@ -158,7 +164,7 @@
   * Take the below code snippet as a basic frame:
   *
   * \code
-  * #include <Carna/base/model/SceneFactory.h>
+  * #include <Carna/dicom/DicomSceneFactory.h>
   * #include <Carna/base/model/Scene.h>
   *
   * template< typename Demo >
@@ -168,8 +174,7 @@
   *
   *  // create data model
   *
-  *     Carna::base::model::SceneFactory sceneFactory;
-  *
+  *     Carna::dicom::DicomSceneFactory sceneFactory;
   *     std::unique_ptr< Carna::base::model::Scene > scene( sceneFactory.createFromUserInput() );
   *
   *  // run demo

@@ -23,8 +23,6 @@
 #include <deque>
 #include <QObject>
 
-class DicomSeries;  // from dicom-interface
-
 namespace Carna
 {
 
@@ -42,6 +40,8 @@ namespace model
 
 /** \brief  Defines the data model.
   *
+  * \section Scene_Model Data Model
+  *
   * The model's main purpose is to provide access to the \em volume \em data: this data
   * consists of a scalar field, which is described by an associated \ref Volume object,
   * and is enriched with some extra informations by the model, that is required for it's
@@ -57,6 +57,8 @@ namespace model
   *
   * It is explicitly not possible to switch the model assigned to a view during the
   * view's lifetime. If this is necessary, the view must be re-instantiated.
+  *
+  * \section Scene_Instantiation Loading Data
   *
   * There are two ways of creating a \c %Scene instance:
   *
@@ -98,7 +100,7 @@ namespace model
   *         ( new UInt16Volume( Vector3ui( 128, 128, 128 ) ) )
   *         , spacingXY, spacingXY, spacingZ );
   *
-  * // using SceneFactory from Carna-DICOM project (1)
+  * // using DicomSceneFactory from Carna-DICOM project (1)
   * // https://github.com/RWTHmediTEC/Carna-DICOM
   *
   * using Carna::dicom::DicomSceneFactory;
