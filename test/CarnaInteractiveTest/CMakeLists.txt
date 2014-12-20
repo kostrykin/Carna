@@ -28,32 +28,40 @@ set( TARGET_NAME	${PROJECT_NAME}-${FULL_VERSION} )
 ############################################
 
 # Qt
-
-set( QT_USE_QTMAIN		TRUE )
-set( QT_USE_QTOPENGL	TRUE )
-find_package( Qt4 REQUIRED )
+find_package( Qt4 4.8.0 COMPONENTS QtCore QtOpenGL REQUIRED )
 include( ${QT_USE_FILE} )
 add_definitions( ${QT_DEFINITIONS} )
 
 # Boost
-
-include( $ENV{MEDITEC_LIBS}/Boost/1.55.0/configure.cmake )
+set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_STATIC_RUNTIME OFF)
+find_package(Boost 1.55.0 COMPONENTS iostreams)
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+endif()
 
 # GLEW
-
-include( $ENV{MEDITEC_LIBS}/GLEW/1.7.0/configure.cmake )
+find_package( GLEW 1.7.0 REQUIRED )
+include_directories( ${GLEW_INCLUDE_DIRS} )
 
 # Carna
-
 include_directories( ${CMAKE_SOURCE_DIR}/include )
 link_directories( ${CMAKE_BINARY_DIR}/bin )
-message( STATUS ${CMAKE_BINARY_DIR}/bin )
+
+# Eigen
+find_package( Eigen3 REQUIRED )
+include_directories( ${EIGEN3_INCLUDE_DIR} )
+
+# TRTK
+find_package( TRTK 0.13.1 REQUIRED )
+include_directories( ${TRTK_INCLUDE_DIR} )
 
 # Carna-DICOM
-
 find_package(CarnaDICOM QUIET)
 
+############################################
 # Project
+############################################
 
 include_directories(${CMAKE_PROJECT_DIR}src)
 include_directories(${CMAKE_PROJECT_DIR}../Tools)
@@ -97,7 +105,8 @@ QT4_ADD_RESOURCES( RESOURCES_RCC ${RESOURCES} )
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
-if( CARNADICOM_FOUND )
+if(CARNADICOM_FOUND AND Boost_FOUND)
+
 	add_definitions(
 			-DNOMINMAX
 			-DBOOST_IOSTREAMS_NO_LIB
@@ -130,7 +139,9 @@ if( CARNADICOM_FOUND )
 			optimized	Carna-${FULL_VERSION}
 			debug		Carna-${FULL_VERSION}${CMAKE_DEBUG_POSTFIX}
 		)
-else( CARNADICOM_FOUND )
+
+elseif(NOT CARNADICOM_FOUND)
+
 	message(WARNING
 		"\nCarnaDICOM not found, skipping ${PROJECT_NAME}.\n"
 		  "You don't have to worry about this unless you need "
@@ -138,4 +149,15 @@ else( CARNADICOM_FOUND )
 		  "development environment, i.e. when you are going to "
 		  "work on Carna. In this case, build and install the "
 		  "Carna-DICOM module and then re-run Carna CMake script.\n")
-endif( CARNADICOM_FOUND )
+
+elseif(NOT Boost_FOUND)
+
+	message(WARNING
+		"\nBoost not found, skipping ${PROJECT_NAME}.\n"
+		  "You don't have to worry about this unless you need "
+		  "an executable demo project within your Carna "
+		  "development environment, i.e. when you are going to "
+		  "work on Carna. In this case, build and install the "
+		  "Carna-DICOM module and then re-run Carna CMake script.\n")
+
+endif()

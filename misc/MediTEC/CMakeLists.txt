@@ -14,8 +14,10 @@ if( DEFINED ENV{MEDITEC_LIBS} )
 	set(MEDITEC_LIBS ${MEDITEC_LIBS} PARENT_SCOPE)
 	
 	# adjust CMAKE_MODULE_PATH so that proper dependency versions are found
-	set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" PARENT_SCOPE)
 	list(APPEND CMAKE_MODULE_PATH "${MEDITEC_LIBS}/CarnaDICOM/0.1")
+
+	# export CMAKE_MODULE_PATH to parent scope
+	set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} PARENT_SCOPE)
 
 	# print warning if CMAKE_INSTALL_PREFIX isn't set to %MEDITEC_LIBS%
 	if( NOT CMAKE_INSTALL_PREFIX STREQUAL ${MEDITEC_LIBS} )
@@ -44,11 +46,16 @@ if( DEFINED ENV{MEDITEC_LIBS} )
 				PATHS ENV MEDITEC_LIBS
 				PATH_SUFFIXES "Eigen/3.0.5/include"
 				DOC "Eigen3 headers")
+	
+	# set hints so that Boost will be found
+	set(Boost_NO_BOOST_CMAKE ON)
+	set(Boost_USE_STATIC_LIBS ON PARENT_SCOPE)
+	list(APPEND CMAKE_INCLUDE_PATH "${MEDITEC_LIBS}/Boost/1.55.0/include")
+	list(APPEND CMAKE_LIBRARY_PATH "${MEDITEC_LIBS}/Boost/1.55.0/bin")
+	set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} PARENT_SCOPE)
+	set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} PARENT_SCOPE)
 
 endif( DEFINED ENV{MEDITEC_LIBS} )
-
-# export CMAKE_MODULE_PATH to parent scope
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} PARENT_SCOPE)
 
 # installs MediTEC-specific files
 function( add_meditec_install_routines )

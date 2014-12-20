@@ -99,38 +99,50 @@ SOURCE_GROUP( "Miscellaneous\\Tools"
 ############################################
 
 # Qt
-
-set( QT_USE_QTTEST		TRUE )
-set( QT_USE_QTOPENGL	TRUE )
-find_package( Qt4 REQUIRED )
+find_package( Qt4 4.8.0 COMPONENTS QtTest QtOpenGL REQUIRED )
 include( ${QT_USE_FILE} )
 add_definitions( ${QT_DEFINITIONS} )
 
 # Boost
-
-include( $ENV{MEDITEC_LIBS}/Boost/1.55.0/configure.cmake )
+set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_STATIC_RUNTIME OFF)
+find_package(Boost 1.55.0 COMPONENTS iostreams)
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+endif()
 
 # GLEW
-
-include( $ENV{MEDITEC_LIBS}/GLEW/1.7.0/configure.cmake )
+find_package( GLEW 1.7.0 REQUIRED )
+include_directories( ${GLEW_INCLUDE_DIRS} )
 
 # Carna
-
 include_directories( ${CMAKE_SOURCE_DIR}/include )
 link_directories( ${CMAKE_BINARY_DIR}/bin )
 
+# Eigen
+find_package( Eigen3 REQUIRED )
+include_directories( ${EIGEN3_INCLUDE_DIR} )
+
+# TRTK
+find_package( TRTK 0.13.1 REQUIRED )
+include_directories( ${TRTK_INCLUDE_DIR} )
+
+############################################
 # Project
+############################################
 
-remove_definitions( -DCARNA_LIB )
-add_definitions( -DBOOST_IOSTREAMS_NO_LIB )
+if(Boost_FOUND)
 
-include_directories( ${CMAKE_PROJECT_DIR}Tools )
+	remove_definitions( -DCARNA_LIB )
+	add_definitions( -DBOOST_IOSTREAMS_NO_LIB )
 
-set_source_files_properties( ${TESTS_QOBJECT_HEADERS_MOC} ${TESTS_SOURCES} ${TESTS_MISC_FILES} ${TESTS_RESOURCES_RCC}
-	PROPERTIES
-	HEADER_FILE_ONLY TRUE )
+	include_directories( ${CMAKE_PROJECT_DIR}Tools )
 
-add_executable( ${TARGET_NAME}-testsuite
+	set_source_files_properties( ${TESTS_QOBJECT_HEADERS_MOC} ${TESTS_SOURCES} ${TESTS_MISC_FILES} ${TESTS_RESOURCES_RCC}
+		PROPERTIES
+		HEADER_FILE_ONLY TRUE )
+
+	add_executable( ${TARGET_NAME}-testsuite
 			Tools/TestSuite.h
 			${TEST_SUITE_SRC_FILE}
 			${TESTS_HEADERS}
@@ -140,40 +152,46 @@ add_executable( ${TARGET_NAME}-testsuite
 			${TESTS_MISC_FILES}
 			${TESTS_RESOURCES_RCC}
 		)
-		
-target_link_libraries( ${TARGET_NAME}-testsuite
+			
+	target_link_libraries( ${TARGET_NAME}-testsuite
 			opengl32
 			glu32
-			${GLEW_LIBLIST}
+			${GLEW_LIBRARIES}
 			${QT_LIBRARIES}
-			${TRTK_LIBLIST}
-			${BOOST_LIBLIST}
+			${TRTK_LIBRARIES}
+			${Boost_LIBRARIES}
 			optimized	${TARGET_NAME}
 			debug		${TARGET_NAME}${CMAKE_DEBUG_POSTFIX}
 		)
 
-############################################
-# Run the tests
-############################################
+	############################################
+	# Run the tests
+	############################################
 
-# CMake 2.8.12 and lower allowed reading the LOCATION target property (and 
-# configuration-specific variants) to determine the eventual location of build 
-# targets. This relies on the assumption that all necessary information is 
-# available at configure-time to determine the final location and filename of the 
-# target. However, this property is not fully determined until later at 
-# generate-time. [...] The OLD behavior for this policy is to allow reading the 
-# LOCATION properties from build-targets. The NEW behavior for this policy is to 
-# not to allow reading the LOCATION properties from build-targets.
-#
-# --> http://www.cmake.org/cmake/help/v3.0/policy/CMP0026.html
-if( POLICY CMP0026 )
-	cmake_policy(SET CMP0026 OLD)
-endif()
+	# CMake 2.8.12 and lower allowed reading the LOCATION target property (and 
+	# configuration-specific variants) to determine the eventual location of build 
+	# targets. This relies on the assumption that all necessary information is 
+	# available at configure-time to determine the final location and filename of the 
+	# target. However, this property is not fully determined until later at 
+	# generate-time. [...] The OLD behavior for this policy is to allow reading the 
+	# LOCATION properties from build-targets. The NEW behavior for this policy is to 
+	# not to allow reading the LOCATION properties from build-targets.
+	#
+	# --> http://www.cmake.org/cmake/help/v3.0/policy/CMP0026.html
+	if( POLICY CMP0026 )
+		cmake_policy(SET CMP0026 OLD)
+	endif()
 
-get_property( TEST_SUITE_EXECUTABLE TARGET ${TARGET_NAME}-testsuite PROPERTY LOCATION )
-add_custom_target( RUN_TESTSUITE
+	get_property( TEST_SUITE_EXECUTABLE TARGET ${TARGET_NAME}-testsuite PROPERTY LOCATION )
+	add_custom_target( RUN_TESTSUITE
 			ALL
 			${TEST_SUITE_EXECUTABLE}
 			DEPENDS ${TARGET_NAME} ${TARGET_NAME}-testsuite
 			COMMENT "Running test suite..."
 		)
+	
+else(Boost_FOUND)
+
+	message(WARNING "\nBoost not found, skipping testsuite.\n")
+
+endif(Boost_FOUND)
