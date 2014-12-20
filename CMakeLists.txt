@@ -3,7 +3,7 @@ project(Carna)
 
 set(MAJOR_VERSION	2)
 set(MINOR_VERSION	5)
-set(PATCH_VERSION	0)
+set(PATCH_VERSION	1)
 
 ############################################
 
