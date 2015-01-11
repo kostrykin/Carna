@@ -42,8 +42,8 @@ public:
         Carna::dicom::DicomController* const sceneFactoryUI = new Carna::dicom::DicomController();
 
         QObject::connect
-            ( sceneFactoryUI, SIGNAL( seriesLoadingRequested( const Carna::base::model::SeriesLoadingRequest& ) )
-            , this, SLOT( createFromRequest( const Carna::base::model::SeriesLoadingRequest& ) ) );
+            ( sceneFactoryUI, SIGNAL( seriesLoadingRequested( const Carna::dicom::SeriesLoadingRequest& ) )
+            , this, SLOT( createFromRequest( const Carna::dicom::SeriesLoadingRequest& ) ) );
 
         mainWindow->setCentralWidget( sceneFactoryUI );
         mainWindow->setParent( this );
