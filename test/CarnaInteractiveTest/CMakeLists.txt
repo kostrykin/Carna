@@ -133,12 +133,20 @@ if(CARNADICOM_FOUND AND Boost_FOUND)
 			glu32
 			${GLEW_LIBLIST}
 			${QT_LIBRARIES}
-			${TRTK_LIBLIST}
-			${BOOST_LIBLIST}
+			${TRTK_LIBRARIES}
+			${Boost_LIBRARIES}
 			${CARNADICOM_LIBRARIES}
 			optimized	Carna-${FULL_VERSION}
 			debug		Carna-${FULL_VERSION}${CMAKE_DEBUG_POSTFIX}
 		)
+	
+	if(MSVC)
+		set_target_properties(
+				${TARGET_NAME} PROPERTIES
+				WIN32_EXECUTABLE YES
+				LINK_FLAGS "/ENTRY:mainCRTStartup"
+			)
+	endif(MSVC)
 
 elseif(NOT CARNADICOM_FOUND)
 
