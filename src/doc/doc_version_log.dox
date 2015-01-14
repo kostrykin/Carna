@@ -262,6 +262,10 @@ namespace Carna
   * - Dropped the \c model argument of the \ref MPR::AxialPlaneController::AxialPlaneController "AxialPlaneController constructor".
   * - The \c FlowLayout.h is a public header file now.
   * - The macro \c CARNA_RELEASE_VERSION has been renamed to \c CARNA_PATCH_VERSION.
+  *
+  * \subsubsection v_2_5_1 API Version 2.5.1
+  *
+  * Only CMake files have been improved and tests have undergone some maintenance.
   */
   
 }  // namespace Carna
