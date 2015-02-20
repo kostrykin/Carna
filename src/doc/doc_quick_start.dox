@@ -82,7 +82,7 @@
   *
   *     view->doAfterInitialization( [&]()
   *         {
-  *             view->renderer().installMode( new Carna::VolumeRenderings::DRR::XRay( *model ) );
+  *             view->renderer().installMode( new Carna::VolumeRenderings::DRR::XRay( *scene ) );
   *
   *          // set initial mode
   *

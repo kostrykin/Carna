@@ -47,10 +47,10 @@ namespace view
   * {
   *     Polyline* const line = new Polyline( model, Polyline::lineLoop );
   *
-  *     ( *line ) << Position::fromVolumeSpace( model, 0, 0, 0 )
-  *               << Position::fromVolumeSpace( model, 1, 0, 0 )
-  *               << Position::fromVolumeSpace( model, 1, 1, 0 )
-  *               << Position::fromVolumeSpace( model, 0, 1, 0 );
+  *     ( *line ) << Position::fromVolumeUnits( model, 0, 0, 0 )
+  *               << Position::fromVolumeUnits( model, 1, 0, 0 )
+  *               << Position::fromVolumeUnits( model, 1, 1, 0 )
+  *               << Position::fromVolumeUnits( model, 0, 1, 0 );
   *
   *     return line;
   * }
@@ -67,15 +67,15 @@ namespace view
   *     Polyline* const line = new Polyline( model, Polyline::lineLoop );
   *
   *     Polyline3DVertex& sharedVertex = *new Carna::Polyline3DVertex( model,
-  *             Position::fromVolumeSpace( context.model, 0.5f, 0.5f, 0.5f ) );
+  *             Position::fromVolumeUnits( context.model, 0.5f, 0.5f, 0.5f ) );
   *
-  *     ( *line ) << Position::fromVolumeSpace( model, 0.5f, 0.5f, 0 );
+  *     ( *line ) << Position::fromVolumeUnits( model, 0.5f, 0.5f, 0 );
   *     line->appendVertex( sharedVertex );
-  *     ( *line ) << Position::fromVolumeSpace( model, 0.5f, 0.5f, 1 );
+  *     ( *line ) << Position::fromVolumeUnits( model, 0.5f, 0.5f, 1 );
   *
-  *     ( *line ) << Position::fromVolumeSpace( model, 0, 0.5f, 0.5f );
+  *     ( *line ) << Position::fromVolumeUnits( model, 0, 0.5f, 0.5f );
   *     line->appendVertex( sharedVertex );
-  *     ( *line ) << Position::fromVolumeSpace( model, 1, 0.5f, 0.5f );
+  *     ( *line ) << Position::fromVolumeUnits( model, 1, 0.5f, 0.5f );
   *
   *     return line;
   * }
