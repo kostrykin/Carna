@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 - 2014 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2015 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
@@ -9,11 +9,11 @@
  *
  */
 
-#ifndef FRAMEBUFFEROBJECT_H_6014714286
-#define FRAMEBUFFEROBJECT_H_6014714286
+#ifndef FRAMEBUFFER_H_6014714286
+#define FRAMEBUFFER_H_6014714286
 
-/** \file   FramebufferObject.h
-  * \brief  Defines \ref Carna::base::view::FramebufferObject
+/** \file   Framebuffer.h
+  * \brief  Defines \ref Carna::base::view::Framebuffer
   */
 
 #include <Carna/Carna.h>
@@ -35,17 +35,17 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// FramebufferObject
+// Framebuffer
 // ----------------------------------------------------------------------------------
 
 /** \brief  Encapsulates framebuffer objects.
   *
   * \see    RenderTexture
-  * \see    FramebufferObjectBinding
+  * \see    FramebufferBinding
   * \author Leonid Kostrykin
   * \date   9.3.2011
   */
-class CARNA_EXPORT FramebufferObject
+class CARNA_EXPORT Framebuffer
 {
 
     NON_COPYABLE
@@ -54,15 +54,15 @@ public:
 
     /** \brief  Acquires framebuffer object and a bound depth buffer.
       */
-    FramebufferObject( unsigned int w, unsigned int h );
+    Framebuffer( unsigned int w, unsigned int h );
 
     /** \brief  Acquires framebuffer object, depth buffer and color buffer.
       */
-    explicit FramebufferObject( RenderTexture& );
+    explicit Framebuffer( RenderTexture& );
 
     /** \brief  Releases associated framebuffer object and depth buffer.
       */
-    ~FramebufferObject();
+    ~Framebuffer();
 
 
     /** \brief  Identifies the associated framebuffer object.
@@ -103,7 +103,7 @@ public:
       * If you want to render to the framebuffer object, refer to Binding.
       *
       * \see    Binding is what you would use in most cases.
-      * \see    FramebufferObject
+      * \see    Framebuffer
       * \author Leonid Kostrykin
       * \date   24.4.2011
       */
@@ -116,7 +116,7 @@ public:
 
         /** \brief  Binds given framebuffer object.
           */
-        MinimalBinding( FramebufferObject& );
+        MinimalBinding( Framebuffer& );
 
         /** \brief  Releases the binding.
           *
@@ -153,7 +153,7 @@ public:
 
         /** \brief  References the bound framebuffer object.
           */
-        FramebufferObject& fbo;
+        Framebuffer& fbo;
 
 
         /** \brief  Re-performs the binding.
@@ -168,7 +168,7 @@ public:
       * Allows rendering to the bound framebuffer object in opposite to the
       * MinimalBinding.
       *
-      * \see    FramebufferObject
+      * \see    Framebuffer
       * \author Leonid Kostrykin
       * \date   24.4.2011
       */
@@ -182,7 +182,7 @@ public:
           * \throws std::runtime_error      if FBO is incomplete or current configuration
           *                                 is unsupported.
           */
-        Binding( FramebufferObject& );
+        Binding( Framebuffer& );
 
 
     protected:
@@ -218,7 +218,7 @@ private:
       */
     std::set< unsigned int > boundColorBuffers;
 
-}; // FramebufferObject
+}; // Framebuffer
 
 
 
@@ -228,4 +228,4 @@ private:
 
 }  // namespace Carna
 
-#endif // FRAMEBUFFEROBJECT_H_6014714286
+#endif // FRAMEBUFFER_H_6014714286
