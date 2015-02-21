@@ -78,10 +78,10 @@ void RenderQueue::build( Node& root )
 	nextGeometryIndex = 0;
 	
 	// collect all geometries
-	root.visitChildren( [&geometries]( const Spatial& spatial )
+	root.visitChildren( [&geometries, geometryType]( const Spatial& spatial )
 		{
 			const Geometry* const geom = dynamic_cast< const Geometry* >( &spatial );
-			if( geom != nullptr )
+			if( geom != nullptr && geom->geometryType == geometryType )
 			{
 				geometries.push_back( geom );
 			}

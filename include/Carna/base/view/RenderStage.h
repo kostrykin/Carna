@@ -49,7 +49,7 @@ public:
 	  * If this scene processor requires a \ref RenderQueue "render queue",
 	  * than this is the right place to \ref RenderQueue::build "build" it.
 	  */
-	virtual void prepareFrame() = 0;
+	virtual void prepareFrame( Node& root ) = 0;
 	
 	/** \brief
 	  * Orders this scene processor to reshape it's buffers according to the specified dimensions.
@@ -65,7 +65,7 @@ public:
 	  */
 	virtual bool isInitialized() const = 0;
 	
-	virtual void render( RenderManager& ) const = 0;
+	virtual void render( RenderTask& ) const = 0;
 
 }; // RenderStage
 

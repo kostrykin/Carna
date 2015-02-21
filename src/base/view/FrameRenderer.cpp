@@ -100,14 +100,14 @@ void FrameRenderer::render( const Camera& cam, Node& root ) const
 		}
 		
 		// update world transforms
-		rs.prepareFrame();
+		rs.prepareFrame( root );
 	}
 	
 	// mark that all buffer sizes have been established
 	reshaped = false;
 	
 	// render frame
-	RenderTask task( *this, cam, root );
+	RenderTask task( *this, cam );
 	task.render();
 }
 

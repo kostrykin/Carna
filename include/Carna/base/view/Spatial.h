@@ -12,6 +12,7 @@
 #ifndef SPATIAL_H_6014714286
 #define SPATIAL_H_6014714286
 
+#include <Carna/base/Matrix4f.h>
 #include <Carna/base/noncopyable.h>
 #include <functional>
 
@@ -38,16 +39,22 @@ class CARNA_LIB Spatial
 {
 
 	NON_COPYABLE
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
 	Node* parent;
+	Matrix4f myWorldTransform;
 
 public:
+
+	Spatial();
 
 	virtual ~Spatial();
 	
 	typedef std::function< void( Spatial& ) > MutableVisitor;
 	
 	typedef std::function< void( const Spatial& ) > ImmutableVisitor;
+	
+	bool hasParent() const;
 
 	Spatial* detachFromParent();
 	
@@ -55,7 +62,11 @@ public:
 	
 	const Node& parent() const;
 	
+	Matrix4f localTransform;
+	
 	virtual void updateWorldTransform();
+	
+	const Matrix4f& worldTransform() const;
 
 }; // Spatial
 

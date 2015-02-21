@@ -14,10 +14,10 @@
 
 #include <QtCore/qglobal.h>
 
-#ifdef CARNA_LIB
-#   define CARNA_EXPORT Q_DECL_EXPORT
+#ifdef CARNA_EXPORT
+#   define CARNA_LIB Q_DECL_EXPORT
 #else
-#   define CARNA_EXPORT Q_DECL_IMPORT
+#   define CARNA_LIB Q_DECL_IMPORT
 #endif
 
 

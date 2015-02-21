@@ -11,13 +11,11 @@
 
 #include <Carna/base/view/glew.h>
 #include <Carna/base/view/glError.h>
-#include <Carna/base/view/FramebufferObject.h>
+#include <Carna/base/view/Framebuffer.h>
 #include <Carna/base/view/RenderTexture.h>
 #include <Carna/base/CarnaException.h>
 #include <stdexcept>
 #include <sstream>
-#include <QDebug>
-#include <QColor>
 
 namespace Carna
 {
@@ -31,10 +29,10 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// createGlFramebufferObject
+// createGlFramebuffer
 // ----------------------------------------------------------------------------------
 
-static inline unsigned int createGlFramebufferObject()
+static inline unsigned int createGlFramebuffer()
 {
     unsigned int n;
     glGenFramebuffersEXT( 1, &n );
@@ -57,10 +55,10 @@ static inline unsigned int createGlDepthbufferObject()
 
 
 // ----------------------------------------------------------------------------------
-// FramebufferObject :: BindingStack
+// Framebuffer :: BindingStack
 // ----------------------------------------------------------------------------------
 
-class FramebufferObject::BindingStack
+class Framebuffer::BindingStack
 {
 
     NON_COPYABLE
@@ -85,13 +83,13 @@ public:
 
     static bool empty();
 
-}; // FramebufferObject :: BindingStack
+}; // Framebuffer :: BindingStack
 
 
-FramebufferObject::BindingStack::InstanceByContext FramebufferObject::BindingStack::instances;
+Framebuffer::BindingStack::InstanceByContext Framebuffer::BindingStack::instances;
 
 
-FramebufferObject::BindingStack::InstanceByContext::iterator FramebufferObject::BindingStack::current()
+Framebuffer::BindingStack::InstanceByContext::iterator Framebuffer::BindingStack::current()
 {
     const QGLContext* const currentContext = QGLContext::currentContext();
 
@@ -107,7 +105,7 @@ FramebufferObject::BindingStack::InstanceByContext::iterator FramebufferObject::
         instances[ currentContext ] = new BindingStack();
 
 #ifndef _NO_FRAMEBUFFER_DEBUG
-        qDebug() << "FramebufferObject now manages" << instances.size() << "contexts (+1)";
+        qDebug() << "Framebuffer now manages" << instances.size() << "contexts (+1)";
 #endif
 
         return instances.find( currentContext );
@@ -115,7 +113,7 @@ FramebufferObject::BindingStack::InstanceByContext::iterator FramebufferObject::
 }
 
 
-FramebufferObject::MinimalBinding& FramebufferObject::BindingStack::top()
+Framebuffer::MinimalBinding& Framebuffer::BindingStack::top()
 {
     const auto& bindings = current()->second->bindings;
 
@@ -125,7 +123,7 @@ FramebufferObject::MinimalBinding& FramebufferObject::BindingStack::top()
 }
 
 
-void FramebufferObject::BindingStack::pop()
+void Framebuffer::BindingStack::pop()
 {
     const auto it = current();
     auto& bindings = it->second->bindings;
@@ -140,13 +138,13 @@ void FramebufferObject::BindingStack::pop()
         instances.erase( it );
 
 #ifndef _NO_FRAMEBUFFER_DEBUG
-        qDebug() << "FramebufferObject now manages" << instances.size() << "contexts (-1)";
+        qDebug() << "Framebuffer now manages" << instances.size() << "contexts (-1)";
 #endif
     }
 }
 
 
-void FramebufferObject::BindingStack::push( MinimalBinding* binding )
+void Framebuffer::BindingStack::push( MinimalBinding* binding )
 {
     const auto it = current();
     auto& bindings = it->second->bindings;
@@ -155,7 +153,7 @@ void FramebufferObject::BindingStack::push( MinimalBinding* binding )
 }
 
 
-bool FramebufferObject::BindingStack::empty()
+bool Framebuffer::BindingStack::empty()
 {
     const auto& bindings = current()->second->bindings;
 
@@ -165,11 +163,11 @@ bool FramebufferObject::BindingStack::empty()
 
 
 // ----------------------------------------------------------------------------------
-// FramebufferObject
+// Framebuffer
 // ----------------------------------------------------------------------------------
 
-FramebufferObject::FramebufferObject( unsigned int w, unsigned int h )
-    : id( createGlFramebufferObject() )
+Framebuffer::Framebuffer( unsigned int w, unsigned int h )
+    : id( createGlFramebuffer() )
     , depthBuffer( createGlDepthbufferObject() )
 {
 
@@ -192,8 +190,8 @@ FramebufferObject::FramebufferObject( unsigned int w, unsigned int h )
 }
 
 
-FramebufferObject::FramebufferObject( RenderTexture& color_buffer )
-    : id( createGlFramebufferObject() )
+Framebuffer::Framebuffer( RenderTexture& color_buffer )
+    : id( createGlFramebuffer() )
     , depthBuffer( createGlDepthbufferObject() )
 {
 
@@ -220,7 +218,7 @@ FramebufferObject::FramebufferObject( RenderTexture& color_buffer )
 }
 
 
-FramebufferObject::~FramebufferObject()
+Framebuffer::~Framebuffer()
 {
 
  // release fbo
@@ -234,7 +232,7 @@ FramebufferObject::~FramebufferObject()
 }
 
 
-void FramebufferObject::resize( unsigned int w, unsigned int h )
+void Framebuffer::resize( unsigned int w, unsigned int h )
 {
     CARNA_ASSERT_EX( w > 0, "framebuffer width must be greater zero" );
     CARNA_ASSERT_EX( h > 0, "framebuffer height must be greater zero" );
@@ -259,7 +257,7 @@ void FramebufferObject::resize( unsigned int w, unsigned int h )
 }
 
 
-void FramebufferObject::clear( bool color, bool depth )
+void Framebuffer::clear( bool color, bool depth )
 {
     Binding binding( *this );
 
@@ -278,13 +276,13 @@ void FramebufferObject::clear( bool color, bool depth )
 
 
 // ----------------------------------------------------------------------------------
-// FramebufferObject::MinimalBinding
+// Framebuffer::MinimalBinding
 // ----------------------------------------------------------------------------------
 
-FramebufferObject::MinimalBinding::MinimalBinding( FramebufferObject& fbo )
+Framebuffer::MinimalBinding::MinimalBinding( Framebuffer& fbo )
     : fbo( fbo )
 {
-    FramebufferObject* const currentFBO = BindingStack::empty() ? 0 : &( BindingStack::top().fbo );
+    Framebuffer* const currentFBO = BindingStack::empty() ? 0 : &( BindingStack::top().fbo );
     BindingStack::push( this );
     if( currentFBO != &fbo )
     {
@@ -293,9 +291,9 @@ FramebufferObject::MinimalBinding::MinimalBinding( FramebufferObject& fbo )
 }
 
 
-FramebufferObject::MinimalBinding::~MinimalBinding()
+Framebuffer::MinimalBinding::~MinimalBinding()
 {
-    FramebufferObject* const currentFBO = &( BindingStack::top().fbo );
+    Framebuffer* const currentFBO = &( BindingStack::top().fbo );
     BindingStack::pop();
 
     if( BindingStack::empty() )
@@ -318,7 +316,7 @@ FramebufferObject::MinimalBinding::~MinimalBinding()
 }
 
 
-void FramebufferObject::MinimalBinding::bindFBO()
+void Framebuffer::MinimalBinding::bindFBO()
 {
     glBindFramebufferEXT( GL_FRAMEBUFFER_EXT, fbo.id );
 
@@ -326,7 +324,7 @@ void FramebufferObject::MinimalBinding::bindFBO()
 }
 
 
-void FramebufferObject::MinimalBinding::bindSystemFB()
+void Framebuffer::MinimalBinding::bindSystemFB()
 {
     glBindFramebufferEXT( GL_FRAMEBUFFER_EXT, 0 );
 
@@ -341,9 +339,9 @@ void FramebufferObject::MinimalBinding::bindSystemFB()
 }
 
 
-void FramebufferObject::MinimalBinding::setColorComponent( RenderTexture& texture, unsigned int position )
+void Framebuffer::MinimalBinding::setColorComponent( RenderTexture& texture, unsigned int position )
 {
-    FramebufferObject& fbo = BindingStack::top().fbo;
+    Framebuffer& fbo = BindingStack::top().fbo;
 
     CARNA_ASSERT_EX
         ( texture.width() == fbo.width() && texture.height() == fbo.height()
@@ -363,7 +361,7 @@ void FramebufferObject::MinimalBinding::setColorComponent( RenderTexture& textur
 }
 
 
-QColor FramebufferObject::MinimalBinding::readPixel( unsigned int x, unsigned int y, unsigned int color_attachment ) const
+QColor Framebuffer::MinimalBinding::readPixel( unsigned int x, unsigned int y, unsigned int color_attachment ) const
 {
     // TODO: store position -> render texture mapping, read whether it's a floating point
     /*
@@ -386,7 +384,7 @@ QColor FramebufferObject::MinimalBinding::readPixel( unsigned int x, unsigned in
 }
 
 
-void FramebufferObject::MinimalBinding::refresh()
+void Framebuffer::MinimalBinding::refresh()
 {
     bindFBO();
 }
@@ -394,17 +392,17 @@ void FramebufferObject::MinimalBinding::refresh()
 
 
 // ----------------------------------------------------------------------------------
-// FramebufferObject::Binding
+// Framebuffer::Binding
 // ----------------------------------------------------------------------------------
 
-FramebufferObject::Binding::Binding( FramebufferObject& fbo )
+Framebuffer::Binding::Binding( Framebuffer& fbo )
     : MinimalBinding( fbo )
 {
     Binding::refresh();
 }
 
 
-void FramebufferObject::Binding::refresh()
+void Framebuffer::Binding::refresh()
 {
     MinimalBinding::refresh();
 

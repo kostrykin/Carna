@@ -98,10 +98,6 @@ include_directories( ${GLEW_INCLUDE_DIRS} )
 find_package( Eigen3 REQUIRED )
 include_directories( ${EIGEN3_INCLUDE_DIR} )
 
-# TRTK
-find_package( TRTK 0.13.1 REQUIRED )
-include_directories( ${TRTK_INCLUDE_DIR} )
-
 ############################################
 # Project
 ############################################
@@ -109,308 +105,65 @@ include_directories( ${TRTK_INCLUDE_DIR} )
 include_directories(${CMAKE_PROJECT_DIR}include)
 include_directories(${CMAKE_PROJECT_DIR}include/Carna/base/qt)	# required by FlowLayout.h
 set( PUBLIC_QOBJECT_HEADERS
-		include/${PROJECT_NAME}/base/controller/DefaultCameraController.h
-		include/${PROJECT_NAME}/base/controller/DefaultInteractionStrategy.h
-		include/${PROJECT_NAME}/base/model/Scene.h
-		include/${PROJECT_NAME}/base/model/SceneFactory.h
-		include/${PROJECT_NAME}/base/model/Object3D.h
-		include/${PROJECT_NAME}/base/model/UInt16VolumeBaseWorker.h
-		include/${PROJECT_NAME}/base/qt/CarnaProgressDialog.h
-		include/${PROJECT_NAME}/base/qt/ColorPicker.h
-		include/${PROJECT_NAME}/base/qt/Display.h
-		include/${PROJECT_NAME}/base/qt/ExpandableGroupBox.h
-		include/${PROJECT_NAME}/base/qt/MultiSpanSlider.h
-		include/${PROJECT_NAME}/base/qt/Object3DChooser.h
-		include/${PROJECT_NAME}/base/qt/RotationEdit.h
-		include/${PROJECT_NAME}/base/qt/RotationView.h
-		include/${PROJECT_NAME}/base/qt/WideColorPicker.h
-		include/${PROJECT_NAME}/base/view/Camera.h
-		include/${PROJECT_NAME}/base/view/NullCamera.h
-		include/${PROJECT_NAME}/base/view/Point3D.h
-		include/${PROJECT_NAME}/base/view/Polyline.h
-		include/${PROJECT_NAME}/base/view/Renderer.h
-		include/${PROJECT_NAME}/base/view/SceneProvider.h
-		include/${PROJECT_NAME}/base/OffscreenDisplay.h
-		include/${PROJECT_NAME}/base/Parallelization.h
-		include/${PROJECT_NAME}/base/Visualization.h
-		include/${PROJECT_NAME}/MPR/AbstractSliderPainter.h
-		include/${PROJECT_NAME}/MPR/AxialPlaneController.h
-		include/${PROJECT_NAME}/MPR/AxialPlaneControllerUI.h
-		include/${PROJECT_NAME}/MPR/AxialPlaneRenderer.h
-		include/${PROJECT_NAME}/MPR/DefaultAxialPlaneRenderer.h
-		include/${PROJECT_NAME}/MPR/NullSliderPainter.h
-		include/${PROJECT_NAME}/MPR/PartialSliderPainter.h
-		include/${PROJECT_NAME}/MPR/SliderPainter.h
-		include/${PROJECT_NAME}/SlicePlanes/DefaultSlicePlaneRenderer.h
-		include/${PROJECT_NAME}/SlicePlanes/SlicePlaneControllerUI.h
-		include/${PROJECT_NAME}/SlicePlanes/SlicePlaneRenderer.h
-		include/${PROJECT_NAME}/VolumeRenderings/DVR/DirectVolumeRendering.h
-		include/${PROJECT_NAME}/VolumeRenderings/DVR/ColorMap.h
-		include/${PROJECT_NAME}/VolumeRenderings/DVR/ColorMapEditor.h
-		include/${PROJECT_NAME}/VolumeRenderings/DVR/ColorMapTrackerEditor.h
-		include/${PROJECT_NAME}/VolumeRenderings/DRR/XRay.h
-		include/${PROJECT_NAME}/VolumeRenderings/MIP/Channel.h
-		include/${PROJECT_NAME}/VolumeRenderings/MIP/ChannelEditor.h
-		include/${PROJECT_NAME}/VolumeRenderings/MIP/ChannelUiAnchor.h
-		include/${PROJECT_NAME}/VolumeRenderings/MIP/MaximumIntensityProjection.h
-		include/${PROJECT_NAME}/VolumeRenderings/DefaultVolumeRenderer.h
-		include/${PROJECT_NAME}/VolumeRenderings/VolumeRenderer.h
-		include/${PROJECT_NAME}/VolumeRenderings/VolumeRendererMode.h
-		include/${PROJECT_NAME}/VolumeRenderings/VolumeVisualizationCameraController.h
+		""
 )
 set( PUBLIC_HEADERS
 		${PUBLIC_QOBJECT_HEADERS}
-		include/${PROJECT_NAME}/base/controller/InteractionStrategy.h
-		include/${PROJECT_NAME}/base/controller/MovementIntent.h
-		include/${PROJECT_NAME}/base/controller/MovementIntentProcessor.h
-		include/${PROJECT_NAME}/base/controller/NullInteractionStrategy.h
-		include/${PROJECT_NAME}/base/controller/Object3DMovementIntentProcessor.h
-		include/${PROJECT_NAME}/base/controller/VolumeSpaceMovementIntentProcessor.h
-		include/${PROJECT_NAME}/base/model/BufferedMask.h
-		include/${PROJECT_NAME}/base/model/BufferedMaskAdapter.h
-		include/${PROJECT_NAME}/base/model/GenericVolume.h
-		include/${PROJECT_NAME}/base/model/Histogram.h
-		include/${PROJECT_NAME}/base/model/HistogramClassDetector.h
-		include/${PROJECT_NAME}/base/model/Object3DEvent.h
-		include/${PROJECT_NAME}/base/model/Object3DFilter.h
-		include/${PROJECT_NAME}/base/model/Object3DSelectiveFilter.h
-		include/${PROJECT_NAME}/base/model/Object3DUniformFilter.h
-		include/${PROJECT_NAME}/base/model/Position.h
-		include/${PROJECT_NAME}/base/model/RotatableObject3D.h
-		include/${PROJECT_NAME}/base/model/ScalarField.h
-		include/${PROJECT_NAME}/base/model/UInt16Volume.h
-		include/${PROJECT_NAME}/base/model/Volume.h
-		include/${PROJECT_NAME}/base/qt/ColorPickerPainter.h
-		include/${PROJECT_NAME}/base/qt/DisplayVisualizationEnvironment.h
-		include/${PROJECT_NAME}/base/qt/FlowLayout.h
-		include/${PROJECT_NAME}/base/qt/IntSpanPainter.h
-		include/${PROJECT_NAME}/base/qt/MultiSpanSliderModelViewMapping.h
-		include/${PROJECT_NAME}/base/qt/MultiSpanSliderTracker.h
-		include/${PROJECT_NAME}/base/qt/NullIntSpanPainter.h
-		include/${PROJECT_NAME}/base/qt/RotatingColor.h
-		include/${PROJECT_NAME}/base/view/DefaultCamera.h
-		include/${PROJECT_NAME}/base/view/DefaultObject3DPainter.h
-		include/${PROJECT_NAME}/base/view/DefaultObject3DPaintingRoutine.h
+		include/${PROJECT_NAME}/base/view/RenderQueue.h
+		include/${PROJECT_NAME}/base/view/Spatial.h
+		include/${PROJECT_NAME}/base/view/Node.h
+		include/${PROJECT_NAME}/base/view/Geometry.h
+		include/${PROJECT_NAME}/base/view/FrameRenderer.h
+		include/${PROJECT_NAME}/base/view/RenderTask.h
+		include/${PROJECT_NAME}/base/view/RenderStage.h
+		include/${PROJECT_NAME}/base/view/GeometryStage.h
 		include/${PROJECT_NAME}/base/view/FragmentShader.h
-		include/${PROJECT_NAME}/base/view/FramebufferObject.h
-		include/${PROJECT_NAME}/base/view/glError.h
-		include/${PROJECT_NAME}/base/view/IncrementalColorPaintingRoutine.h
-		include/${PROJECT_NAME}/base/view/Monoscopic.h
-		include/${PROJECT_NAME}/base/view/Object3DPainter.h
-		include/${PROJECT_NAME}/base/view/Object3DPaintingRoutine.h
-		include/${PROJECT_NAME}/base/view/Polyline3DVertex.h
+		include/${PROJECT_NAME}/base/view/Framebuffer.h
 		include/${PROJECT_NAME}/base/view/RenderTexture.h
 		include/${PROJECT_NAME}/base/view/Shader.h
 		include/${PROJECT_NAME}/base/view/ShaderBundle.h
 		include/${PROJECT_NAME}/base/view/ShaderCompilationError.h
 		include/${PROJECT_NAME}/base/view/ShaderProgram.h
-		include/${PROJECT_NAME}/base/view/UInt16TextureUploader.h
 		include/${PROJECT_NAME}/base/view/VertexShader.h
+		include/${PROJECT_NAME}/base/view/glError.h
 		include/${PROJECT_NAME}/base/Aggregation.h
 		include/${PROJECT_NAME}/base/Application.h
 		include/${PROJECT_NAME}/base/Association.h
 		include/${PROJECT_NAME}/base/CarnaException.h
 		include/${PROJECT_NAME}/base/Composition.h
-		include/${PROJECT_NAME}/base/Flags.h
-		include/${PROJECT_NAME}/base/IntSpan.h
 		include/${PROJECT_NAME}/base/noncopyable.h
-		include/${PROJECT_NAME}/base/Math.h
-		include/${PROJECT_NAME}/base/Memory.h
-		include/${PROJECT_NAME}/base/OffscreenVisualizationEnvironment.h
-		include/${PROJECT_NAME}/base/ParallelizationSettings.h
+		include/${PROJECT_NAME}/base/Matrix4f.h
 		include/${PROJECT_NAME}/base/Singleton.h
-		include/${PROJECT_NAME}/base/Span.h
-		include/${PROJECT_NAME}/base/Text.h
-		include/${PROJECT_NAME}/base/Transformation.h
-		include/${PROJECT_NAME}/base/Vector3.h
-		include/${PROJECT_NAME}/base/VisualizationEnvironment.h
-		include/${PROJECT_NAME}/MPR/AxialPlaneVisualization.h
-		include/${PROJECT_NAME}/MPR/AxialSliderScreenSpaceBuffer.h
-		include/${PROJECT_NAME}/MPR/DefaultAxialPlaneVisualization.h
-		include/${PROJECT_NAME}/MPR/DefaultSliderPainter.h
-		include/${PROJECT_NAME}/MPR/IntersectionMovementIntentProcessor.h
-		include/${PROJECT_NAME}/MPR/IntersectionSynchronisationFactory.h
-		include/${PROJECT_NAME}/MPR/NullSliderScreenSpaceBuffer.h
-		include/${PROJECT_NAME}/MPR/SliderScreenSpaceBuffer.h
-		include/${PROJECT_NAME}/MPR/SliderType.h
-		include/${PROJECT_NAME}/SlicePlanes/DefaultSlicePlaneVisualization.h
-		include/${PROJECT_NAME}/SlicePlanes/SlicePlane.h
-		include/${PROJECT_NAME}/SlicePlanes/SlicePlaneVisualization.h
-		include/${PROJECT_NAME}/VolumeRenderings/DVR/ColorMapSpanPainter.h
-		include/${PROJECT_NAME}/VolumeRenderings/DVR/ColorMapTracker.h
-		include/${PROJECT_NAME}/VolumeRenderings/MIP/ChannelAddFunction.h
-		include/${PROJECT_NAME}/VolumeRenderings/MIP/ChannelFunction.h
-		include/${PROJECT_NAME}/VolumeRenderings/MIP/ChannelFunctionFactory.h
-		include/${PROJECT_NAME}/VolumeRenderings/MIP/ChannelReplaceFunction.h
-		include/${PROJECT_NAME}/VolumeRenderings/MIP/GenericChannelFunction.h
-		include/${PROJECT_NAME}/VolumeRenderings/DefaultVolumeVisualization.h
-		include/${PROJECT_NAME}/VolumeRenderings/RayMarching.h
-		include/${PROJECT_NAME}/VolumeRenderings/VolumeControllerUI.h
-		include/${PROJECT_NAME}/VolumeRenderings/VolumeRendererSinglePassMode.h
-		include/${PROJECT_NAME}/VolumeRenderings/VolumeVisualization.h
-		include/${PROJECT_NAME}/stereoscopic/Philips.h
-		include/${PROJECT_NAME}/stereoscopic/Zalman.h
 		include/${PROJECT_NAME}/Carna.h
 		include/${PROJECT_NAME}/Version.h
 	)
 include_directories(${CMAKE_PROJECT_DIR}src/include)
 set( PRIVATE_QOBJECT_HEADERS
-		src/include/Carna/base/controller/DefaultInteractionStrategyDetails.h
-		src/include/Carna/base/model/SceneDetails.h
-		src/include/Carna/base/model/UInt16VolumeMaskingWorker.h
-		src/include/Carna/base/qt/DisplayDetails.h
-		src/include/Carna/base/qt/Object3DChooserDetails.h
-		src/include/Carna/base/view/RendererDetails.h
-		src/include/Carna/base/view/SceneProviderDetails.h
-		src/include/Carna/MPR/AxialPlaneControllerDetails.h
-		src/include/Carna/MPR/AxialPlaneControllerUIDetails.h
-		src/include/Carna/VolumeRenderings/DVR/DirectVolumeRenderingControllerUI.h
-		src/include/Carna/VolumeRenderings/DVR/DirectVolumeRenderingDetails.h
-		src/include/Carna/VolumeRenderings/DRR/XRayControllerUI.h
-		src/include/Carna/VolumeRenderings/MIP/MaximumIntensityProjectionControllerUI.h
-		src/include/Carna/VolumeRenderings/DefaultVolumeRendererDetails.h
-		src/include/Carna/VolumeRenderings/VolumeControllerUIDetails.h
-		src/include/Carna/SlicePlanes/DefaultSlicePlaneRendererDetails.h
-		src/include/Carna/SlicePlanes/SlicePlaneControllerUIDetails.h
+		""
 )
 set( PRIVATE_HEADERS
 		${PRIVATE_QOBJECT_HEADERS}
-		src/include/Carna/base/model/BufferedMaskAdapterDetails.h
-		src/include/Carna/base/model/Object3DDetails.h
-		src/include/Carna/base/model/RotatableObject3DDetails.h
-		src/include/Carna/base/qt/ExpandableGroupBoxDetails.h
-		src/include/Carna/base/view/DefaultCameraDetails.h
 		src/include/Carna/base/view/gl.h
 		src/include/Carna/base/view/glew.h
 		src/include/Carna/base/view/glu.h
-		src/include/Carna/base/view/Point3DDetails.h
-		src/include/Carna/base/view/PolylineDetails.h
-		src/include/Carna/base/view/RendererSharedData.h
-		src/include/Carna/base/VisualizationDetails.h
-		src/include/Carna/VolumeRenderings/DVR/DirectVolumeRenderingController.h
-		src/include/Carna/VolumeRenderings/DVR/ColorMapDetails.h
-		src/include/Carna/VolumeRenderings/DRR/XRayDetails.h
-		src/include/Carna/VolumeRenderings/MIP/MaximumIntensityProjectionDetails.h
-		src/include/Carna/VolumeRenderings/DefaultVolumeRendererModeFrame.h
-		src/include/Carna/MPR/DefaultAxialPlaneRendererDetails.h
-		src/include/Carna/SlicePlanes/SlicePlaneDetails.h
 	)
 set( SRC
-		src/base/controller/DefaultCameraController.cpp
-		src/base/controller/DefaultInteractionStrategy.cpp
-		src/base/controller/MovementIntent.cpp
-		src/base/controller/Object3DMovementIntentProcessor.cpp
-		src/base/controller/VolumeSpaceMovementIntentProcessor.cpp
-		src/base/model/BufferedMaskAdapter.cpp
-		src/base/model/Scene.cpp
-		src/base/model/SceneFactory.cpp
-		src/base/model/Object3D.cpp
-		src/base/model/Object3DEvent.cpp
-		src/base/model/Position.cpp
-		src/base/model/RotatableObject3D.cpp
-		src/base/model/Volume.cpp
-		src/base/model/UInt16VolumeBaseWorker.cpp
-		src/base/model/UInt16VolumeMaskingWorker.cpp
-		src/base/qt/CarnaProgressDialog.cpp
-		src/base/qt/ColorPicker.cpp
-		src/base/qt/ColorPickerPainter.cpp
-		src/base/qt/Display.cpp
-		src/base/qt/DisplayDetails.cpp
-		src/base/qt/DisplayVisualizationEnvironment.cpp
-		src/base/qt/ExpandableGroupBox.cpp
-		src/base/qt/FlowLayout.cpp
-		src/base/qt/MultiSpanSlider.cpp
-		src/base/qt/MultiSpanSliderTracker.cpp
-		src/base/qt/Object3DChooser.cpp
-		src/base/qt/RotatingColor.cpp
-		src/base/qt/RotationEdit.cpp
-		src/base/qt/RotationView.cpp
-		src/base/qt/WideColorPicker.cpp
-		src/base/view/DefaultCamera.cpp
-		src/base/view/DefaultObject3DPainter.cpp
-		src/base/view/DefaultObject3DPaintingRoutine.cpp
+		src/base/view/RenderQueue.cpp
+		src/base/view/FrameRenderer.cpp
+		src/base/view/RenderTask.cpp
+		src/base/view/RenderStage.cpp
+		src/base/view/Spatial.cpp
+		src/base/view/Node.cpp
 		src/base/view/FragmentShader.cpp
-		src/base/view/FramebufferObject.cpp
-		src/base/view/IncrementalColorPaintingRoutine.cpp
-		src/base/view/Monoscopic.cpp
-		src/base/view/Point3D.cpp
-		src/base/view/Polyline.cpp
-		src/base/view/Polyline3DVertex.cpp
-		src/base/view/Renderer.cpp
-		src/base/view/RendererDetails.cpp
-		src/base/view/RendererSharedData.cpp
+		src/base/view/Framebuffer.cpp
 		src/base/view/RenderTexture.cpp
-		src/base/view/SceneProvider.cpp
-		src/base/view/SceneProviderDetails.cpp
 		src/base/view/Shader.cpp
 		src/base/view/ShaderBundle.cpp
 		src/base/view/ShaderCompilationError.cpp
 		src/base/view/ShaderProgram.cpp
-		src/base/view/UInt16TextureUploader.cpp
 		src/base/view/VertexShader.cpp
 		src/base/Application.cpp
 		src/base/CarnaException.cpp
-		src/base/Memory.cpp
-		src/base/OffscreenDisplay.cpp
-		src/base/OffscreenVisualizationEnvironment.cpp
-		src/base/Parallelization.cpp
-		src/base/ParallelizationSettings.cpp
-		src/base/Text.cpp
-		src/base/Transformation.cpp
-		src/base/Visualization.cpp
-		src/base/VisualizationEnvironment.cpp
-		src/MPR/AbstractSliderPainter.cpp
-		src/MPR/AxialPlaneController.cpp
-		src/MPR/AxialPlaneControllerUI.cpp
-		src/MPR/AxialPlaneRenderer.cpp
-		src/MPR/AxialPlaneVisualization.cpp
-		src/MPR/AxialSliderScreenSpaceBuffer.cpp
-		src/MPR/DefaultAxialPlaneRenderer.cpp
-		src/MPR/DefaultAxialPlaneRendererDetails.cpp
-		src/MPR/DefaultAxialPlaneVisualization.cpp
-		src/MPR/DefaultSliderPainter.cpp
-		src/MPR/IntersectionMovementIntentProcessor.cpp
-		src/MPR/PartialSliderPainter.cpp
-		src/MPR/SliderType.cpp
-		src/SlicePlanes/DefaultSlicePlaneRenderer.cpp
-		src/SlicePlanes/DefaultSlicePlaneVisualization.cpp
-		src/SlicePlanes/SlicePlane.cpp
-		src/SlicePlanes/SlicePlaneControllerUI.cpp
-		src/SlicePlanes/SlicePlaneDetails.cpp
-		src/SlicePlanes/SlicePlaneRenderer.cpp
-		src/SlicePlanes/SlicePlaneVisualization.cpp
-		src/VolumeRenderings/DVR/DirectVolumeRendering.cpp
-		src/VolumeRenderings/DVR/DirectVolumeRenderingController.cpp
-		src/VolumeRenderings/DVR/DirectVolumeRenderingControllerUI.cpp
-		src/VolumeRenderings/DVR/ColorMap.cpp
-		src/VolumeRenderings/DVR/ColorMapEditor.cpp
-		src/VolumeRenderings/DVR/ColorMapSpanPainter.cpp
-		src/VolumeRenderings/DVR/ColorMapTracker.cpp
-		src/VolumeRenderings/DVR/ColorMapTrackerEditor.cpp
-		src/VolumeRenderings/DRR/XRay.cpp
-		src/VolumeRenderings/DRR/XRayControllerUI.cpp
-		src/VolumeRenderings/MIP/Channel.cpp
-		src/VolumeRenderings/MIP/ChannelAddFunction.cpp
-		src/VolumeRenderings/MIP/ChannelEditor.cpp
-		src/VolumeRenderings/MIP/ChannelFunction.cpp
-		src/VolumeRenderings/MIP/ChannelReplaceFunction.cpp
-		src/VolumeRenderings/MIP/ChannelUiAnchor.cpp
-		src/VolumeRenderings/MIP/MaximumIntensityProjection.cpp
-		src/VolumeRenderings/MIP/MaximumIntensityProjectionControllerUI.cpp
-		src/VolumeRenderings/MIP/MaximumIntensityProjectionDetails.cpp
-		src/VolumeRenderings/DefaultVolumeRenderer.cpp
-		src/VolumeRenderings/DefaultVolumeRendererDetails.cpp
-		src/VolumeRenderings/DefaultVolumeRendererModeFrame.cpp
-		src/VolumeRenderings/DefaultVolumeVisualization.cpp
-		src/VolumeRenderings/VolumeControllerUI.cpp
-		src/VolumeRenderings/VolumeControllerUIDetails.cpp
-		src/VolumeRenderings/VolumeRenderer.cpp
-		src/VolumeRenderings/VolumeRendererMode.cpp
-		src/VolumeRenderings/VolumeRendererSinglePassMode.cpp
-		src/VolumeRenderings/VolumeVisualization.cpp
-		src/VolumeRenderings/VolumeVisualizationCameraController.cpp
-		src/stereoscopic/Philips.cpp
-		src/stereoscopic/Zalman.cpp
 	)
 set( FORMS
 		""
