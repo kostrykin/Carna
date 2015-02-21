@@ -40,9 +40,11 @@ class CARNA_LIB FrameRenderer
 
 	NON_COPYABLE
 
-	std::vector< SceneProcessor* > myProcessors;
+	std::vector< RenderStage* > myStages;
 	
 	unsigned int myWidth, myHeight;
+	
+	mutable bool reshaped;
 
 public:
 	
@@ -50,13 +52,13 @@ public:
 
 	~FrameRenderer();
 
-	std::size_t processors() const;
+	std::size_t stages() const;
 	
-	void appendProcessor( SceneProcessor* );
+	void appendStage( RenderStage* );
 	
-	void clearProcessors();
+	void clearStages();
 	
-	SceneProcessor& processorAt( std::size_t position );
+	RenderStage& stageAt( std::size_t position ) const;
 	
 	unsigned int width() const;
 	

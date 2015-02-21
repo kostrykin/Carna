@@ -14,6 +14,7 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/view/Node.h>
+#include <Carna/base/CarnaException.h>
 #include <Carna/base/noncopyable.h>
 #include <vector>
 #include <algorithm>

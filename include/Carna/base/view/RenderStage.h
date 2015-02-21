@@ -9,14 +9,14 @@
  *
  */
 
-#ifndef SCENEPROCESSOR_H_6014714286
-#define SCENEPROCESSOR_H_6014714286
+#ifndef RENDERSTAGE_H_6014714286
+#define RENDERSTAGE_H_6014714286
 
 #include <Carna/Carna.h>
 #include <Carna/base/noncopyable.h>
 
-/** \file   SceneProcessor.h
-  * \brief  Defines \ref Carna::base::view::SceneProcessor.
+/** \file   RenderStage.h
+  * \brief  Defines \ref Carna::base::view::RenderStage.
   */
 
 namespace Carna
@@ -31,17 +31,17 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// SceneProcessor
+// RenderStage
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB SceneProcessor
+class CARNA_LIB RenderStage
 {
 
 	NON_COPYABLE
 
 public:
 
-	virtual ~SceneProcessor();
+	virtual ~RenderStage();
 	
 	/** \brief
 	  * Called once before each frame.
@@ -67,7 +67,7 @@ public:
 	
 	virtual void render( RenderManager& ) const = 0;
 
-}; // SceneProcessor
+}; // RenderStage
 
 
 
@@ -77,4 +77,4 @@ public:
 
 }  // namespace Carna
 
-#endif // SCENEPROCESSOR_H_6014714286
+#endif // RENDERSTAGE_H_6014714286

@@ -36,25 +36,31 @@ namespace view
 class CARNA_LIB RenderTask
 {
 
-	FrameRenderer& myRenderer;
-
 	Framebuffer* myOutput;
 	
-	std::size_t nextSceneProcessor;
+	const Camera* cam;
+	
+	std::size_t nextRenderStage;
 
 public:
 
-	explicit RenderTask( FrameRenderer& );
+	explicit RenderTask( const FrameRenderer& renderer, const Camera& cam, Node& root );
+
+	explicit RenderTask( const FrameRenderer& renderer, const Camera& cam, Node& root, Framebuffer& output );
 	
 	/** \brief
 	  * Forks \a parent. The result of the fork will be rendered to \a output.
 	  */
 	RenderTask( RenderTask& parent, Framebuffer& output );
+	
+	const Camera& camera() const;
 
-	const FrameRenderer& renderer() const;
+	const FrameRenderer& renderer;
+	
+	Node& root;
 	
 	/** \brief
-	  * Invokes \ref SceneProcessor::render an all associated scene processors remained.
+	  * Invokes \ref RenderStage::render an all associated scene processors remained.
 	  */
 	void render();
 	
