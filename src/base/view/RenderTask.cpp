@@ -12,6 +12,7 @@
 #include <Carna/base/view/RenderTask.h>
 #include <Carna/base/view/RenderStage.h>
 #include <Carna/base/view/Framebuffer.h>
+#include <Carna/base/view/Camera.h>
 #include <Carna/base/Matrix4f.h>
 
 namespace Carna
@@ -30,62 +31,62 @@ namespace view
 // ----------------------------------------------------------------------------------
 
 RenderTask::RenderTask( const FrameRenderer& renderer, const Camera& cam )
-	: myOutput( nullptr )
-	, cam( &cam )
-	, nextRenderStage( 0 )
-	, myWorldViewTransform( cam.worldTransform().inverse() )
-	, renderer( renderer )
+    : myOutput( nullptr )
+    , cam( &cam )
+    , nextRenderStage( 0 )
+    , myWorldViewTransform( cam.worldTransform().inverse() )
+    , renderer( renderer )
 {
 }
 
 
 RenderTask::RenderTask( const FrameRenderer& renderer, const Camera& cam, Framebuffer& output )
-	: myOutput( &output )
-	, cam( &cam )
-	, nextRenderStage( 0 )
-	, myWorldViewTransform( cam.worldTransform().inverse() )
-	, renderer( renderer )
+    : myOutput( &output )
+    , cam( &cam )
+    , nextRenderStage( 0 )
+    , myWorldViewTransform( cam.worldTransform().inverse() )
+    , renderer( renderer )
 {
 }
 
 
 RenderTask::RenderTask( RenderTask& parent, Framebuffer& output )
-	: myOutput( &output )
-	, cam( parent.cam )
-	, nextRenderStage( parent.nextRenderStage )
-	, myWorldViewTransform( parent.myWorldViewTransform )
-	, renderer( parent.renderer )
+    : myOutput( &output )
+    , cam( parent.cam )
+    , nextRenderStage( parent.nextRenderStage )
+    , myWorldViewTransform( parent.myWorldViewTransform )
+    , renderer( parent.renderer )
 {
 }
 
-	
+    
 const Camera& RenderTask::camera() const
 {
-	return *cam;
+    return *cam;
 }
 
 
 const Matrix4f& RenderTask::worldViewTransform() const
 {
-	return myWorldViewTransform;
+    return myWorldViewTransform;
 }
 
 
 void RenderTask::render()
 {
-	Framebuffer::Binding binding( *myOutput );
-	while( nextRenderStage < renderer.stages() )
-	{
-		RenderStage& rs = renderer.stageAt( nextRenderStage );
-		++nextRenderStage;
-		rs.render( *this );
-	}
+    Framebuffer::Binding binding( *myOutput );
+    while( nextRenderStage < renderer.stages() )
+    {
+        RenderStage& rs = renderer.stageAt( nextRenderStage );
+        ++nextRenderStage;
+        rs.render( *this );
+    }
 }
-	
-	
+    
+    
 void RenderTask::finish()
 {
-	nextRenderStage = renderer.stages();
+    nextRenderStage = renderer.stages();
 }
 
 

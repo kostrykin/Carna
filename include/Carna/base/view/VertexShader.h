@@ -49,7 +49,7 @@ namespace view
   * \author Leonid Kostrykin
   * \date   2009 - 2011
   */
-class CARNA_EXPORT VertexShader : public Shader
+class CARNA_LIB VertexShader : public Shader
 {
 
 public:

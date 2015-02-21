@@ -10,6 +10,7 @@
  */
 
 #include <Carna/base/view/Spatial.h>
+#include <Carna/base/view/Node.h>
 #include <Carna/base/CarnaException.h>
 
 namespace Carna
@@ -28,7 +29,7 @@ namespace view
 // ----------------------------------------------------------------------------------
 
 Spatial::Spatial()
-	: myParent( nullptr )
+    : myParent( nullptr )
 {
 }
 
@@ -40,47 +41,47 @@ Spatial::~Spatial()
 
 bool Spatial::hasParent() const
 {
-	return myParent != nullptr;
+    return myParent != nullptr;
 }
 
 
 Spatial* Spatial::detachFromParent()
 {
-	CARNA_ASSERT( hasParent() );
-	return myParent->detachChild( *this );
+    CARNA_ASSERT( hasParent() );
+    return myParent->detachChild( *this );
 }
 
-	
+    
 Node& Spatial::parent()
 {
-	CARNA_ASSERT( hasParent() );
-	return *myParent;
+    CARNA_ASSERT( hasParent() );
+    return *myParent;
 }
 
 
 const Node& Spatial::parent() const
 {
-	CARNA_ASSERT( hasParent() );
-	return *myParent;
+    CARNA_ASSERT( hasParent() );
+    return *myParent;
 }
 
 
-virtual void Spatial::updateWorldTransform()
+void Spatial::updateWorldTransform()
 {
-	if( hasParent() )
-	{
-		myWorldTransform = myParent->worldTransform() * localTransform;
-	}
-	else
-	{
-		myWorldTransform = localTransform;
-	}
+    if( hasParent() )
+    {
+        myWorldTransform = myParent->worldTransform() * localTransform;
+    }
+    else
+    {
+        myWorldTransform = localTransform;
+    }
 }
 
 
 const Matrix4f& Spatial::worldTransform() const
 {
-	return myWorldTransform;
+    return myWorldTransform;
 }
 
 

@@ -42,7 +42,7 @@ namespace base
   * \author Leonid Kostrykin
   * \date   5.3.13 - 19.3.13
   */
-class CARNA_EXPORT CarnaException
+class CARNA_LIB CarnaException
 {
 
 public:
@@ -88,7 +88,7 @@ public:
   * \author Leonid Kostrykin
   * \date   5.3.13 - 19.3.13
   */
-class CARNA_EXPORT AssertionFailure : public CarnaException
+class CARNA_LIB AssertionFailure : public CarnaException
 {
 
 public:
@@ -118,7 +118,7 @@ public:
   * \author Leonid Kostrykin
   * \date   27.5.13
   */
-class CARNA_EXPORT BreakForDebug
+class CARNA_LIB BreakForDebug
 {
 
     BreakForDebug();

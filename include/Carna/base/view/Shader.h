@@ -49,7 +49,7 @@ namespace view
   * \author Leonid Kostrykin
   * \date   2009 - 2011
   */
-class CARNA_EXPORT Shader
+class CARNA_LIB Shader
 {
 
     NON_COPYABLE

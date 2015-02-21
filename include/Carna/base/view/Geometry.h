@@ -38,9 +38,9 @@ class CARNA_LIB Geometry : public Spatial
 
 public:
 
-	const int geometryType;
+    const int geometryType;
 
-	Geometry( int geometryType );
+    Geometry( int geometryType );
 
 }; // Geometry
 

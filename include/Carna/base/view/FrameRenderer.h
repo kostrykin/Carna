@@ -38,35 +38,35 @@ namespace view
 class CARNA_LIB FrameRenderer
 {
 
-	NON_COPYABLE
+    NON_COPYABLE
 
-	std::vector< RenderStage* > myStages;
-	
-	unsigned int myWidth, myHeight;
-	
-	mutable bool reshaped;
+    std::vector< RenderStage* > myStages;
+    
+    unsigned int myWidth, myHeight;
+    
+    mutable bool reshaped;
 
 public:
-	
-	FrameRenderer( unsigned int width, unsigned int height );
+    
+    FrameRenderer( unsigned int width, unsigned int height );
 
-	~FrameRenderer();
+    ~FrameRenderer();
 
-	std::size_t stages() const;
-	
-	void appendStage( RenderStage* );
-	
-	void clearStages();
-	
-	RenderStage& stageAt( std::size_t position ) const;
-	
-	unsigned int width() const;
-	
-	unsigned int height() const;
-	
-	void reshape( unsigned int width, unsigned int height );
-	
-	void render( const Camera& cam, Node& root ) const;
+    std::size_t stages() const;
+    
+    void appendStage( RenderStage* );
+    
+    void clearStages();
+    
+    RenderStage& stageAt( std::size_t position ) const;
+    
+    unsigned int width() const;
+    
+    unsigned int height() const;
+    
+    void reshape( unsigned int width, unsigned int height );
+    
+    void render( const Camera& cam, Node& root ) const;
 
 }; // FrameRenderer
 

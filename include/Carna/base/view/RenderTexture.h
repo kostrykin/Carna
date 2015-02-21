@@ -41,7 +41,7 @@ namespace view
   * \author Leonid Kostrykin
   * \date   9.3.2011 - 18.3.13
   */
-class CARNA_EXPORT RenderTexture
+class CARNA_LIB RenderTexture
 {
 
     NON_COPYABLE

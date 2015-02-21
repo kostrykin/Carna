@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  Copyright (C) 2010 - 2015 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
@@ -9,14 +9,7 @@
  *
  */
 
-#ifndef CAMERA_H_6014714286
-#define CAMERA_H_6014714286
-
-/** \file   Camera.h
-  * \brief  Defines \ref Carna::base::view::Camera.
-  */
-
-#include <Carna/base/view/Spatial.h>
+#include <Carna/base/view/RenderStage.h>
 
 namespace Carna
 {
@@ -30,15 +23,12 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// Camera
+// RenderStage
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB Camera : public Spatial
+RenderStage::~RenderStage()
 {
-
-public:
-
-}; // Camera
+}
 
 
 
@@ -47,5 +37,3 @@ public:
 }  // namespace Carna :: base
 
 }  // namespace Carna
-
-#endif // CAMERA_H_6014714286

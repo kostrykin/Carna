@@ -16,6 +16,9 @@
 #include <Carna/base/CarnaException.h>
 #include <stdexcept>
 #include <sstream>
+#include <QGLContext>
+
+class QGLContext;
 
 namespace Carna
 {

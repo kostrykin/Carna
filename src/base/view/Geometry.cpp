@@ -9,14 +9,7 @@
  *
  */
 
-#ifndef CAMERA_H_6014714286
-#define CAMERA_H_6014714286
-
-/** \file   Camera.h
-  * \brief  Defines \ref Carna::base::view::Camera.
-  */
-
-#include <Carna/base/view/Spatial.h>
+#include <Carna/base/view/Geometry.h>
 
 namespace Carna
 {
@@ -30,15 +23,13 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// Camera
+// Geometry
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB Camera : public Spatial
+Geometry::Geometry( int geometryType )
+    : geometryType( geometryType )
 {
-
-public:
-
-}; // Camera
+}
 
 
 
@@ -47,5 +38,3 @@ public:
 }  // namespace Carna :: base
 
 }  // namespace Carna
-
-#endif // CAMERA_H_6014714286

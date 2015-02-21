@@ -109,6 +109,7 @@ set( PUBLIC_QOBJECT_HEADERS
 )
 set( PUBLIC_HEADERS
 		${PUBLIC_QOBJECT_HEADERS}
+		include/${PROJECT_NAME}/base/view/Camera.h
 		include/${PROJECT_NAME}/base/view/RenderQueue.h
 		include/${PROJECT_NAME}/base/view/Spatial.h
 		include/${PROJECT_NAME}/base/view/Node.h
@@ -134,6 +135,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/noncopyable.h
 		include/${PROJECT_NAME}/base/Matrix4f.h
 		include/${PROJECT_NAME}/base/Singleton.h
+		include/${PROJECT_NAME}/base/Text.h
 		include/${PROJECT_NAME}/Carna.h
 		include/${PROJECT_NAME}/Version.h
 	)
@@ -148,7 +150,8 @@ set( PRIVATE_HEADERS
 		src/include/Carna/base/view/glu.h
 	)
 set( SRC
-		src/base/view/RenderQueue.cpp
+		src/base/view/Camera.cpp
+		src/base/view/Geometry.cpp
 		src/base/view/FrameRenderer.cpp
 		src/base/view/RenderTask.cpp
 		src/base/view/RenderStage.cpp
@@ -164,6 +167,7 @@ set( SRC
 		src/base/view/VertexShader.cpp
 		src/base/Application.cpp
 		src/base/CarnaException.cpp
+		src/base/Text.cpp
 	)
 set( FORMS
 		""
@@ -361,7 +365,7 @@ add_library( ${TARGET_NAME} SHARED
 
 ############################################
 
-add_definitions( -D${PROJECT_NAME_CAPS}_LIB -DNOMINMAX -D_NO_FRAMEBUFFER_DEBUG )
+add_definitions( -D${PROJECT_NAME_CAPS}_EXPORT -DNOMINMAX -D_NO_FRAMEBUFFER_DEBUG )
 
 ############################################
 # Add dependencies to the linker

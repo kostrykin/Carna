@@ -39,7 +39,7 @@ namespace view
   * \author Leonid Kostrykin
   * \date   5.3.13 - 19.3.13
   */
-class CARNA_EXPORT ShaderCompilationError : public CarnaException
+class CARNA_LIB ShaderCompilationError : public CarnaException
 {
 
 public:

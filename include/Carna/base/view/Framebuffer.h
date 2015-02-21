@@ -45,7 +45,7 @@ namespace view
   * \author Leonid Kostrykin
   * \date   9.3.2011
   */
-class CARNA_EXPORT Framebuffer
+class CARNA_LIB Framebuffer
 {
 
     NON_COPYABLE
@@ -107,7 +107,7 @@ public:
       * \author Leonid Kostrykin
       * \date   24.4.2011
       */
-    class CARNA_EXPORT MinimalBinding
+    class CARNA_LIB MinimalBinding
     {
 
         NON_COPYABLE
@@ -172,7 +172,7 @@ public:
       * \author Leonid Kostrykin
       * \date   24.4.2011
       */
-    class CARNA_EXPORT Binding : public MinimalBinding
+    class CARNA_LIB Binding : public MinimalBinding
     {
 
     public:

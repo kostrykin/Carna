@@ -29,57 +29,57 @@ namespace view
 
 Node::~Node()
 {
-	deleteAllChildren();
+    deleteAllChildren();
 }
 
 
 void Node::attachChild( Spatial* child )
 {
-	children.insert( child );
+    children.insert( child );
 }
 
 
 Spatial* Node::detachChild( Spatial& child )
 {
-	CARNA_ASSERT( child.hasParent() && &child.parent() == this );
-	children.erase( child );
-	return &child;
+    CARNA_ASSERT( child.hasParent() && &child.parent() == this );
+    children.erase( &child );
+    return &child;
 }
 
 
 void Node::deleteAllChildren()
 {
-	std::for_each( children.begin(), children.end(), std::default_delete() );
-	children.clear();
+    std::for_each( children.begin(), children.end(), std::default_delete< Spatial >() );
+    children.clear();
 }
 
 
 void Node::visitChildren( const MutableVisitor& visit )
 {
-	for( auto itr = children.begin(); itr != children.end(); ++itr )
-	{
-		visit( **itr );
-	}
+    for( auto itr = children.begin(); itr != children.end(); ++itr )
+    {
+        visit( **itr );
+    }
 }
 
 
 void Node::visitChildren( const ImmutableVisitor& visit ) const
 {
-	for( auto itr = children.begin(); itr != children.end(); ++itr )
-	{
-		visit( **itr );
-	}
+    for( auto itr = children.begin(); itr != children.end(); ++itr )
+    {
+        visit( **itr );
+    }
 }
 
 
-void Node::updateWorldTransform() override
+void Node::updateWorldTransform()
 {
-	Spatial::updateWorldTransform();
-	visitChildren( []( Spatial& child )
-		{
-			child.updateWorldTransform();
-		}
-	);
+    Spatial::updateWorldTransform();
+    visitChildren( []( Spatial& child )
+        {
+            child.updateWorldTransform();
+        }
+    );
 }
 
 

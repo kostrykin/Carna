@@ -21,7 +21,7 @@
   * \date   2009 - 2011
   */
 
-#include <Carna/base/Transformation.h>
+#include <Carna/base/Matrix4f.h>
 #include <Carna/base/noncopyable.h>
 #include <stack>
 
@@ -51,7 +51,7 @@ namespace view
   * \author Leonid Kostrykin
   * \date   2009 - 2011
   */
-class CARNA_EXPORT ShaderProgram
+class CARNA_LIB ShaderProgram
 {
 
     NON_COPYABLE
@@ -85,7 +85,7 @@ public:
 
     /** \brief  Binds and unbinds shader programs.
       */
-    class CARNA_EXPORT Binding
+    class CARNA_LIB Binding
     {
 
         NON_COPYABLE
@@ -123,7 +123,7 @@ public:
           *
           * \throws std::runtime_error  Specified uniform is not defined in shader.
           */
-        void putUniform3f( const std::string& param, const Vector& );
+        void putUniform4f( const std::string& param, const Vector4f& );
 
         /** \brief  Uploads uniform to currently bound shader.
           *
@@ -141,13 +141,7 @@ public:
           *
           * \throws std::runtime_error  Specified uniform is not defined in shader.
           */
-        void putUniform3x3( const std::string& param, const Transformation& );
-
-        /** \brief  Uploads uniform to currently bound shader.
-          *
-          * \throws std::runtime_error  Specified uniform is not defined in shader.
-          */
-        void putUniform4x4( const std::string& param, const Transformation& );
+        void putUniform4x4f( const std::string& param, const Matrix4f& );
 
 
     private:

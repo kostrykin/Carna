@@ -143,9 +143,9 @@ void ShaderProgram::Binding::putUniform3f( const std::string& param, float x, fl
 }
 
 
-void ShaderProgram::Binding::putUniform3f( const std::string& param, const Vector& v )
+void ShaderProgram::Binding::putUniform4f( const std::string& param, const Vector4f& v )
 {
-    putUniform3f( param, v[ 0 ], v[ 1 ], v[ 2 ] );
+    glUniform4f( getUniformLocation( param ), v.x(), v.y(), v.z(), v.w() );
 }
 
 
@@ -173,24 +173,12 @@ void ShaderProgram::Binding::putUniform1u( const std::string& param, unsigned in
 }
 
 
-void ShaderProgram::Binding::putUniform3x3( const std::string& param, const Transformation& m )
-{
-    float a[ 9 ];
-    for( int i = 0; i < 9; ++i )
-    {
-        a[ i ] = m.getTransformationMatrix()( i % 3, i / 3 );
-    }
-
-    glUniformMatrix3fv( getUniformLocation( param ), 1, false, a );
-}
-
-
-void ShaderProgram::Binding::putUniform4x4( const std::string& param, const Transformation& m )
+void ShaderProgram::Binding::putUniform4x4f( const std::string& param, const Matrix4f& m )
 {
     float a[ 16 ];
     for( int i = 0; i < 16; ++i )
     {
-        a[ i ] = m.getTransformationMatrix()( i % 4, i / 4 );
+        a[ i ] = m( i % 4, i / 4 );
     }
 
     glUniformMatrix4fv( getUniformLocation( param ), 1, false, a );

@@ -11,6 +11,7 @@
 
 #include <Carna/base/view/FrameRenderer.h>
 #include <Carna/base/view/RenderTask.h>
+#include <Carna/base/view/RenderStage.h>
 
 namespace Carna
 {
@@ -28,87 +29,87 @@ namespace view
 // ----------------------------------------------------------------------------------
 
 FrameRenderer::FrameRenderer( unsigned int width, unsigned int height )
-	: myWidth( width )
-	, myHeight( height )
-	, reshaped( true )
+    : myWidth( width )
+    , myHeight( height )
+    , reshaped( true )
 {
 }
 
 
 FrameRenderer::~FrameRenderer()
 {
-	clearStages();
+    clearStages();
 }
 
 
 std::size_t FrameRenderer::stages() const
 {
-	return myStages.size();
+    return myStages.size();
 }
 
 
-void FrameRenderer::appendStages( RenderStage* rs )
+void FrameRenderer::appendStage( RenderStage* rs )
 {
-	myStages.push_back( rs );
+    myStages.push_back( rs );
 }
 
-	
+    
 void FrameRenderer::clearStages()
 {
-	std::for_each( myStages.begin(), myStages.end(), std::default_delete() );
-	myStages.clear();
+    std::for_each( myStages.begin(), myStages.end(), std::default_delete< RenderStage >() );
+    myStages.clear();
 }
 
 
 RenderStage& FrameRenderer::stageAt( std::size_t position ) const
 {
-	return *myStages[ position ];
+    return *myStages[ position ];
 }
 
 
 unsigned int FrameRenderer::width() const
 {
-	return myWidth;
+    return myWidth;
 }
 
 
 unsigned int FrameRenderer::height() const
 {
-	return myHeight;
+    return myHeight;
 }
 
 
 void FrameRenderer::reshape( unsigned int width, unsigned int height )
 {
-	myWidth = width;
-	myHeight = height;
-	reshaped = true;
+    myWidth = width;
+    myHeight = height;
+    reshaped = true;
 }
 
 
 void FrameRenderer::render( const Camera& cam, Node& root ) const
 {
-	// reshape render stages' buffers and update world transforms
-	for( auto rsItr = myStages.begin(); rsItr != myStages.end(); ++rsItr )
-	{
-		RenderStage& rs = **rsItr;
-		
-		// ensure buffers are properly sized
-		if( reshaped || !rs.isInitialized() )
-		{
-			rs.reshape( myWidth, myHeight );
-		}
-		
-		// update world transforms
-		rs.prepareFrame( root );
-	}
-	
-	// mark that all buffer sizes have been established
-	reshaped = false;
-	
-	// render frame
-	RenderTask task( *this, cam );
-	task.render();
+    // reshape render stages' buffers and update world transforms
+    for( auto rsItr = myStages.begin(); rsItr != myStages.end(); ++rsItr )
+    {
+        RenderStage& rs = **rsItr;
+        
+        // ensure buffers are properly sized
+        if( reshaped || !rs.isInitialized() )
+        {
+            rs.reshape( myWidth, myHeight );
+        }
+        
+        // update world transforms
+        rs.prepareFrame( root );
+    }
+    
+    // mark that all buffer sizes have been established
+    reshaped = false;
+    
+    // render frame
+    RenderTask task( *this, cam );
+    task.render();
 }
 
 

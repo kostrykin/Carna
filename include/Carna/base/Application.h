@@ -38,7 +38,7 @@ namespace base
   * \date 1.15.13 - 15.3.13
   * \author Leonid Kostrykin
   */
-class CARNA_EXPORT Application : public QApplication
+class CARNA_LIB Application : public QApplication
 {
 
     NON_COPYABLE

@@ -36,23 +36,23 @@ namespace view
 class CARNA_LIB Node : public Spatial
 {
 
-	std::set< Spatial* > children;
+    std::set< Spatial* > children;
 
 public:
 
-	virtual ~Node();
+    virtual ~Node();
 
-	void attachChild( Spatial* );
-	
-	Spatial* detachChild( Spatial& );
-	
-	void deleteAllChildren();
-	
-	void visitChildren( const MutableVisitor& );
-	
-	void visitChildren( const ImmutableVisitor& ) const;
-	
-	virtual void updateWorldTransform() override;
+    void attachChild( Spatial* );
+    
+    Spatial* detachChild( Spatial& );
+    
+    void deleteAllChildren();
+    
+    void visitChildren( const MutableVisitor& );
+    
+    void visitChildren( const ImmutableVisitor& ) const;
+    
+    virtual void updateWorldTransform() override;
 
 }; // Node
 

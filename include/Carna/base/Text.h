@@ -38,7 +38,7 @@ namespace base
   * \date   26.1.14
   * \author Leonid Kostrykin
   */
-class CARNA_EXPORT Text
+class CARNA_LIB Text
 {
 
     Text()

@@ -42,31 +42,31 @@ template< class GeometryCompare = std::less< const Geometry* > >
 class CARNA_LIB RenderQueue
 {
 
-	NON_COPYABLE
+    NON_COPYABLE
 
-	std::vector< const Geometry* > geometries;
-	std::size_t nextGeometryIndex;
+    std::vector< const Geometry* > geometries;
+    std::size_t nextGeometryIndex;
 
 public:
 
-	const int geometryType;
+    const int geometryType;
 
-	RenderQueue( int geometryType );
-	
-	void build( Node& root );
-	
-	void rewind();
-	
-	bool isEmpty() const;
-	
-	void const Geometry& poll();
+    RenderQueue( int geometryType );
+    
+    void build( Node& root );
+    
+    void rewind();
+    
+    bool isEmpty() const;
+    
+    void const Geometry& poll();
 
 }; // RenderQueue
 
 
 template< class GeometryCompare >
 RenderQueue::RenderQueue( int geometryType )
-	: geometryType( geometryType )
+    : geometryType( geometryType )
 {
 }
 
@@ -74,44 +74,44 @@ RenderQueue::RenderQueue( int geometryType )
 template< class GeometryCompare >
 void RenderQueue::build( Node& root )
 {
-	geometries.clear();
-	nextGeometryIndex = 0;
-	
-	// collect all geometries
-	root.visitChildren( [&geometries, geometryType]( const Spatial& spatial )
-		{
-			const Geometry* const geom = dynamic_cast< const Geometry* >( &spatial );
-			if( geom != nullptr && geom->geometryType == geometryType )
-			{
-				geometries.push_back( geom );
-			}
-		}
-	);
-	
-	// order geometries as required
-	std::sort( geometries.begin(), geometries.end(), GeometryCompare() );
+    geometries.clear();
+    nextGeometryIndex = 0;
+    
+    // collect all geometries
+    root.visitChildren( [&geometries, geometryType]( const Spatial& spatial )
+        {
+            const Geometry* const geom = dynamic_cast< const Geometry* >( &spatial );
+            if( geom != nullptr && geom->geometryType == geometryType )
+            {
+                geometries.push_back( geom );
+            }
+        }
+    );
+    
+    // order geometries as required
+    std::sort( geometries.begin(), geometries.end(), GeometryCompare() );
 }
 
 
 template< class GeometryCompare >
 void RenderQueue::rewind()
 {
-	nextGeometryIndex = 0;
+    nextGeometryIndex = 0;
 }
 
 
 template< class GeometryCompare >
 bool RenderQueue::isEmpty() const
 {
-	return nextGeometryIndex >= geometries.size();
+    return nextGeometryIndex >= geometries.size();
 }
 
 
 template< class GeometryCompare >
 void const Geometry& RenderQueue::poll()
 {
-	CARNA_ASSERT( !isEmpty() );
-	return *geometries[ nextGeometryIndex++ ];
+    CARNA_ASSERT( !isEmpty() );
+    return *geometries[ nextGeometryIndex++ ];
 }
 
 

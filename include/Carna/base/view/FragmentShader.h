@@ -47,7 +47,7 @@ namespace view
   * \author Leonid Kostrykin
   * \date   2009 - 2011
   */
-class CARNA_EXPORT FragmentShader : public Shader
+class CARNA_LIB FragmentShader : public Shader
 {
 
 public:

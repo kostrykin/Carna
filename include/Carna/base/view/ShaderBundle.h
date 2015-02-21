@@ -39,7 +39,7 @@ namespace view
   * \author Leonid Kostrykin
   * \date   2011 - 2012
   */
-class CARNA_EXPORT ShaderBundle
+class CARNA_LIB ShaderBundle
 {
 
 public:
