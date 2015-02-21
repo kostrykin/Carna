@@ -12,6 +12,7 @@
 #ifndef SPATIAL_H_6014714286
 #define SPATIAL_H_6014714286
 
+#include <Carna/base/noncopyable.h>
 #include <functional>
 
 /** \file   Spatial.h
@@ -35,6 +36,8 @@ namespace view
 
 class CARNA_LIB Spatial
 {
+
+	NON_COPYABLE
 
 	Node* parent;
 

@@ -13,6 +13,7 @@
 #define FRAMERENDERER_H_6014714286
 
 #include <Carna/Carna.h>
+#include <Carna/base/noncopyable.h>
 #include <vector>
 
 /** \file   FrameRenderer.h
@@ -37,9 +38,15 @@ namespace view
 class CARNA_LIB FrameRenderer
 {
 
+	NON_COPYABLE
+
 	std::vector< SceneProcessor* > myProcessors;
+	
+	unsigned int myWidth, myHeight;
 
 public:
+	
+	FrameRenderer( unsigned int width, unsigned int height );
 
 	~FrameRenderer();
 
@@ -49,13 +56,15 @@ public:
 	
 	void clearProcessors();
 	
+	SceneProcessor& processorAt( std::size_t position );
+	
+	unsigned int width() const;
+	
+	unsigned int height() const;
+	
+	void reshape( unsigned int width, unsigned int height );
+	
 	void render( const Camera& cam, Node& root ) const;
-	
-	void render( const Camera& cam, Node& root, Framebuffer& out ) const;
-	
-private:
-	
-	void render( const Camera& cam, Node& root, Framebuffer* out ) const;
 
 }; // FrameRenderer
 

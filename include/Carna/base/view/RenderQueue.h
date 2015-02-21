@@ -13,7 +13,10 @@
 #define RENDERQUEUE_H_6014714286
 
 #include <Carna/Carna.h>
-#include <queue>
+#include <Carna/base/view/Node.h>
+#include <Carna/base/noncopyable.h>
+#include <vector>
+#include <algorithm>
 
 /** \file   RenderQueue.h
   * \brief  Defines \ref Carna::base::view::RenderQueue.
@@ -34,11 +37,14 @@ namespace view
 // RenderQueue
 // ----------------------------------------------------------------------------------
 
-template< class Compare = std::less< const Geometry* > >
+template< class GeometryCompare = std::less< const Geometry* > >
 class CARNA_LIB RenderQueue
 {
 
-	std::priority_queue< const Geometry*, std::vector< const Geometry* >, Compare > queue;
+	NON_COPYABLE
+
+	std::vector< const Geometry* > geometries;
+	std::size_t nextGeometryIndex;
 
 public:
 
@@ -48,11 +54,64 @@ public:
 	
 	void build( Node& root );
 	
+	void rewind();
+	
 	bool isEmpty() const;
 	
 	void const Geometry& poll();
 
 }; // RenderQueue
+
+
+template< class GeometryCompare >
+RenderQueue::RenderQueue( int geometryType )
+	: geometryType( geometryType )
+{
+}
+
+
+template< class GeometryCompare >
+void RenderQueue::build( Node& root )
+{
+	geometries.clear();
+	nextGeometryIndex = 0;
+	
+	// collect all geometries
+	root.visitChildren( [&geometries]( const Spatial& spatial )
+		{
+			const Geometry* const geom = dynamic_cast< const Geometry* >( &spatial );
+			if( geom != nullptr )
+			{
+				geometries.push_back( geom );
+			}
+		}
+	);
+	
+	// order geometries as required
+	std::sort( geometries.begin(), geometries.end(), GeometryCompare() );
+}
+
+
+template< class GeometryCompare >
+void RenderQueue::rewind()
+{
+	nextGeometryIndex = 0;
+}
+
+
+template< class GeometryCompare >
+bool RenderQueue::isEmpty() const
+{
+	return nextGeometryIndex >= geometries.size();
+}
+
+
+template< class GeometryCompare >
+void const Geometry& RenderQueue::poll()
+{
+	CARNA_ASSERT( !isEmpty() );
+	return *geometries[ nextGeometryIndex++ ];
+}
 
 
 
