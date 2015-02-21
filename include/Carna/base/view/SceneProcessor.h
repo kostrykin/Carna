@@ -42,7 +42,11 @@ public:
 
 	void setOutput( Framebuffer& );
 	
-	Framebuffer& output() const;
+	void setOutputToSystemFramebuffer();
+	
+	bool hasOutputFramebuffer() const;
+	
+	Framebuffer& outputFramebuffer() const;
 	
 	void render( /*const Camera&*/ ) const;
 

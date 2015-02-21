@@ -9,14 +9,14 @@
  *
  */
 
-#ifndef SCENE_H_6014714286
-#define SCENE_H_6014714286
+#ifndef FRAMERENDERER_H_6014714286
+#define FRAMERENDERER_H_6014714286
 
 #include <Carna/Carna.h>
 #include <vector>
 
-/** \file   Scene.h
-  * \brief  Defines \ref Carna::base::view::Scene.
+/** \file   FrameRenderer.h
+  * \brief  Defines \ref Carna::base::view::FrameRenderer.
   */
 
 namespace Carna
@@ -31,32 +31,33 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// Scene
+// FrameRenderer
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB Scene
+class CARNA_LIB FrameRenderer
 {
 
 	std::vector< SceneProcessor* > myProcessors;
-	Node* myRoot;
 
 public:
+
+	~FrameRenderer();
 
 	std::size_t processors() const;
 	
 	void appendProcessor( SceneProcessor* );
 	
 	void clearProcessors();
+	
+	void render( const Camera& cam, Node& root ) const;
+	
+	void render( const Camera& cam, Node& root, Framebuffer& out ) const;
+	
+private:
+	
+	void render( const Camera& cam, Node& root, Framebuffer* out ) const;
 
-	void setRoot( Node& );
-	
-	Node& root();
-	
-	const Node& root() const;
-	
-	void render() const;
-
-}; // Scene
+}; // FrameRenderer
 
 
 
@@ -66,4 +67,4 @@ public:
 
 }  // namespace Carna
 
-#endif // SCENE_H_6014714286
+#endif // FRAMERENDERER_H_6014714286
