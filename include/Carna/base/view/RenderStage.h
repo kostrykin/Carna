@@ -68,7 +68,7 @@ public:
     /** \brief
       * Called once before each frame.
       */
-    virtual void prepareFrame( Node& root );
+    virtual void prepareFrame( const FrameRenderer& fr, Node& root );
 
     /** \brief
       * Called once before each pass.

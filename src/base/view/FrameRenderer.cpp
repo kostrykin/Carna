@@ -30,10 +30,11 @@ namespace view
 // FrameRenderer
 // ----------------------------------------------------------------------------------
 
-FrameRenderer::FrameRenderer( unsigned int width, unsigned int height )
+FrameRenderer::FrameRenderer( GLContext& glContext, unsigned int width, unsigned int height )
     : myWidth( width )
     , myHeight( height )
     , reshaped( true )
+    , myGlContext( &glContext )
 {
 }
 
@@ -41,6 +42,12 @@ FrameRenderer::FrameRenderer( unsigned int width, unsigned int height )
 FrameRenderer::~FrameRenderer()
 {
     clearStages();
+}
+
+
+GLContext& FrameRenderer::glContext() const
+{
+    return *myGlContext;
 }
 
 
@@ -112,7 +119,7 @@ void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
         }
 
         // notify stages of beginning frame
-        rs.prepareFrame( root );
+        rs.prepareFrame( *this, root );
     }
     
     // mark that all buffer sizes have been established

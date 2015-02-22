@@ -11,14 +11,12 @@
 
 #include <Carna/base/view/glew.h>
 #include <Carna/base/view/glError.h>
+#include <Carna/base/view/GLContext.h>
 #include <Carna/base/view/Framebuffer.h>
 #include <Carna/base/view/RenderTexture.h>
 #include <Carna/base/CarnaException.h>
 #include <stdexcept>
 #include <sstream>
-#include <QGLContext>
-
-class QGLContext;
 
 namespace Carna
 {
@@ -68,7 +66,7 @@ class Framebuffer::BindingStack
 
 private:
 
-    typedef std::map< const QGLContext*, BindingStack* > InstanceByContext;
+    typedef std::map< const GLContext*, BindingStack* > InstanceByContext;
 
     static InstanceByContext instances;
 
@@ -94,24 +92,22 @@ Framebuffer::BindingStack::InstanceByContext Framebuffer::BindingStack::instance
 
 Framebuffer::BindingStack::InstanceByContext::iterator Framebuffer::BindingStack::current()
 {
-    const QGLContext* const currentContext = QGLContext::currentContext();
+    GLContext& currentContext = GLContext::current();
 
-    CARNA_ASSERT( currentContext != nullptr );
-
-    const auto it = instances.find( currentContext );
+    const auto it = instances.find( &currentContext );
     if( it != instances.end() )
     {
         return it;
     }
     else
     {
-        instances[ currentContext ] = new BindingStack();
+        instances[ &currentContext ] = new BindingStack();
 
 #ifndef _NO_FRAMEBUFFER_DEBUG
         qDebug() << "Framebuffer now manages" << instances.size() << "contexts (+1)";
 #endif
 
-        return instances.find( currentContext );
+        return instances.find( &currentContext );
     }
 }
 
@@ -331,7 +327,7 @@ void Framebuffer::MinimalBinding::bindSystemFB()
 {
     glBindFramebufferEXT( GL_FRAMEBUFFER_EXT, 0 );
 
-    if( QGLContext::currentContext()->format().doubleBuffer() )
+    if( GLContext::current().isDoubleBuffered )
     {
         REPORT_GL_ERROR;
 
@@ -364,7 +360,7 @@ void Framebuffer::MinimalBinding::setColorComponent( RenderTexture& texture, uns
 }
 
 
-QColor Framebuffer::MinimalBinding::readPixel( unsigned int x, unsigned int y, unsigned int color_attachment ) const
+Color Framebuffer::MinimalBinding::readPixel( unsigned int x, unsigned int y, unsigned int color_attachment ) const
 {
     // TODO: store position -> render texture mapping, read whether it's a floating point
     /*
@@ -380,7 +376,7 @@ QColor Framebuffer::MinimalBinding::readPixel( unsigned int x, unsigned int y, u
         unsigned char data[ 4 ];
         glReadBuffer( GL_COLOR_ATTACHMENT0_EXT + color_attachment );
         glReadPixels( x, y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data );
-        return QColor( data[ 0 ], data[ 1 ], data[ 2 ], data[ 3 ] );
+        return Color( data[ 0 ], data[ 1 ], data[ 2 ], data[ 3 ] );
     /*
     }
     */

@@ -1,4 +1,4 @@
-﻿/*
+/*
  *  Copyright (C) 2010 - 2015 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/view/RenderStage.h>
+#include <Carna/base/view/Color.h>
 
 namespace Carna
 {
@@ -23,35 +23,15 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// RenderStage
+// Color
 // ----------------------------------------------------------------------------------
 
-RenderStage::RenderStage()
-    : viewTransformFixed( true )
+Color::Color( unsigned char r, unsigned char g, unsigned char b, unsigned char a )
+    : r( r )
+    , g( g )
+    , b( b )
+    , a( a )
 {
-}
-
-
-RenderStage::~RenderStage()
-{
-}
-
-
-void RenderStage::setViewTransformFixed( bool viewTransformFixed )
-{
-    this->viewTransformFixed = viewTransformFixed;
-}
-
-
-bool RenderStage::isViewTransformFixed() const
-{
-    return viewTransformFixed;
-}
-
-
-void RenderStage::prepareFrame( const FrameRenderer& fr, Node& root )
-{
-    viewTransformFixed = true;
 }
 
 

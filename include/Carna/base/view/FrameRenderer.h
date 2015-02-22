@@ -46,11 +46,15 @@ class CARNA_LIB FrameRenderer
     
     mutable bool reshaped;
 
+    GLContext* const myGlContext;
+
 public:
     
-    FrameRenderer( unsigned int width, unsigned int height );
+    FrameRenderer( GLContext& glContext, unsigned int width, unsigned int height );
 
     ~FrameRenderer();
+
+    GLContext& glContext() const;
 
     std::size_t stages() const;
     

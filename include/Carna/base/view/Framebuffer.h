@@ -21,8 +21,6 @@
 #include <stack>
 #include <set>
 
-class QColor;
-
 namespace Carna
 {
 
@@ -135,7 +133,7 @@ public:
         /** \brief  Reads and returns a color component's current pixel at the given
           *         location.
           */
-        QColor readPixel( unsigned int x, unsigned int y, unsigned int color_attachment = 0 ) const;
+        Color readPixel( unsigned int x, unsigned int y, unsigned int color_attachment = 0 ) const;
 
 
     private:

@@ -53,7 +53,7 @@ public:
     
     virtual bool isInitialized() const override;
 
-    virtual void prepareFrame( Node& root ) override;
+    virtual void prepareFrame( const FrameRenderer& fr, Node& root ) override;
     
     /** \brief
       * Builds the render queue.
@@ -80,9 +80,9 @@ GeometryStage< RenderableCompare >::GeometryStage( int geometryType )
 
 
 template< typename RenderableCompare >
-void GeometryStage< RenderableCompare >::prepareFrame( Node& root )
+void GeometryStage< RenderableCompare >::prepareFrame( const FrameRenderer& fr, Node& root )
 {
-    RenderStage::prepareFrame( root );
+    RenderStage::prepareFrame( fr, root );
     this->root = &root;
     this->passesRendered = 0;
 }

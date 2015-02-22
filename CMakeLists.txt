@@ -110,6 +110,7 @@ set( PUBLIC_QOBJECT_HEADERS
 set( PUBLIC_HEADERS
 		${PUBLIC_QOBJECT_HEADERS}
 		include/${PROJECT_NAME}/base/view/Camera.h
+		include/${PROJECT_NAME}/base/view/Color.h
 		include/${PROJECT_NAME}/base/view/RenderQueue.h
 		include/${PROJECT_NAME}/base/view/Spatial.h
 		include/${PROJECT_NAME}/base/view/Node.h
@@ -119,6 +120,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/RenderTask.h
 		include/${PROJECT_NAME}/base/view/RenderStage.h
 		include/${PROJECT_NAME}/base/view/GeometryStage.h
+		include/${PROJECT_NAME}/base/view/GLContext.h
 		include/${PROJECT_NAME}/base/view/OpaqueStage.h
 		include/${PROJECT_NAME}/base/view/FragmentShader.h
 		include/${PROJECT_NAME}/base/view/Framebuffer.h
@@ -154,7 +156,9 @@ set( PRIVATE_HEADERS
 	)
 set( SRC
 		src/base/view/Camera.cpp
+		src/base/view/Color.cpp
 		src/base/view/Geometry.cpp
+		src/base/view/GLContext.cpp
 		src/base/view/Renderable.cpp
 		src/base/view/FrameRenderer.cpp
 		src/base/view/RenderTask.cpp

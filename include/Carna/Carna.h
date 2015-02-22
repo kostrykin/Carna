@@ -55,10 +55,12 @@ namespace Carna
         namespace view
         {
             class Camera;
+            class Color;
             class FragmentShader;
             class Framebuffer;
             class FrameRenderer;
             class Geometry;
+            class GLContext;
             class Node;
             class OpaqueStage;
             class Renderable;
