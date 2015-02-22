@@ -71,7 +71,7 @@ void RenderTask::overrideViewTransform( const Matrix4f& viewTransform )
 }
 
 
-void RenderTask::render()
+void RenderTask::render( const Viewport& vp )
 {
     Framebuffer::Binding binding( *myOutput );
     while( nextRenderStage < renderer.stages() )
@@ -79,7 +79,7 @@ void RenderTask::render()
         RenderStage& rs = renderer.stageAt( nextRenderStage );
         ++nextRenderStage;
         rs.preparePass( viewTransform );
-        rs.renderPass( *this );
+        rs.renderPass( *this, vp );
     }
 }
     

@@ -66,7 +66,9 @@ public:
     
     void reshape( unsigned int width, unsigned int height );
     
-    void render( Camera& cam, Node& root ) const;
+    void render( Camera& cam, Node& root, bool fitSquare ) const;
+
+    void render( Camera& cam, Node& root, const Viewport& vp ) const;
 
 }; // FrameRenderer
 

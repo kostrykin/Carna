@@ -63,7 +63,7 @@ public:
     /** \brief
       * Invokes \ref RenderStage::render an all associated scene processors remained.
       */
-    void render();
+    void render( const Viewport& vp );
     
     /** \brief
       * Finishes this task prematurely.

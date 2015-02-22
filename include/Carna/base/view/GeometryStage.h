@@ -60,7 +60,7 @@ public:
       */
     virtual void preparePass( const Matrix4f& viewTransform ) override;
     
-    virtual void renderPass( RenderTask& ) override;
+    virtual void renderPass( RenderTask& rt, const Viewport& vp ) override;
 
 protected:
 
@@ -103,7 +103,7 @@ void GeometryStage< RenderableCompare >::preparePass( const Matrix4f& viewTransf
 
 
 template< typename RenderableCompare >
-void GeometryStage< RenderableCompare >::renderPass( RenderTask& rt )
+void GeometryStage< RenderableCompare >::renderPass( RenderTask& rt, const Viewport& vp )
 {
     while( !rq.isEmpty() )
     {

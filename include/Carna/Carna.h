@@ -71,6 +71,7 @@ namespace Carna
             class ShaderProgram;
             class Spatial;
             class VertexShader;
+            class Viewport;
         }
         
         /** \brief  Contains the Qt components of the core framework.

@@ -83,7 +83,7 @@ public:
       */
     virtual void preparePass( const Matrix4f& viewTransform ) = 0;
     
-    virtual void renderPass( RenderTask& ) = 0;
+    virtual void renderPass( RenderTask& rt, const Viewport& vp ) = 0;
 
 }; // RenderStage
 

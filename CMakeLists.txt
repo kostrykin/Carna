@@ -128,6 +128,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/ShaderCompilationError.h
 		include/${PROJECT_NAME}/base/view/ShaderProgram.h
 		include/${PROJECT_NAME}/base/view/VertexShader.h
+		include/${PROJECT_NAME}/base/view/Viewport.h
 		include/${PROJECT_NAME}/base/view/glError.h
 		include/${PROJECT_NAME}/base/Aggregation.h
 		include/${PROJECT_NAME}/base/Application.h
@@ -169,6 +170,7 @@ set( SRC
 		src/base/view/ShaderCompilationError.cpp
 		src/base/view/ShaderProgram.cpp
 		src/base/view/VertexShader.cpp
+		src/base/view/Viewport.cpp
 		src/base/Application.cpp
 		src/base/CarnaException.cpp
 		src/base/Text.cpp

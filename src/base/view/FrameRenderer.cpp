@@ -13,6 +13,7 @@
 #include <Carna/base/view/RenderTask.h>
 #include <Carna/base/view/RenderStage.h>
 #include <Carna/base/view/Node.h>
+#include <Carna/base/view/Viewport.h>
 
 namespace Carna
 {
@@ -88,7 +89,13 @@ void FrameRenderer::reshape( unsigned int width, unsigned int height )
 }
 
 
-void FrameRenderer::render( Camera& cam, Node& root ) const
+void FrameRenderer::render( Camera& cam, Node& root, bool fitSquare ) const
+{
+    render( cam, root, Viewport( *this, fitSquare ) );
+}
+
+
+void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
 {
     // update world transforms
     root.updateWorldTransform();
@@ -112,8 +119,9 @@ void FrameRenderer::render( Camera& cam, Node& root ) const
     reshaped = false;
     
     // render frame
+    vp.makeActive();
     RenderTask task( *this, cam.projection(), cam.viewTransform() );
-    task.render();
+    task.render( vp );
 }
 
 
