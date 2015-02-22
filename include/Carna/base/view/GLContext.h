@@ -57,6 +57,41 @@ public:
 
 
 
+// ----------------------------------------------------------------------------------
+// QGLContextAdapter
+// ----------------------------------------------------------------------------------
+
+template< typename QGLContext >
+class QGLContextAdapter : public GLContext
+{
+
+    QGLContext& qglcontext;
+
+public:
+
+    QGLContextAdapter( const QGLContext& qglcontext );
+
+    virtual void makeActive() const override;
+
+}; // QGLContextAdapter
+
+
+template< typename QGLContext >
+QGLContextAdapter< QGLContext >::QGLContextAdapter( const QGLContext& qglcontext )
+    : GLContext( qglcontext.format().doubleBuffer() )
+    , qglcontext( const_cast< QGLContext& >( qglcontext ) )
+{
+}
+
+
+template< typename QGLContext >
+void QGLContextAdapter< QGLContext >::makeActive() const
+{
+    qglcontext.makeCurrent();
+}
+
+
+
 }  // namespace Carna :: base :: view
 
 }  // namespace Carna :: base
