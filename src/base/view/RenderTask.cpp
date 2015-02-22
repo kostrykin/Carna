@@ -30,45 +30,27 @@ namespace view
 // RenderTask
 // ----------------------------------------------------------------------------------
 
-RenderTask::RenderTask( const FrameRenderer& renderer, const Camera& cam )
+RenderTask::RenderTask( const FrameRenderer& renderer )
     : myOutput( nullptr )
-    , cam( &cam )
     , nextRenderStage( 0 )
-    , myWorldViewTransform( cam.worldTransform().inverse() )
     , renderer( renderer )
 {
 }
 
 
-RenderTask::RenderTask( const FrameRenderer& renderer, const Camera& cam, Framebuffer& output )
+RenderTask::RenderTask( const FrameRenderer& renderer, Framebuffer& output )
     : myOutput( &output )
-    , cam( &cam )
     , nextRenderStage( 0 )
-    , myWorldViewTransform( cam.worldTransform().inverse() )
     , renderer( renderer )
 {
 }
 
 
-RenderTask::RenderTask( RenderTask& parent, Framebuffer& output )
+RenderTask::RenderTask( const RenderTask& parent, Framebuffer& output )
     : myOutput( &output )
-    , cam( parent.cam )
     , nextRenderStage( parent.nextRenderStage )
-    , myWorldViewTransform( parent.myWorldViewTransform )
     , renderer( parent.renderer )
 {
-}
-
-    
-const Camera& RenderTask::camera() const
-{
-    return *cam;
-}
-
-
-const Matrix4f& RenderTask::worldViewTransform() const
-{
-    return myWorldViewTransform;
 }
 
 

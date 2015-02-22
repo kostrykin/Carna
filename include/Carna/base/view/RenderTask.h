@@ -39,26 +39,18 @@ class CARNA_LIB RenderTask
 
     Framebuffer* myOutput;
     
-    const Camera* cam;
-    
     std::size_t nextRenderStage;
-    
-    Matrix4f myWorldViewTransform;
 
 public:
 
-    explicit RenderTask( const FrameRenderer& renderer, const Camera& cam );
+    RenderTask( const FrameRenderer& renderer );
 
-    explicit RenderTask( const FrameRenderer& renderer, const Camera& cam, Framebuffer& output );
+    RenderTask( const FrameRenderer& renderer, Framebuffer& output );
     
     /** \brief
       * Forks \a parent. The result of the fork will be rendered to \a output.
       */
-    RenderTask( RenderTask& parent, Framebuffer& output );
-    
-    const Camera& camera() const;
-    
-    const Matrix4f& worldViewTransform() const;
+    RenderTask( const RenderTask& parent, Framebuffer& output );
 
     const FrameRenderer& renderer;
     

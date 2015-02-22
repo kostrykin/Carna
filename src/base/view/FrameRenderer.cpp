@@ -12,6 +12,7 @@
 #include <Carna/base/view/FrameRenderer.h>
 #include <Carna/base/view/RenderTask.h>
 #include <Carna/base/view/RenderStage.h>
+#include <Carna/base/view/Node.h>
 
 namespace Carna
 {
@@ -89,7 +90,10 @@ void FrameRenderer::reshape( unsigned int width, unsigned int height )
 
 void FrameRenderer::render( const Camera& cam, Node& root ) const
 {
-    // reshape render stages' buffers and update world transforms
+    // update world transforms
+    root.updateWorldTransform();
+
+    // reshape render stages' buffers
     for( auto rsItr = myStages.begin(); rsItr != myStages.end(); ++rsItr )
     {
         RenderStage& rs = **rsItr;
@@ -99,16 +103,16 @@ void FrameRenderer::render( const Camera& cam, Node& root ) const
         {
             rs.reshape( myWidth, myHeight );
         }
-        
-        // update world transforms
-        rs.prepareFrame( root );
+
+        // build render queues
+        rs.prepareFrame( cam, root );
     }
     
     // mark that all buffer sizes have been established
     reshaped = false;
     
     // render frame
-    RenderTask task( *this, cam );
+    RenderTask task( *this );
     task.render();
 }
 

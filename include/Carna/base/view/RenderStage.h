@@ -44,14 +44,6 @@ public:
     virtual ~RenderStage();
     
     /** \brief
-      * Called once before each frame.
-      *
-      * If this scene processor requires a \ref RenderQueue "render queue",
-      * than this is the right place to \ref RenderQueue::build "build" it.
-      */
-    virtual void prepareFrame( Node& root ) = 0;
-    
-    /** \brief
       * Orders this scene processor to reshape it's buffers according to the specified dimensions.
       */
     virtual void reshape( unsigned int width, unsigned int height ) = 0;
@@ -64,6 +56,14 @@ public:
       * if this method returns \c false, \ref reshape will be called before every frame.
       */
     virtual bool isInitialized() const = 0;
+    
+    /** \brief
+      * Called once before each frame.
+      *
+      * If this scene processor requires a \ref RenderQueue "render queue",
+      * than this is the right place to \ref RenderQueue::build "build" it.
+      */
+    virtual void prepareFrame( const Camera& cam, Node& root ) = 0;
     
     virtual void render( RenderTask& ) const = 0;
 

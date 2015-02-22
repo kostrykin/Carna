@@ -13,6 +13,7 @@
 #define NODE_H_6014714286
 
 #include <Carna/base/view/Spatial.h>
+#include <set>
 
 /** \file   Node.h
   * \brief  Defines \ref Carna::base::view::Node.

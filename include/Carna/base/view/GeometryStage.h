@@ -36,11 +36,11 @@ namespace view
 // GeometryStage
 // ----------------------------------------------------------------------------------
 
-template< typename GeometryRenderer, typename GeometryCompare = std::less< const Geometry* > >
+template< typename GeometryRenderer, typename RenderableCompare >
 class CARNA_LIB GeometryStage : public RenderStage
 {
     
-    RenderQueue< GeometryCompare > rq;
+    RenderQueue< RenderableCompare > rq;
     std::unique_ptr< GeometryRenderer > gr;
     bool initialized = false;
 
@@ -51,7 +51,7 @@ public:
     /** \brief
       * Builds the render queue.
       */
-    virtual void prepareFrame( Node& root ) override;
+    virtual void prepareFrame( const Camera& cam, Node& root ) override;
     
     /** \brief
       * Orders this scene processor to reshape it's buffers according to the specified dimensions.
@@ -72,7 +72,7 @@ public:
 }; // GeometryStage
 
 
-template< typename GeometryCompare >
+template< typename RenderableCompare >
 GeometryStage::GeometryStage( GeometryRenderer* gr, int geometryType )
     : rq( geometryType )
     , gr( gr )
@@ -80,27 +80,26 @@ GeometryStage::GeometryStage( GeometryRenderer* gr, int geometryType )
 }
 
 
-template< typename GeometryCompare >
-void GeometryStage::prepareFrame( Node& root )
+template< typename RenderableCompare >
+void GeometryStage::prepareFrame( const Camera& cam, Node& root )
 {
-    rq.build( root );
+    rq.build( cam, root );
 }
 
 
-template< typename GeometryCompare >
+template< typename RenderableCompare >
 void GeometryStage::render( RenderTask& rt ) const
 {
     rq.rewind();
     while( !rq.isEmpty() )
     {
-        const Geometry& geom = rq.poll();
-        const Matrix4f modelViewTransform = rt.worldViewTransform() * geom.worldTransform();
-        gr->render( modelViewTransform );
+        const Renderable& renderable = rq.poll();
+        gr->render( renderable );
     }
 }
 
 
-template< typename GeometryCompare >
+template< typename RenderableCompare >
 void GeometryStage::reshape( unsigned int width, unsigned int height )
 {
     gr->reshape( width, height );
@@ -108,7 +107,7 @@ void GeometryStage::reshape( unsigned int width, unsigned int height )
 }
 
 
-template< typename GeometryCompare >
+template< typename RenderableCompare >
 bool GeometryStage::isInitialized() const
 {
     return initialized;

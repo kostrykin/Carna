@@ -114,6 +114,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/Spatial.h
 		include/${PROJECT_NAME}/base/view/Node.h
 		include/${PROJECT_NAME}/base/view/Geometry.h
+		include/${PROJECT_NAME}/base/view/Renderable.h
 		include/${PROJECT_NAME}/base/view/FrameRenderer.h
 		include/${PROJECT_NAME}/base/view/RenderTask.h
 		include/${PROJECT_NAME}/base/view/RenderStage.h
@@ -152,6 +153,7 @@ set( PRIVATE_HEADERS
 set( SRC
 		src/base/view/Camera.cpp
 		src/base/view/Geometry.cpp
+		src/base/view/Renderable.cpp
 		src/base/view/FrameRenderer.cpp
 		src/base/view/RenderTask.cpp
 		src/base/view/RenderStage.cpp
