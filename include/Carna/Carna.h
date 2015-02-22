@@ -48,6 +48,7 @@ namespace Carna
           */
         namespace model
         {
+            class HUVolume;
         }
         
         /** \brief  Contains the view components of the core framework.

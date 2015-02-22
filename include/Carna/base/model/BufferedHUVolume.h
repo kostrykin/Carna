@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 - 2014 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2015 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
@@ -9,18 +9,18 @@
  *
  */
 
-#ifndef GENERICVOLUME_H_6014714286
-#define GENERICVOLUME_H_6014714286
+#ifndef BUFFEREDHUVOLUME_H_6014714286
+#define BUFFEREDHUVOLUME_H_6014714286
 
-/** \file   GenericVolume.h
+/** \file   BufferedHUVolume.h
   *
-  * \brief  Defines \ref Carna::base::model::GenericVolume.
+  * \brief  Defines \ref Carna::base::model::BufferedHUVolume.
   *
   * \author Leonid Kostrykin
   * \date   25.7.11
   */
 
-#include <Carna/base/model/Volume.h>
+#include <Carna/base/model/HUVolume.h>
 #include <Carna/base/Composition.h>
 #include <Carna/base/CarnaException.h>
 #include <vector>
@@ -37,30 +37,23 @@ namespace model
 
 
 // ----------------------------------------------------------------------------------
-// GenericVolume
+// BufferedHUVolume
 // ----------------------------------------------------------------------------------
 
-/** \brief  Generic \ref Volume implementation.
+/** \brief  Generic \ref HUVolume implementation.
   *
   * \invariant  <code>sizeof( VoxelType ) >= 2</code>
   *
-  * <b>Template Arguments:</b>
+  * Template Arguments:
   *
   * - The \a VoxelType is the data type used to store the value of a single voxel / HU-value.
-  * - The \a TextureUploader is a class, which meets the following requirements:
-  *   - It has a public default constructor.
-  *   - It implements a public method with the interface:<br>
-  *     <code>uploadTexture( const Vector3ui& size, const void* bufferPtr ) const</code><br>
-  *     This method satisfies the requirements documented \ref Volume::uploadTexture "here".
   * - The \a BufferType is the data type used as voxel container.
   *
   * \author Leonid Kostrykin
-  * \date   2011 - 2014
+  * \date   2011 - 2015
   */
-template< typename VoxelType
-        , typename TextureUploader
-        , typename BufferType = std::vector< VoxelType > >
-class GenericVolume : public Volume
+template< typename VoxelType, typename BufferType = std::vector< VoxelType > >
+class BufferedHUVolume : public HUVolume
 {
 
 public:
@@ -75,11 +68,11 @@ public:
 
     /** \brief  Instantiates.
       */
-    GenericVolume( const Vector3ui& size, Association< BufferType >* buffer )
+    BufferedHUVolume( const Vector3ui& size, Association< BufferType >* buffer )
         : Volume( size )
-        , buffer( buffer )
+        , myBuffer( buffer )
     {
-        init();
+        initializeBuffer();
     }
 
     /** \brief  Instantiates.
@@ -87,14 +80,14 @@ public:
       * This constructor is similar to:
       *
       * \code
-      * GenericVolume( size, new Composition< BufferType >( new BufferType( size.x * size.y * size.z ) ) );
+      * BufferedHUVolume( size, new Composition< BufferType >( new BufferType( size.x * size.y * size.z ) ) );
       * \endcode
       */
-    explicit GenericVolume( const Vector3ui& size )
+    explicit BufferedHUVolume( const Vector3ui& size )
         : Volume( size )
-        , buffer( new Composition< BufferType >( new BufferType( size.x * size.y * size.z ) ) )
+        , myBuffer( new Composition< BufferType >( new BufferType( size.x * size.y * size.z ) ) )
     {
-        init();
+        initializeBuffer();
     }
 
 
@@ -124,7 +117,7 @@ public:
                            , unsigned int y
                            , unsigned int z ) const
     {
-        return bufferValueToHUV( buffer->get()->at( x + size.x * y + size.y * size.x * z ) );
+        return bufferValueToHUV( myBuffer->get()->at( x + size.x * y + size.y * size.x * z ) );
     }
 
     /** \brief  Returns HUV of specified voxel.
@@ -139,7 +132,7 @@ public:
       */
     void setVoxel( unsigned int x, unsigned int y, unsigned int z, signed short huv )
     {
-        buffer->get()->at( x + size.x * y + size.y * size.x * z ) = HUVToBufferValue( huv );
+        myBuffer->get()->at( x + size.x * y + size.y * size.x * z ) = HUVToBufferValue( huv );
     }
 
     /** \brief  Sets the HUV of a voxel.
@@ -154,24 +147,18 @@ public:
       *
       * This method wasn't working prior to \ref v_2_2_2.
       */
-    BufferType& getBuffer()
+    BufferType& buffer()
     {
-        return *buffer->get();
+        return *myBuffer->get();
     }
     
     /** \brief  References the underlying buffer.
       *
       * This method wasn't working prior to \ref v_2_2_2.
       */
-    const BufferType& getBuffer() const
+    const BufferType& buffer() const
     {
-        return *buffer->get();
-    }
-    
-
-    virtual void uploadTexture() const
-    {
-        textureUploader.uploadTexture( size, &( buffer->get()->front() ) );
+        return *myBuffer->get();
     }
 
 
@@ -185,31 +172,27 @@ protected:
       *
       * \f[ \mathrm{position} = x + \mathrm{width} \cdot y + \mathrm{height} \cdot \mathrm{width} \cdot z \f]
       */
-    const std::unique_ptr< Association< BufferType > > buffer;
-
-    /** \brief  Uploads texture buffer to video memory.
-      */
-    TextureUploader textureUploader;
+    const std::unique_ptr< Association< BufferType > > myBuffer;
 
 
 private:
 
-    void init()
+    void initializeBuffer()
     {
         CARNA_ASSERT_EX
-            ( buffer.get() && buffer->get()
+            ( myBuffer.get() && myBuffer->get()
             , "no volume data buffer supplied" );
 
         CARNA_ASSERT_EX
-            ( buffer->get()->size() >= size.x * size.y * size.z
+            ( myBuffer->get()->size() >= size.x * size.y * size.z
             , "supplied volume data buffer is of size "
-                << buffer->get()->size()
+                << myBuffer->get()->size()
                 << " bytes but must be at least "
                 << size.x * size.y * size.z
                 << " bytes" );
     }
 
-}; // GenericVolume
+}; // BufferedHUVolume
 
 
 
@@ -219,4 +202,4 @@ private:
 
 }  // namespace Carna
 
-#endif // GENERICVOLUME_H_6014714286
+#endif // BUFFEREDHUVOLUME_H_6014714286

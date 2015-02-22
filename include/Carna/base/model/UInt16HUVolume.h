@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 - 2014 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2015 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
@@ -9,19 +9,20 @@
  *
  */
 
-#ifndef UINT16VOLUME_H_6014714286
-#define UINT16VOLUME_H_6014714286
+#ifndef UINT16HUVOLUME_H_6014714286
+#define UINT16HUVOLUME_H_6014714286
 
-/** \file   UInt16Volume.h
+/** \file   UInt16HUVolume.h
   *
-  * \brief  Defines \ref Carna::base::model::UInt16Volume.
+  * \brief  Defines \ref Carna::base::model::UInt16HUVolume.
   *
   * \author Leonid Kostrykin
   * \date   25.7.11
   */
 
-#include <Carna/base/model/GenericVolume.h>
-#include <Carna/base/view/UInt16TextureUploader.h>
+#include <Carna/base/model/BufferedHUVolume.h>
+#include <Carna/base/model/HUCubeField.h>
+#include <Carna/base/model/HUCubeSegment.h>
 #include <cstdint>
 
 namespace Carna
@@ -36,12 +37,16 @@ namespace model
 
 
 // ----------------------------------------------------------------------------------
-// UInt16Volume
+// UInt16HUVolume
 // ----------------------------------------------------------------------------------
 
 /** \brief  Defines 16bit unsigned integer volume data.
   */
-typedef GenericVolume< uint16_t, view::UInt16TextureUploader > UInt16Volume;
+typedef BufferedHUVolume< uint16_t > UInt16HUVolume;
+
+typedef HUCubeField< UInt16HUVolume > UInt16HUCubeField;
+
+typedef HUCubeSegment< UInt16HUCubeField, UInt16HUVolume > UInt16HUCubeSegment;
 
 
 
@@ -51,4 +56,4 @@ typedef GenericVolume< uint16_t, view::UInt16TextureUploader > UInt16Volume;
 
 }  // namespace Carna
 
-#endif // UINT16VOLUME_H_6014714286
+#endif // UINT16HUVOLUME_H_6014714286

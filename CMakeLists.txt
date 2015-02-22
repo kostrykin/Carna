@@ -132,6 +132,12 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/VertexShader.h
 		include/${PROJECT_NAME}/base/view/Viewport.h
 		include/${PROJECT_NAME}/base/view/glError.h
+		include/${PROJECT_NAME}/base/model/ScalarField.h
+		include/${PROJECT_NAME}/base/model/HUCubeField.h
+		include/${PROJECT_NAME}/base/model/HUCubeSegment.h
+		include/${PROJECT_NAME}/base/model/HUVolume.h
+		include/${PROJECT_NAME}/base/model/BufferedHUVolume.h
+		include/${PROJECT_NAME}/base/model/UInt16HUVolume.h
 		include/${PROJECT_NAME}/base/Aggregation.h
 		include/${PROJECT_NAME}/base/Application.h
 		include/${PROJECT_NAME}/base/Association.h
@@ -139,6 +145,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/Composition.h
 		include/${PROJECT_NAME}/base/noncopyable.h
 		include/${PROJECT_NAME}/base/Matrix4f.h
+		include/${PROJECT_NAME}/base/Vector3ui.h
 		include/${PROJECT_NAME}/base/Singleton.h
 		include/${PROJECT_NAME}/base/Text.h
 		include/${PROJECT_NAME}/Carna.h
@@ -175,6 +182,7 @@ set( SRC
 		src/base/view/ShaderProgram.cpp
 		src/base/view/VertexShader.cpp
 		src/base/view/Viewport.cpp
+		src/base/model/HUVolume.cpp
 		src/base/Application.cpp
 		src/base/CarnaException.cpp
 		src/base/Text.cpp

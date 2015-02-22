@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 - 2014 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2015 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
@@ -20,7 +20,7 @@
   * \date   21.2.13
   */
 
-#include <Carna/base/Vector3.h>
+#include <Carna/base/Vector3ui.h>
 #include <Carna/Carna.h>
 
 namespace Carna
@@ -43,17 +43,17 @@ namespace model
   * \author Leonid Kostrykin
   * \date   21.2.13
   */
-template< typename ValueType >
+template< typename VoxelType >
 class ScalarField
 {
 
 public:
 
-    /** \brief  Holds the codomain type of the scalar field.
+    /** \brief  Holds the co-domain type of the scalar field.
       *
       * \since  \ref v_2_2_2
       */
-    typedef ValueType ValueType;
+    typedef VoxelType VoxelType;
 
     /** \brief  Does nothing.
       */
@@ -64,14 +64,14 @@ public:
     
     /** \brief  Returns value of specified voxel.
       */
-    virtual ValueType operator()
+    virtual VoxelType operator()
         ( unsigned int x
         , unsigned int y
         , unsigned int z ) const = 0;
 
     /** \brief  Returns value of specified voxel.
       */
-    virtual ValueType operator()( const Vector3ui& at ) const;
+    virtual VoxelType operator()( const Vector3ui& at ) const;
 
 }; // ScalarField
 
@@ -79,7 +79,7 @@ public:
 template< typename ValueType >
 ValueType ScalarField< ValueType >::operator()( const Vector3ui& at ) const
 {
-    return ( *this )( at.x, at.y, at.z );
+    return ( *this )( at.x(), at.y(), at.z() );
 }
 
 
