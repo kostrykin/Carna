@@ -48,6 +48,7 @@ namespace Carna
           */
         namespace model
         {
+            class GeometryDefinition;
             class HUVolume;
         }
         
@@ -55,6 +56,7 @@ namespace Carna
           */
         namespace view
         {
+            class BufferedHUVolumeTexture;
             class Camera;
             class Color;
             class FragmentShader;
@@ -73,6 +75,7 @@ namespace Carna
             class ShaderCompilationError;
             class ShaderProgram;
             class Spatial;
+            class Texture3D;
             class VertexShader;
             class Viewport;
         }

@@ -117,14 +117,14 @@ public:
                            , unsigned int y
                            , unsigned int z ) const
     {
-        return bufferValueToHUV( myBuffer->get()->at( x + size.x * y + size.y * size.x * z ) );
+        return bufferValueToHUV( myBuffer->get()->at( x + size.x() * y + size.y() * size.x() * z ) );
     }
 
     /** \brief  Returns HUV of specified voxel.
       */
     signed short operator()( const Vector3ui& at ) const
     {
-        return ( *this )( at.x, at.y, at.z );
+        return ( *this )( at.x(), at.y(), at.z() );
     }
 
 
@@ -132,14 +132,14 @@ public:
       */
     void setVoxel( unsigned int x, unsigned int y, unsigned int z, signed short huv )
     {
-        myBuffer->get()->at( x + size.x * y + size.y * size.x * z ) = HUVToBufferValue( huv );
+        myBuffer->get()->at( x + size.x() * y + size.y() * size.x() * z ) = HUVToBufferValue( huv );
     }
 
     /** \brief  Sets the HUV of a voxel.
       */
     void setVoxel( const Vector3ui& at, signed short huv )
     {
-        this->setVoxel( at.x, at.y, at.z, huv );
+        this->setVoxel( at.x(), at.y(), at.z(), huv );
     }
 
 

@@ -9,7 +9,9 @@
  *
  */
 
-#include <Carna/base/view/Geometry.h>
+#include <Carna/base/view/glew.h>
+#include <Carna/base/view/BufferedHUVolumeUploader.h>
+#include <Carna/base/view/Texture3D.h>
 
 namespace Carna
 {
@@ -23,31 +25,12 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// Geometry
+// BufferedHUVolumeUploader
 // ----------------------------------------------------------------------------------
 
-Geometry::Geometry( int geometryType )
-    : myDefinition( nullptr )
-    , geometryType( geometryType )
+void uploadUInt16HUVolume( const model::UInt16HUVolume& src, Texture3D& dst )
 {
-}
-
-
-void Geometry::setGeometryDefinition( const model::GeometryDefinition& gm )
-{
-    this->myDefinition = &gm;
-}
-
-
-bool Geometry::hasDefinition() const
-{
-    return myDefinition != nullptr;
-}
-
-
-const model::GeometryDefinition& Geometry::definition() const
-{
-    return *myDefinition;
+    dst.upload( GL_INTENSITY16, src.size, GL_RED, GL_UNSIGNED_SHORT, &src.buffer().front() );
 }
 
 

@@ -36,11 +36,19 @@ namespace view
 class CARNA_LIB Geometry : public Spatial
 {
 
+    const model::GeometryDefinition* myDefinition;
+
 public:
 
     const int geometryType;
 
     Geometry( int geometryType );
+
+    void setGeometryDefinition( const model::GeometryDefinition& );
+
+    bool hasDefinition() const;
+
+    const model::GeometryDefinition& definition() const;
 
 }; // Geometry
 
