@@ -88,7 +88,7 @@ void FrameRenderer::reshape( unsigned int width, unsigned int height )
 }
 
 
-void FrameRenderer::render( const Camera& cam, Node& root ) const
+void FrameRenderer::render( Camera& cam, Node& root ) const
 {
     // update world transforms
     root.updateWorldTransform();
@@ -104,15 +104,15 @@ void FrameRenderer::render( const Camera& cam, Node& root ) const
             rs.reshape( myWidth, myHeight );
         }
 
-        // build render queues
-        rs.prepareFrame( cam, root );
+        // notify stages of beginning frame
+        rs.prepareFrame( root );
     }
     
     // mark that all buffer sizes have been established
     reshaped = false;
     
     // render frame
-    RenderTask task( *this );
+    RenderTask task( *this, cam.projection(), cam.viewTransform() );
     task.render();
 }
 

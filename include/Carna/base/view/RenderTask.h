@@ -41,11 +41,13 @@ class CARNA_LIB RenderTask
     
     std::size_t nextRenderStage;
 
+    Matrix4f viewTransform;
+
 public:
 
-    RenderTask( const FrameRenderer& renderer );
+    RenderTask( const FrameRenderer& renderer, const Matrix4f& projection, const Matrix4f& viewTransform );
 
-    RenderTask( const FrameRenderer& renderer, Framebuffer& output );
+    RenderTask( const FrameRenderer& renderer, const Matrix4f& projection, const Matrix4f& viewTransform, Framebuffer& output );
     
     /** \brief
       * Forks \a parent. The result of the fork will be rendered to \a output.
@@ -53,6 +55,10 @@ public:
     RenderTask( const RenderTask& parent, Framebuffer& output );
 
     const FrameRenderer& renderer;
+
+    const Matrix4f& projection;
+
+    void overrideViewTransform( const Matrix4f& );
     
     /** \brief
       * Invokes \ref RenderStage::render an all associated scene processors remained.

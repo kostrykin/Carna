@@ -14,6 +14,7 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/view/Node.h>
+#include <Carna/base/view/Renderable.h>
 #include <Carna/base/Matrix4f.h>
 #include <Carna/base/CarnaException.h>
 #include <Carna/base/noncopyable.h>
@@ -54,7 +55,7 @@ public:
 
     RenderQueue( int geometryType );
     
-    void build( const Camera& cam, const Node& root );
+    void build( const Node& root, const Matrix4f& viewTransform );
     
     void rewind();
     
@@ -66,54 +67,76 @@ public:
 
 
 template< typename RenderableCompare >
-RenderQueue::RenderQueue( int geometryType )
+RenderQueue< RenderableCompare >::RenderQueue( int geometryType )
     : geometryType( geometryType )
 {
 }
 
 
 template< typename RenderableCompare >
-void RenderQueue::build( const Camera& cam, const Node& root )
+struct RenderableSort
+{
+    static void sort( std::vector< Renderable >& renderables )
+    {
+        if( renderables.size() > 2 )
+        {
+            std::sort( renderables.begin(), renderables.end(), compare );
+        }
+    }
+};
+
+
+template< >
+struct RenderableSort< Renderable::ArbitraryOrder >
+{
+    static void sort( std::vector< Renderable >& )
+    {
+    }
+};
+
+
+template< typename RenderableCompare >
+void RenderQueue< RenderableCompare >::build( const Node& root, const Matrix4f& viewTransform )
 {
     renderables.clear();
     nextRenderableIndex = 0;
     
     // collect all geometries
-    root.visitChildren( [&renderables, &cam, geometryType]( const Spatial& spatial )
+    root.visitChildren( [&]( const Spatial& spatial )
         {
             const Geometry* const geom = dynamic_cast< const Geometry* >( &spatial );
             if( geom != nullptr && geom->geometryType == geometryType )
             {
-                const Matrix4f modelViewTransform = cam.worldTransform().inverse() * geom.worldTransform();
-                renderables.push_back( Renderable( geom, modelViewTransform ) );
+                const Matrix4f modelViewTransform = viewTransform * geom->worldTransform();
+                renderables.push_back( Renderable( *geom, modelViewTransform ) );
             }
         }
     );
     
     // order geometries as required
-    std::sort( renderables.begin(), renderables.end(), RenderableCompare() );
+    RenderableSort< RenderableCompare >::sort( renderables );
 }
 
 
 template< typename RenderableCompare >
-void RenderQueue::rewind()
+void RenderQueue< RenderableCompare >::rewind()
 {
     nextRenderableIndex = 0;
 }
 
 
 template< typename RenderableCompare >
-bool RenderQueue::isEmpty() const
+bool RenderQueue< RenderableCompare >::isEmpty() const
 {
     return nextRenderableIndex >= renderables.size();
 }
 
 
 template< typename RenderableCompare >
-const Renderable& RenderQueue::poll()
+const Renderable& RenderQueue< RenderableCompare >::poll()
 {
     CARNA_ASSERT( !isEmpty() );
-    return *renderables[ nextRenderableIndex++ ];
+    return renderables[ nextRenderableIndex++ ];
 }
 
 

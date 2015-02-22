@@ -26,8 +26,32 @@ namespace view
 // RenderStage
 // ----------------------------------------------------------------------------------
 
+RenderStage::RenderStage()
+    : viewTransformFixed( true )
+{
+}
+
+
 RenderStage::~RenderStage()
 {
+}
+
+
+void RenderStage::setViewTransformFixed( bool viewTransformFixed )
+{
+    this->viewTransformFixed = viewTransformFixed;
+}
+
+
+bool RenderStage::isViewTransformFixed() const
+{
+    return viewTransformFixed;
+}
+
+
+void RenderStage::prepareFrame( Node& root )
+{
+    viewTransformFixed = true;
 }
 
 

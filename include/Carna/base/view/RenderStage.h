@@ -39,9 +39,17 @@ class CARNA_LIB RenderStage
 
     NON_COPYABLE
 
+    bool viewTransformFixed;
+
 public:
 
+    RenderStage();
+
     virtual ~RenderStage();
+
+    void setViewTransformFixed( bool viewTransformFixed );
+
+    bool isViewTransformFixed() const;
     
     /** \brief
       * Orders this scene processor to reshape it's buffers according to the specified dimensions.
@@ -59,13 +67,23 @@ public:
     
     /** \brief
       * Called once before each frame.
+      */
+    virtual void prepareFrame( Node& root );
+
+    /** \brief
+      * Called once before each pass.
       *
       * If this scene processor requires a \ref RenderQueue "render queue",
       * than this is the right place to \ref RenderQueue::build "build" it.
+      * Note that the queue needs to be rebuilt only once per frame, unless
+      * \ref isViewTransformFixed is \c false. If it is \c true and this
+      * is not the first invocation of this method since the last time
+      * \ref prepareFrame was called, \ref RenderQueue::rewind "rewinding"
+      * the queue will be sufficient.
       */
-    virtual void prepareFrame( const Camera& cam, Node& root ) = 0;
+    virtual void preparePass( const Matrix4f& viewTransform ) = 0;
     
-    virtual void render( RenderTask& ) const = 0;
+    virtual void renderPass( RenderTask& ) = 0;
 
 }; // RenderStage
 

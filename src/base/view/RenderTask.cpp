@@ -30,18 +30,22 @@ namespace view
 // RenderTask
 // ----------------------------------------------------------------------------------
 
-RenderTask::RenderTask( const FrameRenderer& renderer )
+RenderTask::RenderTask( const FrameRenderer& renderer, const Matrix4f& projection, const Matrix4f& viewTransform )
     : myOutput( nullptr )
     , nextRenderStage( 0 )
+    , viewTransform( viewTransform )
     , renderer( renderer )
+    , projection( projection )
 {
 }
 
 
-RenderTask::RenderTask( const FrameRenderer& renderer, Framebuffer& output )
+RenderTask::RenderTask( const FrameRenderer& renderer, const Matrix4f& projection, const Matrix4f& viewTransform, Framebuffer& output )
     : myOutput( &output )
     , nextRenderStage( 0 )
+    , viewTransform( viewTransform )
     , renderer( renderer )
+    , projection( projection )
 {
 }
 
@@ -49,8 +53,21 @@ RenderTask::RenderTask( const FrameRenderer& renderer, Framebuffer& output )
 RenderTask::RenderTask( const RenderTask& parent, Framebuffer& output )
     : myOutput( &output )
     , nextRenderStage( parent.nextRenderStage )
+    , viewTransform( parent.viewTransform )
     , renderer( parent.renderer )
+    , projection( parent.projection )
 {
+}
+
+
+void RenderTask::overrideViewTransform( const Matrix4f& viewTransform )
+{
+    this->viewTransform = viewTransform;
+    for( std::size_t rsIdx = nextRenderStage; rsIdx < renderer.stages(); ++rsIdx )
+    {
+        RenderStage& rs = renderer.stageAt( rsIdx );
+        rs.setViewTransformFixed( false );
+    }
 }
 
 
@@ -61,7 +78,8 @@ void RenderTask::render()
     {
         RenderStage& rs = renderer.stageAt( nextRenderStage );
         ++nextRenderStage;
-        rs.render( *this );
+        rs.preparePass( viewTransform );
+        rs.renderPass( *this );
     }
 }
     

@@ -36,79 +36,92 @@ namespace view
 // GeometryStage
 // ----------------------------------------------------------------------------------
 
-template< typename GeometryRenderer, typename RenderableCompare >
+template< typename RenderableCompare >
 class CARNA_LIB GeometryStage : public RenderStage
 {
     
     RenderQueue< RenderableCompare > rq;
-    std::unique_ptr< GeometryRenderer > gr;
-    bool initialized = false;
+    bool initialized;
+    Node* root;
+    std::size_t passesRendered;
 
 public:
 
-    GeometryStage( GeometryRenderer* gr, int geometryType );
+    GeometryStage( int geometryType );
+    
+    virtual void reshape( unsigned int width, unsigned int height ) override;
+    
+    virtual bool isInitialized() const override;
+
+    virtual void prepareFrame( Node& root ) override;
     
     /** \brief
       * Builds the render queue.
       */
-    virtual void prepareFrame( const Camera& cam, Node& root ) override;
+    virtual void preparePass( const Matrix4f& viewTransform ) override;
     
-    /** \brief
-      * Orders this scene processor to reshape it's buffers according to the specified dimensions.
-      */
-    virtual void reshape( unsigned int width, unsigned int height ) override;
-    
-    /** \brief
-      * Tells whether this scene processor is ready for rendering.
-      *
-      * In particular this method returns \c true if this scene processor only requires
-      * \ref reshape to be called if the dimensions actually have changed. If this method
-      * returns \c false, \ref reshape will only be called when the dimensions change.
-      */
-    virtual bool isInitialized() const override;
-    
-    virtual void render( RenderManager& ) const override;
+    virtual void renderPass( RenderTask& ) override;
+
+protected:
+
+    virtual void render( const Renderable& ) = 0;
 
 }; // GeometryStage
 
 
 template< typename RenderableCompare >
-GeometryStage::GeometryStage( GeometryRenderer* gr, int geometryType )
+GeometryStage< RenderableCompare >::GeometryStage( int geometryType )
     : rq( geometryType )
-    , gr( gr )
+    , initialized( false )
+    , root( nullptr )
+    , passesRendered( 0 )
 {
 }
 
 
 template< typename RenderableCompare >
-void GeometryStage::prepareFrame( const Camera& cam, Node& root )
+void GeometryStage< RenderableCompare >::prepareFrame( Node& root )
 {
-    rq.build( cam, root );
+    RenderStage::prepareFrame( root );
+    this->root = &root;
+    this->passesRendered = 0;
 }
 
 
 template< typename RenderableCompare >
-void GeometryStage::render( RenderTask& rt ) const
+void GeometryStage< RenderableCompare >::preparePass( const Matrix4f& viewTransform )
 {
-    rq.rewind();
-    while( !rq.isEmpty() )
+    if( ++passesRendered == 1 || !isViewTransformFixed() )
     {
-        const Renderable& renderable = rq.poll();
-        gr->render( renderable );
+        rq.build( *root, viewTransform );
+    }
+    else
+    {
+        rq.rewind();
     }
 }
 
 
 template< typename RenderableCompare >
-void GeometryStage::reshape( unsigned int width, unsigned int height )
+void GeometryStage< RenderableCompare >::renderPass( RenderTask& rt )
 {
-    gr->reshape( width, height );
+    while( !rq.isEmpty() )
+    {
+        const Renderable& renderable = rq.poll();
+        render( renderable );
+    }
+}
+
+
+template< typename RenderableCompare >
+void GeometryStage< RenderableCompare >::reshape( unsigned int width, unsigned int height )
+{
     initialized = true;
 }
 
 
 template< typename RenderableCompare >
-bool GeometryStage::isInitialized() const
+bool GeometryStage< RenderableCompare >::isInitialized() const
 {
     return initialized;
 }

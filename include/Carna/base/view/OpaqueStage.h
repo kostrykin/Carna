@@ -9,7 +9,15 @@
  *
  */
 
+#ifndef OPAQUESTAGE_H_6014714286
+#define OPAQUESTAGE_H_6014714286
+
+#include <Carna/base/view/GeometryStage.h>
 #include <Carna/base/view/Renderable.h>
+
+/** \file   OpaqueStage.h
+  * \brief  Defines \ref Carna::base::view::OpaqueStage.
+  */
 
 namespace Carna
 {
@@ -23,34 +31,23 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// Renderable
+// OpaqueStage
 // ----------------------------------------------------------------------------------
 
-Renderable::Renderable( const Geometry& geometry, const Matrix4f& modelViewTransform )
-    : myGeometry( &geometry )
-    , myModelViewTransform( new Matrix4f( modelViewTransform ) )
+class CARNA_LIB OpaqueStage : public GeometryStage< Renderable::ArbitraryOrder >
 {
-}
 
+public:
 
-const Geometry& Renderable::geometry() const
-{
-    return *myGeometry;
-}
+    const static int GEOMETRY_TYPE = 1;
 
+    OpaqueStage();
 
-const Matrix4f& Renderable::modelViewTransform() const
-{
-    return *myModelViewTransform;
-}
+protected:
 
+    virtual void render( const Renderable& ) override;
 
-Renderable& Renderable::operator=( const Renderable& r )
-{
-    myGeometry = r.myGeometry;
-    *myModelViewTransform = *r.myModelViewTransform;
-    return *this;
-}
+}; // OpaqueStage
 
 
 
@@ -59,3 +56,5 @@ Renderable& Renderable::operator=( const Renderable& r )
 }  // namespace Carna :: base
 
 }  // namespace Carna
+
+#endif // OPAQUESTAGE_H_6014714286

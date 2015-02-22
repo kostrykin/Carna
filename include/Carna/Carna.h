@@ -60,8 +60,8 @@ namespace Carna
             class FrameRenderer;
             class Geometry;
             class Node;
+            class OpaqueStage;
             class Renderable;
-            class RenderQueue;
             class RenderStage;
             class RenderTask;
             class RenderTexture;

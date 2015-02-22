@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  Copyright (C) 2010 - 2015 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/view/Camera.h>
+#include <Carna/base/view/OpaqueStage.h>
 
 namespace Carna
 {
@@ -23,31 +23,17 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// Camera
+// OpaqueStage
 // ----------------------------------------------------------------------------------
 
-void Camera::updateWorldTransform()
+OpaqueStage::OpaqueStage()
+    : GeometryStage< Renderable::ArbitraryOrder >::GeometryStage( GEOMETRY_TYPE )
 {
-    Spatial::updateWorldTransform();
-    myViewTransform = worldTransform().inverse();
 }
 
 
-const Matrix4f& Camera::viewTransform() const
+void OpaqueStage::render( const Renderable& renderable )
 {
-    return myViewTransform;
-}
-
-
-void Camera::setProjection( const Matrix4f& projection )
-{
-    myProjection = projection;
-}
-
-
-const Matrix4f& Camera::projection() const
-{
-    return myProjection;
 }
 
 

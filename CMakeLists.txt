@@ -119,6 +119,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/RenderTask.h
 		include/${PROJECT_NAME}/base/view/RenderStage.h
 		include/${PROJECT_NAME}/base/view/GeometryStage.h
+		include/${PROJECT_NAME}/base/view/OpaqueStage.h
 		include/${PROJECT_NAME}/base/view/FragmentShader.h
 		include/${PROJECT_NAME}/base/view/Framebuffer.h
 		include/${PROJECT_NAME}/base/view/RenderTexture.h
@@ -157,6 +158,7 @@ set( SRC
 		src/base/view/FrameRenderer.cpp
 		src/base/view/RenderTask.cpp
 		src/base/view/RenderStage.cpp
+		src/base/view/OpaqueStage.cpp
 		src/base/view/Spatial.cpp
 		src/base/view/Node.cpp
 		src/base/view/FragmentShader.cpp

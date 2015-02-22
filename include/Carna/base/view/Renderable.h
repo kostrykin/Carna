@@ -44,19 +44,30 @@ namespace view
 class CARNA_LIB Renderable
 {
 
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
     const Geometry* myGeometry;
 
-public:
+    const std::unique_ptr< Matrix4f > myModelViewTransform;
 
-    Matrix4f modelViewTransform;
+public:
 
     Renderable( const Geometry& geometry, const Matrix4f& modelViewTransform );
 
     const Geometry& geometry() const;
 
+    const Matrix4f& modelViewTransform() const;
+
+    Renderable& operator=( const Renderable& );
+
     const static int ORDER_BACK_TO_FRONT = +1;
 
     const static int ORDER_FRONT_TO_BACK = -1;
+
+    struct ArbitraryOrder
+    {
+        bool operator()( const Renderable* l, const Renderable* r ) const;
+    };
 
     template< int order >
     struct DepthOrder
@@ -65,6 +76,12 @@ public:
     };
 
 }; // Renderable
+
+
+bool Renderable::ArbitraryOrder::operator()( const Renderable* l, const Renderable* r ) const
+{
+    return true;
+}
 
 
 template< int order >
