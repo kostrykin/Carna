@@ -45,10 +45,16 @@ class CARNA_LIB GeometryStage : public RenderStage
     Node* root;
     std::size_t passesRendered;
     std::set< GeometryDefinition* > acquiredVideoResources;
+    GLContext* myContext;
 
 public:
 
     GeometryStage( int geometryType );
+
+    /** \brief
+      * Releases acquired video resources.
+      */
+    virtual ~GeometryStage();
     
     virtual void reshape( unsigned int width, unsigned int height ) override;
     
@@ -76,7 +82,23 @@ GeometryStage< RenderableCompare >::GeometryStage( int geometryType )
     , initialized( false )
     , root( nullptr )
     , passesRendered( 0 )
+    , myContext( nullptr )
 {
+}
+
+
+template< typename RenderableCompare >
+GeometryStage< RenderableCompare >::~GeometryStage()
+{
+    if( myContext != nullptr )
+    {
+        myContext->makeActive();
+    }
+    std::for_each( acquiredVideoResources.begin(), acquiredVideoResources.end(), [&]( GeometryDefinition* gd )
+        {
+            gd->releaseVideoResources();
+        }
+    );
 }
 
 
@@ -86,6 +108,7 @@ void GeometryStage< RenderableCompare >::prepareFrame( const FrameRenderer& fr, 
     RenderStage::prepareFrame( fr, root );
     this->root = &root;
     this->passesRendered = 0;
+    this->myContext = &fr.glContext();
 }
 
 
@@ -129,15 +152,17 @@ void GeometryStage< RenderableCompare >::renderPass( RenderTask& rt, const Viewp
     if( isFirstPass )
     {
         // release unused video resources
-        std::for_each( acquiredVideoResources.begin(), acquiredVideoResources.end(), [&]( GeometryDefinition* gd )
+        for( auto itr = acquiredVideoResources.begin(); itr != acquiredVideoResources.end(); )
+        {
+            if( usedVideoResources.find( *itr ) == usedVideoResources.end() )
             {
-                if( usedVideoResources.find( gd ) == usedVideoResources.end() )
-                {
-                    gd->releaseVideoResources();
-                    acquiredVideoResources.erase( gd );
-                }
+                acquiredVideoResources.erase( itr++ );
             }
-        );
+            else
+            {
+                ++itr;
+            }
+        }
     }
 }
 
