@@ -33,6 +33,13 @@ Renderable::Renderable( const Geometry& geometry, const Matrix4f& modelViewTrans
 }
 
 
+Renderable::Renderable( const Renderable& other )
+    : myGeometry( other.myGeometry )
+    , myModelViewTransform( new Matrix4f( *other.myModelViewTransform ) )
+{
+}
+
+
 const Geometry& Renderable::geometry() const
 {
     return *myGeometry;

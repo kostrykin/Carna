@@ -37,15 +37,18 @@ namespace view
 // ----------------------------------------------------------------------------------
 
 template< typename RenderableCompare >
-class CARNA_LIB GeometryStage : public RenderStage
+class GeometryStage : public RenderStage
 {
-    
-    RenderQueue< RenderableCompare > rq;
+
     bool initialized;
     Node* root;
     std::size_t passesRendered;
     std::set< GeometryDefinition* > acquiredVideoResources;
     GLContext* myContext;
+
+protected:
+
+    RenderQueue< RenderableCompare > rq;
 
 public:
 
@@ -78,11 +81,11 @@ protected:
 
 template< typename RenderableCompare >
 GeometryStage< RenderableCompare >::GeometryStage( int geometryType )
-    : rq( geometryType )
-    , initialized( false )
+    : initialized( false )
     , root( nullptr )
     , passesRendered( 0 )
     , myContext( nullptr )
+    , rq( geometryType )
 {
 }
 

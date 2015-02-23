@@ -67,6 +67,11 @@ public:
     
     void visitChildren( const ImmutableVisitor& ) const;
     
+    /** \brief
+      * Computes the transformation to world space for this node just
+      * \ref Spatial::updateWorldTransform "like the base class does",
+      * than orders it's children to do the same.
+      */
     virtual void updateWorldTransform() override;
 
 }; // Node

@@ -64,6 +64,10 @@ public:
     
     const Renderable& poll();
 
+    const Renderable& first() const;
+
+    const Renderable& last() const;
+
 }; // RenderQueue
 
 
@@ -81,7 +85,7 @@ struct RenderableSort
     {
         if( renderables.size() > 2 )
         {
-            std::sort( renderables.begin(), renderables.end(), compare );
+            std::sort( renderables.begin(), renderables.end(), RenderableCompare() );
         }
     }
 };
@@ -138,6 +142,22 @@ const Renderable& RenderQueue< RenderableCompare >::poll()
 {
     CARNA_ASSERT( !isEmpty() );
     return renderables[ nextRenderableIndex++ ];
+}
+
+
+template< typename RenderableCompare >
+const Renderable& RenderQueue< RenderableCompare >::first() const
+{
+    CARNA_ASSERT( !isEmpty() );
+    return renderables.front();
+}
+
+
+template< typename RenderableCompare >
+const Renderable& RenderQueue< RenderableCompare >::last() const
+{
+    CARNA_ASSERT( !isEmpty() );
+    return renderables.back();
 }
 
 

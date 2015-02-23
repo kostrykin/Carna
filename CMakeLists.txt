@@ -137,6 +137,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/BufferedHUVolumeManager.h
 		include/${PROJECT_NAME}/base/view/GeometryDefinition.h
 		include/${PROJECT_NAME}/base/view/VideoResourcesManager.h
+		include/${PROJECT_NAME}/base/view/RayMarchingStage.h
 		include/${PROJECT_NAME}/base/model/ScalarField.h
 		include/${PROJECT_NAME}/base/model/HUCubeField.h
 		include/${PROJECT_NAME}/base/model/HUCubeSegment.h
@@ -192,6 +193,7 @@ set( SRC
 		src/base/view/BufferedHUVolumeUploader.cpp
 		src/base/view/GeometryDefinition.cpp
 		src/base/view/VideoResourcesManager.cpp
+		src/base/view/RayMarchingStage.cpp
 		src/base/model/HUVolume.cpp
 		src/base/Application.cpp
 		src/base/CarnaException.cpp

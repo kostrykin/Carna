@@ -44,15 +44,15 @@ namespace view
 class CARNA_LIB Renderable
 {
 
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
     const Geometry* myGeometry;
 
-    const std::unique_ptr< Matrix4f > myModelViewTransform;
+    std::unique_ptr< Matrix4f > myModelViewTransform;
 
 public:
 
     Renderable( const Geometry& geometry, const Matrix4f& modelViewTransform );
+
+    Renderable( const Renderable& other );
 
     const Geometry& geometry() const;
 
@@ -64,30 +64,29 @@ public:
 
     const static int ORDER_FRONT_TO_BACK = -1;
 
+    /** \brief
+      * This type is used to identify renderables ordered arbitrarily.
+      */
     struct ArbitraryOrder
     {
-        bool operator()( const Renderable* l, const Renderable* r ) const;
     };
 
+    /** \brief
+      * Establishes partial order for renderables w.r.t. to their depth in eye space.
+      */
     template< int order >
     struct DepthOrder
     {
-        bool operator()( const Renderable* l, const Renderable* r ) const;
+        bool operator()( const Renderable& l, const Renderable& r ) const;
     };
 
 }; // Renderable
 
 
-bool Renderable::ArbitraryOrder::operator()( const Renderable* l, const Renderable* r ) const
-{
-    return true;
-}
-
-
 template< int order >
-bool Renderable::DepthOrder< order >::operator()( const Renderable* l, const Renderable* r ) const
+bool Renderable::DepthOrder< order >::operator()( const Renderable& l, const Renderable& r ) const
 {
-    return order * ( translationDistanceSq( l->modelViewTransform ) - translationDistanceSq( r->modelViewTransform ) );
+    return order * ( translationDistanceSq( l.modelViewTransform() ) - translationDistanceSq( r.modelViewTransform() ) );
 }
 
 

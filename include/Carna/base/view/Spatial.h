@@ -81,8 +81,17 @@ public:
     
     Matrix4f localTransform;
     
+    /** \brief
+      * Computes the transformation to world space for this spatial.
+      *
+      * The default implementation concatenates the parent's world transformation with
+      * the \ref localTransform "local transformation" of this spatial.
+      */
     virtual void updateWorldTransform();
     
+    /** \brief
+      * Tells the transformation to world space for this spatial that was last computed.
+      */
     const Matrix4f& worldTransform() const;
 
 }; // Spatial
