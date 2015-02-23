@@ -9,15 +9,15 @@
  *
  */
 
-#ifndef BUFFEREDHUVOLUMETEXTURE_H_6014714286
-#define BUFFEREDHUVOLUMETEXTURE_H_6014714286
+#ifndef BUFFEREDHUVOLUMEUPLOADER_H_6014714286
+#define BUFFEREDHUVOLUMEUPLOADER_H_6014714286
 
 #include <Carna/Carna.h>
 #include <Carna/base/model/UInt16HUVolume.h>
 #include <Carna/base/CarnaException.h>
 
-/** \file   BufferedHUVolumeTexture.h
-  * \brief  Defines \ref Carna::base::view::BufferedHUVolumeTexture.
+/** \file   BufferedHUVolumeUploader.h
+  * \brief  Defines \ref Carna::base::view::BufferedHUVolumeUploader.
   */
 
 namespace Carna
@@ -69,4 +69,4 @@ struct CARNA_LIB BufferedHUVolumeUploader< model::UInt16HUVolume >
 
 }  // namespace Carna
 
-#endif // BUFFEREDHUVOLUMETEXTURE_H_6014714286
+#endif // BUFFEREDHUVOLUMEUPLOADER_H_6014714286

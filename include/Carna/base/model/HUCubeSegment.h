@@ -21,6 +21,7 @@
   */
 
 #include <Carna/base/Association.h>
+#include <Carna/base/CarnaException.h>
 #include <Carna/base/model/HUCubeField.h>
 
 namespace Carna
@@ -56,11 +57,15 @@ public:
 
     void setVolume( Association< HUCubeSegmentVolume >* volume );
 
+    HUCubeSegmentVolume& volume();
+
+    const HUCubeSegmentVolume& volume() const;
+
     Vector3ui offset;
 
 private:
 
-    std::unique_ptr< Association< HUCubeSegmentVolume > > volume;
+    std::unique_ptr< Association< HUCubeSegmentVolume > > myVolume;
 
 }; // HUCubeSegment
 
@@ -75,7 +80,23 @@ HUCubeSegment< HUCubeField, HUCubeSegmentVolume >::HUCubeSegment( HUCubeField& f
 template< typename HUCubeField, typename HUCubeSegmentVolume >
 void HUCubeSegment< HUCubeField, HUCubeSegmentVolume >::setVolume( Association< HUCubeSegmentVolume >* volume )
 {
-    this->volume.reset( volume );
+    myVolume.reset( volume );
+}
+
+
+template< typename HUCubeField, typename HUCubeSegmentVolume >
+HUCubeSegmentVolume& HUCubeSegment< HUCubeField, HUCubeSegmentVolume >::volume()
+{
+    CARNA_ASSERT( myVolume.get() != nullptr );
+    return *myVolume;
+}
+
+
+template< typename HUCubeField, typename HUCubeSegmentVolume >
+const HUCubeSegmentVolume& HUCubeSegment< HUCubeField, HUCubeSegmentVolume >::volume() const
+{
+    CARNA_ASSERT( myVolume.get() != nullptr );
+    return *myVolume;
 }
 
 

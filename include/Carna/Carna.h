@@ -37,6 +37,8 @@ namespace Carna
         class Application;
         class AssertionFailure;
         class CarnaException;
+        class Log;
+        class Text;
         
         /** \brief  Contains the controller components of the core framework.
           */
@@ -48,7 +50,6 @@ namespace Carna
           */
         namespace model
         {
-            class GeometryDefinition;
             class HUVolume;
         }
         
@@ -63,6 +64,7 @@ namespace Carna
             class Framebuffer;
             class FrameRenderer;
             class Geometry;
+            class GeometryDefinition;
             class GLContext;
             class Node;
             class OpaqueStage;
@@ -77,6 +79,7 @@ namespace Carna
             class Spatial;
             class Texture3D;
             class VertexShader;
+            class VideoResourcesManager;
             class Viewport;
         }
         

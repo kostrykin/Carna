@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/model/GeometryDefinition.h>
+#include <Carna/base/view/VideoResourcesManager.h>
 
 namespace Carna
 {
@@ -17,22 +17,22 @@ namespace Carna
 namespace base
 {
 
-namespace model
+namespace view
 {
 
 
 
 // ----------------------------------------------------------------------------------
-// GeometryDefinition
+// VideoResourcesManager
 // ----------------------------------------------------------------------------------
 
-GeometryDefinition::~GeometryDefinition()
+VideoResourcesManager::~VideoResourcesManager()
 {
 }
 
 
 
-}  // namespace Carna :: base :: model
+}  // namespace Carna :: base :: view
 
 }  // namespace Carna :: base
 

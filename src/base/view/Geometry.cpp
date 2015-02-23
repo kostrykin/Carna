@@ -10,6 +10,7 @@
  */
 
 #include <Carna/base/view/Geometry.h>
+#include <Carna/base/view/GeometryDefinition.h>
 
 namespace Carna
 {
@@ -33,9 +34,34 @@ Geometry::Geometry( int geometryType )
 }
 
 
-void Geometry::setGeometryDefinition( const model::GeometryDefinition& gm )
+Geometry::~Geometry()
 {
-    this->myDefinition = &gm;
+    if( hasDefinition() )
+    {
+        myDefinition->removeFrom( *this );
+    }
+}
+
+
+void Geometry::setDefinition( GeometryDefinition& gd )
+{
+    if( myDefinition != &gd )
+    {
+        removeDefinition();
+        myDefinition = &gd;
+        gd.applyTo( *this );
+    }
+}
+
+
+void Geometry::removeDefinition()
+{
+    if( hasDefinition() )
+    {
+        GeometryDefinition* const gd = myDefinition;
+        myDefinition = nullptr;
+        gd->removeFrom( *this );
+    }
 }
 
 
@@ -45,7 +71,7 @@ bool Geometry::hasDefinition() const
 }
 
 
-const model::GeometryDefinition& Geometry::definition() const
+GeometryDefinition& Geometry::definition() const
 {
     return *myDefinition;
 }

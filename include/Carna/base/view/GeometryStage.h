@@ -44,6 +44,7 @@ class CARNA_LIB GeometryStage : public RenderStage
     bool initialized;
     Node* root;
     std::size_t passesRendered;
+    std::set< GeometryDefinition* > acquiredVideoResources;
 
 public:
 
@@ -105,10 +106,38 @@ void GeometryStage< RenderableCompare >::preparePass( const Matrix4f& viewTransf
 template< typename RenderableCompare >
 void GeometryStage< RenderableCompare >::renderPass( RenderTask& rt, const Viewport& vp )
 {
+    const bool isFirstPass = passesRendered == 1;
+    std::set< GeometryDefinition* > usedVideoResources;
     while( !rq.isEmpty() )
     {
         const Renderable& renderable = rq.poll();
+        if( isFirstPass )
+        {
+            // denote that the geometry definition was used
+            GeometryDefinition& gd = renderable.geometry().definition();
+            usedVideoResources.insert( &gd );
+
+            // check whether video resources need to be acquired
+            if( acquiredVideoResources.find( &gd ) == acquiredVideoResources.end() )
+            {
+                gd.acquireVideoResources();
+                acquiredVideoResources.insert( &gd );
+            }
+        }
         render( renderable );
+    }
+    if( isFirstPass )
+    {
+        // release unused video resources
+        std::for_each( acquiredVideoResources.begin(), acquiredVideoResources.end(), [&]( GeometryDefinition* gd )
+            {
+                if( usedVideoResources.find( gd ) == usedVideoResources.end() )
+                {
+                    gd->releaseVideoResources();
+                    acquiredVideoResources.erase( gd );
+                }
+            }
+        );
     }
 }
 

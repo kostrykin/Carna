@@ -14,6 +14,7 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/view/Node.h>
+#include <Carna/base/view/Geometry.h>
 #include <Carna/base/view/Renderable.h>
 #include <Carna/base/Matrix4f.h>
 #include <Carna/base/CarnaException.h>
@@ -105,7 +106,7 @@ void RenderQueue< RenderableCompare >::build( const Node& root, const Matrix4f& 
     root.visitChildren( [&]( const Spatial& spatial )
         {
             const Geometry* const geom = dynamic_cast< const Geometry* >( &spatial );
-            if( geom != nullptr && geom->geometryType == geometryType )
+            if( geom != nullptr && geom->geometryType == geometryType && geom->hasDefinition() )
             {
                 const Matrix4f modelViewTransform = viewTransform * geom->worldTransform();
                 renderables.push_back( Renderable( *geom, modelViewTransform ) );

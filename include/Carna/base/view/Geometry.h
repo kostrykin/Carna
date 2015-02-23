@@ -36,7 +36,7 @@ namespace view
 class CARNA_LIB Geometry : public Spatial
 {
 
-    const model::GeometryDefinition* myDefinition;
+    GeometryDefinition* myDefinition;
 
 public:
 
@@ -44,11 +44,15 @@ public:
 
     Geometry( int geometryType );
 
-    void setGeometryDefinition( const model::GeometryDefinition& );
+    virtual ~Geometry();
+
+    void setDefinition( GeometryDefinition& );
+
+    void removeDefinition();
 
     bool hasDefinition() const;
 
-    const model::GeometryDefinition& definition() const;
+    GeometryDefinition& definition() const;
 
 }; // Geometry
 
