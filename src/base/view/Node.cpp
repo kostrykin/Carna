@@ -33,17 +33,41 @@ Node::~Node()
 }
 
 
+bool Node::hasChild( const Spatial& child ) const
+{
+    return children.find( const_cast< Spatial* >( &child ) ) != children.end();
+}
+
+
 void Node::attachChild( Spatial* child )
 {
-    children.insert( child );
+    CARNA_ASSERT( child != nullptr );
+    if( !child->hasParent() || &child->parent() != this )
+    {
+        if( child->hasParent() )
+        {
+            child->detachFromParent();
+        }
+        children.insert( child );
+        child->updateParent( *this );
+    }
 }
 
 
 Spatial* Node::detachChild( Spatial& child )
 {
-    CARNA_ASSERT( child.hasParent() && &child.parent() == this );
-    children.erase( &child );
-    return &child;
+    const auto childItr = children.find( &child );
+    if( childItr != children.end() )
+    {
+        CARNA_ASSERT( child.hasParent() && &child.parent() == this );
+        children.erase( &child );
+        child.detachFromParent();
+        return &child;
+    }
+    else
+    {
+        return nullptr;
+    }
 }
 
 

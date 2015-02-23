@@ -58,7 +58,22 @@ public:
     
     bool hasParent() const;
 
+    /** \brief
+      * Detaches this spatial from it's parent node.
+      * The caller takes possession of this spatial.
+      *
+      * \returns
+      * Possessing pointer to this spatial if it has successfully been detached from
+      * the parent or \c nullptr if it has no parent.
+      */
     Spatial* detachFromParent();
+
+    /** \brief
+      * Fixes tree consistency by updating parent of this spatial.
+      *
+      * This method is only required for internal usage.
+      */
+    void updateParent( Node& parent );
     
     Node& parent();
     

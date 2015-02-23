@@ -43,9 +43,23 @@ public:
 
     virtual ~Node();
 
-    void attachChild( Spatial* );
+    /** \brief
+      * Attaches \a child to this node and takes it's possession.
+      *
+      * If \a child already has another parent, it is first detached from that one.
+      */
+    void attachChild( Spatial* child );
     
-    Spatial* detachChild( Spatial& );
+    /** \brief
+      * Detaches \a child from this node. The caller takes possession of the child.
+      *
+      * \returns
+      * Possessing pointer to the child if it has successfully been detached or \c nullptr
+      * if something went wrong, e.g. this node is not the \a child's parent.
+      */
+    Spatial* detachChild( Spatial& child );
+
+    bool hasChild( const Spatial& child ) const;
     
     void deleteAllChildren();
     
