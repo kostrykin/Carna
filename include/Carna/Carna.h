@@ -57,30 +57,36 @@ namespace Carna
           */
         namespace view
         {
-            class BufferedHUVolumeTexture;
-            class Camera;
-            class Color;
-            class FragmentShader;
-            class Framebuffer;
-            class FrameRenderer;
-            class Geometry;
-            class GeometryDefinition;
-            class GLContext;
-            class Node;
-            class OpaqueStage;
-            class Renderable;
-            class RenderStage;
-            class RenderTask;
-            class RenderTexture;
-            class Shader;
-            class ShaderBundle;
-            class ShaderCompilationError;
-            class ShaderProgram;
-            class Spatial;
-            class Texture3D;
-            class VertexShader;
-            class VideoResourcesManager;
-            class Viewport;
+            class  BaseBuffer;
+            class  BufferedHUVolumeTexture;
+            class  Camera;
+            class  Color;
+            class  FragmentShader;
+            class  Framebuffer;
+            class  FrameRenderer;
+            class  Geometry;
+            class  GeometryDefinition;
+            class  GLContext;
+            class  IndexBufferBase;
+            class  MeshBase;
+            class  Node;
+            class  OpaqueStage;
+            class  Renderable;
+            class  RenderStage;
+            class  RenderTask;
+            class  RenderTexture;
+            class  Shader;
+            class  ShaderBundle;
+            class  ShaderCompilationError;
+            class  ShaderProgram;
+            class  Spatial;
+            class  Texture3D;
+            struct VertexBase;
+            struct VertexAttribute;
+            class  VertexBufferBase;
+            class  VertexShader;
+            class  VideoResourcesManager;
+            class  Viewport;
         }
         
         /** \brief  Contains the Qt components of the core framework.

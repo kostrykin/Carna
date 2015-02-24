@@ -12,6 +12,7 @@
 #ifndef GEOMETRY_H_6014714286
 #define GEOMETRY_H_6014714286
 
+#include <Carna/Carna.h>
 #include <Carna/base/view/Spatial.h>
 
 /** \file   Geometry.h

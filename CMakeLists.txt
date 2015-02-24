@@ -138,6 +138,12 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/GeometryDefinition.h
 		include/${PROJECT_NAME}/base/view/VideoResourcesManager.h
 		include/${PROJECT_NAME}/base/view/RayMarchingStage.h
+		include/${PROJECT_NAME}/base/view/Vertex.h
+		include/${PROJECT_NAME}/base/view/VertexBuffer.h
+		include/${PROJECT_NAME}/base/view/VertexAttributes.h
+		include/${PROJECT_NAME}/base/view/IndexBuffer.h
+		include/${PROJECT_NAME}/base/view/Mesh.h
+		include/${PROJECT_NAME}/base/view/BaseBuffer.h
 		include/${PROJECT_NAME}/base/model/ScalarField.h
 		include/${PROJECT_NAME}/base/model/HUCubeField.h
 		include/${PROJECT_NAME}/base/model/HUCubeSegment.h
@@ -194,6 +200,11 @@ set( SRC
 		src/base/view/GeometryDefinition.cpp
 		src/base/view/VideoResourcesManager.cpp
 		src/base/view/RayMarchingStage.cpp
+		src/base/view/Vertex.cpp
+		src/base/view/VertexBuffer.cpp
+		src/base/view/IndexBuffer.cpp
+		src/base/view/Mesh.cpp
+		src/base/view/BaseBuffer.cpp
 		src/base/model/HUVolume.cpp
 		src/base/Application.cpp
 		src/base/CarnaException.cpp
