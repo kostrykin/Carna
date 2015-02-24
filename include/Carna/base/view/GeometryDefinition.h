@@ -73,7 +73,7 @@ public:
     /** \brief
       * Instantiates. Call \ref release when you do not need the object any longer.
       */
-    static GeometryDefinition* create( VideoResourcesManager* vrm );
+    static GeometryDefinition& create( VideoResourcesManager* vrm );
 
     /** \brief
       * Increments video resource acquisition counter.

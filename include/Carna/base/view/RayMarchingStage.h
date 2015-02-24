@@ -13,6 +13,7 @@
 #define RAYMARCHINGSTAGE_H_6014714286
 
 #include <Carna/base/view/GeometryStage.h>
+#include <Carna/base/Matrix4f.h>
 
 /** \file   RayMarchingStage.h
   * \brief  Defines \ref Carna::base::view::RayMarchingStage.
@@ -65,11 +66,13 @@ protected:
 
     virtual void render( const Renderable& ) override;
 
+    virtual void beginPass() = 0;
+
+    virtual void finishPass() = 0;
+
 private:
 
-    void beginPass();
-
-    void finishPass();
+    void renderSlice( const Matrix4f& sliceTangentModel, const Matrix4f& modelView );
 
 }; // RayMarchingStage
 

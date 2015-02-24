@@ -10,7 +10,6 @@
  */
 
 #include <Carna/base/view/RayMarchingStage.h>
-#include <Carna/base/Matrix4f.h>
 
 namespace Carna
 {
@@ -38,20 +37,43 @@ RayMarchingStage::RayMarchingStage()
 
 void RayMarchingStage::render( const Renderable& renderable )
 {
-    // we will need for implementation:
-    //
-    //   renderable.modelViewTransform();
-    //   renderable.geometry().worldTransform();
-    //   ...
+    /* Hereinafter the term 'model' is identified with 'segment'.
+     */
+    const Matrix4f& modelView = renderable.modelViewTransform();
+
+    /* Compute the directional vector from eye to segment center.
+     * This vector needs to be renormalized since 'viewModel' may contain scalings.
+     */
+    const Matrix4f viewModel = modelView.inverse();
+    const Vector4f viewDirectionInModelSpace = normalized( Vector4f( viewModel * Vector4f( 0, 0, -1, 0 ) ) );
+
+    /* Construct billboard at segment center, i.e. plane that always faces the camera.
+     */
+    const Vector4f modelNormal = viewModel * Vector4f( 0, 0, 1, 0 );
+    const Vector4f modelTangent = viewModel * Vector4f( 1, 0, 0, 0 );
+    const Vector4f modelBitangent = viewModel * Vector4f( 0, 1, 0, 0 );
+    const Matrix4f tangentModel = basis4f( modelTangent, modelBitangent, modelNormal );
+
+    /* NOTE: This can be optimized using geometry shader, by sending only the central
+     * slice to the GPU and constructing the others in the shader.
+     */
+    for( unsigned int sampleIdx = 0; sampleIdx < mySampleRate; ++sampleIdx )
+    {
+        const Vector4f offset = viewDirectionInModelSpace * sqrt( 3.f ) * ( 0.5f - static_cast< float >( sampleIdx ) / ( mySampleRate - 1 ) );
+        if( std::abs( offset.x() ) <= 0.5f && std::abs( offset.y() ) <= 0.5f && std::abs( offset.z() ) <= 0.5f )
+        {
+            /* Construct transformation from tangent to model space for specific slice.
+            */
+            const Matrix4f sliceOffset = translation4f( offset );
+            const Matrix4f sliceTangentModel = sliceOffset * tangentModel;
+
+            renderSlice( sliceTangentModel, modelView );
+        }
+    }
 }
 
 
-void RayMarchingStage::beginPass()
-{
-}
-
-
-void RayMarchingStage::finishPass()
+void RayMarchingStage::renderSlice( const Matrix4f& sliceTangentModel, const Matrix4f& modelView )
 {
 }
 

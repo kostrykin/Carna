@@ -37,9 +37,9 @@ GeometryDefinition::GeometryDefinition( VideoResourcesManager* vrm )
 }
 
 
-GeometryDefinition* GeometryDefinition::create( VideoResourcesManager* vrm )
+GeometryDefinition& GeometryDefinition::create( VideoResourcesManager* vrm )
 {
-    return new GeometryDefinition( vrm );
+    return *new GeometryDefinition( vrm );
 }
 
 

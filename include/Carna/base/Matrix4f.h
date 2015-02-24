@@ -38,6 +38,23 @@ Matrix4f identity4f()
 
 
 inline
+Matrix4f basis4f( const Vector4f& x, const Vector4f& y, const Vector4f& z, const Vector4f& t = Vector4f( 0, 0, 0, 0 ) )
+{
+    Matrix4f result;
+    result.col( 0 ) = x;
+    result.col( 1 ) = y;
+    result.col( 2 ) = z;
+    result.col( 3 ) = t;
+    for( unsigned int i = 0; i < 3; ++i )
+    {
+        result( 3, i ) = 0;
+    }
+    result( 3, 3 ) = 1;
+    return result;
+}
+
+
+inline
 Matrix4f translation4f( float x, float y, float z )
 {
     Matrix4f result;
@@ -49,8 +66,15 @@ Matrix4f translation4f( float x, float y, float z )
 }
 
 
+template< typename Vector >
+Matrix4f translation4f( const Vector& v )
+{
+    return translation4f( v.x(), v.y(), v.z() );
+}
+
+
 inline
-Matrix4f scaling( float x, float y, float z )
+Matrix4f scaling4f( float x, float y, float z )
 {
     Matrix4f result;
     result.setIdentity();
@@ -62,14 +86,14 @@ Matrix4f scaling( float x, float y, float z )
 
 
 inline
-Matrix4f scaling( float uniform_scale_factor )
+Matrix4f scaling4f( float uniform_scale_factor )
 {
-    return scaling( uniform_scale_factor, uniform_scale_factor, uniform_scale_factor );
+    return scaling4f( uniform_scale_factor, uniform_scale_factor, uniform_scale_factor );
 }
 
 
 inline
-Matrix4f rotation( float x, float y, float z, float radians )
+Matrix4f rotation4f( float x, float y, float z, float radians )
 {
     const float c = std::cos( radians );
     const float s = std::sin( radians );
@@ -97,6 +121,27 @@ inline
 float translationDistanceSq( const Matrix4f& m )
 {
     return m( 1, 3 ) * m( 1, 3 ) + m( 2, 3 ) * m( 2, 3 ) + m( 3, 3 ) * m( 3, 3 );
+}
+
+
+template< typename Vector >
+Vector& normalized( Vector& v )
+{
+    v.normalize();
+    return v;
+}
+
+
+template< typename Matrix >
+float maxAbsElement( const Matrix& m )
+{
+    const std::size_t length = m.rows() * m.cols();
+    float maxAbs = 0;
+    for( std::size_t i = 0; i < length; ++i )
+    {
+        maxAbs = std::max( maxAbs, abs( m.data()[ i ] ) );
+    }
+    return maxAbs;
 }
 
 
