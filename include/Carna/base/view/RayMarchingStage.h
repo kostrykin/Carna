@@ -13,7 +13,6 @@
 #define RAYMARCHINGSTAGE_H_6014714286
 
 #include <Carna/base/view/GeometryStage.h>
-#include <Carna/base/Matrix4f.h>
 
 /** \file   RayMarchingStage.h
   * \brief  Defines \ref Carna::base::view::RayMarchingStage.
@@ -37,10 +36,8 @@ namespace view
 class CARNA_LIB RayMarchingStage : public GeometryStage< Renderable::DepthOrder< Renderable::ORDER_BACK_TO_FRONT > >
 {
 
-    unsigned int mySampleRate;
-
-    RenderTask* renderTask;
-    const Viewport* viewPort;
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
 
 public:
 
@@ -69,10 +66,6 @@ protected:
     virtual void beginPass() = 0;
 
     virtual void finishPass() = 0;
-
-private:
-
-    void renderSlice( const Matrix4f& sliceTangentModel, const Matrix4f& modelView );
 
 }; // RayMarchingStage
 

@@ -36,6 +36,15 @@ const VertexAttributes VertexBase::attributes = []()->VertexAttributes
 }();
 
 
+VertexBase::VertexBase()
+    : x( 0 )
+    , y( 0 )
+    , z( 0 )
+    , w( 1 )
+{
+}
+
+
 
 }  // namespace Carna :: base :: view
 

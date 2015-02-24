@@ -39,6 +39,11 @@ struct CARNA_LIB VertexBase
     static const VertexAttributes attributes;
 
     float x, y, z, w;
+
+    /** \brief
+      * Initializes position to \f$\left(0, 0, 0, 1\right)\f$.
+      */
+    VertexBase();
 };
 
 struct VertexNormal
