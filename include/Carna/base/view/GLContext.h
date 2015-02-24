@@ -39,6 +39,8 @@ class CARNA_LIB GLContext
 
     static GLContext* myCurrent;
 
+    const ShaderProgram* myShader;
+
 public:
 
     GLContext( bool isDoubleBuffered );
@@ -52,6 +54,10 @@ public:
     virtual void makeActive() = 0;
 
     bool isActive() const;
+
+    void setShader( const ShaderProgram& );
+
+    const ShaderProgram& shader() const;
 
 }; // GLContext
 

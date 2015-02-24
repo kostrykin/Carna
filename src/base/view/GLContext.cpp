@@ -9,7 +9,9 @@
  *
  */
 
+#include <Carna/base/view/glew.h>
 #include <Carna/base/view/GLContext.h>
+#include <Carna/base/view/ShaderProgram.h>
 #include <Carna/base/CarnaException.h>
 
 namespace Carna
@@ -32,6 +34,7 @@ GLContext* GLContext::myCurrent = nullptr;
 
 GLContext::GLContext( bool isDoubleBuffered )
     : isDoubleBuffered( isDoubleBuffered )
+    , myShader( nullptr )
 {
     if( myCurrent == nullptr )
     {
@@ -59,6 +62,24 @@ GLContext& GLContext::current()
 bool GLContext::isActive() const
 {
     return myCurrent == this;
+}
+
+
+void GLContext::setShader( const ShaderProgram& shader )
+{
+    myShader = &shader;
+    if( !isActive() )
+    {
+        makeActive();
+    }
+    glUseProgram( shader.id );
+}
+
+
+const ShaderProgram& GLContext::shader() const
+{
+    CARNA_ASSERT( myShader != nullptr );
+    return *myShader;
 }
 
 

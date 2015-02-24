@@ -33,25 +33,25 @@ namespace view
 struct RayMarchingStage::Details
 {
 
-    Details();
+    Details( const ShaderProgram& shader );
 
     ~Details();
 
-    unsigned int mySampleRate;
     RenderTask* renderTask;
     const Viewport* viewPort;
     Mesh< VertexBase, uint8_t > sliceMesh;
+    const ShaderProgram& shader;
 
     void renderSlice( const Matrix4f& sliceTangentModel, const Matrix4f& modelView );
 
 }; // RayMarchingStage :: Details
 
 
-RayMarchingStage::Details::Details()
-    : mySampleRate( DEFAULT_SAMPLE_RATE )
-    , renderTask( nullptr )
+RayMarchingStage::Details::Details( const ShaderProgram& shader )
+    : renderTask( nullptr )
     , viewPort( nullptr )
     , sliceMesh( IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN )
+    , shader( shader )
 {
     const float radius = std::sqrt( 3.f ) / 2;
     VertexBase vertices[ 4 ];
@@ -83,8 +83,10 @@ RayMarchingStage::Details::~Details()
 
 void RayMarchingStage::Details::renderSlice( const Matrix4f& sliceTangentModel, const Matrix4f& modelView )
 {
-    /* TODO: configure shader.
+    /* Configure shader.
      */
+    ShaderProgram::putUniform4x4f( "sliceTangentModel", sliceTangentModel );
+    ShaderProgram::putUniform4x4f( "modelViewProjection", renderTask->projection * modelView );
 
     /* Invoke shader.
      */
@@ -99,7 +101,7 @@ void RayMarchingStage::Details::renderSlice( const Matrix4f& sliceTangentModel, 
 
 RayMarchingStage::RayMarchingStage()
     : GeometryStage< Renderable::DepthOrder< Renderable::ORDER_BACK_TO_FRONT > >::GeometryStage( GEOMETRY_TYPE )
-    , pimpl( new Details() )
+    , mySampleRate( DEFAULT_SAMPLE_RATE )
 {
 }
 
@@ -126,9 +128,9 @@ void RayMarchingStage::render( const Renderable& renderable )
     /* NOTE: This can be optimized using geometry shader, by sending only the central
      * slice to the GPU and constructing the others in the shader.
      */
-    for( unsigned int sampleIdx = 0; sampleIdx < pimpl->mySampleRate; ++sampleIdx )
+    for( unsigned int sampleIdx = 0; sampleIdx < mySampleRate; ++sampleIdx )
     {
-        const Vector4f offset = viewDirectionInModelSpace * std::sqrt( 3.f ) * ( 0.5f - static_cast< float >( sampleIdx ) / ( pimpl->mySampleRate - 1 ) );
+        const Vector4f offset = viewDirectionInModelSpace * std::sqrt( 3.f ) * ( 0.5f - static_cast< float >( sampleIdx ) / ( mySampleRate - 1 ) );
         if( std::abs( offset.x() ) <= 0.5f && std::abs( offset.y() ) <= 0.5f && std::abs( offset.z() ) <= 0.5f )
         {
             /* Construct transformation from tangent to model space for specific slice.
@@ -144,6 +146,13 @@ void RayMarchingStage::render( const Renderable& renderable )
 
 void RayMarchingStage::renderPass( RenderTask& rt, const Viewport& vp )
 {
+    if( pimpl.get() == nullptr )
+    {
+        const ShaderProgram& shader = loadShader();
+        pimpl.reset( new Details( shader ) );
+    }
+
+    rt.renderer.glContext().setShader( pimpl->shader );
     pimpl->renderTask = &rt;
     pimpl->viewPort = &vp;
 
@@ -158,13 +167,13 @@ void RayMarchingStage::renderPass( RenderTask& rt, const Viewport& vp )
 void RayMarchingStage::setSampleRate( unsigned int sampleRate )
 {
     CARNA_ASSERT( sampleRate >= 2 );
-    pimpl->mySampleRate = sampleRate;
+    mySampleRate = sampleRate;
 }
 
 
 unsigned int RayMarchingStage::sampleRate() const
 {
-    return pimpl->mySampleRate;
+    return mySampleRate;
 }
 
 

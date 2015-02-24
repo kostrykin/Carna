@@ -37,7 +37,9 @@ class CARNA_LIB RayMarchingStage : public GeometryStage< Renderable::DepthOrder<
 {
 
     struct Details;
-    const std::unique_ptr< Details > pimpl;
+    std::unique_ptr< Details > pimpl;
+
+    unsigned int mySampleRate;
 
 public:
 
@@ -66,6 +68,8 @@ protected:
     virtual void beginPass() = 0;
 
     virtual void finishPass() = 0;
+
+    virtual const ShaderProgram& loadShader() = 0;
 
 }; // RayMarchingStage
 

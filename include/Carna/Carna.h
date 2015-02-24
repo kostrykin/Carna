@@ -61,7 +61,6 @@ namespace Carna
             class  BufferedHUVolumeTexture;
             class  Camera;
             class  Color;
-            class  FragmentShader;
             class  Framebuffer;
             class  FrameRenderer;
             class  Geometry;
@@ -78,13 +77,13 @@ namespace Carna
             class  Shader;
             class  ShaderBundle;
             class  ShaderCompilationError;
+            class  ShaderManager;
             class  ShaderProgram;
             class  Spatial;
             class  Texture3D;
             struct VertexBase;
             struct VertexAttribute;
             class  VertexBufferBase;
-            class  VertexShader;
             class  VideoResourcesManager;
             class  Viewport;
         }

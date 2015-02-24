@@ -11,8 +11,7 @@
 
 #include <Carna/base/view/glew.h>
 #include <Carna/base/view/ShaderProgram.h>
-#include <Carna/base/view/VertexShader.h>
-#include <Carna/base/view/FragmentShader.h>
+#include <Carna/base/view/Shader.h>
 #include <Carna/base/view/ShaderCompilationError.h>
 
 namespace Carna
@@ -30,38 +29,17 @@ namespace view
 // ShaderProgram
 // ----------------------------------------------------------------------------------
 
-std::stack< unsigned int > ShaderProgram::shaderIdStack;
-
-
-ShaderProgram::ShaderProgram( VertexShader& vs )
+ShaderProgram::ShaderProgram( const Shader& vertexShader, const Shader& fragmentShader )
     : id( glCreateProgram() )
 {
     try
     {
-        CARNA_ASSERT_EX( vs.id != 0, "failed to acquire shader program object" );
+        CARNA_ASSERT( vertexShader.type == Shader::TYPE_VERTEX_SHADER );
+        CARNA_ASSERT( fragmentShader.type == Shader::TYPE_FRAGMENT_SHADER );
+        CARNA_ASSERT_EX( id != 0, "failed to acquire shader program object" );
 
-        glAttachShader( id, vs.id );
-        glLinkProgram( id );
-
-        checkErrors();
-    }
-    catch( ... )
-    {
-        release();
-        throw;
-    }
-}
-
-
-ShaderProgram::ShaderProgram( VertexShader& vs, FragmentShader& fs )
-    : id( glCreateProgram() )
-{
-    try
-    {
-        CARNA_ASSERT_EX( vs.id != 0, "failed to acquire shader program object" );
-
-        glAttachShader( id, vs.id );
-        glAttachShader( id, fs.id );
+        glAttachShader( id, vertexShader.id );
+        glAttachShader( id, fragmentShader.id );
         glLinkProgram( id );
 
         checkErrors();
@@ -106,28 +84,9 @@ void ShaderProgram::release()
 }
 
 
-
-// ----------------------------------------------------------------------------------
-// ShaderProgram :: Binding
-// ----------------------------------------------------------------------------------
-
-ShaderProgram::Binding::Binding( const ShaderProgram& sp )
+int ShaderProgram::getUniformLocation( const std::string& name ) const
 {
-    shaderIdStack.push( sp.id );
-    glUseProgram( shaderIdStack.top() );
-}
-
-
-ShaderProgram::Binding::~Binding()
-{
-    shaderIdStack.pop();
-    glUseProgram( shaderIdStack.empty() ? 0 : shaderIdStack.top() );
-}
-
-
-int ShaderProgram::Binding::getUniformLocation( const std::string& name ) const
-{
-    const GLint location = glGetUniformLocation( shaderIdStack.top(), name.c_str() );
+    const GLint location = glGetUniformLocation( id, name.c_str() );
 
     CARNA_ASSERT_EX
         ( location != NULL_UNIFORM_LOCATION
@@ -137,43 +96,49 @@ int ShaderProgram::Binding::getUniformLocation( const std::string& name ) const
 }
 
 
-void ShaderProgram::Binding::putUniform3f( const std::string& param, float x, float y, float z )
+void ShaderProgram::putUniform3f( const std::string& param, float x, float y, float z )
 {
-    glUniform3f( getUniformLocation( param ), x, y, z );
+    const ShaderProgram& shader = GLContext::current().shader();
+    glUniform3f( shader.getUniformLocation( param ), x, y, z );
 }
 
 
-void ShaderProgram::Binding::putUniform4f( const std::string& param, const Vector4f& v )
+void ShaderProgram::putUniform4f( const std::string& param, const Vector4f& v )
 {
-    glUniform4f( getUniformLocation( param ), v.x(), v.y(), v.z(), v.w() );
+    const ShaderProgram& shader = GLContext::current().shader();
+    glUniform4f( shader.getUniformLocation( param ), v.x(), v.y(), v.z(), v.w() );
 }
 
 
-void ShaderProgram::Binding::putUniform2f( const std::string& param, float x, float y )
+void ShaderProgram::putUniform2f( const std::string& param, float x, float y )
 {
-    glUniform2f( getUniformLocation( param ), x, y );
+    const ShaderProgram& shader = GLContext::current().shader();
+    glUniform2f( shader.getUniformLocation( param ), x, y );
 }
 
 
-void ShaderProgram::Binding::putUniform1f( const std::string& param, float x )
+void ShaderProgram::putUniform1f( const std::string& param, float x )
 {
-    glUniform1f( getUniformLocation( param ), x );
+    const ShaderProgram& shader = GLContext::current().shader();
+    glUniform1f( shader.getUniformLocation( param ), x );
 }
 
 
-void ShaderProgram::Binding::putUniform1i( const std::string& param, signed int x )
+void ShaderProgram::putUniform1i( const std::string& param, signed int x )
 {
-    glUniform1i( getUniformLocation( param ), x );
+    const ShaderProgram& shader = GLContext::current().shader();
+    glUniform1i( shader.getUniformLocation( param ), x );
 }
 
 
-void ShaderProgram::Binding::putUniform1u( const std::string& param, unsigned int x )
+void ShaderProgram::putUniform1u( const std::string& param, unsigned int x )
 {
-    glUniform1ui( getUniformLocation( param ), x );
+    const ShaderProgram& shader = GLContext::current().shader();
+    glUniform1ui( shader.getUniformLocation( param ), x );
 }
 
 
-void ShaderProgram::Binding::putUniform4x4f( const std::string& param, const Matrix4f& m )
+void ShaderProgram::putUniform4x4f( const std::string& param, const Matrix4f& m )
 {
     float a[ 16 ];
     for( int i = 0; i < 16; ++i )
@@ -181,7 +146,8 @@ void ShaderProgram::Binding::putUniform4x4f( const std::string& param, const Mat
         a[ i ] = m( i % 4, i / 4 );
     }
 
-    glUniformMatrix4fv( getUniformLocation( param ), 1, false, a );
+    const ShaderProgram& shader = GLContext::current().shader();
+    glUniformMatrix4fv( shader.getUniformLocation( param ), 1, false, a );
 }
 
 

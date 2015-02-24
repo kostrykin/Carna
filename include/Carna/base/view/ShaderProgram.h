@@ -13,12 +13,10 @@
 #define SHADERPROGRAM_H_6014714286
 
 /** \file   ShaderProgram.h
-  * \brief  Defines \ref Carna::base::view::ShaderProgram.
-  *
-  * Merged from GAL library (http://evoid.de)
+  * \brief  Defines \ref Carna::base::view::ShaderProgram
   *
   * \author Leonid Kostrykin
-  * \date   2009 - 2011
+  * \date   2009 - 2015
   */
 
 #include <Carna/base/Matrix4f.h>
@@ -66,96 +64,57 @@ public:
       *                             failed, a Painter object is currently acquired,
       *                             or the linking failed. See description for details.
       */
-    explicit ShaderProgram( VertexShader& );
-
-    /** \brief  Acquires a new GL shader-program object.
-      *
-      * Forbidden during the acquisition of a Painter object.
-      *
-      * \throw  std::runtime_error  Either the GL shader-program object acquisition
-      *                             failed, a Painter object is currently acquired,
-      *                             or the linking failed. See description for details.
-      */
-    ShaderProgram( VertexShader&, FragmentShader& );
+    ShaderProgram( const Shader& vertexShader, const Shader& fragmentShader );
 
     /** \brief  Releases the associated GL shader-program object.
       */
     virtual ~ShaderProgram();
 
-
-    /** \brief  Binds and unbinds shader programs.
+    /** \brief  Holds the shader program ID.
       */
-    class CARNA_LIB Binding
-    {
+    const unsigned int id;
 
-        NON_COPYABLE
+    /** \brief  Uploads uniform to currently bound shader.
+      *
+      * \throws AssertionFailure Specified uniform is not defined in shader.
+      */
+    static void putUniform1f( const std::string& param, float x );
 
-    public:
+    /** \brief  Uploads uniform to currently bound shader.
+      *
+      * \throws AssertionFailure Specified uniform is not defined in shader.
+      */
+    static void putUniform2f( const std::string& param, float x, float y );
 
-        /** \brief  Binds the given shader.
-          */
-        explicit Binding( const ShaderProgram& );
+    /** \brief  Uploads uniform to currently bound shader.
+      *
+      * \throws AssertionFailure Specified uniform is not defined in shader.
+      */
+    static void putUniform3f( const std::string& param, float x, float y, float z );
 
-        /** \brief  Binds the shader, which was bound previously.
-          */
-        ~Binding();
+    /** \brief  Uploads uniform to currently bound shader.
+      *
+      * \throws AssertionFailure Specified uniform is not defined in shader.
+      */
+    static void putUniform4f( const std::string& param, const Vector4f& );
 
+    /** \brief  Uploads uniform to currently bound shader.
+      *
+      * \throws AssertionFailure Specified uniform is not defined in shader.
+      */
+    static void putUniform1i( const std::string& param, signed int );
 
-        /** \brief  Uploads uniform to currently bound shader.
-          *
-          * \throws std::runtime_error  Specified uniform is not defined in shader.
-          */
-        void putUniform1f( const std::string& param, float x );
+    /** \brief  Uploads uniform to currently bound shader.
+      *
+      * \throws AssertionFailure Specified uniform is not defined in shader.
+      */
+    static void putUniform1u( const std::string& param, unsigned int );
 
-        /** \brief  Uploads uniform to currently bound shader.
-          *
-          * \throws std::runtime_error  Specified uniform is not defined in shader.
-          */
-        void putUniform2f( const std::string& param, float x, float y );
-
-        /** \brief  Uploads uniform to currently bound shader.
-          *
-          * \throws std::runtime_error  Specified uniform is not defined in shader.
-          */
-        void putUniform3f( const std::string& param, float x, float y, float z );
-
-        /** \brief  Uploads uniform to currently bound shader.
-          *
-          * \throws std::runtime_error  Specified uniform is not defined in shader.
-          */
-        void putUniform4f( const std::string& param, const Vector4f& );
-
-        /** \brief  Uploads uniform to currently bound shader.
-          *
-          * \throws std::runtime_error  Specified uniform is not defined in shader.
-          */
-        void putUniform1i( const std::string& param, signed int );
-
-        /** \brief  Uploads uniform to currently bound shader.
-          *
-          * \throws std::runtime_error  Specified uniform is not defined in shader.
-          */
-        void putUniform1u( const std::string& param, unsigned int );
-
-        /** \brief  Uploads uniform to currently bound shader.
-          *
-          * \throws std::runtime_error  Specified uniform is not defined in shader.
-          */
-        void putUniform4x4f( const std::string& param, const Matrix4f& );
-
-
-    private:
-
-        const static int NULL_UNIFORM_LOCATION = -1;
-
-        /** \brief  Queries glGetUniformLocation and eventually throws exceptions.
-          *
-          * \throws std::runtime_error  Specified uniform is not defined in shader.
-          */
-        int getUniformLocation( const std::string& name ) const;
-
-    }; // Binding
-
+    /** \brief  Uploads uniform to currently bound shader.
+      *
+      * \throws AssertionFailure Specified uniform is not defined in shader.
+      */
+    static void putUniform4x4f( const std::string& param, const Matrix4f& );
 
 private:
 
@@ -164,7 +123,6 @@ private:
       * \throws std::runtime_error  when shader compilation failed.
       */
     void checkErrors() const;
-
 
     /** \brief  Releases the associated GL shader-object.
       *
@@ -175,15 +133,13 @@ private:
       */
     void release();
 
+    const static int NULL_UNIFORM_LOCATION = -1;
 
-    /** \brief  Holds the shader program ID.
+    /** \brief  Queries \c glGetUniformLocation and eventually throws exceptions.
+      *
+      * \throws AssertionFailure Specified uniform is not defined in shader.
       */
-    const unsigned int id;
-
-
-    /** \brief  Holds the ID of the currently loaded shader program.
-      */
-    static std::stack< unsigned int > shaderIdStack;
+    int getUniformLocation( const std::string& name ) const;
 
 }; // ShaderProgram
 

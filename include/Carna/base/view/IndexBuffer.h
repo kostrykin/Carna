@@ -71,7 +71,7 @@ public:
 // IndexBufferTypeMapper
 // ----------------------------------------------------------------------------------
 
-template< typename index_t >
+template< typename Index >
 struct IndexBufferTypeMapper
 {
 };
