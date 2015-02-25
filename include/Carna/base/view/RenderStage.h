@@ -14,6 +14,7 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/noncopyable.h>
+#include <Carna/base/Matrix4f.h>
 
 /** \file   RenderStage.h
   * \brief  Defines \ref Carna::base::view::RenderStage.

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Carna/Carna.h>
-#include <Carna/base/model/Scene.h>
 #include <ostream>
 #include <istream>
 #include <queue>

@@ -52,10 +52,6 @@ link_directories( ${CMAKE_BINARY_DIR}/bin )
 find_package( Eigen3 REQUIRED )
 include_directories( ${EIGEN3_INCLUDE_DIR} )
 
-# TRTK
-find_package( TRTK 0.13.1 REQUIRED )
-include_directories( ${TRTK_INCLUDE_DIR} )
-
 # Carna-DICOM
 find_package(CarnaDICOM QUIET)
 
@@ -66,30 +62,18 @@ find_package(CarnaDICOM QUIET)
 include_directories(${CMAKE_PROJECT_DIR}src)
 include_directories(${CMAKE_PROJECT_DIR}../Tools)
 set( HEADERS
-		../Tools/HUGZSceneFactory.h
-		../Tools/HUIO.h
-		../Tools/MyVisualization.h
-		src/MPRDemo.h
-		src/MyVisualizationDemo.h
-		src/SlicePlaneVisualizationDemo.h
-		src/VolumeVisualizationDemo.h
-		src/OffscreenDisplayDemo.h
-		src/InteractiveOffscreenDisplayDemo.h
-		src/FactorialMaskDemo.h
-		src/BinaryMaskDemo.h
-		src/HistogramExporter.h
-		src/CompressedVolumeExporter.h
-		src/CompressedVolumeImporter.h
+#		../Tools/HUGZSceneFactory.h
+#		../Tools/HUIO.h
+#		src/CompressedVolumeImporter.h
 	)
 set( QOBJECT_HEADERS
-		src/OffscreenDisplayTestingWidget.h
-		src/OpeningDialog.h
+#		src/OffscreenDisplayTestingWidget.h
+#		src/OpeningDialog.h
 	)
 set( SRC
-		../Tools/MyVisualization.cpp
 		src/main.cpp
-		src/OffscreenDisplayDemo.cpp
-		src/OffscreenDisplayTestingWidget.cpp
+#		src/OffscreenDisplayDemo.cpp
+#		src/OffscreenDisplayTestingWidget.cpp
 	)
 set( FORMS
 		""
@@ -114,6 +98,7 @@ if(CARNADICOM_FOUND AND Boost_FOUND)
 			-DEXPECTED_MAJOR_VERSION=${MAJOR_VERSION}
 			-DEXPECTED_MINOR_VERSION=${MINOR_VERSION}
 			-DEXPECTED_RELEASE_VERSION=${PATCH_VERSION}
+			-DSOURCE_PATH="${CMAKE_CURRENT_SOURCE_DIR}"
 		)
 	remove_definitions( -DCARNA_LIB )
 	

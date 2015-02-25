@@ -69,7 +69,7 @@ public:
     /** \brief  Instantiates.
       */
     BufferedHUVolume( const Vector3ui& size, Association< BufferType >* buffer )
-        : Volume( size )
+        : HUVolume( size )
         , myBuffer( buffer )
     {
         initializeBuffer();
@@ -84,8 +84,8 @@ public:
       * \endcode
       */
     explicit BufferedHUVolume( const Vector3ui& size )
-        : Volume( size )
-        , myBuffer( new Composition< BufferType >( new BufferType( size.x * size.y * size.z ) ) )
+        : HUVolume( size )
+        , myBuffer( new Composition< BufferType >( new BufferType( size.x() * size.y() * size.z() ) ) )
     {
         initializeBuffer();
     }
@@ -184,11 +184,11 @@ private:
             , "no volume data buffer supplied" );
 
         CARNA_ASSERT_EX
-            ( myBuffer->get()->size() >= size.x * size.y * size.z
+            ( myBuffer->get()->size() >= size.x() * size.y() * size.z()
             , "supplied volume data buffer is of size "
                 << myBuffer->get()->size()
                 << " bytes but must be at least "
-                << size.x * size.y * size.z
+                << size.x() * size.y() * size.z()
                 << " bytes" );
     }
 

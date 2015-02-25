@@ -56,13 +56,12 @@ Log::Writer::~Writer()
 
 
 // ----------------------------------------------------------------------------------
-// Log :: StdWriter
+// Log :: TextWriter
 // ----------------------------------------------------------------------------------
 
-void Log::StdWriter::write( Severity severity, const std::string& message ) const
+void Log::TextWriter::write( Severity severity, const std::string& message ) const
 {
-    std::ostream& out = ( severity == fatal || severity == error ? std::cerr : std::cout );
-
+    std::stringstream out;
     switch( severity )
     {
 
@@ -83,8 +82,20 @@ void Log::StdWriter::write( Severity severity, const std::string& message ) cons
         break;
 
     }
+    out << "  " << message;
+    writeFormatted( severity, out.str() );
+}
 
-    out << "  " << message << std::endl;
+
+
+// ----------------------------------------------------------------------------------
+// Log :: StdWriter
+// ----------------------------------------------------------------------------------
+
+void Log::StdWriter::writeFormatted( Severity severity, const std::string& message ) const
+{
+    std::ostream& out = ( severity == fatal || severity == error ? std::cerr : std::cout );
+    out << message << std::endl;
 }
 
 

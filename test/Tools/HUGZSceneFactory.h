@@ -1,9 +1,9 @@
 #pragma once
 
 #include <HUIO.h>
-#include <Carna/Carna.h>
-#include <Carna/base/model/Scene.h>
-#include <Carna/base/model/UInt16Volume.h>
+#include <Carna/base/model/UInt16HUVolume.h>
+#include <Carna/base/Matrix4f.h>
+#include <Carna/base/Vector3ui.h>
 #include <fstream>
 #include <QDebug>
 #include <boost/iostreams/filtering_stream.hpp>
@@ -47,7 +47,7 @@ struct HUGZSceneFactory
       *
       * The HUGZ file format is described \ref HUGZFileFormat here.
       */
-    static Carna::base::model::Scene* importVolume( const std::string& filename )
+    static Carna::base::model::UInt16HUVolume* importVolume( const std::string& filename, Carna::base::Vector4f& spacing )
     {
         std::ifstream file( filename, std::ios::in | std::ios::binary );
         boost::iostreams::filtering_istream in;
@@ -55,35 +55,28 @@ struct HUGZSceneFactory
         in.push( file );
 
         Carna::base::Vector3ui size;
-        stream_read( in, size.x );
-        stream_read( in, size.y );
-        stream_read( in, size.z );
-        qDebug( "Read volume size: %d, %d, %d", size.x, size.y, size.z );
+        stream_read( in, size.x() );
+        stream_read( in, size.y() );
+        stream_read( in, size.z() );
+        qDebug( "Read volume size: %d, %d, %d", size.x(), size.y(), size.z() );
 
-        Carna::base::model::UInt16Volume* const volume = new Carna::base::model::UInt16Volume( size );
+        Carna::base::model::UInt16HUVolume* const volume = new Carna::base::model::UInt16HUVolume( size );
 
-        TRTK::Coordinate< float > spacing( 0, 0, 0 );
         stream_read( in, spacing.x() );
         stream_read( in, spacing.y() );
         stream_read( in, spacing.z() );
         qDebug( "Read volume spacing: %f, %f, %f", spacing.x(), spacing.y(), spacing.z() );
 
         HUIO::Reader reader( in );
-        for( unsigned int z = 0; z < size.z; ++z )
-        for( unsigned int y = 0; y < size.y; ++y )
-        for( unsigned int x = 0; x < size.x; ++x )
+        for( unsigned int z = 0; z < size.z(); ++z )
+        for( unsigned int y = 0; y < size.y(); ++y )
+        for( unsigned int x = 0; x < size.x(); ++x )
         {
             const signed short huv = reader.read();
             volume->setVoxel( x, y, z, huv );
         }
 
-        Carna::base::model::Scene* const scene = new Carna::base::model::Scene
-            ( new Carna::base::Composition< Carna::base::model::Volume >( volume )
-            , spacing.x()
-            , spacing.y()
-            , spacing.z() );
-
-        return scene;
+        return volume;
     }
 };
 

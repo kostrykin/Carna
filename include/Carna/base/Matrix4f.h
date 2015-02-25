@@ -145,6 +145,23 @@ float maxAbsElement( const Matrix& m )
 }
 
 
+Matrix4f frustum4f( float left, float right, float bottom, float top, float zNear, float zFar )
+{
+    Matrix4f result;
+    result.setZero();
+
+    result( 0, 0 ) = 2 * zNear / ( right - left );
+    result( 1, 1 ) = 2 * zNear / ( top - bottom );
+    result( 0, 2 ) = ( right + left ) / ( right - left );
+    result( 1, 2 ) = ( top + bottom ) / ( top - bottom );
+    result( 2, 2 ) = -( zFar + zNear ) / ( zFar - zNear );
+    result( 3, 2 ) = -1;
+    result( 2, 3 ) = -2 * zFar * zNear / ( zFar - zNear );
+
+    return result;
+}
+
+
 
 }  // namespace base
 

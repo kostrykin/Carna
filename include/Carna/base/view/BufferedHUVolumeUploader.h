@@ -47,7 +47,7 @@ struct BufferedHUVolumeUploader
 }; // BufferedHUVolumeUploader
 
 
-void uploadUInt16HUVolume( const model::UInt16HUVolume& src, Texture3D& dst );
+void CARNA_LIB uploadUInt16HUVolume( const model::UInt16HUVolume& src, Texture3D& dst );
 
 
 template< >

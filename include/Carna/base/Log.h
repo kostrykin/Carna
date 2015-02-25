@@ -59,7 +59,7 @@ public:
         fatal, error, warning, debug
     };
 
-    class Writer
+    class CARNA_LIB Writer
     {
 
         NON_COPYABLE
@@ -72,12 +72,25 @@ public:
 
     }; // Writer
 
-    class StdWriter : public Writer
+    class CARNA_LIB TextWriter : public Writer
     {
 
     public:
 
         virtual void write( Severity, const std::string& ) const override;
+
+    protected:
+
+        virtual void writeFormatted( Severity, const std::string& ) const = 0;
+
+    }; // TextWriter
+
+    class CARNA_LIB StdWriter : public TextWriter
+    {
+
+    protected:
+
+        virtual void writeFormatted( Severity, const std::string& ) const override;
 
     }; // StdWriter
 

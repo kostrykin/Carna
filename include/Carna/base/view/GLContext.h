@@ -51,7 +51,7 @@ public:
 
     static GLContext& current();
 
-    virtual void makeActive() = 0;
+    virtual void makeActive() const = 0;
 
     bool isActive() const;
 
@@ -75,11 +75,21 @@ class QGLContextAdapter : public GLContext
 
 public:
 
+    QGLContextAdapter();
+
     QGLContextAdapter( const QGLContext& qglcontext );
 
     virtual void makeActive() const override;
 
 }; // QGLContextAdapter
+
+
+template< typename QGLContext >
+QGLContextAdapter< QGLContext >::QGLContextAdapter()
+    : GLContext( QGLContext::currentContext()->format().doubleBuffer() )
+    , qglcontext( const_cast< QGLContext& >( *QGLContext::currentContext() ) )
+{
+}
 
 
 template< typename QGLContext >

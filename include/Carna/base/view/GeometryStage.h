@@ -14,6 +14,7 @@
 
 #include <Carna/base/view/RenderStage.h>
 #include <Carna/base/view/RenderQueue.h>
+#include <Carna/base/view/GeometryAggregate.h>
 #include <Carna/base/Matrix4f.h>
 #include <memory>
 
@@ -97,9 +98,9 @@ GeometryStage< RenderableCompare >::~GeometryStage()
     {
         myContext->makeActive();
     }
-    std::for_each( acquiredVideoResources.begin(), acquiredVideoResources.end(), [&]( GeometryAggregate* gd )
+    std::for_each( acquiredVideoResources.begin(), acquiredVideoResources.end(), [&]( GeometryAggregate* ga )
         {
-            gd->releaseVideoResources();
+            ga->releaseVideoResources();
         }
     );
 }
