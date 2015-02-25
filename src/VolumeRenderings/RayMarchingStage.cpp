@@ -200,7 +200,14 @@ void RayMarchingStage::renderPass( base::view::RenderTask& rt, const base::view:
 
     pimpl->renderTask = &rt;
     pimpl->viewPort = &vp;
-
+    
+    /* Ensure proper OpenGL state.
+     */
+    glDepthMask( GL_FALSE );
+    glEnable( GL_DEPTH_TEST );
+    
+    /* Do the rendering.
+     */
     base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >::renderPass( rt, vp );
 }
 
