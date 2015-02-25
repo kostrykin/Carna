@@ -141,6 +141,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/VertexAttributes.h
 		include/${PROJECT_NAME}/base/view/IndexBuffer.h
 		include/${PROJECT_NAME}/base/view/Mesh.h
+		include/${PROJECT_NAME}/base/view/MeshManager.h
 		include/${PROJECT_NAME}/base/view/BaseBuffer.h
 		include/${PROJECT_NAME}/base/view/ShaderManager.h
 		include/${PROJECT_NAME}/base/model/ScalarField.h
@@ -200,6 +201,7 @@ set( SRC
 		src/base/view/VertexBuffer.cpp
 		src/base/view/IndexBuffer.cpp
 		src/base/view/Mesh.cpp
+		src/base/view/MeshManager.cpp
 		src/base/view/BaseBuffer.cpp
 		src/base/view/ShaderManager.cpp
 		src/base/model/HUVolume.cpp

@@ -15,6 +15,7 @@
 #include <Carna/base/view/Texture3DManager.h>
 #include <Carna/base/view/BufferedHUVolumeUploader.h>
 #include <Carna/base/view/Texture3D.h>
+#include <memory>
 
 /** \file   BufferedHUVolumeManager.h
   * \brief  Defines \ref Carna::base::view::BufferedHUVolumeManager.
@@ -37,6 +38,9 @@ namespace view
 
 /** \brief
   * Generic \ref VideoResourcesManager for \ref BufferedHUVolume instances.
+  *
+  * \author Leonid Kostrykin
+  * \date 22.2.2015
   */
 template< typename BufferedHUVolume >
 class BufferedHUVolumeManager : public Texture3DManager

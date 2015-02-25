@@ -68,6 +68,7 @@ namespace Carna
             class  GLContext;
             class  IndexBufferBase;
             class  MeshBase;
+            class  MeshManager;
             class  Node;
             class  OpaqueStage;
             class  Renderable;
