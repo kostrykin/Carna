@@ -9,6 +9,7 @@
  *
  */
 
+#include <Carna/base/view/glew.h>
 #include <Carna/VolumeRenderings/MIP/MIPStage.h>
 #include <Carna/base/view/ShaderManager.h>
 #include <Carna/base/Matrix4f.h>
@@ -30,7 +31,20 @@ namespace MIP
 
 void MIPStage::renderPass( base::view::RenderTask& rt, const base::view::Viewport& vp )
 {
+    /* Configure proper OpenGL state.
+     */
+    glEnable( GL_BLEND );
+    glBlendFunc( GL_SRC_ALPHA, GL_DST_ALPHA );
+    glBlendEquation( GL_MAX );
+
+    /* Do the rendering.
+     */
     RayMarchingStage::renderPass( rt, vp );
+
+    /* Restore contracted default state.
+     */
+    glBlendEquation( GL_FUNC_ADD );
+    glDisable( GL_BLEND );
 }
 
 
