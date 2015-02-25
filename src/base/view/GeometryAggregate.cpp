@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/view/GeometryDefinition.h>
+#include <Carna/base/view/GeometryAggregate.h>
 #include <Carna/base/view/VideoResourcesManager.h>
 #include <Carna/base/Log.h>
 
@@ -25,10 +25,10 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// GeometryDefinition
+// GeometryAggregate
 // ----------------------------------------------------------------------------------
 
-GeometryDefinition::GeometryDefinition( VideoResourcesManager* vrm )
+GeometryAggregate::GeometryAggregate( VideoResourcesManager* vrm )
     : videoResourcesAcquisitions( 0 )
     , vrm( vrm )
     , released( false )
@@ -37,23 +37,23 @@ GeometryDefinition::GeometryDefinition( VideoResourcesManager* vrm )
 }
 
 
-GeometryDefinition& GeometryDefinition::create( VideoResourcesManager* vrm )
+GeometryAggregate& GeometryAggregate::create( VideoResourcesManager* vrm )
 {
-    return *new GeometryDefinition( vrm );
+    return *new GeometryAggregate( vrm );
 }
 
 
-GeometryDefinition::~GeometryDefinition()
+GeometryAggregate::~GeometryAggregate()
 {
     if( videoResourcesAcquisitions != 0 )
     {
-        Log::instance().record( Log::error, "GeometryDefinition deleted while video resources still acquired!" );
+        Log::instance().record( Log::error, "GeometryAggregate deleted while video resources still acquired!" );
         vrm->deleteResources();
     }
 }
 
 
-void GeometryDefinition::acquireVideoResources()
+void GeometryAggregate::acquireVideoResources()
 {
     if( ++videoResourcesAcquisitions == 1 )
     {
@@ -62,7 +62,7 @@ void GeometryDefinition::acquireVideoResources()
 }
 
 
-void GeometryDefinition::releaseVideoResources()
+void GeometryAggregate::releaseVideoResources()
 {
     CARNA_ASSERT( videoResourcesAcquisitions > 0 );
     if( --videoResourcesAcquisitions == 0 )
@@ -76,13 +76,13 @@ void GeometryDefinition::releaseVideoResources()
 }
 
 
-const VideoResourcesManager& GeometryDefinition::videoResources() const
+const VideoResourcesManager& GeometryAggregate::videoResources() const
 {
     return *vrm;
 }
 
 
-bool GeometryDefinition::deleteIfAllowed()
+bool GeometryAggregate::deleteIfAllowed()
 {
     if( videoResourcesAcquisitions == 0 && referencingSceneGraphNodes.empty() )
     {
@@ -96,7 +96,7 @@ bool GeometryDefinition::deleteIfAllowed()
 }
 
 
-void GeometryDefinition::release()
+void GeometryAggregate::release()
 {
     CARNA_ASSERT( !released );
     if( !deleteIfAllowed() )
@@ -106,15 +106,25 @@ void GeometryDefinition::release()
 }
 
 
-void GeometryDefinition::applyTo( Geometry& sceneGraphNode )
+void GeometryAggregate::addTo( Geometry& sceneGraphNode, unsigned int role )
 {
+    const std::size_t size0 = referencingSceneGraphNodes.size();
     referencingSceneGraphNodes.insert( &sceneGraphNode );
+    if( size0 != referencingSceneGraphNodes.size() )
+    {
+        sceneGraphNode.putAggregate( *this, role );
+    }
 }
 
 
-void GeometryDefinition::removeFrom( Geometry& sceneGraphNode )
+void GeometryAggregate::removeFrom( Geometry& sceneGraphNode )
 {
+    const std::size_t size0 = referencingSceneGraphNodes.size();
     referencingSceneGraphNodes.erase( &sceneGraphNode );
+    if( size0 != referencingSceneGraphNodes.size() )
+    {
+        sceneGraphNode.removeAggregate( *this );
+    }
     if( released )
     {
         deleteIfAllowed();

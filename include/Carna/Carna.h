@@ -64,7 +64,7 @@ namespace Carna
             class  Framebuffer;
             class  FrameRenderer;
             class  Geometry;
-            class  GeometryDefinition;
+            class  GeometryAggregate;
             class  GLContext;
             class  IndexBufferBase;
             class  MeshBase;
@@ -81,6 +81,7 @@ namespace Carna
             class  ShaderProgram;
             class  Spatial;
             class  Texture3D;
+            class  Texture3DManager;
             struct VertexBase;
             struct VertexAttribute;
             class  VertexBufferBase;

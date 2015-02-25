@@ -13,6 +13,7 @@
 #include <Carna/base/view/Mesh.h>
 #include <Carna/base/view/Vertex.h>
 #include <Carna/base/view/IndexBuffer.h>
+#include <Carna/base/view/Texture3DManager.h>
 #include <Carna/base/Matrix4f.h>
 
 namespace Carna
@@ -33,24 +34,43 @@ namespace view
 struct RayMarchingStage::Details
 {
 
-    Details( const ShaderProgram& shader );
-
-    ~Details();
+    Details();
 
     RenderTask* renderTask;
     const Viewport* viewPort;
-    Mesh< VertexBase, uint8_t > sliceMesh;
-    const ShaderProgram& shader;
-
-    void renderSlice( const Matrix4f& sliceTangentModel, const Matrix4f& modelView );
+    unsigned int mySampleRate;
 
 }; // RayMarchingStage :: Details
 
 
-RayMarchingStage::Details::Details( const ShaderProgram& shader )
+RayMarchingStage::Details::Details()
     : renderTask( nullptr )
     , viewPort( nullptr )
-    , sliceMesh( IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN )
+    , mySampleRate( DEFAULT_SAMPLE_RATE )
+{
+}
+
+
+
+// ----------------------------------------------------------------------------------
+// RayMarchingStage :: VideoResources
+// ----------------------------------------------------------------------------------
+
+struct RayMarchingStage::VideoResources
+{
+
+    VideoResources( const ShaderProgram& shader );
+
+    Mesh< VertexBase, uint8_t > sliceMesh;
+    const ShaderProgram& shader;
+
+    void renderSlice( RayMarchingStage& self, const Renderable& renderable, const Matrix4f& sliceTangentModel, const Matrix4f& modelView );
+
+}; // RayMarchingStage :: VideoResources
+
+
+RayMarchingStage::VideoResources::VideoResources( const ShaderProgram& shader )
+    : sliceMesh( IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN )
     , shader( shader )
 {
     const float radius = std::sqrt( 3.f ) / 2;
@@ -72,21 +92,32 @@ RayMarchingStage::Details::Details( const ShaderProgram& shader )
 }
 
 
-RayMarchingStage::Details::~Details()
+void RayMarchingStage::VideoResources::renderSlice( RayMarchingStage& self, const Renderable& renderable, const Matrix4f& sliceTangentModel, const Matrix4f& modelView )
 {
-    if( renderTask != nullptr )
-    {
-        renderTask->renderer.glContext().makeActive();
-    }
-}
+    unsigned int lastSampler = Texture3D::SETUP_SAMPLER;
+    std::vector< unsigned int > roles;
+    renderable.geometry().visitAggregates( [&lastSampler, &roles]( GeometryAggregate& ga, unsigned int role )
+        {
+            if( dynamic_cast< const Texture3DManager* >( &ga.videoResources() ) != nullptr )
+            {
+                const Texture3DManager& textureManager = static_cast< const Texture3DManager& >( ga.videoResources() );
+                textureManager.texture().bind( ++lastSampler );
+                roles.push_back( role );
+            }
+        }
+    );
 
-
-void RayMarchingStage::Details::renderSlice( const Matrix4f& sliceTangentModel, const Matrix4f& modelView )
-{
     /* Configure shader.
      */
     ShaderProgram::putUniform4x4f( "sliceTangentModel", sliceTangentModel );
-    ShaderProgram::putUniform4x4f( "modelViewProjection", renderTask->projection * modelView );
+    ShaderProgram::putUniform4x4f( "modelViewProjection", self.pimpl->renderTask->projection * modelView );
+    for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
+    {
+        const unsigned int role = roles[ samplerOffset ];
+        const unsigned int sampler = Texture3D::SETUP_SAMPLER + samplerOffset;
+        const std::string& uniformName = self.uniformName( role );
+        ShaderProgram::putUniform1i( uniformName, sampler );
+    }
 
     /* Invoke shader.
      */
@@ -101,8 +132,17 @@ void RayMarchingStage::Details::renderSlice( const Matrix4f& sliceTangentModel, 
 
 RayMarchingStage::RayMarchingStage()
     : GeometryStage< Renderable::DepthOrder< Renderable::ORDER_BACK_TO_FRONT > >::GeometryStage( GEOMETRY_TYPE )
-    , mySampleRate( DEFAULT_SAMPLE_RATE )
+    , pimpl( new Details() )
 {
+}
+
+
+RayMarchingStage::~RayMarchingStage()
+{
+    if( pimpl->renderTask != nullptr )
+    {
+        pimpl->renderTask->renderer.glContext().makeActive();
+    }
 }
 
 
@@ -128,9 +168,9 @@ void RayMarchingStage::render( const Renderable& renderable )
     /* NOTE: This can be optimized using geometry shader, by sending only the central
      * slice to the GPU and constructing the others in the shader.
      */
-    for( unsigned int sampleIdx = 0; sampleIdx < mySampleRate; ++sampleIdx )
+    for( unsigned int sampleIdx = 0; sampleIdx < pimpl->mySampleRate; ++sampleIdx )
     {
-        const Vector4f offset = viewDirectionInModelSpace * std::sqrt( 3.f ) * ( 0.5f - static_cast< float >( sampleIdx ) / ( mySampleRate - 1 ) );
+        const Vector4f offset = viewDirectionInModelSpace * std::sqrt( 3.f ) * ( 0.5f - static_cast< float >( sampleIdx ) / ( pimpl->mySampleRate - 1 ) );
         if( std::abs( offset.x() ) <= 0.5f && std::abs( offset.y() ) <= 0.5f && std::abs( offset.z() ) <= 0.5f )
         {
             /* Construct transformation from tangent to model space for specific slice.
@@ -138,7 +178,7 @@ void RayMarchingStage::render( const Renderable& renderable )
             const Matrix4f sliceOffset = translation4f( offset );
             const Matrix4f sliceTangentModel = sliceOffset * tangentModel;
 
-            pimpl->renderSlice( sliceTangentModel, modelView );
+            vr->renderSlice( *this, renderable, sliceTangentModel, modelView );
         }
     }
 }
@@ -146,13 +186,13 @@ void RayMarchingStage::render( const Renderable& renderable )
 
 void RayMarchingStage::renderPass( RenderTask& rt, const Viewport& vp )
 {
-    if( pimpl.get() == nullptr )
+    if( vr.get() == nullptr )
     {
         const ShaderProgram& shader = loadShader();
-        pimpl.reset( new Details( shader ) );
+        vr.reset( new VideoResources( shader ) );
     }
 
-    rt.renderer.glContext().setShader( pimpl->shader );
+    rt.renderer.glContext().setShader( vr->shader );
     pimpl->renderTask = &rt;
     pimpl->viewPort = &vp;
 
@@ -167,13 +207,13 @@ void RayMarchingStage::renderPass( RenderTask& rt, const Viewport& vp )
 void RayMarchingStage::setSampleRate( unsigned int sampleRate )
 {
     CARNA_ASSERT( sampleRate >= 2 );
-    mySampleRate = sampleRate;
+    pimpl->mySampleRate = sampleRate;
 }
 
 
 unsigned int RayMarchingStage::sampleRate() const
 {
-    return mySampleRate;
+    return pimpl->mySampleRate;
 }
 
 

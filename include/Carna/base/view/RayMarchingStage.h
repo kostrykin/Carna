@@ -13,6 +13,7 @@
 #define RAYMARCHINGSTAGE_H_6014714286
 
 #include <Carna/base/view/GeometryStage.h>
+#include <map>
 
 /** \file   RayMarchingStage.h
   * \brief  Defines \ref Carna::base::view::RayMarchingStage.
@@ -37,9 +38,10 @@ class CARNA_LIB RayMarchingStage : public GeometryStage< Renderable::DepthOrder<
 {
 
     struct Details;
-    std::unique_ptr< Details > pimpl;
+    const std::unique_ptr< Details > pimpl;
 
-    unsigned int mySampleRate;
+    struct VideoResources;
+    std::unique_ptr< VideoResources > vr;
 
 public:
 
@@ -48,6 +50,8 @@ public:
     const static unsigned int DEFAULT_SAMPLE_RATE = 100;
 
     RayMarchingStage();
+
+    virtual ~RayMarchingStage();
 
     /** \brief
       * Sets number of samples per pixel and per segment.
@@ -70,6 +74,8 @@ protected:
     virtual void finishPass() = 0;
 
     virtual const ShaderProgram& loadShader() = 0;
+
+    virtual const std::string& uniformName( unsigned int role ) const = 0;
 
 }; // RayMarchingStage
 

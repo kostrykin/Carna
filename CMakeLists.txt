@@ -130,9 +130,10 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/Viewport.h
 		include/${PROJECT_NAME}/base/view/glError.h
 		include/${PROJECT_NAME}/base/view/Texture3D.h
+		include/${PROJECT_NAME}/base/view/Texture3DManager.h
 		include/${PROJECT_NAME}/base/view/BufferedHUVolumeUploader.h
 		include/${PROJECT_NAME}/base/view/BufferedHUVolumeManager.h
-		include/${PROJECT_NAME}/base/view/GeometryDefinition.h
+		include/${PROJECT_NAME}/base/view/GeometryAggregate.h
 		include/${PROJECT_NAME}/base/view/VideoResourcesManager.h
 		include/${PROJECT_NAME}/base/view/RayMarchingStage.h
 		include/${PROJECT_NAME}/base/view/Vertex.h
@@ -192,7 +193,7 @@ set( SRC
 		src/base/view/Texture3D.cpp
 		src/base/view/Viewport.cpp
 		src/base/view/BufferedHUVolumeUploader.cpp
-		src/base/view/GeometryDefinition.cpp
+		src/base/view/GeometryAggregate.cpp
 		src/base/view/VideoResourcesManager.cpp
 		src/base/view/RayMarchingStage.cpp
 		src/base/view/Vertex.cpp

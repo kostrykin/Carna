@@ -9,11 +9,11 @@
  *
  */
 
-#ifndef GEOMETRYDEFINITION_H_6014714286
-#define GEOMETRYDEFINITION_H_6014714286
+#ifndef GEOMETRYAGGREGATE_H_6014714286
+#define GEOMETRYAGGREGATE_H_6014714286
 
-/** \file   GeometryDefinition.h
-  * \brief  Defines \ref Carna::base::view::GeometryDefinition.
+/** \file   GeometryAggregate.h
+  * \brief  Defines \ref Carna::base::view::GeometryAggregate.
   */
 
 #include <Carna/base/noncopyable.h>
@@ -31,10 +31,11 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// GeometryDefinition
+// GeometryAggregate
 // ----------------------------------------------------------------------------------
 
 /** \brief
+  * Represents \em "components" that are \em aggregated by \ref Geometry instances.
   * Instances of this class do manage the lifetimes of OpenGL objects that reside in video memory.
   *
   * The management of their lifetimes require two basic operations, namely \em uploading content
@@ -49,7 +50,7 @@ namespace view
   * \author Leonid Kostrykin
   * \date   23.2.2015
   */
-class CARNA_LIB GeometryDefinition
+class CARNA_LIB GeometryAggregate
 {
 
     NON_COPYABLE
@@ -62,9 +63,9 @@ class CARNA_LIB GeometryDefinition
 
     bool released;
 
-    GeometryDefinition( VideoResourcesManager* vrm );
+    GeometryAggregate( VideoResourcesManager* vrm );
 
-    ~GeometryDefinition();
+    ~GeometryAggregate();
 
     bool deleteIfAllowed();
 
@@ -73,7 +74,7 @@ public:
     /** \brief
       * Instantiates. Call \ref release when you do not need the object any longer.
       */
-    static GeometryDefinition& create( VideoResourcesManager* vrm );
+    static GeometryAggregate& create( VideoResourcesManager* vrm );
 
     /** \brief
       * Increments video resource acquisition counter.
@@ -100,27 +101,27 @@ public:
       *
       * It will be deleted as soon as the following conditions become true, which may also be immediately:
       * - The video resources are not loaded, i.e. the last acquisition has been released.
-      * - This definition is no longer referenced by a scene graph.
+      * - This aggregate is no longer referenced by a scene graph.
       *
       * If no video resources are acquired currently, this object is deleted immediately.
       */
     void release();
 
     /** \brief
-      * Puts this geometry definition on the \a sceneGraphNode.
+      * Puts this geometry aggregate on the \a sceneGraphNode.
       *
       * This is equivalent to \ref Geometry::setDefinition.
       */
-    void applyTo( Geometry& sceneGraphNode );
+    void addTo( Geometry& sceneGraphNode, unsigned int role );
 
     /** \brief
-    * Removes this geometry definition from the \a sceneGraphNode.
+    * Removes this geometry aggregate from the \a sceneGraphNode.
     *
     * This is equivalent to \ref Geometry::removeDefinition.
       */
     void removeFrom( Geometry& sceneGraphNode );
 
-}; // GeometryDefinition
+}; // GeometryAggregate
 
 
 

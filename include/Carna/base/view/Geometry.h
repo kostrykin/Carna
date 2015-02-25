@@ -37,7 +37,8 @@ namespace view
 class CARNA_LIB Geometry : public Spatial
 {
 
-    GeometryDefinition* myDefinition;
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
 
 public:
 
@@ -47,13 +48,23 @@ public:
 
     virtual ~Geometry();
 
-    void setDefinition( GeometryDefinition& );
+    void putAggregate( GeometryAggregate&, unsigned int role );
 
-    void removeDefinition();
+    void removeAggregate( GeometryAggregate& );
 
-    bool hasDefinition() const;
+    void removeAggregate( unsigned int role );
 
-    GeometryDefinition& definition() const;
+    void clearAggregates();
+
+    bool hasAggregate( const GeometryAggregate& ) const;
+
+    bool hasAggregate( unsigned int role ) const;
+
+    GeometryAggregate& aggregate( unsigned int role ) const;
+
+    std::size_t aggregatesCount() const;
+
+    void visitAggregates( const std::function< void( GeometryAggregate& ga, unsigned int role ) >& ) const;
 
 }; // Geometry
 

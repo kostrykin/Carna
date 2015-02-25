@@ -12,7 +12,7 @@
 #ifndef BUFFEREDHUVOLUMEMANAGER_H_6014714286
 #define BUFFEREDHUVOLUMEMANAGER_H_6014714286
 
-#include <Carna/base/view/VideoResourcesManager.h>
+#include <Carna/base/view/Texture3DManager.h>
 #include <Carna/base/view/BufferedHUVolumeUploader.h>
 #include <Carna/base/view/Texture3D.h>
 
@@ -39,7 +39,7 @@ namespace view
   * Generic \ref VideoResourcesManager for \ref BufferedHUVolume instances.
   */
 template< typename BufferedHUVolume >
-class BufferedHUVolumeManager : public VideoResourcesManager
+class BufferedHUVolumeManager : public Texture3DManager
 {
 
     std::unique_ptr< Texture3D > myTexture;
@@ -54,7 +54,7 @@ public:
 
     virtual void deleteResources() override;
 
-    const Texture3D& texture() const;
+    virtual const Texture3D& texture() const override;
 
 }; // BufferedHUVolumeManager
 

@@ -43,7 +43,7 @@ class GeometryStage : public RenderStage
     bool initialized;
     Node* root;
     std::size_t passesRendered;
-    std::set< GeometryDefinition* > acquiredVideoResources;
+    std::set< GeometryAggregate* > acquiredVideoResources;
     GLContext* myContext;
 
 protected:
@@ -97,7 +97,7 @@ GeometryStage< RenderableCompare >::~GeometryStage()
     {
         myContext->makeActive();
     }
-    std::for_each( acquiredVideoResources.begin(), acquiredVideoResources.end(), [&]( GeometryDefinition* gd )
+    std::for_each( acquiredVideoResources.begin(), acquiredVideoResources.end(), [&]( GeometryAggregate* gd )
         {
             gd->releaseVideoResources();
         }
@@ -133,22 +133,27 @@ template< typename RenderableCompare >
 void GeometryStage< RenderableCompare >::renderPass( RenderTask& rt, const Viewport& vp )
 {
     const bool isFirstPass = passesRendered == 1;
-    std::set< GeometryDefinition* > usedVideoResources;
+    std::set< GeometryAggregate* > usedVideoResources;
     while( !rq.isEmpty() )
     {
         const Renderable& renderable = rq.poll();
         if( isFirstPass )
         {
-            // denote that the geometry definition was used
-            GeometryDefinition& gd = renderable.geometry().definition();
-            usedVideoResources.insert( &gd );
+            renderable.geometry().visitAggregates( [&]( GeometryAggregate& ga, unsigned int role )
+                {
+                    /* Denote that the geometry definition was used.
+                     */
+                    usedVideoResources.insert( &ga );
 
-            // check whether video resources need to be acquired
-            if( acquiredVideoResources.find( &gd ) == acquiredVideoResources.end() )
-            {
-                gd.acquireVideoResources();
-                acquiredVideoResources.insert( &gd );
-            }
+                    /* Check whether video resources need to be acquired.
+                     */
+                    if( acquiredVideoResources.find( &ga ) == acquiredVideoResources.end() )
+                    {
+                        ga.acquireVideoResources();
+                        acquiredVideoResources.insert( &ga );
+                    }
+                }
+            );
         }
         render( renderable );
     }

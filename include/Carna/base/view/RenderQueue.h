@@ -110,7 +110,7 @@ void RenderQueue< RenderableCompare >::build( const Node& root, const Matrix4f& 
     root.visitChildren( [&]( const Spatial& spatial )
         {
             const Geometry* const geom = dynamic_cast< const Geometry* >( &spatial );
-            if( geom != nullptr && geom->geometryType == geometryType && geom->hasDefinition() )
+            if( geom != nullptr && geom->geometryType == geometryType && geom->aggregatesCount() > 0 )
             {
                 const Matrix4f modelViewTransform = viewTransform * geom->worldTransform();
                 renderables.push_back( Renderable( *geom, modelViewTransform ) );
