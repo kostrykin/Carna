@@ -44,13 +44,13 @@ struct ShaderManager::Details
 
     const ShaderProgram& loadShader( const std::string& name );
 
-}; // ShaderLoader :: Details
+}; // ShaderManager :: Details
 
 
 const ShaderProgram& ShaderManager::Details::loadShader( const std::string& name )
 {
-    const std::string& srcVert = wrapped::string( name + ".vert" );
-    const std::string& srcFrag = wrapped::string( name + ".frag" );
+    const std::string& srcVert = res::string( name + ".vert" );
+    const std::string& srcFrag = res::string( name + ".frag" );
 
     ShaderInfo info;
     info.acquisitionsCount = 1;

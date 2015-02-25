@@ -1,7 +1,5 @@
-#version 120
-
 /*
- *  Copyright (C) 2010 - 2014 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2015 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
@@ -11,8 +9,23 @@
  *
  */
 
+#version 150
+
+uniform mat4 sliceTangentModel;
+uniform mat4 modelViewProjection;
+
+layout( location = 0 ) in vec4 inPosition;
+
+out vec4 modelSpaceCoordinates;
+
+
+// ----------------------------------------------------------------------------------
+// Vertex Procedure
+// ----------------------------------------------------------------------------------
+
 void main()
 {
-    gl_Position = ftransform();
-    gl_TexCoord[ 0 ] = gl_MultiTexCoord0;
+    modelSpaceCoordinates = sliceTangentModel * inPosition;
+    vec4 clippingCoordinates = modelViewProjection * modelSpaceCoordinates;
+    gl_Position = clippingCoordinates;
 }

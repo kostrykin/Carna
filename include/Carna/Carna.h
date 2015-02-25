@@ -14,10 +14,20 @@
 
 #include <QtCore/qglobal.h>
 
-#ifdef CARNA_EXPORT
-#   define CARNA_LIB Q_DECL_EXPORT
+#if defined( CARNA_EXPORT )
+#   if defined( _MSC_VER )
+#       define CARNA_LIB __declspec( dllexport )
+#   elif defined( _GCC )
+#       define CARNA_LIB __attribute__( ( visibility( "default" ) ) )
+#   else
+#       define CARNA_LIB
+#   endif
 #else
-#   define CARNA_LIB Q_DECL_IMPORT
+#   if defined( _MSC_VER )
+#       define CARNA_LIB __declspec( dllimport )
+#   else
+#       define CARNA_LIB
+#   endif
 #endif
 
 
@@ -97,6 +107,16 @@ namespace Carna
         {
         }
         
+    }
+
+    namespace VolumeRenderings
+    {
+        class RayMarchingStage;
+
+        namespace MIP
+        {
+            class MIPStage;
+        }
     }
 
 }  // namespace Carna

@@ -13,6 +13,7 @@
 #define RAYMARCHINGSTAGE_H_6014714286
 
 #include <Carna/base/view/GeometryStage.h>
+#include <Carna/Carna.h>
 #include <map>
 
 /** \file   RayMarchingStage.h
@@ -22,10 +23,7 @@
 namespace Carna
 {
 
-namespace base
-{
-
-namespace view
+namespace VolumeRenderings
 {
 
 
@@ -34,7 +32,7 @@ namespace view
 // RayMarchingStage
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB RayMarchingStage : public GeometryStage< Renderable::DepthOrder< Renderable::ORDER_BACK_TO_FRONT > >
+class CARNA_LIB RayMarchingStage : public base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >
 {
 
     struct Details;
@@ -63,27 +61,23 @@ public:
       */
     unsigned int sampleRate() const;
 
-    virtual void renderPass( RenderTask& rt, const Viewport& vp ) override;
+    virtual void renderPass( base::view::RenderTask& rt, const base::view::Viewport& vp ) override;
 
 protected:
 
-    virtual void render( const Renderable& ) override;
+    virtual void render( const base::view::Renderable& ) override;
 
-    virtual void beginPass() = 0;
-
-    virtual void finishPass() = 0;
-
-    virtual const ShaderProgram& loadShader() = 0;
+    virtual const base::view::ShaderProgram& loadShader() = 0;
 
     virtual const std::string& uniformName( unsigned int role ) const = 0;
+
+    virtual void configureShader( base::view::GLContext& ) = 0;
 
 }; // RayMarchingStage
 
 
 
-}  // namespace Carna :: base :: view
-
-}  // namespace Carna :: base
+}  // namespace Carna :: VolumeRenderings
 
 }  // namespace Carna
 
