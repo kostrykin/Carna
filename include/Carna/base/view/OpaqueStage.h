@@ -41,7 +41,11 @@ public:
 
     const static int GEOMETRY_TYPE = 1;
 
+    const static unsigned int ROLE_DEFAULT_MESH = 0;
+
     OpaqueStage();
+
+    virtual void renderPass( RenderTask& rt, const Viewport& vp ) override;
 
 protected:
 

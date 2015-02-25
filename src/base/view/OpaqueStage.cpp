@@ -10,6 +10,8 @@
  */
 
 #include <Carna/base/view/OpaqueStage.h>
+#include <Carna/base/view/MeshManager.h>
+#include <Carna/base/view/Mesh.h>
 
 namespace Carna
 {
@@ -32,8 +34,27 @@ OpaqueStage::OpaqueStage()
 }
 
 
+void OpaqueStage::renderPass( RenderTask& rt, const Viewport& vp )
+{
+    /* Ensure proper OpenGL state.
+     */
+    glDepthMask( GL_TRUE );
+    glEnable( GL_DEPTH_TEST );
+    
+    /* Do the rendering.
+     */
+    GeometryStage< Renderable::ArbitraryOrder >::renderPass( rt, vp );
+}
+
+
 void OpaqueStage::render( const Renderable& renderable )
 {
+    const MeshManager& meshManager = static_cast< const MeshManager& >( renderable.geometry().aggregate( ROLE_DEFAULT_MESH ).videoResources() );
+    
+    /* TODO: Activate proper shader, e.g. by querying the corresponding geometry aggregate.
+     */
+
+    meshManager.mesh().render();
 }
 
 
