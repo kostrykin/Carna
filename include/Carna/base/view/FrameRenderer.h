@@ -81,9 +81,11 @@ public:
     
     void render( Camera& cam, Node& root ) const;
 
-    void render( Camera& cam, Node& root, const Viewport& vp ) const;
-
     void renderTexture( unsigned int unit, bool useDefaultSampler = true ) const;
+
+private:
+
+    void render( Camera& cam, Node& root, const Viewport& vp ) const;
 
 }; // FrameRenderer
 
