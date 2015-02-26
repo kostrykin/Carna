@@ -9,10 +9,17 @@
  *
  */
 
-#include <Carna/base/view/glew.h>
 #include <Carna/VolumeRenderings/MIP/MIPStage.h>
+#include <Carna/VolumeRenderings/MIP/Channel.h>
+#include <Carna/base/view/glew.h>
 #include <Carna/base/view/ShaderManager.h>
-#include <Carna/base/Matrix4f.h>
+#include <Carna/base/view/Framebuffer.h>
+#include <Carna/base/view/RenderTexture.h>
+#include <Carna/base/math.h>
+#include <Carna/base/CarnaException.h>
+#include <vector>
+#include <algorithm>
+#include <memory>
 
 namespace Carna
 {
@@ -26,23 +33,130 @@ namespace MIP
 
 
 // ----------------------------------------------------------------------------------
+// MIPStage :: Details
+// ----------------------------------------------------------------------------------
+
+struct MIPStage::Details
+{
+
+    Details();
+
+    Channel* currentChannel;
+    std::vector< Channel* > channels;
+
+    std::unique_ptr< base::view::RenderTexture > channelColorBuffer;
+    std::unique_ptr< base::view::Framebuffer   > channelFrameBuffer;
+
+    static inline float huvToIntensity( signed short huv )
+    {
+        return ( huv + 1024 ) / 4095.f;
+    }
+
+}; // MIPStage :: Details
+
+
+MIPStage::Details::Details()
+    : currentChannel( nullptr )
+{
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // MIPStage
 // ----------------------------------------------------------------------------------
+
+MIPStage::MIPStage()
+    : pimpl( new Details() )
+{
+}
+
+
+MIPStage::~MIPStage()
+{
+    clearChannels();
+}
+
+
+void MIPStage::appendChannel( Channel* channel )
+{
+    CARNA_ASSERT( std::find( pimpl->channels.begin(), pimpl->channels.end(), channel ) == pimpl->channels.end() );
+    pimpl->channels.push_back( channel );
+}
+
+
+Channel* MIPStage::removeChannel( const Channel& channel )
+{
+    const auto channelItr = std::find( pimpl->channels.begin(), pimpl->channels.end(), const_cast< Channel* >( &channel ) );
+    CARNA_ASSERT( channelItr != pimpl->channels.end() );
+    pimpl->channels.erase( channelItr );
+    return *channelItr;
+}
+
+
+void MIPStage::ascendChannel( const Channel& channel )
+{
+    const auto channelItr = std::find( pimpl->channels.begin(), pimpl->channels.end(), const_cast< Channel* >( &channel ) );
+    CARNA_ASSERT( channelItr != pimpl->channels.end() );
+    if( channelItr != pimpl->channels.begin() )
+    {
+        std::swap( *channelItr, *( channelItr - 1 ) );
+    }
+}
+
+
+void MIPStage::clearChannels()
+{
+    std::for_each( pimpl->channels.begin(), pimpl->channels.end(), std::default_delete< Channel >() );
+    pimpl->channels.clear();
+}
+
+
+void MIPStage::reshape( unsigned int width, unsigned int height )
+{
+    base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >::reshape( width, height );
+    pimpl->channelColorBuffer.reset( new base::view::RenderTexture( width, height ) );
+    pimpl->channelFrameBuffer.reset( new base::view::Framebuffer( *pimpl->channelColorBuffer ) );
+}
+
 
 void MIPStage::renderPass( base::view::RenderTask& rt, const base::view::Viewport& vp )
 {
     /* Configure proper OpenGL state.
      */
     glEnable( GL_BLEND );
-    glBlendEquation( GL_MAX );
 
-    /* Do the rendering.
+    /* For each channel: First render the channel-specific MIP result to the dedicated framebuffer,
+     * than render the result to the output framebuffer w.r.t. the channel function.
      */
-    RayMarchingStage::renderPass( rt, vp );
+    for( auto channelItr = pimpl->channels.begin(); channelItr != pimpl->channels.end(); ++channelItr )
+    {
+        pimpl->currentChannel = *channelItr;
+
+        /* Render to dedicated framebuffer.
+         */
+        CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->channelFrameBuffer,
+
+            glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+            glBlendEquation( GL_MAX );
+            RayMarchingStage::renderPass( rt, vp );
+            glBlendEquation( GL_FUNC_ADD );
+
+        );
+
+        /* Render result to output framebuffer.
+         */
+        glBlendFunc( pimpl->currentChannel->function.sourceFactor, pimpl->currentChannel->function.destinationFactor );
+        pimpl->channelColorBuffer->bind( 0 );
+        rt.renderer.renderTexture( 0, true );
+    }
+
+    /* Denote that we're finished with rendering.
+     */
+    pimpl->currentChannel = nullptr;
 
     /* Restore contracted default state.
      */
-    glBlendEquation( GL_FUNC_ADD );
     glDisable( GL_BLEND );
 }
 
@@ -83,9 +197,13 @@ const std::string& MIPStage::uniformName( unsigned int role ) const
 
 void MIPStage::configureShader( base::view::GLContext& glc )
 {
-    base::view::ShaderProgram::putUniform1f( "minIntensity", 0 );
-    base::view::ShaderProgram::putUniform1f( "maxIntensity", 1 );
-    base::view::ShaderProgram::putUniform4f( "color", base::Vector4f( 1, 1, 1, 1 ) );
+    CARNA_ASSERT( pimpl->currentChannel != nullptr );
+    const Channel& ch = *pimpl->currentChannel;
+    const base::math::Vector4f alphaColor( ch.color.x(), ch.color.y(), ch.color.z(), ch.opacity );
+
+    base::view::ShaderProgram::putUniform1f( "minIntensity", Details::huvToIntensity( ch.huRange.first ) );
+    base::view::ShaderProgram::putUniform1f( "maxIntensity", Details::huvToIntensity( ch.huRange.last  ) );
+    base::view::ShaderProgram::putUniform4f( "color", alphaColor );
 }
 
 

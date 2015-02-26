@@ -1,9 +1,9 @@
 #include <QDebug>
 #include <QGLWidget>
+#include <QApplication>
 
 #include <Carna/Version.h>
 #include <Carna/base/Log.h>
-#include <Carna/base/Application.h>
 #include <Carna/base/view/GLContext.h>
 #include <Carna/base/view/FrameRenderer.h>
 #include <Carna/base/view/Node.h>
@@ -12,6 +12,7 @@
 #include <Carna/base/view/GeometryAggregate.h>
 #include <Carna/base/view/BufferedHUVolumeManager.h>
 #include <Carna/VolumeRenderings/MIP/MIPStage.h>
+#include <Carna/VolumeRenderings/MIP/Channel.h>
 
 #include <HUGZSceneFactory.h>
 
@@ -99,13 +100,12 @@ void Demo::initializeGL()
     glContext.reset( new base::view::QGLContextAdapter< QGLContext >() );
     root.reset( new base::view::Node() );
 
-    base::Vector4f spacing;
+    base::math::Vector3f spacing;
     volume.reset( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/../res/pelves_reduced.hugz", spacing ) );
-    const base::Vector4f scale
+    const base::math::Vector3f scale
         ( ( volume->size.x() - 1 ) * spacing.x()
         , ( volume->size.y() - 1 ) * spacing.y()
-        , ( volume->size.z() - 1 ) * spacing.z()
-        , 0 );
+        , ( volume->size.z() - 1 ) * spacing.z() );
 
     base::view::Geometry* const volumeGeometry = new base::view::Geometry( VolumeRenderings::MIP::MIPStage::GEOMETRY_TYPE );
     volumeGeometry->putAggregate
@@ -114,11 +114,11 @@ void Demo::initializeGL()
 
     base::view::Node* const volumePivot = new base::view::Node();
     volumePivot->attachChild( volumeGeometry );
-    volumePivot->localTransform = base::scaling4f( scale.x(), scale.y(), scale.z() );
+    volumePivot->localTransform = base::math::scaling4f( scale );
 
     camera = new base::view::Camera();
-    camera->setProjection( base::frustum4f( 3.14f * 45 / 180.f, 1, 10, 2000 ) );
-    camera->localTransform = base::translation4f( 0, 0, 500 );
+    camera->setProjection( base::math::frustum4f( 3.14f * 45 / 180.f, 1, 10, 2000 ) );
+    camera->localTransform = base::math::translation4f( 0, 0, 500 );
     root->attachChild( camera );
     root->attachChild( volumePivot );
 }
@@ -128,8 +128,10 @@ void Demo::resizeGL( int w, int h )
 {
     if( renderer.get() == nullptr )
     {
+        VolumeRenderings::MIP::MIPStage* const mip = new VolumeRenderings::MIP::MIPStage();
+        mip->appendChannel( new VolumeRenderings::MIP::Channel( -1024, 3071, base::math::Vector3f( 1, 1, 1 ) ) );
         renderer.reset( new base::view::FrameRenderer( *glContext, static_cast< unsigned >( w ), static_cast< unsigned >( h ) ) );
-        renderer->appendStage( new VolumeRenderings::MIP::MIPStage() );
+        renderer->appendStage( mip );
     }
     else
     {
@@ -157,8 +159,8 @@ void Demo::paintGL()
 int main( int argc, char** argv )
 {
     Carna::base::Log::instance().setWriter( new Carna::testing::QDebugLogWriter() );
-    Carna::base::Application app( argc, argv );
+    QApplication app( argc, argv );
     Carna::testing::Demo demo;
     demo.show();
-    return Carna::base::Application::exec();
+    return QApplication::exec();
 }

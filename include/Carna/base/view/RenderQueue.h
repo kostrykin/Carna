@@ -16,7 +16,7 @@
 #include <Carna/base/view/Node.h>
 #include <Carna/base/view/Geometry.h>
 #include <Carna/base/view/Renderable.h>
-#include <Carna/base/Matrix4f.h>
+#include <Carna/base/math.h>
 #include <Carna/base/CarnaException.h>
 #include <Carna/base/noncopyable.h>
 #include <vector>
@@ -56,7 +56,7 @@ public:
 
     RenderQueue( int geometryType );
     
-    void build( const Node& root, const Matrix4f& viewTransform );
+    void build( const Node& root, const math::Matrix4f& viewTransform );
     
     void rewind();
     
@@ -101,7 +101,7 @@ struct RenderableSort< Renderable::ArbitraryOrder >
 
 
 template< typename RenderableCompare >
-void RenderQueue< RenderableCompare >::build( const Node& root, const Matrix4f& viewTransform )
+void RenderQueue< RenderableCompare >::build( const Node& root, const math::Matrix4f& viewTransform )
 {
     renderables.clear();
     nextRenderableIndex = 0;
@@ -112,7 +112,7 @@ void RenderQueue< RenderableCompare >::build( const Node& root, const Matrix4f& 
             const Geometry* const geom = dynamic_cast< const Geometry* >( &spatial );
             if( geom != nullptr && geom->geometryType == geometryType && geom->aggregatesCount() > 0 )
             {
-                const Matrix4f modelViewTransform = viewTransform * geom->worldTransform();
+                const math::Matrix4f modelViewTransform = viewTransform * geom->worldTransform();
                 renderables.push_back( Renderable( *geom, modelViewTransform ) );
             }
         }

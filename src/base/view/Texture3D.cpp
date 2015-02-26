@@ -51,14 +51,14 @@ Texture3D::~Texture3D()
 }
 
 
-void Texture3D::bind( unsigned int sampler ) const
+void Texture3D::bind( unsigned int unit ) const
 {
-    glActiveTexture( GL_TEXTURE0 + sampler );
+    glActiveTexture( GL_TEXTURE0 + unit );
     glBindTexture( GL_TEXTURE_3D, id );
 }
 
 
-void Texture3D::upload( int internalFormat, const Vector3ui& size, int pixelFormat, int bufferType, const void* bufferData )
+void Texture3D::upload( int internalFormat, const math::Vector3ui& size, int pixelFormat, int bufferType, const void* bufferData )
 {
     bind( SETUP_UNIT );
     glTexImage3D( GL_TEXTURE_3D, 0, internalFormat

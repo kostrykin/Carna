@@ -14,7 +14,7 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/noncopyable.h>
-#include <Carna/base/Matrix4f.h>
+#include <Carna/base/math.h>
 
 /** \file   RenderStage.h
   * \brief  Defines \ref Carna::base::view::RenderStage.
@@ -82,7 +82,7 @@ public:
       * \ref prepareFrame was called, \ref RenderQueue::rewind "rewinding"
       * the queue will be sufficient.
       */
-    virtual void preparePass( const Matrix4f& viewTransform ) = 0;
+    virtual void preparePass( const math::Matrix4f& viewTransform ) = 0;
     
     virtual void renderPass( RenderTask& rt, const Viewport& vp ) = 0;
 

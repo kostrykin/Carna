@@ -68,7 +68,7 @@ public:
 
     /** \brief  Instantiates.
       */
-    BufferedHUVolume( const Vector3ui& size, Association< BufferType >* buffer )
+    BufferedHUVolume( const math::Vector3ui& size, Association< BufferType >* buffer )
         : HUVolume( size )
         , myBuffer( buffer )
     {
@@ -83,7 +83,7 @@ public:
       * BufferedHUVolume( size, new Composition< BufferType >( new BufferType( size.x * size.y * size.z ) ) );
       * \endcode
       */
-    explicit BufferedHUVolume( const Vector3ui& size )
+    explicit BufferedHUVolume( const math::Vector3ui& size )
         : HUVolume( size )
         , myBuffer( new Composition< BufferType >( new BufferType( size.x() * size.y() * size.z() ) ) )
     {
@@ -122,7 +122,7 @@ public:
 
     /** \brief  Returns HUV of specified voxel.
       */
-    signed short operator()( const Vector3ui& at ) const
+    signed short operator()( const math::Vector3ui& at ) const
     {
         return ( *this )( at.x(), at.y(), at.z() );
     }
@@ -137,7 +137,7 @@ public:
 
     /** \brief  Sets the HUV of a voxel.
       */
-    void setVoxel( const Vector3ui& at, signed short huv )
+    void setVoxel( const math::Vector3ui& at, signed short huv )
     {
         this->setVoxel( at.x(), at.y(), at.z(), huv );
     }

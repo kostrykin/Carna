@@ -14,7 +14,6 @@
 #include <Carna/base/view/RenderTexture.h>
 #include <Carna/base/CarnaException.h>
 #include <stdexcept>
-#include <QDebug>
 
 namespace Carna
 {
@@ -81,6 +80,13 @@ void RenderTexture::resize( unsigned int w, unsigned int h )
     }
 
     REPORT_GL_ERROR;
+}
+
+
+void RenderTexture::bind( unsigned int unit ) const
+{
+    glActiveTexture( GL_TEXTURE0 + unit );
+    glBindTexture( GL_TEXTURE_2D, id );
 }
 
 

@@ -1,3 +1,5 @@
+#version 330
+
 /*
  *  Copyright (C) 2010 - 2015 Leonid Kostrykin
  *
@@ -9,37 +11,17 @@
  *
  */
 
-#include <Carna/base/model/HUVolume.h>
+layout( location = 0 ) in vec4 inPosition;
 
-namespace Carna
-{
-
-namespace base
-{
-
-namespace model
-{
-
+out vec2 textureCoordinates;
 
 
 // ----------------------------------------------------------------------------------
-// HUVolume
+// Vertex Procedure
 // ----------------------------------------------------------------------------------
 
-HUVolume::HUVolume()
+void main()
 {
+    textureCoordinates = ( inPosition.xy + 1 ) / 2;
+    gl_Position = inPosition;
 }
-
-
-HUVolume::HUVolume( const math::Vector3ui& size )
-    : size( size )
-{
-}
-
-
-
-}  // namespace Carna :: base :: model
-
-}  // namespace Carna :: base
-
-}  // namespace Carna

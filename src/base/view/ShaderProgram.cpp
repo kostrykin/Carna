@@ -107,7 +107,7 @@ void ShaderProgram::putUniform3f( const std::string& param, float x, float y, fl
 }
 
 
-void ShaderProgram::putUniform4f( const std::string& param, const Vector4f& v )
+void ShaderProgram::putUniform4f( const std::string& param, const math::Vector4f& v )
 {
     const ShaderProgram& shader = GLContext::current().shader();
     int uniformLocation = shader.getUniformLocation( param );
@@ -162,7 +162,7 @@ void ShaderProgram::putUniform1u( const std::string& param, unsigned int x )
 }
 
 
-void ShaderProgram::putUniform4x4f( const std::string& param, const Matrix4f& m )
+void ShaderProgram::putUniform4x4f( const std::string& param, const math::Matrix4f& m )
 {
     const ShaderProgram& shader = GLContext::current().shader();
     int uniformLocation = shader.getUniformLocation( param );

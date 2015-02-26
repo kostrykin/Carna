@@ -220,6 +220,27 @@ private:
 
 
 
+// ----------------------------------------------------------------------------------
+// CARNA_RENDER_TO_FRAMEBUFFER_EX
+// ----------------------------------------------------------------------------------
+
+#define CARNA_RENDER_TO_FRAMEBUFFER_EX( fbo, binding, instructions ) \
+    { \
+        Carna::base::view::Framebuffer::Binding binding( fbo ); \
+        instructions; \
+    }
+
+
+
+// ----------------------------------------------------------------------------------
+// CARNA_RENDER_TO_FRAMEBUFFER
+// ----------------------------------------------------------------------------------
+
+#define CARNA_RENDER_TO_FRAMEBUFFER( fbo, instructions ) \
+    CARNA_RENDER_TO_FRAMEBUFFER_EX( fbo, fboBinding##__COUNTER__, instructions )
+
+
+
 }  // namespace Carna :: base :: view
 
 }  // namespace Carna :: base

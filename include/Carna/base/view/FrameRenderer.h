@@ -15,6 +15,7 @@
 #include <Carna/Carna.h>
 #include <Carna/base/noncopyable.h>
 #include <vector>
+#include <memory>
 
 /** \file   FrameRenderer.h
   * \brief  Defines \ref Carna::base::view::FrameRenderer.
@@ -48,6 +49,12 @@ class CARNA_LIB FrameRenderer
 
     GLContext* const myGlContext;
 
+    const std::unique_ptr< Sampler > fullFrameQuadSampler;
+
+    const std::unique_ptr< MeshBase > fullFrameQuadMesh;
+
+    const ShaderProgram& fullFrameQuadShader;
+
 public:
     
     FrameRenderer( GLContext& glContext, unsigned int width, unsigned int height );
@@ -73,6 +80,8 @@ public:
     void render( Camera& cam, Node& root, bool fitSquare ) const;
 
     void render( Camera& cam, Node& root, const Viewport& vp ) const;
+
+    void renderTexture( unsigned int unit, bool useDefaultSampler = true ) const;
 
 }; // FrameRenderer
 

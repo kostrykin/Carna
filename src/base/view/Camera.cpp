@@ -33,19 +33,19 @@ void Camera::updateWorldTransform()
 }
 
 
-const Matrix4f& Camera::viewTransform() const
+const math::Matrix4f& Camera::viewTransform() const
 {
     return myViewTransform;
 }
 
 
-void Camera::setProjection( const Matrix4f& projection )
+void Camera::setProjection( const math::Matrix4f& projection )
 {
     myProjection = projection;
 }
 
 
-const Matrix4f& Camera::projection() const
+const math::Matrix4f& Camera::projection() const
 {
     return myProjection;
 }

@@ -15,7 +15,7 @@
 #include <Carna/base/view/IndexBuffer.h>
 #include <Carna/base/view/Texture3DManager.h>
 #include <Carna/base/view/ShaderManager.h>
-#include <Carna/base/Matrix4f.h>
+#include <Carna/base/math.h>
 
 namespace Carna
 {
@@ -66,8 +66,8 @@ struct RayMarchingStage::VideoResources
     void renderSlice
         ( RayMarchingStage& self
         , const base::view::Renderable& renderable
-        , const base::Matrix4f& sliceTangentModel
-        , const base::Matrix4f& modelView );
+        , const base::math::Matrix4f& sliceTangentModel
+        , const base::math::Matrix4f& modelView );
 
 }; // RayMarchingStage :: VideoResources
 
@@ -104,8 +104,8 @@ RayMarchingStage::VideoResources::VideoResources( const base::view::ShaderProgra
 void RayMarchingStage::VideoResources::renderSlice
     ( RayMarchingStage& self
     , const base::view::Renderable& renderable
-    , const base::Matrix4f& sliceTangentModel
-    , const base::Matrix4f& modelView )
+    , const base::math::Matrix4f& sliceTangentModel
+    , const base::math::Matrix4f& modelView )
 {
     unsigned int lastUnit = base::view::Texture3D::SETUP_UNIT;
     std::vector< unsigned int > roles;
@@ -174,8 +174,8 @@ RayMarchingStage::~RayMarchingStage()
 
 void RayMarchingStage::render( const base::view::Renderable& renderable )
 {
-    using base::Matrix4f;
-    using base::Vector4f;
+    using base::math::Matrix4f;
+    using base::math::Vector4f;
 
     /* Hereinafter the term 'model' is identified with 'segment'.
      */
@@ -185,15 +185,15 @@ void RayMarchingStage::render( const base::view::Renderable& renderable )
      * This vector needs to be renormalized since 'viewModel' may contain scalings.
      */
     const Matrix4f viewModel = modelView.inverse();
-    const Vector4f viewDirectionInModelSpace = base::normalized( Vector4f( viewModel * Vector4f( 0, 0, -1, 0 ) ) );
+    const Vector4f viewDirectionInModelSpace = base::math::normalized( Vector4f( viewModel * Vector4f( 0, 0, -1, 0 ) ) );
 
     /* Construct billboard at segment center, i.e. plane that always faces the camera.
      */
     const float s = std::sqrt( 2.f ) / 2;
     const Vector4f modelNormal    = s * -viewDirectionInModelSpace;
-    const Vector4f modelTangent   = s * base::normalized( Vector4f( viewModel * Vector4f( 1, 0, 0, 0 ) ) );
-    const Vector4f modelBitangent = s * base::normalized( Vector4f( viewModel * Vector4f( 0, 1, 0, 0 ) ) );
-    const Matrix4f tangentModel   = base::basis4f( modelTangent, modelBitangent, modelNormal );
+    const Vector4f modelTangent   = s * base::math::normalized( Vector4f( viewModel * Vector4f( 1, 0, 0, 0 ) ) );
+    const Vector4f modelBitangent = s * base::math::normalized( Vector4f( viewModel * Vector4f( 0, 1, 0, 0 ) ) );
+    const Matrix4f tangentModel   = base::math::basis4f( modelTangent, modelBitangent, modelNormal );
 
     /* NOTE: This can be optimized using geometry shader, by sending only the central
      * slice to the GPU and constructing the others in the shader.
@@ -205,7 +205,7 @@ void RayMarchingStage::render( const base::view::Renderable& renderable )
 
         /* Construct transformation from tangent to model space for specific slice.
          */
-        const Matrix4f sliceOffset = base::translation4f( viewDirectionInModelSpace * offset );
+        const Matrix4f sliceOffset = base::math::translation4f( viewDirectionInModelSpace * offset );
         const Matrix4f sliceTangentModel = sliceOffset * tangentModel;
 
         vr->renderSlice( *this, renderable, sliceTangentModel, modelView );

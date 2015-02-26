@@ -13,7 +13,7 @@
 #define SPATIAL_H_6014714286
 
 #include <Carna/Carna.h>
-#include <Carna/base/Matrix4f.h>
+#include <Carna/base/math.h>
 #include <Carna/base/noncopyable.h>
 #include <functional>
 
@@ -42,7 +42,7 @@ class CARNA_LIB Spatial
     NON_COPYABLE
 
     Node* myParent;
-    Matrix4f myWorldTransform;
+    math::Matrix4f myWorldTransform;
 
 public:
 
@@ -79,7 +79,7 @@ public:
     
     const Node& parent() const;
     
-    Matrix4f localTransform;
+    math::Matrix4f localTransform;
     
     /** \brief
       * Computes the transformation to world space for this spatial.
@@ -92,7 +92,7 @@ public:
     /** \brief
       * Tells the transformation to world space for this spatial that was last computed.
       */
-    const Matrix4f& worldTransform() const;
+    const math::Matrix4f& worldTransform() const;
 
 }; // Spatial
 

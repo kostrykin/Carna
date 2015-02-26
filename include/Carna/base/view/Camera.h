@@ -36,17 +36,17 @@ namespace view
 class CARNA_LIB Camera : public Spatial
 {
 
-    Matrix4f myViewTransform;
+    math::Matrix4f myViewTransform;
 
-    Matrix4f myProjection;
+    math::Matrix4f myProjection;
 
 public:
 
-    void setProjection( const Matrix4f& );
+    void setProjection( const math::Matrix4f& );
 
-    const Matrix4f& projection() const;
+    const math::Matrix4f& projection() const;
 
-    const Matrix4f& viewTransform() const;
+    const math::Matrix4f& viewTransform() const;
 
     virtual void updateWorldTransform() override;
 

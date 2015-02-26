@@ -30,7 +30,7 @@ namespace view
 
 Spatial::Spatial()
     : myParent( nullptr )
-    , localTransform( identity4f() )
+    , localTransform( math::identity4f() )
 {
 }
 
@@ -89,7 +89,7 @@ void Spatial::updateWorldTransform()
 }
 
 
-const Matrix4f& Spatial::worldTransform() const
+const math::Matrix4f& Spatial::worldTransform() const
 {
     return myWorldTransform;
 }

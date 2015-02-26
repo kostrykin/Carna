@@ -10,8 +10,7 @@
  */
 
 #include <Carna/base/Text.h>
-#include <QFile>
-#include <QTextStream>
+#include <fstream>
 
 namespace Carna
 {
@@ -27,10 +26,8 @@ namespace base
 
 std::string Text::cat( const std::string& fileName )
 {
-    QFile file( QString::fromStdString( fileName ) );
-    
-    file.open( QIODevice::ReadOnly | QIODevice::Text );
-    return QTextStream( &file ).readAll().toStdString();
+    std::ifstream in( fileName.c_str(), std::ios::in );
+    return std::string( std::istreambuf_iterator< char >( in ), std::istreambuf_iterator< char >() );
 }
 
 

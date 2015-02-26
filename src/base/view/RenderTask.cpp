@@ -13,7 +13,6 @@
 #include <Carna/base/view/RenderStage.h>
 #include <Carna/base/view/Framebuffer.h>
 #include <Carna/base/view/Camera.h>
-#include <Carna/base/Matrix4f.h>
 
 namespace Carna
 {
@@ -30,7 +29,7 @@ namespace view
 // RenderTask
 // ----------------------------------------------------------------------------------
 
-RenderTask::RenderTask( const FrameRenderer& renderer, const Matrix4f& projection, const Matrix4f& viewTransform )
+RenderTask::RenderTask( const FrameRenderer& renderer, const math::Matrix4f& projection, const math::Matrix4f& viewTransform )
     : myOutput( nullptr )
     , nextRenderStage( 0 )
     , viewTransform( viewTransform )
@@ -40,7 +39,7 @@ RenderTask::RenderTask( const FrameRenderer& renderer, const Matrix4f& projectio
 }
 
 
-RenderTask::RenderTask( const FrameRenderer& renderer, const Matrix4f& projection, const Matrix4f& viewTransform, Framebuffer& output )
+RenderTask::RenderTask( const FrameRenderer& renderer, const math::Matrix4f& projection, const math::Matrix4f& viewTransform, Framebuffer& output )
     : myOutput( &output )
     , nextRenderStage( 0 )
     , viewTransform( viewTransform )
@@ -60,7 +59,7 @@ RenderTask::RenderTask( const RenderTask& parent, Framebuffer& output )
 }
 
 
-void RenderTask::overrideViewTransform( const Matrix4f& viewTransform )
+void RenderTask::overrideViewTransform( const math::Matrix4f& viewTransform )
 {
     this->viewTransform = viewTransform;
     for( std::size_t rsIdx = nextRenderStage; rsIdx < renderer.stages(); ++rsIdx )

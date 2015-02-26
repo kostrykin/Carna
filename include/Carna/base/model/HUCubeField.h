@@ -51,8 +51,8 @@ public:
     typedef HUCubeSegment< HUCubeField< HUCubeSegmentVolume >, HUCubeSegmentVolume > HUCubeSegment;
 
     HUCubeField
-        ( const Vector3ui& maxSegmentSize
-        , const Vector3ui& segmentCounts
+        ( const math::Vector3ui& maxSegmentSize
+        , const math::Vector3ui& segmentCounts
         , const std::function< Association< HUCubeSegmentVolume >*
             ( unsigned int segmentX
             , unsigned int segmentY
@@ -60,8 +60,8 @@ public:
 
     virtual ~HUCubeField();
 
-    const Vector3ui maxSegmentSize;
-    const Vector3ui segmentCounts;
+    const math::Vector3ui maxSegmentSize;
+    const math::Vector3ui segmentCounts;
 
     const HUCubeSegment& segmentAt( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ ) const;
     
@@ -69,7 +69,7 @@ public:
                                    , unsigned int y
                                    , unsigned int z ) const override;
 
-    virtual signed short operator()( const Vector3ui& at ) const override;
+    virtual signed short operator()( const math::Vector3ui& at ) const override;
 
 private:
 
@@ -82,8 +82,8 @@ private:
 
 template< typename HUCubeSegmentVolume >
 HUCubeField< HUCubeSegmentVolume >::HUCubeField
-    ( const Vector3ui& maxSegmentSize
-    , const Vector3ui& segmentCounts
+    ( const math::Vector3ui& maxSegmentSize
+    , const math::Vector3ui& segmentCounts
     , const std::function< Association< HUCubeSegmentVolume >*
         ( unsigned int segmentX
         , unsigned int segmentY
@@ -100,7 +100,7 @@ HUCubeField< HUCubeSegmentVolume >::HUCubeField
         Association< HUCubeSegmentVolume >* const segmentVolume = segmentVolumeAt( x, y, z );
         HUCubeSegment* const segment = new HUCubeSegment( *this );
         segment->setVolume( segmentVolume );
-        segment->offset = Vector3ui( x * maxSegmentSize.x, y * maxSegmentSize.y, z * maxSegmentSize.z );
+        segment->offset = math::Vector3ui( x * maxSegmentSize.x, y * maxSegmentSize.y, z * maxSegmentSize.z );
         segments[ index ] = segment;
 
     }
@@ -151,7 +151,7 @@ signed short HUCubeField< HUCubeSegmentVolume >::operator()
 
 
 template< typename HUCubeSegmentVolume >
-signed short HUCubeField< HUCubeSegmentVolume >::operator()( const Vector3ui& at ) const
+signed short HUCubeField< HUCubeSegmentVolume >::operator()( const math::Vector3ui& at ) const
 {
     return ( *this )( at.x, at.y, at.z );
 }

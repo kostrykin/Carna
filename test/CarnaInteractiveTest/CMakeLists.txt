@@ -28,7 +28,7 @@ set( TARGET_NAME	${PROJECT_NAME}-${FULL_VERSION} )
 ############################################
 
 # Qt
-find_package( Qt4 4.8.0 COMPONENTS QtCore QtOpenGL REQUIRED )
+find_package( Qt4 4.8.0 COMPONENTS QtCore QtGui QtOpenGL REQUIRED )
 include( ${QT_USE_FILE} )
 add_definitions( ${QT_DEFINITIONS} )
 

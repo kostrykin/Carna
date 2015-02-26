@@ -26,16 +26,16 @@ namespace view
 // Renderable
 // ----------------------------------------------------------------------------------
 
-Renderable::Renderable( const Geometry& geometry, const Matrix4f& modelViewTransform )
+Renderable::Renderable( const Geometry& geometry, const math::Matrix4f& modelViewTransform )
     : myGeometry( &geometry )
-    , myModelViewTransform( new Matrix4f( modelViewTransform ) )
+    , myModelViewTransform( new math::Matrix4f( modelViewTransform ) )
 {
 }
 
 
 Renderable::Renderable( const Renderable& other )
     : myGeometry( other.myGeometry )
-    , myModelViewTransform( new Matrix4f( *other.myModelViewTransform ) )
+    , myModelViewTransform( new math::Matrix4f( *other.myModelViewTransform ) )
 {
 }
 
@@ -46,7 +46,7 @@ const Geometry& Renderable::geometry() const
 }
 
 
-const Matrix4f& Renderable::modelViewTransform() const
+const math::Matrix4f& Renderable::modelViewTransform() const
 {
     return *myModelViewTransform;
 }

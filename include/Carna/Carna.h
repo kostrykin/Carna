@@ -12,11 +12,10 @@
 #ifndef CARNA_GLOBAL_H_6014714286
 #define CARNA_GLOBAL_H_6014714286
 
-#include <QtCore/qglobal.h>
-
 #if defined( CARNA_EXPORT )
 #   if defined( _MSC_VER )
 #       define CARNA_LIB __declspec( dllexport )
+#       pragma warning( disable : 4251 )
 #   elif defined( _GCC )
 #       define CARNA_LIB __attribute__( ( visibility( "default" ) ) )
 #   else
@@ -68,6 +67,7 @@ namespace Carna
         namespace view
         {
             class  BaseBuffer;
+            class  BlendFunction;
             class  BufferedHUVolumeTexture;
             class  Camera;
             class  Color;
@@ -117,6 +117,7 @@ namespace Carna
         namespace MIP
         {
             class MIPStage;
+            class Channel;
         }
     }
 

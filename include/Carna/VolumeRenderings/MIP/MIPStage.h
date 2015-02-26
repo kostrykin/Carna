@@ -37,11 +37,38 @@ namespace MIP
 class CARNA_LIB MIPStage : public RayMarchingStage
 {
 
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
+
 public:
 
     const static unsigned int ROLE_HU_VOLUME = 0;
 
+    MIPStage();
+
+    virtual ~MIPStage();
+
+    virtual void reshape( unsigned int width, unsigned int height ) override;
+
     virtual void renderPass( base::view::RenderTask& rt, const base::view::Viewport& vp ) override;
+    
+    /** \brief
+      * Swaps positions of \a channel with it's successor in the \ref MIP_Channels "channels list".
+      */
+    void ascendChannel( const Channel& channel );
+    
+    /** \brief
+      * Appends \a channel to the \ref MIP_Channels "channels list" and takes it's ownership.
+      */
+    void appendChannel( Channel* channel );
+    
+    /** \brief
+      * Removes \a channel from the \ref MIP_Channels "channels list".
+      * The ownership is transferred to the caller.
+      */
+    Channel* removeChannel( const Channel& channel );
+
+    void clearChannels();
 
 protected:
 

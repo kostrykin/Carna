@@ -1,3 +1,5 @@
+#version 330
+
 /*
  *  Copyright (C) 2010 - 2015 Leonid Kostrykin
  *
@@ -9,37 +11,19 @@
  *
  */
 
-#include <Carna/base/model/HUVolume.h>
+uniform sampler2D colorMap;
 
-namespace Carna
-{
+in vec2 textureCoordinates;
 
-namespace base
-{
-
-namespace model
-{
-
+out vec4 gl_FragColor;
 
 
 // ----------------------------------------------------------------------------------
-// HUVolume
+// Fragment Procedure
 // ----------------------------------------------------------------------------------
 
-HUVolume::HUVolume()
+void main()
 {
+    vec4 color = texture( colorMap, textureCoordinates );
+    gl_FragColor = color;
 }
-
-
-HUVolume::HUVolume( const math::Vector3ui& size )
-    : size( size )
-{
-}
-
-
-
-}  // namespace Carna :: base :: model
-
-}  // namespace Carna :: base
-
-}  // namespace Carna

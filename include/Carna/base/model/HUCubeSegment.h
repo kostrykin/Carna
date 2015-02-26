@@ -61,7 +61,7 @@ public:
 
     const HUCubeSegmentVolume& volume() const;
 
-    Vector3ui offset;
+    math::Vector3ui offset;
 
 private:
 

@@ -74,14 +74,14 @@ Viewport::Viewport( const Viewport& parent, float width, float height, float lef
     , width( static_cast< unsigned int >( parent.width * width + 0.5f ) )
     , height( static_cast< unsigned int >( parent.height * height + 0.5f ) )
 {
-    const unsigned int maxLeft = parent.width - width;
-    const unsigned int maxTop = parent.height - height;
+    const unsigned int maxLeft = static_cast< unsigned >( static_cast< int >( parent.width  ) - static_cast< int >( this->width  ) );
+    const unsigned int maxTop  = static_cast< unsigned >( static_cast< int >( parent.height ) - static_cast< int >( this->height ) );
 
     this->left = mix( 0u, maxLeft, left );
     this->top  = mix( 0u, maxTop , top );
 }
 
-
+ 
 void Viewport::makeActive() const
 {
     glViewport( left, top, width, height );

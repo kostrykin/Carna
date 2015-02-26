@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 - 2014 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2015 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
@@ -37,7 +37,7 @@ namespace base
   * \date   12.3.13
   */
 template< typename T >
-class CARNA_EXPORT Span
+class CARNA_LIB Span
 {
 
 public:

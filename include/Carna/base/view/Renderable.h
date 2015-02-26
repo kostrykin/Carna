@@ -13,7 +13,7 @@
 #define RENDERABLE_H_6014714286
 
 #include <Carna/Carna.h>
-#include <Carna/base/Matrix4f.h>
+#include <Carna/base/math.h>
 
 /** \file   Renderable.h
   * \brief  Defines \ref Carna::base::view::Renderable.
@@ -46,17 +46,17 @@ class CARNA_LIB Renderable
 
     const Geometry* myGeometry;
 
-    std::unique_ptr< Matrix4f > myModelViewTransform;
+    std::unique_ptr< math::Matrix4f > myModelViewTransform;
 
 public:
 
-    Renderable( const Geometry& geometry, const Matrix4f& modelViewTransform );
+    Renderable( const Geometry& geometry, const math::Matrix4f& modelViewTransform );
 
     Renderable( const Renderable& other );
 
     const Geometry& geometry() const;
 
-    const Matrix4f& modelViewTransform() const;
+    const math::Matrix4f& modelViewTransform() const;
 
     Renderable& operator=( const Renderable& );
 
@@ -86,7 +86,7 @@ public:
 template< int order >
 bool Renderable::DepthOrder< order >::operator()( const Renderable& l, const Renderable& r ) const
 {
-    return order * ( translationDistanceSq( l.modelViewTransform() ) - translationDistanceSq( r.modelViewTransform() ) );
+    return order * ( math::translationDistanceSq( l.modelViewTransform() ) - math::translationDistanceSq( r.modelViewTransform() ) ) > 0;
 }
 
 

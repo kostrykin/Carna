@@ -13,7 +13,7 @@
 #define RENDERTASK_H_6014714286
 
 #include <Carna/Carna.h>
-#include <Carna/base/Matrix4f.h>
+#include <Carna/base/math.h>
 
 /** \file   RenderTask.h
   * \brief  Defines \ref Carna::base::view::RenderTask.
@@ -41,13 +41,13 @@ class CARNA_LIB RenderTask
     
     std::size_t nextRenderStage;
 
-    Matrix4f viewTransform;
+    math::Matrix4f viewTransform;
 
 public:
 
-    RenderTask( const FrameRenderer& renderer, const Matrix4f& projection, const Matrix4f& viewTransform );
+    RenderTask( const FrameRenderer& renderer, const math::Matrix4f& projection, const math::Matrix4f& viewTransform );
 
-    RenderTask( const FrameRenderer& renderer, const Matrix4f& projection, const Matrix4f& viewTransform, Framebuffer& output );
+    RenderTask( const FrameRenderer& renderer, const math::Matrix4f& projection, const math::Matrix4f& viewTransform, Framebuffer& output );
     
     /** \brief
       * Forks \a parent. The result of the fork will be rendered to \a output.
@@ -56,9 +56,9 @@ public:
 
     const FrameRenderer& renderer;
 
-    const Matrix4f& projection;
+    const math::Matrix4f& projection;
 
-    void overrideViewTransform( const Matrix4f& );
+    void overrideViewTransform( const math::Matrix4f& );
     
     /** \brief
       * Invokes \ref RenderStage::render an all associated scene processors remained.

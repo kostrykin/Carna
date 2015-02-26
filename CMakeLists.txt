@@ -85,11 +85,6 @@ configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/misc/Find${PROJECT_NAME}.cmake.in
 # Find required dependencies
 ############################################
 
-# Qt
-find_package( Qt4 4.8.0 COMPONENTS QtCore QtGui QtOpenGL QtXml REQUIRED )
-include( ${QT_USE_FILE} )
-add_definitions( ${QT_DEFINITIONS} )
-
 # GLEW
 find_package( GLEW 1.7.0 REQUIRED )
 include_directories( ${GLEW_INCLUDE_DIRS} )
@@ -109,6 +104,7 @@ set( PUBLIC_QOBJECT_HEADERS
 )
 set( PUBLIC_HEADERS
 		${PUBLIC_QOBJECT_HEADERS}
+		include/${PROJECT_NAME}/base/view/BlendFunction.h
 		include/${PROJECT_NAME}/base/view/Camera.h
 		include/${PROJECT_NAME}/base/view/Color.h
 		include/${PROJECT_NAME}/base/view/RenderQueue.h
@@ -151,18 +147,18 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/model/BufferedHUVolume.h
 		include/${PROJECT_NAME}/base/model/UInt16HUVolume.h
 		include/${PROJECT_NAME}/base/Aggregation.h
-		include/${PROJECT_NAME}/base/Application.h
 		include/${PROJECT_NAME}/base/Association.h
 		include/${PROJECT_NAME}/base/CarnaException.h
 		include/${PROJECT_NAME}/base/Composition.h
 		include/${PROJECT_NAME}/base/noncopyable.h
-		include/${PROJECT_NAME}/base/Matrix4f.h
-		include/${PROJECT_NAME}/base/Vector3ui.h
+		include/${PROJECT_NAME}/base/math.h
+		include/${PROJECT_NAME}/base/Span.h
 		include/${PROJECT_NAME}/base/Singleton.h
 		include/${PROJECT_NAME}/base/Text.h
 		include/${PROJECT_NAME}/base/Log.h
 		include/${PROJECT_NAME}/VolumeRenderings/RayMarchingStage.h
 		include/${PROJECT_NAME}/VolumeRenderings/MIP/MIPStage.h
+		include/${PROJECT_NAME}/VolumeRenderings/MIP/Channel.h
 		include/${PROJECT_NAME}/Carna.h
 		include/${PROJECT_NAME}/Version.h
 	)
@@ -177,6 +173,7 @@ set( PRIVATE_HEADERS
 		src/include/Carna/base/view/glu.h
 	)
 set( SRC
+		src/base/view/BlendFunction.cpp
 		src/base/view/Camera.cpp
 		src/base/view/Color.cpp
 		src/base/view/Geometry.cpp
@@ -207,19 +204,15 @@ set( SRC
 		src/base/view/BaseBuffer.cpp
 		src/base/view/ShaderManager.cpp
 		src/base/model/HUVolume.cpp
-		src/base/Application.cpp
 		src/base/CarnaException.cpp
 		src/base/Text.cpp
 		src/base/Log.cpp
 		src/VolumeRenderings/RayMarchingStage.cpp
 		src/VolumeRenderings/MIP/MIPStage.cpp
+		src/VolumeRenderings/MIP/Channel.cpp
 	)
 set( FORMS
 		""
-	)
-set( RESOURCES
-		src/res/mip.vert
-		src/res/mip.frag
 	)
 set( DOC_SRC
 		src/doc/Doxyfile.in
@@ -236,6 +229,11 @@ set( DOC_SRC
 set( SHADERS_SRC
 		src/res/mip.frag
 		src/res/mip.vert
+		src/res/full_frame_quad.vert
+		src/res/full_frame_quad.frag
+	)
+set( RESOURCES
+		${SHADERS_SRC}
 	)
 	
 ############################################
@@ -379,6 +377,7 @@ set_source_files_properties(	${SRC}
 								${RESOURCES_RCC}
 								${DOC_SRC}
 								${SHADERS_SRC}
+								${wrapped_cpp}
 	PROPERTIES
 	HEADER_FILE_ONLY TRUE )
 
@@ -438,6 +437,7 @@ add_library( ${TARGET_NAME} SHARED
 			${RESOURCES_RCC}
 			${DOC_SRC}
 			${SHADERS_SRC}
+			${wrapped_cpp}
 		)
 
 ############################################

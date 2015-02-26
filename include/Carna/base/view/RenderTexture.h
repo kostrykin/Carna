@@ -74,6 +74,8 @@ public:
       */
     void resize( unsigned int w, unsigned int h );
 
+    void bind( unsigned int unit ) const;
+
 
     /** \brief  Returns the texture's width.
       */

@@ -15,7 +15,7 @@
 #include <Carna/base/view/RenderStage.h>
 #include <Carna/base/view/RenderQueue.h>
 #include <Carna/base/view/GeometryAggregate.h>
-#include <Carna/base/Matrix4f.h>
+#include <Carna/base/math.h>
 #include <memory>
 
 /** \file   GeometryStage.h
@@ -69,7 +69,7 @@ public:
     /** \brief
       * Builds the render queue.
       */
-    virtual void preparePass( const Matrix4f& viewTransform ) override;
+    virtual void preparePass( const math::Matrix4f& viewTransform ) override;
     
     virtual void renderPass( RenderTask& rt, const Viewport& vp ) override;
 
@@ -126,7 +126,7 @@ void GeometryStage< RenderableCompare >::prepareFrame( const FrameRenderer& fr, 
 
 
 template< typename RenderableCompare >
-void GeometryStage< RenderableCompare >::preparePass( const Matrix4f& viewTransform )
+void GeometryStage< RenderableCompare >::preparePass( const math::Matrix4f& viewTransform )
 {
     if( ++passesRendered == 1 || !isViewTransformFixed() )
     {

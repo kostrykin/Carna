@@ -2,8 +2,7 @@
 
 #include <HUIO.h>
 #include <Carna/base/model/UInt16HUVolume.h>
-#include <Carna/base/Matrix4f.h>
-#include <Carna/base/Vector3ui.h>
+#include <Carna/base/math.h>
 #include <fstream>
 #include <QDebug>
 #include <boost/iostreams/filtering_stream.hpp>
@@ -47,7 +46,7 @@ struct HUGZSceneFactory
       *
       * The HUGZ file format is described \ref HUGZFileFormat here.
       */
-    static Carna::base::model::UInt16HUVolume* importVolume( const std::string& filename, Carna::base::Vector4f& spacing )
+    static Carna::base::model::UInt16HUVolume* importVolume( const std::string& filename, Carna::base::math::Vector3f& spacing )
     {
         std::ifstream file( filename, std::ios::in | std::ios::binary );
         CARNA_ASSERT( file.is_open() && !file.fail() );
@@ -55,7 +54,7 @@ struct HUGZSceneFactory
         in.push( boost::iostreams::gzip_decompressor() );
         in.push( file );
 
-        Carna::base::Vector3ui size;
+        Carna::base::math::Vector3ui size;
         stream_read( in, size.x() );
         stream_read( in, size.y() );
         stream_read( in, size.z() );

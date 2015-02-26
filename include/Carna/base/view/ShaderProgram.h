@@ -19,7 +19,7 @@
   * \date   2009 - 2015
   */
 
-#include <Carna/base/Matrix4f.h>
+#include <Carna/base/math.h>
 #include <Carna/base/noncopyable.h>
 #include <stack>
 
@@ -96,7 +96,7 @@ public:
       *
       * \throws AssertionFailure Specified uniform is not defined in shader.
       */
-    static void putUniform4f( const std::string& param, const Vector4f& );
+    static void putUniform4f( const std::string& param, const math::Vector4f& );
 
     /** \brief  Uploads uniform to currently bound shader.
       *
@@ -114,7 +114,7 @@ public:
       *
       * \throws AssertionFailure Specified uniform is not defined in shader.
       */
-    static void putUniform4x4f( const std::string& param, const Matrix4f& );
+    static void putUniform4x4f( const std::string& param, const math::Matrix4f& );
 
 private:
 

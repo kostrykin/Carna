@@ -20,7 +20,7 @@
   * \date   21.2.13
   */
 
-#include <Carna/base/Vector3ui.h>
+#include <Carna/base/math.h>
 #include <Carna/Carna.h>
 
 namespace Carna
@@ -71,13 +71,13 @@ public:
 
     /** \brief  Returns value of specified voxel.
       */
-    virtual VoxelType operator()( const Vector3ui& at ) const;
+    virtual VoxelType operator()( const math::Vector3ui& at ) const;
 
 }; // ScalarField
 
 
 template< typename ValueType >
-ValueType ScalarField< ValueType >::operator()( const Vector3ui& at ) const
+ValueType ScalarField< ValueType >::operator()( const math::Vector3ui& at ) const
 {
     return ( *this )( at.x(), at.y(), at.z() );
 }

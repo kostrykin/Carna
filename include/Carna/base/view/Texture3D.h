@@ -14,7 +14,7 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/noncopyable.h>
-#include <Carna/base/Vector3ui.h>
+#include <Carna/base/math.h>
 
 /** \file   Texture3D.h
   * \brief  Defines \ref Carna::base::view::Texture3D.
@@ -70,7 +70,7 @@ public:
       */
     void bind( unsigned int unit ) const;
 
-    void upload( int internalFormat, const Vector3ui& size, int pixelFormat, int bufferType, const void* bufferData );
+    void upload( int internalFormat, const math::Vector3ui& size, int pixelFormat, int bufferType, const void* bufferData );
 
 }; // Texture3D
 

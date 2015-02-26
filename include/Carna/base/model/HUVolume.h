@@ -56,12 +56,12 @@ public:
 
     /** \brief  Instantiates.
       */
-    explicit HUVolume( const Vector3ui& size );
+    explicit HUVolume( const math::Vector3ui& size );
     
 
     /** \brief  Holds the dimensions.
       */
-    Vector3ui size;
+    math::Vector3ui size;
 
     
     /** \brief  Returns HUV of specified voxel.
@@ -72,7 +72,7 @@ public:
 
     /** \brief  Returns HUV of specified voxel.
       */
-    virtual signed short operator()( const Vector3ui& at ) const override = 0;
+    virtual signed short operator()( const math::Vector3ui& at ) const override = 0;
 
 }; // HUVolume
 
