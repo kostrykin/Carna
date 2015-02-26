@@ -29,13 +29,11 @@ namespace MIP
 
 Channel::Channel
     ( const base::Span< HUV >& huRange
-    , const base::math::Vector3f& color
-    , float opacity
+    , const base::math::Vector4f& color
     , const base::view::BlendFunction& function )
 
     : huRange( huRange )
     , color( color )
-    , opacity( opacity )
     , function( function )
 {
 }
@@ -43,13 +41,11 @@ Channel::Channel
 
 Channel::Channel
     ( HUV firstHuv, HUV lastHuv
-    , const base::math::Vector3f& color
-    , float opacity
+    , const base::math::Vector4f& color
     , const base::view::BlendFunction& function )
 
     : huRange( firstHuv, lastHuv )
     , color( color )
-    , opacity( opacity )
     , function( function )
 {
 }

@@ -111,7 +111,7 @@ static MeshBase* createFullFrameQuadMesh( GLContext& glContext )
 // FrameRenderer
 // ----------------------------------------------------------------------------------
 
-FrameRenderer::FrameRenderer( GLContext& glContext, unsigned int width, unsigned int height )
+FrameRenderer::FrameRenderer( GLContext& glContext, unsigned int width, unsigned int height, bool fitSquare )
     : myWidth( width )
     , myHeight( height )
     , reshaped( true )
@@ -120,6 +120,7 @@ FrameRenderer::FrameRenderer( GLContext& glContext, unsigned int width, unsigned
     , fullFrameQuadMesh( createFullFrameQuadMesh( glContext ) )
     , fullFrameQuadShader( acquireFullFrameQuadShader( glContext ) )
 {
+    myViewport.reset( new Viewport( *this, fitSquare ) );
 }
 
 
@@ -177,17 +178,18 @@ unsigned int FrameRenderer::height() const
 }
 
 
-void FrameRenderer::reshape( unsigned int width, unsigned int height )
+void FrameRenderer::reshape( unsigned int width, unsigned int height, bool fitSquare )
 {
     myWidth = width;
     myHeight = height;
+    myViewport.reset( new Viewport( *this, fitSquare ) );
     reshaped = true;
 }
 
 
-void FrameRenderer::render( Camera& cam, Node& root, bool fitSquare ) const
+void FrameRenderer::render( Camera& cam, Node& root ) const
 {
-    render( cam, root, Viewport( *this, fitSquare ) );
+    render( cam, root, *myViewport );
 }
 
 
@@ -204,11 +206,11 @@ void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
         // ensure buffers are properly sized
         if( reshaped || !rs.isInitialized() )
         {
-            rs.reshape( myWidth, myHeight );
+            rs.reshape( *this, *myViewport );
         }
 
         // notify stages of beginning frame
-        rs.prepareFrame( *this, root );
+        rs.prepareFrame( root );
     }
     
     // mark that all buffer sizes have been established

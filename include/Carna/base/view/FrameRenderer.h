@@ -47,6 +47,8 @@ class CARNA_LIB FrameRenderer
     
     mutable bool reshaped;
 
+    std::unique_ptr< Viewport > myViewport;
+
     GLContext* const myGlContext;
 
     const std::unique_ptr< Sampler > fullFrameQuadSampler;
@@ -57,7 +59,7 @@ class CARNA_LIB FrameRenderer
 
 public:
     
-    FrameRenderer( GLContext& glContext, unsigned int width, unsigned int height );
+    FrameRenderer( GLContext& glContext, unsigned int width, unsigned int height, bool fitSquare );
 
     ~FrameRenderer();
 
@@ -75,9 +77,9 @@ public:
     
     unsigned int height() const;
     
-    void reshape( unsigned int width, unsigned int height );
+    void reshape( unsigned int width, unsigned int height, bool fitSquare );
     
-    void render( Camera& cam, Node& root, bool fitSquare ) const;
+    void render( Camera& cam, Node& root ) const;
 
     void render( Camera& cam, Node& root, const Viewport& vp ) const;
 

@@ -126,23 +126,25 @@ void Demo::initializeGL()
 
 void Demo::resizeGL( int w, int h )
 {
+    const static bool fitSquare = true;
     if( renderer.get() == nullptr )
     {
         VolumeRenderings::MIP::MIPStage* const mip = new VolumeRenderings::MIP::MIPStage();
-        mip->appendChannel( new VolumeRenderings::MIP::Channel( -1024, 3071, base::math::Vector3f( 1, 1, 1 ) ) );
-        renderer.reset( new base::view::FrameRenderer( *glContext, static_cast< unsigned >( w ), static_cast< unsigned >( h ) ) );
+        mip->appendChannel( new VolumeRenderings::MIP::Channel( -1024, 0, base::math::Vector4f( 0, 0, 1, 1 ) ) );
+        mip->appendChannel( new VolumeRenderings::MIP::Channel( 0, 3071, base::math::Vector4f( 1, 1, 0, 1 ) ) );
+        renderer.reset( new base::view::FrameRenderer( *glContext, static_cast< unsigned >( w ), static_cast< unsigned >( h ), fitSquare ) );
         renderer->appendStage( mip );
     }
     else
     {
-        renderer->reshape( static_cast< unsigned >( w ), static_cast< unsigned >( h ) );
+        renderer->reshape( static_cast< unsigned >( w ), static_cast< unsigned >( h ), fitSquare );
     }
 }
 
 
 void Demo::paintGL()
 {
-    renderer->render( *camera, *root, true );
+    renderer->render( *camera, *root );
 }
 
 

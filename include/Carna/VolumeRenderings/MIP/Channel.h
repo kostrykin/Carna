@@ -49,6 +49,8 @@ class CARNA_LIB Channel
 
 public:
 
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
     const static base::view::BlendFunction CHANNEL_FUNCTION_ADD;
     const static base::view::BlendFunction CHANNEL_FUNCTION_REPLACE;
 
@@ -58,23 +60,19 @@ public:
       */
     Channel
         ( const base::Span< HUV >& huRange
-        , const base::math::Vector3f& color
-        , float opacity = 1
+        , const base::math::Vector4f& color
         , const base::view::BlendFunction& function = CHANNEL_FUNCTION_REPLACE );
 
     /** \brief  Instantiates.
       */
     Channel
         ( HUV firstHuv, HUV lastHuv
-        , const base::math::Vector3f& color
-        , float opacity = 1
+        , const base::math::Vector4f& color
         , const base::view::BlendFunction& function = CHANNEL_FUNCTION_REPLACE );
 
     base::Span< HUV > huRange;
 
-    base::math::Vector3f color;
-
-    float opacity;
+    base::math::Vector4f color;
 
     const base::view::BlendFunction& function;
 

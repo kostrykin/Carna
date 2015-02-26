@@ -55,7 +55,7 @@ public:
     /** \brief
       * Orders this scene processor to reshape it's buffers according to the specified dimensions.
       */
-    virtual void reshape( unsigned int width, unsigned int height ) = 0;
+    virtual void reshape( const FrameRenderer& fr, const Viewport& vp ) = 0;
     
     /** \brief
       * Tells whether this scene processor is ready for rendering.
@@ -69,22 +69,20 @@ public:
     /** \brief
       * Called once before each frame.
       */
-    virtual void prepareFrame( const FrameRenderer& fr, Node& root );
+    virtual void prepareFrame( Node& root );
 
     /** \brief
-      * Called once before each pass.
+      * Called once per pass.
       *
       * If this scene processor requires a \ref RenderQueue "render queue",
       * than this is the right place to \ref RenderQueue::build "build" it.
-      * Note that the queue needs to be rebuilt only once per frame, unless
-      * \ref isViewTransformFixed is \c false. If it is \c true and this
-      * is not the first invocation of this method since the last time
-      * \ref prepareFrame was called, \ref RenderQueue::rewind "rewinding"
-      * the queue will be sufficient.
+      * Note that the queue needs to be rebuilt only once per \em frame and
+      * not per \em pass, unless \ref isViewTransformFixed is \c false. If
+      * it is \c true and this is not the first invocation of this method
+      * since the last time \ref prepareFrame was called,
+      * \ref RenderQueue::rewind "rewinding" the queue will be sufficient.
       */
-    virtual void preparePass( const math::Matrix4f& viewTransform ) = 0;
-    
-    virtual void renderPass( RenderTask& rt, const Viewport& vp ) = 0;
+    virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) = 0;
 
 }; // RenderStage
 

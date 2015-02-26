@@ -77,8 +77,7 @@ void RenderTask::render( const Viewport& vp )
     {
         RenderStage& rs = renderer.stageAt( nextRenderStage );
         ++nextRenderStage;
-        rs.preparePass( viewTransform );
-        rs.renderPass( *this, vp );
+        rs.renderPass( viewTransform, *this, vp );
     }
 }
     

@@ -41,7 +41,6 @@ template< typename RenderableCompare >
 class GeometryStage : public RenderStage
 {
 
-    bool initialized;
     Node* root;
     std::size_t passesRendered;
     std::set< GeometryAggregate* > acquiredVideoResources;
@@ -60,18 +59,13 @@ public:
       */
     virtual ~GeometryStage();
     
-    virtual void reshape( unsigned int width, unsigned int height ) override;
+    virtual void reshape( const FrameRenderer& fr, const Viewport& vp ) override;
     
     virtual bool isInitialized() const override;
 
-    virtual void prepareFrame( const FrameRenderer& fr, Node& root ) override;
+    virtual void prepareFrame( Node& root ) override;
     
-    /** \brief
-      * Builds the render queue.
-      */
-    virtual void preparePass( const math::Matrix4f& viewTransform ) override;
-    
-    virtual void renderPass( RenderTask& rt, const Viewport& vp ) override;
+    virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) override;
 
 protected:
 
@@ -84,8 +78,7 @@ protected:
 
 template< typename RenderableCompare >
 GeometryStage< RenderableCompare >::GeometryStage( int geometryType )
-    : initialized( false )
-    , root( nullptr )
+    : root( nullptr )
     , passesRendered( 0 )
     , myContext( nullptr )
     , rq( geometryType )
@@ -116,18 +109,18 @@ void GeometryStage< RenderableCompare >::activateGLContext() const
 
 
 template< typename RenderableCompare >
-void GeometryStage< RenderableCompare >::prepareFrame( const FrameRenderer& fr, Node& root )
+void GeometryStage< RenderableCompare >::prepareFrame( Node& root )
 {
-    RenderStage::prepareFrame( fr, root );
+    RenderStage::prepareFrame( root );
     this->root = &root;
     this->passesRendered = 0;
-    this->myContext = &fr.glContext();
 }
 
 
 template< typename RenderableCompare >
-void GeometryStage< RenderableCompare >::preparePass( const math::Matrix4f& viewTransform )
+void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp )
 {
+    const bool isFirstPass = passesRendered == 0;
     if( ++passesRendered == 1 || !isViewTransformFixed() )
     {
         rq.build( *root, viewTransform );
@@ -136,13 +129,7 @@ void GeometryStage< RenderableCompare >::preparePass( const math::Matrix4f& view
     {
         rq.rewind();
     }
-}
 
-
-template< typename RenderableCompare >
-void GeometryStage< RenderableCompare >::renderPass( RenderTask& rt, const Viewport& vp )
-{
-    const bool isFirstPass = passesRendered == 1;
     std::set< GeometryAggregate* > usedVideoResources;
     while( !rq.isEmpty() )
     {
@@ -186,16 +173,16 @@ void GeometryStage< RenderableCompare >::renderPass( RenderTask& rt, const Viewp
 
 
 template< typename RenderableCompare >
-void GeometryStage< RenderableCompare >::reshape( unsigned int width, unsigned int height )
+void GeometryStage< RenderableCompare >::reshape( const FrameRenderer& fr, const Viewport& vp )
 {
-    initialized = true;
+    this->myContext = &fr.glContext();
 }
 
 
 template< typename RenderableCompare >
 bool GeometryStage< RenderableCompare >::isInitialized() const
 {
-    return initialized;
+    return this->myContext != nullptr;
 }
 
 

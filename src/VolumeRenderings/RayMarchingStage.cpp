@@ -213,7 +213,10 @@ void RayMarchingStage::render( const base::view::Renderable& renderable )
 }
 
 
-void RayMarchingStage::renderPass( base::view::RenderTask& rt, const base::view::Viewport& vp )
+void RayMarchingStage::renderPass
+    ( const base::math::Matrix4f& vt
+    , base::view::RenderTask& rt
+    , const base::view::Viewport& vp )
 {
     if( vr.get() == nullptr )
     {
@@ -239,7 +242,7 @@ void RayMarchingStage::renderPass( base::view::RenderTask& rt, const base::view:
     
     /* Do the rendering.
      */
-    base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >::renderPass( rt, vp );
+    base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >::renderPass( vt, rt, vp );
 
     /* Restore contracted default state.
     */

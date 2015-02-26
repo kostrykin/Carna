@@ -61,7 +61,10 @@ public:
       */
     unsigned int sampleRate() const;
 
-    virtual void renderPass( base::view::RenderTask& rt, const base::view::Viewport& vp ) override;
+    virtual void renderPass
+        ( const base::math::Matrix4f& viewTransform
+        , base::view::RenderTask& rt
+        , const base::view::Viewport& vp ) override;
 
 protected:
 

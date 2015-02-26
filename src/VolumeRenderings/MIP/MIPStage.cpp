@@ -15,6 +15,7 @@
 #include <Carna/base/view/ShaderManager.h>
 #include <Carna/base/view/Framebuffer.h>
 #include <Carna/base/view/RenderTexture.h>
+#include <Carna/base/view/Viewport.h>
 #include <Carna/base/math.h>
 #include <Carna/base/CarnaException.h>
 #include <vector>
@@ -112,19 +113,28 @@ void MIPStage::clearChannels()
 }
 
 
-void MIPStage::reshape( unsigned int width, unsigned int height )
+void MIPStage::reshape( const base::view::FrameRenderer& fr, const base::view::Viewport& vp )
 {
-    base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >::reshape( width, height );
-    pimpl->channelColorBuffer.reset( new base::view::RenderTexture( width, height ) );
+    base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >::reshape( fr, vp );
+    pimpl->channelColorBuffer.reset( new base::view::RenderTexture( vp.width, vp.height ) );
     pimpl->channelFrameBuffer.reset( new base::view::Framebuffer( *pimpl->channelColorBuffer ) );
 }
 
 
-void MIPStage::renderPass( base::view::RenderTask& rt, const base::view::Viewport& vp )
+void MIPStage::renderPass
+    ( const base::math::Matrix4f& vt
+    , base::view::RenderTask& rt
+    , const base::view::Viewport& vp )
 {
+    const base::view::Viewport framebufferViewport
+        ( vp, 0, 0
+        , pimpl->channelFrameBuffer->width()
+        , pimpl->channelFrameBuffer->height() );
+
     /* Configure proper OpenGL state.
      */
     glEnable( GL_BLEND );
+    glDisable( GL_DEPTH_TEST );
 
     /* For each channel: First render the channel-specific MIP result to the dedicated framebuffer,
      * than render the result to the output framebuffer w.r.t. the channel function.
@@ -136,16 +146,19 @@ void MIPStage::renderPass( base::view::RenderTask& rt, const base::view::Viewpor
         /* Render to dedicated framebuffer.
          */
         CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->channelFrameBuffer,
+            framebufferViewport.makeActive();
 
             glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
             glBlendEquation( GL_MAX );
-            RayMarchingStage::renderPass( rt, vp );
+            RayMarchingStage::renderPass( vt, rt, vp );
             glBlendEquation( GL_FUNC_ADD );
 
+            framebufferViewport.done();
         );
 
         /* Render result to output framebuffer.
          */
+        glDepthMask( GL_FALSE );
         glBlendFunc( pimpl->currentChannel->function.sourceFactor, pimpl->currentChannel->function.destinationFactor );
         pimpl->channelColorBuffer->bind( 0 );
         rt.renderer.renderTexture( 0, true );
@@ -156,8 +169,10 @@ void MIPStage::renderPass( base::view::RenderTask& rt, const base::view::Viewpor
     pimpl->currentChannel = nullptr;
 
     /* Restore contracted default state.
-     */
+    */
+    glEnable( GL_DEPTH_TEST );
     glDisable( GL_BLEND );
+    glDepthMask( GL_TRUE );
 }
 
 
@@ -199,11 +214,10 @@ void MIPStage::configureShader( base::view::GLContext& glc )
 {
     CARNA_ASSERT( pimpl->currentChannel != nullptr );
     const Channel& ch = *pimpl->currentChannel;
-    const base::math::Vector4f alphaColor( ch.color.x(), ch.color.y(), ch.color.z(), ch.opacity );
 
     base::view::ShaderProgram::putUniform1f( "minIntensity", Details::huvToIntensity( ch.huRange.first ) );
     base::view::ShaderProgram::putUniform1f( "maxIntensity", Details::huvToIntensity( ch.huRange.last  ) );
-    base::view::ShaderProgram::putUniform4f( "color", alphaColor );
+    base::view::ShaderProgram::putUniform4f( "color", ch.color );
 }
 
 

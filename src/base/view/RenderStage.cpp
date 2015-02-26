@@ -49,7 +49,7 @@ bool RenderStage::isViewTransformFixed() const
 }
 
 
-void RenderStage::prepareFrame( const FrameRenderer& fr, Node& root )
+void RenderStage::prepareFrame( Node& root )
 {
     viewTransformFixed = true;
 }

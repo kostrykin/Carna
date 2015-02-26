@@ -45,8 +45,6 @@ public:
 
     OpaqueStage();
 
-    virtual void renderPass( RenderTask& rt, const Viewport& vp ) override;
-
 protected:
 
     virtual void render( const Renderable& ) override;

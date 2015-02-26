@@ -48,9 +48,12 @@ public:
 
     virtual ~MIPStage();
 
-    virtual void reshape( unsigned int width, unsigned int height ) override;
+    virtual void reshape( const base::view::FrameRenderer& fr, const base::view::Viewport& vp ) override;
 
-    virtual void renderPass( base::view::RenderTask& rt, const base::view::Viewport& vp ) override;
+    virtual void renderPass
+        ( const base::math::Matrix4f& viewTransform
+        , base::view::RenderTask& rt
+        , const base::view::Viewport& vp ) override;
     
     /** \brief
       * Swaps positions of \a channel with it's successor in the \ref MIP_Channels "channels list".

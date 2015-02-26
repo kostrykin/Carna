@@ -45,5 +45,5 @@ void main()
     float intensity = intensityAt( modelSpaceCoordinates.xyz + 0.5 );
     float f = step( minIntensity, intensity ) * ( 1 - step( maxIntensity, intensity ) ) * ( intensity - minIntensity ) / ( maxIntensity - minIntensity );
     
-    gl_FragColor = vec4( f * color.rgb, color.a );
+    gl_FragColor = vec4( color.rgb, f );
 }
