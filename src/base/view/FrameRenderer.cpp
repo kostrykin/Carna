@@ -9,6 +9,8 @@
  *
  */
 
+#include <Carna/base/view/glew.h>
+#include <Carna/base/view/glError.h>
 #include <Carna/base/view/FrameRenderer.h>
 #include <Carna/base/view/RenderTask.h>
 #include <Carna/base/view/RenderStage.h>
@@ -127,8 +129,11 @@ void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
     
     // render frame
     vp.makeActive();
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     RenderTask task( *this, cam.projection(), cam.viewTransform() );
     task.render( vp );
+
+    REPORT_GL_ERROR;
 }
 
 

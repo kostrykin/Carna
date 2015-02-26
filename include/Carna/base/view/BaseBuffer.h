@@ -40,6 +40,8 @@ class CARNA_LIB BaseBuffer
 
 protected:
 
+    bool valid;
+
     explicit BaseBuffer( unsigned int target );
 
     void setSize( std::size_t size );
@@ -53,6 +55,8 @@ public:
     std::size_t size() const;
 
     void bind() const;
+
+    bool isValid() const;
 
     virtual ~BaseBuffer();
 

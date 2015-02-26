@@ -85,6 +85,7 @@ namespace Carna
             class  RenderStage;
             class  RenderTask;
             class  RenderTexture;
+            class  Sampler;
             class  Shader;
             class  ShaderBundle;
             class  ShaderCompilationError;

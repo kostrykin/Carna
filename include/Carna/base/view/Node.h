@@ -63,9 +63,9 @@ public:
     
     void deleteAllChildren();
     
-    void visitChildren( const MutableVisitor& );
+    void visitChildren( bool recursively, const MutableVisitor& );
     
-    void visitChildren( const ImmutableVisitor& ) const;
+    void visitChildren( bool recursively, const ImmutableVisitor& ) const;
     
     /** \brief
       * Computes the transformation to world space for this node just

@@ -30,6 +30,7 @@ namespace view
 
 Spatial::Spatial()
     : myParent( nullptr )
+    , localTransform( identity4f() )
 {
 }
 

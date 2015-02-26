@@ -162,6 +162,14 @@ Matrix4f frustum4f( float left, float right, float bottom, float top, float zNea
 }
 
 
+Matrix4f frustum4f( float fovRadiansHorizontal, float heightOverWidth, float zNear, float zFar )
+{
+    const float halfProjPlaneWidth  = zNear * std::tan( fovRadiansHorizontal );
+    const float halfProjPlaneHeight = halfProjPlaneWidth * heightOverWidth;
+    return frustum4f( -halfProjPlaneWidth, +halfProjPlaneWidth, -halfProjPlaneHeight, +halfProjPlaneHeight, zNear, zFar );
+}
+
+
 
 }  // namespace base
 

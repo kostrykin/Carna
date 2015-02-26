@@ -13,6 +13,7 @@
 #include <Carna/base/view/ShaderProgram.h>
 #include <Carna/base/view/Shader.h>
 #include <Carna/base/view/ShaderCompilationError.h>
+#include <Carna/base/Log.h>
 
 namespace Carna
 {
@@ -87,11 +88,10 @@ void ShaderProgram::release()
 int ShaderProgram::getUniformLocation( const std::string& name ) const
 {
     const GLint location = glGetUniformLocation( id, name.c_str() );
-
-    CARNA_ASSERT_EX
-        ( location != NULL_UNIFORM_LOCATION
-        , "uniform '" << name << "' not defined in shader" );
-
+    if( location == NULL_UNIFORM_LOCATION )
+    {
+        Log::instance().record( Log::warning, "Uniform \"" + name + "\" is undeclared in shader." );
+    }
     return location;
 }
 
@@ -99,55 +99,77 @@ int ShaderProgram::getUniformLocation( const std::string& name ) const
 void ShaderProgram::putUniform3f( const std::string& param, float x, float y, float z )
 {
     const ShaderProgram& shader = GLContext::current().shader();
-    glUniform3f( shader.getUniformLocation( param ), x, y, z );
+    int uniformLocation = shader.getUniformLocation( param );
+    if( uniformLocation != NULL_UNIFORM_LOCATION )
+    {
+        glUniform3f( uniformLocation, x, y, z );
+    }
 }
 
 
 void ShaderProgram::putUniform4f( const std::string& param, const Vector4f& v )
 {
     const ShaderProgram& shader = GLContext::current().shader();
-    glUniform4f( shader.getUniformLocation( param ), v.x(), v.y(), v.z(), v.w() );
+    int uniformLocation = shader.getUniformLocation( param );
+    if( uniformLocation != NULL_UNIFORM_LOCATION )
+    {
+        glUniform4f( shader.getUniformLocation( param ), v.x(), v.y(), v.z(), v.w() );
+    }
 }
 
 
 void ShaderProgram::putUniform2f( const std::string& param, float x, float y )
 {
     const ShaderProgram& shader = GLContext::current().shader();
-    glUniform2f( shader.getUniformLocation( param ), x, y );
+    int uniformLocation = shader.getUniformLocation( param );
+    if( uniformLocation != NULL_UNIFORM_LOCATION )
+    {
+        glUniform2f( shader.getUniformLocation( param ), x, y );
+    }
 }
 
 
 void ShaderProgram::putUniform1f( const std::string& param, float x )
 {
     const ShaderProgram& shader = GLContext::current().shader();
-    glUniform1f( shader.getUniformLocation( param ), x );
+    int uniformLocation = shader.getUniformLocation( param );
+    if( uniformLocation != NULL_UNIFORM_LOCATION )
+    {
+        glUniform1f( shader.getUniformLocation( param ), x );
+    }
 }
 
 
 void ShaderProgram::putUniform1i( const std::string& param, signed int x )
 {
     const ShaderProgram& shader = GLContext::current().shader();
-    glUniform1i( shader.getUniformLocation( param ), x );
+    int uniformLocation = shader.getUniformLocation( param );
+    if( uniformLocation != NULL_UNIFORM_LOCATION )
+    {
+        glUniform1i( shader.getUniformLocation( param ), x );
+    }
 }
 
 
 void ShaderProgram::putUniform1u( const std::string& param, unsigned int x )
 {
     const ShaderProgram& shader = GLContext::current().shader();
-    glUniform1ui( shader.getUniformLocation( param ), x );
+    int uniformLocation = shader.getUniformLocation( param );
+    if( uniformLocation != NULL_UNIFORM_LOCATION )
+    {
+        glUniform1ui( shader.getUniformLocation( param ), x );
+    }
 }
 
 
 void ShaderProgram::putUniform4x4f( const std::string& param, const Matrix4f& m )
 {
-    float a[ 16 ];
-    for( int i = 0; i < 16; ++i )
-    {
-        a[ i ] = m( i % 4, i / 4 );
-    }
-
     const ShaderProgram& shader = GLContext::current().shader();
-    glUniformMatrix4fv( shader.getUniformLocation( param ), 1, false, a );
+    int uniformLocation = shader.getUniformLocation( param );
+    if( uniformLocation != NULL_UNIFORM_LOCATION )
+    {
+        glUniformMatrix4fv( shader.getUniformLocation( param ), 1, false, m.data() );
+    }
 }
 
 

@@ -45,6 +45,8 @@ public:
 
 protected:
 
+    virtual void createSamplers( const std::function< void( unsigned int, base::view::Sampler* ) >& registerSampler ) override;
+
     virtual const base::view::ShaderProgram& loadShader() override;
 
     virtual const std::string& uniformName( unsigned int role ) const override;

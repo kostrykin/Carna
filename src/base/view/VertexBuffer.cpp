@@ -34,6 +34,7 @@ VertexBufferBase::VertexBufferBase()
 
 void VertexBufferBase::copy( const void* buffer_ptr, std::size_t buffer_size, std::size_t elements_count )
 {
+    valid = true;
     setSize( elements_count );
 
     glBindBuffer( GL_ARRAY_BUFFER, id );

@@ -117,8 +117,8 @@ void Demo::initializeGL()
     volumePivot->localTransform = base::scaling4f( scale.x(), scale.y(), scale.z() );
 
     camera = new base::view::Camera();
-    camera->setProjection( base::frustum4f( -1, +1, -1, +1, 1, 1000 ) );
-    camera->localTransform = base::translation4f( 0, 0, 100 );
+    camera->setProjection( base::frustum4f( 3.14f * 45 / 180.f, 1, 10, 2000 ) );
+    camera->localTransform = base::translation4f( 0, 0, 500 );
     root->attachChild( camera );
     root->attachChild( volumePivot );
 }

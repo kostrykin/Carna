@@ -36,9 +36,10 @@ static unsigned int createGLBufferObject()
 
 
 BaseBuffer::BaseBuffer( unsigned int target )
-    : target( target )
+    : mySize( 0 )
+    , valid( false )
+    , target( target )
     , id( createGLBufferObject() )
-    , mySize( 0 )
 {
 }
 
@@ -64,6 +65,12 @@ std::size_t BaseBuffer::size() const
 void BaseBuffer::bind() const
 {
     glBindBuffer( target, id );
+}
+
+
+bool BaseBuffer::isValid() const
+{
+    return valid;
 }
 
 

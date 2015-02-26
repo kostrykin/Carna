@@ -41,6 +41,18 @@ GLContext::GLContext( bool isDoubleBuffered )
     {
         myCurrent = this;
     }
+
+    /* Setup back-face culling.
+     */
+    glEnable( GL_CULL_FACE );
+    glCullFace( GL_BACK );
+    glFrontFace( GL_CCW );
+
+    /* Setup depth-write, depth-test and depth compare function.
+     */
+    glDepthMask( GL_TRUE );
+    glEnable( GL_DEPTH_TEST );
+    glDepthFunc( GL_LEQUAL );
 }
 
 

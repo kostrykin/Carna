@@ -78,20 +78,32 @@ void Node::deleteAllChildren()
 }
 
 
-void Node::visitChildren( const MutableVisitor& visit )
+void Node::visitChildren( bool recursively, const MutableVisitor& visit )
 {
     for( auto itr = children.begin(); itr != children.end(); ++itr )
     {
-        visit( **itr );
+        Spatial* const spatial = *itr;
+        visit( *spatial );
+        if( recursively && dynamic_cast< Node* >( spatial ) != nullptr )
+        {
+            Node* const node = static_cast< Node* >( spatial );
+            node->visitChildren( true, visit );
+        }
     }
 }
 
 
-void Node::visitChildren( const ImmutableVisitor& visit ) const
+void Node::visitChildren( bool recursively, const ImmutableVisitor& visit ) const
 {
     for( auto itr = children.begin(); itr != children.end(); ++itr )
     {
-        visit( **itr );
+        const Spatial* const spatial = *itr;
+        visit( *spatial );
+        if( recursively && dynamic_cast< const Node* >( spatial ) != nullptr )
+        {
+            const Node* const node = static_cast< const Node* >( spatial );
+            node->visitChildren( true, visit );
+        }
     }
 }
 
@@ -99,7 +111,7 @@ void Node::visitChildren( const ImmutableVisitor& visit ) const
 void Node::updateWorldTransform()
 {
     Spatial::updateWorldTransform();
-    visitChildren( []( Spatial& child )
+    visitChildren( false, []( Spatial& child )
         {
             child.updateWorldTransform();
         }

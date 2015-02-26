@@ -34,7 +34,6 @@ void MIPStage::renderPass( base::view::RenderTask& rt, const base::view::Viewpor
     /* Configure proper OpenGL state.
      */
     glEnable( GL_BLEND );
-    glBlendFunc( GL_SRC_ALPHA, GL_DST_ALPHA );
     glBlendEquation( GL_MAX );
 
     /* Do the rendering.
@@ -45,6 +44,18 @@ void MIPStage::renderPass( base::view::RenderTask& rt, const base::view::Viewpor
      */
     glBlendEquation( GL_FUNC_ADD );
     glDisable( GL_BLEND );
+}
+
+
+void MIPStage::createSamplers( const std::function< void( unsigned int, base::view::Sampler* ) >& registerSampler )
+{
+    base::view::Sampler* const huVolumeSampler = new base::view::Sampler();
+    huVolumeSampler->setMinFilter( base::view::Sampler::FILTER_LINEAR );
+    huVolumeSampler->setMagFilter( base::view::Sampler::FILTER_LINEAR );
+    huVolumeSampler->setWrapModeR( base::view::Sampler::WRAP_MODE_CLAMP );
+    huVolumeSampler->setWrapModeS( base::view::Sampler::WRAP_MODE_CLAMP );
+    huVolumeSampler->setWrapModeT( base::view::Sampler::WRAP_MODE_CLAMP );
+    registerSampler( ROLE_HU_VOLUME, huVolumeSampler );
 }
 
 

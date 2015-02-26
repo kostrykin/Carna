@@ -1,4 +1,4 @@
-#version 150
+#version 330
 
 /*
  *  Copyright (C) 2010 - 2015 Leonid Kostrykin
@@ -42,8 +42,8 @@ void main()
         discard;
     }
 
-    float intensity = intensityAt( modelSpaceCoordinates.xyz );
+    float intensity = intensityAt( modelSpaceCoordinates.xyz + 0.5 );
     float f = step( minIntensity, intensity ) * ( 1 - step( maxIntensity, intensity ) ) * ( intensity - minIntensity ) / ( maxIntensity - minIntensity );
     
-    gl_FragColor = vec4( color.rgb, f * color.a );
+    gl_FragColor = vec4( f * color.rgb, color.a );
 }

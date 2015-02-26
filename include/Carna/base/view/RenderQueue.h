@@ -107,7 +107,7 @@ void RenderQueue< RenderableCompare >::build( const Node& root, const Matrix4f& 
     nextRenderableIndex = 0;
     
     // collect all geometries
-    root.visitChildren( [&]( const Spatial& spatial )
+    root.visitChildren( true, [&]( const Spatial& spatial )
         {
             const Geometry* const geom = dynamic_cast< const Geometry* >( &spatial );
             if( geom != nullptr && geom->geometryType == geometryType && geom->aggregatesCount() > 0 )

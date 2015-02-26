@@ -61,8 +61,13 @@ struct RayMarchingStage::VideoResources
 
     base::view::Mesh< base::view::VertexBase, uint8_t > sliceMesh;
     const base::view::ShaderProgram& shader;
+    std::map< unsigned int, base::view::Sampler* > samplers;
 
-    void renderSlice( RayMarchingStage& self, const base::view::Renderable& renderable, const base::Matrix4f& sliceTangentModel, const base::Matrix4f& modelView );
+    void renderSlice
+        ( RayMarchingStage& self
+        , const base::view::Renderable& renderable
+        , const base::Matrix4f& sliceTangentModel
+        , const base::Matrix4f& modelView );
 
 }; // RayMarchingStage :: VideoResources
 
@@ -73,20 +78,26 @@ RayMarchingStage::VideoResources::VideoResources( const base::view::ShaderProgra
 {
     const float radius = std::sqrt( 3.f ) / 2;
     base::view::VertexBase vertices[ 4 ];
+    uint8_t indices[ 4 ];
 
     vertices[ 0 ].x = -radius;
     vertices[ 0 ].y = -radius;
+    indices [ 0 ] = 0;
 
     vertices[ 1 ].x = +radius;
     vertices[ 1 ].y = -radius;
+    indices [ 1 ] = 1;
 
     vertices[ 2 ].x = +radius;
     vertices[ 2 ].y = +radius;
+    indices [ 2 ] = 2;
 
     vertices[ 3 ].x = -radius;
     vertices[ 3 ].y = +radius;
+    indices [ 3 ] = 3;
 
     sliceMesh.vertexBuffer().copy( vertices, 4 );
+    sliceMesh.indexBuffer().copy( indices, 4 );
 }
 
 
@@ -96,14 +107,16 @@ void RayMarchingStage::VideoResources::renderSlice
     , const base::Matrix4f& sliceTangentModel
     , const base::Matrix4f& modelView )
 {
-    unsigned int lastSampler = base::view::Texture3D::SETUP_SAMPLER;
+    unsigned int lastUnit = base::view::Texture3D::SETUP_UNIT;
     std::vector< unsigned int > roles;
-    renderable.geometry().visitAggregates( [&lastSampler, &roles]( base::view::GeometryAggregate& ga, unsigned int role )
+    renderable.geometry().visitAggregates( [&]( base::view::GeometryAggregate& ga, unsigned int role )
         {
             if( dynamic_cast< const base::view::Texture3DManager* >( &ga.videoResources() ) != nullptr )
             {
-                const base::view::Texture3DManager& textureManager = static_cast< const base::view::Texture3DManager& >( ga.videoResources() );
-                textureManager.texture().bind( ++lastSampler );
+                const base::view::Texture3DManager& textureManager
+                    = static_cast< const base::view::Texture3DManager& >( ga.videoResources() );
+                textureManager.texture().bind( ++lastUnit );
+                samplers[ role ]->bind( lastUnit );
                 roles.push_back( role );
             }
         }
@@ -116,7 +129,7 @@ void RayMarchingStage::VideoResources::renderSlice
     for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {
         const unsigned int role = roles[ samplerOffset ];
-        const unsigned int sampler = base::view::Texture3D::SETUP_SAMPLER + samplerOffset;
+        const unsigned int sampler = base::view::Texture3D::SETUP_UNIT + 1 + samplerOffset;
         const std::string& uniformName = self.uniformName( role );
         base::view::ShaderProgram::putUniform1i( uniformName, sampler );
     }
@@ -145,7 +158,16 @@ RayMarchingStage::~RayMarchingStage()
     activateGLContext();
     if( vr.get() != nullptr )
     {
+        /* Release main shader.
+         */
         base::view::ShaderManager::instance().releaseShader( vr->shader );
+
+        /* Release texture samplers.
+         */
+        for( auto samplerItr = vr->samplers.begin(); samplerItr != vr->samplers.end(); ++samplerItr )
+        {
+            delete samplerItr->second;
+        }
     }
 }
 
@@ -167,21 +189,23 @@ void RayMarchingStage::render( const base::view::Renderable& renderable )
 
     /* Construct billboard at segment center, i.e. plane that always faces the camera.
      */
-    const Vector4f modelNormal = viewModel * Vector4f( 0, 0, 1, 0 );
-    const Vector4f modelTangent = viewModel * Vector4f( 1, 0, 0, 0 );
-    const Vector4f modelBitangent = viewModel * Vector4f( 0, 1, 0, 0 );
-    const Matrix4f tangentModel = base::basis4f( modelTangent, modelBitangent, modelNormal );
+    const float s = std::sqrt( 2.f ) / 2;
+    const Vector4f modelNormal    = s * -viewDirectionInModelSpace;
+    const Vector4f modelTangent   = s * base::normalized( Vector4f( viewModel * Vector4f( 1, 0, 0, 0 ) ) );
+    const Vector4f modelBitangent = s * base::normalized( Vector4f( viewModel * Vector4f( 0, 1, 0, 0 ) ) );
+    const Matrix4f tangentModel   = base::basis4f( modelTangent, modelBitangent, modelNormal );
 
     /* NOTE: This can be optimized using geometry shader, by sending only the central
      * slice to the GPU and constructing the others in the shader.
      */
     for( unsigned int sampleIdx = 0; sampleIdx < pimpl->mySampleRate; ++sampleIdx )
     {
-        const Vector4f offset = viewDirectionInModelSpace * std::sqrt( 3.f ) * ( 0.5f - static_cast< float >( sampleIdx ) / ( pimpl->mySampleRate - 1 ) );
+        const float progress = static_cast< float >( sampleIdx ) / ( pimpl->mySampleRate - 1 );
+        const float offset = std::sqrt( 3.f ) * ( 0.5f - progress );
 
         /* Construct transformation from tangent to model space for specific slice.
          */
-        const Matrix4f sliceOffset = base::translation4f( offset );
+        const Matrix4f sliceOffset = base::translation4f( viewDirectionInModelSpace * offset );
         const Matrix4f sliceTangentModel = sliceOffset * tangentModel;
 
         vr->renderSlice( *this, renderable, sliceTangentModel, modelView );
@@ -195,6 +219,12 @@ void RayMarchingStage::renderPass( base::view::RenderTask& rt, const base::view:
     {
         const base::view::ShaderProgram& shader = loadShader();
         vr.reset( new VideoResources( shader ) );
+        createSamplers( [&]( unsigned int role, base::view::Sampler* sampler )
+            {
+                CARNA_ASSERT( vr->samplers.find( role ) == vr->samplers.end() );
+                vr->samplers[ role ] = sampler;
+            }
+        );
     }
 
     rt.renderer.glContext().setShader( vr->shader );
@@ -203,14 +233,17 @@ void RayMarchingStage::renderPass( base::view::RenderTask& rt, const base::view:
     pimpl->renderTask = &rt;
     pimpl->viewPort = &vp;
     
-    /* Ensure proper OpenGL state.
+    /* Configure proper OpenGL state.
      */
     glDepthMask( GL_FALSE );
-    glEnable( GL_DEPTH_TEST );
     
     /* Do the rendering.
      */
     base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >::renderPass( rt, vp );
+
+    /* Restore contracted default state.
+    */
+    glDepthMask( GL_TRUE );
 
     /* There is no guarantee that 'renderTask' will be valid later.
      */

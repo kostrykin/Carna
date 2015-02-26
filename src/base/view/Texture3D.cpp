@@ -42,14 +42,6 @@ Texture3D::Texture3D()
     {
         throw std::runtime_error( "Texture3D texture creation failed." );
     }
-
-    bind( SETUP_SAMPLER );
-
-    glTexParameteri( GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
-    glTexParameteri( GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
-    glTexParameteri( GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE );
-    glTexParameteri( GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-    glTexParameteri( GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
 }
 
 
@@ -68,7 +60,7 @@ void Texture3D::bind( unsigned int sampler ) const
 
 void Texture3D::upload( int internalFormat, const Vector3ui& size, int pixelFormat, int bufferType, const void* bufferData )
 {
-    bind( SETUP_SAMPLER );
+    bind( SETUP_UNIT );
     glTexImage3D( GL_TEXTURE_3D, 0, internalFormat
                 , size.x(), size.y(), size.z()
                 , 0, pixelFormat, bufferType, bufferData );

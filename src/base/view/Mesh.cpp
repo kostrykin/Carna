@@ -81,6 +81,9 @@ void MeshBase::bind() const
 
 void MeshBase::render() const
 {
+    CARNA_ASSERT_EX( vertexBuffer().isValid(), "Vertex buffer is invalid." );
+    CARNA_ASSERT_EX(  indexBuffer().isValid(),  "Index buffer is invalid." );
+
     glBindVertexArray( id );
     indexBuffer().bind();
     glDrawElements( indexBuffer().primitiveType, indexBuffer().size(), indexBuffer().type, nullptr );

@@ -124,6 +124,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/OpaqueStage.h
 		include/${PROJECT_NAME}/base/view/Framebuffer.h
 		include/${PROJECT_NAME}/base/view/RenderTexture.h
+		include/${PROJECT_NAME}/base/view/Sampler.h
 		include/${PROJECT_NAME}/base/view/Shader.h
 		include/${PROJECT_NAME}/base/view/ShaderCompilationError.h
 		include/${PROJECT_NAME}/base/view/ShaderProgram.h
@@ -189,6 +190,7 @@ set( SRC
 		src/base/view/Node.cpp
 		src/base/view/Framebuffer.cpp
 		src/base/view/RenderTexture.cpp
+		src/base/view/Sampler.cpp
 		src/base/view/Shader.cpp
 		src/base/view/ShaderCompilationError.cpp
 		src/base/view/ShaderProgram.cpp

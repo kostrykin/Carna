@@ -43,10 +43,10 @@ class CARNA_LIB Texture3D
 public:
 
     /** \brief
-      * Sampler that is fine to be used for temporal bindings, i.e. for setting textures up.
-      * This sampler shouldn't be used for lasting bindings.
+      * Texture unit that is fine to be used for temporal bindings, i.e. for setting
+      * textures up. This unit shouldn't be used for lasting bindings.
       */
-    const static unsigned int SETUP_SAMPLER = 0;
+    const static unsigned int SETUP_UNIT = 0;
 
     /** \brief
       * Instantiates and associates with a newly created OpenGL texture object.
@@ -64,11 +64,11 @@ public:
     const unsigned int id;
 
     /** \brief
-      * Binds this texture to \a sampler.
+      * Binds this texture to \a unit.
       *
-      * Consider using \ref SETUP_SAMPLER if you're binding the texture temporarily.
+      * Consider using \ref SETUP_UNIT if you're binding the texture temporarily.
       */
-    void bind( unsigned int sampler ) const;
+    void bind( unsigned int unit ) const;
 
     void upload( int internalFormat, const Vector3ui& size, int pixelFormat, int bufferType, const void* bufferData );
 

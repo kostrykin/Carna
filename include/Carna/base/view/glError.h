@@ -44,18 +44,19 @@
 
 #ifndef NO_GL_ERROR_CHECKING
 
-    #include <QDebug>
+    #include <Carna/base/CarnaException.h>
 
     /** \brief  Defines the implementation of the \ref REPORT_GL_ERROR macro.
       *
       * \author Leonid Kostrykin
-      * \date   16.8.2012
+      * \date   26.2.2015
       */
     #define __REPORT_GL_ERROR_IMPL { \
             const unsigned int err = glGetError(); \
-            if( err ){ qDebug() << "*** " << __func__ << " PRODUCED GL ERROR STATE:" \
-                                << QString::fromStdString( std::string( reinterpret_cast< const char* >( gluErrorString( err ) ) ) ) \
-                                << "[" << err << "] (" << __FILE__ << ":" << __LINE__ << ")"; } }
+            CARNA_ASSERT_EX( err == GL_NO_ERROR, "GL Error State in " \
+                << __func__ << ": " \
+                << std::string( reinterpret_cast< const char* >( gluErrorString( err ) ) ) \
+                << " [" << err << "] (" << __FILE__ << ":" << __LINE__ << ")" ); }
 #else
 
     #define __REPORT_GL_ERROR_IMPL

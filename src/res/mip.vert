@@ -1,4 +1,4 @@
-#version 150
+#version 330
 
 /*
  *  Copyright (C) 2010 - 2015 Leonid Kostrykin
@@ -14,8 +14,7 @@
 uniform mat4 sliceTangentModel;
 uniform mat4 modelViewProjection;
 
-//layout( location = 0 ) in vec4 inPosition;
-in vec4 inPosition;
+layout( location = 0 ) in vec4 inPosition;
 
 out vec4 modelSpaceCoordinates;
 

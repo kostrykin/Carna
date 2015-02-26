@@ -67,6 +67,8 @@ protected:
 
     virtual void render( const base::view::Renderable& ) override;
 
+    virtual void createSamplers( const std::function< void( unsigned int, base::view::Sampler* ) >& registerSampler ) = 0;
+
     virtual const base::view::ShaderProgram& loadShader() = 0;
 
     virtual const std::string& uniformName( unsigned int role ) const = 0;
