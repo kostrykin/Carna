@@ -1,6 +1,7 @@
 #include <QDebug>
 #include <QGLWidget>
 #include <QApplication>
+#include <QMouseEvent>
 
 #include <Carna/Version.h>
 #include <Carna/base/Log.h>
@@ -84,15 +85,70 @@ class Demo : public QGLWidget
     std::unique_ptr< base::view::Node > root;
     base::view::Camera* camera;
 
+    bool mouseInteraction;
+    QPoint mousepos;
+
 public:
+
+    Demo();
+
+protected:
 
     virtual void initializeGL() override;
 
     virtual void resizeGL( int w, int h ) override;
 
     virtual void paintGL() override;
+    
+    virtual void mousePressEvent( QMouseEvent* ev ) override;
+    
+    virtual void mouseMoveEvent( QMouseEvent* ev ) override;
+    
+    virtual void mouseReleaseEvent( QMouseEvent* ev ) override;
 
 }; // Demo
+
+
+Demo::Demo()
+    : mouseInteraction( false )
+{
+    setMouseTracking( true );
+}
+
+
+void Demo::mousePressEvent( QMouseEvent* ev )
+{
+    mouseInteraction = true;
+    mousepos = ev->pos();
+    ev->accept();
+}
+
+
+void Demo::mouseMoveEvent( QMouseEvent* ev )
+{
+    const static float ROTATION_SPEED = 1e-2f;
+    if( mouseInteraction )
+    {
+        const int dx = ( ev->x() - mousepos.x() );
+        const int dy = ( ev->y() - mousepos.y() );
+        mousepos = ev->pos();
+
+        if( dx != 0 )
+        {
+            base::math::Matrix4f rotation = base::math::rotation4f( 0, 1, 0, dx * ROTATION_SPEED );
+            camera->localTransform = rotation * camera->localTransform;
+            updateGL();
+            ev->accept();
+        }
+    }
+}
+
+
+void Demo::mouseReleaseEvent( QMouseEvent* ev )
+{
+    mouseInteraction = false;
+    ev->accept();
+}
 
 
 void Demo::initializeGL()
