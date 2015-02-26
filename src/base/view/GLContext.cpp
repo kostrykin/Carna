@@ -36,6 +36,7 @@ GLContext::GLContext( bool isDoubleBuffered )
     : isDoubleBuffered( isDoubleBuffered )
     , myShader( nullptr )
 {
+    CARNA_ASSERT( glewInit() == GLEW_OK );
     if( myCurrent == nullptr )
     {
         myCurrent = this;

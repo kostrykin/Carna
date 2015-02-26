@@ -49,8 +49,8 @@ struct ShaderManager::Details
 
 const ShaderProgram& ShaderManager::Details::loadShader( const std::string& name )
 {
-    const std::string& srcVert = res::string( name + ".vert" );
-    const std::string& srcFrag = res::string( name + ".frag" );
+    const std::string& srcVert = res::string( name + "_vert" );
+    const std::string& srcFrag = res::string( name + "_frag" );
 
     ShaderInfo info;
     info.acquisitionsCount = 1;

@@ -54,15 +54,15 @@ void QDebugLogWriter::writeFormatted( base::Log::Severity severity, const std::s
 
     case base::Log::fatal:
     case base::Log::error:
-        qFatal( "%s\n", msg.c_str() );
+        qFatal( "%s", msg.c_str() );
         break;
 
     case base::Log::warning:
-        qWarning( "%s\n", msg.c_str() );
+        qWarning( "%s", msg.c_str() );
         break;
 
     case base::Log::debug:
-        qDebug( "%s\n", msg.c_str() );
+        qDebug( "%s", msg.c_str() );
         break;
 
     }
@@ -100,8 +100,12 @@ void Demo::initializeGL()
     root.reset( new base::view::Node() );
 
     base::Vector4f spacing;
-    volume.reset( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/res/pelves_reduced.hugz", spacing ) );
-    const base::Vector4f scale( ( volume->size.x() - 1 ) * spacing.x(), ( volume->size.y() - 1 ) * spacing.y(), ( volume->size.z() - 1 ) * spacing.z(), 0 );
+    volume.reset( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/../res/pelves_reduced.hugz", spacing ) );
+    const base::Vector4f scale
+        ( ( volume->size.x() - 1 ) * spacing.x()
+        , ( volume->size.y() - 1 ) * spacing.y()
+        , ( volume->size.z() - 1 ) * spacing.z()
+        , 0 );
 
     base::view::Geometry* const volumeGeometry = new base::view::Geometry( VolumeRenderings::MIP::MIPStage::GEOMETRY_TYPE );
     volumeGeometry->putAggregate

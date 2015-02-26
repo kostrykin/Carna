@@ -1,3 +1,5 @@
+#version 150
+
 /*
  *  Copyright (C) 2010 - 2015 Leonid Kostrykin
  *
@@ -8,8 +10,6 @@
  *  Germany
  *
  */
-
-#version 150
 
 uniform sampler3D huVolume;
 uniform float     minIntensity;
@@ -27,7 +27,7 @@ out vec4 gl_FragColor;
 
 float intensityAt( vec3 p )
 {
-    return texture3D( huVolume, p ).r;
+    return texture( huVolume, p ).r;
 }
 
 

@@ -73,7 +73,7 @@ void RenderTask::overrideViewTransform( const Matrix4f& viewTransform )
 
 void RenderTask::render( const Viewport& vp )
 {
-    Framebuffer::Binding binding( *myOutput );
+    const std::unique_ptr< Framebuffer::Binding > fboBinding( myOutput == nullptr ? nullptr : new Framebuffer::Binding( *myOutput ) );
     while( nextRenderStage < renderer.stages() )
     {
         RenderStage& rs = renderer.stageAt( nextRenderStage );

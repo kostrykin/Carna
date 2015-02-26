@@ -90,7 +90,11 @@ RayMarchingStage::VideoResources::VideoResources( const base::view::ShaderProgra
 }
 
 
-void RayMarchingStage::VideoResources::renderSlice( RayMarchingStage& self, const base::view::Renderable& renderable, const base::Matrix4f& sliceTangentModel, const base::Matrix4f& modelView )
+void RayMarchingStage::VideoResources::renderSlice
+    ( RayMarchingStage& self
+    , const base::view::Renderable& renderable
+    , const base::Matrix4f& sliceTangentModel
+    , const base::Matrix4f& modelView )
 {
     unsigned int lastSampler = base::view::Texture3D::SETUP_SAMPLER;
     std::vector< unsigned int > roles;
@@ -129,7 +133,8 @@ void RayMarchingStage::VideoResources::renderSlice( RayMarchingStage& self, cons
 // ----------------------------------------------------------------------------------
 
 RayMarchingStage::RayMarchingStage()
-    : base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >::GeometryStage( GEOMETRY_TYPE )
+    : base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >
+        ::GeometryStage( GEOMETRY_TYPE )
     , pimpl( new Details() )
 {
 }
@@ -137,13 +142,10 @@ RayMarchingStage::RayMarchingStage()
 
 RayMarchingStage::~RayMarchingStage()
 {
-    if( pimpl->renderTask != nullptr )
+    activateGLContext();
+    if( vr.get() != nullptr )
     {
-        pimpl->renderTask->renderer.glContext().makeActive();
-        if( vr.get() != nullptr )
-        {
-            base::view::ShaderManager::instance().releaseShader( vr->shader );
-        }
+        base::view::ShaderManager::instance().releaseShader( vr->shader );
     }
 }
 
@@ -209,6 +211,10 @@ void RayMarchingStage::renderPass( base::view::RenderTask& rt, const base::view:
     /* Do the rendering.
      */
     base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >::renderPass( rt, vp );
+
+    /* There is no guarantee that 'renderTask' will be valid later.
+     */
+    pimpl->renderTask = nullptr;
 }
 
 

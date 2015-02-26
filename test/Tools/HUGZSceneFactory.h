@@ -50,6 +50,7 @@ struct HUGZSceneFactory
     static Carna::base::model::UInt16HUVolume* importVolume( const std::string& filename, Carna::base::Vector4f& spacing )
     {
         std::ifstream file( filename, std::ios::in | std::ios::binary );
+        CARNA_ASSERT( file.is_open() && !file.fail() );
         boost::iostreams::filtering_istream in;
         in.push( boost::iostreams::gzip_decompressor() );
         in.push( file );

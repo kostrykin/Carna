@@ -75,6 +75,8 @@ public:
 
 protected:
 
+    void activateGLContext() const;
+
     virtual void render( const Renderable& ) = 0;
 
 }; // GeometryStage
@@ -94,15 +96,22 @@ GeometryStage< RenderableCompare >::GeometryStage( int geometryType )
 template< typename RenderableCompare >
 GeometryStage< RenderableCompare >::~GeometryStage()
 {
-    if( myContext != nullptr )
-    {
-        myContext->makeActive();
-    }
+    activateGLContext();
     std::for_each( acquiredVideoResources.begin(), acquiredVideoResources.end(), [&]( GeometryAggregate* ga )
         {
             ga->releaseVideoResources();
         }
     );
+}
+
+
+template< typename RenderableCompare >
+void GeometryStage< RenderableCompare >::activateGLContext() const
+{
+    if( myContext != nullptr )
+    {
+        myContext->makeActive();
+    }
 }
 
 

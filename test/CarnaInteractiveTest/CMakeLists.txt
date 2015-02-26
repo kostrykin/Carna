@@ -62,7 +62,7 @@ find_package(CarnaDICOM QUIET)
 include_directories(${CMAKE_PROJECT_DIR}src)
 include_directories(${CMAKE_PROJECT_DIR}../Tools)
 set( HEADERS
-#		../Tools/HUGZSceneFactory.h
+		../Tools/HUGZSceneFactory.h
 #		../Tools/HUIO.h
 #		src/CompressedVolumeImporter.h
 	)
