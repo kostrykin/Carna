@@ -156,7 +156,7 @@ void MIPStage::renderPass
 
             glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-            RayMarchingStage::renderPass( vt, rt, vp );
+            RayMarchingStage::renderPass( vt, rt, framebufferViewport );
 
             framebufferViewport.done();
         );
