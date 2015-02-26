@@ -14,6 +14,7 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/noncopyable.h>
+#include <stack>
 
 /** \file   GLContext.h
   * \brief  Defines \ref Carna::base::view::GLContext.
@@ -40,6 +41,14 @@ class CARNA_LIB GLContext
     static GLContext* myCurrent;
 
     const ShaderProgram* myShader;
+
+    const std::unique_ptr< RenderState > myRenderState;
+
+protected:
+
+    friend class RenderState;
+
+    std::stack< const RenderState* > renderStates;
 
 public:
 

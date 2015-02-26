@@ -15,6 +15,7 @@
 #include <Carna/base/view/IndexBuffer.h>
 #include <Carna/base/view/Texture3DManager.h>
 #include <Carna/base/view/ShaderManager.h>
+#include <Carna/base/view/RenderState.h>
 #include <Carna/base/math.h>
 
 namespace Carna
@@ -238,15 +239,12 @@ void RayMarchingStage::renderPass
     
     /* Configure proper OpenGL state.
      */
-    glDepthMask( GL_FALSE );
+    base::view::RenderState rs( rt.renderer.glContext() );
+    rs.setDepthWrite( false );
     
     /* Do the rendering.
      */
     base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >::renderPass( vt, rt, vp );
-
-    /* Restore contracted default state.
-    */
-    glDepthMask( GL_TRUE );
 
     /* There is no guarantee that 'renderTask' will be valid later.
      */

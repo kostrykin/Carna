@@ -16,6 +16,7 @@
 #include <Carna/base/view/Framebuffer.h>
 #include <Carna/base/view/RenderTexture.h>
 #include <Carna/base/view/Viewport.h>
+#include <Carna/base/view/RenderState.h>
 #include <Carna/base/math.h>
 #include <Carna/base/CarnaException.h>
 #include <vector>
@@ -133,8 +134,10 @@ void MIPStage::renderPass
 
     /* Configure proper OpenGL state.
      */
-    glEnable( GL_BLEND );
-    glDisable( GL_DEPTH_TEST );
+    base::view::RenderState rs( rt.renderer.glContext() );
+    rs.setBlend( true );
+    rs.setDepthTest( false );
+    rs.setDepthWrite( false );
 
     /* For each channel: First render the channel-specific MIP result to the dedicated framebuffer,
      * than render the result to the output framebuffer w.r.t. the channel function.
@@ -148,18 +151,21 @@ void MIPStage::renderPass
         CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->channelFrameBuffer,
             framebufferViewport.makeActive();
 
+            base::view::RenderState rs2( rt.renderer.glContext() );
+            rs2.setBlendEquation( GL_MAX );
+
             glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-            glBlendEquation( GL_MAX );
+
             RayMarchingStage::renderPass( vt, rt, vp );
-            glBlendEquation( GL_FUNC_ADD );
 
             framebufferViewport.done();
         );
 
         /* Render result to output framebuffer.
          */
-        glDepthMask( GL_FALSE );
-        glBlendFunc( pimpl->currentChannel->function.sourceFactor, pimpl->currentChannel->function.destinationFactor );
+        base::view::RenderState rs2( rt.renderer.glContext() );
+        rs2.setBlendFunction( pimpl->currentChannel->function );
+
         pimpl->channelColorBuffer->bind( 0 );
         rt.renderer.renderTexture( 0, true );
     }
@@ -167,12 +173,6 @@ void MIPStage::renderPass
     /* Denote that we're finished with rendering.
      */
     pimpl->currentChannel = nullptr;
-
-    /* Restore contracted default state.
-    */
-    glEnable( GL_DEPTH_TEST );
-    glDisable( GL_BLEND );
-    glDepthMask( GL_TRUE );
 }
 
 

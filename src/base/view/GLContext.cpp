@@ -12,6 +12,7 @@
 #include <Carna/base/view/glew.h>
 #include <Carna/base/view/GLContext.h>
 #include <Carna/base/view/ShaderProgram.h>
+#include <Carna/base/view/RenderState.h>
 #include <Carna/base/CarnaException.h>
 
 namespace Carna
@@ -35,6 +36,7 @@ GLContext* GLContext::myCurrent = nullptr;
 GLContext::GLContext( bool isDoubleBuffered )
     : isDoubleBuffered( isDoubleBuffered )
     , myShader( nullptr )
+    , myRenderState( new RenderState() )
 {
     CARNA_ASSERT( glewInit() == GLEW_OK );
     if( myCurrent == nullptr )
@@ -42,17 +44,27 @@ GLContext::GLContext( bool isDoubleBuffered )
         myCurrent = this;
     }
 
-    /* Setup back-face culling.
-     */
-    glEnable( GL_CULL_FACE );
-    glCullFace( GL_BACK );
-    glFrontFace( GL_CCW );
-
     /* Setup depth-write, depth-test and depth compare function.
      */
-    glDepthMask( GL_TRUE );
-    glEnable( GL_DEPTH_TEST );
-    glDepthFunc( GL_LEQUAL );
+    myRenderState->setDepthWrite( true );
+    myRenderState->setDepthTest( true );
+    myRenderState->setDepthTestFunction( GL_LEQUAL );
+
+    /* Setup blending.
+     */
+    myRenderState->setBlend( false );
+    myRenderState->setBlendFunction( BlendFunction( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ) );
+    myRenderState->setBlendEquation( GL_FUNC_ADD );
+
+    /* Setup back-face culling.
+     */
+    myRenderState->setCullFace( RenderState::cullBack );
+    myRenderState->setFrontFace( true );
+
+    /* Set default render state.
+     */
+    myRenderState->commit();
+    renderStates.push( myRenderState.get() );
 }
 
 

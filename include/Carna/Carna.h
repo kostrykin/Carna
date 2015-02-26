@@ -83,6 +83,7 @@ namespace Carna
             class  OpaqueStage;
             class  Renderable;
             class  RenderStage;
+            class  RenderState;
             class  RenderTask;
             class  RenderTexture;
             class  Sampler;
