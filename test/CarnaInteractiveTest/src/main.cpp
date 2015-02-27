@@ -12,6 +12,7 @@
 #include <Carna/base/view/Geometry.h>
 #include <Carna/base/view/GeometryAggregate.h>
 #include <Carna/base/view/BufferedHUVolumeControl.h>
+#include <Carna/base/view/MeshRenderingStage.h>
 #include <Carna/VolumeRenderings/MIP/MIPStage.h>
 #include <Carna/VolumeRenderings/MIP/Channel.h>
 #include <Carna/VolumeRenderings/DRR/DRRStage.h>

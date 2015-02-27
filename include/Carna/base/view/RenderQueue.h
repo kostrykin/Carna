@@ -92,7 +92,7 @@ struct RenderableSort
 
 
 template< >
-struct RenderableSort< Renderable::ArbitraryOrder >
+struct RenderableSort< void >
 {
     static void sort( std::vector< Renderable >& )
     {

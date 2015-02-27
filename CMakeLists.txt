@@ -118,13 +118,15 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/RenderState.h
 		include/${PROJECT_NAME}/base/view/GeometryStage.h
 		include/${PROJECT_NAME}/base/view/GLContext.h
-		include/${PROJECT_NAME}/base/view/OpaqueStage.h
+		include/${PROJECT_NAME}/base/view/MeshRenderingStage.h
 		include/${PROJECT_NAME}/base/view/Framebuffer.h
 		include/${PROJECT_NAME}/base/view/RenderTexture.h
 		include/${PROJECT_NAME}/base/view/Sampler.h
 		include/${PROJECT_NAME}/base/view/Shader.h
+		include/${PROJECT_NAME}/base/view/ShaderControl.h
 		include/${PROJECT_NAME}/base/view/ShaderCompilationError.h
 		include/${PROJECT_NAME}/base/view/ShaderProgram.h
+		include/${PROJECT_NAME}/base/view/ShaderManagerControl.h
 		include/${PROJECT_NAME}/base/view/Viewport.h
 		include/${PROJECT_NAME}/base/view/glError.h
 		include/${PROJECT_NAME}/base/view/Texture3D.h
@@ -185,13 +187,13 @@ set( SRC
 		src/base/view/RenderTask.cpp
 		src/base/view/RenderStage.cpp
 		src/base/view/RenderState.cpp
-		src/base/view/OpaqueStage.cpp
 		src/base/view/Spatial.cpp
 		src/base/view/Node.cpp
 		src/base/view/Framebuffer.cpp
 		src/base/view/RenderTexture.cpp
 		src/base/view/Sampler.cpp
 		src/base/view/Shader.cpp
+		src/base/view/ShaderManagerControl.cpp
 		src/base/view/ShaderCompilationError.cpp
 		src/base/view/ShaderProgram.cpp
 		src/base/view/Texture3D.cpp

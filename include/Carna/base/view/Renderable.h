@@ -65,17 +65,20 @@ public:
     const static int ORDER_FRONT_TO_BACK = -1;
 
     /** \brief
-      * This type is used to identify renderables ordered arbitrarily.
-      */
-    struct ArbitraryOrder
-    {
-    };
-
-    /** \brief
       * Establishes partial order for renderables w.r.t. to their depth in eye space.
       */
     template< int order >
     struct DepthOrder
+    {
+        bool operator()( const Renderable& l, const Renderable& r ) const;
+    };
+
+    /** \brief
+      * Establishes partial order for renderables s.t.
+      * geometries with same \ref VideoResourcesControl instances are grouped together.
+      */
+    template< unsigned int role >
+    struct VideoResourcesOrder
     {
         bool operator()( const Renderable& l, const Renderable& r ) const;
     };
@@ -87,6 +90,13 @@ template< int order >
 bool Renderable::DepthOrder< order >::operator()( const Renderable& l, const Renderable& r ) const
 {
     return order * ( math::translationDistanceSq( l.modelViewTransform() ) - math::translationDistanceSq( r.modelViewTransform() ) ) > 0;
+}
+
+
+template< unsigned int role >
+bool Renderable::VideoResourcesOrder< role >::operator()( const Renderable& l, const Renderable& r ) const
+{
+    return &l.geometry().aggregate( role ).videoResources() < r.geometry().aggregate( role ).videoResources();
 }
 
 

@@ -59,11 +59,11 @@ class CARNA_LIB GeometryAggregate
 
     std::set< Geometry* > referencingSceneGraphNodes;
 
-    const std::unique_ptr< VideoResourcesControl > vrm;
+    const std::unique_ptr< VideoResourcesControl > vrc;
 
     bool released;
 
-    GeometryAggregate( VideoResourcesControl* vrm );
+    GeometryAggregate( VideoResourcesControl* vrc );
 
     ~GeometryAggregate();
 

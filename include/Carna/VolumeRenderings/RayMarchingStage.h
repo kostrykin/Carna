@@ -70,7 +70,7 @@ protected:
 
     virtual void loadVideoResources();
 
-    virtual void render( const base::view::Renderable& ) override;
+    virtual void render( base::view::GLContext& glc, const base::view::Renderable& ) override;
 
     virtual void createSamplers( const std::function< void( unsigned int, base::view::Sampler* ) >& registerSampler ) = 0;
 

@@ -28,18 +28,18 @@ namespace view
 // GeometryAggregate
 // ----------------------------------------------------------------------------------
 
-GeometryAggregate::GeometryAggregate( VideoResourcesControl* vrm )
+GeometryAggregate::GeometryAggregate( VideoResourcesControl* vrc )
     : videoResourcesAcquisitions( 0 )
-    , vrm( vrm )
+    , vrc( vrc )
     , released( false )
 {
-    CARNA_ASSERT( vrm != nullptr );
+    CARNA_ASSERT( vrc != nullptr );
 }
 
 
-GeometryAggregate& GeometryAggregate::create( VideoResourcesControl* vrm )
+GeometryAggregate& GeometryAggregate::create( VideoResourcesControl* vrc )
 {
-    return *new GeometryAggregate( vrm );
+    return *new GeometryAggregate( vrc );
 }
 
 
@@ -48,7 +48,7 @@ GeometryAggregate::~GeometryAggregate()
     if( videoResourcesAcquisitions != 0 )
     {
         Log::instance().record( Log::error, "GeometryAggregate deleted while video resources still acquired!" );
-        vrm->deleteResources();
+        vrc->deleteResources();
     }
 }
 
@@ -57,7 +57,7 @@ void GeometryAggregate::acquireVideoResources()
 {
     if( ++videoResourcesAcquisitions == 1 )
     {
-        vrm->uploadResources();
+        vrc->uploadResources();
     }
 }
 
@@ -67,7 +67,7 @@ void GeometryAggregate::releaseVideoResources()
     CARNA_ASSERT( videoResourcesAcquisitions > 0 );
     if( --videoResourcesAcquisitions == 0 )
     {
-        vrm->deleteResources();
+        vrc->deleteResources();
         if( released )
         {
             deleteIfAllowed();
@@ -78,7 +78,7 @@ void GeometryAggregate::releaseVideoResources()
 
 const VideoResourcesControl& GeometryAggregate::videoResources() const
 {
-    return *vrm;
+    return *vrc;
 }
 
 

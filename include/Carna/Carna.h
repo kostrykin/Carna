@@ -81,8 +81,8 @@ namespace Carna
             class  IndexBufferBase;
             class  MeshBase;
             class  MeshControl;
+            class  MeshRenderingStageBase;
             class  Node;
-            class  OpaqueStage;
             class  Renderable;
             class  RenderStage;
             class  RenderState;
@@ -90,9 +90,11 @@ namespace Carna
             class  RenderTexture;
             class  Sampler;
             class  Shader;
-            class  ShaderBundle;
+            class  ShaderControl;
             class  ShaderCompilationError;
+            class  ShaderControl;
             class  ShaderManager;
+            class  ShaderManagerControl;
             class  ShaderProgram;
             class  Spatial;
             class  Texture3D;

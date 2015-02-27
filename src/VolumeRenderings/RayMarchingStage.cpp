@@ -173,7 +173,7 @@ RayMarchingStage::~RayMarchingStage()
 }
 
 
-void RayMarchingStage::render( const base::view::Renderable& renderable )
+void RayMarchingStage::render( base::view::GLContext& glc, const base::view::Renderable& renderable )
 {
     using base::math::Matrix4f;
     using base::math::Vector4f;

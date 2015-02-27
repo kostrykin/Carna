@@ -71,7 +71,7 @@ protected:
 
     void activateGLContext() const;
 
-    virtual void render( const Renderable& ) = 0;
+    virtual void render( GLContext& glc, const Renderable& renderable ) = 0;
 
 }; // GeometryStage
 
@@ -120,6 +120,8 @@ void GeometryStage< RenderableCompare >::prepareFrame( Node& root )
 template< typename RenderableCompare >
 void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp )
 {
+    CARNA_ASSERT( myContext != nullptr );
+
     const bool isFirstPass = passesRendered == 0;
     if( ++passesRendered == 1 || !isViewTransformFixed() )
     {
@@ -152,7 +154,7 @@ void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewT
                 }
             );
         }
-        render( renderable );
+        render( *myContext, renderable );
     }
     if( isFirstPass )
     {
