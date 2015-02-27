@@ -54,23 +54,21 @@ public:
     const static base::view::BlendFunction CHANNEL_FUNCTION_ADD;
     const static base::view::BlendFunction CHANNEL_FUNCTION_REPLACE;
 
-    typedef signed short HUV;
-
     /** \brief  Instantiates.
       */
     Channel
-        ( const base::Span< HUV >& huRange
+        ( const base::Span< base::HUV >& huRange
         , const base::math::Vector4f& color
         , const base::view::BlendFunction& function = CHANNEL_FUNCTION_REPLACE );
 
     /** \brief  Instantiates.
       */
     Channel
-        ( HUV firstHuv, HUV lastHuv
+        ( base::HUV firstHuv, base::HUV lastHuv
         , const base::math::Vector4f& color
         , const base::view::BlendFunction& function = CHANNEL_FUNCTION_REPLACE );
 
-    base::Span< HUV > huRange;
+    base::Span< base::HUV > huRange;
 
     base::math::Vector4f color;
 

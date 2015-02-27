@@ -42,6 +42,7 @@ T mix( const T& a, const T& b, float t )
 
 Viewport::Viewport( const Viewport& parent, unsigned int left, unsigned int top, unsigned int width, unsigned int height )
     : parent( &parent )
+    , isDone( false )
     , left( left )
     , top( top )
     , width( width )
@@ -52,6 +53,7 @@ Viewport::Viewport( const Viewport& parent, unsigned int left, unsigned int top,
 
 Viewport::Viewport( const FrameRenderer& fr, bool fitSquare )
     : parent( nullptr )
+    , isDone( false )
 {
     if( fitSquare )
     {
@@ -71,6 +73,7 @@ Viewport::Viewport( const FrameRenderer& fr, bool fitSquare )
 
 Viewport::Viewport( const Viewport& parent, float width, float height, float left, float top )
     : parent( &parent )
+    , isDone( false )
     , width( static_cast< unsigned int >( parent.width * width + 0.5f ) )
     , height( static_cast< unsigned int >( parent.height * height + 0.5f ) )
 {
@@ -81,15 +84,26 @@ Viewport::Viewport( const Viewport& parent, float width, float height, float lef
     this->top  = mix( 0u, maxTop , top );
 }
 
+
+Viewport::~Viewport()
+{
+    if( !isDone )
+    {
+        done();
+    }
+}
+
  
 void Viewport::makeActive() const
 {
+    isDone = false;
     glViewport( left, top, width, height );
 }
 
 
 void Viewport::done() const
 {
+    isDone = true;
     if( parent != nullptr )
     {
         parent->makeActive();

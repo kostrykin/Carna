@@ -14,6 +14,7 @@
 #include <Carna/base/view/BufferedHUVolumeManager.h>
 #include <Carna/VolumeRenderings/MIP/MIPStage.h>
 #include <Carna/VolumeRenderings/MIP/Channel.h>
+#include <Carna/VolumeRenderings/DRR/DRRStage.h>
 
 #include <HUGZSceneFactory.h>
 
@@ -185,11 +186,17 @@ void Demo::resizeGL( int w, int h )
     const static bool fitSquare = true;
     if( renderer.get() == nullptr )
     {
+        renderer.reset( new base::view::FrameRenderer( *glContext, static_cast< unsigned >( w ), static_cast< unsigned >( h ), fitSquare ) );
+
+#if 0
         VolumeRenderings::MIP::MIPStage* const mip = new VolumeRenderings::MIP::MIPStage();
         mip->appendChannel( new VolumeRenderings::MIP::Channel( -1024, 0, base::math::Vector4f( 0, 0, 1, 1 ) ) );
         mip->appendChannel( new VolumeRenderings::MIP::Channel( 0, 3071, base::math::Vector4f( 1, 1, 0, 1 ) ) );
-        renderer.reset( new base::view::FrameRenderer( *glContext, static_cast< unsigned >( w ), static_cast< unsigned >( h ), fitSquare ) );
         renderer->appendStage( mip );
+#else
+        VolumeRenderings::DRR::DRRStage* const drr = new VolumeRenderings::DRR::DRRStage();
+        renderer->appendStage( drr );
+#endif
     }
     else
     {

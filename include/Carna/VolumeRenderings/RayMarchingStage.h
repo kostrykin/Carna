@@ -68,14 +68,27 @@ public:
 
 protected:
 
+    virtual void loadVideoResources();
+
     virtual void render( const base::view::Renderable& ) override;
 
     virtual void createSamplers( const std::function< void( unsigned int, base::view::Sampler* ) >& registerSampler ) = 0;
 
+    /** \brief
+      * Loads the ray marching shader.
+      * This shader is applied during rendering of the volume slices.
+      */
     virtual const base::view::ShaderProgram& loadShader() = 0;
 
+    /** \brief
+      * Tells the name of the uniform variable, that the \a role texture is to be bound to.
+      * Use \ref configureShader for custom shader configuration that goes beyond that.
+      */
     virtual const std::string& uniformName( unsigned int role ) const = 0;
 
+    /** \brief
+      * Performs custom shader configuration that goes beyond the default setup.
+      */
     virtual void configureShader( base::view::GLContext& ) = 0;
 
 }; // RayMarchingStage

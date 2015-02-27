@@ -21,7 +21,6 @@
 #include <Carna/base/CarnaException.h>
 #include <vector>
 #include <algorithm>
-#include <memory>
 
 namespace Carna
 {
@@ -149,16 +148,16 @@ void MIPStage::renderPass
         /* Render to dedicated framebuffer.
          */
         CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->channelFrameBuffer,
-            framebufferViewport.makeActive();
 
             base::view::RenderState rs2( rt.renderer.glContext() );
             rs2.setBlendEquation( GL_MAX );
 
             glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
+            framebufferViewport.makeActive();
             RayMarchingStage::renderPass( vt, rt, framebufferViewport );
-
             framebufferViewport.done();
+
         );
 
         /* Render result to output framebuffer.

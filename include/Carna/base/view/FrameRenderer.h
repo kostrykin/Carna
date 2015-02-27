@@ -16,6 +16,7 @@
 #include <Carna/base/noncopyable.h>
 #include <vector>
 #include <memory>
+#include <string>
 
 /** \file   FrameRenderer.h
   * \brief  Defines \ref Carna::base::view::FrameRenderer.
@@ -81,7 +82,11 @@ public:
     
     void render( Camera& cam, Node& root ) const;
 
-    void renderTexture( unsigned int unit, bool useDefaultSampler = true ) const;
+    void renderTexture
+        ( unsigned int unit
+        , bool useDefaultSampler = true
+        , bool useDefaultShader = true
+        , const std::string uniformName = "colorMap" ) const;
 
 private:
 

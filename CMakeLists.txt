@@ -158,6 +158,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/Text.h
 		include/${PROJECT_NAME}/base/Log.h
 		include/${PROJECT_NAME}/VolumeRenderings/RayMarchingStage.h
+		include/${PROJECT_NAME}/VolumeRenderings/DRR/DRRStage.h
 		include/${PROJECT_NAME}/VolumeRenderings/MIP/MIPStage.h
 		include/${PROJECT_NAME}/VolumeRenderings/MIP/Channel.h
 		include/${PROJECT_NAME}/Carna.h
@@ -210,6 +211,7 @@ set( SRC
 		src/base/Text.cpp
 		src/base/Log.cpp
 		src/VolumeRenderings/RayMarchingStage.cpp
+		src/VolumeRenderings/DRR/DRRStage.cpp
 		src/VolumeRenderings/MIP/MIPStage.cpp
 		src/VolumeRenderings/MIP/Channel.cpp
 	)
@@ -229,6 +231,10 @@ set( DOC_SRC
 		src/doc/doc_version_log.dox
 	)
 set( SHADERS_SRC
+		src/res/drr-accumulation.frag
+		src/res/drr-accumulation.vert
+		src/res/drr-exponential.frag
+		src/res/drr-exponential.vert
 		src/res/mip.frag
 		src/res/mip.vert
 		src/res/full_frame_quad.vert

@@ -41,6 +41,8 @@ class CARNA_LIB Viewport
 
     const Viewport* parent;
 
+    mutable bool isDone;
+
 public:
 
     Viewport( const FrameRenderer& fr, bool fitSquare );
@@ -48,6 +50,8 @@ public:
     Viewport( const Viewport& parent, unsigned int left, unsigned int top, unsigned int width, unsigned int height );
 
     Viewport( const Viewport& parent, float width, float height, float left, float top );
+
+    ~Viewport();
 
     unsigned int left;
 

@@ -226,15 +226,18 @@ void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
 }
 
 
-void FrameRenderer::renderTexture( unsigned int unit, bool useDefaultSampler ) const
+void FrameRenderer::renderTexture( unsigned int unit, bool useDefaultSampler, bool useDefaultShader, const std::string uniformName ) const
 {
     if( useDefaultSampler )
     {
         fullFrameQuadSampler->bind( unit );
     }
+    if( useDefaultShader )
+    {
+        myGlContext->setShader( fullFrameQuadShader );
+    }
 
-    myGlContext->setShader( fullFrameQuadShader );
-    ShaderProgram::putUniform1i( "colorMap", unit );
+    ShaderProgram::putUniform1i( uniformName, unit );
     fullFrameQuadMesh->render();
 }
 

@@ -214,6 +214,19 @@ void RayMarchingStage::render( const base::view::Renderable& renderable )
 }
 
 
+void RayMarchingStage::loadVideoResources()
+{
+    const base::view::ShaderProgram& shader = loadShader();
+    vr.reset( new VideoResources( shader ) );
+    createSamplers( [&]( unsigned int role, base::view::Sampler* sampler )
+        {
+            CARNA_ASSERT( vr->samplers.find( role ) == vr->samplers.end() );
+            vr->samplers[ role ] = sampler;
+        }
+    );
+}
+
+
 void RayMarchingStage::renderPass
     ( const base::math::Matrix4f& vt
     , base::view::RenderTask& rt
@@ -221,14 +234,7 @@ void RayMarchingStage::renderPass
 {
     if( vr.get() == nullptr )
     {
-        const base::view::ShaderProgram& shader = loadShader();
-        vr.reset( new VideoResources( shader ) );
-        createSamplers( [&]( unsigned int role, base::view::Sampler* sampler )
-            {
-                CARNA_ASSERT( vr->samplers.find( role ) == vr->samplers.end() );
-                vr->samplers[ role ] = sampler;
-            }
-        );
+        loadVideoResources();
     }
 
     rt.renderer.glContext().setShader( vr->shader );

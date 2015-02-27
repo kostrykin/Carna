@@ -9,15 +9,15 @@
  *
  */
 
-#ifndef MIPSTAGE_H_6014714286
-#define MIPSTAGE_H_6014714286
+#ifndef DRRStage_H_6014714286
+#define DRRStage_H_6014714286
 
 #include <Carna/VolumeRenderings/RayMarchingStage.h>
 #include <Carna/Carna.h>
 #include <memory>
 
-/** \file   MIPStage.h
-  * \brief  Defines \ref Carna::base::view::MIPStage.
+/** \file   DRRStage.h
+  * \brief  Defines \ref Carna::base::view::DRRStage.
   */
 
 namespace Carna
@@ -26,16 +26,16 @@ namespace Carna
 namespace VolumeRenderings
 {
 
-namespace MIP
+namespace DRR
 {
 
 
 
 // ----------------------------------------------------------------------------------
-// MIPStage
+// DRRStage
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB MIPStage : public RayMarchingStage
+class CARNA_LIB DRRStage : public RayMarchingStage
 {
 
     struct Details;
@@ -45,9 +45,9 @@ public:
 
     const static unsigned int ROLE_HU_VOLUME = 0;
 
-    MIPStage();
+    DRRStage();
 
-    virtual ~MIPStage();
+    virtual ~DRRStage();
 
     virtual void reshape( const base::view::FrameRenderer& fr, const base::view::Viewport& vp ) override;
 
@@ -55,26 +55,34 @@ public:
         ( const base::math::Matrix4f& viewTransform
         , base::view::RenderTask& rt
         , const base::view::Viewport& vp ) override;
-    
-    /** \brief
-      * Swaps positions of \a channel with it's successor in the \ref MIP_Channels "channels list".
-      */
-    void ascendChannel( const Channel& channel );
-    
-    /** \brief
-      * Appends \a channel to the \ref MIP_Channels "channels list" and takes it's ownership.
-      */
-    void appendChannel( Channel* channel );
-    
-    /** \brief
-      * Removes \a channel from the \ref MIP_Channels "channels list".
-      * The ownership is transferred to the caller.
-      */
-    Channel* removeChannel( const Channel& channel );
 
-    void clearChannels();
+    float waterAttenuation() const;
+
+    float baseIntensity() const;
+
+    base::HUV lowerThreshold() const;
+
+    base::HUV upperThreshold() const;
+
+    float upperMultiplier() const;
+
+    bool isRenderingInverse() const;
+
+    void setWaterAttenuation( float muWater );
+
+    void setBaseIntensity( float baseIntensity );
+
+    void setLowerThreshold( base::HUV lower );
+
+    void setUpperThreshold( base::HUV upper );
+
+    void setUpperMultiplier( float multiplier );
+
+    void setRenderingInverse( bool inverse );
 
 protected:
+
+    virtual void loadVideoResources() override;
 
     virtual void createSamplers( const std::function< void( unsigned int, base::view::Sampler* ) >& registerSampler ) override;
 
@@ -84,14 +92,14 @@ protected:
 
     virtual void configureShader( base::view::GLContext& ) override;
 
-}; // MIPStage
+}; // DRRStage
 
 
 
-}  // namespace Carna :: VolumeRenderings :: MIP
+}  // namespace Carna :: VolumeRenderings :: DRR
 
 }  // namespace Carna :: VolumeRenderings
 
 }  // namespace Carna
 
-#endif // MIPSTAGE_H_6014714286
+#endif // DRRStage_H_6014714286

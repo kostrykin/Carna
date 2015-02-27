@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 - 2014 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2015 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
@@ -42,6 +42,8 @@ namespace Carna
       */
     namespace base
     {
+
+        typedef signed short HUV;
     
         class Application;
         class AssertionFailure;
@@ -119,6 +121,11 @@ namespace Carna
         {
             class MIPStage;
             class Channel;
+        }
+
+        namespace DRR
+        {
+            class DRRStage;
         }
     }
 
