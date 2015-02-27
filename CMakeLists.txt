@@ -128,17 +128,17 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/Viewport.h
 		include/${PROJECT_NAME}/base/view/glError.h
 		include/${PROJECT_NAME}/base/view/Texture3D.h
-		include/${PROJECT_NAME}/base/view/Texture3DManager.h
+		include/${PROJECT_NAME}/base/view/Texture3DControl.h
 		include/${PROJECT_NAME}/base/view/BufferedHUVolumeUploader.h
-		include/${PROJECT_NAME}/base/view/BufferedHUVolumeManager.h
+		include/${PROJECT_NAME}/base/view/BufferedHUVolumeControl.h
 		include/${PROJECT_NAME}/base/view/GeometryAggregate.h
-		include/${PROJECT_NAME}/base/view/VideoResourcesManager.h
+		include/${PROJECT_NAME}/base/view/VideoResourcesControl.h
 		include/${PROJECT_NAME}/base/view/Vertex.h
 		include/${PROJECT_NAME}/base/view/VertexBuffer.h
 		include/${PROJECT_NAME}/base/view/VertexAttributes.h
 		include/${PROJECT_NAME}/base/view/IndexBuffer.h
 		include/${PROJECT_NAME}/base/view/Mesh.h
-		include/${PROJECT_NAME}/base/view/MeshManager.h
+		include/${PROJECT_NAME}/base/view/MeshControl.h
 		include/${PROJECT_NAME}/base/view/BaseBuffer.h
 		include/${PROJECT_NAME}/base/view/ShaderManager.h
 		include/${PROJECT_NAME}/base/model/ScalarField.h
@@ -198,12 +198,12 @@ set( SRC
 		src/base/view/Viewport.cpp
 		src/base/view/BufferedHUVolumeUploader.cpp
 		src/base/view/GeometryAggregate.cpp
-		src/base/view/VideoResourcesManager.cpp
+		src/base/view/VideoResourcesControl.cpp
 		src/base/view/Vertex.cpp
 		src/base/view/VertexBuffer.cpp
 		src/base/view/IndexBuffer.cpp
 		src/base/view/Mesh.cpp
-		src/base/view/MeshManager.cpp
+		src/base/view/MeshControl.cpp
 		src/base/view/BaseBuffer.cpp
 		src/base/view/ShaderManager.cpp
 		src/base/model/HUVolume.cpp

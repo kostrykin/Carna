@@ -9,7 +9,9 @@
  *
  */
 
-#include <Carna/base/view/VideoResourcesManager.h>
+#include <Carna/base/view/MeshControl.h>
+#include <Carna/base/view/Mesh.h>
+#include <Carna/base/CarnaException.h>
 
 namespace Carna
 {
@@ -23,11 +25,26 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// VideoResourcesManager
+// MeshControl
 // ----------------------------------------------------------------------------------
 
-VideoResourcesManager::~VideoResourcesManager()
+void MeshControl::uploadResources()
 {
+    CARNA_ASSERT( myMesh.get() == nullptr );
+    myMesh.reset( createMesh() );
+}
+
+
+void MeshControl::deleteResources()
+{
+    myMesh.reset();
+}
+
+
+const MeshBase& MeshControl::mesh() const
+{
+    CARNA_ASSERT( myMesh.get() != nullptr );
+    return *myMesh;
 }
 
 

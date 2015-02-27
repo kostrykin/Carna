@@ -9,16 +9,16 @@
  *
  */
 
-#ifndef BUFFEREDHUVOLUMEMANAGER_H_6014714286
-#define BUFFEREDHUVOLUMEMANAGER_H_6014714286
+#ifndef BUFFEREDHUVOLUMECONTROL_H_6014714286
+#define BUFFEREDHUVOLUMECONTROL_H_6014714286
 
-#include <Carna/base/view/Texture3DManager.h>
+#include <Carna/base/view/Texture3DControl.h>
 #include <Carna/base/view/BufferedHUVolumeUploader.h>
 #include <Carna/base/view/Texture3D.h>
 #include <memory>
 
-/** \file   BufferedHUVolumeManager.h
-  * \brief  Defines \ref Carna::base::view::BufferedHUVolumeManager.
+/** \file   BufferedHUVolumeControl.h
+  * \brief  Defines \ref Carna::base::view::BufferedHUVolumeControl.
   */
 
 namespace Carna
@@ -33,17 +33,17 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// BufferedHUVolumeManager
+// BufferedHUVolumeControl
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Generic \ref VideoResourcesManager for \ref BufferedHUVolume instances.
+  * Generic \ref VideoResourcesControl for \ref BufferedHUVolume instances.
   *
   * \author Leonid Kostrykin
   * \date 22.2.2015
   */
 template< typename BufferedHUVolume >
-class BufferedHUVolumeManager : public Texture3DManager
+class BufferedHUVolumeControl : public Texture3DControl
 {
 
     std::unique_ptr< Texture3D > myTexture;
@@ -52,7 +52,7 @@ public:
 
     const BufferedHUVolume& volume;
 
-    BufferedHUVolumeManager( const BufferedHUVolume& );
+    BufferedHUVolumeControl( const BufferedHUVolume& );
 
     virtual void uploadResources() override;
 
@@ -60,18 +60,18 @@ public:
 
     virtual const Texture3D& texture() const override;
 
-}; // BufferedHUVolumeManager
+}; // BufferedHUVolumeControl
 
 
 template< typename BufferedHUVolume >
-BufferedHUVolumeManager< BufferedHUVolume >::BufferedHUVolumeManager( const BufferedHUVolume& volume )
+BufferedHUVolumeControl< BufferedHUVolume >::BufferedHUVolumeControl( const BufferedHUVolume& volume )
     : volume( volume )
 {
 }
 
 
 template< typename BufferedHUVolume >
-void BufferedHUVolumeManager< BufferedHUVolume >::uploadResources()
+void BufferedHUVolumeControl< BufferedHUVolume >::uploadResources()
 {
     CARNA_ASSERT( myTexture.get() == nullptr );
     myTexture.reset( new Texture3D() );
@@ -80,14 +80,14 @@ void BufferedHUVolumeManager< BufferedHUVolume >::uploadResources()
 
 
 template< typename BufferedHUVolume >
-void BufferedHUVolumeManager< BufferedHUVolume >::deleteResources()
+void BufferedHUVolumeControl< BufferedHUVolume >::deleteResources()
 {
     myTexture.reset();
 }
 
 
 template< typename BufferedHUVolume >
-const Texture3D& BufferedHUVolumeManager< BufferedHUVolume >::texture() const
+const Texture3D& BufferedHUVolumeControl< BufferedHUVolume >::texture() const
 {
     CARNA_ASSERT( myTexture.get() != nullptr );
     return *myTexture;
@@ -101,4 +101,4 @@ const Texture3D& BufferedHUVolumeManager< BufferedHUVolume >::texture() const
 
 }  // namespace Carna
 
-#endif // BUFFEREDHUVOLUMEMANAGER_H_6014714286
+#endif // BUFFEREDHUVOLUMECONTROL_H_6014714286

@@ -40,7 +40,7 @@ namespace view
   *
   * The management of their lifetimes require two basic operations, namely \em uploading content
   * from system to video memory and \em deleting them from video memory at a later point. Both
-  * of these operations must be implemented by an instance of \ref VideoResourcesManager, that
+  * of these operations must be implemented by an instance of \ref VideoResourcesControl, that
   * is taken possession of by each instance of this class.
   *
   * This class uses a greedy strategy for the management: It orders the upload the moment
@@ -59,11 +59,11 @@ class CARNA_LIB GeometryAggregate
 
     std::set< Geometry* > referencingSceneGraphNodes;
 
-    const std::unique_ptr< VideoResourcesManager > vrm;
+    const std::unique_ptr< VideoResourcesControl > vrm;
 
     bool released;
 
-    GeometryAggregate( VideoResourcesManager* vrm );
+    GeometryAggregate( VideoResourcesControl* vrm );
 
     ~GeometryAggregate();
 
@@ -74,7 +74,7 @@ public:
     /** \brief
       * Instantiates. Call \ref release when you do not need the object any longer.
       */
-    static GeometryAggregate& create( VideoResourcesManager* vrm );
+    static GeometryAggregate& create( VideoResourcesControl* vrm );
 
     /** \brief
       * Increments video resource acquisition counter.
@@ -94,7 +94,7 @@ public:
       */
     void releaseVideoResources();
 
-    const VideoResourcesManager& videoResources() const;
+    const VideoResourcesControl& videoResources() const;
 
     /** \brief
       * Denotes that this object is no longer required and may be deleted as soon as it is valid to delete it.

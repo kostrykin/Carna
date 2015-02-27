@@ -9,15 +9,15 @@
  *
  */
 
-#ifndef MESHMANAGER_H_6014714286
-#define MESHMANAGER_H_6014714286
+#ifndef MESHCONTROL_H_6014714286
+#define MESHCONTROL_H_6014714286
 
 #include <Carna/Carna.h>
-#include <Carna/base/view/VideoResourcesManager.h>
+#include <Carna/base/view/VideoResourcesControl.h>
 #include <memory>
 
-/** \file   MeshManager.h
-  * \brief  Defines \ref Carna::base::view::MeshManager.
+/** \file   MeshControl.h
+  * \brief  Defines \ref Carna::base::view::MeshControl.
   */
 
 namespace Carna
@@ -32,18 +32,18 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// MeshManager
+// MeshControl
 // ----------------------------------------------------------------------------------
     
 /** \brief
-  * Abstract base \ref VideoResourcesManager for \ref MeshBase instances.
+  * Abstract base \ref VideoResourcesControl for \ref MeshBase instances.
   *
   * Only \ref createMesh must be implemented s.t. it creates a new mesh instance.
   *
   * \author Leonid Kostrykin
   * \date 25.2.2015
   */
-class CARNA_LIB MeshManager : public VideoResourcesManager
+class CARNA_LIB MeshControl : public VideoResourcesControl
 {
 
     std::unique_ptr< MeshBase > myMesh;
@@ -60,7 +60,7 @@ protected:
 
     virtual MeshBase* createMesh() = 0;
 
-}; // MeshManager
+}; // MeshControl
 
 
 
@@ -70,4 +70,4 @@ protected:
 
 }  // namespace Carna
 
-#endif // MESHMANAGER_H_6014714286
+#endif // MESHCONTROL_H_6014714286

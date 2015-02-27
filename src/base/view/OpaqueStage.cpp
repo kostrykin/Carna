@@ -10,7 +10,7 @@
  */
 
 #include <Carna/base/view/OpaqueStage.h>
-#include <Carna/base/view/MeshManager.h>
+#include <Carna/base/view/MeshControl.h>
 #include <Carna/base/view/Mesh.h>
 
 namespace Carna
@@ -36,8 +36,8 @@ OpaqueStage::OpaqueStage()
 
 void OpaqueStage::render( const Renderable& renderable )
 {
-    const VideoResourcesManager& vrm = renderable.geometry().aggregate( ROLE_DEFAULT_MESH ).videoResources();
-    const MeshManager& meshManager = static_cast< const MeshManager& >( vrm );
+    const VideoResourcesControl& vrm = renderable.geometry().aggregate( ROLE_DEFAULT_MESH ).videoResources();
+    const MeshControl& meshManager = static_cast< const MeshControl& >( vrm );
     
     /* TODO: Activate proper shader, e.g. by querying the corresponding geometry aggregate.
      */

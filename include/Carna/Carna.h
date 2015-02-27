@@ -80,7 +80,7 @@ namespace Carna
             class  GLContext;
             class  IndexBufferBase;
             class  MeshBase;
-            class  MeshManager;
+            class  MeshControl;
             class  Node;
             class  OpaqueStage;
             class  Renderable;
@@ -96,11 +96,11 @@ namespace Carna
             class  ShaderProgram;
             class  Spatial;
             class  Texture3D;
-            class  Texture3DManager;
+            class  Texture3DControl;
             struct VertexBase;
             struct VertexAttribute;
             class  VertexBufferBase;
-            class  VideoResourcesManager;
+            class  VideoResourcesControl;
             class  Viewport;
         }
         

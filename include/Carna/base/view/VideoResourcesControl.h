@@ -9,15 +9,14 @@
  *
  */
 
-#ifndef TEXTURE3DMANAGER_H_6014714286
-#define TEXTURE3DMANAGER_H_6014714286
+#ifndef VIDEORESOURCESCONTROL_H_6014714286
+#define VIDEORESOURCESCONTROL_H_6014714286
 
-#include <Carna/Carna.h>
-#include <Carna/base/view/VideoResourcesManager.h>
-
-/** \file   Texture3DManager.h
-  * \brief  Defines \ref Carna::base::view::Texture3DManager.
+/** \file   VideoResourcesControl.h
+  * \brief  Defines \ref Carna::base::view::VideoResourcesControl.
   */
+
+#include <Carna/base/noncopyable.h>
 
 namespace Carna
 {
@@ -31,17 +30,23 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// Texture3DManager
+// VideoResourcesControl
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB Texture3DManager : public VideoResourcesManager
+class CARNA_LIB VideoResourcesControl
 {
+
+    NON_COPYABLE
 
 public:
 
-    virtual const Texture3D& texture() const = 0;
+    virtual ~VideoResourcesControl();
 
-}; // Texture3DManager
+    virtual void uploadResources() = 0;
+
+    virtual void deleteResources() = 0;
+
+}; // VideoResourcesControl
 
 
 
@@ -51,4 +56,4 @@ public:
 
 }  // namespace Carna
 
-#endif // TEXTURE3DMANAGER_H_6014714286
+#endif // VIDEORESOURCESCONTROL_H_6014714286

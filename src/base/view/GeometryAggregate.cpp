@@ -10,7 +10,7 @@
  */
 
 #include <Carna/base/view/GeometryAggregate.h>
-#include <Carna/base/view/VideoResourcesManager.h>
+#include <Carna/base/view/VideoResourcesControl.h>
 #include <Carna/base/Log.h>
 
 namespace Carna
@@ -28,7 +28,7 @@ namespace view
 // GeometryAggregate
 // ----------------------------------------------------------------------------------
 
-GeometryAggregate::GeometryAggregate( VideoResourcesManager* vrm )
+GeometryAggregate::GeometryAggregate( VideoResourcesControl* vrm )
     : videoResourcesAcquisitions( 0 )
     , vrm( vrm )
     , released( false )
@@ -37,7 +37,7 @@ GeometryAggregate::GeometryAggregate( VideoResourcesManager* vrm )
 }
 
 
-GeometryAggregate& GeometryAggregate::create( VideoResourcesManager* vrm )
+GeometryAggregate& GeometryAggregate::create( VideoResourcesControl* vrm )
 {
     return *new GeometryAggregate( vrm );
 }
@@ -76,7 +76,7 @@ void GeometryAggregate::releaseVideoResources()
 }
 
 
-const VideoResourcesManager& GeometryAggregate::videoResources() const
+const VideoResourcesControl& GeometryAggregate::videoResources() const
 {
     return *vrm;
 }
