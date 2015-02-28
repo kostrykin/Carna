@@ -102,7 +102,7 @@ namespace Carna
             struct VertexBase;
             struct VertexAttribute;
             class  VertexBufferBase;
-            class  VideoResourcesControl;
+            class  VideoResourceControl;
             class  Viewport;
         }
         

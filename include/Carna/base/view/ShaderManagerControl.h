@@ -52,11 +52,13 @@ public:
 
     ShaderManagerControl( const std::string& shaderName );
 
-    virtual void uploadResources() override;
+    virtual void uploadResource() override;
 
-    virtual void deleteResources() override;
+    virtual void deleteResource() override;
 
     virtual const ShaderProgram& shader() const override;
+
+    virtual bool isSameResource( const VideoResourceControl& ) const override;
 
 }; // ShaderManagerControl
 

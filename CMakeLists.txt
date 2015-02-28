@@ -134,7 +134,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/BufferedHUVolumeUploader.h
 		include/${PROJECT_NAME}/base/view/BufferedHUVolumeControl.h
 		include/${PROJECT_NAME}/base/view/GeometryAggregate.h
-		include/${PROJECT_NAME}/base/view/VideoResourcesControl.h
+		include/${PROJECT_NAME}/base/view/VideoResourceControl.h
 		include/${PROJECT_NAME}/base/view/Vertex.h
 		include/${PROJECT_NAME}/base/view/VertexBuffer.h
 		include/${PROJECT_NAME}/base/view/VertexAttributes.h
@@ -200,7 +200,7 @@ set( SRC
 		src/base/view/Viewport.cpp
 		src/base/view/BufferedHUVolumeUploader.cpp
 		src/base/view/GeometryAggregate.cpp
-		src/base/view/VideoResourcesControl.cpp
+		src/base/view/VideoResourceControl.cpp
 		src/base/view/Vertex.cpp
 		src/base/view/VertexBuffer.cpp
 		src/base/view/IndexBuffer.cpp

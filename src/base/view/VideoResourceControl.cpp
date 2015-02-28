@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/view/VideoResourcesControl.h>
+#include <Carna/base/view/VideoResourceControl.h>
 
 namespace Carna
 {
@@ -23,10 +23,10 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// VideoResourcesControl
+// VideoResourceControl
 // ----------------------------------------------------------------------------------
 
-VideoResourcesControl::~VideoResourcesControl()
+VideoResourceControl::~VideoResourceControl()
 {
 }
 

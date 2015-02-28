@@ -37,7 +37,7 @@ namespace view
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Generic \ref VideoResourcesControl for \ref BufferedHUVolume instances.
+  * Generic \ref VideoResourceControl for \ref BufferedHUVolume instances.
   *
   * \author Leonid Kostrykin
   * \date 22.2.2015
@@ -54,11 +54,13 @@ public:
 
     BufferedHUVolumeControl( const BufferedHUVolume& );
 
-    virtual void uploadResources() override;
+    virtual void uploadResource() override;
 
-    virtual void deleteResources() override;
+    virtual void deleteResource() override;
 
     virtual const Texture3D& texture() const override;
+
+    bool isSameResource( const VideoResourceControl& ) const override;
 
 }; // BufferedHUVolumeControl
 
@@ -71,7 +73,7 @@ BufferedHUVolumeControl< BufferedHUVolume >::BufferedHUVolumeControl( const Buff
 
 
 template< typename BufferedHUVolume >
-void BufferedHUVolumeControl< BufferedHUVolume >::uploadResources()
+void BufferedHUVolumeControl< BufferedHUVolume >::uploadResource()
 {
     CARNA_ASSERT( myTexture.get() == nullptr );
     myTexture.reset( new Texture3D() );
@@ -80,7 +82,7 @@ void BufferedHUVolumeControl< BufferedHUVolume >::uploadResources()
 
 
 template< typename BufferedHUVolume >
-void BufferedHUVolumeControl< BufferedHUVolume >::deleteResources()
+void BufferedHUVolumeControl< BufferedHUVolume >::deleteResource()
 {
     myTexture.reset();
 }
@@ -91,6 +93,22 @@ const Texture3D& BufferedHUVolumeControl< BufferedHUVolume >::texture() const
 {
     CARNA_ASSERT( myTexture.get() != nullptr );
     return *myTexture;
+}
+
+
+template< typename BufferedHUVolume >
+bool BufferedHUVolumeControl< BufferedHUVolume >::isSameResource( const VideoResourceControl& other ) const
+{
+    typedef BufferedHUVolumeControl< typename BufferedHUVolume > MyType;
+    const MyType* const other2 = dynamic_cast< const MyType* >( &other );
+    if( other2 == nullptr )
+    {
+        return false;
+    }
+    else
+    {
+        return &volume == &other2->volume;
+    }
 }
 
 

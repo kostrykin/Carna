@@ -10,7 +10,7 @@
  */
 
 #include <Carna/base/view/GeometryAggregate.h>
-#include <Carna/base/view/VideoResourcesControl.h>
+#include <Carna/base/view/VideoResourceControl.h>
 #include <Carna/base/Log.h>
 
 namespace Carna
@@ -28,7 +28,7 @@ namespace view
 // GeometryAggregate
 // ----------------------------------------------------------------------------------
 
-GeometryAggregate::GeometryAggregate( VideoResourcesControl* vrc )
+GeometryAggregate::GeometryAggregate( VideoResourceControl* vrc )
     : videoResourcesAcquisitions( 0 )
     , vrc( vrc )
     , released( false )
@@ -37,7 +37,7 @@ GeometryAggregate::GeometryAggregate( VideoResourcesControl* vrc )
 }
 
 
-GeometryAggregate& GeometryAggregate::create( VideoResourcesControl* vrc )
+GeometryAggregate& GeometryAggregate::create( VideoResourceControl* vrc )
 {
     return *new GeometryAggregate( vrc );
 }
@@ -48,7 +48,7 @@ GeometryAggregate::~GeometryAggregate()
     if( videoResourcesAcquisitions != 0 )
     {
         Log::instance().record( Log::error, "GeometryAggregate deleted while video resources still acquired!" );
-        vrc->deleteResources();
+        vrc->deleteResource();
     }
 }
 
@@ -57,7 +57,7 @@ void GeometryAggregate::acquireVideoResources()
 {
     if( ++videoResourcesAcquisitions == 1 )
     {
-        vrc->uploadResources();
+        vrc->uploadResource();
     }
 }
 
@@ -67,7 +67,7 @@ void GeometryAggregate::releaseVideoResources()
     CARNA_ASSERT( videoResourcesAcquisitions > 0 );
     if( --videoResourcesAcquisitions == 0 )
     {
-        vrc->deleteResources();
+        vrc->deleteResource();
         if( released )
         {
             deleteIfAllowed();
@@ -76,7 +76,7 @@ void GeometryAggregate::releaseVideoResources()
 }
 
 
-const VideoResourcesControl& GeometryAggregate::videoResources() const
+const VideoResourceControl& GeometryAggregate::videoResources() const
 {
     return *vrc;
 }

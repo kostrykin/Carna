@@ -13,7 +13,7 @@
 #define MESHCONTROL_H_6014714286
 
 #include <Carna/Carna.h>
-#include <Carna/base/view/VideoResourcesControl.h>
+#include <Carna/base/view/VideoResourceControl.h>
 #include <memory>
 
 /** \file   MeshControl.h
@@ -36,25 +36,27 @@ namespace view
 // ----------------------------------------------------------------------------------
     
 /** \brief
-  * Abstract base \ref VideoResourcesControl for \ref MeshBase instances.
+  * Abstract base \ref VideoResourceControl for \ref MeshBase instances.
   *
   * Only \ref createMesh must be implemented s.t. it creates a new mesh instance.
   *
   * \author Leonid Kostrykin
   * \date 25.2.2015
   */
-class CARNA_LIB MeshControl : public VideoResourcesControl
+class CARNA_LIB MeshControl : public VideoResourceControl
 {
 
     std::unique_ptr< MeshBase > myMesh;
 
 public:
 
-    virtual void uploadResources() override;
+    virtual void uploadResource() override;
 
-    virtual void deleteResources() override;
+    virtual void deleteResource() override;
 
     const MeshBase& mesh() const;
+
+    bool isSameResource( const VideoResourceControl& ) const override;
 
 protected:
 

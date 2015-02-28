@@ -34,14 +34,14 @@ ShaderManagerControl::ShaderManagerControl( const std::string& shaderName )
 }
 
 
-void ShaderManagerControl::uploadResources()
+void ShaderManagerControl::uploadResource()
 {
     CARNA_ASSERT( myShader == nullptr );
     myShader = &ShaderManager::instance().acquireShader( shaderName );
 }
 
 
-void ShaderManagerControl::deleteResources()
+void ShaderManagerControl::deleteResource()
 {
     CARNA_ASSERT( myShader != nullptr );
     ShaderManager::instance().releaseShader( *myShader );
@@ -52,6 +52,20 @@ const ShaderProgram& ShaderManagerControl::shader() const
 {
     CARNA_ASSERT( myShader != nullptr );
     return *myShader;
+}
+
+
+bool ShaderManagerControl::isSameResource( const VideoResourceControl& other ) const
+{
+    const ShaderManagerControl* const smcOther = dynamic_cast< const ShaderManagerControl* >( &other );
+    if( smcOther == nullptr )
+    {
+        return false;
+    }
+    else
+    {
+        return smcOther->shaderName == shaderName;
+    }
 }
 
 

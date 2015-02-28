@@ -13,7 +13,7 @@
 #define SHADERCONTROL_H_6014714286
 
 #include <Carna/Carna.h>
-#include <Carna/base/view/VideoResourcesControl.h>
+#include <Carna/base/view/VideoResourceControl.h>
 #include <memory>
 
 /** \file   ShaderControl.h
@@ -36,7 +36,7 @@ namespace view
 // ----------------------------------------------------------------------------------
     
 /** \brief
-  * Abstract base \ref VideoResourcesControl for \ref ShaderProgram instances.
+  * Abstract base \ref VideoResourceControl for \ref ShaderProgram instances.
   *
   * \see
   * \ref ShaderManagerControl is an adapter-like implementation of this class
@@ -45,7 +45,7 @@ namespace view
   * \author Leonid Kostrykin
   * \date 27.2.2015
   */
-class ShaderControl : public VideoResourcesControl
+class ShaderControl : public VideoResourceControl
 {
 
 public:

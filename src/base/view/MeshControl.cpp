@@ -28,14 +28,14 @@ namespace view
 // MeshControl
 // ----------------------------------------------------------------------------------
 
-void MeshControl::uploadResources()
+void MeshControl::uploadResource()
 {
     CARNA_ASSERT( myMesh.get() == nullptr );
     myMesh.reset( createMesh() );
 }
 
 
-void MeshControl::deleteResources()
+void MeshControl::deleteResource()
 {
     myMesh.reset();
 }
@@ -45,6 +45,12 @@ const MeshBase& MeshControl::mesh() const
 {
     CARNA_ASSERT( myMesh.get() != nullptr );
     return *myMesh;
+}
+
+
+bool MeshControl::isSameResource( const VideoResourceControl& ) const
+{
+    return false;
 }
 
 

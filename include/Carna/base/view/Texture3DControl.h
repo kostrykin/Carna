@@ -13,7 +13,7 @@
 #define TEXTURE3DCONTROL_H_6014714286
 
 #include <Carna/Carna.h>
-#include <Carna/base/view/VideoResourcesControl.h>
+#include <Carna/base/view/VideoResourceControl.h>
 
 /** \file   Texture3DControl.h
   * \brief  Defines \ref Carna::base::view::Texture3DControl.
@@ -34,7 +34,7 @@ namespace view
 // Texture3DControl
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB Texture3DControl : public VideoResourcesControl
+class CARNA_LIB Texture3DControl : public VideoResourceControl
 {
 
 public:
