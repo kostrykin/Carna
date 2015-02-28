@@ -81,7 +81,7 @@ void MeshRenderingStage< geometryType, RenderableCompare >::render( GLContext& g
     const ShaderControl& shaderControl = renderable.geometry().controlByRole< ShaderControl >( renderable );
     glc.setShader( shaderControl.shader() );
 
-    const MeshControl& meshControl = renderable.geometry().controlByRole< MeshControl >( renderable );   
+    const MeshManager& meshControl = renderable.geometry().controlByRole< MeshManager >( renderable );   
     meshControl.mesh().render();
 }
 

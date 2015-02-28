@@ -11,7 +11,7 @@
 #include <Carna/base/view/Camera.h>
 #include <Carna/base/view/Geometry.h>
 #include <Carna/base/view/GeometryAggregate.h>
-#include <Carna/base/view/BufferedHUVolumeControl.h>
+#include <Carna/base/view/BufferedHUVolumeManager.h>
 #include <Carna/base/view/MeshRenderingStage.h>
 #include <Carna/VolumeRenderings/MIP/MIPStage.h>
 #include <Carna/VolumeRenderings/MIP/Channel.h>
@@ -167,7 +167,7 @@ void Demo::initializeGL()
 
     base::view::Geometry* const volumeGeometry = new base::view::Geometry( VolumeRenderings::MIP::MIPStage::GEOMETRY_TYPE );
     volumeGeometry->putAggregate
-        ( base::view::GeometryAggregate::create( new base::view::BufferedHUVolumeControl< base::model::UInt16HUVolume >( *volume ) )
+        ( base::view::BufferedHUVolumeManager< base::model::UInt16HUVolume >::create( *volume )
         , VolumeRenderings::MIP::MIPStage::ROLE_HU_VOLUME );
 
     base::view::Node* const volumePivot = new base::view::Node();

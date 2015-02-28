@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/view/VideoResourceControl.h>
+#include <Carna/base/view/MeshManager.h>
 
 namespace Carna
 {
@@ -23,11 +23,18 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// VideoResourceControl
+// MeshManager
 // ----------------------------------------------------------------------------------
 
-VideoResourceControl::~VideoResourceControl()
+MeshManager::MeshManager( const std::function< MeshBase*() >& createMesh )
+    : VideoResourceManagerBase::VideoResourceManagerBase( createMesh )
 {
+}
+
+
+MeshBase* MeshManager::createResource()
+{
+    return source();
 }
 
 

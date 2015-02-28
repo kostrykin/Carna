@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/view/ShaderManagerControl.h>
+#include <Carna/base/view/ShaderResource.h>
 #include <Carna/base/view/ShaderManager.h>
 #include <Carna/base/CarnaException.h>
 
@@ -25,39 +25,47 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// ShaderManagerControl
+// ShaderResource
 // ----------------------------------------------------------------------------------
 
-ShaderManagerControl::ShaderManagerControl( const std::string& shaderName )
+ShaderResource::ShaderResource( const std::string& shaderName )
     : shaderName( shaderName )
 {
 }
 
 
-void ShaderManagerControl::uploadResource()
+ShaderResource& ShaderResource::create( const std::string& shaderName )
+{
+    return *new ShaderResource( shaderName );
+}
+
+
+void ShaderResource::acquireVideoResource()
 {
     CARNA_ASSERT( myShader == nullptr );
+    GeometryAggregate::acquireVideoResource();
     myShader = &ShaderManager::instance().acquireShader( shaderName );
 }
 
 
-void ShaderManagerControl::deleteResource()
+void ShaderResource::releaseVideoResource()
 {
     CARNA_ASSERT( myShader != nullptr );
     ShaderManager::instance().releaseShader( *myShader );
+    GeometryAggregate::releaseVideoResource();
 }
 
 
-const ShaderProgram& ShaderManagerControl::shader() const
+const ShaderProgram& ShaderResource::shader() const
 {
     CARNA_ASSERT( myShader != nullptr );
     return *myShader;
 }
 
 
-bool ShaderManagerControl::isSameResource( const VideoResourceControl& other ) const
+bool ShaderResource::controlsSameVideoResource( const GeometryAggregate& other ) const
 {
-    const ShaderManagerControl* const smcOther = dynamic_cast< const ShaderManagerControl* >( &other );
+    const ShaderResource* const smcOther = dynamic_cast< const ShaderResource* >( &other );
     if( smcOther == nullptr )
     {
         return false;

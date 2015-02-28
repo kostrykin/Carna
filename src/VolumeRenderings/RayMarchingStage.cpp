@@ -13,7 +13,7 @@
 #include <Carna/base/view/Mesh.h>
 #include <Carna/base/view/Vertex.h>
 #include <Carna/base/view/IndexBuffer.h>
-#include <Carna/base/view/Texture3DControl.h>
+#include <Carna/base/view/Texture3DManager.h>
 #include <Carna/base/view/ShaderManager.h>
 #include <Carna/base/view/RenderState.h>
 #include <Carna/base/math.h>
@@ -112,11 +112,10 @@ void RayMarchingStage::VideoResources::renderSlice
     std::vector< unsigned int > roles;
     renderable.geometry().visitAggregates( [&]( base::view::GeometryAggregate& ga, unsigned int role )
         {
-            if( dynamic_cast< const base::view::Texture3DControl* >( &ga.videoResources() ) != nullptr )
+            if( dynamic_cast< base::view::Texture3DManager* >( &ga ) != nullptr )
             {
-                const base::view::Texture3DControl& textureManager
-                    = static_cast< const base::view::Texture3DControl& >( ga.videoResources() );
-                textureManager.texture().bind( ++lastUnit );
+                const base::view::Texture3DManager& textureManager = static_cast< const base::view::Texture3DManager& >( ga );
+                textureManager.resource().bind( ++lastUnit );
                 samplers[ role ]->bind( lastUnit );
                 roles.push_back( role );
             }

@@ -9,15 +9,7 @@
  *
  */
 
-#ifndef TEXTURE3DCONTROL_H_6014714286
-#define TEXTURE3DCONTROL_H_6014714286
-
-#include <Carna/Carna.h>
-#include <Carna/base/view/VideoResourceControl.h>
-
-/** \file   Texture3DControl.h
-  * \brief  Defines \ref Carna::base::view::Texture3DControl.
-  */
+#include <Carna/base/view/Texture3DManager.h>
 
 namespace Carna
 {
@@ -31,17 +23,19 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// Texture3DControl
+// Texture3DManager
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB Texture3DControl : public VideoResourceControl
+Texture3DManager::Texture3DManager( const std::function< Texture3D*() >& createTexture )
+    : VideoResourceManagerBase::VideoResourceManagerBase( createTexture )
 {
+}
 
-public:
 
-    virtual const Texture3D& texture() const = 0;
-
-}; // Texture3DControl
+Texture3D* Texture3DManager::createResource()
+{
+    return source();
+}
 
 
 
@@ -50,5 +44,3 @@ public:
 }  // namespace Carna :: base
 
 }  // namespace Carna
-
-#endif // TEXTURE3DCONTROL_H_6014714286

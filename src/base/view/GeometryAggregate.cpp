@@ -10,7 +10,7 @@
  */
 
 #include <Carna/base/view/GeometryAggregate.h>
-#include <Carna/base/view/VideoResourceControl.h>
+#include <Carna/base/view/VideoResourceManager.h>
 #include <Carna/base/Log.h>
 
 namespace Carna
@@ -28,46 +28,39 @@ namespace view
 // GeometryAggregate
 // ----------------------------------------------------------------------------------
 
-GeometryAggregate::GeometryAggregate( VideoResourceControl* vrc )
-    : videoResourcesAcquisitions( 0 )
-    , vrc( vrc )
+GeometryAggregate::GeometryAggregate()
+    : myVideoResourceAcquisitions( 0 )
     , released( false )
 {
-    CARNA_ASSERT( vrc != nullptr );
-}
-
-
-GeometryAggregate& GeometryAggregate::create( VideoResourceControl* vrc )
-{
-    return *new GeometryAggregate( vrc );
 }
 
 
 GeometryAggregate::~GeometryAggregate()
 {
-    if( videoResourcesAcquisitions != 0 )
+    if( myVideoResourceAcquisitions != 0 )
     {
         Log::instance().record( Log::error, "GeometryAggregate deleted while video resources still acquired!" );
-        vrc->deleteResource();
     }
 }
 
 
-void GeometryAggregate::acquireVideoResources()
+unsigned int GeometryAggregate::videoResourceAcquisitionsCount() const
 {
-    if( ++videoResourcesAcquisitions == 1 )
-    {
-        vrc->uploadResource();
-    }
+    return myVideoResourceAcquisitions;
 }
 
 
-void GeometryAggregate::releaseVideoResources()
+void GeometryAggregate::acquireVideoResource()
 {
-    CARNA_ASSERT( videoResourcesAcquisitions > 0 );
-    if( --videoResourcesAcquisitions == 0 )
+    ++myVideoResourceAcquisitions;
+}
+
+
+void GeometryAggregate::releaseVideoResource()
+{
+    CARNA_ASSERT( myVideoResourceAcquisitions > 0 );
+    if( --myVideoResourceAcquisitions == 0 )
     {
-        vrc->deleteResource();
         if( released )
         {
             deleteIfAllowed();
@@ -76,15 +69,9 @@ void GeometryAggregate::releaseVideoResources()
 }
 
 
-const VideoResourceControl& GeometryAggregate::videoResources() const
-{
-    return *vrc;
-}
-
-
 bool GeometryAggregate::deleteIfAllowed()
 {
-    if( videoResourcesAcquisitions == 0 && referencingSceneGraphNodes.empty() )
+    if( myVideoResourceAcquisitions == 0 && referencingSceneGraphNodes.empty() )
     {
         delete this;
         return true;

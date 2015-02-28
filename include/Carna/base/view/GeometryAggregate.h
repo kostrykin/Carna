@@ -40,12 +40,12 @@ namespace view
   *
   * The management of their lifetimes require two basic operations, namely \em uploading content
   * from system to video memory and \em deleting them from video memory at a later point. Both
-  * of these operations must be implemented by an instance of \ref VideoResourceControl, that
+  * of these operations must be implemented by an instance of \ref VideoResourceManager, that
   * is taken possession of by each instance of this class.
   *
   * This class uses a greedy strategy for the management: It orders the upload the moment
-  * \ref acquireVideoResources "it is first told that the video resources are required" and it
-  * deletes them as soon as \ref releaseVideoResources "it is told that they are no longer required".
+  * \ref acquireVideoResource "it is first told that the video resources are required" and it
+  * deletes them as soon as \ref releaseVideoResource "it is told that they are no longer required".
   *
   * \author Leonid Kostrykin
   * \date   23.2.2015
@@ -55,26 +55,28 @@ class CARNA_LIB GeometryAggregate
 
     NON_COPYABLE
 
-    unsigned int videoResourcesAcquisitions;
+    unsigned int myVideoResourceAcquisitions;
 
     std::set< Geometry* > referencingSceneGraphNodes;
 
-    const std::unique_ptr< VideoResourceControl > vrc;
-
     bool released;
-
-    GeometryAggregate( VideoResourceControl* vrc );
-
-    ~GeometryAggregate();
 
     bool deleteIfAllowed();
 
+protected:
+
+    GeometryAggregate();
+
+    virtual ~GeometryAggregate();
+
 public:
+
+    unsigned int videoResourceAcquisitionsCount() const;
 
     /** \brief
       * Instantiates. Call \ref release when you do not need the object any longer.
       */
-    static GeometryAggregate& create( VideoResourceControl* vrm );
+    //static GeometryAggregate& create();
 
     /** \brief
       * Increments video resource acquisition counter.
@@ -83,7 +85,7 @@ public:
       * \important
       * The caller must ensure that this method is called while proper OpenGL context is active.
       */
-    void acquireVideoResources();
+    virtual void acquireVideoResource();
     
     /** \brief
       * Decrements video resource acquisition counter.
@@ -92,9 +94,9 @@ public:
       * \important
       * The caller must ensure that this method is called while proper OpenGL context is active.
       */
-    void releaseVideoResources();
+    virtual void releaseVideoResource();
 
-    const VideoResourceControl& videoResources() const;
+    virtual bool controlsSameVideoResource( const GeometryAggregate& ) const = 0;
 
     /** \brief
       * Denotes that this object is no longer required and may be deleted as soon as it is valid to delete it.

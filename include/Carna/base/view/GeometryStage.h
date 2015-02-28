@@ -92,7 +92,7 @@ GeometryStage< RenderableCompare >::~GeometryStage()
     activateGLContext();
     std::for_each( acquiredVideoResources.begin(), acquiredVideoResources.end(), [&]( GeometryAggregate* ga )
         {
-            ga->releaseVideoResources();
+            ga->releaseVideoResource();
         }
     );
 }
@@ -148,7 +148,7 @@ void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewT
                      */
                     if( acquiredVideoResources.find( &ga ) == acquiredVideoResources.end() )
                     {
-                        ga.acquireVideoResources();
+                        ga.acquireVideoResource();
                         acquiredVideoResources.insert( &ga );
                     }
                 }

@@ -75,7 +75,7 @@ public:
 
     /** \brief
       * Establishes partial order for renderables s.t.
-      * geometries with same \ref VideoResourceControl instances are grouped together.
+      * geometries with same \ref VideoResourceManager instances are grouped together.
       */
     template< unsigned int role >
     struct VideoResourcesOrder
@@ -96,8 +96,8 @@ bool Renderable::DepthOrder< order >::operator()( const Renderable& l, const Ren
 template< unsigned int role >
 bool Renderable::VideoResourcesOrder< role >::operator()( const Renderable& l, const Renderable& r ) const
 {
-    const VideoResourceControl& vrcL = l.geometry().aggregate( role ).videoResources();
-    const VideoResourceControl& vrcR = r.geometry().aggregate( role ).videoResources();
+    const VideoResourceManager& vrcL = l.geometry().aggregate( role ).videoResources();
+    const VideoResourceManager& vrcR = r.geometry().aggregate( role ).videoResources();
     if( vrcL.isSameResource( vrcR ) )
     {
         return false;
