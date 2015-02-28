@@ -46,24 +46,28 @@ class MeshFactory
 
 public:
 
-    static Mesh< Vertex, uint8_t >* createBox( float sizeX, float sizeY, float sizeZ );
+    static Mesh< Vertex, uint8_t >& createBox( float sizeX, float sizeY, float sizeZ );
 
 }; // MeshFactory
 
 
 template< typename Vertex >
 template< typename Vector >
-Vertex MeshBase< Vertex >::vertex( const Vector& v )
+Vertex MeshFactory< Vertex >::vertex( const Vector& v )
 {
-    return Vertex( v.x(), v.y(), v.z(), 1 );
+    Vertex vertex;
+    vertex.x = v.x();
+    vertex.y = v.y();
+    vertex.z = v.z();
+    return vertex;
 }
 
 
 template< typename Vertex >
-Mesh< Vertex, uint8_t >* MeshBase< Vertex >::createBox( float sizeX, float sizeY, float sizeZ )
+Mesh< Vertex, uint8_t >& MeshFactory< Vertex >::createBox( float sizeX, float sizeY, float sizeZ )
 {
     typedef Mesh< Vertex, uint8_t > MeshInstance;
-    MeshInstance* const mesh = new MeshInstance( IndexBufferBase::PRIMITIVE_TYPE_TRIANGLES );
+    MeshInstance& mesh = MeshInstance::create( IndexBufferBase::PRIMITIVE_TYPE_TRIANGLES );
 
     const math::Matrix4f baseTransform = math::scaling4f( sizeX / 2, sizeY / 2, sizeZ / 2 );
 
@@ -105,8 +109,8 @@ Mesh< Vertex, uint8_t >* MeshBase< Vertex >::createBox( float sizeX, float sizeY
         indices[ ++lastIndex ] = lastVertex - 1;
     }
 
-    mesh->vertexBuffer().copy( vertices, verticesCount );
-    mesh->indexBuffer().copy (  indices,  indicesCount );
+    mesh.vertexBuffer().copy( vertices, verticesCount );
+    mesh. indexBuffer().copy(  indices,  indicesCount );
     return mesh;
 }
 

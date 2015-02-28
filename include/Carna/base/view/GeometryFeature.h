@@ -9,11 +9,11 @@
  *
  */
 
-#ifndef GEOMETRYAGGREGATE_H_6014714286
-#define GEOMETRYAGGREGATE_H_6014714286
+#ifndef GEOMETRYFEATURE_H_6014714286
+#define GEOMETRYFEATURE_H_6014714286
 
-/** \file   GeometryAggregate.h
-  * \brief  Defines \ref Carna::base::view::GeometryAggregate.
+/** \file   GeometryFeature.h
+  * \brief  Defines \ref Carna::base::view::GeometryFeature.
   */
 
 #include <Carna/base/noncopyable.h>
@@ -31,7 +31,7 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// GeometryAggregate
+// GeometryFeature
 // ----------------------------------------------------------------------------------
 
 /** \brief
@@ -50,7 +50,7 @@ namespace view
   * \author Leonid Kostrykin
   * \date   23.2.2015
   */
-class CARNA_LIB GeometryAggregate
+class CARNA_LIB GeometryFeature
 {
 
     NON_COPYABLE
@@ -65,9 +65,9 @@ class CARNA_LIB GeometryAggregate
 
 protected:
 
-    GeometryAggregate();
+    GeometryFeature();
 
-    virtual ~GeometryAggregate();
+    virtual ~GeometryFeature();
 
 public:
 
@@ -76,7 +76,7 @@ public:
     /** \brief
       * Instantiates. Call \ref release when you do not need the object any longer.
       */
-    //static GeometryAggregate& create();
+    //static GeometryFeature& create();
 
     /** \brief
       * Increments video resource acquisition counter.
@@ -96,7 +96,7 @@ public:
       */
     virtual void releaseVideoResource();
 
-    virtual bool controlsSameVideoResource( const GeometryAggregate& ) const = 0;
+    virtual bool controlsSameVideoResource( const GeometryFeature& ) const = 0;
 
     /** \brief
       * Denotes that this object is no longer required and may be deleted as soon as it is valid to delete it.
@@ -123,7 +123,7 @@ public:
       */
     void removeFrom( Geometry& sceneGraphNode );
 
-}; // GeometryAggregate
+}; // GeometryFeature
 
 
 
@@ -133,4 +133,4 @@ public:
 
 }  // namespace Carna
 
-#endif // GEOMETRYDEFINITION_H_6014714286
+#endif // GEOMETRYFEATURE_H_6014714286

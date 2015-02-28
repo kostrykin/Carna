@@ -10,7 +10,7 @@
  */
 
 #include <Carna/base/view/Geometry.h>
-#include <Carna/base/view/GeometryAggregate.h>
+#include <Carna/base/view/GeometryFeature.h>
 #include <Carna/base/CarnaException.h>
 #include <vector>
 #include <map>
@@ -32,8 +32,8 @@ namespace view
 
 struct Geometry::Details
 {
-    std::map< unsigned int, GeometryAggregate* > aggregateByRole;
-    std::map< GeometryAggregate*, unsigned int > roleByAggregate;
+    std::map< unsigned int, GeometryFeature* > featureByRole;
+    std::map< GeometryFeature*, unsigned int > roleByFeature;
 };
 
 
@@ -51,112 +51,112 @@ Geometry::Geometry( int geometryType )
 
 Geometry::~Geometry()
 {
-    clearAggregates();
+    clearFeatures();
 }
 
 
-void Geometry::clearAggregates()
+void Geometry::clearFeatures()
 {
-    std::vector< GeometryAggregate* > aggregates( pimpl->aggregateByRole.size() );
-    unsigned int aggregateIdx = 0;
-    for( auto aggregateItr = pimpl->aggregateByRole.begin(); aggregateItr != pimpl->aggregateByRole.end(); ++aggregateItr )
+    std::vector< GeometryFeature* > features( pimpl->featureByRole.size() );
+    unsigned int featureIdx = 0;
+    for( auto featureItr = pimpl->featureByRole.begin(); featureItr != pimpl->featureByRole.end(); ++featureItr )
     {
-        aggregates[ aggregateIdx++ ] = aggregateItr->second;
+        features[ featureIdx++ ] = featureItr->second;
     }
-    pimpl->aggregateByRole.clear();
-    pimpl->roleByAggregate.clear();
-    for( auto aggregateItr = aggregates.begin(); aggregateItr != aggregates.end(); ++aggregateItr )
+    pimpl->featureByRole.clear();
+    pimpl->roleByFeature.clear();
+    for( auto featureItr = features.begin(); featureItr != features.end(); ++featureItr )
     {
-        GeometryAggregate* const ga = *aggregateItr;
+        GeometryFeature* const ga = *featureItr;
         ga->removeFrom( *this );
     }
 }
 
 
-void Geometry::visitAggregates( const std::function< void( GeometryAggregate& ga, unsigned int role ) >& visit ) const
+void Geometry::visitFeatures( const std::function< void( GeometryFeature& gf, unsigned int role ) >& visit ) const
 {
-    for( auto aggregateItr = pimpl->aggregateByRole.begin(); aggregateItr != pimpl->aggregateByRole.end(); ++aggregateItr )
+    for( auto featureItr = pimpl->featureByRole.begin(); featureItr != pimpl->featureByRole.end(); ++featureItr )
     {
-        visit( *aggregateItr->second, aggregateItr->first );
+        visit( *featureItr->second, featureItr->first );
     }
 }
 
 
-void Geometry::putAggregate( GeometryAggregate& ga, unsigned int role )
+void Geometry::putFeature( unsigned int role, GeometryFeature& gf )
 {
-    const auto aggregateByRoleItr = pimpl->aggregateByRole.find( role );
-    if( aggregateByRoleItr != pimpl->aggregateByRole.end() && aggregateByRoleItr->second != &ga )
+    const auto featureByRoleItr = pimpl->featureByRole.find( role );
+    if( featureByRoleItr != pimpl->featureByRole.end() && featureByRoleItr->second != &gf )
     {
-        /* Given role is already occupied by another aggregate.
+        /* Given role is already occupied by another feature.
          */
-        removeAggregate( role );
+        removeFeature( role );
     }
-    const auto roleByAggregateItr = pimpl->roleByAggregate.find( &ga );
-    if( roleByAggregateItr != pimpl->roleByAggregate.end() && roleByAggregateItr->second != role )
+    const auto roleByFeatureItr = pimpl->roleByFeature.find( &gf );
+    if( roleByFeatureItr != pimpl->roleByFeature.end() && roleByFeatureItr->second != role )
     {
-        /* Given aggregate already occupies another role.
+        /* Given feature already occupies another role.
          */
-        removeAggregate( ga );
+        removeFeature( gf );
     }
-    const std::size_t size0 = pimpl->aggregateByRole.size();
-    pimpl->aggregateByRole[ role ] = &ga;
-    pimpl->roleByAggregate[ &ga ] = role;
-    if( size0 != pimpl->aggregateByRole.size() )
+    const std::size_t size0 = pimpl->featureByRole.size();
+    pimpl->featureByRole[ role ] = &gf;
+    pimpl->roleByFeature[ &gf ] = role;
+    if( size0 != pimpl->featureByRole.size() )
     {
-        ga.addTo( *this, role );
+        gf.addTo( *this, role );
     }
 }
 
 
-void Geometry::removeAggregate( GeometryAggregate& ga )
+void Geometry::removeFeature( GeometryFeature& gf )
 {
-    const auto aggregateItr = pimpl->roleByAggregate.find( &ga );
-    if( aggregateItr != pimpl->roleByAggregate.end() )
+    const auto featureItr = pimpl->roleByFeature.find( &gf );
+    if( featureItr != pimpl->roleByFeature.end() )
     {
-        const unsigned int role = aggregateItr->second;
-        pimpl->roleByAggregate.erase( aggregateItr );
-        pimpl->aggregateByRole.erase( role );
-        ga.removeFrom( *this );
+        const unsigned int role = featureItr->second;
+        pimpl->roleByFeature.erase( featureItr );
+        pimpl->featureByRole.erase( role );
+        gf.removeFrom( *this );
     }
 }
 
 
-void Geometry::removeAggregate( unsigned int role )
+void Geometry::removeFeature( unsigned int role )
 {
-    const auto aggregateItr = pimpl->aggregateByRole.find( role );
-    if( aggregateItr != pimpl->aggregateByRole.end() )
+    const auto featureItr = pimpl->featureByRole.find( role );
+    if( featureItr != pimpl->featureByRole.end() )
     {
-        GeometryAggregate* const ga = aggregateItr->second;
-        pimpl->roleByAggregate.erase( ga );
-        pimpl->aggregateByRole.erase( aggregateItr );
-        ga->removeFrom( *this );
+        GeometryFeature* const gf = featureItr->second;
+        pimpl->roleByFeature.erase( gf );
+        pimpl->featureByRole.erase( featureItr );
+        gf->removeFrom( *this );
     }
 }
 
 
-bool Geometry::hasAggregate( const GeometryAggregate& ga ) const
+bool Geometry::hasFeature( const GeometryFeature& gf ) const
 {
-    return pimpl->roleByAggregate.find( const_cast< GeometryAggregate* >( &ga ) ) != pimpl->roleByAggregate.end();
+    return pimpl->roleByFeature.find( const_cast< GeometryFeature* >( &gf ) ) != pimpl->roleByFeature.end();
 }
 
 
-bool Geometry::hasAggregate( unsigned int role ) const
+bool Geometry::hasFeature( unsigned int role ) const
 {
-    return pimpl->aggregateByRole.find( role ) != pimpl->aggregateByRole.end();
+    return pimpl->featureByRole.find( role ) != pimpl->featureByRole.end();
 }
 
 
-GeometryAggregate& Geometry::aggregate( unsigned int role ) const
+GeometryFeature& Geometry::feature( unsigned int role ) const
 {
-    const auto aggregateItr = pimpl->aggregateByRole.find( role );
-    CARNA_ASSERT( aggregateItr != pimpl->aggregateByRole.end() );
-    return *aggregateItr->second;
+    const auto featureItr = pimpl->featureByRole.find( role );
+    CARNA_ASSERT( featureItr != pimpl->featureByRole.end() );
+    return *featureItr->second;
 }
 
 
-std::size_t Geometry::aggregatesCount() const
+std::size_t Geometry::featuresCount() const
 {
-    return pimpl->aggregateByRole.size();
+    return pimpl->featureByRole.size();
 }
 
 

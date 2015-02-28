@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/view/GeometryAggregate.h>
+#include <Carna/base/view/GeometryFeature.h>
 #include <Carna/base/view/VideoResourceManager.h>
 #include <Carna/base/Log.h>
 
@@ -25,38 +25,38 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// GeometryAggregate
+// GeometryFeature
 // ----------------------------------------------------------------------------------
 
-GeometryAggregate::GeometryAggregate()
+GeometryFeature::GeometryFeature()
     : myVideoResourceAcquisitions( 0 )
     , released( false )
 {
 }
 
 
-GeometryAggregate::~GeometryAggregate()
+GeometryFeature::~GeometryFeature()
 {
     if( myVideoResourceAcquisitions != 0 )
     {
-        Log::instance().record( Log::error, "GeometryAggregate deleted while video resources still acquired!" );
+        Log::instance().record( Log::error, "GeometryFeature deleted while video resources still acquired!" );
     }
 }
 
 
-unsigned int GeometryAggregate::videoResourceAcquisitionsCount() const
+unsigned int GeometryFeature::videoResourceAcquisitionsCount() const
 {
     return myVideoResourceAcquisitions;
 }
 
 
-void GeometryAggregate::acquireVideoResource()
+void GeometryFeature::acquireVideoResource()
 {
     ++myVideoResourceAcquisitions;
 }
 
 
-void GeometryAggregate::releaseVideoResource()
+void GeometryFeature::releaseVideoResource()
 {
     CARNA_ASSERT( myVideoResourceAcquisitions > 0 );
     if( --myVideoResourceAcquisitions == 0 )
@@ -69,7 +69,7 @@ void GeometryAggregate::releaseVideoResource()
 }
 
 
-bool GeometryAggregate::deleteIfAllowed()
+bool GeometryFeature::deleteIfAllowed()
 {
     if( myVideoResourceAcquisitions == 0 && referencingSceneGraphNodes.empty() )
     {
@@ -83,7 +83,7 @@ bool GeometryAggregate::deleteIfAllowed()
 }
 
 
-void GeometryAggregate::release()
+void GeometryFeature::release()
 {
     CARNA_ASSERT( !released );
     if( !deleteIfAllowed() )
@@ -93,24 +93,24 @@ void GeometryAggregate::release()
 }
 
 
-void GeometryAggregate::addTo( Geometry& sceneGraphNode, unsigned int role )
+void GeometryFeature::addTo( Geometry& sceneGraphNode, unsigned int role )
 {
     const std::size_t size0 = referencingSceneGraphNodes.size();
     referencingSceneGraphNodes.insert( &sceneGraphNode );
     if( size0 != referencingSceneGraphNodes.size() )
     {
-        sceneGraphNode.putAggregate( *this, role );
+        sceneGraphNode.putFeature( role, *this );
     }
 }
 
 
-void GeometryAggregate::removeFrom( Geometry& sceneGraphNode )
+void GeometryFeature::removeFrom( Geometry& sceneGraphNode )
 {
     const std::size_t size0 = referencingSceneGraphNodes.size();
     referencingSceneGraphNodes.erase( &sceneGraphNode );
     if( size0 != referencingSceneGraphNodes.size() )
     {
-        sceneGraphNode.removeAggregate( *this );
+        sceneGraphNode.removeFeature( *this );
     }
     if( released )
     {

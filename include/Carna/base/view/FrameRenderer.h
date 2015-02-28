@@ -54,7 +54,7 @@ class CARNA_LIB FrameRenderer
 
     const std::unique_ptr< Sampler > fullFrameQuadSampler;
 
-    const std::unique_ptr< MeshBase > fullFrameQuadMesh;
+    MeshBase& fullFrameQuadMesh;
 
     const ShaderProgram& fullFrameQuadShader;
 

@@ -15,6 +15,7 @@
 #include <Carna/base/view/VertexAttributes.h>
 #include <Carna/base/view/VertexBuffer.h>
 #include <Carna/base/view/IndexBuffer.h>
+#include <Carna/base/view/GeometryFeature.h>
 #include <memory>
 #include <vector>
 
@@ -37,19 +38,23 @@ namespace view
 // MeshBase
 // ----------------------------------------------------------------------------------
 
-class MeshBase
+class CARNA_LIB MeshBase : public GeometryFeature
 {
+
+    NON_COPYABLE
 
     const std::unique_ptr< VertexBufferBase > myVertexBuffer;
     const std::unique_ptr< IndexBufferBase > myIndexBuffer;
 
 protected:
 
+    friend class GeometryFeature;
+
     MeshBase( VertexBufferBase* vb, IndexBufferBase* ib, const VertexAttributes& va );
 
-public:
+    virtual ~MeshBase();
 
-    ~MeshBase();
+public:
 
     const unsigned int id;
 
@@ -65,6 +70,8 @@ public:
 
     IndexBufferBase& indexBuffer();
 
+    virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
+
 }; // MeshBase
 
 
@@ -77,13 +84,13 @@ template< typename Vertex, typename Index >
 class Mesh : public MeshBase
 {
 
+    Mesh( unsigned int primitiveType );
+
 public:
 
     typedef typename Vertex Vertex;
 
     typedef typename Index Index;
-
-    Mesh( unsigned int primitiveType );
 
     const VertexBuffer< Vertex >& vertexBuffer() const;
 
@@ -92,6 +99,11 @@ public:
     VertexBuffer< Vertex >& vertexBuffer();
 
     IndexBuffer< Index >& indexBuffer();
+
+    /** \brief
+      * Instantiates. Call \ref release when you do not need the object any longer.
+      */
+    static Mesh< Vertex, Index >& create( unsigned int primitiveType );
 
 }; // Mesh
 
@@ -128,6 +140,13 @@ template< typename Vertex, typename Index >
 IndexBuffer< Index >& Mesh< Vertex, Index >::indexBuffer()
 {
     return static_cast< IndexBuffer< Index >& >( MeshBase::indexBuffer() );
+}
+
+
+template< typename Vertex, typename Index >
+Mesh< Vertex, Index >& Mesh< Vertex, Index >::create( unsigned int primitiveType )
+{
+    return *new Mesh< Vertex, Index >( primitiveType );
 }
 
 

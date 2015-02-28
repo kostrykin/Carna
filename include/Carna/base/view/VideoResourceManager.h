@@ -38,7 +38,7 @@ namespace view
   * Controls the lifetime of a particular resource that resides in video memory.
   */
 template< typename VideoResourceType, typename ManagerInstanceType, typename Source, typename SourceRef = const Source& >
-class VideoResourceManager : public GeometryAggregate
+class VideoResourceManager : public GeometryFeature
 {
 
     std::unique_ptr< VideoResourceType > myResource;
@@ -68,7 +68,7 @@ public:
 
     const VideoResourceType& resource() const;
 
-    virtual bool controlsSameVideoResource( const GeometryAggregate& ) const override;
+    virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
 
     /** \brief
       * Instantiates. Call \ref release when you do not need the object any longer.
@@ -95,7 +95,7 @@ ManagerInstanceType& VideoResourceManager< VideoResourceType, ManagerInstanceTyp
 template< typename VideoResourceType, typename ManagerInstanceType, typename Source, typename SourceRef >
 void VideoResourceManager< VideoResourceType, ManagerInstanceType, Source, SourceRef >::acquireVideoResource()
 {
-    GeometryAggregate::acquireVideoResource();
+    GeometryFeature::acquireVideoResource();
     if( videoResourceAcquisitionsCount() == 1 )
     {
         CARNA_ASSERT( myResource.get() == nullptr );
@@ -111,7 +111,7 @@ void VideoResourceManager< VideoResourceType, ManagerInstanceType, Source, Sourc
     {
         myResource.reset();
     }
-    GeometryAggregate::releaseVideoResource();
+    GeometryFeature::releaseVideoResource();
 }
 
 
@@ -125,7 +125,7 @@ const VideoResourceType& VideoResourceManager< VideoResourceType, ManagerInstanc
 
 template< typename VideoResourceType, typename ManagerInstanceType, typename Source, typename SourceRef >
 bool VideoResourceManager< VideoResourceType, ManagerInstanceType, Source, SourceRef >
-    ::controlsSameVideoResource( const GeometryAggregate& ) const
+    ::controlsSameVideoResource( const GeometryFeature& ) const
 {
     return false;
 }

@@ -76,11 +76,10 @@ namespace Carna
             class  Framebuffer;
             class  FrameRenderer;
             class  Geometry;
-            class  GeometryAggregate;
+            class  GeometryFeature;
             class  GLContext;
             class  IndexBufferBase;
             class  MeshBase;
-            class  MeshManager;
             class  MeshRenderingStageBase;
             class  Node;
             class  Renderable;

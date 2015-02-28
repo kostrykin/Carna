@@ -114,6 +114,12 @@ IndexBufferBase& MeshBase::indexBuffer()
 }
 
 
+bool MeshBase::controlsSameVideoResource( const GeometryFeature& ) const
+{
+    return false;
+}
+
+
 
 }  // namespace Carna :: base :: view
 

@@ -59,7 +59,7 @@ public:
 
     const BufferedHUVolume& volume() const;
 
-    virtual bool controlsSameVideoResource( const GeometryAggregate& ) const override;
+    virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
 
 }; // BufferedHUVolumeManager
 
@@ -88,7 +88,7 @@ Texture3D* BufferedHUVolumeManager< BufferedHUVolume >::createResource()
 
 
 template< typename BufferedHUVolume >
-bool BufferedHUVolumeManager< BufferedHUVolume >::controlsSameVideoResource( const GeometryAggregate& other ) const
+bool BufferedHUVolumeManager< BufferedHUVolume >::controlsSameVideoResource( const GeometryFeature& other ) const
 {
     typedef BufferedHUVolumeManager< typename BufferedHUVolume > MyType;
     const MyType* const other2 = dynamic_cast< const MyType* >( &other );

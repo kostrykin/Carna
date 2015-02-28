@@ -34,16 +34,16 @@ namespace view
 // ShaderUniformBase
 // ----------------------------------------------------------------------------------
 
-class ShaderUniformBase
+class CARNA_LIB ShaderUniformBase
 {
 
 public:
 
     ShaderUniformBase( const std::string& name );
 
-    std::string name;
-   
     virtual ~ShaderUniformBase();
+
+    std::string name;
 
     void upload() const;
 

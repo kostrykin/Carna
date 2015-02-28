@@ -77,10 +77,6 @@ public:
 }; // VolumeRenderings :: MIP :: Channel
 
 
-const base::view::BlendFunction Channel::CHANNEL_FUNCTION_REPLACE( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-const base::view::BlendFunction Channel::CHANNEL_FUNCTION_ADD    ( GL_SRC_ALPHA, GL_ONE );
-
-
 
 }  // namespace Carna :: VolumeRenderings :: MIP
 

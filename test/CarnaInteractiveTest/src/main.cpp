@@ -10,9 +10,13 @@
 #include <Carna/base/view/Node.h>
 #include <Carna/base/view/Camera.h>
 #include <Carna/base/view/Geometry.h>
-#include <Carna/base/view/GeometryAggregate.h>
+#include <Carna/base/view/GeometryFeature.h>
 #include <Carna/base/view/BufferedHUVolumeManager.h>
 #include <Carna/base/view/MeshRenderingStage.h>
+#include <Carna/base/view/Material.h>
+#include <Carna/base/view/MeshFactory.h>
+#include <Carna/base/view/Vertex.h>
+#include <Carna/base/view/ShaderUniform.h>
 #include <Carna/VolumeRenderings/MIP/MIPStage.h>
 #include <Carna/VolumeRenderings/MIP/Channel.h>
 #include <Carna/VolumeRenderings/DRR/DRRStage.h>
@@ -82,6 +86,7 @@ class Demo : public QGLWidget
 {
 
     const static int GEOMETRY_TYPE_VOLUMETRIC = 0;
+    const static int GEOMETRY_TYPE_OPAQUE     = 1;
 
     std::unique_ptr< base::model::UInt16HUVolume > volume;
     std::unique_ptr< base::view::GLContext > glContext;
@@ -95,6 +100,8 @@ class Demo : public QGLWidget
 public:
 
     Demo();
+
+    virtual ~Demo();
 
 protected:
 
@@ -117,6 +124,15 @@ Demo::Demo()
     : mouseInteraction( false )
 {
     setMouseTracking( true );
+}
+
+
+Demo::~Demo()
+{
+    if( renderer.get() != nullptr )
+    {
+        renderer->glContext().makeActive();
+    }
 }
 
 
@@ -168,9 +184,19 @@ void Demo::initializeGL()
         , ( volume->size.z() - 1 ) * spacing.z() );
 
     base::view::Geometry* const volumeGeometry = new base::view::Geometry( GEOMETRY_TYPE_VOLUMETRIC );
-    volumeGeometry->putAggregate
-        ( base::view::BufferedHUVolumeManager< base::model::UInt16HUVolume >::create( *volume )
-        , VolumeRenderings::MIP::MIPStage::ROLE_HU_VOLUME );
+    auto& volumeTextureManager = base::view::BufferedHUVolumeManager< base::model::UInt16HUVolume >::create( *volume );
+    volumeGeometry->putFeature( VolumeRenderings::MIP::MIPStage::ROLE_HU_VOLUME, volumeTextureManager );
+
+    base::view::MeshBase& boxMesh = base::view::MeshFactory< base::view::VertexBase >::createBox( 10, 10, 10 );
+    base::view::Material& boxMaterial = base::view::Material::create( "unshaded" );
+    boxMaterial.addUniform( new base::view::ShaderUniform< base::math::Vector4f >( "color", base::math::Vector4f( 1, 0, 0, 1 ) ) );
+    base::view::Geometry* const boxGeometry = new base::view::Geometry( GEOMETRY_TYPE_OPAQUE );
+    boxGeometry->putFeature( base::view::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
+    boxGeometry->putFeature( base::view::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
+
+    volumeTextureManager.release();
+    boxMaterial.release();
+    boxMesh.release();
 
     base::view::Node* const volumePivot = new base::view::Node();
     volumePivot->attachChild( volumeGeometry );
@@ -181,6 +207,7 @@ void Demo::initializeGL()
     camera->localTransform = base::math::translation4f( 0, 0, 500 );
     root->attachChild( camera );
     root->attachChild( volumePivot );
+    root->attachChild( boxGeometry );
 }
 
 
@@ -191,6 +218,8 @@ void Demo::resizeGL( int w, int h )
     {
         renderer.reset( new base::view::FrameRenderer( *glContext, static_cast< unsigned >( w ), static_cast< unsigned >( h ), fitSquare ) );
 
+        base::view::OpaqueRenderingStage* const opaque = new base::view::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
+        renderer->appendStage( opaque );
 #if 0
         VolumeRenderings::MIP::MIPStage* const mip = new VolumeRenderings::MIP::MIPStage( GEOMETRY_TYPE_VOLUMETRIC );
         mip->appendChannel( new VolumeRenderings::MIP::Channel( -1024, 0, base::math::Vector4f( 0, 0, 1, 1 ) ) );

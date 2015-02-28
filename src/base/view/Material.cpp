@@ -45,6 +45,7 @@ struct Material::Details
 
 Material::Material( const std::string& shaderName )
     : pimpl( new Details() )
+    , myShader( nullptr )
     , shaderName( shaderName )
 {
 }
@@ -64,17 +65,22 @@ Material& Material::create( const std::string& shaderName )
 
 void Material::acquireVideoResource()
 {
-    CARNA_ASSERT( myShader == nullptr );
-    GeometryAggregate::acquireVideoResource();
-    myShader = &ShaderManager::instance().acquireShader( shaderName );
+    GeometryFeature::acquireVideoResource();
+    if( myShader == nullptr )
+    {
+        myShader = &ShaderManager::instance().acquireShader( shaderName );
+    }
 }
 
 
 void Material::releaseVideoResource()
 {
-    CARNA_ASSERT( myShader != nullptr );
     ShaderManager::instance().releaseShader( *myShader );
-    GeometryAggregate::releaseVideoResource();
+    GeometryFeature::releaseVideoResource();
+    if( videoResourceAcquisitionsCount() == 0 )
+    {
+        myShader = nullptr;
+    }
 }
 
 
@@ -85,7 +91,7 @@ const ShaderProgram& Material::shader() const
 }
 
 
-bool Material::controlsSameVideoResource( const GeometryAggregate& other ) const
+bool Material::controlsSameVideoResource( const GeometryFeature& other ) const
 {
     const Material* const smcOther = dynamic_cast< const Material* >( &other );
     if( smcOther == nullptr )

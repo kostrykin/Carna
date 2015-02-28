@@ -48,35 +48,25 @@ public:
 
     virtual ~Geometry();
 
-    void putAggregate( GeometryAggregate&, unsigned int role );
+    void putFeature( unsigned int role, GeometryFeature& );
 
-    void removeAggregate( GeometryAggregate& );
+    void removeFeature( GeometryFeature& );
 
-    void removeAggregate( unsigned int role );
+    void removeFeature( unsigned int role );
 
-    void clearAggregates();
+    void clearFeatures();
 
-    bool hasAggregate( const GeometryAggregate& ) const;
+    bool hasFeature( const GeometryFeature& ) const;
 
-    bool hasAggregate( unsigned int role ) const;
+    bool hasFeature( unsigned int role ) const;
 
-    GeometryAggregate& aggregate( unsigned int role ) const;
+    GeometryFeature& feature( unsigned int role ) const;
 
-    std::size_t aggregatesCount() const;
+    std::size_t featuresCount() const;
 
-    void visitAggregates( const std::function< void( GeometryAggregate& ga, unsigned int role ) >& ) const;
-
-    template< typename VideoResourceManager >
-    const VideoResourceManager& aggregateByRole();
+    void visitFeatures( const std::function< void( GeometryFeature& gf, unsigned int role ) >& ) const;
 
 }; // Geometry
-
-
-template< typename GeometryAggregateType >
-const GeometryAggregateType& Geometry::aggregateByRole()
-{
-    return static_cast< const GeometryAggregateType& >( aggregate( ROLE_DEFAULT_MESH ) );
-}
 
 
 

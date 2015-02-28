@@ -14,7 +14,7 @@
 
 #include <Carna/base/view/RenderStage.h>
 #include <Carna/base/view/RenderQueue.h>
-#include <Carna/base/view/GeometryAggregate.h>
+#include <Carna/base/view/GeometryFeature.h>
 #include <Carna/base/math.h>
 #include <memory>
 
@@ -43,7 +43,7 @@ class GeometryStage : public RenderStage
 
     Node* root;
     std::size_t passesRendered;
-    std::set< GeometryAggregate* > acquiredVideoResources;
+    std::set< GeometryFeature* > acquiredFeatures;
     GLContext* myContext;
 
 protected:
@@ -90,7 +90,7 @@ template< typename RenderableCompare >
 GeometryStage< RenderableCompare >::~GeometryStage()
 {
     activateGLContext();
-    std::for_each( acquiredVideoResources.begin(), acquiredVideoResources.end(), [&]( GeometryAggregate* ga )
+    std::for_each( acquiredFeatures.begin(), acquiredFeatures.end(), [&]( GeometryFeature* ga )
         {
             ga->releaseVideoResource();
         }
@@ -132,24 +132,24 @@ void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewT
         rq.rewind();
     }
 
-    std::set< GeometryAggregate* > usedVideoResources;
+    std::set< GeometryFeature* > usedFeatures;
     while( !rq.isEmpty() )
     {
         const Renderable& renderable = rq.poll();
         if( isFirstPass )
         {
-            renderable.geometry().visitAggregates( [&]( GeometryAggregate& ga, unsigned int role )
+            renderable.geometry().visitFeatures( [&]( GeometryFeature& gf, unsigned int role )
                 {
                     /* Denote that the geometry definition was used.
                      */
-                    usedVideoResources.insert( &ga );
+                    usedFeatures.insert( &gf );
 
                     /* Check whether video resources need to be acquired.
                      */
-                    if( acquiredVideoResources.find( &ga ) == acquiredVideoResources.end() )
+                    if( acquiredFeatures.find( &gf ) == acquiredFeatures.end() )
                     {
-                        ga.acquireVideoResource();
-                        acquiredVideoResources.insert( &ga );
+                        gf.acquireVideoResource();
+                        acquiredFeatures.insert( &gf );
                     }
                 }
             );
@@ -159,11 +159,11 @@ void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewT
     if( isFirstPass )
     {
         // release unused video resources
-        for( auto itr = acquiredVideoResources.begin(); itr != acquiredVideoResources.end(); )
+        for( auto itr = acquiredFeatures.begin(); itr != acquiredFeatures.end(); )
         {
-            if( usedVideoResources.find( *itr ) == usedVideoResources.end() )
+            if( usedFeatures.find( *itr ) == usedFeatures.end() )
             {
-                acquiredVideoResources.erase( itr++ );
+                acquiredFeatures.erase( itr++ );
             }
             else
             {

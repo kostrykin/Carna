@@ -13,7 +13,7 @@
 #define MATERIAL_H_6014714286
 
 #include <Carna/Carna.h>
-#include <Carna/base/view/GeometryAggregate.h>
+#include <Carna/base/view/GeometryFeature.h>
 #include <Carna/base/view/ShaderManager.h>
 #include <Carna/base/noncopyable.h>
 #include <string>
@@ -44,17 +44,17 @@ namespace view
   * \author Leonid Kostrykin
   * \date 27.2.2015
   */
-class Material : public GeometryAggregate
+class CARNA_LIB Material : public GeometryFeature
 {
 
     NON_COPYABLE
-
-    const ShaderProgram* myShader;
 
     Material( const std::string& shaderName );
 
     struct Details;
     const std::unique_ptr< Details > pimpl;
+
+    const ShaderProgram* myShader;
 
 public:
 
@@ -73,7 +73,7 @@ public:
 
     const ShaderProgram& shader() const;
 
-    virtual bool controlsSameVideoResource( const GeometryAggregate& ) const override;
+    virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
 
     void activate( RenderState&, GLContext& ) const;
 

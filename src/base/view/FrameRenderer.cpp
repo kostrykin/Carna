@@ -72,11 +72,11 @@ static Sampler* createFullFrameQuadSampler( GLContext& glContext )
 // createFullFrameQuadMesh
 // ----------------------------------------------------------------------------------
 
-static MeshBase* createFullFrameQuadMesh( GLContext& glContext )
+static MeshBase& createFullFrameQuadMesh( GLContext& glContext )
 {
     glContext.makeActive();
     typedef Mesh< VertexBase, uint8_t > FullFrameQuadMesh;
-    FullFrameQuadMesh* const mesh = new FullFrameQuadMesh( IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN );
+    FullFrameQuadMesh& mesh = FullFrameQuadMesh::create( IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN );
 
     /* Lets create clipping coordinates directly,
      * s.t. we won't need to pass any matrices to the shader.
@@ -100,8 +100,8 @@ static MeshBase* createFullFrameQuadMesh( GLContext& glContext )
     vertices[ 3 ].y = +1;
     indices [ 3 ] = 3;
 
-    mesh->vertexBuffer().copy( vertices, 4 );
-    mesh->indexBuffer().copy( indices, 4 );
+    mesh.vertexBuffer().copy( vertices, 4 );
+    mesh. indexBuffer().copy( indices, 4 );
 
     return mesh;
 }
@@ -132,6 +132,7 @@ FrameRenderer::~FrameRenderer()
      */
     clearStages();
     ShaderManager::instance().releaseShader( fullFrameQuadShader );
+    fullFrameQuadMesh.release();
 }
 
 
@@ -239,7 +240,7 @@ void FrameRenderer::renderTexture( unsigned int unit, bool useDefaultSampler, bo
     }
 
     ShaderUniform< int >( uniformName, unit ).upload();
-    fullFrameQuadMesh->render();
+    fullFrameQuadMesh.render();
 }
 
 

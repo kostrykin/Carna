@@ -42,7 +42,7 @@ namespace view
 // ----------------------------------------------------------------------------------
 
 template< typename RenderableCompare >
-class CARNA_LIB RenderQueue
+class RenderQueue
 {
 
     NON_COPYABLE
@@ -110,7 +110,7 @@ void RenderQueue< RenderableCompare >::build( const Node& root, const math::Matr
     root.visitChildren( true, [&]( const Spatial& spatial )
         {
             const Geometry* const geom = dynamic_cast< const Geometry* >( &spatial );
-            if( geom != nullptr && geom->geometryType == geometryType && geom->aggregatesCount() > 0 )
+            if( geom != nullptr && geom->geometryType == geometryType && geom->featuresCount() > 0 )
             {
                 const math::Matrix4f modelViewTransform = viewTransform * geom->worldTransform();
                 renderables.push_back( Renderable( *geom, modelViewTransform ) );

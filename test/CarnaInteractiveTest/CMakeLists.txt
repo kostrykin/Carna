@@ -100,7 +100,7 @@ if(CARNADICOM_FOUND AND Boost_FOUND)
 			-DEXPECTED_RELEASE_VERSION=${PATCH_VERSION}
 			-DSOURCE_PATH="${CMAKE_CURRENT_SOURCE_DIR}"
 		)
-	remove_definitions( -DCARNA_LIB )
+	remove_definitions( -DCARNA_EXPORT )
 	
 	include_directories(${CARNADICOM_INCLUDE_DIR})
 	

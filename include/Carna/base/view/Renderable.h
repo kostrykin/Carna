@@ -96,15 +96,15 @@ bool Renderable::DepthOrder< order >::operator()( const Renderable& l, const Ren
 template< unsigned int role >
 bool Renderable::VideoResourcesOrder< role >::operator()( const Renderable& l, const Renderable& r ) const
 {
-    const VideoResourceManager& vrcL = l.geometry().aggregate( role ).videoResources();
-    const VideoResourceManager& vrcR = r.geometry().aggregate( role ).videoResources();
-    if( vrcL.isSameResource( vrcR ) )
+    const GeometryFeature& gfl = l.geometry().feature( role );
+    const GeometryFeature& gfr = r.geometry().feature( role );
+    if( gfl.controlsSameVideoResource( gfr ) )
     {
         return false;
     }
     else
     {
-        return &vrcL < &vrcR;
+        return &gfl < &gfr;
     }
 }
 

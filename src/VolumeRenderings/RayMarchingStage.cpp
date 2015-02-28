@@ -61,7 +61,11 @@ struct RayMarchingStage::VideoResources
 
     VideoResources( const base::view::ShaderProgram& shader );
 
-    base::view::Mesh< base::view::VertexBase, uint8_t > sliceMesh;
+    ~VideoResources();
+
+    typedef base::view::Mesh< base::view::VertexBase, uint8_t > SliceMesh;
+
+    SliceMesh& sliceMesh;
     const base::view::ShaderProgram& shader;
     std::map< unsigned int, base::view::Sampler* > samplers;
 
@@ -75,7 +79,7 @@ struct RayMarchingStage::VideoResources
 
 
 RayMarchingStage::VideoResources::VideoResources( const base::view::ShaderProgram& shader )
-    : sliceMesh( base::view::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN )
+    : sliceMesh( SliceMesh::create( base::view::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN ) )
     , shader( shader )
 {
     const float radius = std::sqrt( 3.f ) / 2;
@@ -99,7 +103,13 @@ RayMarchingStage::VideoResources::VideoResources( const base::view::ShaderProgra
     indices [ 3 ] = 3;
 
     sliceMesh.vertexBuffer().copy( vertices, 4 );
-    sliceMesh.indexBuffer().copy( indices, 4 );
+    sliceMesh. indexBuffer().copy( indices, 4 );
+}
+
+
+RayMarchingStage::VideoResources::~VideoResources()
+{
+    sliceMesh.release();
 }
 
 
@@ -111,11 +121,11 @@ void RayMarchingStage::VideoResources::renderSlice
 {
     unsigned int lastUnit = base::view::Texture3D::SETUP_UNIT;
     std::vector< unsigned int > roles;
-    renderable.geometry().visitAggregates( [&]( base::view::GeometryAggregate& ga, unsigned int role )
+    renderable.geometry().visitFeatures( [&]( base::view::GeometryFeature& gf, unsigned int role )
         {
-            if( dynamic_cast< base::view::Texture3DManager* >( &ga ) != nullptr )
+            if( dynamic_cast< base::view::Texture3DManager* >( &gf ) != nullptr )
             {
-                const base::view::Texture3DManager& textureManager = static_cast< const base::view::Texture3DManager& >( ga );
+                const base::view::Texture3DManager& textureManager = static_cast< const base::view::Texture3DManager& >( gf );
                 textureManager.resource().bind( ++lastUnit );
                 samplers[ role ]->bind( lastUnit );
                 roles.push_back( role );

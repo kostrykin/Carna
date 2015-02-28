@@ -92,12 +92,15 @@ bool GLContext::isActive() const
 
 void GLContext::setShader( const ShaderProgram& shader )
 {
-    myShader = &shader;
-    if( !isActive() )
+    if( myShader != nullptr || myShader != &shader )
     {
-        makeActive();
+        myShader = &shader;
+        if( !isActive() )
+        {
+            makeActive();
+        }
+        glUseProgram( shader.id );
     }
-    glUseProgram( shader.id );
 }
 
 

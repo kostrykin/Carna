@@ -27,6 +27,10 @@ namespace MIP
 // MIP :: Channel
 // ----------------------------------------------------------------------------------
 
+const base::view::BlendFunction Channel::CHANNEL_FUNCTION_REPLACE( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+const base::view::BlendFunction Channel::CHANNEL_FUNCTION_ADD    ( GL_SRC_ALPHA, GL_ONE );
+
+
 Channel::Channel
     ( const base::Span< base::HUV >& huRange
     , const base::math::Vector4f& color

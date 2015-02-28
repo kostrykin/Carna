@@ -14,6 +14,9 @@
 
 #include <Carna/base/view/GeometryStage.h>
 #include <Carna/base/view/Renderable.h>
+#include <Carna/base/view/RenderState.h>
+#include <Carna/base/view/RenderTask.h>
+#include <Carna/base/view/ShaderUniform.h>
 
 /** \file   MeshRenderingStage.h
   * \brief  Defines \ref Carna::base::view::MeshRenderingStage.
@@ -90,15 +93,15 @@ template< typename RenderableCompare >
 void MeshRenderingStage< RenderableCompare >::render( GLContext& glc, const Renderable& renderable )
 {
     RenderState rs( glc );
-    const Material& material = renderable.geometry().aggregateByRole< Material >( renderable );
+    const Material& material = static_cast< Material& >( renderable.geometry().feature( ROLE_DEFAULT_MATERIAL ) );
     material.activate( rs, glc );
 
-    ShaderProgram::putUniform4x4f( "modelView", renderable.modelViewTransform() );
-    ShaderProgram::putUniform4x4f( "projection", renderTask->projection );
-    ShaderProgram::putUniform4x4f( "modelViewProjection", renderTask->projection * renderable.modelViewTransform() );
+    ShaderUniform< math::Matrix4f >( "modelView", renderable.modelViewTransform() ).upload();
+    ShaderUniform< math::Matrix4f >( "projection", renderTask->projection ).upload();
+    ShaderUniform< math::Matrix4f >( "modelViewProjection", renderTask->projection * renderable.modelViewTransform() ).upload();
 
-    const MeshManager& meshControl = renderable.geometry().aggregateByRole< MeshManager >( renderable );   
-    meshControl.mesh().render();
+    const MeshBase& mesh = static_cast< MeshBase& >( renderable.geometry().feature( ROLE_DEFAULT_MESH ) );
+    mesh.render();
 }
 
 
