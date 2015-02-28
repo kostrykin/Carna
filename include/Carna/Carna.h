@@ -70,7 +70,6 @@ namespace Carna
         {
             class  BaseBuffer;
             class  BlendFunction;
-            class  BufferedHUVolumeTexture;
             class  Camera;
             class  Color;
             class  Framebuffer;
@@ -78,6 +77,7 @@ namespace Carna
             class  Geometry;
             class  GeometryFeature;
             class  GLContext;
+            class  HUVolumeTexture;
             class  IndexBufferBase;
             class  MeshBase;
             class  MeshRenderingStageBase;
@@ -97,7 +97,6 @@ namespace Carna
             class  ShaderUniformBase;
             class  Spatial;
             class  Texture3D;
-            class  Texture3DManager;
             struct VertexBase;
             struct VertexAttribute;
             class  VertexBufferBase;

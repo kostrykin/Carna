@@ -13,6 +13,7 @@
 #define TEXTURE3D_H_6014714286
 
 #include <Carna/Carna.h>
+#include <Carna/base/view/GeometryFeature.h>
 #include <Carna/base/noncopyable.h>
 #include <Carna/base/math.h>
 
@@ -35,10 +36,21 @@ namespace view
 // Texture3D
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB Texture3D
+class CARNA_LIB Texture3D : public GeometryFeature
 {
 
     NON_COPYABLE
+
+protected:
+
+    friend class GeometryFeature;
+
+    Texture3D();
+
+    /** \brief
+      * Deletes the associated OpenGL object.
+      */
+    virtual ~Texture3D();
 
 public:
 
@@ -50,13 +62,9 @@ public:
 
     /** \brief
       * Instantiates and associates with a newly created OpenGL texture object.
+      * Invoke \ref release when it isn't needed any longer.
       */
-    Texture3D();
-
-    /** \brief
-      * Deletes the associated OpenGL object.
-      */
-    virtual ~Texture3D();
+    static Texture3D& create();
 
     /** \brief
       * The ID of the associated OpenGL object.
@@ -71,6 +79,8 @@ public:
     void bind( unsigned int unit ) const;
 
     void upload( int internalFormat, const math::Vector3ui& size, int pixelFormat, int bufferType, const void* bufferData );
+
+    virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
 
 }; // Texture3D
 

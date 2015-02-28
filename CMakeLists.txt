@@ -129,11 +129,10 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/Viewport.h
 		include/${PROJECT_NAME}/base/view/glError.h
 		include/${PROJECT_NAME}/base/view/Texture3D.h
-		include/${PROJECT_NAME}/base/view/Texture3DManager.h
 		include/${PROJECT_NAME}/base/view/BufferedHUVolumeUploader.h
-		include/${PROJECT_NAME}/base/view/BufferedHUVolumeManager.h
+		include/${PROJECT_NAME}/base/view/BufferedHUVolumeTexture.h
+		include/${PROJECT_NAME}/base/view/HUVolumeTexture.h
 		include/${PROJECT_NAME}/base/view/GeometryFeature.h
-		include/${PROJECT_NAME}/base/view/VideoResourceManager.h
 		include/${PROJECT_NAME}/base/view/Vertex.h
 		include/${PROJECT_NAME}/base/view/VertexBuffer.h
 		include/${PROJECT_NAME}/base/view/VertexAttributes.h
@@ -199,6 +198,7 @@ set( SRC
 		src/base/view/Texture3D.cpp
 		src/base/view/Viewport.cpp
 		src/base/view/BufferedHUVolumeUploader.cpp
+		src/base/view/HUVolumeTexture.cpp
 		src/base/view/GeometryFeature.cpp
 		src/base/view/Vertex.cpp
 		src/base/view/VertexBuffer.cpp
@@ -207,7 +207,6 @@ set( SRC
 		src/base/view/BaseBuffer.cpp
 		src/base/view/ShaderManager.cpp
 		src/base/view/ShaderUniform.cpp
-		src/base/view/Texture3DManager.cpp
 		src/base/model/HUVolume.cpp
 		src/base/CarnaException.cpp
 		src/base/Text.cpp

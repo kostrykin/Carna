@@ -107,7 +107,7 @@ void ShaderUniform< Type >::uploadTo( int location ) const
 template< typename Type >
 void uploadUniform( int location, const Type& value )
 {
-    static_assert( false, "Unknown ShaderUniform<T> type parameter T." );
+    static_assert( false, "Unimplemented ShaderUniform<T> type parameter T." );
 }
 
 

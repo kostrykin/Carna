@@ -9,7 +9,8 @@
  *
  */
 
-#include <Carna/base/view/Texture3DManager.h>
+#include <Carna/base/view/glew.h>
+#include <Carna/base/view/HUVolumeTexture.h>
 
 namespace Carna
 {
@@ -23,18 +24,26 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// Texture3DManager
+// HUVolumeTexture
 // ----------------------------------------------------------------------------------
 
-Texture3DManager::Texture3DManager( const std::function< Texture3D*() >& createTexture )
-    : VideoResourceManagerBase::VideoResourceManagerBase( createTexture )
+HUVolumeTexture::HUVolumeTexture( const model::HUVolume& volume )
+    : volume( volume )
 {
 }
 
 
-Texture3D* Texture3DManager::createResource()
+bool HUVolumeTexture::controlsSameVideoResource( const GeometryFeature& other ) const
 {
-    return source();
+    const HUVolumeTexture* const other2 = dynamic_cast< const HUVolumeTexture* >( &other );
+    if( other2 == nullptr )
+    {
+        return false;
+    }
+    else
+    {
+        return &volume == &other2->volume;
+    }
 }
 
 

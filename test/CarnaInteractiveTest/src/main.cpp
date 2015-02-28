@@ -11,12 +11,13 @@
 #include <Carna/base/view/Camera.h>
 #include <Carna/base/view/Geometry.h>
 #include <Carna/base/view/GeometryFeature.h>
-#include <Carna/base/view/BufferedHUVolumeManager.h>
+#include <Carna/base/view/BufferedHUVolumeTexture.h>
 #include <Carna/base/view/MeshRenderingStage.h>
 #include <Carna/base/view/Material.h>
 #include <Carna/base/view/MeshFactory.h>
 #include <Carna/base/view/Vertex.h>
 #include <Carna/base/view/ShaderUniform.h>
+#include <Carna/base/model/BufferedHUVolume.h>
 #include <Carna/VolumeRenderings/MIP/MIPStage.h>
 #include <Carna/VolumeRenderings/MIP/Channel.h>
 #include <Carna/VolumeRenderings/DRR/DRRStage.h>
@@ -184,8 +185,8 @@ void Demo::initializeGL()
         , ( volume->size.z() - 1 ) * spacing.z() );
 
     base::view::Geometry* const volumeGeometry = new base::view::Geometry( GEOMETRY_TYPE_VOLUMETRIC );
-    auto& volumeTextureManager = base::view::BufferedHUVolumeManager< base::model::UInt16HUVolume >::create( *volume );
-    volumeGeometry->putFeature( VolumeRenderings::MIP::MIPStage::ROLE_HU_VOLUME, volumeTextureManager );
+    auto& volumeTexture = base::view::BufferedHUVolumeTexture< base::model::UInt16HUVolume >::create( *volume );
+    volumeGeometry->putFeature( VolumeRenderings::MIP::MIPStage::ROLE_HU_VOLUME, volumeTexture );
 
     base::view::MeshBase& boxMesh = base::view::MeshFactory< base::view::VertexBase >::createBox( 10, 10, 10 );
     base::view::Material& boxMaterial = base::view::Material::create( "unshaded" );
@@ -194,7 +195,7 @@ void Demo::initializeGL()
     boxGeometry->putFeature( base::view::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
     boxGeometry->putFeature( base::view::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
 
-    volumeTextureManager.release();
+    volumeTexture.release();
     boxMaterial.release();
     boxMesh.release();
 

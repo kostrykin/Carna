@@ -74,8 +74,10 @@ public:
     };
 
     /** \brief
-      * Establishes partial order for renderables s.t.
-      * geometries with same \ref VideoResourceManager instances are grouped together.
+      * Establishes partial order for renderables s.t. geometries with such
+      * \ref GeometryFeature instances, that do
+      * \ref GeometryFeature::controlsSameVideoResource "control the same video resource",
+      * are grouped together.
       */
     template< unsigned int role >
     struct VideoResourcesOrder

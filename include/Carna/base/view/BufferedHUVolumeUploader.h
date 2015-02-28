@@ -41,7 +41,7 @@ struct BufferedHUVolumeUploader
 
     static void upload( const BufferedHUVolume& src, Texture3D& dst )
     {
-        CARNA_FAIL( "Upload routine not implemented for this buffer type." );
+        static_assert( false, "Unimplemented BufferedHUVolumeUploader<T> type parameter T." );
     }
 
 }; // BufferedHUVolumeUploader

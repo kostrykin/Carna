@@ -102,6 +102,12 @@ void Texture3D::upload( int internalFormat, const math::Vector3ui& size, int pix
 }
 
 
+bool Texture3D::controlsSameVideoResource( const GeometryFeature& ) const
+{
+    return false;
+}
+
+
 
 }  // namespace Carna :: base :: view
 

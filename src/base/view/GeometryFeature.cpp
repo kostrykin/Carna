@@ -10,7 +10,6 @@
  */
 
 #include <Carna/base/view/GeometryFeature.h>
-#include <Carna/base/view/VideoResourceManager.h>
 #include <Carna/base/Log.h>
 
 namespace Carna

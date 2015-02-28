@@ -35,20 +35,10 @@ namespace view
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Represents \em "components" that are \em aggregated by \ref Geometry instances.
-  * Instances of this class do manage the lifetimes of OpenGL objects that reside in video memory.
-  *
-  * The management of their lifetimes require two basic operations, namely \em uploading content
-  * from system to video memory and \em deleting them from video memory at a later point. Both
-  * of these operations must be implemented by an instance of \ref VideoResourceManager, that
-  * is taken possession of by each instance of this class.
-  *
-  * This class uses a greedy strategy for the management: It orders the upload the moment
-  * \ref acquireVideoResource "it is first told that the video resources are required" and it
-  * deletes them as soon as \ref releaseVideoResource "it is told that they are no longer required".
+  * Represents \em "components" that are aggregated by \ref Geometry instances.
   *
   * \author Leonid Kostrykin
-  * \date   23.2.2015
+  * \date   1.3.2015
   */
 class CARNA_LIB GeometryFeature
 {
