@@ -184,9 +184,13 @@ void Demo::initializeGL()
         , ( volume->size.y() - 1 ) * spacing.y()
         , ( volume->size.z() - 1 ) * spacing.z() );
 
-    base::view::Geometry* const volumeGeometry = new base::view::Geometry( GEOMETRY_TYPE_VOLUMETRIC );
     auto& volumeTexture = base::view::BufferedHUVolumeTexture< base::model::UInt16HUVolume >::create( *volume );
-    volumeGeometry->putFeature( VolumeRenderings::MIP::MIPStage::ROLE_HU_VOLUME, volumeTexture );
+
+    base::view::Geometry* const volumeGeometry1 = new base::view::Geometry( GEOMETRY_TYPE_VOLUMETRIC );
+    volumeGeometry1->putFeature( VolumeRenderings::MIP::MIPStage::ROLE_HU_VOLUME, volumeTexture );
+
+    base::view::Geometry* const volumeGeometry2 = new base::view::Geometry( GEOMETRY_TYPE_VOLUMETRIC );
+    volumeGeometry2->putFeature( VolumeRenderings::MIP::MIPStage::ROLE_HU_VOLUME, volumeTexture );
 
     base::view::MeshBase& boxMesh = base::view::MeshFactory< base::view::VertexBase >::createBox( 10, 10, 10 );
     base::view::Material& boxMaterial = base::view::Material::create( "unshaded" );
@@ -199,15 +203,20 @@ void Demo::initializeGL()
     boxMaterial.release();
     boxMesh.release();
 
-    base::view::Node* const volumePivot = new base::view::Node();
-    volumePivot->attachChild( volumeGeometry );
-    volumePivot->localTransform = base::math::scaling4f( scale );
+    base::view::Node* const volumePivot1 = new base::view::Node();
+    volumePivot1->attachChild( volumeGeometry1 );
+    volumePivot1->localTransform = base::math::translation4f( -scale.x() / 2, 0, 0 ) * base::math::scaling4f( scale );
+
+    base::view::Node* const volumePivot2 = new base::view::Node();
+    volumePivot2->attachChild( volumeGeometry2 );
+    volumePivot2->localTransform = base::math::translation4f( +scale.x() / 2, 0, 0 ) * base::math::scaling4f( scale );
 
     camera = new base::view::Camera();
     camera->setProjection( base::math::frustum4f( 3.14f * 45 / 180.f, 1, 10, 2000 ) );
     camera->localTransform = base::math::translation4f( 0, 0, 500 );
     root->attachChild( camera );
-    root->attachChild( volumePivot );
+    root->attachChild( volumePivot1 );
+    root->attachChild( volumePivot2 );
     root->attachChild( boxGeometry );
 }
 
