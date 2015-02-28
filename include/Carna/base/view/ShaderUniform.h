@@ -71,6 +71,8 @@ class ShaderUniform : public ShaderUniformBase
 
 public:
 
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
     typedef typename Type Type;
 
     ShaderUniform( const std::string& name, const Type& type );
