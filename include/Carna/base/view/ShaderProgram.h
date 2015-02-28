@@ -74,48 +74,6 @@ public:
       */
     const unsigned int id;
 
-    /** \brief  Uploads uniform to currently bound shader.
-      *
-      * \throws AssertionFailure Specified uniform is not defined in shader.
-      */
-    static void putUniform1f( const std::string& param, float x );
-
-    /** \brief  Uploads uniform to currently bound shader.
-      *
-      * \throws AssertionFailure Specified uniform is not defined in shader.
-      */
-    static void putUniform2f( const std::string& param, float x, float y );
-
-    /** \brief  Uploads uniform to currently bound shader.
-      *
-      * \throws AssertionFailure Specified uniform is not defined in shader.
-      */
-    static void putUniform3f( const std::string& param, float x, float y, float z );
-
-    /** \brief  Uploads uniform to currently bound shader.
-      *
-      * \throws AssertionFailure Specified uniform is not defined in shader.
-      */
-    static void putUniform4f( const std::string& param, const math::Vector4f& );
-
-    /** \brief  Uploads uniform to currently bound shader.
-      *
-      * \throws AssertionFailure Specified uniform is not defined in shader.
-      */
-    static void putUniform1i( const std::string& param, signed int );
-
-    /** \brief  Uploads uniform to currently bound shader.
-      *
-      * \throws AssertionFailure Specified uniform is not defined in shader.
-      */
-    static void putUniform1u( const std::string& param, unsigned int );
-
-    /** \brief  Uploads uniform to currently bound shader.
-      *
-      * \throws AssertionFailure Specified uniform is not defined in shader.
-      */
-    static void putUniform4x4f( const std::string& param, const math::Matrix4f& );
-
 private:
 
     /** \brief  Queries this shader for compilation errors.
@@ -132,14 +90,6 @@ private:
       * throw an exception, and from the destructor.
       */
     void release();
-
-    const static int NULL_UNIFORM_LOCATION = -1;
-
-    /** \brief  Queries \c glGetUniformLocation and eventually throws exceptions.
-      *
-      * \throws AssertionFailure Specified uniform is not defined in shader.
-      */
-    int getUniformLocation( const std::string& name ) const;
 
 }; // ShaderProgram
 

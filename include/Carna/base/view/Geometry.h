@@ -67,16 +67,15 @@ public:
     void visitAggregates( const std::function< void( GeometryAggregate& ga, unsigned int role ) >& ) const;
 
     template< typename VideoResourceManager >
-    const VideoResourceManager& controlByRole();
+    const VideoResourceManager& aggregateByRole();
 
 }; // Geometry
 
 
-template< typename VideoResourceManager >
-const VideoResourceManager& Geometry::controlByRole()
+template< typename GeometryAggregateType >
+const GeometryAggregateType& Geometry::aggregateByRole()
 {
-    const auto& vrm = aggregate( ROLE_DEFAULT_MESH ).videoResources();
-    return static_cast< const VideoResourceManager& >( vrm );
+    return static_cast< const GeometryAggregateType& >( aggregate( ROLE_DEFAULT_MESH ) );
 }
 
 

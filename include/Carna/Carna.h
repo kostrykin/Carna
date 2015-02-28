@@ -91,10 +91,11 @@ namespace Carna
             class  Sampler;
             class  Shader;
             class  ShaderCompilationError;
-            class  ShaderControl;
+            class  Material;
             class  ShaderManager;
-            class  ShaderResource;
+            class  Material;
             class  ShaderProgram;
+            class  ShaderUniformBase;
             class  Spatial;
             class  Texture3D;
             class  Texture3DManager;

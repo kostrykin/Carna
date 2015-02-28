@@ -41,7 +41,7 @@ public:
 
     const static unsigned int ROLE_DEFAULT_MESH = 0;
 
-    const static unsigned int ROLE_DEFAULT_SHADER = 1;
+    const static unsigned int ROLE_DEFAULT_MATERIAL = 1;
 
 }; // MeshRenderingStageBase
 
@@ -55,9 +55,13 @@ template< typename RenderableCompare >
 class MeshRenderingStage : public GeometryStage< RenderableCompare >, public MeshRenderingStageBase
 {
 
+    RenderTask* renderTask;
+
 public:
 
     MeshRenderingStage( int geometryType );
+
+    virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) override;
 
 protected:
 
@@ -74,12 +78,26 @@ MeshRenderingStage< RenderableCompare >::MeshRenderingStage( int geometryType )
 
 
 template< typename RenderableCompare >
+void MeshRenderingStage< RenderableCompare >::renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp )
+{
+    renderTask = &rt;
+    GeometryStage< RenderableCompare >::renderPass( viewTransform, rt, vp );
+    renderTask = nullptr;
+}
+
+
+template< typename RenderableCompare >
 void MeshRenderingStage< RenderableCompare >::render( GLContext& glc, const Renderable& renderable )
 {
-    const ShaderControl& shaderControl = renderable.geometry().controlByRole< ShaderControl >( renderable );
-    glc.setShader( shaderControl.shader() );
+    RenderState rs( glc );
+    const Material& material = renderable.geometry().aggregateByRole< Material >( renderable );
+    material.activate( rs, glc );
 
-    const MeshManager& meshControl = renderable.geometry().controlByRole< MeshManager >( renderable );   
+    ShaderProgram::putUniform4x4f( "modelView", renderable.modelViewTransform() );
+    ShaderProgram::putUniform4x4f( "projection", renderTask->projection );
+    ShaderProgram::putUniform4x4f( "modelViewProjection", renderTask->projection * renderable.modelViewTransform() );
+
+    const MeshManager& meshControl = renderable.geometry().aggregateByRole< MeshManager >( renderable );   
     meshControl.mesh().render();
 }
 
@@ -89,7 +107,7 @@ void MeshRenderingStage< RenderableCompare >::render( GLContext& glc, const Rend
 // OpaqueRenderingStage
 // ----------------------------------------------------------------------------------
 
-typedef MeshRenderingStage< Renderable::VideoResourcesOrder< MeshRenderingStageBase::ROLE_DEFAULT_SHADER > > OpaqueRenderingStage;
+typedef MeshRenderingStage< Renderable::VideoResourcesOrder< MeshRenderingStageBase::ROLE_DEFAULT_MATERIAL > > OpaqueRenderingStage;
 
 
 

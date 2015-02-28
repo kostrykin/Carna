@@ -17,6 +17,7 @@
 #include <Carna/base/view/Node.h>
 #include <Carna/base/view/Viewport.h>
 #include <Carna/base/view/ShaderManager.h>
+#include <Carna/base/view/ShaderUniform.h>
 #include <Carna/base/view/Vertex.h>
 #include <Carna/base/view/Mesh.h>
 #include <Carna/base/view/VertexBuffer.h>
@@ -237,7 +238,7 @@ void FrameRenderer::renderTexture( unsigned int unit, bool useDefaultSampler, bo
         myGlContext->setShader( fullFrameQuadShader );
     }
 
-    ShaderProgram::putUniform1i( uniformName, unit );
+    ShaderUniform< int >( uniformName, unit ).upload();
     fullFrameQuadMesh->render();
 }
 

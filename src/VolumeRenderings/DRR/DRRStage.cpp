@@ -16,6 +16,7 @@
 #include <Carna/base/view/RenderTexture.h>
 #include <Carna/base/view/Viewport.h>
 #include <Carna/base/view/RenderState.h>
+#include <Carna/base/view/ShaderUniform.h>
 #include <Carna/base/math.h>
 #include <Carna/base/CarnaException.h>
 
@@ -227,8 +228,8 @@ void DRRStage::renderPass
     /* Now compute the exponential of the integral.
      */
     rt.renderer.glContext().setShader( *pimpl->exponentialShader );
-    base::view::ShaderProgram::putUniform1f( "baseIntensity", pimpl->baseIntensity );
-    base::view::ShaderProgram::putUniform1i( "renderInverse", pimpl->renderInverse ? 1 : 0 );
+    base::view::ShaderUniform< float >( "baseIntensity", pimpl->baseIntensity ).upload();
+    base::view::ShaderUniform< int >( "renderInverse", pimpl->renderInverse ? 1 : 0 ).upload();
     pimpl->accumulationColorBuffer->bind( 0 );
     rt.renderer.renderTexture( 0, true, false, "integralMap" );
 }
@@ -270,11 +271,11 @@ const std::string& DRRStage::uniformName( unsigned int role ) const
 
 void DRRStage::configureShader( base::view::GLContext& glc )
 {
-    base::view::ShaderProgram::putUniform1f(       "stepLength", pimpl->stepLength );
-    base::view::ShaderProgram::putUniform1f( "waterAttenuation", pimpl->waterAttenuation );
-    base::view::ShaderProgram::putUniform1f(   "lowerThreshold", Details::huvToIntensity( pimpl->lowerThreshold ) );
-    base::view::ShaderProgram::putUniform1f(   "upperThreshold", Details::huvToIntensity( pimpl->upperThreshold ) );
-    base::view::ShaderProgram::putUniform1f(  "upperMultiplier", pimpl->upperMultiplier );
+    base::view::ShaderUniform< float >(       "stepLength", pimpl->stepLength ).upload();
+    base::view::ShaderUniform< float >( "waterAttenuation", pimpl->waterAttenuation ).upload();
+    base::view::ShaderUniform< float >(   "lowerThreshold", Details::huvToIntensity( pimpl->lowerThreshold ) ).upload();
+    base::view::ShaderUniform< float >(   "upperThreshold", Details::huvToIntensity( pimpl->upperThreshold ) ).upload();
+    base::view::ShaderUniform< float >(  "upperMultiplier", pimpl->upperMultiplier ).upload();
 }
 
 

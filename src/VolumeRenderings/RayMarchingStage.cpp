@@ -16,6 +16,7 @@
 #include <Carna/base/view/Texture3DManager.h>
 #include <Carna/base/view/ShaderManager.h>
 #include <Carna/base/view/RenderState.h>
+#include <Carna/base/view/ShaderUniform.h>
 #include <Carna/base/math.h>
 
 namespace Carna
@@ -124,14 +125,14 @@ void RayMarchingStage::VideoResources::renderSlice
 
     /* Configure shader.
      */
-    base::view::ShaderProgram::putUniform4x4f( "sliceTangentModel", sliceTangentModel );
-    base::view::ShaderProgram::putUniform4x4f( "modelViewProjection", self.pimpl->renderTask->projection * modelView );
+    base::view::ShaderUniform< base::math::Matrix4f >( "sliceTangentModel", sliceTangentModel ).upload();
+    base::view::ShaderUniform< base::math::Matrix4f >( "modelViewProjection", self.pimpl->renderTask->projection * modelView ).upload();
     for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {
         const unsigned int role = roles[ samplerOffset ];
         const unsigned int sampler = base::view::Texture3D::SETUP_UNIT + 1 + samplerOffset;
         const std::string& uniformName = self.uniformName( role );
-        base::view::ShaderProgram::putUniform1i( uniformName, sampler );
+        base::view::ShaderUniform< int >( uniformName, sampler ).upload();
     }
 
     /* Invoke shader.

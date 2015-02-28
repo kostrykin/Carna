@@ -13,6 +13,7 @@
 #include <Carna/VolumeRenderings/MIP/Channel.h>
 #include <Carna/base/view/glew.h>
 #include <Carna/base/view/ShaderManager.h>
+#include <Carna/base/view/ShaderUniform.h>
 #include <Carna/base/view/Framebuffer.h>
 #include <Carna/base/view/RenderTexture.h>
 #include <Carna/base/view/Viewport.h>
@@ -215,9 +216,9 @@ void MIPStage::configureShader( base::view::GLContext& glc )
     CARNA_ASSERT( pimpl->currentChannel != nullptr );
     const Channel& ch = *pimpl->currentChannel;
 
-    base::view::ShaderProgram::putUniform1f( "minIntensity", Details::huvToIntensity( ch.huRange.first ) );
-    base::view::ShaderProgram::putUniform1f( "maxIntensity", Details::huvToIntensity( ch.huRange.last  ) );
-    base::view::ShaderProgram::putUniform4f( "color", ch.color );
+    base::view::ShaderUniform< float >( "minIntensity", Details::huvToIntensity( ch.huRange.first ) ).upload();
+    base::view::ShaderUniform< float >( "maxIntensity", Details::huvToIntensity( ch.huRange.last  ) ).upload();
+    base::view::ShaderUniform< base::math::Vector4f >( "color", ch.color ).upload();
 }
 
 

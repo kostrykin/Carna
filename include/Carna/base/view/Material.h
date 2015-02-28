@@ -9,16 +9,17 @@
  *
  */
 
-#ifndef SHADERRESOURCE_H_6014714286
-#define SHADERRESOURCE_H_6014714286
+#ifndef MATERIAL_H_6014714286
+#define MATERIAL_H_6014714286
 
 #include <Carna/Carna.h>
 #include <Carna/base/view/GeometryAggregate.h>
 #include <Carna/base/view/ShaderManager.h>
+#include <Carna/base/noncopyable.h>
 #include <string>
 
-/** \file   ShaderResource.h
-  * \brief  Defines \ref Carna::base::view::ShaderResource.
+/** \file   Material.h
+  * \brief  Defines \ref Carna::base::view::Material.
   */
 
 namespace Carna
@@ -33,30 +34,38 @@ namespace view
 
 
 // ----------------------------------------------------------------------------------
-// ShaderResource
+// Material
 // ----------------------------------------------------------------------------------
     
 /** \brief
-  * Adapter-like implementation of \ref ShaderControl that delegates to \ref ShaderManager.
+  * Specifies the shader and it's configuration that are to be used for rendering a
+  * \ref Geometry node with a \ref MeshRenderingStage.
   *
   * \author Leonid Kostrykin
   * \date 27.2.2015
   */
-class ShaderResource : public GeometryAggregate
+class Material : public GeometryAggregate
 {
+
+    NON_COPYABLE
 
     const ShaderProgram* myShader;
 
-    ShaderResource( const std::string& shaderName );
+    Material( const std::string& shaderName );
+
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
 
 public:
+
+    virtual ~Material();
 
     const std::string shaderName;
 
     /** \brief
       * Instantiates. Call \ref release when you do not need the object any longer.
       */
-    static ShaderResource& create( const std::string& shaderName );
+    static Material& create( const std::string& shaderName );
 
     virtual void acquireVideoResource() override;
 
@@ -66,7 +75,15 @@ public:
 
     virtual bool controlsSameVideoResource( const GeometryAggregate& ) const override;
 
-}; // ShaderResource
+    void activate( RenderState&, GLContext& ) const;
+
+    void addUniform( ShaderUniformBase* );
+
+    void clearUniforms();
+
+    void removeUniform( const std::string& name );
+
+}; // Material
 
 
 
@@ -76,4 +93,4 @@ public:
 
 }  // namespace Carna
 
-#endif // SHADERRESOURCE_H_6014714286
+#endif // MATERIAL_H_6014714286

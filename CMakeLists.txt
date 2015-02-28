@@ -125,7 +125,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/Shader.h
 		include/${PROJECT_NAME}/base/view/ShaderCompilationError.h
 		include/${PROJECT_NAME}/base/view/ShaderProgram.h
-		include/${PROJECT_NAME}/base/view/ShaderResource.h
+		include/${PROJECT_NAME}/base/view/Material.h
 		include/${PROJECT_NAME}/base/view/Viewport.h
 		include/${PROJECT_NAME}/base/view/glError.h
 		include/${PROJECT_NAME}/base/view/Texture3D.h
@@ -139,9 +139,11 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/view/VertexAttributes.h
 		include/${PROJECT_NAME}/base/view/IndexBuffer.h
 		include/${PROJECT_NAME}/base/view/Mesh.h
+		include/${PROJECT_NAME}/base/view/MeshFactory.h
 		include/${PROJECT_NAME}/base/view/MeshManager.h
 		include/${PROJECT_NAME}/base/view/BaseBuffer.h
 		include/${PROJECT_NAME}/base/view/ShaderManager.h
+		include/${PROJECT_NAME}/base/view/ShaderUniform.h
 		include/${PROJECT_NAME}/base/model/ScalarField.h
 		include/${PROJECT_NAME}/base/model/HUCubeField.h
 		include/${PROJECT_NAME}/base/model/HUCubeSegment.h
@@ -192,7 +194,7 @@ set( SRC
 		src/base/view/RenderTexture.cpp
 		src/base/view/Sampler.cpp
 		src/base/view/Shader.cpp
-		src/base/view/ShaderResource.cpp
+		src/base/view/Material.cpp
 		src/base/view/ShaderCompilationError.cpp
 		src/base/view/ShaderProgram.cpp
 		src/base/view/Texture3D.cpp
@@ -205,6 +207,7 @@ set( SRC
 		src/base/view/Mesh.cpp
 		src/base/view/BaseBuffer.cpp
 		src/base/view/ShaderManager.cpp
+		src/base/view/ShaderUniform.cpp
 		src/base/view/MeshManager.cpp
 		src/base/view/Texture3DManager.cpp
 		src/base/model/HUVolume.cpp
@@ -240,6 +243,8 @@ set( SHADERS_SRC
 		src/res/mip.vert
 		src/res/full_frame_quad.vert
 		src/res/full_frame_quad.frag
+		src/res/unshaded.vert
+		src/res/unshaded.frag
 	)
 set( RESOURCES
 		${SHADERS_SRC}

@@ -184,6 +184,7 @@ namespace math
     typedef Eigen::Matrix< float, 4, 4, Eigen::ColMajor > Matrix4f;
     typedef Eigen::Matrix< float, 4, 1 > Vector4f;
     typedef Eigen::Matrix< float, 3, 1 > Vector3f;
+    typedef Eigen::Matrix< float, 2, 1 > Vector2f;
     typedef Eigen::Matrix< unsigned int, 3, 1 > Vector3ui;
 
     inline Matrix4f identity4f()
@@ -206,6 +207,15 @@ namespace math
         }
         result( 3, 3 ) = 1;
         return result;
+    }
+
+    inline Matrix4f basis4f( const Vector3f& x, const Vector3f& y, const Vector3f& z, const Vector3f& t = Vector3f( 0, 0, 0 ) )
+    {
+        const Vector4f x4( x.x(), x.y(), x.z(), 0 );
+        const Vector4f y4( y.x(), y.y(), y.z(), 0 );
+        const Vector4f z4( z.x(), z.y(), z.z(), 0 );
+        const Vector4f t4( t.x(), t.y(), t.z(), 0 );
+        return basis4f( x4, y4, z4, t4 );
     }
 
     inline Matrix4f translation4f( float x, float y, float z )
