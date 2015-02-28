@@ -43,11 +43,9 @@ class CARNA_LIB RayMarchingStage : public base::view::GeometryStage< base::view:
 
 public:
 
-    const static int GEOMETRY_TYPE = 2;
-
     const static unsigned int DEFAULT_SAMPLE_RATE = 100;
 
-    RayMarchingStage();
+    RayMarchingStage( int geometryType );
 
     virtual ~RayMarchingStage();
 

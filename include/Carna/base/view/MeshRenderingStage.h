@@ -51,15 +51,13 @@ public:
 // MeshRenderingStage
 // ----------------------------------------------------------------------------------
 
-template< int geometryType, typename RenderableCompare >
+template< typename RenderableCompare >
 class MeshRenderingStage : public GeometryStage< RenderableCompare >, public MeshRenderingStageBase
 {
 
 public:
 
-    const static int GEOMETRY_TYPE = geometryType;
-
-    MeshRenderingStage();
+    MeshRenderingStage( int geometryType );
 
 protected:
 
@@ -68,15 +66,15 @@ protected:
 }; // MeshRenderingStage
 
 
-template< int geometryType, typename RenderableCompare >
-MeshRenderingStage< geometryType, RenderableCompare >::MeshRenderingStage()
-    : GeometryStage< RenderableCompare >( GEOMETRY_TYPE )
+template< typename RenderableCompare >
+MeshRenderingStage< RenderableCompare >::MeshRenderingStage( int geometryType )
+    : GeometryStage< RenderableCompare >( geometryType )
 {
 }
 
 
-template< int geometryType, typename RenderableCompare >
-void MeshRenderingStage< geometryType, RenderableCompare >::render( GLContext& glc, const Renderable& renderable )
+template< typename RenderableCompare >
+void MeshRenderingStage< RenderableCompare >::render( GLContext& glc, const Renderable& renderable )
 {
     const ShaderControl& shaderControl = renderable.geometry().controlByRole< ShaderControl >( renderable );
     glc.setShader( shaderControl.shader() );
@@ -91,7 +89,7 @@ void MeshRenderingStage< geometryType, RenderableCompare >::render( GLContext& g
 // OpaqueRenderingStage
 // ----------------------------------------------------------------------------------
 
-typedef MeshRenderingStage< 0, Renderable::VideoResourcesOrder< MeshRenderingStageBase::ROLE_DEFAULT_SHADER > > OpaqueRenderingStage;
+typedef MeshRenderingStage< Renderable::VideoResourcesOrder< MeshRenderingStageBase::ROLE_DEFAULT_SHADER > > OpaqueRenderingStage;
 
 
 
@@ -99,7 +97,7 @@ typedef MeshRenderingStage< 0, Renderable::VideoResourcesOrder< MeshRenderingSta
 // TransparentRenderingStage
 // ----------------------------------------------------------------------------------
 
-typedef MeshRenderingStage< 1, Renderable::DepthOrder< Renderable::ORDER_BACK_TO_FRONT > > TransparentRenderingStage;
+typedef MeshRenderingStage< Renderable::DepthOrder< Renderable::ORDER_BACK_TO_FRONT > > TransparentRenderingStage;
 
 
 

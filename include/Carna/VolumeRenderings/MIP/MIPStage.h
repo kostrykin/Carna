@@ -45,7 +45,7 @@ public:
 
     const static unsigned int ROLE_HU_VOLUME = 0;
 
-    MIPStage();
+    MIPStage( int geometryType );
 
     virtual ~MIPStage();
 

@@ -67,8 +67,9 @@ MIPStage::Details::Details()
 // MIPStage
 // ----------------------------------------------------------------------------------
 
-MIPStage::MIPStage()
-    : pimpl( new Details() )
+MIPStage::MIPStage( int geometryType )
+    : RayMarchingStage( geometryType )
+    , pimpl( new Details() )
 {
 }
 

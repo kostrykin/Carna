@@ -81,6 +81,8 @@ void QDebugLogWriter::writeFormatted( base::Log::Severity severity, const std::s
 class Demo : public QGLWidget
 {
 
+    const static int GEOMETRY_TYPE_VOLUMETRIC = 0;
+
     std::unique_ptr< base::model::UInt16HUVolume > volume;
     std::unique_ptr< base::view::GLContext > glContext;
     std::unique_ptr< base::view::FrameRenderer > renderer;
@@ -165,7 +167,7 @@ void Demo::initializeGL()
         , ( volume->size.y() - 1 ) * spacing.y()
         , ( volume->size.z() - 1 ) * spacing.z() );
 
-    base::view::Geometry* const volumeGeometry = new base::view::Geometry( VolumeRenderings::MIP::MIPStage::GEOMETRY_TYPE );
+    base::view::Geometry* const volumeGeometry = new base::view::Geometry( GEOMETRY_TYPE_VOLUMETRIC );
     volumeGeometry->putAggregate
         ( base::view::BufferedHUVolumeManager< base::model::UInt16HUVolume >::create( *volume )
         , VolumeRenderings::MIP::MIPStage::ROLE_HU_VOLUME );
@@ -190,12 +192,12 @@ void Demo::resizeGL( int w, int h )
         renderer.reset( new base::view::FrameRenderer( *glContext, static_cast< unsigned >( w ), static_cast< unsigned >( h ), fitSquare ) );
 
 #if 0
-        VolumeRenderings::MIP::MIPStage* const mip = new VolumeRenderings::MIP::MIPStage();
+        VolumeRenderings::MIP::MIPStage* const mip = new VolumeRenderings::MIP::MIPStage( GEOMETRY_TYPE_VOLUMETRIC );
         mip->appendChannel( new VolumeRenderings::MIP::Channel( -1024, 0, base::math::Vector4f( 0, 0, 1, 1 ) ) );
         mip->appendChannel( new VolumeRenderings::MIP::Channel( 0, 3071, base::math::Vector4f( 1, 1, 0, 1 ) ) );
         renderer->appendStage( mip );
 #else
-        VolumeRenderings::DRR::DRRStage* const drr = new VolumeRenderings::DRR::DRRStage();
+        VolumeRenderings::DRR::DRRStage* const drr = new VolumeRenderings::DRR::DRRStage( GEOMETRY_TYPE_VOLUMETRIC );
         renderer->appendStage( drr );
 #endif
     }
