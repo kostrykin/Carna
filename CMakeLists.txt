@@ -162,6 +162,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/VolumeRenderings/DRR/DRRStage.h
 		include/${PROJECT_NAME}/VolumeRenderings/MIP/MIPStage.h
 		include/${PROJECT_NAME}/VolumeRenderings/MIP/Channel.h
+		include/${PROJECT_NAME}/CuttingPlanes/CuttingPlanesStage.h
 		include/${PROJECT_NAME}/Carna.h
 		include/${PROJECT_NAME}/Version.h
 	)
@@ -215,6 +216,7 @@ set( SRC
 		src/VolumeRenderings/DRR/DRRStage.cpp
 		src/VolumeRenderings/MIP/MIPStage.cpp
 		src/VolumeRenderings/MIP/Channel.cpp
+		src/CuttingPlanes/CuttingPlanesStage.cpp
 	)
 set( FORMS
 		""
@@ -307,8 +309,8 @@ SOURCE_GROUP( "Headers\\base\\view"
 SOURCE_GROUP( "Headers\\MPR"
 	REGULAR_EXPRESSION .*include/Carna/MPR/[^/]*\\.h )
 
-SOURCE_GROUP( "Headers\\SlicePlanes"
-	REGULAR_EXPRESSION .*include/Carna/SlicePlanes/[^/]*\\.h )
+SOURCE_GROUP( "Headers\\CuttingPlanes"
+	REGULAR_EXPRESSION .*include/Carna/CuttingPlanes/[^/]*\\.h )
 
 SOURCE_GROUP( "Headers\\stereoscopic"
 	REGULAR_EXPRESSION .*include/Carna/stereoscopic/[^/]*\\.h )
@@ -346,8 +348,8 @@ SOURCE_GROUP( "Sources\\base\\view"
 SOURCE_GROUP( "Sources\\MPR"
 	REGULAR_EXPRESSION src/MPR/[^/]*\\.cpp )
 
-SOURCE_GROUP( "Sources\\SlicePlanes"
-	REGULAR_EXPRESSION src/SlicePlanes/[^/]*\\.cpp )
+SOURCE_GROUP( "Sources\\CuttingPlanes"
+	REGULAR_EXPRESSION src/CuttingPlanes/[^/]*\\.cpp )
 
 SOURCE_GROUP( "Sources\\stereoscopic"
 	REGULAR_EXPRESSION src/stereoscopic/[^/]*\\.cpp )

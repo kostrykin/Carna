@@ -128,6 +128,11 @@ namespace Carna
         }
     }
 
+    namespace CuttingPlanes
+    {
+        class CuttingPlanesStage;
+    }
+
 }  // namespace Carna
 
 #endif // CARNA_GLOBAL_H_6014714286

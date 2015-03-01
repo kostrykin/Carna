@@ -32,7 +32,8 @@ namespace VolumeRenderings
 // RayMarchingStage
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB RayMarchingStage : public base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >
+class CARNA_LIB RayMarchingStage
+    : public base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >
 {
 
     struct Details;
