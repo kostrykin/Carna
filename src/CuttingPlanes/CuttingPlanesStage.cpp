@@ -231,7 +231,8 @@ void CuttingPlanesStage::render( base::view::GLContext& glc, const base::view::R
     /* For each plane, process it's intersection with 'volume'.
      */
     const base::math::Matrix4f worldToVolumeModel = volume.geometry().worldTransform().inverse();
-    base::math::Matrix4f scaledWorldToVolumeModel3x3 = worldToVolumeModel * base::math::scaling4f( volumeScaleInWorld );
+    base::math::Matrix4f scaledWorldToVolumeModel3x3
+        = worldToVolumeModel * base::math::scaling4f( base::math::maxAbsElement( volumeScaleInWorld ) );
     scaledWorldToVolumeModel3x3.col( 3 ) = base::math::Vector4f( 0, 0, 0, 1 );
     pimpl->planes.rewind();
     while( !pimpl->planes.isEmpty() )
