@@ -23,6 +23,7 @@
 #include <Carna/base/view/VertexBuffer.h>
 #include <Carna/base/view/IndexBuffer.h>
 #include <Carna/base/view/Sampler.h>
+#include <vector>
 
 namespace Carna
 {
@@ -109,19 +110,60 @@ static MeshBase& createFullFrameQuadMesh( GLContext& glContext )
 
 
 // ----------------------------------------------------------------------------------
+// FrameRenderer :: Details
+// ----------------------------------------------------------------------------------
+
+struct FrameRenderer::Details
+{
+    Details( GLContext& glContext, unsigned int width, unsigned int height );
+
+    std::vector< RenderStage* > stages;
+
+    unsigned int width, height;
+
+    mutable bool reshaped;
+
+    std::unique_ptr< Viewport > viewport;
+
+    GLContext* const glContext;
+
+    const std::unique_ptr< Sampler > fullFrameQuadSampler;
+
+    MeshBase& fullFrameQuadMesh;
+
+    const ShaderProgram& fullFrameQuadShader;
+
+    float backgroundColor[ 4 ];
+    bool backgroundColorChanged;
+};
+
+
+FrameRenderer::Details::Details( GLContext& glContext, unsigned int width, unsigned int height )
+    : width( width )
+    , height( height )
+    , reshaped( true )
+    , glContext( &glContext )
+    , fullFrameQuadSampler( createFullFrameQuadSampler( glContext ) )
+    , fullFrameQuadMesh( createFullFrameQuadMesh( glContext ) )
+    , fullFrameQuadShader( acquireFullFrameQuadShader( glContext ) )
+    , backgroundColorChanged( true )
+{
+    backgroundColor[ 0 ] = 0;
+    backgroundColor[ 1 ] = 0;
+    backgroundColor[ 2 ] = 0;
+    backgroundColor[ 3 ] = 0;
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // FrameRenderer
 // ----------------------------------------------------------------------------------
 
 FrameRenderer::FrameRenderer( GLContext& glContext, unsigned int width, unsigned int height, bool fitSquare )
-    : myWidth( width )
-    , myHeight( height )
-    , reshaped( true )
-    , myGlContext( &glContext )
-    , fullFrameQuadSampler( createFullFrameQuadSampler( glContext ) )
-    , fullFrameQuadMesh( createFullFrameQuadMesh( glContext ) )
-    , fullFrameQuadShader( acquireFullFrameQuadShader( glContext ) )
+    : pimpl( new Details( glContext, width, height ) )
 {
-    myViewport.reset( new Viewport( *this, fitSquare ) );
+    pimpl->viewport.reset( new Viewport( *this, fitSquare ) );
 }
 
 
@@ -131,99 +173,127 @@ FrameRenderer::~FrameRenderer()
      * quad mesh and shader can be cleaned up properly.
      */
     clearStages();
-    ShaderManager::instance().releaseShader( fullFrameQuadShader );
-    fullFrameQuadMesh.release();
+    ShaderManager::instance().releaseShader( pimpl->fullFrameQuadShader );
+    pimpl->fullFrameQuadMesh.release();
+}
+
+
+void FrameRenderer::setBackgroundColor( math::Vector4f& bc )
+{
+    pimpl->backgroundColor[ 0 ] = bc.x();
+    pimpl->backgroundColor[ 1 ] = bc.y();
+    pimpl->backgroundColor[ 2 ] = bc.z();
+    pimpl->backgroundColor[ 3 ] = bc.w();
+    pimpl->backgroundColorChanged = true;
 }
 
 
 GLContext& FrameRenderer::glContext() const
 {
-    return *myGlContext;
+    return *pimpl->glContext;
 }
 
 
 std::size_t FrameRenderer::stages() const
 {
-    return myStages.size();
+    return pimpl->stages.size();
 }
 
 
 void FrameRenderer::appendStage( RenderStage* rs )
 {
-    myStages.push_back( rs );
+    pimpl->stages.push_back( rs );
 }
 
     
 void FrameRenderer::clearStages()
 {
-    myGlContext->makeActive();
-    std::for_each( myStages.begin(), myStages.end(), std::default_delete< RenderStage >() );
-    myStages.clear();
+    pimpl->glContext->makeActive();
+    std::for_each( pimpl->stages.begin(), pimpl->stages.end(), std::default_delete< RenderStage >() );
+    pimpl->stages.clear();
 }
 
 
 RenderStage& FrameRenderer::stageAt( std::size_t position ) const
 {
-    return *myStages[ position ];
+    return *pimpl->stages[ position ];
 }
 
 
 unsigned int FrameRenderer::width() const
 {
-    return myWidth;
+    return pimpl->width;
 }
 
 
 unsigned int FrameRenderer::height() const
 {
-    return myHeight;
+    return pimpl->height;
 }
 
 
 void FrameRenderer::reshape( unsigned int width, unsigned int height, bool fitSquare )
 {
-    myWidth = width;
-    myHeight = height;
-    myViewport.reset( new Viewport( *this, fitSquare ) );
-    reshaped = true;
+    pimpl->width = width;
+    pimpl->height = height;
+    pimpl->viewport.reset( new Viewport( *this, fitSquare ) );
+    pimpl->reshaped = true;
 }
 
 
 void FrameRenderer::render( Camera& cam, Node& root ) const
 {
-    render( cam, root, *myViewport );
+    /* Update world transforms.
+     */
+    root.updateWorldTransform();
+
+    glContext().makeActive();
+    pimpl->viewport->makeActive();
+    render( cam, root, *pimpl->viewport );
+    pimpl->viewport->done();
 }
 
 
 void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
 {
-    // update world transforms
-    root.updateWorldTransform();
-
-    // reshape render stages' buffers
-    for( auto rsItr = myStages.begin(); rsItr != myStages.end(); ++rsItr )
+    /* Reshape render stages' buffers.
+     */
+    for( auto rsItr = pimpl->stages.begin(); rsItr != pimpl->stages.end(); ++rsItr )
     {
         RenderStage& rs = **rsItr;
         
-        // ensure buffers are properly sized
-        if( reshaped || !rs.isInitialized() )
+        /* Ensure buffers are properly sized.
+         */
+        if( pimpl->reshaped || !rs.isInitialized() )
         {
-            rs.reshape( *this, *myViewport );
+            rs.reshape( *this, *pimpl->viewport );
         }
 
-        // notify stages of beginning frame
+        /* Notify stages of beginning frame.
+         */
         rs.prepareFrame( root );
     }
     
-    // mark that all buffer sizes have been established
-    reshaped = false;
+    /* Mark that all buffer sizes have been established.
+     */
+    pimpl->reshaped = false;
+
+    /* Clear buffers.
+     */
+    glClearColor
+        ( pimpl->backgroundColor[ 0 ]
+        , pimpl->backgroundColor[ 1 ]
+        , pimpl->backgroundColor[ 2 ]
+        , pimpl->backgroundColor[ 3 ] );
+    pimpl->glContext->clearBuffers( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     
-    // render frame
-    vp.makeActive();
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+    /* Render frame.
+     */
     RenderTask task( *this, cam.projection(), cam.viewTransform() );
     task.render( vp );
 
+    /* Check for errors.
+     */
     REPORT_GL_ERROR;
 }
 
@@ -232,15 +302,15 @@ void FrameRenderer::renderTexture( unsigned int unit, bool useDefaultSampler, bo
 {
     if( useDefaultSampler )
     {
-        fullFrameQuadSampler->bind( unit );
+        pimpl->fullFrameQuadSampler->bind( unit );
     }
     if( useDefaultShader )
     {
-        myGlContext->setShader( fullFrameQuadShader );
+        pimpl->glContext->setShader( pimpl->fullFrameQuadShader );
     }
 
     ShaderUniform< int >( uniformName, unit ).upload();
-    fullFrameQuadMesh.render();
+    pimpl->fullFrameQuadMesh.render();
 }
 
 

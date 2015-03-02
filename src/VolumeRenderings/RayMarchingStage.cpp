@@ -139,9 +139,9 @@ void RayMarchingStage::VideoResources::renderSlice
     for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {
         const unsigned int role = roles[ samplerOffset ];
-        const unsigned int sampler = base::view::Texture3D::SETUP_UNIT + 1 + samplerOffset;
+        const unsigned int unit = base::view::Texture3D::SETUP_UNIT + 1 + samplerOffset;
         const std::string& uniformName = self.uniformName( role );
-        base::view::ShaderUniform< int >( uniformName, sampler ).upload();
+        base::view::ShaderUniform< int >( uniformName, unit ).upload();
     }
 
     /* Invoke shader.
@@ -195,14 +195,14 @@ void RayMarchingStage::render( base::view::GLContext& glc, const base::view::Ren
      * This vector needs to be renormalized since 'viewModel' may contain scalings.
      */
     const Matrix4f viewModel = modelView.inverse();
-    const Vector4f viewDirectionInModelSpace = base::math::normalized( Vector4f( viewModel * Vector4f( 0, 0, -1, 0 ) ) );
+    const Vector4f viewDirectionInModelSpace = ( viewModel * Vector4f( 0, 0, -1, 0 ) ).normalized();
 
     /* Construct billboard at segment center, i.e. plane that always faces the camera.
      */
     const float s = std::sqrt( 2.f ) / 2;
     const Vector4f modelNormal    = s * -viewDirectionInModelSpace;
-    const Vector4f modelTangent   = s * base::math::normalized( Vector4f( viewModel * Vector4f( 1, 0, 0, 0 ) ) );
-    const Vector4f modelBitangent = s * base::math::normalized( Vector4f( viewModel * Vector4f( 0, 1, 0, 0 ) ) );
+    const Vector4f modelTangent   = s * ( viewModel * Vector4f( 1, 0, 0, 0 ) ).normalized();
+    const Vector4f modelBitangent = s * ( viewModel * Vector4f( 0, 1, 0, 0 ) ).normalized();
     const Matrix4f tangentModel   = base::math::basis4f( modelTangent, modelBitangent, modelNormal );
 
     /* NOTE: This can be optimized using geometry shader, by sending only the central

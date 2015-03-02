@@ -43,11 +43,13 @@ class CARNA_LIB CuttingPlanesStage : public base::view::GeometryStage< void >
 
 public:
 
+    const static unsigned int DEFAULT_WINDOWING_WIDTH = 4096;
+    const static unsigned int DEFAULT_WINDOWING_LEVEL = static_cast< int >( DEFAULT_WINDOWING_WIDTH / 2 ) - 1024;
+    const static unsigned int ROLE_HU_VOLUME = 0;
+
     CuttingPlanesStage( int volumeGeometryType, int planeGeometryType );
 
     virtual ~CuttingPlanesStage();
-
-    virtual void prepareFrame( base::view::Node& root ) override;
 
     virtual void renderPass
         ( const base::math::Matrix4f& viewTransform
@@ -62,7 +64,16 @@ public:
 
     unsigned int windowingWidth() const;
 
+    base::HUV minimumHUV() const;
+
+    base::HUV maximumHUV() const;
+
 protected:
+
+    virtual void updateRenderQueues
+        ( base::view::Node& root
+        , const base::math::Matrix4f& viewTransform
+        , bool viewTransformTriggered ) override;
 
     virtual void render( base::view::GLContext& glc, const base::view::Renderable& ) override;
 

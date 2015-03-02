@@ -14,6 +14,7 @@
 #include <Carna/base/view/GLContext.h>
 #include <Carna/base/view/Framebuffer.h>
 #include <Carna/base/view/RenderTexture.h>
+#include <Carna/base/view/Viewport.h>
 #include <Carna/base/CarnaException.h>
 #include <stdexcept>
 #include <sstream>
@@ -56,6 +57,22 @@ static inline unsigned int createGlDepthbufferObject()
 
 
 // ----------------------------------------------------------------------------------
+// bindSystemFramebuffer
+// ----------------------------------------------------------------------------------
+
+static void bindSystemFramebuffer()
+{
+    glBindFramebufferEXT( GL_FRAMEBUFFER_EXT, 0 );
+    if( GLContext::current().isDoubleBuffered )
+    {
+        glDrawBuffer( GL_BACK );
+    }
+    REPORT_GL_ERROR;
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // Framebuffer :: BindingStack
 // ----------------------------------------------------------------------------------
 
@@ -75,6 +92,8 @@ private:
     std::stack< MinimalBinding* > bindings;
 
 public:
+
+    static void refresh();
 
     static MinimalBinding& top();
 
@@ -108,6 +127,19 @@ Framebuffer::BindingStack::InstanceByContext::iterator Framebuffer::BindingStack
 #endif
 
         return instances.find( &currentContext );
+    }
+}
+
+
+void Framebuffer::BindingStack::refresh()
+{
+    if( BindingStack::empty() )
+    {
+        bindSystemFramebuffer();
+    }
+    else
+    {
+        BindingStack::top().refresh();
     }
 }
 
@@ -248,30 +280,56 @@ void Framebuffer::resize( unsigned int w, unsigned int h )
     glBindRenderbufferEXT( GL_RENDERBUFFER_EXT, depthBuffer );
     glRenderbufferStorageEXT( GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, w, h );
 
- // unbind framebuffer
-    
-    glBindFramebufferEXT( GL_FRAMEBUFFER_EXT, 0 );
-
     REPORT_GL_ERROR;
 }
 
 
-void Framebuffer::clear( bool color, bool depth )
+unsigned int Framebuffer::currentId()
 {
-    Binding binding( *this );
-
-    GLenum bitmask = 0;
-    if( color )
+    if( BindingStack::empty() )
     {
-        bitmask |= GL_COLOR_BUFFER_BIT;
+        return 0;
     }
-    if( depth )
+    else
     {
-        bitmask |= GL_DEPTH_BUFFER_BIT;
+        return BindingStack::top().framebuffer().id;
     }
-
-    glClear( bitmask );
 }
+
+
+void Framebuffer::copy( unsigned int srcId, unsigned int dstId, const Viewport& src, const Viewport& dst, unsigned int flags )
+{
+    const unsigned int  width = std::min( src.width , dst.width  );
+    const unsigned int height = std::min( src.height, dst.height );
+    copy( srcId, dstId, src.left, src.top, dst.left, dst.top, width, height, flags );
+}
+
+
+void Framebuffer::copy
+    ( unsigned int idFrom, unsigned int idTo
+    , unsigned int srcX0, unsigned int srcY0
+    , unsigned int dstX0, unsigned int dstY0
+    , unsigned int width, unsigned int height
+    , unsigned int flags )
+{
+    /* Bind framebuffers.
+     */
+    glBindFramebufferEXT( GL_READ_FRAMEBUFFER, idFrom );
+    glBindFramebufferEXT( GL_DRAW_FRAMEBUFFER, idTo   );
+
+    /* Do the copying.
+     */
+    glBlitFramebufferEXT
+        ( srcX0, srcY0, srcX0 + width - 1, srcY0 + height - 1
+        , dstX0, dstY0, dstX0 + width - 1, dstY0 + height - 1
+        , flags
+        , GL_NEAREST );
+
+    /* Restore previous bindings.
+     */
+    BindingStack::refresh();
+}
+
 
 
 // ----------------------------------------------------------------------------------
@@ -297,43 +355,19 @@ Framebuffer::MinimalBinding::~MinimalBinding()
 
     if( BindingStack::empty() )
     {
-
-     // bind system framebuffer
-
-        bindSystemFB();
-
+        bindSystemFramebuffer();
     }
     else
     if( currentFBO != &( BindingStack::top().fbo ) )
     {
-
-     // bind previous FBO
-
         BindingStack::top().refresh();
-
     }
 }
 
 
-void Framebuffer::MinimalBinding::bindFBO()
+void Framebuffer::MinimalBinding::bindFBO() const
 {
     glBindFramebufferEXT( GL_FRAMEBUFFER_EXT, fbo.id );
-
-    REPORT_GL_ERROR;
-}
-
-
-void Framebuffer::MinimalBinding::bindSystemFB()
-{
-    glBindFramebufferEXT( GL_FRAMEBUFFER_EXT, 0 );
-
-    if( GLContext::current().isDoubleBuffered )
-    {
-        REPORT_GL_ERROR;
-
-        glDrawBuffer( GL_BACK );
-    }
-
     REPORT_GL_ERROR;
 }
 
@@ -360,6 +394,12 @@ void Framebuffer::MinimalBinding::setColorComponent( RenderTexture& texture, uns
 }
 
 
+const Framebuffer& Framebuffer::MinimalBinding::framebuffer() const
+{
+    return fbo;
+}
+
+
 Color Framebuffer::MinimalBinding::readPixel( unsigned int x, unsigned int y, unsigned int color_attachment ) const
 {
     // TODO: store position -> render texture mapping, read whether it's a floating point
@@ -383,7 +423,7 @@ Color Framebuffer::MinimalBinding::readPixel( unsigned int x, unsigned int y, un
 }
 
 
-void Framebuffer::MinimalBinding::refresh()
+void Framebuffer::MinimalBinding::refresh() const
 {
     bindFBO();
 }

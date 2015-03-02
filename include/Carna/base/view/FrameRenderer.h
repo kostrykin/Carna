@@ -14,7 +14,7 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/noncopyable.h>
-#include <vector>
+#include <Carna/base/math.h>
 #include <memory>
 #include <string>
 
@@ -42,21 +42,8 @@ class CARNA_LIB FrameRenderer
 
     NON_COPYABLE
 
-    std::vector< RenderStage* > myStages;
-    
-    unsigned int myWidth, myHeight;
-    
-    mutable bool reshaped;
-
-    std::unique_ptr< Viewport > myViewport;
-
-    GLContext* const myGlContext;
-
-    const std::unique_ptr< Sampler > fullFrameQuadSampler;
-
-    MeshBase& fullFrameQuadMesh;
-
-    const ShaderProgram& fullFrameQuadShader;
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
 
 public:
     
@@ -77,6 +64,8 @@ public:
     unsigned int width() const;
     
     unsigned int height() const;
+
+    void setBackgroundColor( math::Vector4f& );
     
     void reshape( unsigned int width, unsigned int height, bool fitSquare );
     

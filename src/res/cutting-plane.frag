@@ -14,7 +14,6 @@
 uniform sampler3D huVolume;
 uniform float     minIntensity;
 uniform float     maxIntensity;
-uniform vec4      color;
 
 in vec4 modelSpaceCoordinates;
 
@@ -44,6 +43,7 @@ void main()
 
     float intensity = intensityAt( modelSpaceCoordinates.xyz + 0.5 );
     float f = step( minIntensity, intensity ) * ( 1 - step( maxIntensity, intensity ) ) * ( intensity - minIntensity ) / ( maxIntensity - minIntensity );
+          f = f + step( maxIntensity, intensity );
     
-    gl_FragColor = vec4( color.rgb, color.a * f );
+    gl_FragColor = vec4( f, f, f, 1 );
 }

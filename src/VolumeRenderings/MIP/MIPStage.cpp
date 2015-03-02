@@ -126,10 +126,10 @@ void MIPStage::reshape( const base::view::FrameRenderer& fr, const base::view::V
 void MIPStage::renderPass
     ( const base::math::Matrix4f& vt
     , base::view::RenderTask& rt
-    , const base::view::Viewport& vp )
+    , const base::view::Viewport& outputViewport )
 {
     const base::view::Viewport framebufferViewport
-        ( vp, 0, 0
+        ( outputViewport, 0, 0
         , pimpl->channelFrameBuffer->width()
         , pimpl->channelFrameBuffer->height() );
 
@@ -139,6 +139,16 @@ void MIPStage::renderPass
     rs.setBlend( true );
     rs.setDepthTest( false );
     rs.setDepthWrite( false );
+
+    /* Copy depth buffer from output to dedicated frame buffer.
+     */
+    const unsigned int outputFramebufferId = base::view::Framebuffer::currentId();
+    base::view::Framebuffer::copy
+        ( outputFramebufferId
+        , pimpl->channelFrameBuffer->id
+        , outputViewport
+        , framebufferViewport
+        , GL_DEPTH_BUFFER_BIT );
 
     /* For each channel: First render the channel-specific MIP result to the dedicated framebuffer,
      * than render the result to the output framebuffer w.r.t. the channel function.
@@ -153,8 +163,10 @@ void MIPStage::renderPass
 
             base::view::RenderState rs2( rt.renderer.glContext() );
             rs2.setBlendEquation( GL_MAX );
+            rs2.setDepthTest( true );
 
-            glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+            glClearColor( 0, 0, 0, 0 );
+            rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT );
 
             framebufferViewport.makeActive();
             RayMarchingStage::renderPass( vt, rt, framebufferViewport );

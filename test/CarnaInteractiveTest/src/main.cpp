@@ -21,6 +21,7 @@
 #include <Carna/VolumeRenderings/MIP/MIPStage.h>
 #include <Carna/VolumeRenderings/MIP/Channel.h>
 #include <Carna/VolumeRenderings/DRR/DRRStage.h>
+#include <Carna/CuttingPlanes/CuttingPlanesStage.h>
 
 #include <HUGZSceneFactory.h>
 
@@ -86,8 +87,9 @@ void QDebugLogWriter::writeFormatted( base::Log::Severity severity, const std::s
 class Demo : public QGLWidget
 {
 
-    const static int GEOMETRY_TYPE_VOLUMETRIC = 0;
-    const static int GEOMETRY_TYPE_OPAQUE     = 1;
+    const static int GEOMETRY_TYPE_VOLUMETRIC    = 0;
+    const static int GEOMETRY_TYPE_OPAQUE        = 1;
+    const static int GEOMETRY_TYPE_CUTTING_PLANE = 2;
 
     std::unique_ptr< base::model::UInt16HUVolume > volume;
     std::unique_ptr< base::view::GLContext > glContext;
@@ -198,6 +200,7 @@ void Demo::initializeGL()
     base::view::Geometry* const boxGeometry = new base::view::Geometry( GEOMETRY_TYPE_OPAQUE );
     boxGeometry->putFeature( base::view::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
     boxGeometry->putFeature( base::view::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
+    boxGeometry->localTransform = base::math::translation4f( 0, 0, 50 );
 
     volumeTexture.release();
     boxMaterial.release();
@@ -218,6 +221,10 @@ void Demo::initializeGL()
     root->attachChild( volumePivot1 );
     root->attachChild( volumePivot2 );
     root->attachChild( boxGeometry );
+
+    base::view::Geometry* const plane1 = new base::view::Geometry( GEOMETRY_TYPE_CUTTING_PLANE );
+    plane1->localTransform = base::math::plane4f( base::math::Vector3f( 1, 1, 1 ).normalized(), 0 );
+    root->attachChild( plane1 );
 }
 
 
@@ -228,14 +235,28 @@ void Demo::resizeGL( int w, int h )
     {
         renderer.reset( new base::view::FrameRenderer( *glContext, static_cast< unsigned >( w ), static_cast< unsigned >( h ), fitSquare ) );
 
+        /* Opaque
+         */
         base::view::OpaqueRenderingStage* const opaque = new base::view::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
         renderer->appendStage( opaque );
+
+        /* Cutting Planes
+         */
+        CuttingPlanes::CuttingPlanesStage* const cuttingPlanes
+            = new CuttingPlanes::CuttingPlanesStage( GEOMETRY_TYPE_VOLUMETRIC, GEOMETRY_TYPE_CUTTING_PLANE );
+        cuttingPlanes->setWindowingWidth( 1000 );
+        cuttingPlanes->setWindowingLevel( -100 );
+        renderer->appendStage( cuttingPlanes );
 #if 0
+        /* MIP
+         */
         VolumeRenderings::MIP::MIPStage* const mip = new VolumeRenderings::MIP::MIPStage( GEOMETRY_TYPE_VOLUMETRIC );
-        mip->appendChannel( new VolumeRenderings::MIP::Channel( -1024, 0, base::math::Vector4f( 0, 0, 1, 1 ) ) );
-        mip->appendChannel( new VolumeRenderings::MIP::Channel( 0, 3071, base::math::Vector4f( 1, 1, 0, 1 ) ) );
+        mip->appendChannel( new VolumeRenderings::MIP::Channel( -1024, 0, base::math::Vector4f( 0, 0, 1, 0.5f ) ) );
+        mip->appendChannel( new VolumeRenderings::MIP::Channel( 0, 3071, base::math::Vector4f( 1, 1, 0, 0.5f ) ) );
         renderer->appendStage( mip );
 #else
+        /* DRR
+         */
         VolumeRenderings::DRR::DRRStage* const drr = new VolumeRenderings::DRR::DRRStage( GEOMETRY_TYPE_VOLUMETRIC );
         renderer->appendStage( drr );
 #endif
@@ -268,6 +289,7 @@ int main( int argc, char** argv )
     Carna::base::Log::instance().setWriter( new Carna::testing::QDebugLogWriter() );
     QApplication app( argc, argv );
     Carna::testing::Demo demo;
+    demo.resize( 400, 400 );
     demo.show();
     return QApplication::exec();
 }

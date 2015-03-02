@@ -67,9 +67,15 @@ public:
     
     virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) override;
 
+    std::size_t renderedPassesCount() const;
+
 protected:
 
     void activateGLContext() const;
+
+    virtual void updateRenderQueues( Node& root, const math::Matrix4f& viewTransform, bool viewTransformTriggered );
+
+    virtual void rewindRenderQueues();
 
     virtual void render( GLContext& glc, const Renderable& renderable ) = 0;
 
@@ -118,6 +124,27 @@ void GeometryStage< RenderableCompare >::prepareFrame( Node& root )
 
 
 template< typename RenderableCompare >
+std::size_t GeometryStage< RenderableCompare >::renderedPassesCount() const
+{
+    return passesRendered;
+}
+
+
+template< typename RenderableCompare >
+void GeometryStage< RenderableCompare >::updateRenderQueues( Node& root, const math::Matrix4f& vt, bool vtTriggered )
+{
+    rq.build( root, vt );
+}
+
+
+template< typename RenderableCompare >
+void GeometryStage< RenderableCompare >::rewindRenderQueues()
+{
+    rq.rewind();
+}
+
+
+template< typename RenderableCompare >
 void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp )
 {
     CARNA_ASSERT( myContext != nullptr );
@@ -125,11 +152,12 @@ void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewT
     const bool isFirstPass = passesRendered == 0;
     if( ++passesRendered == 1 || !isViewTransformFixed() )
     {
-        rq.build( *root, viewTransform );
+        const bool viewTransformTriggered = passesRendered != 1;
+        updateRenderQueues( *root, viewTransform, viewTransformTriggered );
     }
     else
     {
-        rq.rewind();
+        rewindRenderQueues();
     }
 
     std::set< GeometryFeature* > usedFeatures;

@@ -62,16 +62,24 @@ public:
       */
     ~Framebuffer();
 
-
     /** \brief  Identifies the associated framebuffer object.
       */
     const unsigned int id;
 
+    static void copy
+        ( unsigned int srcId, unsigned int dstId
+        , unsigned int srcX0, unsigned int srcY0
+        , unsigned int dstX0, unsigned int dstY0
+        , unsigned int width, unsigned int height
+        , unsigned int flags );
+
+    static void copy( unsigned int srcId, unsigned int dstId, const Viewport& src, const Viewport& dst, unsigned int flags );
+
+    static unsigned int currentId();
 
     /** \brief  Invalidates the depth buffer's contents and resizes it.
       */
     void resize( unsigned int w, unsigned int h );
-
 
     /** \brief  Returns the texture's width.
       */
@@ -86,13 +94,6 @@ public:
     {
         return h;
     }
-
-
-    /** \brief  Binds the framebuffer and clears the associated buffers.
-      * Then unbinds the framebuffer.
-      */
-    void clear( bool color, bool depth );
-
 
     /** \brief  Binds and unbinds framebuffer objects.
       *
@@ -114,14 +115,13 @@ public:
 
         /** \brief  Binds given framebuffer object.
           */
-        MinimalBinding( Framebuffer& );
+        explicit MinimalBinding( Framebuffer& fbo );
 
         /** \brief  Releases the binding.
           *
           * Restores the previous binding.
           */
         virtual ~MinimalBinding();
-
 
         /** \brief  Attaches the given texture as the currently bound
           *         framebuffer's color buffer.
@@ -135,17 +135,17 @@ public:
           */
         Color readPixel( unsigned int x, unsigned int y, unsigned int color_attachment = 0 ) const;
 
+        const Framebuffer& framebuffer() const;
+
+        /** \brief  Re-performs the binding.
+          */
+        virtual void refresh() const;
 
     private:
 
         /** \brief  Binds the associated framebuffer object.
           */
-        void bindFBO();
-
-        /** \brief  Binds the system framebuffer.
-          */
-        void bindSystemFB();
-
+        void bindFBO() const;
 
     protected:
 
@@ -153,13 +153,7 @@ public:
           */
         Framebuffer& fbo;
 
-
-        /** \brief  Re-performs the binding.
-          */
-        virtual void refresh();
-
     }; // MinimalBinding
-
 
     /** \brief  Same as MinimalBinding, but checks FBO for validity when binding.
       *
@@ -180,8 +174,7 @@ public:
           * \throws std::runtime_error      if FBO is incomplete or current configuration
           *                                 is unsupported.
           */
-        Binding( Framebuffer& );
-
+        explicit Binding( Framebuffer& );
 
     protected:
 
@@ -191,13 +184,11 @@ public:
 
     }; // Binding
 
-
 private:
 
     /** \brief  Keeps track of overwritten framebuffer bindings.
       */
     class BindingStack;
-
 
     /** \brief  Identifies the associated depth buffer object.
       */

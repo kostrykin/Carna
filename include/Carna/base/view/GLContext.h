@@ -68,6 +68,8 @@ public:
 
     const ShaderProgram& shader() const;
 
+    void clearBuffers( unsigned int flags );
+
 }; // GLContext
 
 

@@ -29,22 +29,22 @@ namespace view
 // RenderTask
 // ----------------------------------------------------------------------------------
 
-RenderTask::RenderTask( const FrameRenderer& renderer, const math::Matrix4f& projection, const math::Matrix4f& viewTransform )
+RenderTask::RenderTask( const FrameRenderer& renderer, const math::Matrix4f& proj, const math::Matrix4f& vt )
     : myOutput( nullptr )
     , nextRenderStage( 0 )
-    , viewTransform( viewTransform )
+    , myViewTransform( vt )
     , renderer( renderer )
-    , projection( projection )
+    , projection( proj )
 {
 }
 
 
-RenderTask::RenderTask( const FrameRenderer& renderer, const math::Matrix4f& projection, const math::Matrix4f& viewTransform, Framebuffer& output )
+RenderTask::RenderTask( const FrameRenderer& renderer, const math::Matrix4f& proj, const math::Matrix4f& vt, Framebuffer& output )
     : myOutput( &output )
     , nextRenderStage( 0 )
-    , viewTransform( viewTransform )
+    , myViewTransform( vt )
     , renderer( renderer )
-    , projection( projection )
+    , projection( proj )
 {
 }
 
@@ -52,16 +52,22 @@ RenderTask::RenderTask( const FrameRenderer& renderer, const math::Matrix4f& pro
 RenderTask::RenderTask( const RenderTask& parent, Framebuffer& output )
     : myOutput( &output )
     , nextRenderStage( parent.nextRenderStage )
-    , viewTransform( parent.viewTransform )
+    , myViewTransform( parent.myViewTransform )
     , renderer( parent.renderer )
     , projection( parent.projection )
 {
 }
 
 
+const math::Matrix4f& RenderTask::viewTransform() const
+{
+    return myViewTransform;
+}
+
+
 void RenderTask::overrideViewTransform( const math::Matrix4f& viewTransform )
 {
-    this->viewTransform = viewTransform;
+    this->myViewTransform = viewTransform;
     for( std::size_t rsIdx = nextRenderStage; rsIdx < renderer.stages(); ++rsIdx )
     {
         RenderStage& rs = renderer.stageAt( rsIdx );
@@ -77,7 +83,7 @@ void RenderTask::render( const Viewport& vp )
     {
         RenderStage& rs = renderer.stageAt( nextRenderStage );
         ++nextRenderStage;
-        rs.renderPass( viewTransform, *this, vp );
+        rs.renderPass( myViewTransform, *this, vp );
     }
 }
     

@@ -111,6 +111,23 @@ const ShaderProgram& GLContext::shader() const
 }
 
 
+void GLContext::clearBuffers( unsigned int flags )
+{
+    if( !isActive() )
+    {
+        makeActive();
+    }
+
+    RenderState rs( *this );
+    if( flags & GL_DEPTH_BUFFER_BIT )
+    {
+        rs.setDepthWrite( true );
+    }
+
+    glClear( flags );
+}
+
+
 
 }  // namespace Carna :: base :: view
 

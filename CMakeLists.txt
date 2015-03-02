@@ -234,14 +234,16 @@ set( DOC_SRC
 		src/doc/doc_version_log.dox
 	)
 set( SHADERS_SRC
+		src/res/cutting-plane.vert
+		src/res/cutting-plane.frag
 		src/res/drr-accumulation.frag
 		src/res/drr-accumulation.vert
 		src/res/drr-exponential.frag
 		src/res/drr-exponential.vert
-		src/res/mip.frag
-		src/res/mip.vert
 		src/res/full_frame_quad.vert
 		src/res/full_frame_quad.frag
+		src/res/mip.frag
+		src/res/mip.vert
 		src/res/unshaded.vert
 		src/res/unshaded.frag
 	)

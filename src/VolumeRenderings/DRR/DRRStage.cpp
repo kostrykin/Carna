@@ -53,7 +53,7 @@ struct DRRStage::Details
 
     const base::view::ShaderProgram* exponentialShader;
 
-    static inline float huvToIntensity( signed short huv )
+    static inline float huvToIntensity( base::HUV huv )
     {
         return ( huv + 1024 ) / 4095.f;
     }
@@ -190,18 +190,32 @@ void DRRStage::loadVideoResources()
 void DRRStage::renderPass
     ( const base::math::Matrix4f& vt
     , base::view::RenderTask& rt
-    , const base::view::Viewport& vp )
+    , const base::view::Viewport& outputViewport )
 {
+    const base::view::Viewport framebufferViewport
+        ( outputViewport, 0, 0
+        , pimpl->accumulationFrameBuffer->width()
+        , pimpl->accumulationFrameBuffer->height() );
+
     /* Configure OpenGL state that is common to both following passes.
      */
     base::view::RenderState rs( rt.renderer.glContext() );
     rs.setBlend( true );
-    rs.setDepthTest( false );
     rs.setDepthWrite( false );
 
     /* Compute step length for ray marching in model space.
      */
     pimpl->stepLength = 1.f / sampleRate();
+
+    /* Copy depth buffer from output to the accumulation frame buffer.
+     */
+    const unsigned int outputFramebufferId = base::view::Framebuffer::currentId();
+    base::view::Framebuffer::copy
+        ( outputFramebufferId
+        , pimpl->accumulationFrameBuffer->id
+        , outputViewport
+        , framebufferViewport
+        , GL_DEPTH_BUFFER_BIT );
 
     /* First, evaluate the integral by rendering to the accumulation buffer.
      */
@@ -212,12 +226,8 @@ void DRRStage::renderPass
         base::view::RenderState rs2( rt.renderer.glContext() );
         rs2.setBlendFunction( base::view::BlendFunction( GL_ONE, GL_ONE ) );
 
-        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
-        const base::view::Viewport framebufferViewport
-            ( vp, 0, 0
-            , pimpl->accumulationFrameBuffer->width()
-            , pimpl->accumulationFrameBuffer->height() );
+        glClearColor( 0, 0, 0, 0 );
+        rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT );
 
         framebufferViewport.makeActive();
         RayMarchingStage::renderPass( vt, rt, framebufferViewport );
@@ -227,6 +237,7 @@ void DRRStage::renderPass
 
     /* Now compute the exponential of the integral.
      */
+    rs.setDepthTest( false );
     rt.renderer.glContext().setShader( *pimpl->exponentialShader );
     base::view::ShaderUniform< float >( "baseIntensity", pimpl->baseIntensity ).upload();
     base::view::ShaderUniform< int >( "renderInverse", pimpl->renderInverse ? 1 : 0 ).upload();

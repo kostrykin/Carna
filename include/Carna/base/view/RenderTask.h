@@ -41,7 +41,7 @@ class CARNA_LIB RenderTask
     
     std::size_t nextRenderStage;
 
-    math::Matrix4f viewTransform;
+    math::Matrix4f myViewTransform;
 
 public:
 
@@ -57,6 +57,8 @@ public:
     const FrameRenderer& renderer;
 
     const math::Matrix4f& projection;
+
+    const math::Matrix4f& viewTransform() const;
 
     void overrideViewTransform( const math::Matrix4f& );
     

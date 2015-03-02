@@ -29,10 +29,7 @@ void main()
     float integral = texture( integralMap, textureCoordinates ).r;
     float result   = clamp( baseIntensity * exp( -integral ), 0, 1 );
 
-    if( renderInverse != 0 )
-    {
-        result = 1 - result;
-    }
+    vec3 color = ( 1 - renderInverse ) * vec3( 1, 1, 1 );
 
-    gl_FragColor = vec4( 1, 1, 1, result );
+    gl_FragColor = vec4( color, 1 - result );
 }

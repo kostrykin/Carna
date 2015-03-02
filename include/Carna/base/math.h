@@ -13,6 +13,7 @@
 #define MATH_H_6014714286
 
 #include <Carna/Carna.h>
+#include <Carna/base/CarnaException.h>
 #include <algorithm>
 #include <cmath>
 #include <Eigen/Dense>
@@ -194,6 +195,13 @@ namespace math
         return result;
     }
 
+    inline Matrix4f zeros4f()
+    {
+        Matrix4f result;
+        result.setZero();
+        return result;
+    }
+
     inline Matrix4f basis4f( const Vector4f& x, const Vector4f& y, const Vector4f& z, const Vector4f& t = Vector4f( 0, 0, 0, 0 ) )
     {
         Matrix4f result;
@@ -278,16 +286,90 @@ namespace math
         return result;
     }
 
+    template< typename Vector >
+    Matrix4f rotation4f( const Vector& v, float radians )
+    {
+        return rotation4f( v.x(), v.y(), v.z(), radians );
+    }
+
+    inline Vector3f orthogonal3f( const Vector3f& in )
+    {
+        Vector3f out;
+        if( std::abs( in.x() - in.y() ) > 1e-4f )
+        {
+            out.x() = in.y();
+            out.y() = in.x();
+            out.z() = 0;
+
+            if( std::abs( out.x() ) > std::abs( out.y() ) )
+            {
+                out.x() = -out.x();
+            }
+            else
+            {
+                out.y() = -out.y();
+            }
+        }
+        else
+        if( std::abs( in.x() - in.z() ) > 1e-4f )
+        {
+            out.x() = in.z();
+            out.y() = 0;
+            out.z() = in.x();
+
+            if( std::abs( out.x() ) > std::abs( out.z() ) )
+            {
+                out.x() = -out.x();
+            }
+            else
+            {
+                out.z() = -out.z();
+            }
+        }
+        else
+        if( std::abs( in.y() - in.z() ) > 1e-4f )
+        {
+            out.x() = 0;
+            out.y() = in.z();
+            out.z() = in.x();
+
+            if( std::abs( out.y() ) > std::abs( out.z() ) )
+            {
+                out.y() = -out.y();
+            }
+            else
+            {
+                out.z() = -out.z();
+            }
+        }
+        else // all components are equal
+        {
+            out = Vector3f( -in.x(), in.y(), 0 );
+        }
+        CARNA_ASSERT( std::abs( in.dot( out ) ) < 1e-4f );
+        return out;
+    }
+
+    template< typename Vector3 >
+    Vector4f vector4f( const Vector3& v, float w )
+    {
+        return Vector4f( v.x(), v.y(), v.z(), w );
+    }
+
+    inline Matrix4f plane4f( const Vector3f& normal, float distance )
+    {
+        const Vector3f tangent  ( orthogonal3f(  normal ).normalized() );
+        const Vector3f bitangent( normal.cross( tangent ).normalized() );
+        return basis4f
+            ( vector4f        ( bitangent, 0 )
+            , vector4f          ( tangent, 0 )
+            , vector4f           ( normal, 0 )
+            , vector4f( normal * distance, 1 ) );
+    }
+
     inline float translationDistanceSq( const Matrix4f& m )
     {
         return m( 1, 3 ) * m( 1, 3 ) + m( 2, 3 ) * m( 2, 3 ) + m( 3, 3 ) * m( 3, 3 );
-    }
-
-    template< typename Vector >
-    Vector& normalized( Vector& v )
-    {
-        v.normalize();
-        return v;
     }
 
     template< typename Matrix >
