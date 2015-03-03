@@ -154,6 +154,8 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/Composition.h
 		include/${PROJECT_NAME}/base/noncopyable.h
 		include/${PROJECT_NAME}/base/math.h
+		include/${PROJECT_NAME}/base/RayBoxHitTest.h
+		include/${PROJECT_NAME}/base/RayPlaneHitTest.h
 		include/${PROJECT_NAME}/base/Span.h
 		include/${PROJECT_NAME}/base/Singleton.h
 		include/${PROJECT_NAME}/base/Text.h
@@ -210,6 +212,7 @@ set( SRC
 		src/base/view/ShaderUniform.cpp
 		src/base/model/HUVolume.cpp
 		src/base/CarnaException.cpp
+		src/base/RayBoxHitTest.cpp
 		src/base/Text.cpp
 		src/base/Log.cpp
 		src/VolumeRenderings/RayMarchingStage.cpp

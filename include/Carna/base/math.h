@@ -30,8 +30,8 @@
 #define NOMINMAX
 #endif
 
-/** \file   Math.h
-  * \brief  Defines \ref Carna::base::Math.
+/** \file   math.h
+  * \brief  Defines \ref Carna::base::math.
   *
   * \attention
   * If you include \c windows.h before including this file, make sure to have \c NOMINMAX
