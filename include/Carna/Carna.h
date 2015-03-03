@@ -47,8 +47,11 @@ namespace Carna
     
         class Application;
         class AssertionFailure;
+        class BoundingBox;
+        class BoundingVolume;
         class CarnaException;
         class Log;
+        class RayBoxHitTest;
         class Text;
         
         /** \brief  Contains the controller components of the core framework.

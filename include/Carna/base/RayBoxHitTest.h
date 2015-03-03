@@ -45,8 +45,8 @@ public:
      * that the origin of this space is the center of the box.
      */
     void compute
-        ( const math::Vector3f& rayDirection
-        , const math::Vector3f& rayOrigin
+        ( const math::Vector3f& rayOrigin
+        , const math::Vector3f& rayDirection
         , const math::Vector3f& boxSize = math::Vector3f( 1, 1, 1 ) );
 
     bool hitExists() const;

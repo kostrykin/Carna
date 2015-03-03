@@ -43,7 +43,7 @@ public:
 
     RayPlaneHitTest();
 
-    void compute( const Vector& rayDirection, const Vector& rayOrigin, const Vector& planeNormal, Scalar planeOriginOffset );
+    void compute( const Vector& rayOrigin, const Vector& rayDirection, const Vector& planeNormal, Scalar planeOriginOffset );
 
     bool hitExists() const;
 
@@ -76,8 +76,8 @@ const Vector& RayPlaneHitTest< Vector, Scalar >::hitLocation() const
 
 template< typename Vector, typename Scalar >
 void RayPlaneHitTest< Vector, Scalar >::compute
-    ( const Vector& rayDirection
-    , const Vector& rayOrigin
+    ( const Vector& rayOrigin
+    , const Vector& rayDirection
     , const Vector& planeNormal
     , Scalar planeOriginOffset )
 {

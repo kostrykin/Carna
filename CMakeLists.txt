@@ -160,6 +160,8 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/Singleton.h
 		include/${PROJECT_NAME}/base/Text.h
 		include/${PROJECT_NAME}/base/Log.h
+		include/${PROJECT_NAME}/base/BoundingBox.h
+		include/${PROJECT_NAME}/base/BoundingVolume.h
 		include/${PROJECT_NAME}/VolumeRenderings/RayMarchingStage.h
 		include/${PROJECT_NAME}/VolumeRenderings/DRR/DRRStage.h
 		include/${PROJECT_NAME}/VolumeRenderings/MIP/MIPStage.h
@@ -213,6 +215,9 @@ set( SRC
 		src/base/model/HUVolume.cpp
 		src/base/CarnaException.cpp
 		src/base/RayBoxHitTest.cpp
+		src/base/BoundingBox.cpp
+		src/base/BoundingBox.cpp
+		src/base/BoundingVolume.cpp
 		src/base/Text.cpp
 		src/base/Log.cpp
 		src/VolumeRenderings/RayMarchingStage.cpp

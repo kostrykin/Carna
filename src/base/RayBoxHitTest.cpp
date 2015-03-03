@@ -32,8 +32,8 @@ RayBoxHitTest::RayBoxHitTest()
 
 
 void RayBoxHitTest::compute
-    ( const math::Vector3f& rayDirection
-    , const math::Vector3f& rayOrigin
+    ( const math::Vector3f& rayOrigin
+    , const math::Vector3f& rayDirection
     , const math::Vector3f& boxSize )
 {
     CARNA_ASSERT( math::isEqual< float >( rayDirection.norm(), 1 ) );
