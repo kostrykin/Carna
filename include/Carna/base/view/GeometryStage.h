@@ -52,7 +52,9 @@ protected:
 
 public:
 
-    GeometryStage( int geometryType );
+    GeometryStage
+        ( unsigned int geometryType
+        , unsigned int geometryTypeMask = RenderQueue< RenderableCompare >::EXACT_MATCH_GEOMETRY_TYPE_MASK );
 
     /** \brief
       * Releases acquired video resources.
@@ -83,11 +85,11 @@ protected:
 
 
 template< typename RenderableCompare >
-GeometryStage< RenderableCompare >::GeometryStage( int geometryType )
+GeometryStage< RenderableCompare >::GeometryStage( unsigned int geometryType, unsigned int geometryTypeMask )
     : root( nullptr )
     , passesRendered( 0 )
     , myContext( nullptr )
-    , rq( geometryType )
+    , rq( geometryType, geometryTypeMask )
 {
 }
 

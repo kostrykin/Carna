@@ -42,7 +42,7 @@ struct Geometry::Details
 // Geometry
 // ----------------------------------------------------------------------------------
 
-Geometry::Geometry( int geometryType )
+Geometry::Geometry( unsigned int geometryType )
     : pimpl( new Details() )
     , geometryType( geometryType )
 {

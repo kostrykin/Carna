@@ -42,9 +42,9 @@ class CARNA_LIB Geometry : public Spatial
 
 public:
 
-    const int geometryType;
+    const unsigned int geometryType;
 
-    Geometry( int geometryType );
+    Geometry( int unsigned geometryType );
 
     virtual ~Geometry();
 

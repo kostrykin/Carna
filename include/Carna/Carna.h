@@ -50,8 +50,8 @@ namespace Carna
         class BoundingBox;
         class BoundingVolume;
         class CarnaException;
+        class ColorCodingStage;
         class Log;
-        class RayBoxHitTest;
         class Text;
         
         /** \brief  Contains the controller components of the core framework.

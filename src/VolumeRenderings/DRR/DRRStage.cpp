@@ -78,7 +78,7 @@ DRRStage::Details::Details()
 // DRRStage
 // ----------------------------------------------------------------------------------
 
-DRRStage::DRRStage( int geometryType )
+DRRStage::DRRStage( unsigned int geometryType )
     : RayMarchingStage( geometryType )
     , pimpl( new Details() )
 {

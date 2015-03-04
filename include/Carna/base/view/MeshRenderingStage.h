@@ -62,7 +62,7 @@ class MeshRenderingStage : public GeometryStage< RenderableCompare >, public Mes
 
 public:
 
-    MeshRenderingStage( int geometryType );
+    MeshRenderingStage( unsigned int geometryType );
 
     virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) override;
 
@@ -74,7 +74,7 @@ protected:
 
 
 template< typename RenderableCompare >
-MeshRenderingStage< RenderableCompare >::MeshRenderingStage( int geometryType )
+MeshRenderingStage< RenderableCompare >::MeshRenderingStage( unsigned int geometryType )
     : GeometryStage< RenderableCompare >( geometryType )
 {
 }

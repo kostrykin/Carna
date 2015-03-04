@@ -45,7 +45,7 @@ public:
 
     const static unsigned int ROLE_HU_VOLUME = 0;
 
-    DRRStage( int geometryType );
+    DRRStage( unsigned int geometryType );
 
     virtual ~DRRStage();
 

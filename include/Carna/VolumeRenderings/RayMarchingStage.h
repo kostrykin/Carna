@@ -46,7 +46,7 @@ public:
 
     const static unsigned int DEFAULT_SAMPLE_RATE = 100;
 
-    RayMarchingStage( int geometryType );
+    RayMarchingStage( unsigned int geometryType );
 
     virtual ~RayMarchingStage();
 

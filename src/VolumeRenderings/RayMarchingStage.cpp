@@ -155,7 +155,7 @@ void RayMarchingStage::VideoResources::renderSlice
 // RayMarchingStage
 // ----------------------------------------------------------------------------------
 
-RayMarchingStage::RayMarchingStage( int geometryType )
+RayMarchingStage::RayMarchingStage( unsigned int geometryType )
     : base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >
         ::GeometryStage( geometryType )
     , pimpl( new Details() )

@@ -21,6 +21,7 @@
 #include <Carna/base/noncopyable.h>
 #include <vector>
 #include <algorithm>
+#include <climits>
 
 /** \file   RenderQueue.h
   * \brief  Defines \ref Carna::base::view::RenderQueue.
@@ -52,9 +53,13 @@ class RenderQueue
 
 public:
 
-    const int geometryType;
+    const unsigned int geometryType;
 
-    RenderQueue( int geometryType );
+    const unsigned int geometrTypeMask;
+
+    const static unsigned int EXACT_MATCH_GEOMETRY_TYPE_MASK;
+
+    RenderQueue( unsigned int geometryType, unsigned int geometryTypeMask = EXACT_MATCH_GEOMETRY_TYPE_MASK );
     
     void build( const Node& root, const math::Matrix4f& viewTransform );
     
@@ -72,8 +77,13 @@ public:
 
 
 template< typename RenderableCompare >
-RenderQueue< RenderableCompare >::RenderQueue( int geometryType )
+const unsigned int RenderQueue< RenderableCompare >::EXACT_MATCH_GEOMETRY_TYPE_MASK = std::numeric_limits< unsigned int >::max();
+
+
+template< typename RenderableCompare >
+RenderQueue< RenderableCompare >::RenderQueue( unsigned int geometryType, unsigned int geometrTypeMask )
     : geometryType( geometryType )
+    , geometrTypeMask( geometrTypeMask )
 {
 }
 
@@ -110,7 +120,7 @@ void RenderQueue< RenderableCompare >::build( const Node& root, const math::Matr
     root.visitChildren( true, [&]( const Spatial& spatial )
         {
             const Geometry* const geom = dynamic_cast< const Geometry* >( &spatial );
-            if( geom != nullptr && geom->geometryType == geometryType )
+            if( geom != nullptr && ( geom->geometryType & geometrTypeMask ) == geometryType )
             {
                 const math::Matrix4f modelViewTransform = viewTransform * geom->worldTransform();
                 renderables.push_back( Renderable( *geom, modelViewTransform ) );
