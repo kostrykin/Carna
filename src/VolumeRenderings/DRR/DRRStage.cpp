@@ -10,13 +10,13 @@
  */
 
 #include <Carna/VolumeRenderings/DRR/DRRStage.h>
-#include <Carna/base/view/glew.h>
-#include <Carna/base/view/ShaderManager.h>
-#include <Carna/base/view/Framebuffer.h>
-#include <Carna/base/view/RenderTexture.h>
-#include <Carna/base/view/Viewport.h>
-#include <Carna/base/view/RenderState.h>
-#include <Carna/base/view/ShaderUniform.h>
+#include <Carna/base/glew.h>
+#include <Carna/base/ShaderManager.h>
+#include <Carna/base/Framebuffer.h>
+#include <Carna/base/RenderTexture.h>
+#include <Carna/base/Viewport.h>
+#include <Carna/base/RenderState.h>
+#include <Carna/base/ShaderUniform.h>
 #include <Carna/base/math.h>
 #include <Carna/base/CarnaException.h>
 
@@ -48,10 +48,10 @@ struct DRRStage::Details
     float upperMultiplier;
     bool renderInverse;
 
-    std::unique_ptr< base::view::RenderTexture > accumulationColorBuffer;
-    std::unique_ptr< base::view::Framebuffer   > accumulationFrameBuffer;
+    std::unique_ptr< base::RenderTexture > accumulationColorBuffer;
+    std::unique_ptr< base::Framebuffer   > accumulationFrameBuffer;
 
-    const base::view::ShaderProgram* exponentialShader;
+    const base::ShaderProgram* exponentialShader;
 
     static inline float huvToIntensity( base::HUV huv )
     {
@@ -90,7 +90,7 @@ DRRStage::~DRRStage()
     if( pimpl->exponentialShader != nullptr )
     {
         activateGLContext();
-        base::view::ShaderManager::instance().releaseShader( *pimpl->exponentialShader );
+        base::ShaderManager::instance().releaseShader( *pimpl->exponentialShader );
     }
 }
 
@@ -172,34 +172,34 @@ void DRRStage::setRenderingInverse( bool inverse )
 }
 
 
-void DRRStage::reshape( const base::view::FrameRenderer& fr, const base::view::Viewport& vp )
+void DRRStage::reshape( const base::FrameRenderer& fr, const base::Viewport& vp )
 {
-    base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >::reshape( fr, vp );
-    pimpl->accumulationColorBuffer.reset( new base::view::RenderTexture( vp.width, vp.height, true ) );
-    pimpl->accumulationFrameBuffer.reset( new base::view::Framebuffer( *pimpl->accumulationColorBuffer ) );
+    base::GeometryStage< base::Renderable::DepthOrder< base::Renderable::ORDER_BACK_TO_FRONT > >::reshape( fr, vp );
+    pimpl->accumulationColorBuffer.reset( new base::RenderTexture( vp.width, vp.height, true ) );
+    pimpl->accumulationFrameBuffer.reset( new base::Framebuffer( *pimpl->accumulationColorBuffer ) );
 }
 
 
 void DRRStage::loadVideoResources()
 {
     RayMarchingStage::loadVideoResources();
-    pimpl->exponentialShader = &base::view::ShaderManager::instance().acquireShader( "drr_exponential" );
+    pimpl->exponentialShader = &base::ShaderManager::instance().acquireShader( "drr_exponential" );
 }
 
 
 void DRRStage::renderPass
     ( const base::math::Matrix4f& vt
-    , base::view::RenderTask& rt
-    , const base::view::Viewport& outputViewport )
+    , base::RenderTask& rt
+    , const base::Viewport& outputViewport )
 {
-    const base::view::Viewport framebufferViewport
+    const base::Viewport framebufferViewport
         ( outputViewport, 0, 0
         , pimpl->accumulationFrameBuffer->width()
         , pimpl->accumulationFrameBuffer->height() );
 
     /* Configure OpenGL state that is common to both following passes.
      */
-    base::view::RenderState rs( rt.renderer.glContext() );
+    base::RenderState rs( rt.renderer.glContext() );
     rs.setBlend( true );
     rs.setDepthWrite( false );
 
@@ -209,8 +209,8 @@ void DRRStage::renderPass
 
     /* Copy depth buffer from output to the accumulation frame buffer.
      */
-    const unsigned int outputFramebufferId = base::view::Framebuffer::currentId();
-    base::view::Framebuffer::copy
+    const unsigned int outputFramebufferId = base::Framebuffer::currentId();
+    base::Framebuffer::copy
         ( outputFramebufferId
         , pimpl->accumulationFrameBuffer->id
         , outputViewport
@@ -223,8 +223,8 @@ void DRRStage::renderPass
 
         /* Configure OpenGL state for accumulation pass.
          */
-        base::view::RenderState rs2( rt.renderer.glContext() );
-        rs2.setBlendFunction( base::view::BlendFunction( GL_ONE, GL_ONE ) );
+        base::RenderState rs2( rt.renderer.glContext() );
+        rs2.setBlendFunction( base::BlendFunction( GL_ONE, GL_ONE ) );
 
         glClearColor( 0, 0, 0, 0 );
         rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT );
@@ -239,28 +239,28 @@ void DRRStage::renderPass
      */
     rs.setDepthTest( false );
     rt.renderer.glContext().setShader( *pimpl->exponentialShader );
-    base::view::ShaderUniform< float >( "baseIntensity", pimpl->baseIntensity ).upload();
-    base::view::ShaderUniform< int >( "renderInverse", pimpl->renderInverse ? 1 : 0 ).upload();
+    base::ShaderUniform< float >( "baseIntensity", pimpl->baseIntensity ).upload();
+    base::ShaderUniform< int >( "renderInverse", pimpl->renderInverse ? 1 : 0 ).upload();
     pimpl->accumulationColorBuffer->bind( 0 );
     rt.renderer.renderTexture( 0, true, false, "integralMap" );
 }
 
 
-void DRRStage::createSamplers( const std::function< void( unsigned int, base::view::Sampler* ) >& registerSampler )
+void DRRStage::createSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler )
 {
-    base::view::Sampler* const huVolumeSampler = new base::view::Sampler();
-    huVolumeSampler->setMinFilter( base::view::Sampler::FILTER_LINEAR );
-    huVolumeSampler->setMagFilter( base::view::Sampler::FILTER_LINEAR );
-    huVolumeSampler->setWrapModeR( base::view::Sampler::WRAP_MODE_CLAMP );
-    huVolumeSampler->setWrapModeS( base::view::Sampler::WRAP_MODE_CLAMP );
-    huVolumeSampler->setWrapModeT( base::view::Sampler::WRAP_MODE_CLAMP );
+    base::Sampler* const huVolumeSampler = new base::Sampler();
+    huVolumeSampler->setMinFilter( base::Sampler::FILTER_LINEAR );
+    huVolumeSampler->setMagFilter( base::Sampler::FILTER_LINEAR );
+    huVolumeSampler->setWrapModeR( base::Sampler::WRAP_MODE_CLAMP );
+    huVolumeSampler->setWrapModeS( base::Sampler::WRAP_MODE_CLAMP );
+    huVolumeSampler->setWrapModeT( base::Sampler::WRAP_MODE_CLAMP );
     registerSampler( ROLE_HU_VOLUME, huVolumeSampler );
 }
 
 
-const base::view::ShaderProgram& DRRStage::loadShader()
+const base::ShaderProgram& DRRStage::loadShader()
 {
-    return base::view::ShaderManager::instance().acquireShader( "drr_accumulation" );
+    return base::ShaderManager::instance().acquireShader( "drr_accumulation" );
 }
 
 
@@ -280,13 +280,13 @@ const std::string& DRRStage::uniformName( unsigned int role ) const
 }
 
 
-void DRRStage::configureShader( base::view::GLContext& glc )
+void DRRStage::configureShader( base::GLContext& glc )
 {
-    base::view::ShaderUniform< float >(       "stepLength", pimpl->stepLength ).upload();
-    base::view::ShaderUniform< float >( "waterAttenuation", pimpl->waterAttenuation ).upload();
-    base::view::ShaderUniform< float >(   "lowerThreshold", Details::huvToIntensity( pimpl->lowerThreshold ) ).upload();
-    base::view::ShaderUniform< float >(   "upperThreshold", Details::huvToIntensity( pimpl->upperThreshold ) ).upload();
-    base::view::ShaderUniform< float >(  "upperMultiplier", pimpl->upperMultiplier ).upload();
+    base::ShaderUniform< float >(       "stepLength", pimpl->stepLength ).upload();
+    base::ShaderUniform< float >( "waterAttenuation", pimpl->waterAttenuation ).upload();
+    base::ShaderUniform< float >(   "lowerThreshold", Details::huvToIntensity( pimpl->lowerThreshold ) ).upload();
+    base::ShaderUniform< float >(   "upperThreshold", Details::huvToIntensity( pimpl->upperThreshold ) ).upload();
+    base::ShaderUniform< float >(  "upperMultiplier", pimpl->upperMultiplier ).upload();
 }
 
 

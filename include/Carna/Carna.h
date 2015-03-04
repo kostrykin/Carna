@@ -45,73 +45,48 @@ namespace Carna
 
         typedef signed short HUV;
     
-        class Application;
-        class AssertionFailure;
-        class BoundingBox;
-        class BoundingVolume;
-        class CarnaException;
-        class ColorCodingStage;
-        class Log;
-        class Text;
-        
-        /** \brief  Contains the controller components of the core framework.
-          */
-        namespace controller
-        {
-        }
-        
-        /** \brief  Contains the model components of the core framework.
-          */
-        namespace model
-        {
-            class HUVolume;
-        }
-        
-        /** \brief  Contains the view components of the core framework.
-          */
-        namespace view
-        {
-            class  BaseBuffer;
-            class  BlendFunction;
-            class  Camera;
-            class  Color;
-            class  Framebuffer;
-            class  FrameRenderer;
-            class  Geometry;
-            class  GeometryFeature;
-            class  GLContext;
-            class  HUVolumeTexture;
-            class  IndexBufferBase;
-            class  MeshBase;
-            class  MeshRenderingStageBase;
-            class  Node;
-            class  Renderable;
-            class  RenderStage;
-            class  RenderState;
-            class  RenderTask;
-            class  RenderTexture;
-            class  Sampler;
-            class  Shader;
-            class  ShaderCompilationError;
-            class  Material;
-            class  ShaderManager;
-            class  Material;
-            class  ShaderProgram;
-            class  ShaderUniformBase;
-            class  Spatial;
-            class  Texture3D;
-            struct VertexBase;
-            struct VertexAttribute;
-            class  VertexBufferBase;
-            class  Viewport;
-        }
-        
-        /** \brief  Contains the Qt components of the core framework.
-          *         These components are mostly user interface related.
-          */
-        namespace qt
-        {
-        }
+        class  Application;
+        class  AssertionFailure;
+        class  BoundingBox;
+        class  BoundingVolume;
+        class  CarnaException;
+        class  ColorCodingStageBase;
+        class  Log;
+        class  Text;
+        class  HUVolume;
+        class  BaseBuffer;
+        class  BlendFunction;
+        class  Camera;
+        class  Color;
+        class  Framebuffer;
+        class  FrameRenderer;
+        class  Geometry;
+        class  GeometryFeature;
+        class  GLContext;
+        class  HUVolumeTexture;
+        class  IndexBufferBase;
+        class  MeshBase;
+        class  MeshRenderingStageBase;
+        class  Node;
+        class  Renderable;
+        class  RenderStage;
+        class  RenderState;
+        class  RenderTask;
+        class  RenderTexture;
+        class  Sampler;
+        class  Shader;
+        class  ShaderCompilationError;
+        class  Material;
+        class  ShaderManager;
+        class  Material;
+        class  ShaderProgram;
+        class  ShaderUniformBase;
+        class  Spatial;
+        class  Texture3D;
+        struct VertexBase;
+        struct VertexAttribute;
+        class  VertexBufferBase;
+        class  Viewport;
         
     }
 

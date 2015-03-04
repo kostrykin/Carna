@@ -17,7 +17,7 @@
 #include <memory>
 
 /** \file   DRRStage.h
-  * \brief  Defines \ref Carna::base::view::DRRStage.
+  * \brief  Defines \ref Carna::base::DRRStage.
   */
 
 namespace Carna
@@ -49,12 +49,12 @@ public:
 
     virtual ~DRRStage();
 
-    virtual void reshape( const base::view::FrameRenderer& fr, const base::view::Viewport& vp ) override;
+    virtual void reshape( const base::FrameRenderer& fr, const base::Viewport& vp ) override;
 
     virtual void renderPass
         ( const base::math::Matrix4f& viewTransform
-        , base::view::RenderTask& rt
-        , const base::view::Viewport& vp ) override;
+        , base::RenderTask& rt
+        , const base::Viewport& vp ) override;
 
     float waterAttenuation() const;
 
@@ -84,13 +84,13 @@ protected:
 
     virtual void loadVideoResources() override;
 
-    virtual void createSamplers( const std::function< void( unsigned int, base::view::Sampler* ) >& registerSampler ) override;
+    virtual void createSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler ) override;
 
-    virtual const base::view::ShaderProgram& loadShader() override;
+    virtual const base::ShaderProgram& loadShader() override;
 
     virtual const std::string& uniformName( unsigned int role ) const override;
 
-    virtual void configureShader( base::view::GLContext& ) override;
+    virtual void configureShader( base::GLContext& ) override;
 
 }; // DRRStage
 

@@ -10,9 +10,9 @@
  */
 
 #include "SceneTest.h"
-#include <Carna/base/model/Scene.h>
+#include <Carna/base/Scene.h>
 #include <Carna/base/Vector3.h>
-#include <Carna/base/model/Object3D.h>
+#include <Carna/base/Object3D.h>
 #include <Carna/base/Association.h>
 #include <MockSceneFactory.h>
 
@@ -41,33 +41,33 @@ public:
 // MockObject3D
 // ----------------------------------------------------------------------------------
 
-class MockObject3D : public Carna::base::model::Object3D
+class MockObject3D : public Carna::base::Object3D
 {
 
 public:
 
-    explicit MockObject3D( Carna::base::model::Scene& );
+    explicit MockObject3D( Carna::base::Scene& );
 
 
-    virtual void paint( const Carna::base::view::Renderer& ) const override;
+    virtual void paint( const Carna::base::Renderer& ) const override;
 
-    virtual void paintFalseColor( const Carna::base::view::Renderer&, const Carna::base::Vector3ui& color ) const override;
+    virtual void paintFalseColor( const Carna::base::Renderer&, const Carna::base::Vector3ui& color ) const override;
 
 }; // MockObject3D
 
 
-MockObject3D::MockObject3D( Carna::base::model::Scene& scene )
-    : Carna::base::model::Object3D( scene )
+MockObject3D::MockObject3D( Carna::base::Scene& scene )
+    : Carna::base::Object3D( scene )
 {
 }
 
 
-void MockObject3D::paint( const Carna::base::view::Renderer& ) const
+void MockObject3D::paint( const Carna::base::Renderer& ) const
 {
 }
 
 
-void MockObject3D::paintFalseColor( const Carna::base::view::Renderer&, const Carna::base::Vector3ui& color ) const
+void MockObject3D::paintFalseColor( const Carna::base::Renderer&, const Carna::base::Vector3ui& color ) const
 {
 }
 
@@ -121,11 +121,11 @@ void SceneTest::instantiation()
 
     if( preconditions_violated )
     {
-        EXPECT_ASSERTION_FAILURE( std::unique_ptr< Carna::base::model::Scene >( sceneFactory.createMockScene() ) );
+        EXPECT_ASSERTION_FAILURE( std::unique_ptr< Carna::base::Scene >( sceneFactory.createMockScene() ) );
     }
     else
     {
-        const std::unique_ptr< Carna::base::model::Scene > scene( sceneFactory.createMockScene() );
+        const std::unique_ptr< Carna::base::Scene > scene( sceneFactory.createMockScene() );
 
         QCOMPARE( scene->spacingX(), spacingX );
         QCOMPARE( scene->spacingY(), spacingY );
@@ -194,8 +194,8 @@ void SceneTest::instantiation_bug26()
 {
     EXPECT_ASSERTION_FAILURE
     (
-        Carna::base::model::Scene
-            ( new Carna::base::Composition< Carna::base::model::Volume >( new Carna::base::model::UInt16Volume( Carna::base::Vector3ui
+        Carna::base::Scene
+            ( new Carna::base::Composition< Carna::base::Volume >( new Carna::base::UInt16Volume( Carna::base::Vector3ui
                 ( 5
                 , 8
                 , 8
@@ -207,12 +207,12 @@ void SceneTest::instantiation_bug26()
 
 void SceneTest::instantiation_null_volume()
 {
-    EXPECT_ASSERTION_FAILURE( Carna::base::model::Scene( nullptr, 1.f, 1.f, 1.f ) );
-    EXPECT_ASSERTION_FAILURE( Carna::base::model::Scene( new NullAggregation< Carna::base::model::Volume >(), 1.f, 1.f, 1.f ) );
+    EXPECT_ASSERTION_FAILURE( Carna::base::Scene( nullptr, 1.f, 1.f, 1.f ) );
+    EXPECT_ASSERTION_FAILURE( Carna::base::Scene( new NullAggregation< Carna::base::Volume >(), 1.f, 1.f, 1.f ) );
 }
 
 
-Carna::base::model::Scene* SceneTest::createScene()
+Carna::base::Scene* SceneTest::createScene()
 {
     const Carna::base::Vector3ui size( 30, 20, 10 );
     return MockSceneFactory( size, 0.1f, 0.2f, 0.3f ).createMockScene();
@@ -252,7 +252,7 @@ void SceneTest::createHuvTestData()
 
 void SceneTest::runHuvPropertyTest( const HuvSetter& set, const HuvGetter& get, const char* signal )
 {
-    const std::unique_ptr< Carna::base::model::Scene > scene( createScene() );
+    const std::unique_ptr< Carna::base::Scene > scene( createScene() );
 
     QFETCH( int, huv );
 
@@ -283,11 +283,11 @@ void SceneTest::runHuvPropertyTest( const HuvSetter& set, const HuvGetter& get, 
 void SceneTest::recommendedWindowingLevel()
 {
     runHuvPropertyTest(
-        []( Carna::base::model::Scene& scene, int huv )
+        []( Carna::base::Scene& scene, int huv )
             {
                 scene.setRecommendedWindowingLevel( huv );
             },
-        []( const Carna::base::model::Scene& scene )->int
+        []( const Carna::base::Scene& scene )->int
             {
                 return scene.recommendedWindowingLevel();
             },
@@ -305,11 +305,11 @@ void SceneTest::recommendedWindowingLevel_data()
 void SceneTest::recommendedWindowingWidth()
 {
     runHuvPropertyTest(
-        []( Carna::base::model::Scene& scene, int huv )
+        []( Carna::base::Scene& scene, int huv )
             {
                 scene.setRecommendedWindowingWidth( huv );
             },
-        []( const Carna::base::model::Scene& scene )->int
+        []( const Carna::base::Scene& scene )->int
             {
                 return scene.recommendedWindowingWidth();
             },
@@ -327,11 +327,11 @@ void SceneTest::recommendedWindowingWidth_data()
 void SceneTest::recommendedVoidThreshold()
 {
     runHuvPropertyTest(
-        []( Carna::base::model::Scene& scene, int huv )
+        []( Carna::base::Scene& scene, int huv )
             {
                 scene.setRecommendedVoidThreshold( huv );
             },
-        []( const Carna::base::model::Scene& scene )->int
+        []( const Carna::base::Scene& scene )->int
             {
                 return scene.recommendedVoidThreshold();
             },
@@ -348,11 +348,11 @@ void SceneTest::recommendedVoidThreshold_data()
 
 void SceneTest::objects3D()
 {
-    const std::unique_ptr< Carna::base::model::Scene > scene( createScene() );
+    const std::unique_ptr< Carna::base::Scene > scene( createScene() );
 
     const unsigned int max_count = 10;
 
-    QSignalSpy spy( scene.get(), SIGNAL( objectsChanged( const Carna::base::model::Object3DEvent& ) ) );
+    QSignalSpy spy( scene.get(), SIGNAL( objectsChanged( const Carna::base::Object3DEvent& ) ) );
 
     QCOMPARE( scene->objectsCount(), 0u );
 
@@ -374,7 +374,7 @@ void SceneTest::objects3D()
     for( unsigned int i = 0; i < max_count; ++i )
     {
         QCOMPARE( &scene->objectByIndex( i ), objects[ i ] );
-        QCOMPARE( &static_cast< const Carna::base::model::Scene& >( *scene ).objectByIndex( i ), objects[ i ] );
+        QCOMPARE( &static_cast< const Carna::base::Scene& >( *scene ).objectByIndex( i ), objects[ i ] );
     }
 
  // remove objects

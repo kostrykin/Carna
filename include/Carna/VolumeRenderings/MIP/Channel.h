@@ -20,7 +20,7 @@
 #include <Carna/base/noncopyable.h>
 #include <Carna/base/Span.h>
 #include <Carna/base/math.h>
-#include <Carna/base/view/BlendFunction.h>
+#include <Carna/base/BlendFunction.h>
 
 namespace Carna
 {
@@ -51,28 +51,28 @@ public:
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    const static base::view::BlendFunction CHANNEL_FUNCTION_ADD;
-    const static base::view::BlendFunction CHANNEL_FUNCTION_REPLACE;
+    const static base::BlendFunction CHANNEL_FUNCTION_ADD;
+    const static base::BlendFunction CHANNEL_FUNCTION_REPLACE;
 
     /** \brief  Instantiates.
       */
     Channel
         ( const base::Span< base::HUV >& huRange
         , const base::math::Vector4f& color
-        , const base::view::BlendFunction& function = CHANNEL_FUNCTION_REPLACE );
+        , const base::BlendFunction& function = CHANNEL_FUNCTION_REPLACE );
 
     /** \brief  Instantiates.
       */
     Channel
         ( base::HUV firstHuv, base::HUV lastHuv
         , const base::math::Vector4f& color
-        , const base::view::BlendFunction& function = CHANNEL_FUNCTION_REPLACE );
+        , const base::BlendFunction& function = CHANNEL_FUNCTION_REPLACE );
 
     base::Span< base::HUV > huRange;
 
     base::math::Vector4f color;
 
-    const base::view::BlendFunction& function;
+    const base::BlendFunction& function;
 
 }; // VolumeRenderings :: MIP :: Channel
 

@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/view/glew.h>
+#include <Carna/base/glew.h>
 #include <Carna/VolumeRenderings/MIP/Channel.h>
 
 namespace Carna
@@ -27,14 +27,14 @@ namespace MIP
 // MIP :: Channel
 // ----------------------------------------------------------------------------------
 
-const base::view::BlendFunction Channel::CHANNEL_FUNCTION_REPLACE( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-const base::view::BlendFunction Channel::CHANNEL_FUNCTION_ADD    ( GL_SRC_ALPHA, GL_ONE );
+const base::BlendFunction Channel::CHANNEL_FUNCTION_REPLACE( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+const base::BlendFunction Channel::CHANNEL_FUNCTION_ADD    ( GL_SRC_ALPHA, GL_ONE );
 
 
 Channel::Channel
     ( const base::Span< base::HUV >& huRange
     , const base::math::Vector4f& color
-    , const base::view::BlendFunction& function )
+    , const base::BlendFunction& function )
 
     : huRange( huRange )
     , color( color )
@@ -46,7 +46,7 @@ Channel::Channel
 Channel::Channel
     ( base::HUV firstHuv, base::HUV lastHuv
     , const base::math::Vector4f& color
-    , const base::view::BlendFunction& function )
+    , const base::BlendFunction& function )
 
     : huRange( firstHuv, lastHuv )
     , color( color )

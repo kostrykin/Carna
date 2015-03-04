@@ -23,7 +23,7 @@ namespace testing
 // VolumeHistogramTest
 // ----------------------------------------------------------------------------------
 
-/** \brief  Unit-test of the \ref Carna::base::model::VolumeHistogram class template.
+/** \brief  Unit-test of the \ref Carna::base::VolumeHistogram class template.
   *
   * \author Leonid Kostrykin
   * \date   19.1.14 - 23.1.14

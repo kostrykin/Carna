@@ -63,8 +63,8 @@ private:
  /* The attributes below are initialized once per test case.
   */
 
-    std::unique_ptr< Carna::base::model::Scene > scene;
-    std::unique_ptr< Carna::base::view::SceneProvider > provider;
+    std::unique_ptr< Carna::base::Scene > scene;
+    std::unique_ptr< Carna::base::SceneProvider > provider;
     std::unique_ptr< Carna::base::OffscreenVisualizationEnvironment > environment;
 
  // ----------------------------------------------------------------------------------

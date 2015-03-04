@@ -10,7 +10,7 @@
  */
 
 #include "HistogramTest.h"
-#include <Carna/base/model/Histogram.h>
+#include <Carna/base/Histogram.h>
 #include <numeric>
 #include <algorithm>
 #include <map>
@@ -30,7 +30,7 @@ struct ConcreteCounterHistogramTest
     struct ScalarField
     {
 
-        typedef Carna::base::model::Histogram< ConcreteCounter, ScalarField, scalar_field_dimension > Histogram;
+        typedef Carna::base::Histogram< ConcreteCounter, ScalarField, scalar_field_dimension > Histogram;
 
         typedef typename Histogram::Vector Vector;
 
@@ -241,13 +241,13 @@ void HistogramTest::testWithIndexedCounter()
 {
     try
     {
-        ConcreteCounterHistogramTest< Carna::base::model::IndexedCounter< signed char >, 1u >().run();
-        ConcreteCounterHistogramTest< Carna::base::model::IndexedCounter< signed char >, 2u >().run();
-        ConcreteCounterHistogramTest< Carna::base::model::IndexedCounter< signed char >, 3u >().run();
+        ConcreteCounterHistogramTest< Carna::base::IndexedCounter< signed char >, 1u >().run();
+        ConcreteCounterHistogramTest< Carna::base::IndexedCounter< signed char >, 2u >().run();
+        ConcreteCounterHistogramTest< Carna::base::IndexedCounter< signed char >, 3u >().run();
 
-        ConcreteCounterHistogramTest< Carna::base::model::IndexedCounter< unsigned char >, 1u >().run();
-        ConcreteCounterHistogramTest< Carna::base::model::IndexedCounter< unsigned char >, 2u >().run();
-        ConcreteCounterHistogramTest< Carna::base::model::IndexedCounter< unsigned char >, 3u >().run();
+        ConcreteCounterHistogramTest< Carna::base::IndexedCounter< unsigned char >, 1u >().run();
+        ConcreteCounterHistogramTest< Carna::base::IndexedCounter< unsigned char >, 2u >().run();
+        ConcreteCounterHistogramTest< Carna::base::IndexedCounter< unsigned char >, 3u >().run();
     }
     catch( const std::out_of_range& ex )
     {
@@ -260,13 +260,13 @@ void HistogramTest::testWithAssociativeCounter()
 {
     try
     {
-        ConcreteCounterHistogramTest< Carna::base::model::AssociativeCounter< signed char >, 1u >().run();
-        ConcreteCounterHistogramTest< Carna::base::model::AssociativeCounter< signed char >, 2u >().run();
-        ConcreteCounterHistogramTest< Carna::base::model::AssociativeCounter< signed char >, 3u >().run();
+        ConcreteCounterHistogramTest< Carna::base::AssociativeCounter< signed char >, 1u >().run();
+        ConcreteCounterHistogramTest< Carna::base::AssociativeCounter< signed char >, 2u >().run();
+        ConcreteCounterHistogramTest< Carna::base::AssociativeCounter< signed char >, 3u >().run();
 
-        ConcreteCounterHistogramTest< Carna::base::model::AssociativeCounter< unsigned char >, 1u >().run();
-        ConcreteCounterHistogramTest< Carna::base::model::AssociativeCounter< unsigned char >, 2u >().run();
-        ConcreteCounterHistogramTest< Carna::base::model::AssociativeCounter< unsigned char >, 3u >().run();
+        ConcreteCounterHistogramTest< Carna::base::AssociativeCounter< unsigned char >, 1u >().run();
+        ConcreteCounterHistogramTest< Carna::base::AssociativeCounter< unsigned char >, 2u >().run();
+        ConcreteCounterHistogramTest< Carna::base::AssociativeCounter< unsigned char >, 3u >().run();
     }
     catch( const std::out_of_range& ex )
     {

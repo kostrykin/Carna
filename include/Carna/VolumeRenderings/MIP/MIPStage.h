@@ -17,7 +17,7 @@
 #include <memory>
 
 /** \file   MIPStage.h
-  * \brief  Defines \ref Carna::base::view::MIPStage.
+  * \brief  Defines \ref Carna::base::MIPStage.
   */
 
 namespace Carna
@@ -49,12 +49,12 @@ public:
 
     virtual ~MIPStage();
 
-    virtual void reshape( const base::view::FrameRenderer& fr, const base::view::Viewport& vp ) override;
+    virtual void reshape( const base::FrameRenderer& fr, const base::Viewport& vp ) override;
 
     virtual void renderPass
         ( const base::math::Matrix4f& viewTransform
-        , base::view::RenderTask& rt
-        , const base::view::Viewport& vp ) override;
+        , base::RenderTask& rt
+        , const base::Viewport& vp ) override;
     
     /** \brief
       * Swaps positions of \a channel with it's successor in the \ref MIP_Channels "channels list".
@@ -76,13 +76,13 @@ public:
 
 protected:
 
-    virtual void createSamplers( const std::function< void( unsigned int, base::view::Sampler* ) >& registerSampler ) override;
+    virtual void createSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler ) override;
 
-    virtual const base::view::ShaderProgram& loadShader() override;
+    virtual const base::ShaderProgram& loadShader() override;
 
     virtual const std::string& uniformName( unsigned int role ) const override;
 
-    virtual void configureShader( base::view::GLContext& ) override;
+    virtual void configureShader( base::GLContext& ) override;
 
 }; // MIPStage
 

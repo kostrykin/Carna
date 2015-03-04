@@ -12,12 +12,12 @@
 #ifndef CUTTINGPLANESSTAGE_H_6014714286
 #define CUTTINGPLANESSTAGE_H_6014714286
 
-#include <Carna/base/view/GeometryStage.h>
-#include <Carna/base/view/Renderable.h>
+#include <Carna/base/GeometryStage.h>
+#include <Carna/base/Renderable.h>
 #include <Carna/Carna.h>
 
 /** \file   CuttingPlanesStage.h
-  * \brief  Defines \ref Carna::base::view::CuttingPlanesStage.
+  * \brief  Defines \ref Carna::base::CuttingPlanesStage.
   */
 
 namespace Carna
@@ -32,7 +32,7 @@ namespace CuttingPlanes
 // CuttingPlanesStage
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB CuttingPlanesStage : public base::view::GeometryStage< void >
+class CARNA_LIB CuttingPlanesStage : public base::GeometryStage< void >
 {
 
     struct Details;
@@ -53,8 +53,8 @@ public:
 
     virtual void renderPass
         ( const base::math::Matrix4f& viewTransform
-        , base::view::RenderTask& rt
-        , const base::view::Viewport& vp ) override;
+        , base::RenderTask& rt
+        , const base::Viewport& vp ) override;
 
     void setWindowingLevel( base::HUV windowingLevel );
 
@@ -71,11 +71,11 @@ public:
 protected:
 
     virtual void updateRenderQueues
-        ( base::view::Node& root
+        ( base::Node& root
         , const base::math::Matrix4f& viewTransform
         , bool viewTransformTriggered ) override;
 
-    virtual void render( base::view::GLContext& glc, const base::view::Renderable& ) override;
+    virtual void render( base::GLContext& glc, const base::Renderable& ) override;
 
 }; // CuttingPlanesStage
 

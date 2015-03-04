@@ -1,6 +1,6 @@
 #include "MockSceneFactory.h"
-#include <Carna/base/model/Scene.h>
-#include <Carna/base/model/UInt16Volume.h>
+#include <Carna/base/Scene.h>
+#include <Carna/base/UInt16Volume.h>
 #include <Carna/base/Composition.h>
 
 
@@ -56,9 +56,9 @@ MockSceneFactory::MockSceneFactory( const Carna::base::Vector3ui& volumeSize, co
 }
 
 
-Carna::base::model::Scene* MockSceneFactory::createMockScene() const
+Carna::base::Scene* MockSceneFactory::createMockScene() const
 {
-    Carna::base::model::UInt16Volume* const volume = new Carna::base::model::UInt16Volume( volumeSize );
+    Carna::base::UInt16Volume* const volume = new Carna::base::UInt16Volume( volumeSize );
     const Carna::base::Vector3ui half_volume_size( volumeSize.x / 2, volumeSize.y / 2, volumeSize.z / 2 );
     for( unsigned int z = 0; z < volumeSize.z; ++z )
     {
@@ -92,8 +92,8 @@ Carna::base::model::Scene* MockSceneFactory::createMockScene() const
         }
     }
 
-    Carna::base::model::Scene* const model = new Carna::base::model::Scene
-        ( new Carna::base::Composition< Carna::base::model::Volume >( volume )
+    Carna::base::Scene* const model = new Carna::base::Scene
+        ( new Carna::base::Composition< Carna::base::Volume >( volume )
         , spacingX
         , spacingY
         , spacingZ );

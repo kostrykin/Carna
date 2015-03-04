@@ -56,8 +56,8 @@
   * #include <Carna/VolumeRenderings/VolumeRenderer.h>
   * #include <Carna/VolumeRenderings/DefaultVolumeVisualization.h>
   * #include <Carna/dicom/DicomSceneFactory.h>
-  * #include <Carna/base/model/Scene.h>
-  * #include <Carna/base/view/SceneProvider.h>
+  * #include <Carna/base/Scene.h>
+  * #include <Carna/base/SceneProvider.h>
   * #include <Carna/base/qt/Display.h>
   * 
   * int main( int argc, char** argv )
@@ -67,7 +67,7 @@
   *  // create data model
   *
   *     Carna::dicom::DicomSceneFactory modelFactory;
-  *     std::unique_ptr< Carna::base::model::Scene > scene( modelFactory.createFromUserInput() );
+  *     std::unique_ptr< Carna::base::Scene > scene( modelFactory.createFromUserInput() );
   *     if( scene.get() == nullptr )
   *     {
   *         return 0;
@@ -92,7 +92,7 @@
   * 
   *  // setup view
   *
-  *     Carna::base::view::SceneProvider provider( *scene );
+  *     Carna::base::SceneProvider provider( *scene );
   *     Carna::base::qt::Display* const display
   *         = new Carna::base::qt::Display( view, provider ); // takes ownership of 'view'
   *
@@ -165,7 +165,7 @@
   *
   * \code
   * #include <Carna/dicom/DicomSceneFactory.h>
-  * #include <Carna/base/model/Scene.h>
+  * #include <Carna/base/Scene.h>
   *
   * template< typename Demo >
   * static int runDemo( int argc, char** argv )
@@ -175,7 +175,7 @@
   *  // create data model
   *
   *     Carna::dicom::DicomSceneFactory sceneFactory;
-  *     std::unique_ptr< Carna::base::model::Scene > scene( sceneFactory.createFromUserInput() );
+  *     std::unique_ptr< Carna::base::Scene > scene( sceneFactory.createFromUserInput() );
   *
   *  // run demo
   *
@@ -205,7 +205,7 @@
   *
   * \code
   * #include <Carna/base/Application.h>
-  * #include <Carna/base/view/SceneProvider.h>
+  * #include <Carna/base/SceneProvider.h>
   * #include <Carna/base/qt/Display.h>
   *
   * #include <Carna/VolumeRenderings/DefaultVolumeVisualization.h>
@@ -235,7 +235,7 @@
   * Implementation:
   *
   * \code
-  * int VolumeVisualizationDemo::exec( Carna::base::model::Scene& scene )
+  * int VolumeVisualizationDemo::exec( Carna::base::Scene& scene )
   * {
   *     Carna::VolumeRenderings::VolumeVisualization* const view = new Carna::VolumeRenderings::DefaultVolumeVisualization();
   *
@@ -267,7 +267,7 @@
   * 
   *  // run
   *
-  *     Carna::base::view::SceneProvider provider( scene );
+  *     Carna::base::SceneProvider provider( scene );
   *     Carna::base::qt::Display* const display
   *         = new Carna::base::qt::Display( view, provider ); // takes ownership of 'view'
   *
@@ -295,7 +295,7 @@
   *
   * \code
   * #include <Carna/base/Application.h>
-  * #include <Carna/base/view/SceneProvider.h>
+  * #include <Carna/base/SceneProvider.h>
   * #include <Carna/base/qt/Display.h>
   *
   * #include <Carna/SlicePlanes/DefaultSlicePlaneVisualization.h>
@@ -309,7 +309,7 @@
   *
   *     SlicePlaneVisualizationDemo( int argc, char** argv );
   *
-  *     int exec( Carna::base::model::Scene& scene );
+  *     int exec( Carna::base::Scene& scene );
   *
   * };
   * \endcode
@@ -322,7 +322,7 @@
   * {
   * }
   *
-  * int SlicePlaneVisualizationDemo::exec( Carna::base::model::Scene& scene )
+  * int SlicePlaneVisualizationDemo::exec( Carna::base::Scene& scene )
   * {
   *     Carna::SlicePlanes::SlicePlaneVisualization* const view = new Carna::SlicePlanes::DefaultSlicePlaneVisualization();
   *
@@ -348,7 +348,7 @@
   * 
   *  // run
   *
-  *     Carna::base::view::SceneProvider provider( scene );
+  *     Carna::base::SceneProvider provider( scene );
   *     Carna::base::qt::Display* const display
   *         = new Carna::base::qt::Display( view, provider ); // takes ownership of 'view'
   *
@@ -374,7 +374,7 @@
   *
   * \code
   * #include <Carna/base/Application.h>
-  * #include <Carna/base/view/SceneProvider.h>
+  * #include <Carna/base/SceneProvider.h>
   * #include <Carna/base/qt/Display.h>
   *
   * #include <Carna/MPR/DefaultAxialPlaneVisualization.h>
@@ -393,7 +393,7 @@
   *
   *     MPRDemo( int argc, char** argv );
   *
-  *     int exec( Carna::base::model::Scene& scene );
+  *     int exec( Carna::base::Scene& scene );
   *
   * private:
   *
@@ -411,7 +411,7 @@
   * {
   * }
   *
-  * int MPRDemo::exec( Carna::base::model::Scene& scene )
+  * int MPRDemo::exec( Carna::base::Scene& scene )
   * {
   *     controller_ui = new Carna::MPR::AxialPlaneControllerUI( scene );
   *
@@ -430,7 +430,7 @@
   *  // run
   *
   *     initializedVisualizationsCount = 0;
-  *     Carna::base::view::SceneProvider provider( scene );
+  *     Carna::base::SceneProvider provider( scene );
   *     for( unsigned int i = 0; i < 4; ++i )
   *     {
   *         Carna::base::qt::Display* const display
@@ -479,11 +479,11 @@
   *
   * \code
   * #include <Carna/base/Application.h>
-  * #include <Carna/base/view/SceneProvider.h>
+  * #include <Carna/base/SceneProvider.h>
   * #include <Carna/Version.h>
   *
-  * #include <Carna/base/view/OffscreenDisplay.h>
-  * #include <Carna/base/view/OffscreenVisualizationEnvironment.h>
+  * #include <Carna/base/OffscreenDisplay.h>
+  * #include <Carna/base/OffscreenVisualizationEnvironment.h>
   *
   * #include <Carna/VolumeRenderings/VolumeRenderer.h>
   * #include <Carna/VolumeRenderings/DefaultVolumeVisualization.h>
@@ -500,7 +500,7 @@
   *
   *     OffscreenRenderingDemo( int argc, char** argv );
   *
-  *     int exec( Carna::base::model::Scene& scene );
+  *     int exec( Carna::base::Scene& scene );
   *
   * };
   *
@@ -513,7 +513,7 @@
   * Implementation:
   *
   * \code
-  * int OffscreenRenderingDemo::exec( Carna::base::model::Scene& scene )
+  * int OffscreenRenderingDemo::exec( Carna::base::Scene& scene )
   * {
   *     Carna::VolumeRenderings::VolumeVisualization* visualization = new Carna::VolumeRenderings::DefaultVolumeVisualization();
   *         visualization->doAfterInitialization( [&]()
@@ -523,7 +523,7 @@
   *         }
   *     );
   *
-  *     Carna::base::view::SceneProvider provider( scene );
+  *     Carna::base::SceneProvider provider( scene );
   *     Carna::base::OffscreenVisualizationEnvironment enviroment;
   *     Carna::base::OffscreenDisplay display( enviroment, 500, 300, visualization, provider );
   *

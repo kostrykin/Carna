@@ -48,7 +48,7 @@ public:
     MockSceneFactory( const Carna::base::Vector3ui& volumeSize, const double spacingX, const double spacingY, const double spacingZ );
 
 
-    Carna::base::model::Scene* createMockScene() const;
+    Carna::base::Scene* createMockScene() const;
 
     const Carna::base::Vector3ui volumeSize;
 

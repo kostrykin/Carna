@@ -32,10 +32,10 @@
   * millimeters. Therefore, <b>model units</b> are also millimeters.
   *
   * The transformation between those two spaces is encapsulated by the
-  * \ref Carna::base::model::Position "Position" class:
-  * - \ref Carna::base::model::Position::toMillimetersTransformation "Position::toMillimetersTransformation"
+  * \ref Carna::base::Position "Position" class:
+  * - \ref Carna::base::Position::toMillimetersTransformation "Position::toMillimetersTransformation"
   *   computes the \f$M_0\f$ matrix.
-  * - \ref Carna::base::model::Position::toVolumeUnitsTransformation "Position::toVolumeUnitsTransformation"
+  * - \ref Carna::base::Position::toVolumeUnitsTransformation "Position::toVolumeUnitsTransformation"
   *   computes the \f$M_0^{-1}\f$ matrix.
   *
   * \subsection SceneSpace Scene Space
@@ -45,7 +45,7 @@
   * \f[ S = S_0 \cdot M_0 \f]
   *
   * At simplest -
-  * and this is what applies for the \ref Carna::base::view::Renderer::fetchSceneMatrix "default implementation" -
+  * and this is what applies for the \ref Carna::base::Renderer::fetchSceneMatrix "default implementation" -
   * the \b scene \b space equals the model space, implying \f$ S_0 \f$ being identity.
   * However, any particular implementation is free to use any different \f$ S_0 \f$ with
   *
@@ -65,7 +65,7 @@
   * \subsection CameraSpace Camera Space
   *
   * The <b>camera space</b> is also commonly refered to as <b>view space</b> and
-  * <b>eye space</b>. The \ref Carna::base::view::Camera "camera implementation" is free to use any
+  * <b>eye space</b>. The \ref Carna::base::Camera "camera implementation" is free to use any
   * <b>camera matrix</b> \f$C\f$. Relatively to the scene space, the camera space is defined as
   * follows:
   *
@@ -77,7 +77,7 @@
   * The screen space in %Carna corresponds to what is called <b>clipping coordinate system</b> in
   * computer graphics traditionally. The different term in %Carna results from historical reasons.
   *
-  * The \ref Carna::base::view::Camera "camera implementation" is free to use any projection matrix \f$P\f$.
+  * The \ref Carna::base::Camera "camera implementation" is free to use any projection matrix \f$P\f$.
   * The transformation is defined as:
   *
   * \f[ v_\text{screenspace} = P \cdot v_\text{cameraspace} \f]

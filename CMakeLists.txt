@@ -98,56 +98,55 @@ include_directories( ${EIGEN3_INCLUDE_DIR} )
 ############################################
 
 include_directories(${CMAKE_PROJECT_DIR}include)
-include_directories(${CMAKE_PROJECT_DIR}include/Carna/base/qt)	# required by FlowLayout.h
 set( PUBLIC_QOBJECT_HEADERS
 		""
 )
 set( PUBLIC_HEADERS
 		${PUBLIC_QOBJECT_HEADERS}
-		include/${PROJECT_NAME}/base/view/BlendFunction.h
-		include/${PROJECT_NAME}/base/view/Camera.h
-		include/${PROJECT_NAME}/base/view/Color.h
-		include/${PROJECT_NAME}/base/view/RenderQueue.h
-		include/${PROJECT_NAME}/base/view/Spatial.h
-		include/${PROJECT_NAME}/base/view/Node.h
-		include/${PROJECT_NAME}/base/view/Geometry.h
-		include/${PROJECT_NAME}/base/view/Renderable.h
-		include/${PROJECT_NAME}/base/view/FrameRenderer.h
-		include/${PROJECT_NAME}/base/view/RenderTask.h
-		include/${PROJECT_NAME}/base/view/RenderStage.h
-		include/${PROJECT_NAME}/base/view/RenderState.h
-		include/${PROJECT_NAME}/base/view/GeometryStage.h
-		include/${PROJECT_NAME}/base/view/GLContext.h
-		include/${PROJECT_NAME}/base/view/MeshRenderingStage.h
-		include/${PROJECT_NAME}/base/view/Framebuffer.h
-		include/${PROJECT_NAME}/base/view/RenderTexture.h
-		include/${PROJECT_NAME}/base/view/Sampler.h
-		include/${PROJECT_NAME}/base/view/Shader.h
-		include/${PROJECT_NAME}/base/view/ShaderCompilationError.h
-		include/${PROJECT_NAME}/base/view/ShaderProgram.h
-		include/${PROJECT_NAME}/base/view/Material.h
-		include/${PROJECT_NAME}/base/view/Viewport.h
-		include/${PROJECT_NAME}/base/view/glError.h
-		include/${PROJECT_NAME}/base/view/Texture3D.h
-		include/${PROJECT_NAME}/base/view/BufferedHUVolumeUploader.h
-		include/${PROJECT_NAME}/base/view/BufferedHUVolumeTexture.h
-		include/${PROJECT_NAME}/base/view/HUVolumeTexture.h
-		include/${PROJECT_NAME}/base/view/GeometryFeature.h
-		include/${PROJECT_NAME}/base/view/Vertex.h
-		include/${PROJECT_NAME}/base/view/VertexBuffer.h
-		include/${PROJECT_NAME}/base/view/VertexAttributes.h
-		include/${PROJECT_NAME}/base/view/IndexBuffer.h
-		include/${PROJECT_NAME}/base/view/Mesh.h
-		include/${PROJECT_NAME}/base/view/MeshFactory.h
-		include/${PROJECT_NAME}/base/view/BaseBuffer.h
-		include/${PROJECT_NAME}/base/view/ShaderManager.h
-		include/${PROJECT_NAME}/base/view/ShaderUniform.h
-		include/${PROJECT_NAME}/base/model/ScalarField.h
-		include/${PROJECT_NAME}/base/model/HUCubeField.h
-		include/${PROJECT_NAME}/base/model/HUCubeSegment.h
-		include/${PROJECT_NAME}/base/model/HUVolume.h
-		include/${PROJECT_NAME}/base/model/BufferedHUVolume.h
-		include/${PROJECT_NAME}/base/model/UInt16HUVolume.h
+		include/${PROJECT_NAME}/base/BlendFunction.h
+		include/${PROJECT_NAME}/base/Camera.h
+		include/${PROJECT_NAME}/base/Color.h
+		include/${PROJECT_NAME}/base/RenderQueue.h
+		include/${PROJECT_NAME}/base/Spatial.h
+		include/${PROJECT_NAME}/base/Node.h
+		include/${PROJECT_NAME}/base/Geometry.h
+		include/${PROJECT_NAME}/base/Renderable.h
+		include/${PROJECT_NAME}/base/FrameRenderer.h
+		include/${PROJECT_NAME}/base/RenderTask.h
+		include/${PROJECT_NAME}/base/RenderStage.h
+		include/${PROJECT_NAME}/base/RenderState.h
+		include/${PROJECT_NAME}/base/GeometryStage.h
+		include/${PROJECT_NAME}/base/GLContext.h
+		include/${PROJECT_NAME}/base/MeshRenderingStage.h
+		include/${PROJECT_NAME}/base/Framebuffer.h
+		include/${PROJECT_NAME}/base/RenderTexture.h
+		include/${PROJECT_NAME}/base/Sampler.h
+		include/${PROJECT_NAME}/base/Shader.h
+		include/${PROJECT_NAME}/base/ShaderCompilationError.h
+		include/${PROJECT_NAME}/base/ShaderProgram.h
+		include/${PROJECT_NAME}/base/Material.h
+		include/${PROJECT_NAME}/base/Viewport.h
+		include/${PROJECT_NAME}/base/glError.h
+		include/${PROJECT_NAME}/base/Texture3D.h
+		include/${PROJECT_NAME}/base/BufferedHUVolumeUploader.h
+		include/${PROJECT_NAME}/base/BufferedHUVolumeTexture.h
+		include/${PROJECT_NAME}/base/HUVolumeTexture.h
+		include/${PROJECT_NAME}/base/GeometryFeature.h
+		include/${PROJECT_NAME}/base/Vertex.h
+		include/${PROJECT_NAME}/base/VertexBuffer.h
+		include/${PROJECT_NAME}/base/VertexAttributes.h
+		include/${PROJECT_NAME}/base/IndexBuffer.h
+		include/${PROJECT_NAME}/base/Mesh.h
+		include/${PROJECT_NAME}/base/MeshFactory.h
+		include/${PROJECT_NAME}/base/BaseBuffer.h
+		include/${PROJECT_NAME}/base/ShaderManager.h
+		include/${PROJECT_NAME}/base/ShaderUniform.h
+		include/${PROJECT_NAME}/base/ScalarField.h
+		include/${PROJECT_NAME}/base/HUCubeField.h
+		include/${PROJECT_NAME}/base/HUCubeSegment.h
+		include/${PROJECT_NAME}/base/HUVolume.h
+		include/${PROJECT_NAME}/base/BufferedHUVolume.h
+		include/${PROJECT_NAME}/base/UInt16HUVolume.h
 		include/${PROJECT_NAME}/base/Aggregation.h
 		include/${PROJECT_NAME}/base/Association.h
 		include/${PROJECT_NAME}/base/CarnaException.h
@@ -174,43 +173,43 @@ set( PRIVATE_QOBJECT_HEADERS
 )
 set( PRIVATE_HEADERS
 		${PRIVATE_QOBJECT_HEADERS}
-		src/include/Carna/base/view/gl.h
-		src/include/Carna/base/view/glew.h
-		src/include/Carna/base/view/glu.h
+		src/include/Carna/base/gl.h
+		src/include/Carna/base/glew.h
+		src/include/Carna/base/glu.h
 	)
 set( SRC
-		src/base/view/BlendFunction.cpp
-		src/base/view/Camera.cpp
-		src/base/view/Color.cpp
-		src/base/view/Geometry.cpp
-		src/base/view/GLContext.cpp
-		src/base/view/Renderable.cpp
-		src/base/view/FrameRenderer.cpp
-		src/base/view/RenderTask.cpp
-		src/base/view/RenderStage.cpp
-		src/base/view/RenderState.cpp
-		src/base/view/Spatial.cpp
-		src/base/view/Node.cpp
-		src/base/view/Framebuffer.cpp
-		src/base/view/RenderTexture.cpp
-		src/base/view/Sampler.cpp
-		src/base/view/Shader.cpp
-		src/base/view/Material.cpp
-		src/base/view/ShaderCompilationError.cpp
-		src/base/view/ShaderProgram.cpp
-		src/base/view/Texture3D.cpp
-		src/base/view/Viewport.cpp
-		src/base/view/BufferedHUVolumeUploader.cpp
-		src/base/view/HUVolumeTexture.cpp
-		src/base/view/GeometryFeature.cpp
-		src/base/view/Vertex.cpp
-		src/base/view/VertexBuffer.cpp
-		src/base/view/IndexBuffer.cpp
-		src/base/view/Mesh.cpp
-		src/base/view/BaseBuffer.cpp
-		src/base/view/ShaderManager.cpp
-		src/base/view/ShaderUniform.cpp
-		src/base/model/HUVolume.cpp
+		src/base/BlendFunction.cpp
+		src/base/Camera.cpp
+		src/base/Color.cpp
+		src/base/Geometry.cpp
+		src/base/GLContext.cpp
+		src/base/Renderable.cpp
+		src/base/FrameRenderer.cpp
+		src/base/RenderTask.cpp
+		src/base/RenderStage.cpp
+		src/base/RenderState.cpp
+		src/base/Spatial.cpp
+		src/base/Node.cpp
+		src/base/Framebuffer.cpp
+		src/base/RenderTexture.cpp
+		src/base/Sampler.cpp
+		src/base/Shader.cpp
+		src/base/Material.cpp
+		src/base/ShaderCompilationError.cpp
+		src/base/ShaderProgram.cpp
+		src/base/Texture3D.cpp
+		src/base/Viewport.cpp
+		src/base/BufferedHUVolumeUploader.cpp
+		src/base/HUVolumeTexture.cpp
+		src/base/GeometryFeature.cpp
+		src/base/Vertex.cpp
+		src/base/VertexBuffer.cpp
+		src/base/IndexBuffer.cpp
+		src/base/Mesh.cpp
+		src/base/BaseBuffer.cpp
+		src/base/ShaderManager.cpp
+		src/base/ShaderUniform.cpp
+		src/base/HUVolume.cpp
 		src/base/CarnaException.cpp
 		src/base/ColorCodingStage.cpp
 		src/base/Text.cpp
@@ -299,18 +298,6 @@ SOURCE_GROUP( "Headers"
 SOURCE_GROUP( "Headers\\base"
 	REGULAR_EXPRESSION .*include/Carna/base/[^/]*\\.h )
 
-SOURCE_GROUP( "Headers\\base\\controller"
-	REGULAR_EXPRESSION .*include/Carna/base/controller/[^/]*\\.h )
-
-SOURCE_GROUP( "Headers\\base\\model"
-	REGULAR_EXPRESSION .*include/Carna/base/model/[^/]*\\.h )
-
-SOURCE_GROUP( "Headers\\base\\qt"
-	REGULAR_EXPRESSION .*include/Carna/base/qt/[^/]*\\.h )
-
-SOURCE_GROUP( "Headers\\base\\view"
-	REGULAR_EXPRESSION .*include/Carna/base/view/[^/]*\\.h )
-
 SOURCE_GROUP( "Headers\\MPR"
 	REGULAR_EXPRESSION .*include/Carna/MPR/[^/]*\\.h )
 
@@ -337,18 +324,6 @@ SOURCE_GROUP( "Sources"
 
 SOURCE_GROUP( "Sources\\base"
 	REGULAR_EXPRESSION src/base/[^/]*\\.cpp )
-
-SOURCE_GROUP( "Sources\\base\\controller"
-	REGULAR_EXPRESSION src/base/controller/[^/]*\\.cpp )
-
-SOURCE_GROUP( "Sources\\base\\model"
-	REGULAR_EXPRESSION src/base/model/[^/]*\\.cpp )
-
-SOURCE_GROUP( "Sources\\base\\qt"
-	REGULAR_EXPRESSION src/base/qt/[^/]*\\.cpp )
-
-SOURCE_GROUP( "Sources\\base\\view"
-	REGULAR_EXPRESSION src/base/view/[^/]*\\.cpp )
 
 SOURCE_GROUP( "Sources\\MPR"
 	REGULAR_EXPRESSION src/MPR/[^/]*\\.cpp )
@@ -407,7 +382,7 @@ set( UNITY_BUILD_FILE	${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}-unitybuild.cpp 
 
 file( REMOVE	${UNITY_BUILD_FILE} )
 file( WRITE		${UNITY_BUILD_FILE} "// This file is automatically generated by CMake.\n\n" )
-file( APPEND	${UNITY_BUILD_FILE}	"#include <Carna/base/view/glew.h>\n" )
+file( APPEND	${UNITY_BUILD_FILE}	"#include <Carna/base/glew.h>\n" )
 file( APPEND	${UNITY_BUILD_FILE}	"#include <Carna/base/CarnaException.h>\n" )
 file( APPEND	${UNITY_BUILD_FILE}	"#include <string>\n" )
 file( APPEND	${UNITY_BUILD_FILE}	"#include <map>\n" )

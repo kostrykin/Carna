@@ -12,12 +12,12 @@
 #ifndef RAYMARCHINGSTAGE_H_6014714286
 #define RAYMARCHINGSTAGE_H_6014714286
 
-#include <Carna/base/view/GeometryStage.h>
+#include <Carna/base/GeometryStage.h>
 #include <Carna/Carna.h>
 #include <map>
 
 /** \file   RayMarchingStage.h
-  * \brief  Defines \ref Carna::base::view::RayMarchingStage.
+  * \brief  Defines \ref Carna::base::RayMarchingStage.
   */
 
 namespace Carna
@@ -33,7 +33,7 @@ namespace VolumeRenderings
 // ----------------------------------------------------------------------------------
 
 class CARNA_LIB RayMarchingStage
-    : public base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >
+    : public base::GeometryStage< base::Renderable::DepthOrder< base::Renderable::ORDER_BACK_TO_FRONT > >
 {
 
     struct Details;
@@ -62,22 +62,22 @@ public:
 
     virtual void renderPass
         ( const base::math::Matrix4f& viewTransform
-        , base::view::RenderTask& rt
-        , const base::view::Viewport& vp ) override;
+        , base::RenderTask& rt
+        , const base::Viewport& vp ) override;
 
 protected:
 
     virtual void loadVideoResources();
 
-    virtual void render( base::view::GLContext& glc, const base::view::Renderable& ) override;
+    virtual void render( base::GLContext& glc, const base::Renderable& ) override;
 
-    virtual void createSamplers( const std::function< void( unsigned int, base::view::Sampler* ) >& registerSampler ) = 0;
+    virtual void createSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler ) = 0;
 
     /** \brief
       * Loads the ray marching shader.
       * This shader is applied during rendering of the volume slices.
       */
-    virtual const base::view::ShaderProgram& loadShader() = 0;
+    virtual const base::ShaderProgram& loadShader() = 0;
 
     /** \brief
       * Tells the name of the uniform variable, that the \a role texture is to be bound to.
@@ -88,7 +88,7 @@ protected:
     /** \brief
       * Performs custom shader configuration that goes beyond the default setup.
       */
-    virtual void configureShader( base::view::GLContext& ) = 0;
+    virtual void configureShader( base::GLContext& ) = 0;
 
 }; // RayMarchingStage
 

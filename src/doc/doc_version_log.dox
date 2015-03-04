@@ -201,33 +201,33 @@ namespace Carna
   * Further changes:
   *
   * - The concept of ''controller decorators'' has been renamed to the more adequate term ''controller filters''.
-  * - \c Scene has been renamed to \ref base::view::SceneProvider
-  * - \c Model has been renamed to \ref base::model::Scene
-  * - \c Model::mask has been renamed to \ref base::model::Scene::volumeMask
-  * - \c Model::setMask has been renamed to \ref base::model::Scene::setVolumeMask
-  * - \c Model::unsetMask has been renamed to \ref base::model::Scene::removeVolumeMask
-  * - \c Model::hasMask has been renamed to \ref base::model::Scene::hasVolumeMask
-  * - \c Model::maskExchanged has been renamed to \ref base::model::Scene::volumeMaskExchanged
+  * - \c Scene has been renamed to \ref base::SceneProvider
+  * - \c Model has been renamed to \ref base::Scene
+  * - \c Model::mask has been renamed to \ref base::Scene::volumeMask
+  * - \c Model::setMask has been renamed to \ref base::Scene::setVolumeMask
+  * - \c Model::unsetMask has been renamed to \ref base::Scene::removeVolumeMask
+  * - \c Model::hasMask has been renamed to \ref base::Scene::hasVolumeMask
+  * - \c Model::maskExchanged has been renamed to \ref base::Scene::volumeMaskExchanged
   * - All signals and slots use full-qualified argument types now, so it is not necessary to use typedef- or using-directives when connecting those any longer.
   *
   * \subsection v_2_4 API Version 2.4
   *
   * The offscreen rendering module has been moved from \c %Carna::base::view to \c %Carna::base:
-  * - \c Carna::base::view::OffscreenDisplay now is \ref Carna::base::OffscreenDisplay
-  * - \c Carna::base::view::OffscreenVisualizationEnvironment now is \ref Carna::base::OffscreenVisualizationEnvironment
+  * - \c Carna::base::OffscreenDisplay now is \ref Carna::base::OffscreenDisplay
+  * - \c Carna::base::OffscreenVisualizationEnvironment now is \ref Carna::base::OffscreenVisualizationEnvironment
   *
   * New entities:
-  * - Methods for voxel-value to HU-value conversion and vice-versa have been added to \ref Carna::base::model::GenericVolume "GenericVolume":
-  *   - \ref base::model::GenericVolume::bufferValueToHUV
-  *   - \ref base::model::GenericVolume::HUVToBufferValue
+  * - Methods for voxel-value to HU-value conversion and vice-versa have been added to \ref Carna::base::GenericVolume "GenericVolume":
+  *   - \ref base::GenericVolume::bufferValueToHUV
+  *   - \ref base::GenericVolume::HUVToBufferValue
   * - An API extension considering the computation of histograms has been added:
-  *   - \ref base::model::Counter
-  *   - \ref base::model::IndexedCounter
-  *   - \ref base::model::AssociativeCounter
-  *   - \ref base::model::Histogram
-  *   - \ref base::model::VolumeHistogramVolumeAdapter
-  *   - \ref base::model::VolumeHistogram
-  *   - \ref base::model::HistogramClassDetector
+  *   - \ref base::Counter
+  *   - \ref base::IndexedCounter
+  *   - \ref base::AssociativeCounter
+  *   - \ref base::Histogram
+  *   - \ref base::VolumeHistogramVolumeAdapter
+  *   - \ref base::VolumeHistogram
+  *   - \ref base::HistogramClassDetector
   *
   * Bug fixes:
   * - Fixed bug within the \c VolumeRenderings::AbsorptionProjection::AbsorptionProjection::createControllerUI "controller UI of the AbsorptionProjection" considering a missing signal.
@@ -239,24 +239,24 @@ namespace Carna
   * - Dropped \c Carna::base::clearLayout for it wasn't used any more.
   * - Splitted \c common.h into \ref Math.h, \ref Memory.h and \ref Text.h.
   * - The "absorption projection" sub-module of the \ref VolumeRenderings module has been renamed to \ref VolumeRenderings::DVR "direct volume rendering", for this is the term mainly used for it in the literature.
-  * - Renamed \c Object3DNullFilter to \ref base::model::Object3DUniformFilter "Object3DUniformFilter", cause this fits better what the class does.
-  * - Renamed \c SceneProvider::ResourceContext to \ref base::view::SceneProvider::ResourceClient "SceneProvider::ResourceClient".
+  * - Renamed \c Object3DNullFilter to \ref base::Object3DUniformFilter "Object3DUniformFilter", cause this fits better what the class does.
+  * - Renamed \c SceneProvider::ResourceContext to \ref base::SceneProvider::ResourceClient "SceneProvider::ResourceClient".
   * - Renamed \c ExpendableGroupBox to \ref base::qt::ExpandableGroupBox "ExpandableGroupBox" for the class name contained a typo.
   * - Moved \c base::RotatingColor to \ref base::qt::RotatingColor.
-  * - Moved \c Scene::max3DTextureSize to \ref base::view::SceneProvider::max3DTextureSize "SceneProvider::max3DTextureSize".
+  * - Moved \c Scene::max3DTextureSize to \ref base::SceneProvider::max3DTextureSize "SceneProvider::max3DTextureSize".
   *
   * \subsection v_2_5 API Version 2.5
   *
   * Added:
-  * - \ref base::model::SceneFactory::setMaximumAllowedSideLength
-  * - \ref base::model::SceneFactory::maximumAllowedSideLength
+  * - \ref base::SceneFactory::setMaximumAllowedSideLength
+  * - \ref base::SceneFactory::maximumAllowedSideLength
   * - \ref VolumeRenderings::DVR::DirectVolumeRendering::commitColorMap
   * - \ref base::qt::Display::setModule
   * - \ref base::qt::Display::hasModule
   *
   * Fixes:
   * - The image returned by \ref Carna::base::OffscreenDisplay::framebuffer "OffscreenDisplay::framebuffer" is flipped properly now.
-  * - The \ref Carna::base::view::DefaultCamera "DefaultCamera" class behaves properly now when used with scenes of different physical dimensions.
+  * - The \ref Carna::base::DefaultCamera "DefaultCamera" class behaves properly now when used with scenes of different physical dimensions.
   *
   * Other changes:
   * - Dropped the \c model argument of the \ref MPR::AxialPlaneController::AxialPlaneController "AxialPlaneController constructor".

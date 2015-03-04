@@ -36,7 +36,7 @@ namespace base
   * By using this class it is possible to let the user of some software module decide
   * whether he wants to pass the ownership of some object to that module or not.
   *
-  * \see    Take a look at the \ref Carna::base::model::Scene::Scene "Scene constructor"
+  * \see    Take a look at the \ref Carna::base::Scene::Scene "Scene constructor"
   *         for an example.
   * \author Leonid Kostrykin
   * \date   26.10.11 - 4.10.11

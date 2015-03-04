@@ -25,7 +25,7 @@ namespace testing
 // SceneTest
 // ----------------------------------------------------------------------------------
 
-/** \brief  Unit-test of the \ref Carna::base::model::Scene class.
+/** \brief  Unit-test of the \ref Carna::base::Scene class.
   *
   * \author Leonid Kostrykin
   * \date   24.5.13 - 1.5.14
@@ -126,7 +126,7 @@ private:
 
     /** \brief  Returns new \c Scene instance.
       */
-    static Carna::base::model::Scene* createScene();
+    static Carna::base::Scene* createScene();
 
     /** \brief  Supplies the 'huv' test data for data-driven test cases.
       *
@@ -142,8 +142,8 @@ private:
       */
     static void createHuvTestData();
 
-    typedef std::function< void( Carna::base::model::Scene&, int ) > HuvSetter;
-    typedef std::function< int( const Carna::base::model::Scene& ) > HuvGetter;
+    typedef std::function< void( Carna::base::Scene&, int ) > HuvSetter;
+    typedef std::function< int( const Carna::base::Scene& ) > HuvGetter;
 
     static void runHuvPropertyTest( const HuvSetter&, const HuvGetter&, const char* signal = nullptr );
     

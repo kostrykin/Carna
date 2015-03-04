@@ -20,7 +20,7 @@
 #include <Carna/VolumeRenderings/DVR/ColorMap.h>
 #include <Carna/base/OffscreenDisplay.h>
 #include <Carna/base/OffscreenVisualizationEnvironment.h>
-#include <Carna/base/view/Point3D.h>
+#include <Carna/base/Point3D.h>
 
 
 
@@ -32,7 +32,7 @@ void VolumeRendererTest::initTestCase()
 {
     disableQDebug();
 
-    if( Carna::base::view::SceneProvider::max3DTextureSize() < 512 )
+    if( Carna::base::SceneProvider::max3DTextureSize() < 512 )
     {
         QFAIL( "GL_MAX_3D_TEXTURE_SIZE is suspiciously low. Verify that you are running the test suite on the correct video device." );
     }
@@ -40,10 +40,10 @@ void VolumeRendererTest::initTestCase()
     try
     {
         scene.reset( HUGZSceneFactory::importVolume( SOURCE_PATH + "/res/pelves_reduced.hugz" ) );
-        provider.reset( new Carna::base::view::SceneProvider( *scene ) );
+        provider.reset( new Carna::base::SceneProvider( *scene ) );
         environment.reset( new Carna::base::OffscreenVisualizationEnvironment() );
 
-        new Carna::base::view::Point3D( *scene, Carna::base::model::Position::fromVolumeUnits( *scene, 0.5, 0.5, 0.5 ) );
+        new Carna::base::Point3D( *scene, Carna::base::Position::fromVolumeUnits( *scene, 0.5, 0.5, 0.5 ) );
     }
     catch( const Carna::base::AssertionFailure& ex )
     {

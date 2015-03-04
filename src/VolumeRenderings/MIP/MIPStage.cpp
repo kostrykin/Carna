@@ -11,13 +11,13 @@
 
 #include <Carna/VolumeRenderings/MIP/MIPStage.h>
 #include <Carna/VolumeRenderings/MIP/Channel.h>
-#include <Carna/base/view/glew.h>
-#include <Carna/base/view/ShaderManager.h>
-#include <Carna/base/view/ShaderUniform.h>
-#include <Carna/base/view/Framebuffer.h>
-#include <Carna/base/view/RenderTexture.h>
-#include <Carna/base/view/Viewport.h>
-#include <Carna/base/view/RenderState.h>
+#include <Carna/base/glew.h>
+#include <Carna/base/ShaderManager.h>
+#include <Carna/base/ShaderUniform.h>
+#include <Carna/base/Framebuffer.h>
+#include <Carna/base/RenderTexture.h>
+#include <Carna/base/Viewport.h>
+#include <Carna/base/RenderState.h>
 #include <Carna/base/math.h>
 #include <Carna/base/CarnaException.h>
 #include <vector>
@@ -46,8 +46,8 @@ struct MIPStage::Details
     Channel* currentChannel;
     std::vector< Channel* > channels;
 
-    std::unique_ptr< base::view::RenderTexture > channelColorBuffer;
-    std::unique_ptr< base::view::Framebuffer   > channelFrameBuffer;
+    std::unique_ptr< base::RenderTexture > channelColorBuffer;
+    std::unique_ptr< base::Framebuffer   > channelFrameBuffer;
 
     static inline float huvToIntensity( signed short huv )
     {
@@ -115,35 +115,35 @@ void MIPStage::clearChannels()
 }
 
 
-void MIPStage::reshape( const base::view::FrameRenderer& fr, const base::view::Viewport& vp )
+void MIPStage::reshape( const base::FrameRenderer& fr, const base::Viewport& vp )
 {
-    base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >::reshape( fr, vp );
-    pimpl->channelColorBuffer.reset( new base::view::RenderTexture( vp.width, vp.height ) );
-    pimpl->channelFrameBuffer.reset( new base::view::Framebuffer( *pimpl->channelColorBuffer ) );
+    base::GeometryStage< base::Renderable::DepthOrder< base::Renderable::ORDER_BACK_TO_FRONT > >::reshape( fr, vp );
+    pimpl->channelColorBuffer.reset( new base::RenderTexture( vp.width, vp.height ) );
+    pimpl->channelFrameBuffer.reset( new base::Framebuffer( *pimpl->channelColorBuffer ) );
 }
 
 
 void MIPStage::renderPass
     ( const base::math::Matrix4f& vt
-    , base::view::RenderTask& rt
-    , const base::view::Viewport& outputViewport )
+    , base::RenderTask& rt
+    , const base::Viewport& outputViewport )
 {
-    const base::view::Viewport framebufferViewport
+    const base::Viewport framebufferViewport
         ( outputViewport, 0, 0
         , pimpl->channelFrameBuffer->width()
         , pimpl->channelFrameBuffer->height() );
 
     /* Configure proper OpenGL state.
      */
-    base::view::RenderState rs( rt.renderer.glContext() );
+    base::RenderState rs( rt.renderer.glContext() );
     rs.setBlend( true );
     rs.setDepthTest( false );
     rs.setDepthWrite( false );
 
     /* Copy depth buffer from output to dedicated frame buffer.
      */
-    const unsigned int outputFramebufferId = base::view::Framebuffer::currentId();
-    base::view::Framebuffer::copy
+    const unsigned int outputFramebufferId = base::Framebuffer::currentId();
+    base::Framebuffer::copy
         ( outputFramebufferId
         , pimpl->channelFrameBuffer->id
         , outputViewport
@@ -161,7 +161,7 @@ void MIPStage::renderPass
          */
         CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->channelFrameBuffer,
 
-            base::view::RenderState rs2( rt.renderer.glContext() );
+            base::RenderState rs2( rt.renderer.glContext() );
             rs2.setBlendEquation( GL_MAX );
             rs2.setDepthTest( true );
 
@@ -176,7 +176,7 @@ void MIPStage::renderPass
 
         /* Render result to output framebuffer.
          */
-        base::view::RenderState rs2( rt.renderer.glContext() );
+        base::RenderState rs2( rt.renderer.glContext() );
         rs2.setBlendFunction( pimpl->currentChannel->function );
 
         pimpl->channelColorBuffer->bind( 0 );
@@ -189,21 +189,21 @@ void MIPStage::renderPass
 }
 
 
-void MIPStage::createSamplers( const std::function< void( unsigned int, base::view::Sampler* ) >& registerSampler )
+void MIPStage::createSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler )
 {
-    base::view::Sampler* const huVolumeSampler = new base::view::Sampler();
-    huVolumeSampler->setMinFilter( base::view::Sampler::FILTER_LINEAR );
-    huVolumeSampler->setMagFilter( base::view::Sampler::FILTER_LINEAR );
-    huVolumeSampler->setWrapModeR( base::view::Sampler::WRAP_MODE_CLAMP );
-    huVolumeSampler->setWrapModeS( base::view::Sampler::WRAP_MODE_CLAMP );
-    huVolumeSampler->setWrapModeT( base::view::Sampler::WRAP_MODE_CLAMP );
+    base::Sampler* const huVolumeSampler = new base::Sampler();
+    huVolumeSampler->setMinFilter( base::Sampler::FILTER_LINEAR );
+    huVolumeSampler->setMagFilter( base::Sampler::FILTER_LINEAR );
+    huVolumeSampler->setWrapModeR( base::Sampler::WRAP_MODE_CLAMP );
+    huVolumeSampler->setWrapModeS( base::Sampler::WRAP_MODE_CLAMP );
+    huVolumeSampler->setWrapModeT( base::Sampler::WRAP_MODE_CLAMP );
     registerSampler( ROLE_HU_VOLUME, huVolumeSampler );
 }
 
 
-const base::view::ShaderProgram& MIPStage::loadShader()
+const base::ShaderProgram& MIPStage::loadShader()
 {
-    return base::view::ShaderManager::instance().acquireShader( "mip" );
+    return base::ShaderManager::instance().acquireShader( "mip" );
 }
 
 
@@ -223,14 +223,14 @@ const std::string& MIPStage::uniformName( unsigned int role ) const
 }
 
 
-void MIPStage::configureShader( base::view::GLContext& glc )
+void MIPStage::configureShader( base::GLContext& glc )
 {
     CARNA_ASSERT( pimpl->currentChannel != nullptr );
     const Channel& ch = *pimpl->currentChannel;
 
-    base::view::ShaderUniform< float >( "minIntensity", Details::huvToIntensity( ch.huRange.first ) ).upload();
-    base::view::ShaderUniform< float >( "maxIntensity", Details::huvToIntensity( ch.huRange.last  ) ).upload();
-    base::view::ShaderUniform< base::math::Vector4f >( "color", ch.color ).upload();
+    base::ShaderUniform< float >( "minIntensity", Details::huvToIntensity( ch.huRange.first ) ).upload();
+    base::ShaderUniform< float >( "maxIntensity", Details::huvToIntensity( ch.huRange.last  ) ).upload();
+    base::ShaderUniform< base::math::Vector4f >( "color", ch.color ).upload();
 }
 
 

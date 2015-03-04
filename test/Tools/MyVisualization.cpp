@@ -11,7 +11,7 @@
 
 #include <GL/glew.h>
 #include "MyVisualization.h"
-#include <Carna/base/view/SceneProvider.h>
+#include <Carna/base/SceneProvider.h>
 
 namespace Carna
 {
@@ -27,10 +27,10 @@ namespace testing
 
 MyRenderer::MyRenderer
     ( Carna::base::Visualization& module
-    , Carna::base::view::SceneProvider& provider
+    , Carna::base::SceneProvider& provider
     , QObject* parent )
 
-    : Carna::base::view::Renderer
+    : Carna::base::Renderer
         ( module
         , provider
         , parent )
@@ -55,7 +55,7 @@ void MyRenderer::fetchSceneMatrix
 
  // scene space
 
-    Carna::base::view::Renderer::fetchSceneMatrix( sceneMatrix, cameraMatrix, projectionMatrix );
+    Carna::base::Renderer::fetchSceneMatrix( sceneMatrix, cameraMatrix, projectionMatrix );
 
  // volume space
 
@@ -106,7 +106,7 @@ void MyRenderer::renderDepth()
 // MyVisualization
 // ----------------------------------------------------------------------------------
 
-Carna::base::view::Renderer* MyVisualization::createRenderer( Carna::base::view::SceneProvider& provider )
+Carna::base::Renderer* MyVisualization::createRenderer( Carna::base::SceneProvider& provider )
 {
     return new MyRenderer( *this, provider );
 }

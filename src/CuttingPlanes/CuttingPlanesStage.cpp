@@ -10,12 +10,12 @@
  */
 
 #include <Carna/CuttingPlanes/CuttingPlanesStage.h>
-#include <Carna/base/view/Mesh.h>
-#include <Carna/base/view/Vertex.h>
-#include <Carna/base/view/IndexBuffer.h>
-#include <Carna/base/view/ShaderManager.h>
-#include <Carna/base/view/ShaderUniform.h>
-#include <Carna/base/view/RenderState.h>
+#include <Carna/base/Mesh.h>
+#include <Carna/base/Vertex.h>
+#include <Carna/base/IndexBuffer.h>
+#include <Carna/base/ShaderManager.h>
+#include <Carna/base/ShaderUniform.h>
+#include <Carna/base/RenderState.h>
 #include <Carna/base/math.h>
 
 namespace Carna
@@ -35,10 +35,10 @@ struct CuttingPlanesStage::Details
 
     Details( int planeGeometryType );
 
-    base::view::RenderQueue< void > planes;
+    base::RenderQueue< void > planes;
 
-    base::view::RenderTask* renderTask;
-    const base::view::Viewport* viewPort;
+    base::RenderTask* renderTask;
+    const base::Viewport* viewPort;
 
     base::HUV windowingLevel;
     unsigned int windowingWidth;
@@ -69,27 +69,27 @@ CuttingPlanesStage::Details::Details( int planeGeometryType )
 struct CuttingPlanesStage::VideoResources
 {
 
-    VideoResources( const base::view::ShaderProgram& shader );
+    VideoResources( const base::ShaderProgram& shader );
 
     ~VideoResources();
 
-    typedef base::view::Mesh< base::view::VertexBase, uint8_t > PlaneMesh;
+    typedef base::Mesh< base::VertexBase, uint8_t > PlaneMesh;
 
     PlaneMesh& planeMesh;
-    const base::view::ShaderProgram& shader;
-    base::view::Sampler volumeSampler;
+    const base::ShaderProgram& shader;
+    base::Sampler volumeSampler;
 
 }; // CuttingPlanesStage :: VideoResources
 
 
-CuttingPlanesStage::VideoResources::VideoResources( const base::view::ShaderProgram& shader )
-    : planeMesh( PlaneMesh::create( base::view::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN ) )
+CuttingPlanesStage::VideoResources::VideoResources( const base::ShaderProgram& shader )
+    : planeMesh( PlaneMesh::create( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN ) )
     , shader( shader )
 {
     /* Create plane mesh.
      */
     const float radius = std::sqrt( 3.f ) / 2;
-    base::view::VertexBase vertices[ 4 ];
+    base::VertexBase vertices[ 4 ];
     uint8_t indices[ 4 ];
 
     vertices[ 0 ].x = -radius;
@@ -113,11 +113,11 @@ CuttingPlanesStage::VideoResources::VideoResources( const base::view::ShaderProg
 
     /* Configure volume volumeSampler.
      */
-    volumeSampler.setMinFilter( base::view::Sampler::FILTER_LINEAR );
-    volumeSampler.setMagFilter( base::view::Sampler::FILTER_LINEAR );
-    volumeSampler.setWrapModeR( base::view::Sampler::WRAP_MODE_CLAMP );
-    volumeSampler.setWrapModeS( base::view::Sampler::WRAP_MODE_CLAMP );
-    volumeSampler.setWrapModeT( base::view::Sampler::WRAP_MODE_CLAMP );
+    volumeSampler.setMinFilter( base::Sampler::FILTER_LINEAR );
+    volumeSampler.setMagFilter( base::Sampler::FILTER_LINEAR );
+    volumeSampler.setWrapModeR( base::Sampler::WRAP_MODE_CLAMP );
+    volumeSampler.setWrapModeS( base::Sampler::WRAP_MODE_CLAMP );
+    volumeSampler.setWrapModeT( base::Sampler::WRAP_MODE_CLAMP );
 }
 
 
@@ -133,7 +133,7 @@ CuttingPlanesStage::VideoResources::~VideoResources()
 // ----------------------------------------------------------------------------------
 
 CuttingPlanesStage::CuttingPlanesStage( int volumeGeometryType, int planeGeometryType )
-    : base::view::GeometryStage< void >::GeometryStage( volumeGeometryType )
+    : base::GeometryStage< void >::GeometryStage( volumeGeometryType )
     , pimpl( new Details( planeGeometryType ) )
 {
 }
@@ -146,7 +146,7 @@ CuttingPlanesStage::~CuttingPlanesStage()
     {
         /* Release main shader.
          */
-        base::view::ShaderManager::instance().releaseShader( vr->shader );
+        base::ShaderManager::instance().releaseShader( vr->shader );
     }
 }
 
@@ -187,7 +187,7 @@ base::HUV CuttingPlanesStage::maximumHUV() const
 }
 
 
-void CuttingPlanesStage::updateRenderQueues( base::view::Node& root, const base::math::Matrix4f& vt, bool vtTriggered )
+void CuttingPlanesStage::updateRenderQueues( base::Node& root, const base::math::Matrix4f& vt, bool vtTriggered )
 {
     /* Since we do not require the renderables to be sorted by any
      * specific order within the render queue, we also do not have to
@@ -206,20 +206,20 @@ void CuttingPlanesStage::updateRenderQueues( base::view::Node& root, const base:
 }
 
 
-void CuttingPlanesStage::render( base::view::GLContext& glc, const base::view::Renderable& volume )
+void CuttingPlanesStage::render( base::GLContext& glc, const base::Renderable& volume )
 {
     /* Bind texture and volumeSampler to free texture unit.
      */
-    const static unsigned int TEXTURE_UNIT = base::view::Texture3D::SETUP_UNIT + 1;
-    const base::view::Texture3D& texture = static_cast< const base::view::Texture3D& >( volume.geometry().feature( ROLE_HU_VOLUME ) );
+    const static unsigned int TEXTURE_UNIT = base::Texture3D::SETUP_UNIT + 1;
+    const base::Texture3D& texture = static_cast< const base::Texture3D& >( volume.geometry().feature( ROLE_HU_VOLUME ) );
     vr->volumeSampler.bind( TEXTURE_UNIT );
     texture.bind( TEXTURE_UNIT );
     
     /* Upload volume-specific uniforms that are equal for all planes.
      */
     const base::math::Matrix4f modelViewProjection = pimpl->renderTask->projection * volume.modelViewTransform();
-    base::view::ShaderUniform< base::math::Matrix4f >( "modelViewProjection", modelViewProjection ).upload();
-    base::view::ShaderUniform< int >( "huVolume", TEXTURE_UNIT ).upload();
+    base::ShaderUniform< base::math::Matrix4f >( "modelViewProjection", modelViewProjection ).upload();
+    base::ShaderUniform< int >( "huVolume", TEXTURE_UNIT ).upload();
 
     /* Compute 'volume' scale in world space.
      */
@@ -237,7 +237,7 @@ void CuttingPlanesStage::render( base::view::GLContext& glc, const base::view::R
     pimpl->planes.rewind();
     while( !pimpl->planes.isEmpty() )
     {
-        const base::view::Renderable& plane = pimpl->planes.poll();
+        const base::Renderable& plane = pimpl->planes.poll();
         base::math::Vector4f planeNormal = plane.geometry().worldTransform().col( 2 );
         planeNormal.w() = 0;
         planeNormal.normalize();
@@ -262,7 +262,7 @@ void CuttingPlanesStage::render( base::view::GLContext& glc, const base::view::R
 
         /* Upload remaining uniforms to shader.
         */
-        base::view::ShaderUniform< base::math::Matrix4f >( "planeTangentModel", planeTangentModel ).upload();
+        base::ShaderUniform< base::math::Matrix4f >( "planeTangentModel", planeTangentModel ).upload();
 
         /* Draw the plane.
          */
@@ -273,12 +273,12 @@ void CuttingPlanesStage::render( base::view::GLContext& glc, const base::view::R
 
 void CuttingPlanesStage::renderPass
     ( const base::math::Matrix4f& vt
-    , base::view::RenderTask& rt
-    , const base::view::Viewport& vp )
+    , base::RenderTask& rt
+    , const base::Viewport& vp )
 {
     if( vr.get() == nullptr )
     {
-        vr.reset( new VideoResources( base::view::ShaderManager::instance().acquireShader( "cutting_plane" ) ) );
+        vr.reset( new VideoResources( base::ShaderManager::instance().acquireShader( "cutting_plane" ) ) );
     }
     
     rt.renderer.glContext().setShader( vr->shader );
@@ -288,18 +288,18 @@ void CuttingPlanesStage::renderPass
 
     /* Configure proper GL state.
      */
-    base::view::RenderState rs( rt.renderer.glContext() );
-    rs.setCullFace( base::view::RenderState::cullNone );
+    base::RenderState rs( rt.renderer.glContext() );
+    rs.setCullFace( base::RenderState::cullNone );
 
     /* Set shader and upload all uniforms that are same for all planes and volumes.
      */
-    base::view::ShaderUniform< float >( "minIntensity", Details::huvToIntensity( minimumHUV() ) ).upload();
-    base::view::ShaderUniform< float >( "maxIntensity", Details::huvToIntensity( maximumHUV() ) ).upload();
+    base::ShaderUniform< float >( "minIntensity", Details::huvToIntensity( minimumHUV() ) ).upload();
+    base::ShaderUniform< float >( "maxIntensity", Details::huvToIntensity( maximumHUV() ) ).upload();
     
     /* Set shader and do the rendering.
      */
     rt.renderer.glContext().setShader( vr->shader );
-    base::view::GeometryStage< void >::renderPass( vt, rt, vp );
+    base::GeometryStage< void >::renderPass( vt, rt, vp );
 
     /* There is no guarantee that 'renderTask' will be valid later.
      */

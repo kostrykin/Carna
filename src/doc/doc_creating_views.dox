@@ -7,10 +7,10 @@
   *
   * The CT data is stored as a \f$ \mathbb Z_0^3 \to [-1024,3071] \f$ scalar field.
   * In order to operate on it, all you need is a reference to the appropriate
-  * \ref Carna::base::model::Volume "Volume" object:
+  * \ref Carna::base::Volume "Volume" object:
   *
   * \code
-  * double computeMeanHuv( const Carna::base::model::Volume& volume )
+  * double computeMeanHuv( const Carna::base::Volume& volume )
   * {
   *     double result = 0;
   *
@@ -37,17 +37,17 @@
   * \c MyRenderer.h header:
   *
   * \code
-  * #include <Carna/base/view/Renderer.h>
+  * #include <Carna/base/Renderer.h>
   * #include <Carna/base/Visualization.h>
   *
-  * class MyRenderer : public Carna::base::view::Renderer
+  * class MyRenderer : public Carna::base::Renderer
   * {
   *
   * public:
   *
   *     Renderer
   *         ( Carna::base::Visualization& module
-  *         , Carna::base::view::SceneProvider& provider
+  *         , Carna::base::SceneProvider& provider
   *         , QObject* parent = nullptr );
   *
   * protected:
@@ -68,7 +68,7 @@
   *
   * protected:
   *
-  *     virtual Carna::base::view::Renderer* createRenderer( Carna::base::view::SceneProvider& provider ) override;
+  *     virtual Carna::base::Renderer* createRenderer( Carna::base::SceneProvider& provider ) override;
   *
   * };
   * \endcode
@@ -77,15 +77,15 @@
   *
   * \code
   * #include <GL/glew.h>
-  * #include <Carna/base/view/SceneProvider.h>
+  * #include <Carna/base/SceneProvider.h>
   * #include "MyRenderer.h"
   *
   * MyRenderer::MyRenderer
   *     ( Carna::base::Visualization& module
-  *     , Carna::base::view::SceneProvider& provider
+  *     , Carna::base::SceneProvider& provider
   *     , QObject* parent )
   *
-  *     : Carna::base::view::Renderer
+  *     : Carna::base::Renderer
   *         ( module
   *         , provider
   *         , parent )
@@ -109,7 +109,7 @@
   *
   *  // scene space
   *
-  *     Carna::base::view::Renderer::fetchSceneMatrix( sceneMatrix, cameraMatrix, projectionMatrix );
+  *     Carna::base::Renderer::fetchSceneMatrix( sceneMatrix, cameraMatrix, projectionMatrix );
   *
   *  // volume space
   *
@@ -152,7 +152,7 @@
   * {
   * }
   *
-  * Carna::base::view::Renderer* MyVisualization::createRenderer( Carna::base::view::SceneProvider& provider )
+  * Carna::base::Renderer* MyVisualization::createRenderer( Carna::base::SceneProvider& provider )
   * {
   *     return new MyRenderer( *this, provider );
   * }

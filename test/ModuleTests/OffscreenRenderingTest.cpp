@@ -11,8 +11,8 @@
 
 #include "OffscreenRenderingTest.h"
 #include "FramebufferTester.h"
-#include <Carna/base/model/Scene.h>
-#include <Carna/base/view/SceneProvider.h>
+#include <Carna/base/Scene.h>
+#include <Carna/base/SceneProvider.h>
 #include <Carna/base/OffscreenDisplay.h>
 #include <Carna/base/OffscreenVisualizationEnvironment.h>
 #include <MyVisualization.h>
@@ -37,7 +37,7 @@ void OffscreenRenderingTest::initTestCase()
         const double modelResolution = 0.5;
 
         scene.reset( MockSceneFactory( modelSize, modelResolution ).createMockScene() );
-        provider.reset( new Carna::base::view::SceneProvider( *scene ) );
+        provider.reset( new Carna::base::SceneProvider( *scene ) );
         environment.reset( new Carna::base::OffscreenVisualizationEnvironment() );
     }
     catch( const Carna::base::AssertionFailure& ex )
@@ -232,7 +232,7 @@ void OffscreenRenderingTest::verifyAnotherScene
         , scene_height
         , scene_depth );
 
-    const Carna::base::model::Scene* const scene2_ptr = MockSceneFactory( model_size, voxels_per_mm ).createMockScene();
+    const Carna::base::Scene* const scene2_ptr = MockSceneFactory( model_size, voxels_per_mm ).createMockScene();
     verifyAnotherScene( scene2_ptr, display_width, display_height, expected_filename );
 }
 
@@ -243,21 +243,21 @@ void OffscreenRenderingTest::verifyAnotherScene
     , unsigned int display_height
     , const std::string& expected_filename )
 {
-    const Carna::base::model::Scene* const scene2_ptr = HUGZSceneFactory::importVolume( hugz_filename );
+    const Carna::base::Scene* const scene2_ptr = HUGZSceneFactory::importVolume( hugz_filename );
     verifyAnotherScene( scene2_ptr, display_width, display_height, expected_filename );
 }
 
 
 void OffscreenRenderingTest::verifyAnotherScene
-    ( const Carna::base::model::Scene* const scene_ptr
+    ( const Carna::base::Scene* const scene_ptr
     , unsigned int display_width
     , unsigned int display_height
     , const std::string& expected_filename )
 {
     try
     {
-        const Carna::base::model::Scene& scene2 = *scene_ptr;
-        Carna::base::view::SceneProvider provider2( scene2 );
+        const Carna::base::Scene& scene2 = *scene_ptr;
+        Carna::base::SceneProvider provider2( scene2 );
         Carna::base::OffscreenVisualizationEnvironment environment2;
 
         MyVisualization* const module2 = new MyVisualization();

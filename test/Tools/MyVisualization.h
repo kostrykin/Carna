@@ -11,7 +11,7 @@
 
 #pragma once
 
-#include <Carna/base/view/Renderer.h>
+#include <Carna/base/Renderer.h>
 #include <Carna/base/Visualization.h>
 
 namespace Carna
@@ -26,14 +26,14 @@ namespace testing
 // MyRenderer
 // ----------------------------------------------------------------------------------
 
-class MyRenderer : public Carna::base::view::Renderer
+class MyRenderer : public Carna::base::Renderer
 {
 
 public:
 
     MyRenderer
         ( Carna::base::Visualization& module
-        , Carna::base::view::SceneProvider& provider
+        , Carna::base::SceneProvider& provider
         , QObject* parent = nullptr );
 
 
@@ -62,7 +62,7 @@ class MyVisualization : public Carna::base::Visualization
 
 protected:
 
-    virtual Carna::base::view::Renderer* createRenderer( Carna::base::view::SceneProvider& provider ) override;
+    virtual Carna::base::Renderer* createRenderer( Carna::base::SceneProvider& provider ) override;
 
 };
 

@@ -76,13 +76,13 @@ namespace base
   * They are used like this:
   *
   * \code
-  * Carna::base::view::Renderer& renderer;       //< some renderer
-  * const Carna::base::model::Object3D& object;  //< only object to be painted
+  * Carna::base::Renderer& renderer;       //< some renderer
+  * const Carna::base::Object3D& object;  //< only object to be painted
   *
-  * auto const whitelist = new Carna::base::model::Object3DWhitelist();
+  * auto const whitelist = new Carna::base::Object3DWhitelist();
   * whitelist->put( object );
   *
-  * auto const painter = new Carna::base::view::DefaultObject3DPainter( renderer.provider.scene, whitelist );
+  * auto const painter = new Carna::base::DefaultObject3DPainter( renderer.provider.scene, whitelist );
   * renderer.setObjectPainter( painter );
   * \endcode
   *
@@ -124,8 +124,8 @@ namespace base
   *
   * Out-of-the-box provided \c Object3D implementations are:
   *
-  * - \ref Carna::base::view::Point3D for displaying dots
-  * - \ref Carna::base::view::Polyline3DVertex for displaying polylines
+  * - \ref Carna::base::Point3D for displaying dots
+  * - \ref Carna::base::Polyline3DVertex for displaying polylines
   */
 
 }  // namespace base

@@ -26,14 +26,14 @@
   * You can find a \ref MinimalExample as well as some more extensive examples on the \ref QuickStart page.
   *
   * Essential classes:
-  * - \ref Carna::base::model::Scene "Scene" - represents the data model.
+  * - \ref Carna::base::Scene "Scene" - represents the data model.
   * - \ref Carna::base::qt::Display "Display" - \c QWidget that shows a particular visualization.
   * - \ref Carna::base::OffscreenDisplay "OffscreenDisplay" - performs offscreen rendering of a particular visualization.
   * - \ref Carna::base::Visualization "Visualization" - combines a view and a controller component.
   * - \ref Carna::base::controller::InteractionStrategy "InteractionStrategy" - represents the controller component of a visualization.
-  * - \ref Carna::base::view::Renderer "Renderer" - is the view component of a visualization and implements its rendering logic.
-  * - \ref Carna::base::view::SceneProvider "SceneProvider" - interfaces the data model and provides OpenGL-equivalents of model elements, shared among renderers.
-  * - \ref Carna::base::view::Camera "Camera" - defines the coordinate mapping from scene space into screen space.
+  * - \ref Carna::base::Renderer "Renderer" - is the view component of a visualization and implements its rendering logic.
+  * - \ref Carna::base::SceneProvider "SceneProvider" - interfaces the data model and provides OpenGL-equivalents of model elements, shared among renderers.
+  * - \ref Carna::base::Camera "Camera" - defines the coordinate mapping from scene space into screen space.
   *
   * Provided visualizations:
   *

@@ -21,7 +21,7 @@ namespace Carna
   * \section Api2xSubstitutions API 2.x Changes in Detail
   *
   * The solution to these issues is presented on the bottom half of the above illustration.
-  * The rendering logic has been transfered to a dedicated \ref base::view::Renderer class.
+  * The rendering logic has been transfered to a dedicated \ref base::Renderer class.
   * Any specific visualization is now no longer provided by a \c QGLWidget but by a \ref base::Visualization implementation.
   * In contrast to the old \c Base3DWidget the \ref base::Visualization class is not only coupled loosely with \c QGLWidget, it also implements practically no intelligence:
   * all it does is associating some view and some controller with each other.

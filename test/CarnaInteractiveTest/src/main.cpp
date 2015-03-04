@@ -5,19 +5,19 @@
 
 #include <Carna/Version.h>
 #include <Carna/base/Log.h>
-#include <Carna/base/view/GLContext.h>
-#include <Carna/base/view/FrameRenderer.h>
-#include <Carna/base/view/Node.h>
-#include <Carna/base/view/Camera.h>
-#include <Carna/base/view/Geometry.h>
-#include <Carna/base/view/GeometryFeature.h>
-#include <Carna/base/view/BufferedHUVolumeTexture.h>
-#include <Carna/base/view/MeshRenderingStage.h>
-#include <Carna/base/view/Material.h>
-#include <Carna/base/view/MeshFactory.h>
-#include <Carna/base/view/Vertex.h>
-#include <Carna/base/view/ShaderUniform.h>
-#include <Carna/base/model/BufferedHUVolume.h>
+#include <Carna/base/GLContext.h>
+#include <Carna/base/FrameRenderer.h>
+#include <Carna/base/Node.h>
+#include <Carna/base/Camera.h>
+#include <Carna/base/Geometry.h>
+#include <Carna/base/GeometryFeature.h>
+#include <Carna/base/BufferedHUVolumeTexture.h>
+#include <Carna/base/MeshRenderingStage.h>
+#include <Carna/base/Material.h>
+#include <Carna/base/MeshFactory.h>
+#include <Carna/base/Vertex.h>
+#include <Carna/base/ShaderUniform.h>
+#include <Carna/base/BufferedHUVolume.h>
 #include <Carna/VolumeRenderings/MIP/MIPStage.h>
 #include <Carna/VolumeRenderings/MIP/Channel.h>
 #include <Carna/VolumeRenderings/DRR/DRRStage.h>
@@ -91,11 +91,11 @@ class Demo : public QGLWidget
     const static int GEOMETRY_TYPE_OPAQUE        = 1;
     const static int GEOMETRY_TYPE_CUTTING_PLANE = 2;
 
-    std::unique_ptr< base::model::UInt16HUVolume > volume;
-    std::unique_ptr< base::view::GLContext > glContext;
-    std::unique_ptr< base::view::FrameRenderer > renderer;
-    std::unique_ptr< base::view::Node > root;
-    base::view::Camera* camera;
+    std::unique_ptr< base::UInt16HUVolume > volume;
+    std::unique_ptr< base::GLContext > glContext;
+    std::unique_ptr< base::FrameRenderer > renderer;
+    std::unique_ptr< base::Node > root;
+    base::Camera* camera;
 
     bool mouseInteraction;
     QPoint mousepos;
@@ -176,8 +176,8 @@ void Demo::mouseReleaseEvent( QMouseEvent* ev )
 
 void Demo::initializeGL()
 {
-    glContext.reset( new base::view::QGLContextAdapter< QGLContext >() );
-    root.reset( new base::view::Node() );
+    glContext.reset( new base::QGLContextAdapter< QGLContext >() );
+    root.reset( new base::Node() );
 
     base::math::Vector3f spacing;
     volume.reset( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/../res/pelves_reduced.hugz", spacing ) );
@@ -186,35 +186,35 @@ void Demo::initializeGL()
         , ( volume->size.y() - 1 ) * spacing.y()
         , ( volume->size.z() - 1 ) * spacing.z() );
 
-    auto& volumeTexture = base::view::BufferedHUVolumeTexture< base::model::UInt16HUVolume >::create( *volume );
+    auto& volumeTexture = base::BufferedHUVolumeTexture< base::UInt16HUVolume >::create( *volume );
 
-    base::view::Geometry* const volumeGeometry1 = new base::view::Geometry( GEOMETRY_TYPE_VOLUMETRIC );
+    base::Geometry* const volumeGeometry1 = new base::Geometry( GEOMETRY_TYPE_VOLUMETRIC );
     volumeGeometry1->putFeature( VolumeRenderings::MIP::MIPStage::ROLE_HU_VOLUME, volumeTexture );
 
-    base::view::Geometry* const volumeGeometry2 = new base::view::Geometry( GEOMETRY_TYPE_VOLUMETRIC );
+    base::Geometry* const volumeGeometry2 = new base::Geometry( GEOMETRY_TYPE_VOLUMETRIC );
     volumeGeometry2->putFeature( VolumeRenderings::MIP::MIPStage::ROLE_HU_VOLUME, volumeTexture );
 
-    base::view::MeshBase& boxMesh = base::view::MeshFactory< base::view::VertexBase >::createBox( 10, 10, 10 );
-    base::view::Material& boxMaterial = base::view::Material::create( "unshaded" );
-    boxMaterial.addUniform( new base::view::ShaderUniform< base::math::Vector4f >( "color", base::math::Vector4f( 1, 0, 0, 1 ) ) );
-    base::view::Geometry* const boxGeometry = new base::view::Geometry( GEOMETRY_TYPE_OPAQUE );
-    boxGeometry->putFeature( base::view::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
-    boxGeometry->putFeature( base::view::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
+    base::MeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 10, 10, 10 );
+    base::Material& boxMaterial = base::Material::create( "unshaded" );
+    boxMaterial.addUniform( new base::ShaderUniform< base::math::Vector4f >( "color", base::math::Vector4f( 1, 0, 0, 1 ) ) );
+    base::Geometry* const boxGeometry = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
+    boxGeometry->putFeature( base::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
+    boxGeometry->putFeature( base::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
     boxGeometry->localTransform = base::math::translation4f( 0, 0, 50 );
 
     volumeTexture.release();
     boxMaterial.release();
     boxMesh.release();
 
-    base::view::Node* const volumePivot1 = new base::view::Node();
+    base::Node* const volumePivot1 = new base::Node();
     volumePivot1->attachChild( volumeGeometry1 );
     volumePivot1->localTransform = base::math::translation4f( -scale.x() / 2, 0, 0 ) * base::math::scaling4f( scale );
 
-    base::view::Node* const volumePivot2 = new base::view::Node();
+    base::Node* const volumePivot2 = new base::Node();
     volumePivot2->attachChild( volumeGeometry2 );
     volumePivot2->localTransform = base::math::translation4f( +scale.x() / 2, 0, 0 ) * base::math::scaling4f( scale );
 
-    camera = new base::view::Camera();
+    camera = new base::Camera();
     camera->setProjection( base::math::frustum4f( 3.14f * 45 / 180.f, 1, 10, 2000 ) );
     camera->localTransform = base::math::translation4f( 0, 0, 500 );
     root->attachChild( camera );
@@ -222,7 +222,7 @@ void Demo::initializeGL()
     root->attachChild( volumePivot2 );
     root->attachChild( boxGeometry );
 
-    base::view::Geometry* const plane1 = new base::view::Geometry( GEOMETRY_TYPE_CUTTING_PLANE );
+    base::Geometry* const plane1 = new base::Geometry( GEOMETRY_TYPE_CUTTING_PLANE );
     plane1->localTransform = base::math::plane4f( base::math::Vector3f( 1, 1, 1 ).normalized(), 0 );
     root->attachChild( plane1 );
 }
@@ -233,11 +233,11 @@ void Demo::resizeGL( int w, int h )
     const static bool fitSquare = true;
     if( renderer.get() == nullptr )
     {
-        renderer.reset( new base::view::FrameRenderer( *glContext, static_cast< unsigned >( w ), static_cast< unsigned >( h ), fitSquare ) );
+        renderer.reset( new base::FrameRenderer( *glContext, static_cast< unsigned >( w ), static_cast< unsigned >( h ), fitSquare ) );
 
         /* Opaque
          */
-        base::view::OpaqueRenderingStage* const opaque = new base::view::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
+        base::OpaqueRenderingStage* const opaque = new base::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
         renderer->appendStage( opaque );
 
         /* Cutting Planes

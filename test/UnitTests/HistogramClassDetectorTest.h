@@ -23,7 +23,7 @@ namespace testing
 // HistogramClassDetectorTest
 // ----------------------------------------------------------------------------------
 
-/** \brief  Unit-test of the \ref Carna::base::model::HistogramClassDetector class template.
+/** \brief  Unit-test of the \ref Carna::base::HistogramClassDetector class template.
   *
   * \author Leonid Kostrykin
   * \date   24.1.14

@@ -10,8 +10,8 @@
  */
 
 #include "HistogramClassDetectorTest.h"
-#include <Carna/base/model/Histogram.h>
-#include <Carna/base/model/HistogramClassDetector.h>
+#include <Carna/base/Histogram.h>
+#include <Carna/base/HistogramClassDetector.h>
 #include <QFile>
 #include <QTextStream>
 #include <QRegExp>
@@ -25,7 +25,7 @@
 struct NullScalarField
 {
 
-    typedef Carna::base::model::Histogram< Carna::base::model::IndexedCounter< signed short >, NullScalarField, 1 > Histogram;
+    typedef Carna::base::Histogram< Carna::base::IndexedCounter< signed short >, NullScalarField, 1 > Histogram;
 
     signed short operator()( const Histogram::Vector& )
     {
@@ -101,7 +101,7 @@ void HistogramClassDetectorTest::test()
 
      // test 'done' and 'reset' on initial state
 
-        typedef Carna::base::model::HistogramClassDetector< NullScalarField::Histogram > HistogramClassDetector;
+        typedef Carna::base::HistogramClassDetector< NullScalarField::Histogram > HistogramClassDetector;
         HistogramClassDetector class_detector( histogram );
 
         QVERIFY( !class_detector.done() );

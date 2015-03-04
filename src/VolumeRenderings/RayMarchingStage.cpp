@@ -10,12 +10,12 @@
  */
 
 #include <Carna/VolumeRenderings/RayMarchingStage.h>
-#include <Carna/base/view/Mesh.h>
-#include <Carna/base/view/Vertex.h>
-#include <Carna/base/view/IndexBuffer.h>
-#include <Carna/base/view/ShaderManager.h>
-#include <Carna/base/view/RenderState.h>
-#include <Carna/base/view/ShaderUniform.h>
+#include <Carna/base/Mesh.h>
+#include <Carna/base/Vertex.h>
+#include <Carna/base/IndexBuffer.h>
+#include <Carna/base/ShaderManager.h>
+#include <Carna/base/RenderState.h>
+#include <Carna/base/ShaderUniform.h>
 #include <Carna/base/math.h>
 
 namespace Carna
@@ -35,8 +35,8 @@ struct RayMarchingStage::Details
 
     Details();
 
-    base::view::RenderTask* renderTask;
-    const base::view::Viewport* viewPort;
+    base::RenderTask* renderTask;
+    const base::Viewport* viewPort;
     unsigned int mySampleRate;
 
 }; // RayMarchingStage :: Details
@@ -58,31 +58,31 @@ RayMarchingStage::Details::Details()
 struct RayMarchingStage::VideoResources
 {
 
-    VideoResources( const base::view::ShaderProgram& shader );
+    VideoResources( const base::ShaderProgram& shader );
 
     ~VideoResources();
 
-    typedef base::view::Mesh< base::view::VertexBase, uint8_t > SliceMesh;
+    typedef base::Mesh< base::VertexBase, uint8_t > SliceMesh;
 
     SliceMesh& sliceMesh;
-    const base::view::ShaderProgram& shader;
-    std::map< unsigned int, base::view::Sampler* > samplers;
+    const base::ShaderProgram& shader;
+    std::map< unsigned int, base::Sampler* > samplers;
 
     void renderSlice
         ( RayMarchingStage& self
-        , const base::view::Renderable& renderable
+        , const base::Renderable& renderable
         , const base::math::Matrix4f& sliceTangentModel
         , const base::math::Matrix4f& modelView );
 
 }; // RayMarchingStage :: VideoResources
 
 
-RayMarchingStage::VideoResources::VideoResources( const base::view::ShaderProgram& shader )
-    : sliceMesh( SliceMesh::create( base::view::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN ) )
+RayMarchingStage::VideoResources::VideoResources( const base::ShaderProgram& shader )
+    : sliceMesh( SliceMesh::create( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN ) )
     , shader( shader )
 {
     const float radius = std::sqrt( 3.f ) / 2;
-    base::view::VertexBase vertices[ 4 ];
+    base::VertexBase vertices[ 4 ];
     uint8_t indices[ 4 ];
 
     vertices[ 0 ].x = -radius;
@@ -114,17 +114,17 @@ RayMarchingStage::VideoResources::~VideoResources()
 
 void RayMarchingStage::VideoResources::renderSlice
     ( RayMarchingStage& self
-    , const base::view::Renderable& renderable
+    , const base::Renderable& renderable
     , const base::math::Matrix4f& sliceTangentModel
     , const base::math::Matrix4f& modelView )
 {
-    unsigned int lastUnit = base::view::Texture3D::SETUP_UNIT;
+    unsigned int lastUnit = base::Texture3D::SETUP_UNIT;
     std::vector< unsigned int > roles;
-    renderable.geometry().visitFeatures( [&]( base::view::GeometryFeature& gf, unsigned int role )
+    renderable.geometry().visitFeatures( [&]( base::GeometryFeature& gf, unsigned int role )
         {
-            if( dynamic_cast< base::view::Texture3D* >( &gf ) != nullptr )
+            if( dynamic_cast< base::Texture3D* >( &gf ) != nullptr )
             {
-                const base::view::Texture3D& texture = static_cast< const base::view::Texture3D& >( gf );
+                const base::Texture3D& texture = static_cast< const base::Texture3D& >( gf );
                 texture.bind( ++lastUnit );
                 samplers[ role ]->bind( lastUnit );
                 roles.push_back( role );
@@ -134,14 +134,14 @@ void RayMarchingStage::VideoResources::renderSlice
 
     /* Configure shader.
      */
-    base::view::ShaderUniform< base::math::Matrix4f >( "sliceTangentModel", sliceTangentModel ).upload();
-    base::view::ShaderUniform< base::math::Matrix4f >( "modelViewProjection", self.pimpl->renderTask->projection * modelView ).upload();
+    base::ShaderUniform< base::math::Matrix4f >( "sliceTangentModel", sliceTangentModel ).upload();
+    base::ShaderUniform< base::math::Matrix4f >( "modelViewProjection", self.pimpl->renderTask->projection * modelView ).upload();
     for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {
         const unsigned int role = roles[ samplerOffset ];
-        const unsigned int unit = base::view::Texture3D::SETUP_UNIT + 1 + samplerOffset;
+        const unsigned int unit = base::Texture3D::SETUP_UNIT + 1 + samplerOffset;
         const std::string& uniformName = self.uniformName( role );
-        base::view::ShaderUniform< int >( uniformName, unit ).upload();
+        base::ShaderUniform< int >( uniformName, unit ).upload();
     }
 
     /* Invoke shader.
@@ -156,7 +156,7 @@ void RayMarchingStage::VideoResources::renderSlice
 // ----------------------------------------------------------------------------------
 
 RayMarchingStage::RayMarchingStage( unsigned int geometryType )
-    : base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >
+    : base::GeometryStage< base::Renderable::DepthOrder< base::Renderable::ORDER_BACK_TO_FRONT > >
         ::GeometryStage( geometryType )
     , pimpl( new Details() )
 {
@@ -170,7 +170,7 @@ RayMarchingStage::~RayMarchingStage()
     {
         /* Release main shader.
          */
-        base::view::ShaderManager::instance().releaseShader( vr->shader );
+        base::ShaderManager::instance().releaseShader( vr->shader );
 
         /* Release texture samplers.
          */
@@ -182,7 +182,7 @@ RayMarchingStage::~RayMarchingStage()
 }
 
 
-void RayMarchingStage::render( base::view::GLContext& glc, const base::view::Renderable& renderable )
+void RayMarchingStage::render( base::GLContext& glc, const base::Renderable& renderable )
 {
     using base::math::Matrix4f;
     using base::math::Vector4f;
@@ -225,9 +225,9 @@ void RayMarchingStage::render( base::view::GLContext& glc, const base::view::Ren
 
 void RayMarchingStage::loadVideoResources()
 {
-    const base::view::ShaderProgram& shader = loadShader();
+    const base::ShaderProgram& shader = loadShader();
     vr.reset( new VideoResources( shader ) );
-    createSamplers( [&]( unsigned int role, base::view::Sampler* sampler )
+    createSamplers( [&]( unsigned int role, base::Sampler* sampler )
         {
             CARNA_ASSERT( vr->samplers.find( role ) == vr->samplers.end() );
             vr->samplers[ role ] = sampler;
@@ -238,8 +238,8 @@ void RayMarchingStage::loadVideoResources()
 
 void RayMarchingStage::renderPass
     ( const base::math::Matrix4f& vt
-    , base::view::RenderTask& rt
-    , const base::view::Viewport& vp )
+    , base::RenderTask& rt
+    , const base::Viewport& vp )
 {
     if( vr.get() == nullptr )
     {
@@ -254,12 +254,12 @@ void RayMarchingStage::renderPass
     
     /* Configure proper OpenGL state.
      */
-    base::view::RenderState rs( rt.renderer.glContext() );
+    base::RenderState rs( rt.renderer.glContext() );
     rs.setDepthWrite( false );
     
     /* Do the rendering.
      */
-    base::view::GeometryStage< base::view::Renderable::DepthOrder< base::view::Renderable::ORDER_BACK_TO_FRONT > >::renderPass( vt, rt, vp );
+    base::GeometryStage< base::Renderable::DepthOrder< base::Renderable::ORDER_BACK_TO_FRONT > >::renderPass( vt, rt, vp );
 
     /* There is no guarantee that 'renderTask' will be valid later.
      */

@@ -10,7 +10,7 @@
  */
 
 #include "CounterTest.h"
-#include <Carna/base/model/Histogram.h>
+#include <Carna/base/Histogram.h>
 #include <numeric>
 #include <cstdint>
 
@@ -189,7 +189,7 @@ void CounterTest::testIndexedCounter()
 {
     try
     {
-        ConcreteCounterTest< Carna::base::model::IndexedCounter< int8_t > >::run();
+        ConcreteCounterTest< Carna::base::IndexedCounter< int8_t > >::run();
     }
     catch( const std::exception& ex )
     {
@@ -202,7 +202,7 @@ void CounterTest::testAssociativeCounter()
 {
     try
     {
-        ConcreteCounterTest< Carna::base::model::AssociativeCounter< int8_t > >::run();
+        ConcreteCounterTest< Carna::base::AssociativeCounter< int8_t > >::run();
     }
     catch( const std::exception& ex )
     {
