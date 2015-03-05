@@ -134,7 +134,6 @@ MeshColorCodingStage::MeshColorCodingStage()
 
 MeshColorCodingStage::~MeshColorCodingStage()
 {
-    clearGeometryTypes();
     if( vr.get() != nullptr )
     {
         activateGLContext();

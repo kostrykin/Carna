@@ -148,7 +148,6 @@ SpatialMovement::~SpatialMovement()
 
 bool SpatialMovement::update( unsigned int frameX, unsigned int frameY )
 {
-    //const bool isLocationValid = frameX >= 0 && frameY >= 0 && frameX <= viewport.width
     if( hasMovedSpatial() && frameX >= 0 && frameY >= 0 && ( frameX != pimpl->frameXprev || frameY != pimpl->frameYprev ) )
     {
         pimpl->frameXprev = frameX;
