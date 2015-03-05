@@ -108,6 +108,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/Color.h
 		include/${PROJECT_NAME}/base/RenderQueue.h
 		include/${PROJECT_NAME}/base/Spatial.h
+		include/${PROJECT_NAME}/base/SpatialMovement.h
 		include/${PROJECT_NAME}/base/Node.h
 		include/${PROJECT_NAME}/base/Geometry.h
 		include/${PROJECT_NAME}/base/Renderable.h
@@ -190,6 +191,7 @@ set( SRC
 		src/base/RenderStage.cpp
 		src/base/RenderState.cpp
 		src/base/Spatial.cpp
+		src/base/SpatialMovement.cpp
 		src/base/Node.cpp
 		src/base/Framebuffer.cpp
 		src/base/RenderTexture.cpp

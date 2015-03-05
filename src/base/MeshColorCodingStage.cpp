@@ -224,10 +224,13 @@ void MeshColorCodingStage::renderPass( const math::Matrix4f& viewTransform, Rend
 
         /* Do the rendering.
          */
+        Viewport fboViewport( vp, 0, 0, vr->fbo.width(), vr->fbo.height() );
+        fboViewport.makeActive();
         CARNA_RENDER_TO_FRAMEBUFFER( vr->fbo,
             rt.renderer.glContext().clearBuffers( GLContext::COLOR_BUFFER_BIT | GLContext::DEPTH_BUFFER_BIT );
             GeometryStage< void >::renderPass( viewTransform, rt, vp )
         );
+        fboViewport.done();
 
         /* Denote that rendering is finished.
          */

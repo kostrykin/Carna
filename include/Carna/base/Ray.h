@@ -64,6 +64,14 @@ public:
         , const math::Matrix4f& inverseProjection
         , const math::Matrix4f& inverseView );
 
+    /** \brief
+      * Computes a ray in world space.
+      */
+    void fromEye
+        ( unsigned int frameX, unsigned int frameY
+        , const Viewport& vp
+        , const Camera& cam );
+
 }; // Ray3f
 
 

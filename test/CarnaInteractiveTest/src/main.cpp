@@ -19,6 +19,7 @@
 #include <Carna/base/Vertex.h>
 #include <Carna/base/ShaderUniform.h>
 #include <Carna/base/BufferedHUVolume.h>
+#include <Carna/base/SpatialMovement.h>
 #include <Carna/VolumeRenderings/MIP/MIPStage.h>
 #include <Carna/VolumeRenderings/MIP/Channel.h>
 #include <Carna/VolumeRenderings/DRR/DRRStage.h>
@@ -92,14 +93,13 @@ class Demo : public QGLWidget
     const static int GEOMETRY_TYPE_OPAQUE        = 1;
     const static int GEOMETRY_TYPE_CUTTING_PLANE = 2;
 
-    const static std::string USER_DATA_EXAMPLE;
-
     std::unique_ptr< base::UInt16HUVolume > volume;
     std::unique_ptr< base::GLContext > glContext;
     std::unique_ptr< base::FrameRenderer > renderer;
     std::unique_ptr< base::Node > root;
     base::Camera* camera;
     base::MeshColorCodingStage* mccs;
+    std::unique_ptr< base::SpatialMovement > spatialMovement;
 
     bool mouseInteraction;
     QPoint mousepos;
@@ -127,9 +127,6 @@ protected:
 }; // Demo
 
 
-const std::string Demo::USER_DATA_EXAMPLE = "Test";
-
-
 Demo::Demo()
     : mouseInteraction( false )
 {
@@ -148,15 +145,16 @@ Demo::~Demo()
 
 void Demo::mousePressEvent( QMouseEvent* ev )
 {
+    mouseInteraction = true;
     const base::Aggregation< const base::Geometry > picked = mccs->pick( ev->x(), ev->y() );
     if( picked.get() == nullptr )
     {
-        mouseInteraction = true;
         mousepos = ev->pos();
     }
     else
     {
-        const std::string& userData = picked->userData< std::string >();
+        base::Geometry& pickedGeometry = const_cast< base::Geometry& >( *picked );
+        spatialMovement.reset( new base::SpatialMovement( pickedGeometry, ev->x(), ev->y(), renderer->viewport(), *camera ) );
     }
     ev->accept();
 }
@@ -167,16 +165,27 @@ void Demo::mouseMoveEvent( QMouseEvent* ev )
     const static float ROTATION_SPEED = 1e-2f;
     if( mouseInteraction )
     {
-        const int dx = ( ev->x() - mousepos.x() );
-        const int dy = ( ev->y() - mousepos.y() );
-        mousepos = ev->pos();
-
-        if( dx != 0 )
+        if( spatialMovement.get() == nullptr )
         {
-            base::math::Matrix4f rotation = base::math::rotation4f( 0, 1, 0, dx * ROTATION_SPEED );
-            camera->localTransform = rotation * camera->localTransform;
-            updateGL();
-            ev->accept();
+            const int dx = ( ev->x() - mousepos.x() );
+            const int dy = ( ev->y() - mousepos.y() );
+            mousepos = ev->pos();
+
+            if( dx != 0 )
+            {
+                base::math::Matrix4f rotation = base::math::rotation4f( 0, 1, 0, dx * ROTATION_SPEED );
+                camera->localTransform = rotation * camera->localTransform;
+                updateGL();
+                ev->accept();
+            }
+        }
+        else
+        {
+            if( spatialMovement->update( ev->x(), ev->y() ) )
+            {
+                updateGL();
+                ev->accept();
+            }
         }
     }
 }
@@ -185,6 +194,7 @@ void Demo::mouseMoveEvent( QMouseEvent* ev )
 void Demo::mouseReleaseEvent( QMouseEvent* ev )
 {
     mouseInteraction = false;
+    spatialMovement.reset();
     ev->accept();
 }
 
@@ -216,7 +226,6 @@ void Demo::initializeGL()
     boxGeometry->putFeature( base::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
     boxGeometry->putFeature( base::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
     boxGeometry->localTransform = base::math::translation4f( 0, 30, 50 );
-    boxGeometry->setUserData( USER_DATA_EXAMPLE );
 
     volumeTexture.release();
     boxMaterial.release();
@@ -311,7 +320,7 @@ int main( int argc, char** argv )
     Carna::base::Log::instance().setWriter( new Carna::testing::QDebugLogWriter() );
     QApplication app( argc, argv );
     Carna::testing::Demo demo;
-    demo.resize( 400, 400 );
+    //demo.resize( 400, 400 );
     demo.show();
     return QApplication::exec();
 }

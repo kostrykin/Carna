@@ -364,6 +364,7 @@ namespace math
 
     inline Matrix4f plane4f( const Vector3f& normal, float distance )
     {
+        CARNA_ASSERT( isEqual< float >( normal.norm(), 1 ) );
         const Vector3f tangent  ( orthogonal3f(  normal ).normalized() );
         const Vector3f bitangent( normal.cross( tangent ).normalized() );
         return basis4f
@@ -371,6 +372,13 @@ namespace math
             , vector4f          ( tangent, 0 )
             , vector4f           ( normal, 0 )
             , vector4f( normal * distance, 1 ) );
+    }
+
+    inline Matrix4f plane4f( const Vector3f& normal, const Vector3f& support )
+    {
+        CARNA_ASSERT( isEqual< float >( normal.norm(), 1 ) );
+        const float distance = normal.dot( support );
+        return plane4f( normal, distance );
     }
 
     inline float translationDistanceSq( const Matrix4f& m )

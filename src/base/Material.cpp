@@ -65,6 +65,7 @@ void Material::acquireVideoResource()
     GeometryFeature::acquireVideoResource();
     if( myShader == nullptr )
     {
+
         myShader = &ShaderManager::instance().acquireShader( shaderName );
     }
 }
@@ -72,10 +73,10 @@ void Material::acquireVideoResource()
 
 void Material::releaseVideoResource()
 {
-    ShaderManager::instance().releaseShader( *myShader );
     GeometryFeature::releaseVideoResource();
     if( videoResourceAcquisitionsCount() == 0 )
     {
+        ShaderManager::instance().releaseShader( *myShader );
         myShader = nullptr;
     }
 }

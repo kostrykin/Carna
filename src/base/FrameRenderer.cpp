@@ -251,6 +251,12 @@ void FrameRenderer::render( Camera& cam, Node& root ) const
 }
 
 
+const Viewport& FrameRenderer::viewport() const
+{
+    return *pimpl->viewport;
+}
+
+
 void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
 {
     /* Reshape render stages' buffers.

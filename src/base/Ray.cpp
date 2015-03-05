@@ -33,8 +33,8 @@ void Ray3f::fromEye
 
     /* Construct ND-coordinates from frame-space coordinates.
      */
-    const float ndX =    ( static_cast< float >( frameX - vp.left ) / vp.width  ) * 2 - 1  ;
-    const float ndY = -( ( static_cast< float >( frameY - vp.top  ) / vp.height ) * 2 - 1 );
+    const float ndX =    ( static_cast< float >( static_cast< signed int >( frameX - vp.left ) ) / vp.width  ) * 2 - 1  ;
+    const float ndY = -( ( static_cast< float >( static_cast< signed int >( frameY - vp.top  ) ) / vp.height ) * 2 - 1 );
 
     /* Compute the clipping coordinates of the corresponding point on the near clipping plane.
      * We can choose the 'w' component here arbitrarily, because the directional vector we are going to compute has no intrinsic depth.
@@ -53,6 +53,15 @@ void Ray3f::fromEye
      */
     origin = vector3f( inverseView * Vector4f( 0, 0, 0, 1 ) );
     direction = ( vector3f( inverseView * eyeDirection ) ).normalized();
+}
+
+
+void Ray3f::fromEye
+    ( unsigned int frameX, unsigned int frameY
+    , const Viewport& vp
+    , const Camera& cam )
+{
+    fromEye( frameX, frameY, vp, cam.projection().inverse(), cam.worldTransform() );
 }
 
 

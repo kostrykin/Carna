@@ -92,22 +92,16 @@ void RayPlaneHitTest< Vector, Scalar >::compute
     }
     else
     {
-        for( unsigned int i = 0; i < static_cast< unsigned int >( planeNormal.rows() ); ++i )
+        const Scalar rayLength = ( planeOriginOffset - ray.origin.dot( planeNormal ) ) / ray.direction.dot( planeNormal );
+        if( rayLength < 0 )
         {
-            if( !math::isEqual< Scalar >( 0, ray.direction( i ) ) && !math::isEqual< Scalar >( 0, planeNormal( i ) ) )
-            {
-                const Scalar rayLength = ( planeOriginOffset / planeNormal( i ) - ray.origin( i ) ) / ray.direction( i );
-                if( rayLength < 0 )
-                {
-                    myHitExists = false;
-                }
-                else
-                {
-                    myHitExists = true;
-                    myHitLocation = ray.origin + ray.direction * rayLength;
-                }
-                break;
-            }
+            myHitExists = false;
+        }
+        else
+        {
+            myHitExists = true;
+            myHitLocation = ray.origin + ray.direction * rayLength;
+            CARNA_ASSERT( math::isEqual( planeNormal.dot( myHitLocation ), planeOriginOffset ) );
         }
     }
 }

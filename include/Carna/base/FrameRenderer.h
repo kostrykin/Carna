@@ -62,6 +62,8 @@ public:
     
     unsigned int height() const;
 
+    const Viewport& viewport() const;
+
     void setBackgroundColor( math::Vector4f& );
     
     void reshape( unsigned int width, unsigned int height, bool fitSquare );

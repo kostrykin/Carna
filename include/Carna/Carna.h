@@ -82,6 +82,7 @@ namespace Carna
         class  ShaderProgram;
         class  ShaderUniformBase;
         class  Spatial;
+        class  SpatialMovement;
         class  Texture3D;
         struct VertexBase;
         struct VertexAttribute;

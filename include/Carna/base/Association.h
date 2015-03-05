@@ -69,6 +69,11 @@ public:
         return this->get();
     }
 
+    AssociatedObjectType& operator*() const
+    {
+        return *this->get();
+    }
+
     /** \brief	Makes this association forget it's referenced object.
       *
       * Using this method it is possible to bypass the default behavior of the association
