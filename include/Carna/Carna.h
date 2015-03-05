@@ -68,6 +68,7 @@ namespace Carna
         class  MeshColorCodingStage;
         class  MeshRenderingStageBase;
         class  Node;
+        class  Ray3f;
         class  Renderable;
         class  RenderStage;
         class  RenderState;

@@ -14,6 +14,7 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/math.h>
+#include <Carna/base/Ray.h>
 #include <Carna/base/CarnaException.h>
 
 /** \file   RayPlaneHitTest.h
@@ -43,7 +44,7 @@ public:
 
     RayPlaneHitTest();
 
-    void compute( const Vector& rayOrigin, const Vector& rayDirection, const Vector& planeNormal, Scalar planeOriginOffset );
+    void compute( const Ray< Vector >& ray, const Vector& planeNormal, Scalar planeOriginOffset );
 
     bool hitExists() const;
 
@@ -76,17 +77,16 @@ const Vector& RayPlaneHitTest< Vector, Scalar >::hitLocation() const
 
 template< typename Vector, typename Scalar >
 void RayPlaneHitTest< Vector, Scalar >::compute
-    ( const Vector& rayOrigin
-    , const Vector& rayDirection
+    ( const Ray< Vector >& ray
     , const Vector& planeNormal
     , Scalar planeOriginOffset )
 {
-    CARNA_ASSERT( math::isEqual< Scalar >( rayDirection.norm(), 1 ) );
+    CARNA_ASSERT( math::isEqual< Scalar >( ray.direction.norm(), 1 ) );
     CARNA_ASSERT( math::isEqual< Scalar >(  planeNormal.norm(), 1 ) );
-    CARNA_ASSERT( rayDirection.rows() == rayOrigin.rows() && rayOrigin.rows() == planeNormal.rows() );
-    CARNA_ASSERT( rayDirection.cols() == rayOrigin.cols() && rayOrigin.cols() == planeNormal.cols() && planeNormal.cols() == 1 );
+    CARNA_ASSERT( ray.direction.rows() == ray.origin.rows() && ray.origin.rows() == planeNormal.rows() );
+    CARNA_ASSERT( ray.direction.cols() == ray.origin.cols() && ray.origin.cols() == planeNormal.cols() && planeNormal.cols() == 1 );
 
-    if( math::isEqual< Scalar >( rayDirection.dot( planeNormal ), 0 ) )
+    if( math::isEqual< Scalar >( ray.direction.dot( planeNormal ), 0 ) )
     {
         myHitExists = false;
     }
@@ -94,9 +94,9 @@ void RayPlaneHitTest< Vector, Scalar >::compute
     {
         for( unsigned int i = 0; i < static_cast< unsigned int >( planeNormal.rows() ); ++i )
         {
-            if( !math::isEqual< Scalar >( 0, rayDirection( i ) ) && !math::isEqual< Scalar >( 0, planeNormal( i ) ) )
+            if( !math::isEqual< Scalar >( 0, ray.direction( i ) ) && !math::isEqual< Scalar >( 0, planeNormal( i ) ) )
             {
-                const Scalar rayLength = ( planeOriginOffset / planeNormal( i ) - rayOrigin( i ) ) / rayDirection( i );
+                const Scalar rayLength = ( planeOriginOffset / planeNormal( i ) - ray.origin( i ) ) / ray.direction( i );
                 if( rayLength < 0 )
                 {
                     myHitExists = false;
@@ -104,7 +104,7 @@ void RayPlaneHitTest< Vector, Scalar >::compute
                 else
                 {
                     myHitExists = true;
-                    myHitLocation = rayOrigin + rayDirection * rayLength;
+                    myHitLocation = ray.origin + ray.direction * rayLength;
                 }
                 break;
             }

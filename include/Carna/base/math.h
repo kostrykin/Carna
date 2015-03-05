@@ -356,6 +356,12 @@ namespace math
         return Vector4f( v.x(), v.y(), v.z(), w );
     }
 
+    template< typename Vector4 >
+    Vector3f vector3f( const Vector4& v )
+    {
+        return Vector3f( v.x(), v.y(), v.z() );
+    }
+
     inline Matrix4f plane4f( const Vector3f& normal, float distance )
     {
         const Vector3f tangent  ( orthogonal3f(  normal ).normalized() );

@@ -171,6 +171,7 @@ Aggregation< const Geometry > MeshColorCodingStage::pick( unsigned int x, unsign
             }
             else
             {
+                y = vr->rt.height() - 1 - y;
                 Framebuffer::MinimalBinding binding( vr->fbo );
                 const Color color = binding.readPixel( x, y );
                 if( color == Details::NULL_GEOMETRY_COLOR )

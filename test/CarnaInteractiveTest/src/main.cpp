@@ -215,7 +215,7 @@ void Demo::initializeGL()
     base::Geometry* const boxGeometry = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
     boxGeometry->putFeature( base::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
     boxGeometry->putFeature( base::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
-    boxGeometry->localTransform = base::math::translation4f( 0, 0, 50 );
+    boxGeometry->localTransform = base::math::translation4f( 0, 30, 50 );
     boxGeometry->setUserData( USER_DATA_EXAMPLE );
 
     volumeTexture.release();

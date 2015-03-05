@@ -41,6 +41,7 @@ class CARNA_LIB Spatial
     Node* myParent;
     math::Matrix4f myWorldTransform;
     const void* myUserData;
+    bool movable;
 
 public:
 
@@ -124,6 +125,10 @@ public:
       */
     template< typename UserDataType >
     const UserDataType& userData() const;
+
+    void setMovable( bool movable );
+    
+    bool isMovable() const;
 
 }; // Spatial
 

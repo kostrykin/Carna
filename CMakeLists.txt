@@ -158,6 +158,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/Singleton.h
 		include/${PROJECT_NAME}/base/Text.h
 		include/${PROJECT_NAME}/base/Log.h
+		include/${PROJECT_NAME}/base/Ray.h
 		include/${PROJECT_NAME}/base/MeshColorCodingStage.h
 		include/${PROJECT_NAME}/VolumeRenderings/RayMarchingStage.h
 		include/${PROJECT_NAME}/VolumeRenderings/DRR/DRRStage.h
@@ -214,6 +215,7 @@ set( SRC
 		src/base/MeshColorCodingStage.cpp
 		src/base/Text.cpp
 		src/base/Log.cpp
+		src/base/Ray.cpp
 		src/VolumeRenderings/RayMarchingStage.cpp
 		src/VolumeRenderings/DRR/DRRStage.cpp
 		src/VolumeRenderings/MIP/MIPStage.cpp

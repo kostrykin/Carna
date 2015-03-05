@@ -29,6 +29,7 @@ Spatial::Spatial()
     : myParent( nullptr )
     , localTransform( math::identity4f() )
     , myUserData( nullptr )
+    , movable( true )
 {
 }
 
@@ -103,6 +104,18 @@ void Spatial::removeUserData()
 bool Spatial::hasUserData() const
 {
     return myUserData != nullptr;
+}
+
+
+void Spatial::setMovable( bool movable )
+{
+    this->movable = movable;
+}
+
+
+bool Spatial::isMovable() const
+{
+    return movable;
 }
 
 
