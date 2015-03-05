@@ -13,6 +13,7 @@
 #include <Carna/base/GeometryFeature.h>
 #include <Carna/base/BufferedHUVolumeTexture.h>
 #include <Carna/base/MeshRenderingStage.h>
+#include <Carna/base/MeshColorCodingStage.h>
 #include <Carna/base/Material.h>
 #include <Carna/base/MeshFactory.h>
 #include <Carna/base/Vertex.h>
@@ -91,11 +92,14 @@ class Demo : public QGLWidget
     const static int GEOMETRY_TYPE_OPAQUE        = 1;
     const static int GEOMETRY_TYPE_CUTTING_PLANE = 2;
 
+    const static std::string USER_DATA_EXAMPLE;
+
     std::unique_ptr< base::UInt16HUVolume > volume;
     std::unique_ptr< base::GLContext > glContext;
     std::unique_ptr< base::FrameRenderer > renderer;
     std::unique_ptr< base::Node > root;
     base::Camera* camera;
+    base::MeshColorCodingStage* mccs;
 
     bool mouseInteraction;
     QPoint mousepos;
@@ -123,6 +127,9 @@ protected:
 }; // Demo
 
 
+const std::string Demo::USER_DATA_EXAMPLE = "Test";
+
+
 Demo::Demo()
     : mouseInteraction( false )
 {
@@ -141,8 +148,16 @@ Demo::~Demo()
 
 void Demo::mousePressEvent( QMouseEvent* ev )
 {
-    mouseInteraction = true;
-    mousepos = ev->pos();
+    const base::Aggregation< const base::Geometry > picked = mccs->pick( ev->x(), ev->y() );
+    if( picked.get() == nullptr )
+    {
+        mouseInteraction = true;
+        mousepos = ev->pos();
+    }
+    else
+    {
+        const std::string& userData = picked->userData< std::string >();
+    }
     ev->accept();
 }
 
@@ -201,6 +216,7 @@ void Demo::initializeGL()
     boxGeometry->putFeature( base::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
     boxGeometry->putFeature( base::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
     boxGeometry->localTransform = base::math::translation4f( 0, 0, 50 );
+    boxGeometry->setUserData( USER_DATA_EXAMPLE );
 
     volumeTexture.release();
     boxMaterial.release();
@@ -234,6 +250,12 @@ void Demo::resizeGL( int w, int h )
     if( renderer.get() == nullptr )
     {
         renderer.reset( new base::FrameRenderer( *glContext, static_cast< unsigned >( w ), static_cast< unsigned >( h ), fitSquare ) );
+
+        /* Picking
+         */
+        mccs = new base::MeshColorCodingStage();
+        mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, base::OpaqueRenderingStage::ROLE_DEFAULT_MESH );
+        renderer->appendStage( mccs );
 
         /* Opaque
          */

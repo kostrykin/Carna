@@ -40,6 +40,7 @@ class CARNA_LIB Spatial
 
     Node* myParent;
     math::Matrix4f myWorldTransform;
+    const void* myUserData;
 
 public:
 
@@ -91,7 +92,56 @@ public:
       */
     const math::Matrix4f& worldTransform() const;
 
+    /** \brief
+      * Links an arbitrary object with this \c %Spatial instance.
+      *
+      * \post
+      * <code>hasUserData() == true</code>
+      */
+    template< typename UserDataType >
+    void setUserData( const UserDataType& userData );
+    
+    /** \brief
+      * Removes any object that has been linked with this \c %Spatial instance through \ref setUserData previously.
+      *
+      * \post
+      * <code>hasUserData() == false</code>
+      *
+      * Does nothing if \ref hasUserData is \c false.
+      */
+    void removeUserData();
+
+    /** \brief
+      * Tells whether an object has been linked with this \c %Spatial instance through \ref setUserData previously.
+      */
+    bool hasUserData() const;
+
+    /** \brief
+      * Retrieves the object previously \ref setUserData "linked" with this \c %Spatial instance.
+      *
+      * \pre
+      * <code>hasUserData()</code>
+      */
+    template< typename UserDataType >
+    const UserDataType& userData() const;
+
 }; // Spatial
+
+
+template< typename UserDataType >
+void Spatial::setUserData( const UserDataType& userData )
+{
+    myUserData = &userData;
+    CARNA_ASSERT( hasUserData() );
+}
+
+
+template< typename UserDataType >
+const UserDataType& Spatial::userData() const
+{
+    CARNA_ASSERT( hasUserData() );
+    return *static_cast< const UserDataType* >( myUserData );
+}
 
 
 

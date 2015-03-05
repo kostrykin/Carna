@@ -50,7 +50,6 @@ namespace Carna
         class  BoundingBox;
         class  BoundingVolume;
         class  CarnaException;
-        class  ColorCodingStageBase;
         class  Log;
         class  Text;
         class  HUVolume;
@@ -66,6 +65,7 @@ namespace Carna
         class  HUVolumeTexture;
         class  IndexBufferBase;
         class  MeshBase;
+        class  MeshColorCodingStage;
         class  MeshRenderingStageBase;
         class  Node;
         class  Renderable;
@@ -78,7 +78,6 @@ namespace Carna
         class  ShaderCompilationError;
         class  Material;
         class  ShaderManager;
-        class  Material;
         class  ShaderProgram;
         class  ShaderUniformBase;
         class  Spatial;

@@ -152,13 +152,13 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/CarnaException.h
 		include/${PROJECT_NAME}/base/Composition.h
 		include/${PROJECT_NAME}/base/noncopyable.h
-		include/${PROJECT_NAME}/base/ColorCodingStage.h
 		include/${PROJECT_NAME}/base/math.h
 		include/${PROJECT_NAME}/base/RayPlaneHitTest.h
 		include/${PROJECT_NAME}/base/Span.h
 		include/${PROJECT_NAME}/base/Singleton.h
 		include/${PROJECT_NAME}/base/Text.h
 		include/${PROJECT_NAME}/base/Log.h
+		include/${PROJECT_NAME}/base/MeshColorCodingStage.h
 		include/${PROJECT_NAME}/VolumeRenderings/RayMarchingStage.h
 		include/${PROJECT_NAME}/VolumeRenderings/DRR/DRRStage.h
 		include/${PROJECT_NAME}/VolumeRenderings/MIP/MIPStage.h
@@ -211,7 +211,7 @@ set( SRC
 		src/base/ShaderUniform.cpp
 		src/base/HUVolume.cpp
 		src/base/CarnaException.cpp
-		src/base/ColorCodingStage.cpp
+		src/base/MeshColorCodingStage.cpp
 		src/base/Text.cpp
 		src/base/Log.cpp
 		src/VolumeRenderings/RayMarchingStage.cpp

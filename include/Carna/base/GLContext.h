@@ -49,6 +49,9 @@ protected:
 
 public:
 
+    const static unsigned int DEPTH_BUFFER_BIT;
+    const static unsigned int COLOR_BUFFER_BIT;
+
     GLContext( bool isDoubleBuffered );
 
     virtual ~GLContext();

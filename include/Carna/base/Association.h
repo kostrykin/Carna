@@ -55,7 +55,6 @@ public:
     {
     }
 
-
     /** \brief  Returns a raw pointer to the referenced object.
       */
     AssociatedObjectType* get() const
@@ -70,7 +69,6 @@ public:
         return this->get();
     }
 
-
     /** \brief	Makes this association forget it's referenced object.
       *
       * Using this method it is possible to bypass the default behavior of the association
@@ -81,7 +79,6 @@ public:
         associatedObject = 0;
     }
 
-
 protected:
 
     /** \brief  Instantiates.
@@ -90,7 +87,6 @@ protected:
         : associatedObject( associatedObject )
     {
     }
-
 
 private:
 

@@ -43,6 +43,10 @@ public:
     unsigned char b;
     unsigned char a;
 
+    operator math::Vector4f();
+
+    bool operator==( const Color& other ) const;
+
 }; // Color
 
 

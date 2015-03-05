@@ -33,13 +33,25 @@ namespace base
 /** \brief  Represents an aggregation.
   *
   * \author Leonid Kostrykin
-  * \date   26.10.11 - 4.10.11
+  * \date   26.10.11 - 4.3.15
   */
 template< typename AssociatedObjectType >
 class Aggregation : public Association< AssociatedObjectType >
 {
 
+    Aggregation()
+        : Association< AssociatedObjectType >( nullptr )
+    {
+    }
+
 public:
+
+    const static Aggregation< AssociatedObjectType > NULL_PTR;
+
+    static Aggregation< AssociatedObjectType > createNullPtr()
+    {
+        return Aggregation< AssociatedObjectType >();
+    }
 
     /** \brief  Instantiates.
       */
@@ -48,7 +60,19 @@ public:
     {
     }
 
+    /** \brief  Instantiates.
+      */
+    Aggregation( const Aggregation< AssociatedObjectType >& other )
+        : Association< AssociatedObjectType >( other.get() )
+    {
+    }
+
 }; // Aggregation
+
+
+template< typename AssociatedObjectType >
+const Aggregation< AssociatedObjectType > Aggregation< AssociatedObjectType >::NULL_PTR
+    ( Aggregation< AssociatedObjectType >::createNullPtr() );
 
 
 

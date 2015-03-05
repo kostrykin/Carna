@@ -28,6 +28,7 @@ namespace base
 Spatial::Spatial()
     : myParent( nullptr )
     , localTransform( math::identity4f() )
+    , myUserData( nullptr )
 {
 }
 
@@ -89,6 +90,19 @@ void Spatial::updateWorldTransform()
 const math::Matrix4f& Spatial::worldTransform() const
 {
     return myWorldTransform;
+}
+
+
+void Spatial::removeUserData()
+{
+    myUserData = nullptr;
+    CARNA_ASSERT( !hasUserData() );
+}
+
+
+bool Spatial::hasUserData() const
+{
+    return myUserData != nullptr;
 }
 
 
