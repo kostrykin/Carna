@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/VolumeRenderings/RayMarchingStage.h>
+#include <Carna/presets/RayMarchingStage.h>
 #include <Carna/base/Mesh.h>
 #include <Carna/base/Vertex.h>
 #include <Carna/base/IndexBuffer.h>
@@ -21,7 +21,7 @@
 namespace Carna
 {
 
-namespace VolumeRenderings
+namespace presets
 {
 
 
@@ -281,6 +281,6 @@ unsigned int RayMarchingStage::sampleRate() const
 
 
 
-}  // namespace Carna :: VolumeRenderings
+}  // namespace Carna :: presets
 
 }  // namespace Carna

@@ -17,13 +17,13 @@
 #include <Carna/base/Aggregation.h>
 
 /** \file   MeshColorCodingStage.h
-  * \brief  Defines \ref Carna::ColorCoding::MeshColorCodingStage.
+  * \brief  Defines \ref Carna::presets::MeshColorCodingStage.
   */
 
 namespace Carna
 {
 
-namespace base
+namespace presets
 {
 
 
@@ -32,7 +32,7 @@ namespace base
 // MeshColorCodingStage
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB MeshColorCodingStage : public GeometryStage< void >
+class CARNA_LIB MeshColorCodingStage : public base::GeometryStage< void >
 {
 
     struct Details;
@@ -57,21 +57,21 @@ public:
 
     void clearGeometryTypes();
 
-    virtual void reshape( const FrameRenderer& fr, const Viewport& vp ) override;
+    virtual void reshape( const base::FrameRenderer& fr, const base::Viewport& vp ) override;
 
-    virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) override;
+    virtual void renderPass( const base::math::Matrix4f& viewTransform, base::RenderTask& rt, const base::Viewport& vp ) override;
 
-    Aggregation< const Geometry > pick( unsigned int x, unsigned int y ) const;
+    base::Aggregation< const base::Geometry > pick( unsigned int x, unsigned int y ) const;
 
 protected:
 
-    virtual void render( GLContext& glc, const Renderable& renderable ) override;
+    virtual void render( base::GLContext& glc, const base::Renderable& renderable ) override;
 
 }; // MeshColorCodingStage
 
 
 
-}  // namespace Carna :: base
+}  // namespace Carna :: presets
 
 }  // namespace Carna
 

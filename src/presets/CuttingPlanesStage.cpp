@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/CuttingPlanes/CuttingPlanesStage.h>
+#include <Carna/presets/CuttingPlanesStage.h>
 #include <Carna/base/Mesh.h>
 #include <Carna/base/Vertex.h>
 #include <Carna/base/IndexBuffer.h>
@@ -21,7 +21,7 @@
 namespace Carna
 {
 
-namespace CuttingPlanes
+namespace presets
 {
 
 
@@ -308,6 +308,6 @@ void CuttingPlanesStage::renderPass
 
 
 
-}  // namespace Carna :: CuttingPlanes
+}  // namespace Carna :: presets
 
 }  // namespace Carna

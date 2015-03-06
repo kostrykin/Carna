@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/VolumeRenderings/DRR/DRRStage.h>
+#include <Carna/presets/DRRStage.h>
 #include <Carna/base/glew.h>
 #include <Carna/base/ShaderManager.h>
 #include <Carna/base/Framebuffer.h>
@@ -23,10 +23,7 @@
 namespace Carna
 {
 
-namespace VolumeRenderings
-{
-
-namespace DRR
+namespace presets
 {
 
 
@@ -291,8 +288,6 @@ void DRRStage::configureShader( base::GLContext& glc )
 
 
 
-}  // namespace Carna :: VolumeRenderings :: DRR
-
-}  // namespace Carna :: VolumeRenderings
+}  // namespace Carna :: presets
 
 }  // namespace Carna

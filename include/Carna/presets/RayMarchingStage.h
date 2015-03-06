@@ -17,13 +17,13 @@
 #include <map>
 
 /** \file   RayMarchingStage.h
-  * \brief  Defines \ref Carna::base::RayMarchingStage.
+  * \brief  Defines \ref Carna::presets::RayMarchingStage.
   */
 
 namespace Carna
 {
 
-namespace VolumeRenderings
+namespace presets
 {
 
 
@@ -94,7 +94,7 @@ protected:
 
 
 
-}  // namespace Carna :: VolumeRenderings
+}  // namespace Carna :: presets
 
 }  // namespace Carna
 

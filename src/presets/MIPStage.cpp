@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/VolumeRenderings/MIP/MIPStage.h>
-#include <Carna/VolumeRenderings/MIP/Channel.h>
+#include <Carna/presets/MIPStage.h>
+#include <Carna/presets/MIPChannel.h>
 #include <Carna/base/glew.h>
 #include <Carna/base/ShaderManager.h>
 #include <Carna/base/ShaderUniform.h>
@@ -26,10 +26,7 @@
 namespace Carna
 {
 
-namespace VolumeRenderings
-{
-
-namespace MIP
+namespace presets
 {
 
 
@@ -43,8 +40,8 @@ struct MIPStage::Details
 
     Details();
 
-    Channel* currentChannel;
-    std::vector< Channel* > channels;
+    MIPChannel* currentChannel;
+    std::vector< MIPChannel* > channels;
 
     std::unique_ptr< base::RenderTexture > channelColorBuffer;
     std::unique_ptr< base::Framebuffer   > channelFrameBuffer;
@@ -81,25 +78,25 @@ MIPStage::~MIPStage()
 }
 
 
-void MIPStage::appendChannel( Channel* channel )
+void MIPStage::appendChannel( MIPChannel* channel )
 {
     CARNA_ASSERT( std::find( pimpl->channels.begin(), pimpl->channels.end(), channel ) == pimpl->channels.end() );
     pimpl->channels.push_back( channel );
 }
 
 
-Channel* MIPStage::removeChannel( const Channel& channel )
+MIPChannel* MIPStage::removeChannel( const MIPChannel& channel )
 {
-    const auto channelItr = std::find( pimpl->channels.begin(), pimpl->channels.end(), const_cast< Channel* >( &channel ) );
+    const auto channelItr = std::find( pimpl->channels.begin(), pimpl->channels.end(), const_cast< MIPChannel* >( &channel ) );
     CARNA_ASSERT( channelItr != pimpl->channels.end() );
     pimpl->channels.erase( channelItr );
     return *channelItr;
 }
 
 
-void MIPStage::ascendChannel( const Channel& channel )
+void MIPStage::ascendChannel( const MIPChannel& channel )
 {
-    const auto channelItr = std::find( pimpl->channels.begin(), pimpl->channels.end(), const_cast< Channel* >( &channel ) );
+    const auto channelItr = std::find( pimpl->channels.begin(), pimpl->channels.end(), const_cast< MIPChannel* >( &channel ) );
     CARNA_ASSERT( channelItr != pimpl->channels.end() );
     if( channelItr != pimpl->channels.begin() )
     {
@@ -110,7 +107,7 @@ void MIPStage::ascendChannel( const Channel& channel )
 
 void MIPStage::clearChannels()
 {
-    std::for_each( pimpl->channels.begin(), pimpl->channels.end(), std::default_delete< Channel >() );
+    std::for_each( pimpl->channels.begin(), pimpl->channels.end(), std::default_delete< MIPChannel >() );
     pimpl->channels.clear();
 }
 
@@ -226,7 +223,7 @@ const std::string& MIPStage::uniformName( unsigned int role ) const
 void MIPStage::configureShader( base::GLContext& glc )
 {
     CARNA_ASSERT( pimpl->currentChannel != nullptr );
-    const Channel& ch = *pimpl->currentChannel;
+    const MIPChannel& ch = *pimpl->currentChannel;
 
     base::ShaderUniform< float >( "minIntensity", Details::huvToIntensity( ch.huRange.first ) ).upload();
     base::ShaderUniform< float >( "maxIntensity", Details::huvToIntensity( ch.huRange.last  ) ).upload();
@@ -234,8 +231,6 @@ void MIPStage::configureShader( base::GLContext& glc )
 }
 
 
-
-}  // namespace Carna :: VolumeRenderings :: MIP
 
 }  // namespace Carna :: VolumeRenderings
 

@@ -103,22 +103,6 @@ void MeshRenderingStage< RenderableCompare >::render( GLContext& glc, const Rend
 
 
 
-// ----------------------------------------------------------------------------------
-// OpaqueRenderingStage
-// ----------------------------------------------------------------------------------
-
-typedef MeshRenderingStage< Renderable::VideoResourcesOrder< MeshRenderingStageBase::ROLE_DEFAULT_MATERIAL > > OpaqueRenderingStage;
-
-
-
-// ----------------------------------------------------------------------------------
-// TransparentRenderingStage
-// ----------------------------------------------------------------------------------
-
-typedef MeshRenderingStage< Renderable::DepthOrder< Renderable::ORDER_BACK_TO_FRONT > > TransparentRenderingStage;
-
-
-
 }  // namespace Carna :: base
 
 }  // namespace Carna

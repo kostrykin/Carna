@@ -65,7 +65,6 @@ namespace Carna
         class  HUVolumeTexture;
         class  IndexBufferBase;
         class  MeshBase;
-        class  MeshColorCodingStage;
         class  MeshRenderingStageBase;
         class  Node;
         class  Ray3f;
@@ -91,25 +90,18 @@ namespace Carna
         
     }
 
-    namespace VolumeRenderings
+    namespace presets
     {
+
+        class MeshColorCodingStage;
         class RayMarchingStage;
-
-        namespace MIP
-        {
-            class MIPStage;
-            class Channel;
-        }
-
-        namespace DRR
-        {
-            class DRRStage;
-        }
-    }
-
-    namespace CuttingPlanes
-    {
+        class MIPStage;
+        class MIPChannel;
+        class DRRStage;
         class CuttingPlanesStage;
+        class TransparentRenderingStage;
+        class OccludedRenderingStage;
+
     }
 
 }  // namespace Carna

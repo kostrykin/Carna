@@ -12,21 +12,18 @@
 #ifndef DRRStage_H_6014714286
 #define DRRStage_H_6014714286
 
-#include <Carna/VolumeRenderings/RayMarchingStage.h>
+#include <Carna/presets/RayMarchingStage.h>
 #include <Carna/Carna.h>
 #include <memory>
 
 /** \file   DRRStage.h
-  * \brief  Defines \ref Carna::base::DRRStage.
+  * \brief  Defines \ref Carna::presets::DRRStage.
   */
 
 namespace Carna
 {
 
-namespace VolumeRenderings
-{
-
-namespace DRR
+namespace presets
 {
 
 
@@ -96,9 +93,7 @@ protected:
 
 
 
-}  // namespace Carna :: VolumeRenderings :: DRR
-
-}  // namespace Carna :: VolumeRenderings
+}  // namespace Carna :: presets
 
 }  // namespace Carna
 

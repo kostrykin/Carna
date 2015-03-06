@@ -9,11 +9,11 @@
  *
  */
 
-#ifndef MIP_CHANNEL_H_6014714286
-#define MIP_CHANNEL_H_6014714286
+#ifndef MIPCHANNEL_H_6014714286
+#define MIPCHANNEL_H_6014714286
 
-/** \file   Channel.h
-  * \brief  Defines \ref Carna::VolumeRenderings::MIP::Channel.
+/** \file   MIPChannel.h
+  * \brief  Defines \ref Carna::presets::MIPChannel.
   */
 
 #include <Carna/Carna.h>
@@ -25,24 +25,21 @@
 namespace Carna
 {
 
-namespace VolumeRenderings
-{
-
-namespace MIP
+namespace presets
 {
 
 
 
 // ----------------------------------------------------------------------------------
-// VolumeRenderings :: MIP :: Channel
+// presets :: MIPChannel
 // ----------------------------------------------------------------------------------
 
-/** \brief  Defines an HUV range and the way it's visualized.
+/** \brief  Defines an HUV range and the way it's visualized within a \ref MIPStage.
   *
   * \author Leonid Kostrykin
   * \date   26.7.11 - 26.2.15
   */
-class CARNA_LIB Channel
+class CARNA_LIB MIPChannel
 {
 
     NON_COPYABLE
@@ -56,14 +53,14 @@ public:
 
     /** \brief  Instantiates.
       */
-    Channel
+    MIPChannel
         ( const base::Span< base::HUV >& huRange
         , const base::math::Vector4f& color
         , const base::BlendFunction& function = CHANNEL_FUNCTION_REPLACE );
 
     /** \brief  Instantiates.
       */
-    Channel
+    MIPChannel
         ( base::HUV firstHuv, base::HUV lastHuv
         , const base::math::Vector4f& color
         , const base::BlendFunction& function = CHANNEL_FUNCTION_REPLACE );
@@ -74,14 +71,12 @@ public:
 
     const base::BlendFunction& function;
 
-}; // VolumeRenderings :: MIP :: Channel
+}; // presets :: MIPChannel
 
 
 
-}  // namespace Carna :: VolumeRenderings :: MIP
-
-}  // namespace Carna :: VolumeRenderings
+}  // namespace Carna :: presets
 
 }  // namespace Carna
 
-#endif // MIP_CHANNEL_H_6014714286
+#endif // MIPCHANNEL_H_6014714286

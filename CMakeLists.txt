@@ -166,6 +166,9 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/presets/MIPStage.h
 		include/${PROJECT_NAME}/presets/MIPChannel.h
 		include/${PROJECT_NAME}/presets/CuttingPlanesStage.h
+		include/${PROJECT_NAME}/presets/OccludedRenderingStage.h
+		include/${PROJECT_NAME}/presets/OpaqueRenderingStage.h
+		include/${PROJECT_NAME}/presets/TransparentRenderingStage.h
 		include/${PROJECT_NAME}/Carna.h
 		include/${PROJECT_NAME}/Version.h
 	)
@@ -223,6 +226,8 @@ set( SRC
 		src/presets/MIPStage.cpp
 		src/presets/MIPChannel.cpp
 		src/presets/CuttingPlanesStage.cpp
+		src/presets/OccludedRenderingStage.cpp
+		src/presets/TransparentRenderingStage.cpp
 	)
 set( FORMS
 		""
@@ -302,26 +307,11 @@ SOURCE_GROUP( "Headers"
 SOURCE_GROUP( "Headers\\base"
 	REGULAR_EXPRESSION .*include/Carna/base/[^/]*\\.h )
 
-SOURCE_GROUP( "Headers\\MPR"
-	REGULAR_EXPRESSION .*include/Carna/MPR/[^/]*\\.h )
+SOURCE_GROUP( "Headers\\presets"
+	REGULAR_EXPRESSION .*include/Carna/presets/[^/]*\\.h )
 
-SOURCE_GROUP( "Headers\\CuttingPlanes"
-	REGULAR_EXPRESSION .*include/Carna/CuttingPlanes/[^/]*\\.h )
-
-SOURCE_GROUP( "Headers\\stereoscopic"
-	REGULAR_EXPRESSION .*include/Carna/stereoscopic/[^/]*\\.h )
-
-SOURCE_GROUP( "Headers\\VolumeRenderings"
-	REGULAR_EXPRESSION .*include/Carna/VolumeRenderings/[^/]*\\.h )
-
-SOURCE_GROUP( "Headers\\VolumeRenderings\\DVR"
-	REGULAR_EXPRESSION .*include/Carna/VolumeRenderings/DVR/[^/]*\\.h )
-
-SOURCE_GROUP( "Headers\\VolumeRenderings\\DRR"
-	REGULAR_EXPRESSION .*include/Carna/VolumeRenderings/DRR/[^/]*\\.h )
-
-SOURCE_GROUP( "Headers\\VolumeRenderings\\MIP"
-	REGULAR_EXPRESSION .*include/Carna/VolumeRenderings/MIP/[^/]*\\.h )
+SOURCE_GROUP( "Headers\\helpers"
+	REGULAR_EXPRESSION .*include/Carna/helpers/[^/]*\\.h )
 
 SOURCE_GROUP( "Sources"
 	REGULAR_EXPRESSION src/[^/]*\\.cpp )
@@ -329,26 +319,11 @@ SOURCE_GROUP( "Sources"
 SOURCE_GROUP( "Sources\\base"
 	REGULAR_EXPRESSION src/base/[^/]*\\.cpp )
 
-SOURCE_GROUP( "Sources\\MPR"
-	REGULAR_EXPRESSION src/MPR/[^/]*\\.cpp )
+SOURCE_GROUP( "Sources\\presets"
+	REGULAR_EXPRESSION src/presets/[^/]*\\.cpp )
 
-SOURCE_GROUP( "Sources\\CuttingPlanes"
-	REGULAR_EXPRESSION src/CuttingPlanes/[^/]*\\.cpp )
-
-SOURCE_GROUP( "Sources\\stereoscopic"
-	REGULAR_EXPRESSION src/stereoscopic/[^/]*\\.cpp )
-
-SOURCE_GROUP( "Sources\\VolumeRenderings"
-	REGULAR_EXPRESSION src/VolumeRenderings/[^/]*\\.cpp )
-
-SOURCE_GROUP( "Sources\\VolumeRenderings\\DVR"
-	REGULAR_EXPRESSION src/VolumeRenderings/DVR/[^/]*\\.cpp )
-
-SOURCE_GROUP( "Sources\\VolumeRenderings\\DRR"
-	REGULAR_EXPRESSION src/VolumeRenderings/DRR/[^/]*\\.cpp )
-
-SOURCE_GROUP( "Sources\\VolumeRenderings\\MIP"
-	REGULAR_EXPRESSION src/VolumeRenderings/MIP/[^/]*\\.cpp )
+SOURCE_GROUP( "Sources\\helpers"
+	REGULAR_EXPRESSION src/helpers/[^/]*\\.cpp )
 
 SOURCE_GROUP( "Miscellaneous"
 	REGULAR_EXPRESSION .*\\.\(\(in\)|\(txt\)|\(qrc\)\) )

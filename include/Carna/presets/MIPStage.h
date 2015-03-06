@@ -12,21 +12,18 @@
 #ifndef MIPSTAGE_H_6014714286
 #define MIPSTAGE_H_6014714286
 
-#include <Carna/VolumeRenderings/RayMarchingStage.h>
+#include <Carna/presets/RayMarchingStage.h>
 #include <Carna/Carna.h>
 #include <memory>
 
 /** \file   MIPStage.h
-  * \brief  Defines \ref Carna::base::MIPStage.
+  * \brief  Defines \ref Carna::presets::MIPStage.
   */
 
 namespace Carna
 {
 
-namespace VolumeRenderings
-{
-
-namespace MIP
+namespace presets
 {
 
 
@@ -59,18 +56,18 @@ public:
     /** \brief
       * Swaps positions of \a channel with it's successor in the \ref MIP_Channels "channels list".
       */
-    void ascendChannel( const Channel& channel );
+    void ascendChannel( const MIPChannel& channel );
     
     /** \brief
       * Appends \a channel to the \ref MIP_Channels "channels list" and takes it's ownership.
       */
-    void appendChannel( Channel* channel );
+    void appendChannel( MIPChannel* channel );
     
     /** \brief
       * Removes \a channel from the \ref MIP_Channels "channels list".
       * The ownership is transferred to the caller.
       */
-    Channel* removeChannel( const Channel& channel );
+    MIPChannel* removeChannel( const MIPChannel& channel );
 
     void clearChannels();
 
@@ -88,9 +85,7 @@ protected:
 
 
 
-}  // namespace Carna :: VolumeRenderings :: MIP
-
-}  // namespace Carna :: VolumeRenderings
+}  // namespace Carna :: presets
 
 }  // namespace Carna
 

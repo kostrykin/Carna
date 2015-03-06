@@ -17,13 +17,13 @@
 #include <Carna/Carna.h>
 
 /** \file   CuttingPlanesStage.h
-  * \brief  Defines \ref Carna::base::CuttingPlanesStage.
+  * \brief  Defines \ref Carna::presets::CuttingPlanesStage.
   */
 
 namespace Carna
 {
 
-namespace CuttingPlanes
+namespace presets
 {
 
 
@@ -81,7 +81,7 @@ protected:
 
 
 
-}  // namespace Carna :: CuttingPlanes
+}  // namespace Carna :: presets
 
 }  // namespace Carna
 

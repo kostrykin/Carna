@@ -12,18 +12,18 @@
 #include <Carna/base/Geometry.h>
 #include <Carna/base/GeometryFeature.h>
 #include <Carna/base/BufferedHUVolumeTexture.h>
-#include <Carna/base/MeshRenderingStage.h>
-#include <Carna/base/MeshColorCodingStage.h>
 #include <Carna/base/Material.h>
 #include <Carna/base/MeshFactory.h>
 #include <Carna/base/Vertex.h>
 #include <Carna/base/ShaderUniform.h>
 #include <Carna/base/BufferedHUVolume.h>
 #include <Carna/base/SpatialMovement.h>
-#include <Carna/VolumeRenderings/MIP/MIPStage.h>
-#include <Carna/VolumeRenderings/MIP/Channel.h>
-#include <Carna/VolumeRenderings/DRR/DRRStage.h>
-#include <Carna/CuttingPlanes/CuttingPlanesStage.h>
+#include <Carna/presets/OpaqueRenderingStage.h>
+#include <Carna/presets/MeshColorCodingStage.h>
+#include <Carna/presets/MIPStage.h>
+#include <Carna/presets/MIPChannel.h>
+#include <Carna/presets/DRRStage.h>
+#include <Carna/presets/CuttingPlanesStage.h>
 
 #include <HUGZSceneFactory.h>
 
@@ -98,7 +98,7 @@ class Demo : public QGLWidget
     std::unique_ptr< base::FrameRenderer > renderer;
     std::unique_ptr< base::Node > root;
     base::Camera* camera;
-    base::MeshColorCodingStage* mccs;
+    presets::MeshColorCodingStage* mccs;
     std::unique_ptr< base::SpatialMovement > spatialMovement;
 
     bool mouseInteraction;
@@ -214,17 +214,17 @@ void Demo::initializeGL()
     auto& volumeTexture = base::BufferedHUVolumeTexture< base::UInt16HUVolume >::create( *volume );
 
     base::Geometry* const volumeGeometry1 = new base::Geometry( GEOMETRY_TYPE_VOLUMETRIC );
-    volumeGeometry1->putFeature( VolumeRenderings::MIP::MIPStage::ROLE_HU_VOLUME, volumeTexture );
+    volumeGeometry1->putFeature( presets::MIPStage::ROLE_HU_VOLUME, volumeTexture );
 
     base::Geometry* const volumeGeometry2 = new base::Geometry( GEOMETRY_TYPE_VOLUMETRIC );
-    volumeGeometry2->putFeature( VolumeRenderings::MIP::MIPStage::ROLE_HU_VOLUME, volumeTexture );
+    volumeGeometry2->putFeature( presets::MIPStage::ROLE_HU_VOLUME, volumeTexture );
 
     base::MeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 10, 10, 10 );
     base::Material& boxMaterial = base::Material::create( "unshaded" );
     boxMaterial.addUniform( new base::ShaderUniform< base::math::Vector4f >( "color", base::math::Vector4f( 1, 0, 0, 1 ) ) );
     base::Geometry* const boxGeometry = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
-    boxGeometry->putFeature( base::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
-    boxGeometry->putFeature( base::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
+    boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
+    boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
     boxGeometry->localTransform = base::math::translation4f( 0, 30, 50 );
 
     volumeTexture.release();
@@ -262,33 +262,33 @@ void Demo::resizeGL( int w, int h )
 
         /* Picking
          */
-        mccs = new base::MeshColorCodingStage();
-        mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, base::OpaqueRenderingStage::ROLE_DEFAULT_MESH );
+        mccs = new presets::MeshColorCodingStage();
+        mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH );
         renderer->appendStage( mccs );
 
         /* Opaque
          */
-        base::OpaqueRenderingStage* const opaque = new base::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
+        presets::OpaqueRenderingStage* const opaque = new presets::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
         renderer->appendStage( opaque );
 
         /* Cutting Planes
          */
-        CuttingPlanes::CuttingPlanesStage* const cuttingPlanes
-            = new CuttingPlanes::CuttingPlanesStage( GEOMETRY_TYPE_VOLUMETRIC, GEOMETRY_TYPE_CUTTING_PLANE );
+        presets::CuttingPlanesStage* const cuttingPlanes
+            = new presets::CuttingPlanesStage( GEOMETRY_TYPE_VOLUMETRIC, GEOMETRY_TYPE_CUTTING_PLANE );
         cuttingPlanes->setWindowingWidth( 1000 );
         cuttingPlanes->setWindowingLevel( -100 );
         renderer->appendStage( cuttingPlanes );
 #if 0
         /* MIP
          */
-        VolumeRenderings::MIP::MIPStage* const mip = new VolumeRenderings::MIP::MIPStage( GEOMETRY_TYPE_VOLUMETRIC );
-        mip->appendChannel( new VolumeRenderings::MIP::Channel( -1024, 0, base::math::Vector4f( 0, 0, 1, 0.5f ) ) );
-        mip->appendChannel( new VolumeRenderings::MIP::Channel( 0, 3071, base::math::Vector4f( 1, 1, 0, 0.5f ) ) );
+        presets::MIPStage* const mip = new presets::MIPStage( GEOMETRY_TYPE_VOLUMETRIC );
+        mip->appendChannel( new presets::MIPChannel( -1024, 0, base::math::Vector4f( 0, 0, 1, 0.5f ) ) );
+        mip->appendChannel( new presets::MIPChannel( 0, 3071, base::math::Vector4f( 1, 1, 0, 0.5f ) ) );
         renderer->appendStage( mip );
 #else
         /* DRR
          */
-        VolumeRenderings::DRR::DRRStage* const drr = new VolumeRenderings::DRR::DRRStage( GEOMETRY_TYPE_VOLUMETRIC );
+        presets::DRRStage* const drr = new presets::DRRStage( GEOMETRY_TYPE_VOLUMETRIC );
         renderer->appendStage( drr );
 #endif
     }

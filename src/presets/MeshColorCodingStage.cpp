@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/MeshColorCodingStage.h>
+#include <Carna/presets/MeshColorCodingStage.h>
 #include <Carna/base/ShaderManager.h>
 #include <Carna/base/ShaderUniform.h>
 #include <Carna/base/GLContext.h>
@@ -25,7 +25,7 @@
 namespace Carna
 {
 
-namespace base
+namespace presets
 {
 
 
@@ -39,20 +39,20 @@ struct MeshColorCodingStage::Details
 
     const static unsigned int FIRST_COLOR_CODING_ID;
     const static unsigned int  LAST_COLOR_CODING_ID;
-    const static        Color   NULL_GEOMETRY_COLOR;
+    const static  base::Color   NULL_GEOMETRY_COLOR;
 
     Details();
 
-    static unsigned int colorToId( const Color& color );
-    static Color idToColor( unsigned int id );
+    static unsigned int colorToId( const base::Color& color );
+    static base::Color idToColor( unsigned int id );
 
     unsigned int myActivationPassIndex;
 
     std::map< unsigned int, unsigned int > rolesByGeometryType;
-    std::vector< const Geometry* > geometryById;
+    std::vector< const base::Geometry* > geometryById;
     unsigned int nextColorCodingId;
 
-    RenderTask* renderTask;
+    base::RenderTask* renderTask;
 
     unsigned int vpOffsetX;
     unsigned int vpOffsetY;
@@ -62,7 +62,7 @@ struct MeshColorCodingStage::Details
 
 const unsigned int MeshColorCodingStage::Details::FIRST_COLOR_CODING_ID( 0 );
 const unsigned int MeshColorCodingStage::Details:: LAST_COLOR_CODING_ID( std::numeric_limits< unsigned int >::max() - 1 );
-const        Color MeshColorCodingStage::Details::  NULL_GEOMETRY_COLOR( 0, 0, 0, 0 );
+const  base::Color MeshColorCodingStage::Details::  NULL_GEOMETRY_COLOR( 0, 0, 0, 0 );
 
 
 MeshColorCodingStage::Details::Details()
@@ -72,7 +72,7 @@ MeshColorCodingStage::Details::Details()
 }
 
 
-unsigned int MeshColorCodingStage::Details::colorToId( const Color& color )
+unsigned int MeshColorCodingStage::Details::colorToId( const base::Color& color )
 {
     unsigned int key = color.a;
     key |= color.b <<  8;
@@ -83,7 +83,7 @@ unsigned int MeshColorCodingStage::Details::colorToId( const Color& color )
 }
 
 
-Color MeshColorCodingStage::Details::idToColor( unsigned int id )
+base::Color MeshColorCodingStage::Details::idToColor( unsigned int id )
 {
     CARNA_ASSERT( id <= LAST_COLOR_CODING_ID );
     const unsigned int key = id + 1;
@@ -91,7 +91,7 @@ Color MeshColorCodingStage::Details::idToColor( unsigned int id )
     unsigned char b = static_cast< unsigned char >( key >> 8 );
     unsigned char g = static_cast< unsigned char >( key >> 16 );
     unsigned char r = static_cast< unsigned char >( key >> 24 );
-    return Color( r, g, b, a );
+    return base::Color( r, g, b, a );
 }
 
 
@@ -103,19 +103,19 @@ Color MeshColorCodingStage::Details::idToColor( unsigned int id )
 struct MeshColorCodingStage::VideoResources
 {
 
-    VideoResources( const ShaderProgram& shader, unsigned int w, unsigned int h );
+    VideoResources( const base::ShaderProgram& shader, unsigned int w, unsigned int h );
 
-    const ShaderProgram& shader;
-    RenderTexture rt;
-    Framebuffer fbo;
+    const base::ShaderProgram& shader;
+    base::RenderTexture renderTexture;
+    base::Framebuffer fbo;
 
 }; // MeshColorCodingStage :: VideoResources
 
 
-MeshColorCodingStage::VideoResources::VideoResources( const ShaderProgram& shader, unsigned int w, unsigned int h )
+MeshColorCodingStage::VideoResources::VideoResources( const base::ShaderProgram& shader, unsigned int w, unsigned int h )
     : shader( shader )
-    , rt( w, h )
-    , fbo( rt )
+    , renderTexture( w, h )
+    , fbo( renderTexture )
 {
 }
 
@@ -126,7 +126,7 @@ MeshColorCodingStage::VideoResources::VideoResources( const ShaderProgram& shade
 // ----------------------------------------------------------------------------------
 
 MeshColorCodingStage::MeshColorCodingStage()
-    : GeometryStage< void >::GeometryStage( 0, 0 )
+    : base::GeometryStage< void >::GeometryStage( 0, 0 )
     , pimpl( new Details() )
 {
 }
@@ -137,13 +137,14 @@ MeshColorCodingStage::~MeshColorCodingStage()
     if( vr.get() != nullptr )
     {
         activateGLContext();
-        ShaderManager::instance().releaseShader( vr->shader );
+        base::ShaderManager::instance().releaseShader( vr->shader );
     }
 }
 
 
-Aggregation< const Geometry > MeshColorCodingStage::pick( unsigned int x, unsigned int y ) const
+base::Aggregation< const base::Geometry > MeshColorCodingStage::pick( unsigned int x, unsigned int y ) const
 {
+    using namespace base;
     if( vr.get() == nullptr )
     {
         Log::instance().record( Log::warning, "MeshColorCodingStage::pick queried before frame was rendered." );
@@ -163,14 +164,14 @@ Aggregation< const Geometry > MeshColorCodingStage::pick( unsigned int x, unsign
             x = x - pimpl->vpOffsetX;
             y = y - pimpl->vpOffsetY;
 
-            if( x >= vr->rt.width() || y >= vr->rt.height() )
+            if( x >= vr->renderTexture.width() || y >= vr->renderTexture.height() )
             {
                 Log::instance().record( Log::debug, "MeshColorCodingStage::pick queried outside viewport." );
                 return Aggregation< const Geometry >::NULL_PTR;
             }
             else
             {
-                y = vr->rt.height() - 1 - y;
+                y = vr->renderTexture.height() - 1 - y;
                 Framebuffer::MinimalBinding binding( vr->fbo );
                 const Color color = binding.readPixel( x, y );
                 if( color == Details::NULL_GEOMETRY_COLOR )
@@ -201,8 +202,9 @@ unsigned int MeshColorCodingStage::activationPassIndex() const
 }
 
 
-void MeshColorCodingStage::renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp )
+void MeshColorCodingStage::renderPass( const base::math::Matrix4f& viewTransform, base::RenderTask& rt, const base::Viewport& vp )
 {
+    using namespace base;
     if( renderedPassesCount() == activationPassIndex() )
     {
         if( vr.get() == nullptr )
@@ -227,7 +229,7 @@ void MeshColorCodingStage::renderPass( const math::Matrix4f& viewTransform, Rend
         fboViewport.makeActive();
         CARNA_RENDER_TO_FRAMEBUFFER( vr->fbo,
             rt.renderer.glContext().clearBuffers( GLContext::COLOR_BUFFER_BIT | GLContext::DEPTH_BUFFER_BIT );
-            GeometryStage< void >::renderPass( viewTransform, rt, vp )
+            GeometryStage< void >::renderPass( viewTransform, rt, vp );
         );
         fboViewport.done();
 
@@ -238,8 +240,9 @@ void MeshColorCodingStage::renderPass( const math::Matrix4f& viewTransform, Rend
 }
 
 
-void MeshColorCodingStage::render( GLContext& glc, const Renderable& renderable )
+void MeshColorCodingStage::render( base::GLContext& glc, const base::Renderable& renderable )
 {
+    using namespace base;
     const unsigned int geometryType = renderable.geometry().geometryType;
     const auto roleItr = pimpl->rolesByGeometryType.find( geometryType );
     if( roleItr != pimpl->rolesByGeometryType.end() )
@@ -272,9 +275,9 @@ void MeshColorCodingStage::render( GLContext& glc, const Renderable& renderable 
 }
 
 
-void MeshColorCodingStage::reshape( const FrameRenderer& fr, const Viewport& vp )
+void MeshColorCodingStage::reshape( const base::FrameRenderer& fr, const base::Viewport& vp )
 {
-    GeometryStage< void >::reshape( fr, vp );
+    base::GeometryStage< void >::reshape( fr, vp );
     if( vr.get() != nullptr )
     {
         vr.reset( new VideoResources( vr->shader, vp.width, vp.height ) );
@@ -302,6 +305,6 @@ void MeshColorCodingStage::clearGeometryTypes()
 
 
 
-}  // namespace Carna :: base
+}  // namespace Carna :: presets
 
 }  // namespace Carna

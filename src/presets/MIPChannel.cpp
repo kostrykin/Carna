@@ -10,28 +10,25 @@
  */
 
 #include <Carna/base/glew.h>
-#include <Carna/VolumeRenderings/MIP/Channel.h>
+#include <Carna/presets/MIPChannel.h>
 
 namespace Carna
 {
 
-namespace VolumeRenderings
-{
-
-namespace MIP
+namespace presets
 {
 
 
 
 // ----------------------------------------------------------------------------------
-// MIP :: Channel
+// MIP :: MIPChannel
 // ----------------------------------------------------------------------------------
 
-const base::BlendFunction Channel::CHANNEL_FUNCTION_REPLACE( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-const base::BlendFunction Channel::CHANNEL_FUNCTION_ADD    ( GL_SRC_ALPHA, GL_ONE );
+const base::BlendFunction MIPChannel::CHANNEL_FUNCTION_REPLACE( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+const base::BlendFunction MIPChannel::CHANNEL_FUNCTION_ADD    ( GL_SRC_ALPHA, GL_ONE );
 
 
-Channel::Channel
+MIPChannel::MIPChannel
     ( const base::Span< base::HUV >& huRange
     , const base::math::Vector4f& color
     , const base::BlendFunction& function )
@@ -43,7 +40,7 @@ Channel::Channel
 }
 
 
-Channel::Channel
+MIPChannel::MIPChannel
     ( base::HUV firstHuv, base::HUV lastHuv
     , const base::math::Vector4f& color
     , const base::BlendFunction& function )
@@ -56,8 +53,6 @@ Channel::Channel
 
 
 
-}  // namespace Carna :: VolumeRenderings :: MIP
-
-}  // namespace Carna :: VolumeRenderings
+}  // namespace Carna :: presets
 
 }  // namespace Carna
