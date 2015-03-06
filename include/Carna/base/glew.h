@@ -20,11 +20,9 @@
   * \date   24.2.2011
   */
 
-#ifdef _WIN32   // ----------------------- Win32 -----------------------
-
-    #include <windows.h>
-
-#endif          // -----------------------------------------------------
+#ifdef _WIN32
+#   include <windows.h>
+#endif
 #include <GL/glew.h>
 
 
@@ -33,9 +31,9 @@
 // CARNA_GLEW_INIT
 // ----------------------------------------------------------------------------------
 
-/** \brief  Invokes \c glewInit and raises an Carna::base::AssertionFailure "AssertionFailure" if it failed.
-  *
-  * \since  \ref v_2_4
+/** \brief
+  * Invokes \c glewInit and raises an
+  * \ref Carna::base::AssertionFailure "AssertionFailure" if it fails.
   */
 #define CARNA_GLEW_INIT \
     { \

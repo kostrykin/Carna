@@ -160,6 +160,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/Text.h
 		include/${PROJECT_NAME}/base/Log.h
 		include/${PROJECT_NAME}/base/Ray.h
+		include/${PROJECT_NAME}/base/glew.h
 		include/${PROJECT_NAME}/presets/MeshColorCodingStage.h
 		include/${PROJECT_NAME}/presets/RayMarchingStage.h
 		include/${PROJECT_NAME}/presets/DRRStage.h
@@ -179,7 +180,6 @@ set( PRIVATE_QOBJECT_HEADERS
 set( PRIVATE_HEADERS
 		${PRIVATE_QOBJECT_HEADERS}
 		src/include/Carna/base/gl.h
-		src/include/Carna/base/glew.h
 		src/include/Carna/base/glu.h
 	)
 set( SRC
