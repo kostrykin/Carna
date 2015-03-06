@@ -41,6 +41,11 @@ namespace base
   * object in it's entirety, but the geometry object \em aggregates them, i.e. does
   * not take their possession. Rendering stages identify features through the
   * \em roles they take when associated with a geometry object.
+  *
+  * \note
+  * Conventionally, the default role for \ref Texture3D "3D textures" that represent
+  * HU data, such as \ref presets::DRRStage::ROLE_HU_VOLUME or
+  * \ref presets::CuttingPlanesStage::ROLE_HU_VOLUME, is 0.
   * 
   * What features a geometry object aggregates depends on the \c %geometryType and
   * what the corresponding rendering stage expects. Typical examples are
