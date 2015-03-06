@@ -34,6 +34,22 @@ namespace base
 // GeometryStage
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Partially implements a \ref RenderStage "rendering stage" that uses at least one
+  * \ref RenderQueue "render queue" for rendering geometry from the scene graph.
+  *
+  * \param RenderableCompare
+  * Defines partial order of \ref Renderable "renderables" that is applied to the
+  * \ref rq "default rendering queue" of this stage. Set this to \c void if no
+  * particular order is required.
+  *
+  * \see
+  * Refer to the documentation of the \ref RenderingProcess "rendering process" for
+  * further notes on how rendering stages operate.
+  *
+  * \author Leonid Kostrykin
+  * \date   21.2.15 - 6.3.15
+  */
 template< typename RenderableCompare >
 class GeometryStage : public RenderStage
 {

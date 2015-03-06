@@ -31,6 +31,25 @@ namespace base
 // Geometry
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Defines \ref SceneGraph "scene graph" leafs. Instances of this class represent
+  * visible geometry that can be rendered. The way of rendering is defined by the
+  * \ref GeometryStage "geometry rendering stage" with matching \c %geometryType.
+  *
+  * Usually the corresponding rendering stage will query particular \em features from
+  * this geometry object: Features are like components that make up the geometry
+  * object in it's entirety, but the geometry object \em aggregates them, i.e. does
+  * not take their possession. Rendering stages identify features through the
+  * \em roles they take when associated with a geometry object.
+  * 
+  * What features a geometry object aggregates depends on the \c %geometryType and
+  * what the corresponding rendering stage expects. Typical examples are
+  * \ref Mesh "meshes", \ref Material "materials" and
+  * \ref Texture3D "volume textures".
+  *
+  * \author Leonid Kostrykin
+  * \date   21.2.15 - 6.3.15
+  */
 class CARNA_LIB Geometry : public Spatial
 {
 

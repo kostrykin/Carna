@@ -37,7 +37,7 @@ namespace base
   * Represents a spatial scene element.
   * It's location is determined relatively to another spatial, called \em %parent.
   *
-  * \section SceneGraph "Scene Graph"
+  * \section SceneGraph Scene Graph
   *
   *     The parent-child relationship induces a tree structure, that is commonly
   *     referred to as \em scene \em graph. Such a scene graph represents a scene.
@@ -114,7 +114,7 @@ public:
     /** \brief
       * Fixes tree consistency by updating parent of this spatial.
       *
-      * \important
+      * \note
       * This method is only required for internal usage.
       */
     void updateParent( Node& parent );

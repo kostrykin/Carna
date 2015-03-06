@@ -69,7 +69,7 @@ public:
       * Increments video resource acquisition counter.
       * Uploads resources to video memory if not happened yet.
       *
-      * \important
+      * \attention
       * The caller must ensure that this method is called while proper OpenGL context is active.
       */
     virtual void acquireVideoResource();
@@ -78,7 +78,7 @@ public:
       * Decrements video resource acquisition counter.
       * Frees acquired video memory if counter reaches 0.
       *
-      * \important
+      * \attention
       * The caller must ensure that this method is called while proper OpenGL context is active.
       */
     virtual void releaseVideoResource();
