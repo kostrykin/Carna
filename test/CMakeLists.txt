@@ -7,10 +7,13 @@ set( TESTS_QOBJECT_HEADERS
 set( TESTS_HEADERS
 		Tools/HUGZSceneFactory.h
 		Tools/HUIO.h
+		Tools/QGLContextHolder.h
+		Tools/TestScene.h
 	)
 	
 set( TESTS_SOURCES
-		""
+		Tools/QGLContextHolder.cpp
+		Tools/TestScene.cpp
 	)
 	
 set( TESTS

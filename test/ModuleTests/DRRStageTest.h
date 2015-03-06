@@ -22,10 +22,10 @@ namespace testing
 
 
 // ----------------------------------------------------------------------------------
-// OffscreenRenderingTest
+// DRRStageTest
 // ----------------------------------------------------------------------------------
 
-class OffscreenRenderingTest : public QObject
+class DRRStageTest : public QObject
 {
 
     Q_OBJECT
@@ -48,13 +48,23 @@ private slots:
       */
     void cleanup();
 
- // ----------------------------------------------------------------------------------
+ // ---------------------------------------------------------------------------------
 
-    /** \brief  Tests the reference returned by the mutable and immutable \c module methods.
-      */
-    void testModule();
+    void testDefault();
 
-}; // OffscreenRenderingTest
+    void testInversed();
+
+ // ---------------------------------------------------------------------------------
+
+private:
+
+    std::unique_ptr< QGLContextHolder > qglContextHolder;
+    std::unique_ptr< TestScene > scene;
+    std::unique_ptr< base::FrameRenderer > renderer;
+    
+    presets::DRRStage* drr;
+
+}; // DRRStageTest
 
 
 
