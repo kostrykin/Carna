@@ -5,17 +5,12 @@ set( TESTS_QOBJECT_HEADERS
 	)
 
 set( TESTS_HEADERS
-		Tools/FramebufferTester.h
 		Tools/HUGZSceneFactory.h
 		Tools/HUIO.h
-		Tools/MockSceneFactory.h
-		Tools/MyVisualization.h
 	)
 	
 set( TESTS_SOURCES
-		Tools/FramebufferTester.cpp
-		Tools/MockSceneFactory.cpp
-		Tools/MyVisualization.cpp
+		""
 	)
 	
 set( TESTS
@@ -28,7 +23,7 @@ set( TESTS_MISC_FILES
 	)
 	
 set( TESTS_RESOURCES
-		res/histograms.qrc
+		""
 	)
 
 include( UnitTests/configure.cmake )
@@ -99,9 +94,15 @@ SOURCE_GROUP( "Miscellaneous\\Tools"
 ############################################
 
 # Qt
-find_package( Qt4 4.8.0 COMPONENTS QtTest QtOpenGL REQUIRED )
-include( ${QT_USE_FILE} )
-add_definitions( ${QT_DEFINITIONS} )
+set(QT_FOUND OFF)
+find_package( Qt4 4.8.0 COMPONENTS QtTest QtOpenGL QtCore QtGui )
+if(Qt4_FOUND)
+	include( ${QT_USE_FILE} )
+	add_definitions( ${QT_DEFINITIONS} )
+	set(QT_FOUND ON)
+else()
+	message(WARNING "\nQt5 lookup not implemented yet.\n")
+endif()
 
 # Boost
 set(Boost_USE_MULTITHREADED ON)
@@ -123,15 +124,11 @@ link_directories( ${CMAKE_BINARY_DIR}/bin )
 find_package( Eigen3 REQUIRED )
 include_directories( ${EIGEN3_INCLUDE_DIR} )
 
-# TRTK
-find_package( TRTK 0.13.1 REQUIRED )
-include_directories( ${TRTK_INCLUDE_DIR} )
-
 ############################################
 # Project
 ############################################
 
-if(Boost_FOUND)
+if(Boost_FOUND AND QT_FOUND)
 
 	remove_definitions( -DCARNA_LIB )
 	add_definitions( -DBOOST_IOSTREAMS_NO_LIB )
@@ -158,7 +155,6 @@ if(Boost_FOUND)
 			glu32
 			${GLEW_LIBRARIES}
 			${QT_LIBRARIES}
-			${TRTK_LIBRARIES}
 			${Boost_LIBRARIES}
 			optimized	${TARGET_NAME}
 			debug		${TARGET_NAME}${CMAKE_DEBUG_POSTFIX}
@@ -190,8 +186,12 @@ if(Boost_FOUND)
 			COMMENT "Running test suite..."
 		)
 	
-else(Boost_FOUND)
+else()
 
-	message(WARNING "\nBoost not found, skipping testsuite.\n")
+	if(~Boost_FOUND)
+		message(WARNING "\nBoost not found, skipping testsuite.\n")
+	elseif(~QT_FOUND)
+		message(WARNING "\nQt4/5 not found, skipping testsuite.\n")
+	endif()
 
-endif(Boost_FOUND)
+endif()

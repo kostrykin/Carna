@@ -152,8 +152,8 @@ namespace math
     /** \brief
       * Retrieves the squared length of vector and scalar types. General case assumes scalar type.
       */
-    template< typename LengthType, typename InputType >
-    inline LengthType length2( const InputType& x )
+    template< typename T >
+    inline T length2( const T& x )
     {
         return x * x;
     }
@@ -177,9 +177,15 @@ namespace math
     {
         typedef element_type_of< InputType >::type ScalarType;
         const InputType difference = x - y;
-        const ScalarType distance = length2< ScalarType, InputType >( difference );
-        const ScalarType _epsilon = epsilon< ScalarType >();
-        return distance <= _epsilon * _epsilon;
+        const ScalarType distance2 = length2( InputType( difference ) );
+        const ScalarType _epsilon  = epsilon< ScalarType >();
+        return distance2 <= _epsilon;
+    }
+
+    template< >
+    inline bool isEqual( const bool& x, const bool& y )
+    {
+        return x == y;
     }
 
     typedef Eigen::Matrix< float, 4, 4, Eigen::ColMajor > Matrix4f;
