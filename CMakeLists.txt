@@ -164,7 +164,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/presets/RayMarchingStage.h
 		include/${PROJECT_NAME}/presets/DRRStage.h
 		include/${PROJECT_NAME}/presets/MIPStage.h
-		include/${PROJECT_NAME}/presets/Channel.h
+		include/${PROJECT_NAME}/presets/MIPChannel.h
 		include/${PROJECT_NAME}/presets/CuttingPlanesStage.h
 		include/${PROJECT_NAME}/Carna.h
 		include/${PROJECT_NAME}/Version.h
@@ -221,7 +221,7 @@ set( SRC
 		src/presets/RayMarchingStage.cpp
 		src/presets/DRRStage.cpp
 		src/presets/MIPStage.cpp
-		src/presets/Channel.cpp
+		src/presets/MIPChannel.cpp
 		src/presets/CuttingPlanesStage.cpp
 	)
 set( FORMS
