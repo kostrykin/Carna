@@ -12,6 +12,7 @@
  */
 
 uniform sampler2D colorMap;
+uniform float alphaFactor;
 
 in vec2 textureCoordinates;
 
@@ -25,5 +26,5 @@ out vec4 gl_FragColor;
 void main()
 {
     vec4 color = texture( colorMap, textureCoordinates );
-    gl_FragColor = color;
+    gl_FragColor = vec4( color.rgb, color.a * alphaFactor );
 }

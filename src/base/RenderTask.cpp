@@ -73,18 +73,30 @@ void RenderTask::overrideViewTransform( const math::Matrix4f& viewTransform )
 }
 
 
-void RenderTask::render( const Viewport& vp )
+void RenderTask::render( const Viewport& vp, unsigned int clearBuffersMask )
 {
     const std::unique_ptr< Framebuffer::Binding > fboBinding( myOutput == nullptr ? nullptr : new Framebuffer::Binding( *myOutput ) );
+    vp.makeActive();
+    if( clearBuffersMask != 0 )
+    {
+        renderer.glContext().clearBuffers( clearBuffersMask );
+    }
     while( nextRenderStage < renderer.stages() )
     {
         RenderStage& rs = renderer.stageAt( nextRenderStage );
         ++nextRenderStage;
-        rs.renderPass( myViewTransform, *this, vp );
+        renderStage( rs, vp );
     }
+    vp.done();
 }
-    
-    
+
+
+void RenderTask::renderStage( RenderStage& rs, const Viewport& vp )
+{
+    rs.renderPass( myViewTransform, *this, vp );
+}
+
+
 void RenderTask::finish()
 {
     nextRenderStage = renderer.stages();

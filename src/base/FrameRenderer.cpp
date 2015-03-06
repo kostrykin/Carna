@@ -154,6 +154,21 @@ FrameRenderer::Details::Details( GLContext& glContext, unsigned int width, unsig
 
 
 // ----------------------------------------------------------------------------------
+// FrameRenderer :: RenderTextureParams
+// ----------------------------------------------------------------------------------
+
+FrameRenderer::RenderTextureParams::RenderTextureParams( unsigned int unit )
+    : unit( unit )
+    , useDefaultSampler( true )
+    , useDefaultShader( true )
+    , textureUniformName( "colorMap" )
+    , alphaFactor( 1 )
+{
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // FrameRenderer
 // ----------------------------------------------------------------------------------
 
@@ -245,9 +260,7 @@ void FrameRenderer::render( Camera& cam, Node& root ) const
     root.updateWorldTransform();
 
     glContext().makeActive();
-    pimpl->viewport->makeActive();
     render( cam, root, *pimpl->viewport );
-    pimpl->viewport->done();
 }
 
 
@@ -288,12 +301,11 @@ void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
         , pimpl->backgroundColor[ 1 ]
         , pimpl->backgroundColor[ 2 ]
         , pimpl->backgroundColor[ 3 ] );
-    pimpl->glContext->clearBuffers( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     
     /* Render frame.
      */
     RenderTask task( *this, cam.projection(), cam.viewTransform() );
-    task.render( vp );
+    task.render( vp, GLContext::COLOR_BUFFER_BIT | GLContext::DEPTH_BUFFER_BIT );
 
     /* Check for errors.
      */
@@ -301,18 +313,19 @@ void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
 }
 
 
-void FrameRenderer::renderTexture( unsigned int unit, bool useDefaultSampler, bool useDefaultShader, const std::string uniformName ) const
+void FrameRenderer::renderTexture( const RenderTextureParams& params ) const
 {
-    if( useDefaultSampler )
+    if( params.useDefaultSampler )
     {
-        pimpl->fullFrameQuadSampler->bind( unit );
+        pimpl->fullFrameQuadSampler->bind( params.unit );
     }
-    if( useDefaultShader )
+    if( params.useDefaultShader )
     {
         pimpl->glContext->setShader( pimpl->fullFrameQuadShader );
+        ShaderUniform< float >( "alphaFactor", params.alphaFactor ).upload();
     }
 
-    ShaderUniform< int >( uniformName, unit ).upload();
+    ShaderUniform< int >( params.textureUniformName, params.unit ).upload();
     pimpl->fullFrameQuadMesh.render();
 }
 

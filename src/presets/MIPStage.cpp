@@ -177,7 +177,7 @@ void MIPStage::renderPass
         rs2.setBlendFunction( pimpl->currentChannel->function );
 
         pimpl->channelColorBuffer->bind( 0 );
-        rt.renderer.renderTexture( 0, true );
+        rt.renderer.renderTexture( base::FrameRenderer::RenderTextureParams( 0 ) );
     }
 
     /* Denote that we're finished with rendering.

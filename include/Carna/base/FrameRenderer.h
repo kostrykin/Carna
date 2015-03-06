@@ -70,11 +70,22 @@ public:
     
     void render( Camera& cam, Node& root ) const;
 
-    void renderTexture
-        ( unsigned int unit
-        , bool useDefaultSampler = true
-        , bool useDefaultShader = true
-        , const std::string uniformName = "colorMap" ) const;
+    struct RenderTextureParams
+    {
+        unsigned int unit;
+
+        bool useDefaultSampler;
+
+        bool useDefaultShader;
+
+        std::string textureUniformName;
+
+        float alphaFactor;
+
+        RenderTextureParams( unsigned int unit );
+    };
+
+    void renderTexture( const RenderTextureParams& ) const;
 
 private:
 

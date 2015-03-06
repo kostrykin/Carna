@@ -62,12 +62,16 @@ public:
     /** \brief
       * Invokes \ref RenderStage::render an all associated scene processors remained.
       */
-    void render( const Viewport& vp );
+    void render( const Viewport& vp, unsigned int clearBuffersMask = 0 );
     
     /** \brief
       * Finishes this task prematurely.
       */
     void finish();
+
+protected:
+
+    virtual void renderStage( RenderStage& rs, const Viewport& vp );
 
 }; // RenderTask
 

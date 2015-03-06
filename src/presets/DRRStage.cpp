@@ -239,7 +239,10 @@ void DRRStage::renderPass
     base::ShaderUniform< float >( "baseIntensity", pimpl->baseIntensity ).upload();
     base::ShaderUniform< int >( "renderInverse", pimpl->renderInverse ? 1 : 0 ).upload();
     pimpl->accumulationColorBuffer->bind( 0 );
-    rt.renderer.renderTexture( 0, true, false, "integralMap" );
+    base::FrameRenderer::RenderTextureParams params( 0 );
+    params.useDefaultShader = false;
+    params.textureUniformName = "integralMap";
+    rt.renderer.renderTexture( params );
 }
 
 

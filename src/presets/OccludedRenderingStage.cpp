@@ -9,11 +9,14 @@
  *
  */
 
+#include <Carna/base/glew.h>
 #include <Carna/presets/OccludedRenderingStage.h>
 #include <Carna/base/RenderState.h>
+#include <Carna/base/RenderTask.h>
 #include <Carna/base/Framebuffer.h>
 #include <Carna/base/RenderTexture.h>
 #include <Carna/base/Viewport.h>
+#include <set>
 
 namespace Carna
 {
@@ -30,11 +33,23 @@ namespace presets
 struct OccludedRenderingStage::Details
 {
 
+    Details();
+
     base::GLContext* context;
 
     void activateGLContext() const;
 
+    std::set< const base::RenderStage* > enabledStages;
+
+    float occlusionTranslucency;
+
 }; // OccludedRenderingStage :: Details
+
+
+OccludedRenderingStage::Details::Details()
+    : occlusionTranslucency( DEFAULT_OCCLUSION_TRANSLUCENCY )
+{
+}
 
 
 void OccludedRenderingStage::Details::activateGLContext() const
@@ -73,8 +88,48 @@ OccludedRenderingStage::VideoResources::VideoResources( const base::ShaderProgra
 
 
 // ----------------------------------------------------------------------------------
+// OccludedRenderTask
+// ----------------------------------------------------------------------------------
+
+class OccludedRenderTask : public base::RenderTask
+{
+
+    OccludedRenderingStage& ctrl;
+
+public:
+
+    OccludedRenderTask( OccludedRenderingStage& ctrl, const base::RenderTask& parent, base::Framebuffer& output );
+
+protected:
+
+    virtual void renderStage( base::RenderStage& rs, const base::Viewport& vp ) override;
+
+}; // OccludedRenderTask
+
+
+OccludedRenderTask::OccludedRenderTask( OccludedRenderingStage& ctrl, const base::RenderTask& parent, base::Framebuffer& output )
+    : base::RenderTask( parent, output )
+    , ctrl( ctrl )
+{
+}
+
+
+void OccludedRenderTask::renderStage( base::RenderStage& rs, const base::Viewport& vp )
+{
+    if( ctrl.isStageEnabled( rs ) )
+    {
+        RenderTask::renderStage( rs, vp );
+    }
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // OccludedRenderingStage
 // ----------------------------------------------------------------------------------
+
+const float OccludedRenderingStage::DEFAULT_OCCLUSION_TRANSLUCENCY = 0.33f;
+
 
 OccludedRenderingStage::OccludedRenderingStage()
     : pimpl( new Details() )
@@ -92,6 +147,30 @@ OccludedRenderingStage::~OccludedRenderingStage()
 }
 
 
+void OccludedRenderingStage::disableAllStages()
+{
+    pimpl->enabledStages.clear();
+}
+
+
+void OccludedRenderingStage::enableStage( const base::RenderStage& rs )
+{
+    pimpl->enabledStages.insert( &rs );
+}
+
+
+void OccludedRenderingStage::disableStage( const base::RenderStage& rs )
+{
+    pimpl->enabledStages.erase( &rs );
+}
+
+
+bool OccludedRenderingStage::isStageEnabled( const base::RenderStage& rs ) const
+{
+    return pimpl->enabledStages.find( &rs ) != pimpl->enabledStages.end();
+}
+
+
 void OccludedRenderingStage::renderPass
     ( const base::math::Matrix4f& viewTransform
     , base::RenderTask& rt
@@ -104,15 +183,40 @@ void OccludedRenderingStage::renderPass
         vr.reset( new VideoResources( shader, vp.width, vp.height ) );
     }
 
-    /* Do the rendering.
+    /* Fork the render task.
      */
-    Viewport fboViewport( vp, 0, 0, vr->fbo.width(), vr->fbo.height() );
-    fboViewport.makeActive();
+    OccludedRenderTask rtFork( *this, rt, vr->fbo );
+
+    /* Provide the depth buffer to the forked task.
+     */
+    const Viewport forkViewport( vp, 0, 0, vr->fbo.width(), vr->fbo.height() );
+    const unsigned int outputFramebufferId = base::Framebuffer::currentId();
     CARNA_RENDER_TO_FRAMEBUFFER( vr->fbo,
-        rt.renderer.glContext().clearBuffers( GLContext::COLOR_BUFFER_BIT );
-        //OpaqueRenderingStage::renderPass( viewTransform, rt, vp );
+
+        base::Framebuffer::copy( outputFramebufferId, vr->fbo.id, vp, forkViewport, GL_DEPTH_BUFFER_BIT );
+
+        /* Configure render state.
+         */
+        base::RenderState rs( rt.renderer.glContext() );
+        rs.setDepthTestFunction( GL_GREATER );
+
+        /* Do the rendering.
+         */
+        glClearColor( 0, 0, 0, 0 );
+        rtFork.render( forkViewport, base::GLContext::COLOR_BUFFER_BIT );
+
     );
-    fboViewport.done();
+
+    /* Draw results back to this stage's output framebuffer.
+     */
+    RenderState rs( rt.renderer.glContext() );
+    rs.setBlend( true );
+    rs.setDepthWrite( false );
+    rs.setDepthTest( false );
+    base::FrameRenderer::RenderTextureParams params( 0 );
+    params.alphaFactor = pimpl->occlusionTranslucency;
+    vr->renderTexture.bind( 0 );
+    rt.renderer.renderTexture( params );
 }
 
 
@@ -134,6 +238,18 @@ void OccludedRenderingStage::reshape( const base::FrameRenderer& fr, const base:
     {
         vr.reset( new VideoResources( vr->shader, vp.width, vp.height ) );
     }
+}
+
+
+void OccludedRenderingStage::setOcclusionTranslucency( float occlusionTranslucency )
+{
+    pimpl->occlusionTranslucency = occlusionTranslucency;
+}
+
+
+float OccludedRenderingStage::occlusionTranslucency() const
+{
+    return pimpl->occlusionTranslucency;
 }
 
 

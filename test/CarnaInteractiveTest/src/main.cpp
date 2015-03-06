@@ -18,6 +18,7 @@
 #include <Carna/base/ShaderUniform.h>
 #include <Carna/base/BufferedHUVolume.h>
 #include <Carna/base/SpatialMovement.h>
+#include <Carna/presets/OccludedRenderingStage.h>
 #include <Carna/presets/OpaqueRenderingStage.h>
 #include <Carna/presets/MeshColorCodingStage.h>
 #include <Carna/presets/MIPStage.h>
@@ -266,11 +267,6 @@ void Demo::resizeGL( int w, int h )
         mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH );
         renderer->appendStage( mccs );
 
-        /* Opaque
-         */
-        presets::OpaqueRenderingStage* const opaque = new presets::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
-        renderer->appendStage( opaque );
-
         /* Cutting Planes
          */
         presets::CuttingPlanesStage* const cuttingPlanes
@@ -278,6 +274,17 @@ void Demo::resizeGL( int w, int h )
         cuttingPlanes->setWindowingWidth( 1000 );
         cuttingPlanes->setWindowingLevel( -100 );
         renderer->appendStage( cuttingPlanes );
+
+        /* Occluded Renderer
+         */
+        presets::OccludedRenderingStage* const occluded = new presets::OccludedRenderingStage();
+        renderer->appendStage( occluded );
+
+        /* Opaque
+         */
+        presets::OpaqueRenderingStage* const opaque = new presets::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
+        renderer->appendStage( opaque );
+        occluded->enableStage( *opaque );
 #if 0
         /* MIP
          */

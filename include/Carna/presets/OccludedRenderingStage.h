@@ -41,9 +41,23 @@ class CARNA_LIB OccludedRenderingStage : public base::RenderStage
 
 public:
 
+    const static float DEFAULT_OCCLUSION_TRANSLUCENCY;
+
     OccludedRenderingStage();
 
     virtual ~OccludedRenderingStage();
+
+    void disableAllStages();
+
+    void enableStage( const base::RenderStage& );
+
+    void disableStage( const base::RenderStage& );
+
+    bool isStageEnabled( const base::RenderStage& ) const;
+
+    void setOcclusionTranslucency( float );
+
+    float occlusionTranslucency() const;
 
     virtual void reshape( const base::FrameRenderer& fr, const base::Viewport& vp ) override;
 
