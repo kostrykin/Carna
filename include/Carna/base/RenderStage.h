@@ -32,6 +32,13 @@ namespace base
 // RenderStage
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Base abstract class of each rendering stage. Refer to the documentation of the
+  * \ref RenderingProcess "rendering process".
+  *
+  * \author Leonid Kostrykin
+  * \date   21.2.15 - 6.3.15
+  */
 class CARNA_LIB RenderStage
 {
 

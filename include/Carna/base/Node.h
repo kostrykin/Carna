@@ -31,6 +31,16 @@ namespace base
 // Node
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Defines the inner node of a \ref SceneGraph "scene graph". Implements a
+  * \ref Spatial "spatial scene element" that is allowed to have children, but cannot
+  * be rendered.
+  *
+  * Each node possesses it's children.
+  *
+  * \author Leonid Kostrykin
+  * \date   21.2.15 - 6.3.15
+  */
 class CARNA_LIB Node : public Spatial
 {
 
