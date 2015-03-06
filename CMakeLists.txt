@@ -160,12 +160,12 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/Text.h
 		include/${PROJECT_NAME}/base/Log.h
 		include/${PROJECT_NAME}/base/Ray.h
-		include/${PROJECT_NAME}/base/MeshColorCodingStage.h
-		include/${PROJECT_NAME}/VolumeRenderings/RayMarchingStage.h
-		include/${PROJECT_NAME}/VolumeRenderings/DRR/DRRStage.h
-		include/${PROJECT_NAME}/VolumeRenderings/MIP/MIPStage.h
-		include/${PROJECT_NAME}/VolumeRenderings/MIP/Channel.h
-		include/${PROJECT_NAME}/CuttingPlanes/CuttingPlanesStage.h
+		include/${PROJECT_NAME}/presets/MeshColorCodingStage.h
+		include/${PROJECT_NAME}/presets/RayMarchingStage.h
+		include/${PROJECT_NAME}/presets/DRRStage.h
+		include/${PROJECT_NAME}/presets/MIPStage.h
+		include/${PROJECT_NAME}/presets/Channel.h
+		include/${PROJECT_NAME}/presets/CuttingPlanesStage.h
 		include/${PROJECT_NAME}/Carna.h
 		include/${PROJECT_NAME}/Version.h
 	)
@@ -214,15 +214,15 @@ set( SRC
 		src/base/ShaderUniform.cpp
 		src/base/HUVolume.cpp
 		src/base/CarnaException.cpp
-		src/base/MeshColorCodingStage.cpp
 		src/base/Text.cpp
 		src/base/Log.cpp
 		src/base/Ray.cpp
-		src/VolumeRenderings/RayMarchingStage.cpp
-		src/VolumeRenderings/DRR/DRRStage.cpp
-		src/VolumeRenderings/MIP/MIPStage.cpp
-		src/VolumeRenderings/MIP/Channel.cpp
-		src/CuttingPlanes/CuttingPlanesStage.cpp
+		src/presets/MeshColorCodingStage.cpp
+		src/presets/RayMarchingStage.cpp
+		src/presets/DRRStage.cpp
+		src/presets/MIPStage.cpp
+		src/presets/Channel.cpp
+		src/presets/CuttingPlanesStage.cpp
 	)
 set( FORMS
 		""
