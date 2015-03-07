@@ -115,7 +115,7 @@ public:
       * Fixes tree consistency by updating parent of this spatial.
       *
       * \note
-      * This method is only required for internal usage.
+      * This method is for internal usage only.
       */
     void updateParent( Node& parent );
     

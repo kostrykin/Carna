@@ -112,6 +112,26 @@ void MIPStage::clearChannels()
 }
 
 
+std::size_t MIPStage::channelsCount() const
+{
+    return pimpl->channels.size();
+}
+
+
+MIPChannel& MIPStage::channel( std::size_t channelIndex )
+{
+    CARNA_ASSERT( channelIndex < channelsCount() );
+    return *pimpl->channels[ channelIndex ];
+}
+
+
+const MIPChannel& MIPStage::channel( std::size_t channelIndex ) const
+{
+    CARNA_ASSERT( channelIndex < channelsCount() );
+    return *pimpl->channels[ channelIndex ];
+}
+
+
 void MIPStage::reshape( const base::FrameRenderer& fr, const base::Viewport& vp )
 {
     base::GeometryStage< base::Renderable::DepthOrder< base::Renderable::ORDER_BACK_TO_FRONT > >::reshape( fr, vp );
@@ -174,7 +194,7 @@ void MIPStage::renderPass
         /* Render result to output framebuffer.
          */
         base::RenderState rs2( rt.renderer.glContext() );
-        rs2.setBlendFunction( pimpl->currentChannel->function );
+        rs2.setBlendFunction( pimpl->currentChannel->function() );
 
         pimpl->channelColorBuffer->bind( 0 );
         rt.renderer.renderTexture( base::FrameRenderer::RenderTextureParams( 0 ) );

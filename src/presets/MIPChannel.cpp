@@ -35,7 +35,7 @@ MIPChannel::MIPChannel
 
     : huRange( huRange )
     , color( color )
-    , function( function )
+    , myFunction( &function )
 {
 }
 
@@ -47,8 +47,20 @@ MIPChannel::MIPChannel
 
     : huRange( firstHuv, lastHuv )
     , color( color )
-    , function( function )
+    , myFunction( &function )
 {
+}
+
+
+void MIPChannel::setFunction( const base::BlendFunction& channelFunction )
+{
+    myFunction = &channelFunction;
+}
+
+
+const base::BlendFunction& MIPChannel::function() const
+{
+    return *myFunction;
 }
 
 

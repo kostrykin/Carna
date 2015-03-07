@@ -51,9 +51,18 @@ public:
     RenderStage();
 
     virtual ~RenderStage();
-
+    
+    /** \brief
+      * Sets whether the view transform is pass-invariant for the duration of a single frame.
+      *
+      * \note
+      * This method is for internal usage only.
+      */
     void setViewTransformFixed( bool viewTransformFixed );
-
+    
+    /** \brief
+      * Tells whether the view transform is pass-invariant for the duration of a single frame.
+      */
     bool isViewTransformFixed() const;
     
     /** \brief

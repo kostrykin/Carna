@@ -44,6 +44,8 @@ class CARNA_LIB MIPChannel
 
     NON_COPYABLE
 
+    const base::BlendFunction* myFunction;
+
 public:
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -69,7 +71,9 @@ public:
 
     base::math::Vector4f color;
 
-    const base::BlendFunction& function;
+    void setFunction( const base::BlendFunction& channelFunction );
+
+    const base::BlendFunction& function() const;
 
 }; // presets :: MIPChannel
 

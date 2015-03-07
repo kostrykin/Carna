@@ -69,6 +69,12 @@ public:
       */
     MIPChannel* removeChannel( const MIPChannel& channel );
 
+    std::size_t channelsCount() const;
+
+    MIPChannel& channel( std::size_t channelIndex );
+
+    const MIPChannel& channel( std::size_t channelIndex ) const;
+
     void clearChannels();
 
 protected:
