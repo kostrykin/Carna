@@ -214,3 +214,9 @@ void mathTest::test_plane4f()
 {
     QWARN( "not implemented yet" );
 }
+
+
+void mathTest::test_round_ui()
+{
+    QWARN( "not implemented yet" );
+}

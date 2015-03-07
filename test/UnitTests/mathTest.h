@@ -101,5 +101,10 @@ private slots:
       * Test cases for \ref Carna::base::math::plane4f
       */
     void test_plane4f();
+
+    /** \brief
+      * Test cases for \ref Carna::base::math::round_ui
+      */
+    void test_round_ui();
     
 }; // mathTest

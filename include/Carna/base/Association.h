@@ -105,4 +105,19 @@ private:
 
 }  // namespace Carna
 
+
+
+/** \brief
+  * Tells whether \a l and \a r do reference the same object, that may be \c nullptr.
+  *
+  * \relates Carna::base::Association
+  */
+template< typename AssociatedObjectType >
+bool operator==( const Carna::base::Association< AssociatedObjectType >& l, const Carna::base::Association< AssociatedObjectType >& r )
+{
+    return l.get() == r.get();
+}
+
+
+
 #endif // ASSOCIATION_H_6014714286

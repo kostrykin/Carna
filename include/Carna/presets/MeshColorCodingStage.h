@@ -63,6 +63,8 @@ public:
 
     base::Aggregation< const base::Geometry > pick( unsigned int x, unsigned int y ) const;
 
+    base::Aggregation< const base::Geometry > pick( const base::math::Vector2ui& ) const;
+
 protected:
 
     virtual void render( base::GLContext& glc, const base::Renderable& renderable ) override;

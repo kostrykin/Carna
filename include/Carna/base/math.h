@@ -193,6 +193,7 @@ namespace math
     typedef Eigen::Matrix< float, 3, 1 > Vector3f;
     typedef Eigen::Matrix< float, 2, 1 > Vector2f;
     typedef Eigen::Matrix< unsigned int, 3, 1 > Vector3ui;
+    typedef Eigen::Matrix< unsigned int, 2, 1 > Vector2ui;
 
     inline Matrix4f identity4f()
     {
@@ -425,6 +426,25 @@ namespace math
         const float halfProjPlaneWidth  = zNear * std::tan( fovRadiansHorizontal );
         const float halfProjPlaneHeight = halfProjPlaneWidth * heightOverWidth;
         return frustum4f( -halfProjPlaneWidth, +halfProjPlaneWidth, -halfProjPlaneHeight, +halfProjPlaneHeight, zNear, zFar );
+    }
+
+    template< typename ScalarType >
+    unsigned int round_ui( ScalarType x )
+    {
+        CARNA_ASSERT( !std::numeric_limits< ScalarType >::is_signed || x > 0 );
+        return static_cast< unsigned int >( x + static_cast< ScalarType >( 0.5 ) );
+    }
+
+    template< typename MatrixElementType, unsigned int cols, unsigned int rows >
+    Eigen::Matrix< unsigned int, cols, rows > round_ui( const Eigen::Matrix< MatrixElementType, cols, rows >& m )
+    {
+        Eigen::Matrix< unsigned int, cols, rows > result;
+        for( unsigned int i = 0; i < cols; ++i )
+        for( unsigned int j = 0; j < rows; ++j )
+        {
+            result( i, j ) = round_ui( m( i, j ) );
+        }
+        return result;
     }
 
 

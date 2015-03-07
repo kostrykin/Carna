@@ -142,6 +142,12 @@ MeshColorCodingStage::~MeshColorCodingStage()
 }
 
 
+base::Aggregation< const base::Geometry > MeshColorCodingStage::pick( const base::math::Vector2ui& v ) const
+{
+    return pick( v.x(), v.y() );
+}
+
+
 base::Aggregation< const base::Geometry > MeshColorCodingStage::pick( unsigned int x, unsigned int y ) const
 {
     using namespace base;
