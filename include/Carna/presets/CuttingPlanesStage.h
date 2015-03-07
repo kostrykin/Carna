@@ -44,10 +44,10 @@ class CARNA_LIB CuttingPlanesStage : public base::GeometryStage< void >
 public:
 
     const static unsigned int DEFAULT_WINDOWING_WIDTH = 4096;
-    const static unsigned int DEFAULT_WINDOWING_LEVEL = static_cast< int >( DEFAULT_WINDOWING_WIDTH / 2 ) - 1024;
+    const static    base::HUV DEFAULT_WINDOWING_LEVEL = static_cast< base::HUV >( DEFAULT_WINDOWING_WIDTH / 2 ) - 1024;
     const static unsigned int ROLE_HU_VOLUME = 0;
 
-    CuttingPlanesStage( int volumeGeometryType, int planeGeometryType );
+    CuttingPlanesStage( unsigned int volumeGeometryType, unsigned int planeGeometryType );
 
     virtual ~CuttingPlanesStage();
 

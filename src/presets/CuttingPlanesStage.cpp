@@ -33,7 +33,7 @@ namespace presets
 struct CuttingPlanesStage::Details
 {
 
-    Details( int planeGeometryType );
+    Details( unsigned int planeGeometryType );
 
     base::RenderQueue< void > planes;
 
@@ -51,7 +51,7 @@ struct CuttingPlanesStage::Details
 }; // CuttingPlanesStage :: Details
 
 
-CuttingPlanesStage::Details::Details( int planeGeometryType )
+CuttingPlanesStage::Details::Details( unsigned int planeGeometryType )
     : planes( planeGeometryType )
     , renderTask( nullptr )
     , viewPort( nullptr )
@@ -132,7 +132,7 @@ CuttingPlanesStage::VideoResources::~VideoResources()
 // CuttingPlanesStage
 // ----------------------------------------------------------------------------------
 
-CuttingPlanesStage::CuttingPlanesStage( int volumeGeometryType, int planeGeometryType )
+CuttingPlanesStage::CuttingPlanesStage( unsigned int volumeGeometryType, unsigned int planeGeometryType )
     : base::GeometryStage< void >::GeometryStage( volumeGeometryType )
     , pimpl( new Details( planeGeometryType ) )
 {
