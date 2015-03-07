@@ -60,7 +60,7 @@ TestScene::TestScene( base::GLContext& glContext )
     /* Configure camera node.
      */
     myCam->setProjection( base::math::frustum4f( 3.14f * 45 / 180.f, 1, 10, 2000 ) );
-    myCam->localTransform = base::math::translation4f( 0, 0, 350 );
+    resetCamTransform();
     root->attachChild( myCam );
 }
 
@@ -79,6 +79,12 @@ base::Geometry& TestScene::volumeGeometry() const
 base::Camera& TestScene::cam() const
 {
     return *myCam;
+}
+
+
+void TestScene::resetCamTransform()
+{
+    myCam->localTransform = base::math::translation4f( 0, 0, 350 );
 }
 
 

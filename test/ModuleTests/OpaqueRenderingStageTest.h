@@ -12,6 +12,7 @@
 #pragma once
 
 #include <Carna/Carna.h>
+#include <Carna/presets/OpaqueRenderingStage.h>
 
 namespace Carna
 {
@@ -22,10 +23,10 @@ namespace testing
 
 
 // ----------------------------------------------------------------------------------
-// DRRStageTest
+// OpaqueRenderingStageTest
 // ----------------------------------------------------------------------------------
 
-class DRRStageTest : public QObject
+class OpaqueRenderingStageTest : public QObject
 {
 
     Q_OBJECT
@@ -50,22 +51,24 @@ private slots:
 
  // ---------------------------------------------------------------------------------
 
-    void test_nonInverted();
+    void test_fromFront();
 
-    void test_inverted();
+    void test_fromBack();
 
  // ---------------------------------------------------------------------------------
 
 private:
+
+    const static unsigned int GEOMETRY_TYPE_OPAQUE = 1;
 
     std::unique_ptr< QGLContextHolder > qglContextHolder;
     std::unique_ptr< TestFramebuffer > testFramebuffer;
     std::unique_ptr< TestScene > scene;
     std::unique_ptr< base::FrameRenderer > renderer;
     
-    presets::DRRStage* drr;
+    presets::OpaqueRenderingStage* opaque;
 
-}; // DRRStageTest
+}; // OpaqueRenderingStageTest
 
 
 

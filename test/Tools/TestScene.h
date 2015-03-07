@@ -53,6 +53,8 @@ public:
 
     base::Camera& cam() const;
 
+    void resetCamTransform();
+
 }; // TestScene
 
 
