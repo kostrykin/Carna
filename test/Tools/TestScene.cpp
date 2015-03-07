@@ -50,7 +50,7 @@ TestScene::TestScene( base::GLContext& glContext )
     base::BufferedHUVolumeTexture< base::UInt16HUVolume >& volumeTexture
         = base::BufferedHUVolumeTexture< base::UInt16HUVolume >::create( *huVolume );
 
-    /* Configure geometry node for huVolume data.
+    /* Configure geometry node for volume data.
      */
     myVolumeGeometry->putFeature( ROLE_HU_VOLUME, volumeTexture );
     myVolumeGeometry->localTransform = base::math::scaling4f( scale );
@@ -60,7 +60,7 @@ TestScene::TestScene( base::GLContext& glContext )
     /* Configure camera node.
      */
     myCam->setProjection( base::math::frustum4f( 3.14f * 45 / 180.f, 1, 10, 2000 ) );
-    myCam->localTransform = base::math::translation4f( 0, 0, 500 );
+    myCam->localTransform = base::math::translation4f( 0, 0, 350 );
     root->attachChild( myCam );
 }
 
