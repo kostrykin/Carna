@@ -194,30 +194,6 @@ bool Framebuffer::BindingStack::empty()
 // Framebuffer
 // ----------------------------------------------------------------------------------
 
-Framebuffer::Framebuffer( unsigned int w, unsigned int h )
-    : id( createGlFramebuffer() )
-    , depthBuffer( createGlDepthbufferObject() )
-{
-
- // initialize depth buffer
-
-    resize( w, h );
-
- // bind framebuffer
- 
-    MinimalBinding binding( *this );
-
- // bind depth buffer to framebuffer object
-
-    glFramebufferRenderbufferEXT( GL_FRAMEBUFFER_EXT
-                                , GL_DEPTH_ATTACHMENT_EXT
-                                , GL_RENDERBUFFER_EXT
-                                , depthBuffer );
-
-    REPORT_GL_ERROR;
-}
-
-
 Framebuffer::Framebuffer( RenderTexture& color_buffer )
     : id( createGlFramebuffer() )
     , depthBuffer( createGlDepthbufferObject() )
@@ -309,6 +285,8 @@ void Framebuffer::copy
     , unsigned int width, unsigned int height
     , unsigned int flags )
 {
+    REPORT_GL_ERROR;
+
     /* Bind framebuffers.
      */
     glBindFramebufferEXT( GL_READ_FRAMEBUFFER, idFrom );
@@ -321,6 +299,8 @@ void Framebuffer::copy
         , dstX0, dstY0, dstX0 + width - 1, dstY0 + height - 1
         , flags
         , GL_NEAREST );
+
+    REPORT_GL_ERROR;
 
     /* Restore previous bindings.
      */

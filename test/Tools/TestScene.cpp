@@ -35,10 +35,10 @@ TestScene::TestScene( base::GLContext& glContext )
     , glContext( glContext )
     , root( new base::Node() )
 {
-    /* Load test huVolume data.
+    /* Load test volume data.
      */
     base::math::Vector3f spacing;
-    huVolume.reset( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/../res/pelves_reduced.hugz", spacing ) );
+    huVolume.reset( HUGZSceneFactory::importVolume( SOURCE_PATH + "/res/pelves_reduced.hugz", spacing ) );
     const base::math::Vector3f scale
         ( ( huVolume->size.x() - 1 ) * spacing.x()
         , ( huVolume->size.y() - 1 ) * spacing.y()

@@ -50,15 +50,16 @@ private slots:
 
  // ---------------------------------------------------------------------------------
 
-    void testDefault();
+    void test_nonInverted();
 
-    void testInversed();
+    void test_inverted();
 
  // ---------------------------------------------------------------------------------
 
 private:
 
     std::unique_ptr< QGLContextHolder > qglContextHolder;
+    std::unique_ptr< TestFramebuffer > testFramebuffer;
     std::unique_ptr< TestScene > scene;
     std::unique_ptr< base::FrameRenderer > renderer;
     

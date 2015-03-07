@@ -24,6 +24,12 @@ namespace base
 // Color
 // ----------------------------------------------------------------------------------
 
+const Color Color::BLACK         (   0,   0,   0, 255 );
+const Color Color::BLACK_NO_ALPHA(   0,   0,   0,   0 );
+const Color Color::WHITE         ( 255, 255, 255, 255 );
+const Color Color::WHITE_NO_ALPHA( 255, 255, 255,   0 );
+
+
 Color::Color( unsigned char r, unsigned char g, unsigned char b, unsigned char a )
     : r( r )
     , g( g )
@@ -33,7 +39,7 @@ Color::Color( unsigned char r, unsigned char g, unsigned char b, unsigned char a
 }
 
 
-Color::operator math::Vector4f()
+Color::operator math::Vector4f() const
 {
     return math::Vector4f( r / 255.f, g / 255.f, b / 255.f, a / 255.f );
 }

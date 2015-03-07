@@ -58,14 +58,12 @@ struct HUGZSceneFactory
         stream_read( in, size.x() );
         stream_read( in, size.y() );
         stream_read( in, size.z() );
-        qDebug( "Read volume size: %d, %d, %d", size.x(), size.y(), size.z() );
 
         Carna::base::UInt16HUVolume* const volume = new Carna::base::UInt16HUVolume( size );
 
         stream_read( in, spacing.x() );
         stream_read( in, spacing.y() );
         stream_read( in, spacing.z() );
-        qDebug( "Read volume spacing: %f, %f, %f", spacing.x(), spacing.y(), spacing.z() );
 
         HUIO::Reader reader( in );
         for( unsigned int z = 0; z < size.z(); ++z )

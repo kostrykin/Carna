@@ -47,13 +47,11 @@ class CARNA_LIB Framebuffer
 
 public:
 
-    /** \brief  Acquires framebuffer object and a bound depth buffer.
+    /** \brief
+      * Acquires framebuffer object with depth buffer and attaches \a renderTexture
+      * as color attachment.
       */
-    Framebuffer( unsigned int w, unsigned int h );
-
-    /** \brief  Acquires framebuffer object, depth buffer and color buffer.
-      */
-    explicit Framebuffer( RenderTexture& );
+    explicit Framebuffer( RenderTexture& renderTexture );
 
     /** \brief  Releases associated framebuffer object and depth buffer.
       */

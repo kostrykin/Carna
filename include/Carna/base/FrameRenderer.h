@@ -96,7 +96,7 @@ public:
 
     const Viewport& viewport() const;
 
-    void setBackgroundColor( math::Vector4f& );
+    void setBackgroundColor( const math::Vector4f& );
     
     void reshape( unsigned int width, unsigned int height, bool fitSquare );
     

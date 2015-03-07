@@ -190,7 +190,7 @@ FrameRenderer::~FrameRenderer()
 }
 
 
-void FrameRenderer::setBackgroundColor( math::Vector4f& bc )
+void FrameRenderer::setBackgroundColor( const math::Vector4f& bc )
 {
     pimpl->backgroundColor[ 0 ] = bc.x();
     pimpl->backgroundColor[ 1 ] = bc.y();
@@ -272,6 +272,10 @@ const Viewport& FrameRenderer::viewport() const
 
 void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
 {
+    /* Check for errors.
+     */
+    REPORT_GL_ERROR;
+
     /* Reshape render stages' buffers.
      */
     for( auto rsItr = pimpl->stages.begin(); rsItr != pimpl->stages.end(); ++rsItr )
