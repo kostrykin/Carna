@@ -27,10 +27,6 @@
 // MeshColorCodingStageTest
 // ----------------------------------------------------------------------------------
 
-const std::string MeshColorCodingStageTest::TAG_OBJECT_RED   = "red";
-const std::string MeshColorCodingStageTest::TAG_OBJECT_GREEN = "green";
-
-
 void MeshColorCodingStageTest::initTestCase()
 {
     const unsigned int width  = 640;
@@ -64,9 +60,6 @@ void MeshColorCodingStageTest::initTestCase()
 
     objRed  ->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL,   redMaterial );
     objGreen->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, greenMaterial );
-
-    objRed  ->setUserData( TAG_OBJECT_RED   );
-    objGreen->setUserData( TAG_OBJECT_GREEN );
 
     boxMesh.release();
     redMaterial.release();
@@ -171,5 +164,36 @@ void MeshColorCodingStageTest::test_fromSide()
      */
     QVERIFY
         (  mccs->pick( ( computeFrameLocation( *objRed ) + computeFrameLocation( *objGreen ) ) / 2 )
+        == base::Aggregation< const base::Geometry >::NULL_PTR );
+}
+
+
+void MeshColorCodingStageTest::test_atInvalidFrameLocations()
+{
+    scene->resetCamTransform();
+    renderer->render( scene->cam(), *scene->root );
+
+    QVERIFY
+        (  mccs->pick( 0, 0 )
+        == base::Aggregation< const base::Geometry >::NULL_PTR );
+
+    QVERIFY
+        (  mccs->pick( 0, renderer->height() / 2 )
+        == base::Aggregation< const base::Geometry >::NULL_PTR );
+
+    QVERIFY
+        (  mccs->pick( renderer->width() / 2, 0 )
+        == base::Aggregation< const base::Geometry >::NULL_PTR );
+
+    QVERIFY
+        (  mccs->pick( renderer->width() * 2, renderer->height() / 2 )
+        == base::Aggregation< const base::Geometry >::NULL_PTR );
+
+    QVERIFY
+        (  mccs->pick( renderer->width() / 2, renderer->height() * 2 )
+        == base::Aggregation< const base::Geometry >::NULL_PTR );
+
+    QVERIFY
+        (  mccs->pick( renderer->width() * 2, renderer->height() * 2 )
         == base::Aggregation< const base::Geometry >::NULL_PTR );
 }

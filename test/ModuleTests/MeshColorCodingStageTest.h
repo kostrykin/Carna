@@ -58,13 +58,13 @@ private slots:
 
     void test_fromSide();
 
+    void test_atInvalidFrameLocations();
+
  // ---------------------------------------------------------------------------------
 
 private:
 
     const static unsigned int GEOMETRY_TYPE_OPAQUE   = 1;
-    const static  std::string TAG_OBJECT_RED;
-    const static  std::string TAG_OBJECT_GREEN;
 
     std::unique_ptr< QGLContextHolder > qglContextHolder;
     std::unique_ptr< TestFramebuffer > testFramebuffer;
