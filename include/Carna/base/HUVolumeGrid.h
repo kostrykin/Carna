@@ -81,6 +81,7 @@ HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeGrid( const math::Vector3ui& maxS
 {
     CARNA_ASSERT( maxSegmentSize.x() > 0 && maxSegmentSize.y() > 0 && maxSegmentSize.z() > 0 );
     CARNA_ASSERT(  segmentCounts.x() > 0 &&  segmentCounts.y() > 0 &&  segmentCounts.z() > 0 );
+    segments.resize( segmentCounts.x() * segmentCounts.y() * segmentCounts.z() );
     for( unsigned int z = 0; z < segmentCounts.z(); ++z )
     for( unsigned int y = 0; y < segmentCounts.y(); ++y )
     for( unsigned int x = 0; x < segmentCounts.x(); ++x )
@@ -89,7 +90,6 @@ HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeGrid( const math::Vector3ui& maxS
         HUVolumeSegment* const segment = new HUVolumeSegment( *this );
         segment->offset = math::Vector3ui( x * maxSegmentSize.x(), y * maxSegmentSize.y(), z * maxSegmentSize.z() );
         segments[ index ] = segment;
-
     }
 }
 

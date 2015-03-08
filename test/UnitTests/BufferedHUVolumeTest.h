@@ -22,10 +22,10 @@ namespace testing
 
 
 // ----------------------------------------------------------------------------------
-// HUVolumeGridTest
+// BufferedHUVolumeTest
 // ----------------------------------------------------------------------------------
 
-class HUVolumeGridTest : public QObject
+class BufferedHUVolumeTest : public QObject
 {
 
     Q_OBJECT
@@ -54,13 +54,21 @@ private slots:
 
     void test_parenthesisOperator();
 
+    void test_setVoxel();
+
  // ---------------------------------------------------------------------------------
 
 private:
 
-    std::unique_ptr< base::HUVolumeGrid< base::UInt16HUVolume > > grid;
+    unsigned int indexByPosition( const base::math::Vector3ui& ) const;
 
-}; // HUVolumeGridTest
+    base::HUV huvByIndex( unsigned int index ) const;
+
+    base::UInt16HUVolume::BufferType* bufferPtr;
+
+    std::unique_ptr< base::UInt16HUVolume > volume;
+
+}; // BufferedHUVolumeTest
 
 
 

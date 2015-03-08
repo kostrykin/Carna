@@ -57,11 +57,11 @@ public:
 
     /** \brief  Holds the used buffer type.
       */
-    typedef BufferType BufferType;
+    typedef typename BufferType BufferType;
 
     /** \brief  Holds the used voxel type.
       */
-    typedef VoxelType VoxelType;
+    typedef typename VoxelType VoxelType;
 
     /** \brief  Instantiates.
       */
@@ -87,24 +87,24 @@ public:
         initializeBuffer();
     }
 
-
-    /** \brief  Returns the buffer value corresponding to the given HU value.
+    /** \brief
+      * Returns the buffer value corresponding to the given HU value.
       */
     static HUV bufferValueToHUV( VoxelType voxel_value )
     {
         return static_cast< HUV >( voxel_value >> ( sizeof( VoxelType ) * 8 - 12 ) ) - 1024;
     }
-
     
-    /** \brief  Returns the HU value corresponding to the given buffer value.
+    /** \brief
+      * Returns the HU value corresponding to the given buffer value.
       */
     static VoxelType HUVToBufferValue( HUV huv )
     {
         return ( static_cast< VoxelType >( huv + 1024 ) << ( sizeof( VoxelType ) * 8 - 12 ) );
     }
 
-
-    /** \brief  Returns HUV of specified voxel.
+    /** \brief
+      * Returns HUV of specified voxel.
       */
     HUV operator()( unsigned int x
                   , unsigned int y
@@ -113,47 +113,50 @@ public:
         return bufferValueToHUV( myBuffer->get()->at( x + size.x() * y + size.y() * size.x() * z ) );
     }
 
-    /** \brief  Returns HUV of specified voxel.
+    /** \brief
+      * Returns HUV of specified voxel.
       */
     HUV operator()( const math::Vector3ui& at ) const
     {
         return ( *this )( at.x(), at.y(), at.z() );
     }
 
-
-    /** \brief  Sets the HUV of a voxel.
+    /** \brief
+      * Sets the HUV of a voxel.
       */
     void setVoxel( unsigned int x, unsigned int y, unsigned int z, HUV huv )
     {
         myBuffer->get()->at( x + size.x() * y + size.y() * size.x() * z ) = HUVToBufferValue( huv );
     }
 
-    /** \brief  Sets the HUV of a voxel.
+    /** \brief
+      * Sets the HUV of a voxel.
       */
     void setVoxel( const math::Vector3ui& at, HUV huv )
     {
         this->setVoxel( at.x(), at.y(), at.z(), huv );
     }
 
-
-    /** \brief  References the underlying buffer.
+    /** \brief
+      * References the underlying buffer.
       */
     BufferType& buffer()
     {
         return **myBuffer;
     }
     
-    /** \brief  References the underlying buffer.
+    /** \brief
+      * References the underlying buffer.
       */
     const BufferType& buffer() const
     {
         return **myBuffer;
     }
 
-
 protected:
 
-    /** \brief  Holds the computed data.
+    /** \brief
+      * Holds the computed data.
       *
       * The voxels are written \f$x\f$-\f$y\f$-plane wise, each plane \f$x\f$-row wise.
       *
@@ -162,7 +165,6 @@ protected:
       * \f[ \mathrm{position} = x + \mathrm{width} \cdot y + \mathrm{height} \cdot \mathrm{width} \cdot z \f]
       */
     const std::unique_ptr< Association< BufferType > > myBuffer;
-
 
 private:
 

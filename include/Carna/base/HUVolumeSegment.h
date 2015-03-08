@@ -58,6 +58,8 @@ public:
 
     const HUVolumeSegmentVolume& volume() const;
 
+    bool hasVolume() const;
+
     math::Vector3ui offset;
 
 private:
@@ -84,7 +86,7 @@ void HUVolumeSegment< HUVolumeGrid, HUVolumeSegmentVolume >::setVolume( Associat
 template< typename HUVolumeGrid, typename HUVolumeSegmentVolume >
 HUVolumeSegmentVolume& HUVolumeSegment< HUVolumeGrid, HUVolumeSegmentVolume >::volume()
 {
-    CARNA_ASSERT( myVolume.get() != nullptr );
+    CARNA_ASSERT( hasVolume() );
     return **myVolume;
 }
 
@@ -92,8 +94,15 @@ HUVolumeSegmentVolume& HUVolumeSegment< HUVolumeGrid, HUVolumeSegmentVolume >::v
 template< typename HUVolumeGrid, typename HUVolumeSegmentVolume >
 const HUVolumeSegmentVolume& HUVolumeSegment< HUVolumeGrid, HUVolumeSegmentVolume >::volume() const
 {
-    CARNA_ASSERT( myVolume.get() != nullptr );
+    CARNA_ASSERT( hasVolume() );
     return **myVolume;
+}
+
+
+template< typename HUVolumeGrid, typename HUVolumeSegmentVolume >
+bool HUVolumeSegment< HUVolumeGrid, HUVolumeSegmentVolume >::hasVolume() const
+{
+    return myVolume.get() != nullptr && myVolume->get() != nullptr;
 }
 
 

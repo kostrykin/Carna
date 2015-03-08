@@ -41,10 +41,6 @@ namespace base
   */
 typedef BufferedHUVolume< uint16_t > UInt16HUVolume;
 
-typedef HUVolumeGrid< UInt16HUVolume > UInt16HUVolumeGrid;
-
-typedef HUVolumeSegment< UInt16HUVolumeGrid, UInt16HUVolume > UInt16HUVolumeSegment;
-
 
 
 }  // namespace Carna :: base

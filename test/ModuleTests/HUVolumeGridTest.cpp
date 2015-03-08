@@ -35,19 +35,63 @@ void HUVolumeGridTest::init()
 
 void HUVolumeGridTest::cleanup()
 {
+    grid.reset();
 }
 
 
 void HUVolumeGridTest::test_instantiation()
 {
-    base::HUVolumeGrid< base::UInt16HUVolume > grid( base::math::Vector3ui( 50, 50, 50 ), base::math::Vector3ui( 3, 3, 1 ) );
+    grid.reset( new base::HUVolumeGrid< base::UInt16HUVolume >( base::math::Vector3ui( 10, 10, 10 ), base::math::Vector3ui( 2, 2, 1 ) ) );
+}
+
+
+void HUVolumeGridTest::test_parenthesisOperator()
+{
+    test_instantiation();
+
+    /* Define mapping from coordinate to HU value.
+     */
+    const base::math::Vector3ui totalSize = grid->maxSegmentSize.cwiseProduct( grid->segmentCounts );
+    const auto coord2HUV = [&totalSize]( const base::math::Vector3ui& totalCoord )->base::HUV
+    {
+        const unsigned int index = totalCoord.x() + totalCoord.y() * totalSize.x() + totalCoord.z() * totalSize.x() * totalSize.y();
+        const base::HUV huv = static_cast< base::HUV >( index % 4096 - 1024 );
+        return huv;
+    };
 
     /* Initialize segments with data.
      */
-    for( unsigned int segmentZ = 0; segmentZ < grid.segmentCounts.z(); ++segmentZ )
-    for( unsigned int segmentY = 0; segmentY < grid.segmentCounts.y(); ++segmentY )
-    for( unsigned int segmentX = 0; segmentX < grid.segmentCounts.x(); ++segmentX )
+    base::math::Vector3ui segCoord;
+    for( segCoord.z() = 0; segCoord.z() < grid->segmentCounts.z(); ++segCoord.z() )
+    for( segCoord.y() = 0; segCoord.y() < grid->segmentCounts.y(); ++segCoord.y() )
+    for( segCoord.x() = 0; segCoord.x() < grid->segmentCounts.x(); ++segCoord.x() )
     {
-        base::HUVolumeGrid< base::UInt16HUVolume >::HUVolumeSegment& segment = grid.segmentAt( segmentX, segmentY, segmentZ );
+        base::HUVolumeGrid< base::UInt16HUVolume >::HUVolumeSegment& segment = grid->segmentAt( segCoord.x(), segCoord.y(), segCoord.z() );
+        base::UInt16HUVolume* const volume = new base::UInt16HUVolume( grid->maxSegmentSize );
+        segment.setVolume( new base::Composition< base::UInt16HUVolume >( volume ) );
+
+        /* Load segment volume data.
+        */
+        base::math::Vector3ui localCoord;
+        for( localCoord.z() = 0; localCoord.z() < volume->size.z(); ++localCoord.z() )
+        for( localCoord.y() = 0; localCoord.y() < volume->size.y(); ++localCoord.y() )
+        for( localCoord.x() = 0; localCoord.x() < volume->size.x(); ++localCoord.x() )
+        {
+            const base::math::Vector3ui totalCoord = localCoord + segCoord.cwiseProduct( grid->maxSegmentSize );
+            const base::HUV huv = coord2HUV( totalCoord );
+            volume->setVoxel( localCoord, huv );
+        }
+    }
+
+    /* Test whether the grid is set up properly.
+     */
+    base::math::Vector3ui totalCoord;
+    for( totalCoord.z() = 0; totalCoord.z() < totalSize.z(); ++totalCoord.z() )
+    for( totalCoord.y() = 0; totalCoord.y() < totalSize.y(); ++totalCoord.y() )
+    for( totalCoord.x() = 0; totalCoord.x() < totalSize.x(); ++totalCoord.x() )
+    {
+        const base::HUV expected = coord2HUV( totalCoord );
+        const base::HUV actual   = ( *grid )( totalCoord );
+        QCOMPARE( actual, expected );
     }
 }
