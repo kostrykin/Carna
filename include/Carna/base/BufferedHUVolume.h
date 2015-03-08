@@ -49,7 +49,7 @@ namespace base
   * \author Leonid Kostrykin
   * \date   2011 - 2015
   */
-template< typename VoxelType, typename BufferType = std::vector< VoxelType > >
+template< typename VoxelType, typename BufferType >
 class BufferedHUVolume : public HUVolume
 {
 
@@ -89,20 +89,16 @@ public:
 
 
     /** \brief  Returns the buffer value corresponding to the given HU value.
-      *
-      * \since  \ref v_2_4
       */
-    static signed short bufferValueToHUV( VoxelType voxel_value )
+    static HUV bufferValueToHUV( VoxelType voxel_value )
     {
-        return static_cast< signed short >( voxel_value >> ( sizeof( VoxelType ) * 8 - 12 ) ) - 1024;
+        return static_cast< HUV >( voxel_value >> ( sizeof( VoxelType ) * 8 - 12 ) ) - 1024;
     }
 
     
     /** \brief  Returns the HU value corresponding to the given buffer value.
-      *
-      * \since  \ref v_2_4
       */
-    static VoxelType HUVToBufferValue( signed short huv )
+    static VoxelType HUVToBufferValue( HUV huv )
     {
         return ( static_cast< VoxelType >( huv + 1024 ) << ( sizeof( VoxelType ) * 8 - 12 ) );
     }
@@ -110,16 +106,16 @@ public:
 
     /** \brief  Returns HUV of specified voxel.
       */
-    signed short operator()( unsigned int x
-                           , unsigned int y
-                           , unsigned int z ) const
+    HUV operator()( unsigned int x
+                  , unsigned int y
+                  , unsigned int z ) const
     {
         return bufferValueToHUV( myBuffer->get()->at( x + size.x() * y + size.y() * size.x() * z ) );
     }
 
     /** \brief  Returns HUV of specified voxel.
       */
-    signed short operator()( const math::Vector3ui& at ) const
+    HUV operator()( const math::Vector3ui& at ) const
     {
         return ( *this )( at.x(), at.y(), at.z() );
     }
@@ -127,35 +123,31 @@ public:
 
     /** \brief  Sets the HUV of a voxel.
       */
-    void setVoxel( unsigned int x, unsigned int y, unsigned int z, signed short huv )
+    void setVoxel( unsigned int x, unsigned int y, unsigned int z, HUV huv )
     {
         myBuffer->get()->at( x + size.x() * y + size.y() * size.x() * z ) = HUVToBufferValue( huv );
     }
 
     /** \brief  Sets the HUV of a voxel.
       */
-    void setVoxel( const math::Vector3ui& at, signed short huv )
+    void setVoxel( const math::Vector3ui& at, HUV huv )
     {
         this->setVoxel( at.x(), at.y(), at.z(), huv );
     }
 
 
     /** \brief  References the underlying buffer.
-      *
-      * This method wasn't working prior to \ref v_2_2_2.
       */
     BufferType& buffer()
     {
-        return *myBuffer->get();
+        return **myBuffer;
     }
     
     /** \brief  References the underlying buffer.
-      *
-      * This method wasn't working prior to \ref v_2_2_2.
       */
     const BufferType& buffer() const
     {
-        return *myBuffer->get();
+        return **myBuffer;
     }
 
 

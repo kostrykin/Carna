@@ -33,7 +33,7 @@ namespace base
 // RayPlaneHitTest
 // ----------------------------------------------------------------------------------
 
-template< typename Vector, typename Scalar = Vector::Scalar >
+template< typename Vector, typename Scalar >
 class RayPlaneHitTest
 {
 

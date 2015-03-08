@@ -143,8 +143,8 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/ShaderManager.h
 		include/${PROJECT_NAME}/base/ShaderUniform.h
 		include/${PROJECT_NAME}/base/ScalarField.h
-		include/${PROJECT_NAME}/base/HUCubeField.h
-		include/${PROJECT_NAME}/base/HUCubeSegment.h
+		include/${PROJECT_NAME}/base/HUVolumeGrid.h
+		include/${PROJECT_NAME}/base/HUVolumeSegment.h
 		include/${PROJECT_NAME}/base/HUVolume.h
 		include/${PROJECT_NAME}/base/BufferedHUVolume.h
 		include/${PROJECT_NAME}/base/UInt16HUVolume.h

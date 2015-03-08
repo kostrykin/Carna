@@ -21,8 +21,8 @@
   */
 
 #include <Carna/base/BufferedHUVolume.h>
-#include <Carna/base/HUCubeField.h>
-#include <Carna/base/HUCubeSegment.h>
+#include <Carna/base/HUVolumeGrid.h>
+#include <Carna/base/HUVolumeSegment.h>
 #include <cstdint>
 
 namespace Carna
@@ -41,9 +41,9 @@ namespace base
   */
 typedef BufferedHUVolume< uint16_t > UInt16HUVolume;
 
-typedef HUCubeField< UInt16HUVolume > UInt16HUCubeField;
+typedef HUVolumeGrid< UInt16HUVolume > UInt16HUVolumeGrid;
 
-typedef HUCubeSegment< UInt16HUCubeField, UInt16HUVolume > UInt16HUCubeSegment;
+typedef HUVolumeSegment< UInt16HUVolumeGrid, UInt16HUVolume > UInt16HUVolumeSegment;
 
 
 

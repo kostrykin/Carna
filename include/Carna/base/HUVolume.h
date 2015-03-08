@@ -40,7 +40,7 @@ namespace base
   * \author Leonid Kostrykin
   * \date   25.7.11
   */
-class CARNA_LIB HUVolume : public ScalarField< signed short >
+class CARNA_LIB HUVolume : public ScalarField< HUV >
 {
 
     NON_COPYABLE
@@ -55,21 +55,19 @@ public:
       */
     explicit HUVolume( const math::Vector3ui& size );
     
-
     /** \brief  Holds the dimensions.
       */
     math::Vector3ui size;
 
-    
     /** \brief  Returns HUV of specified voxel.
       */
-    virtual signed short operator()( unsigned int x
-                                   , unsigned int y
-                                   , unsigned int z ) const override = 0;
+    virtual HUV operator()( unsigned int x
+                          , unsigned int y
+                          , unsigned int z ) const override = 0;
 
     /** \brief  Returns HUV of specified voxel.
       */
-    virtual signed short operator()( const math::Vector3ui& at ) const override = 0;
+    virtual HUV operator()( const math::Vector3ui& at ) const override = 0;
 
 }; // HUVolume
 

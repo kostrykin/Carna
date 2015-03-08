@@ -87,6 +87,27 @@ namespace Carna
         struct VertexAttribute;
         class  VertexBufferBase;
         class  Viewport;
+
+        template< typename AssociatedObjectType > class Aggregation;
+        template< typename AssociatedObjectType > class Association;
+        template< typename VoxelType, typename BufferType = std::vector< VoxelType > > class BufferedHUVolume;
+        template< typename BufferedHUVolume > class BufferedHUVolumeTexture;
+        template< typename BufferedHUVolume > struct BufferedHUVolumeUploader;
+        template< typename AssociatedObjectType > class Composition;
+        template< typename RenderableCompare > class GeometryStage;
+        template< typename HUVolumeSegmentVolume > class HUVolumeGrid;
+        template< typename HUVolumeGrid, typename HUVolumeSegmentVolume > class HUVolumeSegment;
+        template< typename Index > class IndexBuffer;
+        template< typename Vertex, typename Index > class Mesh;
+        template< typename Vertex > class MeshFactory;
+        template< typename RenderableCompare > class MeshRenderingStage;
+        template< typename Vector > class Ray;
+        template< typename Vector, typename Scalar = Vector::Scalar > class RayPlaneHitTest;
+        template< typename RenderableCompare > class RenderQueue;
+        template< typename Vertex > class VertexBuffer;
+        template< typename Type > class ShaderUniform;
+        template< typename Concrete > class Singleton;
+        template< typename T > class Span;
         
     }
 

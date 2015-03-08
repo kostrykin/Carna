@@ -46,7 +46,7 @@ struct MIPStage::Details
     std::unique_ptr< base::RenderTexture > channelColorBuffer;
     std::unique_ptr< base::Framebuffer   > channelFrameBuffer;
 
-    static inline float huvToIntensity( signed short huv )
+    static inline float huvToIntensity( base::HUV huv )
     {
         return ( huv + 1024 ) / 4095.f;
     }
