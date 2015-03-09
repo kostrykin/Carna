@@ -35,46 +35,49 @@ namespace base
 // ScalarField
 // ----------------------------------------------------------------------------------
 
-/** \brief  Abstract definition of an \f$\mathbb Z_0^3 \to \mathrm T \subset \mathbb R\f$ scalar field.
+/** \brief
+  * Abstract definition of an \f$\mathbb Z_0^3 \to \mathrm T \subset \mathbb R\f$
+  * scalar field.
   *
   * \author Leonid Kostrykin
-  * \date   21.2.13
+  * \date   21.2.13 - 9.3.15
   */
-template< typename VoxelType >
+template< typename Scalar >
 class ScalarField
 {
 
 public:
 
-    /** \brief  Holds the co-domain type of the scalar field.
-      *
-      * \since  \ref v_2_2_2
+    /** \brief
+      * Holds the co-domain type of the scalar field.
       */
-    typedef VoxelType VoxelType;
+    typedef typename Scalar Scalar;
 
-    /** \brief  Does nothing.
+    /** \brief
+      * Does nothing.
       */
     virtual ~ScalarField()
     {
     }
 
-    
-    /** \brief  Returns value of specified voxel.
+    /** \brief
+      * Returns value of specified voxel.
       */
-    virtual VoxelType operator()
+    virtual Scalar operator()
         ( unsigned int x
         , unsigned int y
         , unsigned int z ) const = 0;
 
-    /** \brief  Returns value of specified voxel.
+    /** \brief
+      * Returns value of specified voxel.
       */
-    virtual VoxelType operator()( const math::Vector3ui& at ) const;
+    virtual Scalar operator()( const math::Vector3ui& at ) const;
 
 }; // ScalarField
 
 
-template< typename ValueType >
-ValueType ScalarField< ValueType >::operator()( const math::Vector3ui& at ) const
+template< typename Scalar >
+Scalar ScalarField< Scalar >::operator()( const math::Vector3ui& at ) const
 {
     return ( *this )( at.x(), at.y(), at.z() );
 }

@@ -50,6 +50,10 @@ private slots:
 
  // ---------------------------------------------------------------------------------
 
+    void test_bufferValueToHUV();
+
+    void test_HUVToBufferValue();
+
     void test_instantiation();
 
     void test_parenthesisOperator();

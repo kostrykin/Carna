@@ -30,6 +30,7 @@ void BufferedHUVolumeTest::cleanupTestCase()
 
 void BufferedHUVolumeTest::init()
 {
+    static_assert( !std::numeric_limits< base::UInt16HUVolume::VoxelType >::is_signed, "Type conflict detected." );
 }
 
 
@@ -57,8 +58,24 @@ Carna::base::HUV BufferedHUVolumeTest::huvByIndex( unsigned int index ) const
 {
     const unsigned int maxIndex = volume->size.x() * volume->size.y() * volume->size.z() - 1;
     const float linear = static_cast< float >( index ) / maxIndex;
-    const base::HUV huv = static_cast< base::HUV >( -1024 + 4096 * linear );
+    const base::HUV huv = static_cast< base::HUV >( -1024 + 4095 * linear );
     return huv;
+}
+
+
+void BufferedHUVolumeTest::test_bufferValueToHUV()
+{
+    const base::HUV actual   = base::UInt16HUVolume::bufferValueToHUV( 2048 * 16 );
+    const base::HUV expected = 1024;
+    QCOMPARE( actual, expected );
+}
+
+
+void BufferedHUVolumeTest::test_HUVToBufferValue()
+{
+    const base::UInt16HUVolume::VoxelType actual   = base::UInt16HUVolume::HUVToBufferValue( 1024 );
+    const base::UInt16HUVolume::VoxelType expected = 2048 * 16;
+    QCOMPARE( actual, expected );
 }
 
 
