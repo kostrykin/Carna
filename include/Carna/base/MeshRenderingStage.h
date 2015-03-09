@@ -40,10 +40,14 @@ namespace base
   * \author Leonid Kostrykin
   * \date   21.2.15 - 6.3.15
   */
-class MeshRenderingStageBase
+class CARNA_LIB MeshRenderingStageBase
 {
 
 public:
+
+    MeshRenderingStageBase( unsigned int geometryType );
+
+    virtual ~MeshRenderingStageBase();
 
     /** \brief
       * Identifies the \ref Mesh object that \ref MeshRenderingStage uses for
@@ -56,6 +60,8 @@ public:
       * rendering.
       */
     const static unsigned int ROLE_DEFAULT_MATERIAL = 1;
+
+    const unsigned int geometryType;
 
 }; // MeshRenderingStageBase
 
@@ -104,6 +110,7 @@ protected:
 template< typename RenderableCompare >
 MeshRenderingStage< RenderableCompare >::MeshRenderingStage( unsigned int geometryType )
     : GeometryStage< RenderableCompare >( geometryType )
+    , MeshRenderingStageBase( geometryType )
 {
 }
 

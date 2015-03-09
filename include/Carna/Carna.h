@@ -125,6 +125,16 @@ namespace Carna
 
     }
 
+    namespace helpers
+    {
+
+        class DefaultRenderStageOrder;
+
+        template< typename RenderStageOrder = DefaultRenderStageOrder > class FrameRendererHelper;
+        template< typename HUVolumeSegmentVolume > class HUVolumeGridHelper;
+
+    }
+
 }  // namespace Carna
 
 #endif // CARNA_GLOBAL_H_6014714286

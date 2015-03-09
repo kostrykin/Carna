@@ -36,6 +36,8 @@ class CARNA_LIB TransparentRenderingStage
 
 public:
 
+    TransparentRenderingStage( unsigned int geometryType );
+
     virtual void renderPass
         ( const base::math::Matrix4f& viewTransform
         , base::RenderTask& rt

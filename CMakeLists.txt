@@ -170,6 +170,8 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/presets/OccludedRenderingStage.h
 		include/${PROJECT_NAME}/presets/OpaqueRenderingStage.h
 		include/${PROJECT_NAME}/presets/TransparentRenderingStage.h
+		include/${PROJECT_NAME}/helpers/FrameRendererHelper.h
+		include/${PROJECT_NAME}/helpers/HUVolumeGridHelper.h
 		include/${PROJECT_NAME}/Carna.h
 		include/${PROJECT_NAME}/Version.h
 	)
@@ -195,6 +197,7 @@ set( SRC
 		src/base/RenderState.cpp
 		src/base/Spatial.cpp
 		src/base/SpatialMovement.cpp
+		src/base/MeshRenderingStage.cpp
 		src/base/Node.cpp
 		src/base/Framebuffer.cpp
 		src/base/RenderTexture.cpp
@@ -228,6 +231,7 @@ set( SRC
 		src/presets/CuttingPlanesStage.cpp
 		src/presets/OccludedRenderingStage.cpp
 		src/presets/TransparentRenderingStage.cpp
+		src/helpers/FrameRendererHelper.cpp
 	)
 set( FORMS
 		""

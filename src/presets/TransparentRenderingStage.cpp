@@ -24,6 +24,12 @@ namespace presets
 // TransparentRenderingStage
 // ----------------------------------------------------------------------------------
 
+TransparentRenderingStage::TransparentRenderingStage( unsigned int geometryType )
+    : MeshRenderingStage< base::Renderable::DepthOrder< base::Renderable::ORDER_BACK_TO_FRONT > >::MeshRenderingStage( geometryType )
+{
+}
+
+
 void TransparentRenderingStage::renderPass
     ( const base::math::Matrix4f& viewTransform
     , base::RenderTask& rt

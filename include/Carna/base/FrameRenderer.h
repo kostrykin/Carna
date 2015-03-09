@@ -13,6 +13,7 @@
 #define FRAMERENDERER_H_6014714286
 
 #include <Carna/Carna.h>
+#include <Carna/base/CarnaException.h>
 #include <Carna/base/noncopyable.h>
 #include <Carna/base/math.h>
 #include <memory>
@@ -89,6 +90,9 @@ public:
     void clearStages();
     
     RenderStage& stageAt( std::size_t position ) const;
+
+    template< typename RenderStage >
+    RenderStage& findStage() const;
     
     unsigned int width() const;
     
@@ -124,6 +128,21 @@ private:
     void render( Camera& cam, Node& root, const Viewport& vp ) const;
 
 }; // FrameRenderer
+
+
+template< typename RenderStage >
+RenderStage& FrameRenderer::findStage() const
+{
+    for( std::size_t index = 0; index < stages(); ++index )
+    {
+        RenderStage* const rs = dynamic_cast< RenderStage* >( &stageAt( index ) );
+        if( rs != nullptr )
+        {
+            return *rs;
+        }
+    }
+    CARNA_FAIL( "RenderStage not found." );
+}
 
 
 
