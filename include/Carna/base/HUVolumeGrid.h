@@ -59,11 +59,13 @@ public:
 
     const HUVolumeSegment& segmentAt( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ ) const;
     
-    virtual HUV operator()( unsigned int x
-                          , unsigned int y
-                          , unsigned int z ) const override;
+    virtual HUV operator()( unsigned int x, unsigned int y, unsigned int z ) const override;
 
     virtual HUV operator()( const math::Vector3ui& at ) const override;
+
+    void setVoxel( const math::Vector3ui& at, HUV );
+
+    void setVoxel( unsigned int x, unsigned int y, unsigned int z, HUV );
 
 private:
 
@@ -129,10 +131,7 @@ const typename HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& HUVolumeG
 
 
 template< typename HUVolumeSegmentVolume >
-HUV HUVolumeGrid< HUVolumeSegmentVolume >::operator()
-    ( unsigned int x
-    , unsigned int y
-    , unsigned int z ) const
+HUV HUVolumeGrid< HUVolumeSegmentVolume >::operator()( unsigned int x, unsigned int y, unsigned int z ) const
 {
     const unsigned int segmentX = x / maxSegmentSize.x();
     const unsigned int segmentY = y / maxSegmentSize.y();
@@ -151,6 +150,29 @@ template< typename HUVolumeSegmentVolume >
 HUV HUVolumeGrid< HUVolumeSegmentVolume >::operator()( const math::Vector3ui& at ) const
 {
     return ( *this )( at.x(), at.y(), at.z() );
+}
+
+
+template< typename HUVolumeSegmentVolume >
+void HUVolumeGrid< HUVolumeSegmentVolume >::setVoxel( unsigned int x, unsigned int y, unsigned int z, HUV huv )
+{
+    const unsigned int segmentX = x / maxSegmentSize.x();
+    const unsigned int segmentY = y / maxSegmentSize.y();
+    const unsigned int segmentZ = z / maxSegmentSize.z();
+
+    const unsigned int localX = x % maxSegmentSize.x();
+    const unsigned int localY = y % maxSegmentSize.y();
+    const unsigned int localZ = z % maxSegmentSize.z();
+
+    const HUVolumeSegment& segment = segmentAt( segmentX, segmentY, segmentZ );
+    return segment.volume().setVoxel( localX, localY, localZ, huv );
+}
+
+
+template< typename HUVolumeSegmentVolume >
+void HUVolumeGrid< HUVolumeSegmentVolume >::setVoxel( const math::Vector3ui& at, HUV huv )
+{
+    return this->setVoxel( at.x(), at.y(), at.z(), huv );
 }
 
 
