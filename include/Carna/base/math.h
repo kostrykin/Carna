@@ -192,6 +192,7 @@ namespace math
     typedef Eigen::Matrix< float, 4, 1 > Vector4f;
     typedef Eigen::Matrix< float, 3, 1 > Vector3f;
     typedef Eigen::Matrix< float, 2, 1 > Vector2f;
+    typedef Eigen::Matrix< signed int, 3, 1 > Vector3i;
     typedef Eigen::Matrix< unsigned int, 3, 1 > Vector3ui;
     typedef Eigen::Matrix< unsigned int, 2, 1 > Vector2ui;
 
@@ -474,5 +475,15 @@ namespace math
 }  // namespace Carna :: base
 
 }  // namespace Carna
+
+
+
+#define CARNA_FOR_VECTOR3UI( vecName, vecLimit ) \
+    Carna::base::math::Vector3ui vecName; \
+    for( vecName.z() = 0; vecName.z() < vecLimit.z(); ++vecName.z() ) \
+    for( vecName.y() = 0; vecName.y() < vecLimit.y(); ++vecName.y() ) \
+    for( vecName.x() = 0; vecName.x() < vecLimit.x(); ++vecName.x() )
+
+
 
 #endif // MATH_H_6014714286

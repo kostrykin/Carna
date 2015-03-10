@@ -55,7 +55,9 @@ public:
     const math::Vector3ui maxSegmentSize;
     const math::Vector3ui segmentCounts;
 
-    math::Vector3ui resolution() const;
+    HUVolumeSegment& segmentAt( const base::math::Vector3ui& );
+
+    const HUVolumeSegment& segmentAt( const base::math::Vector3ui& ) const;
 
     HUVolumeSegment& segmentAt( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ );
 
@@ -109,6 +111,22 @@ template< typename HUVolumeSegmentVolume >
 std::size_t HUVolumeGrid< HUVolumeSegmentVolume >::segmentIndex( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ ) const
 {
     return segmentX + segmentY * segmentCounts.x() + segmentZ * segmentCounts.x() * segmentCounts.y();
+}
+
+
+template< typename HUVolumeSegmentVolume >
+typename HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& HUVolumeGrid< HUVolumeSegmentVolume >::segmentAt
+    ( const base::math::Vector3ui& p )
+{
+    return segmentAt( p.x(), p.y(), p.z() );
+}
+
+
+template< typename HUVolumeSegmentVolume >
+const typename HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& HUVolumeGrid< HUVolumeSegmentVolume >::segmentAt
+    ( const base::math::Vector3ui& p ) const
+{
+    return segmentAt( p.x(), p.y(), p.z() );
 }
 
 
@@ -175,13 +193,6 @@ template< typename HUVolumeSegmentVolume >
 void HUVolumeGrid< HUVolumeSegmentVolume >::setVoxel( const math::Vector3ui& at, HUV huv )
 {
     return this->setVoxel( at.x(), at.y(), at.z(), huv );
-}
-
-
-template< typename HUVolumeSegmentVolume >
-math::Vector3ui HUVolumeGrid< HUVolumeSegmentVolume >::resolution() const
-{
-    return segments.back().volume().size + maxSegmentSize * ( segmentCounts - 1 );
 }
 
 

@@ -51,10 +51,6 @@ class HUVolumeGridHelper
 
     mutable std::map< const typename base::HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment*, base::Texture3D* > textures;
 
-    base::Spatial* createSpatial( const base::GLContext& glc, unsigned int geometryType, unsigned int volumeTextureRole ) const;
-
-    static base::math::Vector3ui computeMaxSegmentSize( const base::math::Vector3ui& resolution, std::size_t maxSegmentBytesize );
-
 public:
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -76,6 +72,8 @@ public:
     const std::size_t maxSegmentBytesize;
 
     const base::math::Vector3ui maxSegmentSize;
+
+    const base::math::Vector3ui regularSegmentSize;
 
     /** \brief
       * Alters the volume data. You must also call \ref invalidateTextures if
@@ -131,6 +129,17 @@ public:
         , const Dimensions& dimensions
         , unsigned int volumeTextureRole = DEFAULT_VOLUME_TEXTURE_ROLE ) const;
 
+private:
+
+    base::Node* createNode
+        ( const base::GLContext& glc
+        , unsigned int geometryType
+        , const Spacing& spacing
+        , const Dimensions& dimensions
+        , unsigned int volumeTextureRole ) const;
+
+    static base::math::Vector3ui computeMaxSegmentSize( const base::math::Vector3ui& resolution, std::size_t maxSegmentBytesize );
+
 }; // HUVolumeGridHelper
 
 
@@ -153,6 +162,7 @@ HUVolumeGridHelper< HUVolumeSegmentVolume >::HUVolumeGridHelper
     , resolution( base::math::makeEven( originalResolution, +1 ) )
     , maxSegmentBytesize( maxSegmentBytesize )
     , maxSegmentSize( computeMaxSegmentSize( resolution, maxSegmentBytesize ) )
+    , regularSegmentSize( maxSegmentSize.cwiseMin( resolution ) )
 {
     const base::math::Vector3ui tails
         ( resolution.x() % maxSegmentSize.x()
@@ -165,15 +175,12 @@ HUVolumeGridHelper< HUVolumeSegmentVolume >::HUVolumeGridHelper
         , resolution.z() / maxSegmentSize.z() + ( tails.z() > 0 ? 1 : 0 ) );
     myGrid.reset( new base::HUVolumeGrid< HUVolumeSegmentVolume >( maxSegmentSize, segmentCounts ) );
 
-    base::math::Vector3ui segmentCoord;
-    for( segmentCoord.z() = 0; segmentCoord.z() < myGrid->segmentCounts.z(); ++segmentCoord.z() )
-    for( segmentCoord.y() = 0; segmentCoord.y() < myGrid->segmentCounts.y(); ++segmentCoord.y() )
-    for( segmentCoord.x() = 0; segmentCoord.x() < myGrid->segmentCounts.x(); ++segmentCoord.x() )
+    CARNA_FOR_VECTOR3UI( segmentCoord, myGrid->segmentCounts )
     {
         const base::math::Vector3ui volumeSize
-            ( segmentCoord.x() + 1 == myGrid->segmentCounts.x() ? tails.x() : maxSegmentSize.x()
-            , segmentCoord.y() + 1 == myGrid->segmentCounts.y() ? tails.y() : maxSegmentSize.y()
-            , segmentCoord.z() + 1 == myGrid->segmentCounts.z() ? tails.z() : maxSegmentSize.z() );
+            ( segmentCoord.x() + 1 == myGrid->segmentCounts.x() ? tails.x() : regularSegmentSize.x()
+            , segmentCoord.y() + 1 == myGrid->segmentCounts.y() ? tails.y() : regularSegmentSize.y()
+            , segmentCoord.z() + 1 == myGrid->segmentCounts.z() ? tails.z() : regularSegmentSize.z() );
 
         HUVolumeSegmentVolume* const volume = new HUVolumeSegmentVolume( volumeSize );
         myGrid->segmentAt( segmentCoord.x(), segmentCoord.y(), segmentCoord.z() ).setVolume
@@ -212,10 +219,7 @@ template< typename UnaryVector3uiToHUVFunction >
 void HUVolumeGridHelper< HUVolumeSegmentVolume >::loadData
     ( const UnaryVector3uiToHUVFunction& data )
 {
-    base::math::Vector3ui coord;
-    for( coord.z() = 0; coord.z() < resolution.z(); ++coord.z() )
-    for( coord.y() = 0; coord.y() < resolution.y(); ++coord.y() )
-    for( coord.x() = 0; coord.x() < resolution.x(); ++coord.x() )
+    CARNA_FOR_VECTOR3UI( coord, resolution )
     {
         const bool outOfOriginalBounds
             =  coord.x() >= originalResolution.x()
@@ -235,32 +239,39 @@ base::HUVolumeGrid< HUVolumeSegmentVolume >& HUVolumeGridHelper< HUVolumeSegment
 
 
 template< typename HUVolumeSegmentVolume >
-base::Spatial* HUVolumeGridHelper< HUVolumeSegmentVolume >::createSpatial
-    ( const base::GLContext& glc, unsigned int geometryType, unsigned int volumeTextureRole ) const
+base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
+    ( const base::GLContext& glc
+    , unsigned int geometryType
+    , const Spacing& spacing
+    , const Dimensions& dimensions
+    , unsigned int volumeTextureRole ) const
 {
+    /* Compute dimensions of a regular grid segment.
+     */
+    const base::math::Vector3f regularSegmentDimensions = spacing.millimeters.cwiseProduct
+        ( ( regularSegmentSize.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >() );
+    
+    /* Create pivot node that shifts it's children to a corner.
+     */
     base::Node* const pivot = new base::Node();
-    const base::math::Matrix4f baseTransform
-        = base::math::scaling4f
-            ( 1.f / myGrid->segmentCounts.x()
-            , 1.f / myGrid->segmentCounts.y()
-            , 1.f / myGrid->segmentCounts.z() )
-        * base::math::translation4f
-            ( -static_cast< float >( myGrid->segmentCounts.x() - 1 ) / 2
-            , -static_cast< float >( myGrid->segmentCounts.y() - 1 ) / 2
-            , -static_cast< float >( myGrid->segmentCounts.z() - 1 ) / 2 );
+    pivot->localTransform = base::math::translation4f( ( regularSegmentDimensions - dimensions.millimeters ) / 2 );
+    pivot->setMovable( false );
 
+    /* Create geometry nodes for all grid segments.
+     */
     glc.makeActive();
-    base::math::Vector3ui segmentCoord;
-    for( segmentCoord.z() = 0; segmentCoord.z() < myGrid->segmentCounts.z(); ++segmentCoord.z() )
-    for( segmentCoord.y() = 0; segmentCoord.y() < myGrid->segmentCounts.y(); ++segmentCoord.y() )
-    for( segmentCoord.x() = 0; segmentCoord.x() < myGrid->segmentCounts.x(); ++segmentCoord.x() )
+    CARNA_FOR_VECTOR3UI( segmentCoord, myGrid->segmentCounts )
     {
-        const base::HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& segment
-            = myGrid->segmentAt( segmentCoord.x(), segmentCoord.y(), segmentCoord.z() );
+        const base::HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& segment = myGrid->segmentAt( segmentCoord );
+
+        /* Check whether the texture already is available or needs to be uploaded.
+         */
         auto textureItr = textures.find( &segment );
         base::Texture3D* texture;
         if( textureItr == textures.end() )
         {
+            /* Upload the texture to video memory.
+             */
             texture = &base::BufferedHUVolumeTexture< HUVolumeSegmentVolume >::create( segment.volume() );
             textures[ &segment ] = texture;
         }
@@ -269,14 +280,32 @@ base::Spatial* HUVolumeGridHelper< HUVolumeSegmentVolume >::createSpatial
             texture = textureItr->second;
         }
 
+        /* Compute dimensions of particular grid segment.
+         */
+        const bool isTail =
+               segmentCoord.x() + 1 == myGrid->segmentCounts.x()
+            || segmentCoord.y() + 1 == myGrid->segmentCounts.y()
+            || segmentCoord.z() + 1 == myGrid->segmentCounts.z();
+        const base::math::Vector3f dimensions = !isTail ? regularSegmentDimensions
+            : ( ( segment.volume().size.cast< int >() - base::math::Vector3i( 1, 1, 1 ) )
+                .cast< float >().cwiseProduct( spacing.millimeters ) );
+
+        /* Create geometry node for particular grid segment.
+         */
         base::Geometry* const geom = new  base::Geometry( geometryType );
-        geom->putFeature( volumeTextureRole, *texture );
-        geom->localTransform = baseTransform * base::math::translation4f( segmentCoord );
-        geom->setMovable( false );
         pivot->attachChild( geom );
+        geom->putFeature( volumeTextureRole, *texture );
+        geom->setMovable( false );
+        geom->localTransform
+            = base::math::translation4f( segmentCoord.cast< float >().cwiseProduct( regularSegmentDimensions )
+                - ( !isTail
+                    ? base::math::Vector3i( 0, 0, 0 )
+                    : regularSegmentDimensions.cast< int >() - dimensions.cast< int >() ).cast< float >() / 2 )
+            * base::math::scaling4f( dimensions );
     }
 
-    pivot->setMovable( false );
+    /* We're done.
+     */
     return pivot;
 }
 
@@ -286,10 +315,8 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
     ( const base::GLContext& glc, unsigned int geometryType, const Spacing& spacing, unsigned int volumeTextureRole ) const
 {
     const base::math::Vector3f dimensions
-        ( ( resolution.x() - 1 ) * spacing.millimeters.x()
-        , ( resolution.y() - 1 ) * spacing.millimeters.y()
-        , ( resolution.z() - 1 ) * spacing.millimeters.z() );
-    return createNode( glc, geometryType, Dimensions( dimensions ), volumeTextureRole );
+        = ( resolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >().cwiseProduct( spacing.millimeters );
+    return createNode( glc, geometryType, spacing, Dimensions( dimensions ), volumeTextureRole );
 }
 
 
@@ -297,11 +324,9 @@ template< typename HUVolumeSegmentVolume >
 base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
     ( const base::GLContext& glc, unsigned int geometryType, const Dimensions& dimensions, unsigned int volumeTextureRole ) const
 {
-    base::Spatial* const grid = createSpatial( glc, geometryType, volumeTextureRole );
-    base::Node* const pivot = new base::Node();
-    pivot->localTransform = base::math::scaling4f( dimensions.millimeters );
-    pivot->attachChild( grid );
-    return pivot;
+    const base::math::Vector3f spacing
+        = dimensions.millimeters.cast< float >().cwiseQuotient( ( dimensions.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ) );
+    return createNode( glc, geometryType, Spacing( spacing ), dimensions, volumeTextureRole );
 }
 
 
