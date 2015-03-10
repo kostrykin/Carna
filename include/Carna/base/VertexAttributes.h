@@ -34,12 +34,18 @@ namespace base
 struct VertexAttribute
 {
 
+    const static unsigned int TYPE_FLOAT;
+    const static unsigned int TYPE_INT;
+    const static unsigned int TYPE_UINT;
+
     std::size_t position;
     std::size_t componentsCount;
+    unsigned int type;
 
-    VertexAttribute( std::size_t position, std::size_t componentsCount )
+    VertexAttribute( std::size_t position, std::size_t componentsCount, unsigned int type )
         : position( position )
         , componentsCount( componentsCount )
+        , type( type )
     {
     }
 

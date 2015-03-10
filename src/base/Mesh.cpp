@@ -56,7 +56,7 @@ MeshBase::MeshBase( VertexBufferBase* vertex_buffer, IndexBufferBase* index_buff
     for( auto itr = vertexAttributes.begin(); itr != vertexAttributes.end(); ++itr )
     {
         glEnableVertexAttribArray( itr->position );
-        glVertexAttribPointer( itr->position, itr->componentsCount, GL_FLOAT, true, stride, static_cast< float* >( nullptr ) + offset );
+        glVertexAttribPointer( itr->position, itr->componentsCount, itr->type, false, stride, static_cast< float* >( nullptr ) + offset );
         offset += itr->componentsCount;
     }
 

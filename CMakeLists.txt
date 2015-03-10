@@ -212,6 +212,7 @@ set( SRC
 		src/base/HUVolumeTexture.cpp
 		src/base/GeometryFeature.cpp
 		src/base/Vertex.cpp
+		src/base/VertexAttributes.cpp
 		src/base/VertexBuffer.cpp
 		src/base/IndexBuffer.cpp
 		src/base/Mesh.cpp

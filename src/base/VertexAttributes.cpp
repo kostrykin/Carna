@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/base/Vertex.h>
-#include <vector>
+#include <Carna/base/glew.h>
+#include <Carna/base/VertexAttributes.h>
 
 namespace Carna
 {
@@ -21,25 +21,12 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// VertexBase
+// VertexAttribute
 // ----------------------------------------------------------------------------------
 
-const VertexAttributes VertexBase::attributes = []()->VertexAttributes
-{
-    using Carna::base::VertexAttribute;
-    std::vector< VertexAttribute > attributes;
-    attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
-    return attributes;
-}();
-
-
-VertexBase::VertexBase()
-    : x( 0 )
-    , y( 0 )
-    , z( 0 )
-    , w( 1 )
-{
-}
+const unsigned int VertexAttribute::TYPE_FLOAT = GL_FLOAT;
+const unsigned int VertexAttribute::TYPE_INT   = GL_INT;
+const unsigned int VertexAttribute::TYPE_UINT  = GL_UNSIGNED_INT;
 
 
 

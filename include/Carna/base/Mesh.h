@@ -35,6 +35,12 @@ namespace base
 // MeshBase
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Format-independent \ref Mesh base class.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 10.3.15
+  */
 class CARNA_LIB MeshBase : public GeometryFeature
 {
 

@@ -85,6 +85,10 @@ public:
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
+    /** \brief
+      * Default maximum memory size of a single segment volume, 50 megabytes
+      * approximately. This determines the segments partitioning.
+      */
     const static std::size_t DEFAULT_MAX_SEGMENT_BYTESIZE = 2 * 300 * 300 * 300;
 
     const static unsigned int DEFAULT_VOLUME_TEXTURE_ROLE = 0;
@@ -95,12 +99,12 @@ public:
       * larger if the buffers' resolution need to be rounded to even numbers.
       *
       * \param nativeResolution
-      * The resolution the grid is to be prepared for. This is the resolution that
-      * will be expected from the \ref loadData "data source".
+      *     The resolution the grid is to be prepared for. This is the resolution
+      *     that will be expected from the \ref loadData "data source".
       *
       * \param maxSegmentBytesize
-      * Maximum memory size of a single segment volume. The segments partitioning is
-      * chosen according to this value.
+      *     Maximum memory size of a single segment volume. The segments partitioning
+      *     is chosen according to this value.
       */
     HUVolumeGridHelper( const base::math::Vector3ui& nativeResolution, std::size_t maxSegmentBytesize = DEFAULT_MAX_SEGMENT_BYTESIZE );
 
@@ -137,8 +141,8 @@ public:
       * to \ref createNode to reflect the changes made to the volume data.
       *
       * \param data
-      * Unary function that maps \ref base::math::Vector3ui to \ref base::HUV. It
-      * will be queried for all values up to \ref nativeResolution.
+      *     Unary function that maps \ref base::math::Vector3ui to \ref base::HUV. It
+      *     will be queried for all values up to \ref nativeResolution.
       */
     template< typename UnaryVector3uiToHUVFunction >
     void loadData( const UnaryVector3uiToHUVFunction& data );
@@ -147,17 +151,19 @@ public:
       * Releases all previously acquired textures.
       *
       * \warning
-      * Always invoke this method at least once before deleting
-      * \c %HUVolumeGridHelper instances, if \ref createNode might have been earlier!
+      *     Always invoke this method at least once before deleting
+      *     \c %HUVolumeGridHelper instances, if \ref createNode might have been
+      *     called on the instance earlier!
       *
       * You might also want to invoke this method when the volume data changes, e.g.
       * through \ref loadData. This will allow video resources, that were occupied by
       * earlier calls to \ref createNode, to be freed sooner.
       *
       * \attention
-      * Note however, that if you call this method between two invocations of
-      * \ref createNode, without the volume data being altered, same textures will
-      * get uploaded twice to video memory, i.e. video resources will be wasted.
+      *     Note however, that if you call this method between two invocations of
+      *     \ref createNode, without the volume data being altered, same textures
+      *     will get uploaded twice to video memory, i.e. video resources will be
+      *     wasted.
       */
     void invalidateTextures( const base::GLContext& glc );
 
@@ -186,12 +192,67 @@ public:
         base::math::Vector3f millimeters;
     };
 
+    /** \brief
+      * Creates renderable representation of the underlying grid, that can be put
+      * anywhere in the scene graph. The volume is centered in the node.
+      *
+      * \warning
+      *     Only change the returned node's \ref base::Spatial::localTransform
+      *     "localTransform" attribute when you know what you're doing! Put it into
+      *     another node otherwise.
+      *
+      * Also make sure you have called \ref invalidateTextures before, in case the
+      * volume data has been altered, e.g. through \ref loadData,
+      * since \c %createNode was called the last time.
+      *
+      * \param glc
+      *     References the GL context wrapper that will be activated before uploading
+      *     textures to video memory.
+      *
+      * \param geometryType
+      *     Will be used for \ref base::Geometry instantiation.
+      *
+      * \param spacing
+      *     Specifies the spacing between two succeeding voxel centers in
+      *     millimeters.
+      *
+      * \param volumeTextureRole
+      *     Will be used to \ref base::Geometry::putFeature
+      *     "put the volume textures on the Geometry objects".
+      */
     base::Node* createNode
         ( const base::GLContext& glc
         , unsigned int geometryType
         , const Spacing& spacing
         , unsigned int volumeTextureRole = DEFAULT_VOLUME_TEXTURE_ROLE ) const;
-
+    
+    /** \brief
+      * Creates renderable representation of the underlying grid, that can be put
+      * anywhere in the scene graph. The volume is centered in the node.
+      *
+      * \warning
+      *     Only change the returned node's \ref base::Spatial::localTransform
+      *     "localTransform" attribute when you know what you're doing! Put it into
+      *     another node otherwise.
+      *
+      * Also make sure you have called \ref invalidateTextures before, in case the
+      * volume data has been altered, e.g. through \ref loadData, since
+      * \c %createNode was called the last time.
+      *
+      * \param glc
+      *     References the GL context wrapper that will be activated before uploading
+      *     textures to video memory.
+      *
+      * \param geometryType
+      *     Will be used for \ref base::Geometry instantiation.
+      *
+      * \param dimensions
+      *     Specifies the dimensions of the whole dataset in millimeters.
+      *
+      * \param volumeTextureRole
+      *     Will be used to \ref base::Geometry::putFeature
+      *     "put the volume textures on the Geometry objects".
+      */
     base::Node* createNode
         ( const base::GLContext& glc
         , unsigned int geometryType
@@ -298,9 +359,9 @@ void HUVolumeGridHelper< HUVolumeSegmentVolume >::loadData
     CARNA_FOR_VECTOR3UI( coord, resolution )
     {
         const bool outOfOriginalBounds
-            =  coord.x() >= originalResolution.x()
-            || coord.y() >= originalResolution.y()
-            || coord.z() >= originalResolution.z();
+            =  coord.x() >= nativeResolution.x()
+            || coord.y() >= nativeResolution.y()
+            || coord.z() >= nativeResolution.z();
         const base::HUV huv = outOfOriginalBounds ? -1024 : data( coord );
         myGrid->setVoxel( coord, huv );
     }
