@@ -38,6 +38,10 @@ class CARNA_LIB Texture3D : public GeometryFeature
 
     NON_COPYABLE
 
+    math::Vector3ui mySize;
+
+    mutable std::unique_ptr< base::math::Matrix4f > myTextureCoordinatesCorrection;
+
 protected:
 
     friend class GeometryFeature;
@@ -76,6 +80,23 @@ public:
     void bind( unsigned int unit ) const;
 
     void upload( int internalFormat, const math::Vector3ui& size, int pixelFormat, int bufferType, const void* bufferData );
+
+    const math::Vector3ui& size() const;
+
+    /** \brief
+      * Stretches texture coordinates s.t. the centers of the texels, that are
+      * located in the texture corners, become located in those corners.
+      *
+      * Consider a \f$4 \times 4\f$ texture. Each texel occupies \f$\frac{1}{4}\f$
+      * along each axis, hence the texels' centers are located at \f$\frac{1}{8}\f$,
+      * \f$\frac{3}{8}\f$, \f$\frac{5}{8}\f$ and \f$\frac{7}{8}\f$ along those axis.
+      *
+      * The matrix returned by this method transforms texture coordinates s.t.
+      * \f$ 0 \mapsto \frac{1}{8}\f$ and \f$ 1 \mapsto \frac{7}{8}\f$ following the
+      * considerations from above. The matrix is computed the first time the method
+      * is invoked. It is reused until the \ref upload "texture resolution changes".
+      */
+    const base::math::Matrix4f& textureCoordinatesCorrection() const;
 
     virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
 

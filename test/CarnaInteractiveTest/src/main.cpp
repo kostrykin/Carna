@@ -213,7 +213,7 @@ void Demo::initializeGL()
         ( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/../res/pelves_reduced.hugz", spacing ) );
     gridHelper.reset( new GridHelper
         ( baseVolume->size
-        , baseVolume->size.x() * baseVolume->size.y() * baseVolume->size.z() * sizeof( base::UInt16HUVolume::VoxelType ) * 20 ) );
+        , baseVolume->size.x() * baseVolume->size.y() * baseVolume->size.z() * sizeof( base::UInt16HUVolume::VoxelType ) / 2 ) );
     gridHelper->loadData( *baseVolume );
     base::Node* const volumeNode = gridHelper->createNode
         ( *glContext, GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ), presets::MIPStage::ROLE_HU_VOLUME );
@@ -238,8 +238,7 @@ void Demo::initializeGL()
     root->attachChild( boxGeometry );
 
     base::Geometry* const plane1 = new base::Geometry( GEOMETRY_TYPE_CUTTING_PLANE );
-    //plane1->localTransform = base::math::plane4f( base::math::Vector3f( 1, 1, 1 ).normalized(), 0 );
-    plane1->localTransform = base::math::plane4f( base::math::Vector3f( 0, 0, 1 ).normalized(), 0 );
+    plane1->localTransform = base::math::plane4f( base::math::Vector3f( 1, 1, 1 ).normalized(), 0 );
     root->attachChild( plane1 );
 }
 
@@ -261,8 +260,8 @@ void Demo::resizeGL( int w, int h )
          */
         presets::CuttingPlanesStage* const cuttingPlanes
             = new presets::CuttingPlanesStage( GEOMETRY_TYPE_VOLUMETRIC, GEOMETRY_TYPE_CUTTING_PLANE );
-        //cuttingPlanes->setWindowingWidth( 1000 );
-        //cuttingPlanes->setWindowingLevel( -100 );
+        cuttingPlanes->setWindowingWidth( 1000 );
+        cuttingPlanes->setWindowingLevel( -100 );
         renderer->appendStage( cuttingPlanes );
 
         /* Occluded Renderer
@@ -286,7 +285,7 @@ void Demo::resizeGL( int w, int h )
         /* DRR
          */
         presets::DRRStage* const drr = new presets::DRRStage( GEOMETRY_TYPE_VOLUMETRIC );
-        //renderer->appendStage( drr );
+        renderer->appendStage( drr );
 #endif
     }
     else

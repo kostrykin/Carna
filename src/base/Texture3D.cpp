@@ -55,6 +55,31 @@ void Texture3D::bind( unsigned int unit ) const
 }
 
 
+const math::Vector3ui& Texture3D::size() const
+{
+    return mySize;
+}
+
+
+const base::math::Matrix4f& Texture3D::textureCoordinatesCorrection() const
+{
+    if( myTextureCoordinatesCorrection.get() == nullptr )
+    {
+        const base::math::Vector3f texelSize   = mySize.cast< float >().cwiseInverse();
+        const base::math::Vector3f texelOffset = texelSize / 2;
+        const base::math::Vector3f texelScale  = base::math::Vector3f( 1, 1, 1 ) - texelSize;
+
+        base::math::Matrix4f& m = *new base::math::Matrix4f();
+        m << texelScale.x(),              0,              0, texelOffset.x(),
+                          0, texelScale.y(),              0, texelOffset.y(),
+                          0,              0, texelScale.z(), texelOffset.z(),
+                          0,              0,              0,               1;
+        myTextureCoordinatesCorrection.reset( &m );
+    }
+    return *myTextureCoordinatesCorrection;
+}
+
+
 void Texture3D::upload( int internalFormat, const math::Vector3ui& size, int pixelFormat, int bufferType, const void* bufferData )
 {
     CARNA_ASSERT( size.x() % 2 == 0 && size.y() % 2 == 0 && size.z() % 2 == 0 );
@@ -63,6 +88,8 @@ void Texture3D::upload( int internalFormat, const math::Vector3ui& size, int pix
                 , size.x(), size.y(), size.z()
                 , 0, pixelFormat, bufferType, bufferData );
 
+    mySize = size;
+    myTextureCoordinatesCorrection.reset();
     const unsigned int err = glGetError();
 
     if( err != GL_NO_ERROR )

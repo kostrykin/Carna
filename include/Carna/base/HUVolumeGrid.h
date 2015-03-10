@@ -185,14 +185,52 @@ void HUVolumeGrid< HUVolumeSegmentVolume >::setVoxel( unsigned int x, unsigned i
     const unsigned int localZ = z % maxSegmentSize.z();
 
     HUVolumeSegment& segment = segmentAt( segmentX, segmentY, segmentZ );
-    return segment.volume().setVoxel( localX, localY, localZ, huv );
+    segment.volume().setVoxel( localX, localY, localZ, huv );
+
+    /* Note that segments are not disjoint,
+     * so we might need to update the redundant texels as well.
+     */
+    const bool updateRedundantX = localX == 0 && segmentX > 0;
+    const bool updateRedundantY = localY == 0 && segmentY > 0;
+    const bool updateRedundantZ = localZ == 0 && segmentZ > 0;
+
+    if( updateRedundantX )
+    {
+        segmentAt( segmentX - 1, segmentY, segmentZ ).volume().setVoxel( maxSegmentSize.x(), localY, localZ, huv );
+    }
+    if( updateRedundantY )
+    {
+        segmentAt( segmentX, segmentY - 1, segmentZ ).volume().setVoxel( localX, maxSegmentSize.y(), localZ, huv );
+    }
+    if( updateRedundantZ )
+    {
+        segmentAt( segmentX, segmentY, segmentZ - 1 ).volume().setVoxel( localX, localY, maxSegmentSize.z(), huv );
+    }
+
+    if( updateRedundantX && updateRedundantY )
+    {
+        segmentAt( segmentX - 1, segmentY - 1, segmentZ ).volume().setVoxel( maxSegmentSize.x(), maxSegmentSize.y(), localZ, huv );
+    }
+    if( updateRedundantX && updateRedundantZ )
+    {
+        segmentAt( segmentX - 1, segmentY, segmentZ - 1 ).volume().setVoxel( maxSegmentSize.x(), localY, maxSegmentSize.z(), huv );
+    }
+    if( updateRedundantY && updateRedundantZ )
+    {
+        segmentAt( segmentX, segmentY - 1, segmentZ - 1 ).volume().setVoxel( localX, maxSegmentSize.y(), maxSegmentSize.z(), huv );
+    }
+
+    if( updateRedundantX && updateRedundantY && updateRedundantZ )
+    {
+        segmentAt( segmentX - 1, segmentY - 1, segmentZ - 1 ).volume().setVoxel( maxSegmentSize, huv );
+    }
 }
 
 
 template< typename HUVolumeSegmentVolume >
 void HUVolumeGrid< HUVolumeSegmentVolume >::setVoxel( const math::Vector3ui& at, HUV huv )
 {
-    return this->setVoxel( at.x(), at.y(), at.z(), huv );
+    this->setVoxel( at.x(), at.y(), at.z(), huv );
 }
 
 

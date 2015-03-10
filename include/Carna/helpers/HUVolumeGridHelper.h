@@ -150,7 +150,11 @@ base::math::Vector3ui HUVolumeGridHelper< HUVolumeSegmentVolume >::computeMaxSeg
     const float maxSideLengthF = std::pow
         ( maxSegmentBytesize / static_cast< float >( sizeof( HUVolumeSegmentVolume::VoxelType ) ), 1.f / 3 );
     const unsigned int maxSideLength = base::math::makeEven( base::math::round_ui( maxSideLengthF ), -1 );
-    return base::math::Vector3ui( maxSideLength, maxSideLength, maxSideLength );
+
+    /* We subtract the redundant texels from effective segment size.
+     * Note that this causes the effective maximum segment size to be odd.
+     */
+    return base::math::Vector3ui( maxSideLength - 1, maxSideLength - 1, maxSideLength - 1 );
 }
 
 
@@ -177,10 +181,13 @@ HUVolumeGridHelper< HUVolumeSegmentVolume >::HUVolumeGridHelper
 
     CARNA_FOR_VECTOR3UI( segmentCoord, myGrid->segmentCounts )
     {
+        /* Here we add the redundant texels to the buffer size considerations. This
+         * is fine because 'regularSegmentSize' contains the effective segment size.
+         */
         const base::math::Vector3ui volumeSize
-            ( segmentCoord.x() + 1 == myGrid->segmentCounts.x() ? tails.x() : regularSegmentSize.x()
-            , segmentCoord.y() + 1 == myGrid->segmentCounts.y() ? tails.y() : regularSegmentSize.y()
-            , segmentCoord.z() + 1 == myGrid->segmentCounts.z() ? tails.z() : regularSegmentSize.z() );
+            ( segmentCoord.x() + 1 == myGrid->segmentCounts.x() ? tails.x() : regularSegmentSize.x() + 1
+            , segmentCoord.y() + 1 == myGrid->segmentCounts.y() ? tails.y() : regularSegmentSize.y() + 1
+            , segmentCoord.z() + 1 == myGrid->segmentCounts.z() ? tails.z() : regularSegmentSize.z() + 1 );
 
         HUVolumeSegmentVolume* const volume = new HUVolumeSegmentVolume( volumeSize );
         myGrid->segmentAt( segmentCoord.x(), segmentCoord.y(), segmentCoord.z() ).setVolume
@@ -246,10 +253,10 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
     , const Dimensions& dimensions
     , unsigned int volumeTextureRole ) const
 {
-    /* Compute dimensions of a regular grid segment.
+    /* Compute dimensions of a regular grid segment,
+     * taking the redundant texels into account.
      */
-    const base::math::Vector3f regularSegmentDimensions = spacing.millimeters.cwiseProduct
-        ( ( regularSegmentSize.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >() );
+    const base::math::Vector3f regularSegmentDimensions = spacing.millimeters.cwiseProduct( regularSegmentSize.cast< float >() );
     
     /* Create pivot node that shifts it's children to a corner.
      */

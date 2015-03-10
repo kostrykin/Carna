@@ -12,6 +12,7 @@
  */
 
 uniform sampler3D huVolume;
+uniform mat4      modelTexture;
 uniform float     stepLength;
 uniform float     waterAttenuation;
 uniform float     lowerThreshold;
@@ -43,8 +44,9 @@ void main()
     {
         discard;
     }
-
-    float intensity = intensityAt( modelSpaceCoordinates.xyz + 0.5 );
+    
+    vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;
+    float intensity = intensityAt( textureCoordinates.xyz );
           intensity = intensity + step( upperThreshold, intensity ) * ( upperMultiplier - 1 ) * intensity;
     float huv       = intensity * 4096 - 1024;
     float mu        = waterAttenuation * ( 1 + huv / 1000 );

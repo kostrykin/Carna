@@ -120,11 +120,13 @@ void RayMarchingStage::VideoResources::renderSlice
 {
     unsigned int lastUnit = base::Texture3D::SETUP_UNIT;
     std::vector< unsigned int > roles;
+    const base::Texture3D* anyTexture;
     renderable.geometry().visitFeatures( [&]( base::GeometryFeature& gf, unsigned int role )
         {
             if( dynamic_cast< base::Texture3D* >( &gf ) != nullptr )
             {
                 const base::Texture3D& texture = static_cast< const base::Texture3D& >( gf );
+                anyTexture = &texture;
                 texture.bind( ++lastUnit );
                 samplers[ role ]->bind( lastUnit );
                 roles.push_back( role );
@@ -132,10 +134,18 @@ void RayMarchingStage::VideoResources::renderSlice
         }
     );
 
+    /* We assume here that the texture coordinates correction is same for all
+     * textures, i.e. all textures have same resolution.
+     */
+    const base::math::Matrix4f modelTexture =
+        ( anyTexture == nullptr ? base::math::identity4f() : anyTexture->textureCoordinatesCorrection() )
+        * base::math::translation4f( 0.5f, 0.5f, 0.5f );
+
     /* Configure shader.
      */
     base::ShaderUniform< base::math::Matrix4f >( "sliceTangentModel", sliceTangentModel ).upload();
     base::ShaderUniform< base::math::Matrix4f >( "modelViewProjection", self.pimpl->renderTask->projection * modelView ).upload();
+    base::ShaderUniform< base::math::Matrix4f >( "modelTexture", modelTexture ).upload();
     for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {
         const unsigned int role = roles[ samplerOffset ];
