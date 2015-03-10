@@ -110,7 +110,8 @@ public:
                   , unsigned int y
                   , unsigned int z ) const
     {
-        return bufferValueToHUV( myBuffer->get()->at( x + size.x() * y + size.y() * size.x() * z ) );
+        const std::size_t index = x + size.x() * y + size.y() * size.x() * z;
+        return bufferValueToHUV( myBuffer->get()->at( index ) );
     }
 
     /** \brief
@@ -126,7 +127,9 @@ public:
       */
     void setVoxel( unsigned int x, unsigned int y, unsigned int z, HUV huv )
     {
-        myBuffer->get()->at( x + size.x() * y + size.y() * size.x() * z ) = HUVToBufferValue( huv );
+        CARNA_ASSERT( x < size.x() && y < size.y() && z < size.z() );
+        const std::size_t index = x + size.x() * y + size.y() * size.x() * z;
+        myBuffer->get()->at( index ) = HUVToBufferValue( huv );
     }
 
     /** \brief

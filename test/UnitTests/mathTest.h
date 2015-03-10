@@ -106,5 +106,10 @@ private slots:
       * Test cases for \ref Carna::base::math::round_ui
       */
     void test_round_ui();
+
+    /** \brief
+      * Test cases for \ref Carna::base::math::makeEven
+      */
+    void test_makeEven();
     
 }; // mathTest

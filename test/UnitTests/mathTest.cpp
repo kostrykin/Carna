@@ -220,3 +220,9 @@ void mathTest::test_round_ui()
 {
     QWARN( "not implemented yet" );
 }
+
+
+void mathTest::test_makeEven()
+{
+    QWARN( "not implemented yet" );
+}

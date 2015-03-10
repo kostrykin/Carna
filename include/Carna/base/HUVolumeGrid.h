@@ -166,7 +166,7 @@ void HUVolumeGrid< HUVolumeSegmentVolume >::setVoxel( unsigned int x, unsigned i
     const unsigned int localY = y % maxSegmentSize.y();
     const unsigned int localZ = z % maxSegmentSize.z();
 
-    const HUVolumeSegment& segment = segmentAt( segmentX, segmentY, segmentZ );
+    HUVolumeSegment& segment = segmentAt( segmentX, segmentY, segmentZ );
     return segment.volume().setVoxel( localX, localY, localZ, huv );
 }
 

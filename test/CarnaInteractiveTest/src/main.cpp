@@ -25,6 +25,7 @@
 #include <Carna/presets/MIPChannel.h>
 #include <Carna/presets/DRRStage.h>
 #include <Carna/presets/CuttingPlanesStage.h>
+#include <Carna/helpers/HUVolumeGridHelper.h>
 
 #include <HUGZSceneFactory.h>
 
@@ -94,7 +95,9 @@ class Demo : public QGLWidget
     const static int GEOMETRY_TYPE_OPAQUE        = 1;
     const static int GEOMETRY_TYPE_CUTTING_PLANE = 2;
 
-    std::unique_ptr< base::UInt16HUVolume > volume;
+    typedef Carna::helpers::HUVolumeGridHelper< Carna::base::UInt16HUVolume > GridHelper;
+
+    std::unique_ptr< GridHelper > gridHelper;
     std::unique_ptr< base::GLContext > glContext;
     std::unique_ptr< base::FrameRenderer > renderer;
     std::unique_ptr< base::Node > root;
@@ -206,19 +209,15 @@ void Demo::initializeGL()
     root.reset( new base::Node() );
 
     base::math::Vector3f spacing;
-    volume.reset( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/../res/pelves_reduced.hugz", spacing ) );
-    const base::math::Vector3f scale
-        ( ( volume->size.x() - 1 ) * spacing.x()
-        , ( volume->size.y() - 1 ) * spacing.y()
-        , ( volume->size.z() - 1 ) * spacing.z() );
-
-    auto& volumeTexture = base::BufferedHUVolumeTexture< base::UInt16HUVolume >::create( *volume );
-
-    base::Geometry* const volumeGeometry1 = new base::Geometry( GEOMETRY_TYPE_VOLUMETRIC );
-    volumeGeometry1->putFeature( presets::MIPStage::ROLE_HU_VOLUME, volumeTexture );
-
-    base::Geometry* const volumeGeometry2 = new base::Geometry( GEOMETRY_TYPE_VOLUMETRIC );
-    volumeGeometry2->putFeature( presets::MIPStage::ROLE_HU_VOLUME, volumeTexture );
+    std::unique_ptr< base::UInt16HUVolume > baseVolume
+        ( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/../res/pelves_reduced.hugz", spacing ) );
+    gridHelper.reset( new GridHelper
+        ( baseVolume->size
+        , baseVolume->size.x() * baseVolume->size.y() * baseVolume->size.z() * sizeof( base::UInt16HUVolume::VoxelType ) / 2 ) );
+    gridHelper->loadData( *baseVolume );
+    base::Node* const volumeNode = gridHelper->createNode
+        ( *glContext, GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ), presets::MIPStage::ROLE_HU_VOLUME );
+    gridHelper->invalidateTextures( *glContext );
 
     base::MeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 10, 10, 10 );
     base::Material& boxMaterial = base::Material::create( "unshaded" );
@@ -228,28 +227,19 @@ void Demo::initializeGL()
     boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
     boxGeometry->localTransform = base::math::translation4f( 0, 30, 50 );
 
-    volumeTexture.release();
     boxMaterial.release();
     boxMesh.release();
-
-    base::Node* const volumePivot1 = new base::Node();
-    volumePivot1->attachChild( volumeGeometry1 );
-    volumePivot1->localTransform = base::math::translation4f( -scale.x() / 2, 0, 0 ) * base::math::scaling4f( scale );
-
-    base::Node* const volumePivot2 = new base::Node();
-    volumePivot2->attachChild( volumeGeometry2 );
-    volumePivot2->localTransform = base::math::translation4f( +scale.x() / 2, 0, 0 ) * base::math::scaling4f( scale );
 
     camera = new base::Camera();
     camera->setProjection( base::math::frustum4f( 3.14f * 45 / 180.f, 1, 10, 2000 ) );
     camera->localTransform = base::math::translation4f( 0, 0, 500 );
     root->attachChild( camera );
-    root->attachChild( volumePivot1 );
-    root->attachChild( volumePivot2 );
+    root->attachChild( volumeNode );
     root->attachChild( boxGeometry );
 
     base::Geometry* const plane1 = new base::Geometry( GEOMETRY_TYPE_CUTTING_PLANE );
-    plane1->localTransform = base::math::plane4f( base::math::Vector3f( 1, 1, 1 ).normalized(), 0 );
+    //plane1->localTransform = base::math::plane4f( base::math::Vector3f( 1, 1, 1 ).normalized(), 0 );
+    plane1->localTransform = base::math::plane4f( base::math::Vector3f( 0, 0, 1 ).normalized(), 0 );
     root->attachChild( plane1 );
 }
 
@@ -271,8 +261,8 @@ void Demo::resizeGL( int w, int h )
          */
         presets::CuttingPlanesStage* const cuttingPlanes
             = new presets::CuttingPlanesStage( GEOMETRY_TYPE_VOLUMETRIC, GEOMETRY_TYPE_CUTTING_PLANE );
-        cuttingPlanes->setWindowingWidth( 1000 );
-        cuttingPlanes->setWindowingLevel( -100 );
+        //cuttingPlanes->setWindowingWidth( 1000 );
+        //cuttingPlanes->setWindowingLevel( -100 );
         renderer->appendStage( cuttingPlanes );
 
         /* Occluded Renderer
@@ -296,7 +286,7 @@ void Demo::resizeGL( int w, int h )
         /* DRR
          */
         presets::DRRStage* const drr = new presets::DRRStage( GEOMETRY_TYPE_VOLUMETRIC );
-        renderer->appendStage( drr );
+        //renderer->appendStage( drr );
 #endif
     }
     else

@@ -447,6 +447,26 @@ namespace math
         return result;
     }
 
+    template< typename ScalarType >
+    ScalarType makeEven( ScalarType x, int s )
+    {
+        CARNA_ASSERT( s == +1 || s == -1 );
+        static_assert( std::numeric_limits< ScalarType >::is_integer, "Only integral data types allowed." );
+        return x + s * ( x % 2 );
+    }
+
+    template< typename MatrixElementType, unsigned int cols, unsigned int rows >
+    Eigen::Matrix< MatrixElementType, cols, rows > makeEven( const Eigen::Matrix< MatrixElementType, cols, rows >& m, int s )
+    {
+        Eigen::Matrix< unsigned int, cols, rows > result;
+        for( unsigned int i = 0; i < cols; ++i )
+        for( unsigned int j = 0; j < rows; ++j )
+        {
+            result( i, j ) = makeEven( m( i, j ), s );
+        }
+        return result;
+    }
+
 
 
 }  // namespace Carna :: base :: math

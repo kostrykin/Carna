@@ -57,6 +57,7 @@ void Texture3D::bind( unsigned int unit ) const
 
 void Texture3D::upload( int internalFormat, const math::Vector3ui& size, int pixelFormat, int bufferType, const void* bufferData )
 {
+    CARNA_ASSERT( size.x() % 2 == 0 && size.y() % 2 == 0 && size.z() % 2 == 0 );
     bind( SETUP_UNIT );
     glTexImage3D( GL_TEXTURE_3D, 0, internalFormat
                 , size.x(), size.y(), size.z()
