@@ -43,19 +43,19 @@ namespace helpers
   * Initializes, holds and manages an \ref base::HUVolumeGrid object.
   * Creates representative scene nodes in particular.
   *
-  * This class needs to distinguish between two kinds of resolutions. This ambiguity
-  * arises from the fact that a grid's volume textures are \em not disjoint, but must
-  * share the \em same texels along common segment faces. Hence, the resolution of
-  * the data uploaded to GPU will usually be greater than the resolution of the
-  * actually loaded data. To be precise, the letter resolution is referred to as the
-  * \em effective resolution below.
+  * This class needs to distinguish between three kinds of resolutions. The grid's
+  * volume textures are \em not disjoint, but must maintain redundant voxels along
+  * common segment faces. Hence, the resolution of the data uploaded to GPU from all
+  * segments, that we will call the \em total resolution therefore, will usually be
+  * greater than the resolution of the actually \ref loadData "loaded data". We will
+  * refer to the latter as the \em native resolution.
   *
-  * Furthermore, the effective resolution might still be greater than the resolution
-  * of the loaded data, namely because it is rounded up to even numbers. The
-  * additional voxels are \em not queried from the data source, but automatically
-  * padded with \f$-1024\f$, s.t. the data source doesn't have to pay any attention
-  * to this fact. The \ref loadData method queries the data source and initializes
-  * the underlying \ref base::HUVolumeGrid object.
+  * Furthermore, the \em effective resolution, that is the one covered by the grid
+  * and available for payload, might still be greater than the native resolution,
+  * namely because the segments' resolution is rounded to even numbers. The
+  * additional voxels arising from this are \em not queried from the data source, but
+  * automatically padded with \f$-1024\f$, s.t. the data source doesn't have to pay
+  * attention to this circumstance.
   *
   * \author Leonid Kostrykin
   * \date   8.3.15 - 10.3.15
@@ -69,7 +69,7 @@ class HUVolumeGridHelper
     /** \brief
       * Holds the original resolution of the loaded data.
       */
-    const base::math::Vector3ui originalResolution;
+    const base::math::Vector3ui nativeResolution;
 
     /** \brief
       * Holds the wrapped \ref base::HUVolumeGrid object.
@@ -89,7 +89,20 @@ public:
 
     const static unsigned int DEFAULT_VOLUME_TEXTURE_ROLE = 0;
 
-    HUVolumeGridHelper( const base::math::Vector3ui& resolution, std::size_t maxSegmentBytesize = DEFAULT_MAX_SEGMENT_BYTESIZE );
+    /** \brief
+      * Creates new \ref base::HUVolumeGrid object. Initializes its' segments s.t.
+      * the totally covered resolution is \a resolution at least. It may be chosen
+      * larger if the buffers' resolution need to be rounded to even numbers.
+      *
+      * \param nativeResolution
+      * The resolution the grid is to be prepared for. This is the resolution that
+      * will be expected from the \ref loadData "data source".
+      *
+      * \param maxSegmentBytesize
+      * Maximum memory size of a single segment volume. The segments partitioning is
+      * chosen according to this value.
+      */
+    HUVolumeGridHelper( const base::math::Vector3ui& nativeResolution, std::size_t maxSegmentBytesize = DEFAULT_MAX_SEGMENT_BYTESIZE );
 
     /** \brief
       * Checks whether \ref invalidateTextures has been invoked before, if required.
@@ -98,23 +111,37 @@ public:
     ~HUVolumeGridHelper();
 
     /** \brief
-      * Holds the effective resolution, i.e. the resolution of the loaded data.
+      * Holds the effective resolution, i.e. the resolution covered by the grid.
       */
     const base::math::Vector3ui resolution;
 
+    /** \brief
+      * Maximum memory size of a single segment volume.
+      */
     const std::size_t maxSegmentBytesize;
 
+    /** \brief
+      * The maximum effective resolution of a single grid segment.
+      */
     const base::math::Vector3ui maxSegmentSize;
 
+    /** \brief
+      * The effective resolution of each grid segment that is not the last along an
+      * arbitrary axis.
+      */
     const base::math::Vector3ui regularSegmentSize;
 
     /** \brief
       * Alters the volume data. You must also call \ref invalidateTextures if
       * \ref createNode was invoked previously, in order for succeeding invocations
       * to \ref createNode to reflect the changes made to the volume data.
+      *
+      * \param data
+      * Unary function that maps \ref base::math::Vector3ui to \ref base::HUV. It
+      * will be queried for all values up to \ref nativeResolution.
       */
     template< typename UnaryVector3uiToHUVFunction >
-    void loadData( const UnaryVector3uiToHUVFunction& );
+    void loadData( const UnaryVector3uiToHUVFunction& data );
 
     /** \brief
       * Releases all previously acquired textures.
@@ -134,15 +161,24 @@ public:
       */
     void invalidateTextures( const base::GLContext& glc );
 
+    /** \brief
+      * References the underlying grid.
+      */
     base::HUVolumeGrid< HUVolumeSegmentVolume >& grid() const;
 
+    /** \brief
+      * Specifies the spacing between two succeeding voxel centers in millimeters.
+      */
     struct Spacing
     {
         explicit Spacing( const base::math::Vector3f& millimeters );
 
         base::math::Vector3f millimeters;
     };
-
+    
+    /** \brief
+      * Specifies the dimensions of the whole dataset in millimeters.
+      */
     struct Dimensions
     {
         explicit Dimensions( const base::math::Vector3f& millimeters );
@@ -193,10 +229,10 @@ base::math::Vector3ui HUVolumeGridHelper< HUVolumeSegmentVolume >::computeMaxSeg
 
 template< typename HUVolumeSegmentVolume >
 HUVolumeGridHelper< HUVolumeSegmentVolume >::HUVolumeGridHelper
-        ( const base::math::Vector3ui& originalResolution
+        ( const base::math::Vector3ui& nativeResolution
         , std::size_t maxSegmentBytesize )
-    : originalResolution( originalResolution )
-    , resolution( base::math::makeEven( originalResolution, +1 ) )
+    : nativeResolution( nativeResolution )
+    , resolution( base::math::makeEven( nativeResolution, +1 ) )
     , maxSegmentBytesize( maxSegmentBytesize )
     , maxSegmentSize( computeMaxSegmentSize( resolution, maxSegmentBytesize ) )
     , regularSegmentSize( maxSegmentSize.cwiseMin( resolution ) )
