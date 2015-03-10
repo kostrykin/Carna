@@ -39,16 +39,46 @@ namespace helpers
 // HUVolumeGridHelper
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Initializes, holds and manages an \ref base::HUVolumeGrid object.
+  * Creates representative scene nodes in particular.
+  *
+  * This class needs to distinguish between two kinds of resolutions. This ambiguity
+  * arises from the fact that a grid's volume textures are \em not disjoint, but must
+  * share the \em same texels along common segment faces. Hence, the resolution of
+  * the data uploaded to GPU will usually be greater than the resolution of the
+  * actually loaded data. To be precise, the letter resolution is referred to as the
+  * \em effective resolution below.
+  *
+  * Furthermore, the effective resolution might still be greater than the resolution
+  * of the loaded data, namely because it is rounded up to even numbers. The
+  * additional voxels are \em not queried from the data source, but automatically
+  * padded with \f$-1024\f$, s.t. the data source doesn't have to pay any attention
+  * to this fact. The \ref loadData method queries the data source and initializes
+  * the underlying \ref base::HUVolumeGrid object.
+  *
+  * \author Leonid Kostrykin
+  * \date   8.3.15 - 10.3.15
+  */
 template< typename HUVolumeSegmentVolume >
 class HUVolumeGridHelper
 {
 
     NON_COPYABLE
 
+    /** \brief
+      * Holds the original resolution of the loaded data.
+      */
     const base::math::Vector3ui originalResolution;
 
+    /** \brief
+      * Holds the wrapped \ref base::HUVolumeGrid object.
+      */
     std::unique_ptr< base::HUVolumeGrid< HUVolumeSegmentVolume > > myGrid;
 
+    /** \brief
+      * Caches volume textures created from \ref myGrid.
+      */
     mutable std::map< const typename base::HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment*, base::Texture3D* > textures;
 
 public:
@@ -67,6 +97,9 @@ public:
       */
     ~HUVolumeGridHelper();
 
+    /** \brief
+      * Holds the effective resolution, i.e. the resolution of the loaded data.
+      */
     const base::math::Vector3ui resolution;
 
     const std::size_t maxSegmentBytesize;

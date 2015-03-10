@@ -81,6 +81,11 @@ RayMarchingStage::VideoResources::VideoResources( const base::ShaderProgram& sha
     : sliceMesh( SliceMesh::create( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN ) )
     , shader( shader )
 {
+    /* Actually, one would assume that the radius should be _half_ of the square root
+     * of 3. But if specified so, one encounters "holes" in volume renderings. For
+     * the moment, just the square root of 3 seems to produce slices that are large
+     * enough, although this particular value is somewhat "random".
+     */
     const float radius = std::sqrt( 3.f );
     base::VertexBase vertices[ 4 ];
     uint8_t indices[ 4 ];
