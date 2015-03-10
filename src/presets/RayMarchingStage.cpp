@@ -81,7 +81,7 @@ RayMarchingStage::VideoResources::VideoResources( const base::ShaderProgram& sha
     : sliceMesh( SliceMesh::create( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN ) )
     , shader( shader )
 {
-    const float radius = std::sqrt( 3.f ) / 2;
+    const float radius = std::sqrt( 3.f );
     base::VertexBase vertices[ 4 ];
     uint8_t indices[ 4 ];
 
