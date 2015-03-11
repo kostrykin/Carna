@@ -42,7 +42,7 @@ namespace base
   * \author Leonid Kostrykin
   * \date   21.2.13 - 9.3.15
   */
-template< typename Scalar >
+template< typename ScalarType >
 class ScalarField
 {
 
@@ -51,7 +51,7 @@ public:
     /** \brief
       * Holds the co-domain type of the scalar field.
       */
-    typedef typename Scalar Scalar;
+    typedef ScalarType Scalar;
 
     /** \brief
       * Does nothing.
@@ -63,7 +63,7 @@ public:
     /** \brief
       * Returns value of specified voxel.
       */
-    virtual Scalar operator()
+    virtual ScalarType operator()
         ( unsigned int x
         , unsigned int y
         , unsigned int z ) const = 0;
@@ -71,13 +71,13 @@ public:
     /** \brief
       * Returns value of specified voxel.
       */
-    virtual Scalar operator()( const math::Vector3ui& at ) const;
+    virtual ScalarType operator()( const math::Vector3ui& at ) const;
 
 }; // ScalarField
 
 
-template< typename Scalar >
-Scalar ScalarField< Scalar >::operator()( const math::Vector3ui& at ) const
+template< typename ScalarType >
+ScalarType ScalarField< ScalarType >::operator()( const math::Vector3ui& at ) const
 {
     return ( *this )( at.x(), at.y(), at.z() );
 }

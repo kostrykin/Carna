@@ -14,6 +14,7 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/Spatial.h>
+#include <memory>
 
 /** \file   Geometry.h
   * \brief  Defines \ref Carna::base::Geometry.

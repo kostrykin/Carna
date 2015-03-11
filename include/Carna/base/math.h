@@ -128,7 +128,7 @@ namespace math
         /** \brief
           * Since \a T is assumed to be scalar type, it's element type is also \a T.
           */
-        typedef typename T type;
+        typedef T type;
 
     };
 
@@ -142,7 +142,7 @@ namespace math
         /** \brief
           * The vector element type is known implicitly for each vector type.
           */
-        typedef typename VectorElementType type;
+        typedef VectorElementType type;
 
     };
 
@@ -175,7 +175,7 @@ namespace math
     template< typename InputType >
     inline bool isEqual( const InputType& x, const InputType& y )
     {
-        typedef element_type_of< InputType >::type ScalarType;
+        typedef typename element_type_of< InputType >::type ScalarType;
         const InputType difference = x - y;
         const ScalarType distance2 = length2( InputType( difference ) );
         const ScalarType _epsilon  = epsilon< ScalarType >();
@@ -398,10 +398,10 @@ namespace math
     float maxAbsElement( const Matrix& m )
     {
         const std::size_t length = m.rows() * m.cols();
-        float maxAbs = 0;
+        typename Matrix::Scalar maxAbs = 0;
         for( std::size_t i = 0; i < length; ++i )
         {
-            maxAbs = std::max( maxAbs, abs( m.data()[ i ] ) );
+            maxAbs = std::max( maxAbs, std::abs( m.data()[ i ] ) );
         }
         return maxAbs;
     }

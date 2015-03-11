@@ -51,21 +51,21 @@ public:
 // VertexBuffer
 // ----------------------------------------------------------------------------------
 
-template< typename Vertex >
+template< typename VertexType >
 class VertexBuffer : public VertexBufferBase
 {
 
 public:
 
-    typedef typename Vertex Vertex;
+    typedef VertexType Vertex;
 
     void copy( const Vertex* vertices_ptr, const std::size_t vertices_count );
 
 }; // VertexBuffer
 
 
-template< typename Vertex >
-void VertexBuffer< Vertex >::copy( const Vertex* vertices_ptr, const std::size_t vertices_count )
+template< typename VertexType >
+void VertexBuffer< VertexType >::copy( const Vertex* vertices_ptr, const std::size_t vertices_count )
 {
     VertexBufferBase::copy( vertices_ptr, vertices_count * sizeof( Vertex ), vertices_count );
 }

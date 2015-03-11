@@ -68,7 +68,7 @@ public:
 // IndexBufferTypeMapper
 // ----------------------------------------------------------------------------------
 
-template< typename Index >
+template< typename IndexType >
 struct IndexBufferTypeMapper
 {
 };
@@ -109,30 +109,30 @@ struct IndexBufferTypeMapper< uint32_t >
 // IndexBuffer
 // ----------------------------------------------------------------------------------
 
-template< typename Index >
+template< typename IndexType >
 class IndexBuffer : public IndexBufferBase
 {
 
 public:
 
-    typedef typename Index Index;
+    typedef IndexType Index;
 
     IndexBuffer( unsigned int primitiveType );
 
-    void copy( const Index* indices_ptr, const std::size_t indices_count );
+    void copy( const IndexType* indices_ptr, const std::size_t indices_count );
 
 }; // IndexBuffer
 
 
-template< typename Index >
-IndexBuffer< Index >::IndexBuffer( unsigned int primitiveType )
-    : IndexBufferBase( IndexBufferTypeMapper< Index >(), primitiveType )
+template< typename IndexType >
+IndexBuffer< IndexType >::IndexBuffer( unsigned int primitiveType )
+    : IndexBufferBase( IndexBufferTypeMapper< IndexType >(), primitiveType )
 {
 }
 
 
-template< typename Index >
-void IndexBuffer< Index >::copy( const Index* indices_ptr, const std::size_t indices_count )
+template< typename IndexType >
+void IndexBuffer< IndexType >::copy( const IndexType* indices_ptr, const std::size_t indices_count )
 {
     IndexBufferBase::copy( indices_ptr, indices_count * sizeof( Index ), indices_count );
 }

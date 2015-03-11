@@ -36,7 +36,7 @@ namespace base
 // HUVolumeGrid
 // ----------------------------------------------------------------------------------
 
-template< typename HUVolumeSegmentVolume >
+template< typename HUVolumeSegmentVolumeType >
 class HUVolumeGrid : public HUVolume
 {
 
@@ -44,9 +44,9 @@ class HUVolumeGrid : public HUVolume
 
 public:
 
-    typedef typename HUVolumeSegmentVolume HUVolumeSegmentVolume;
+    typedef HUVolumeSegmentVolumeType HUVolumeSegmentVolume;
 
-    typedef HUVolumeSegment< HUVolumeGrid< HUVolumeSegmentVolume >, HUVolumeSegmentVolume > HUVolumeSegment;
+    typedef base::HUVolumeSegment< HUVolumeGrid< HUVolumeSegmentVolumeType >, HUVolumeSegmentVolumeType > HUVolumeSegment;
 
     HUVolumeGrid( const math::Vector3ui& maxSegmentSize, const math::Vector3ui& segmentCounts );
 
@@ -80,8 +80,8 @@ private:
 }; // HUVolumeGrid
 
 
-template< typename HUVolumeSegmentVolume >
-HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeGrid( const math::Vector3ui& maxSegmentSize, const math::Vector3ui& segmentCounts )
+template< typename HUVolumeSegmentVolumeType >
+HUVolumeGrid< HUVolumeSegmentVolumeType >::HUVolumeGrid( const math::Vector3ui& maxSegmentSize, const math::Vector3ui& segmentCounts )
     : maxSegmentSize( maxSegmentSize )
     , segmentCounts( segmentCounts )
 {
@@ -100,38 +100,38 @@ HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeGrid( const math::Vector3ui& maxS
 }
 
 
-template< typename HUVolumeSegmentVolume >
-HUVolumeGrid< HUVolumeSegmentVolume >::~HUVolumeGrid()
+template< typename HUVolumeSegmentVolumeType >
+HUVolumeGrid< HUVolumeSegmentVolumeType >::~HUVolumeGrid()
 {
     std::for_each( segments.begin(), segments.end(), std::default_delete< HUVolumeSegment >() );
 }
 
 
-template< typename HUVolumeSegmentVolume >
-std::size_t HUVolumeGrid< HUVolumeSegmentVolume >::segmentIndex( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ ) const
+template< typename HUVolumeSegmentVolumeType >
+std::size_t HUVolumeGrid< HUVolumeSegmentVolumeType >::segmentIndex( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ ) const
 {
     return segmentX + segmentY * segmentCounts.x() + segmentZ * segmentCounts.x() * segmentCounts.y();
 }
 
 
-template< typename HUVolumeSegmentVolume >
-typename HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& HUVolumeGrid< HUVolumeSegmentVolume >::segmentAt
+template< typename HUVolumeSegmentVolumeType >
+typename HUVolumeGrid< HUVolumeSegmentVolumeType >::HUVolumeSegment& HUVolumeGrid< HUVolumeSegmentVolumeType >::segmentAt
     ( const base::math::Vector3ui& p )
 {
     return segmentAt( p.x(), p.y(), p.z() );
 }
 
 
-template< typename HUVolumeSegmentVolume >
-const typename HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& HUVolumeGrid< HUVolumeSegmentVolume >::segmentAt
+template< typename HUVolumeSegmentVolumeType >
+const typename HUVolumeGrid< HUVolumeSegmentVolumeType >::HUVolumeSegment& HUVolumeGrid< HUVolumeSegmentVolumeType >::segmentAt
     ( const base::math::Vector3ui& p ) const
 {
     return segmentAt( p.x(), p.y(), p.z() );
 }
 
 
-template< typename HUVolumeSegmentVolume >
-typename HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& HUVolumeGrid< HUVolumeSegmentVolume >::segmentAt
+template< typename HUVolumeSegmentVolumeType >
+typename HUVolumeGrid< HUVolumeSegmentVolumeType >::HUVolumeSegment& HUVolumeGrid< HUVolumeSegmentVolumeType >::segmentAt
     ( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ )
 {
     const std::size_t index = segmentIndex( segmentX, segmentY, segmentZ );
@@ -140,8 +140,8 @@ typename HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& HUVolumeGrid< H
 }
 
 
-template< typename HUVolumeSegmentVolume >
-const typename HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& HUVolumeGrid< HUVolumeSegmentVolume >::segmentAt
+template< typename HUVolumeSegmentVolumeType >
+const typename HUVolumeGrid< HUVolumeSegmentVolumeType >::HUVolumeSegment& HUVolumeGrid< HUVolumeSegmentVolumeType >::segmentAt
     ( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ ) const
 {
     const std::size_t index = segmentIndex( segmentX, segmentY, segmentZ );
@@ -150,8 +150,8 @@ const typename HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& HUVolumeG
 }
 
 
-template< typename HUVolumeSegmentVolume >
-HUV HUVolumeGrid< HUVolumeSegmentVolume >::operator()( unsigned int x, unsigned int y, unsigned int z ) const
+template< typename HUVolumeSegmentVolumeType >
+HUV HUVolumeGrid< HUVolumeSegmentVolumeType >::operator()( unsigned int x, unsigned int y, unsigned int z ) const
 {
     const unsigned int segmentX = x / maxSegmentSize.x();
     const unsigned int segmentY = y / maxSegmentSize.y();
@@ -166,15 +166,15 @@ HUV HUVolumeGrid< HUVolumeSegmentVolume >::operator()( unsigned int x, unsigned 
 }
 
 
-template< typename HUVolumeSegmentVolume >
-HUV HUVolumeGrid< HUVolumeSegmentVolume >::operator()( const math::Vector3ui& at ) const
+template< typename HUVolumeSegmentVolumeType >
+HUV HUVolumeGrid< HUVolumeSegmentVolumeType >::operator()( const math::Vector3ui& at ) const
 {
     return ( *this )( at.x(), at.y(), at.z() );
 }
 
 
-template< typename HUVolumeSegmentVolume >
-void HUVolumeGrid< HUVolumeSegmentVolume >::setVoxel( unsigned int x, unsigned int y, unsigned int z, HUV huv )
+template< typename HUVolumeSegmentVolumeType >
+void HUVolumeGrid< HUVolumeSegmentVolumeType >::setVoxel( unsigned int x, unsigned int y, unsigned int z, HUV huv )
 {
     const unsigned int segmentX = x / maxSegmentSize.x();
     const unsigned int segmentY = y / maxSegmentSize.y();
@@ -227,8 +227,8 @@ void HUVolumeGrid< HUVolumeSegmentVolume >::setVoxel( unsigned int x, unsigned i
 }
 
 
-template< typename HUVolumeSegmentVolume >
-void HUVolumeGrid< HUVolumeSegmentVolume >::setVoxel( const math::Vector3ui& at, HUV huv )
+template< typename HUVolumeSegmentVolumeType >
+void HUVolumeGrid< HUVolumeSegmentVolumeType >::setVoxel( const math::Vector3ui& at, HUV huv )
 {
     this->setVoxel( at.x(), at.y(), at.z(), huv );
 }

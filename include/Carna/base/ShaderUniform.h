@@ -59,10 +59,30 @@ private:
 
 
 // ----------------------------------------------------------------------------------
+// uploadUniform
+// ----------------------------------------------------------------------------------
+
+void CARNA_LIB uploadUniform( int location, const int value );
+
+void CARNA_LIB uploadUniform( int location, const unsigned int value );
+
+void CARNA_LIB uploadUniform( int location, const float value );
+
+void CARNA_LIB uploadUniform( int location, const math::Vector2f& value );
+
+void CARNA_LIB uploadUniform( int location, const math::Vector3f& value );
+
+void CARNA_LIB uploadUniform( int location, const math::Vector4f& value );
+
+void CARNA_LIB uploadUniform( int location, const math::Matrix4f& value );
+
+
+
+// ----------------------------------------------------------------------------------
 // ShaderUniform
 // ----------------------------------------------------------------------------------
 
-template< typename Type >
+template< typename UniformType >
 class ShaderUniform : public ShaderUniformBase
 {
 
@@ -70,7 +90,7 @@ public:
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    typedef typename Type Type;
+    typedef UniformType Type;
 
     ShaderUniform( const std::string& name, const Type& type );
 
@@ -83,59 +103,19 @@ protected:
 }; // ShaderUniform
 
 
-template< typename Type >
-ShaderUniform< Type >::ShaderUniform( const std::string& name, const Type& value )
+template< typename UniformType >
+ShaderUniform< UniformType >::ShaderUniform( const std::string& name, const Type& value )
     : ShaderUniformBase( name )
     , value( value )
 {
 }
 
 
-template< typename Type >
-void ShaderUniform< Type >::uploadTo( int location ) const
+template< typename UniformType >
+void ShaderUniform< UniformType >::uploadTo( int location ) const
 {
-    uploadUniform< Type >( location, value );
+    uploadUniform( location, value );
 }
-
-
-
-// ----------------------------------------------------------------------------------
-// uploadUniform
-// ----------------------------------------------------------------------------------
-
-template< typename Type >
-void uploadUniform( int location, const Type& value )
-{
-    static_assert( false, "Unimplemented ShaderUniform<T> type parameter T." );
-}
-
-
-template< >
-void CARNA_LIB uploadUniform< int >( int location, const int& value );
-
-
-template< >
-void CARNA_LIB uploadUniform< unsigned int >( int location, const unsigned int& value );
-
-
-template< >
-void CARNA_LIB uploadUniform< float >( int location, const float& value );
-
-
-template< >
-void CARNA_LIB uploadUniform< math::Vector2f >( int location, const math::Vector2f& value );
-
-
-template< >
-void CARNA_LIB uploadUniform< math::Vector3f >( int location, const math::Vector3f& value );
-
-
-template< >
-void CARNA_LIB uploadUniform< math::Vector4f >( int location, const math::Vector4f& value );
-
-
-template< >
-void CARNA_LIB uploadUniform< math::Matrix4f >( int location, const math::Matrix4f& value );
 
 
 

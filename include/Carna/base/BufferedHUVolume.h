@@ -57,11 +57,11 @@ public:
 
     /** \brief  Holds the used buffer type.
       */
-    typedef typename BufferType BufferType;
+    typedef BufferType Buffer;
 
     /** \brief  Holds the used voxel type.
       */
-    typedef typename VoxelType VoxelType;
+    typedef VoxelType Voxel;
 
     /** \brief  Instantiates.
       */

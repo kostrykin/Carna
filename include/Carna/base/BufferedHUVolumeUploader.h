@@ -17,7 +17,8 @@
 #include <Carna/base/CarnaException.h>
 
 /** \file   BufferedHUVolumeUploader.h
-  * \brief  Defines \ref Carna::base::BufferedHUVolumeUploader.
+  * \brief  Defines \ref Carna::base::uploadBufferedHUVolume.
+  * \todo	Rename this file.
   */
 
 namespace Carna
@@ -32,31 +33,7 @@ namespace base
 // BufferedHUVolumeUploader
 // ----------------------------------------------------------------------------------
 
-template< typename BufferedHUVolume >
-struct BufferedHUVolumeUploader
-{
-
-    static void upload( const BufferedHUVolume& src, Texture3D& dst )
-    {
-        static_assert( false, "Unimplemented BufferedHUVolumeUploader<T> type parameter T." );
-    }
-
-}; // BufferedHUVolumeUploader
-
-
-void CARNA_LIB uploadUInt16HUVolume( const UInt16HUVolume& src, Texture3D& dst );
-
-
-template< >
-struct CARNA_LIB BufferedHUVolumeUploader< UInt16HUVolume >
-{
-
-    static void upload( const UInt16HUVolume& src, Texture3D& dst )
-    {
-        uploadUInt16HUVolume( src, dst );
-    }
-
-}; // BufferedHUVolumeUploader< UInt16HUVolume >
+void CARNA_LIB uploadBufferedHUVolume( const UInt16HUVolume& src, Texture3D& dst );
 
 
 

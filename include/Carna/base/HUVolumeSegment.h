@@ -36,7 +36,7 @@ namespace base
 // HUVolumeSegment
 // ----------------------------------------------------------------------------------
 
-template< typename HUVolumeGrid, typename HUVolumeSegmentVolume >
+template< typename HUVolumeGridType, typename HUVolumeSegmentVolumeType >
 class HUVolumeSegment
 {
 
@@ -44,19 +44,19 @@ class HUVolumeSegment
 
 public:
 
-    typedef typename HUVolumeGrid HUVolumeGrid;
+    typedef HUVolumeGridType HUVolumeGrid;
 
-    typedef typename HUVolumeSegmentVolume HUVolumeSegmentVolume;
+    typedef HUVolumeSegmentVolumeType HUVolumeSegmentVolume;
 
-    HUVolumeGrid& field;
+    HUVolumeGridType& field;
 
-    HUVolumeSegment( HUVolumeGrid& field );
+    HUVolumeSegment( HUVolumeGridType& field );
 
-    void setVolume( Association< HUVolumeSegmentVolume >* volume );
+    void setVolume( Association< HUVolumeSegmentVolumeType >* volume );
 
-    HUVolumeSegmentVolume& volume();
+    HUVolumeSegmentVolumeType& volume();
 
-    const HUVolumeSegmentVolume& volume() const;
+    const HUVolumeSegmentVolumeType& volume() const;
 
     bool hasVolume() const;
 
@@ -64,43 +64,43 @@ public:
 
 private:
 
-    std::unique_ptr< Association< HUVolumeSegmentVolume > > myVolume;
+    std::unique_ptr< Association< HUVolumeSegmentVolumeType > > myVolume;
 
 }; // HUVolumeSegment
 
 
-template< typename HUVolumeGrid, typename HUVolumeSegmentVolume >
-HUVolumeSegment< HUVolumeGrid, HUVolumeSegmentVolume >::HUVolumeSegment( HUVolumeGrid& field )
+template< typename HUVolumeGridType, typename HUVolumeSegmentVolumeType >
+HUVolumeSegment< HUVolumeGridType, HUVolumeSegmentVolumeType >::HUVolumeSegment( HUVolumeGridType& field )
     : field( field )
 {
 }
 
 
-template< typename HUVolumeGrid, typename HUVolumeSegmentVolume >
-void HUVolumeSegment< HUVolumeGrid, HUVolumeSegmentVolume >::setVolume( Association< HUVolumeSegmentVolume >* volume )
+template< typename HUVolumeGridType, typename HUVolumeSegmentVolumeType >
+void HUVolumeSegment< HUVolumeGridType, HUVolumeSegmentVolumeType >::setVolume( Association< HUVolumeSegmentVolumeType >* volume )
 {
     myVolume.reset( volume );
 }
 
 
-template< typename HUVolumeGrid, typename HUVolumeSegmentVolume >
-HUVolumeSegmentVolume& HUVolumeSegment< HUVolumeGrid, HUVolumeSegmentVolume >::volume()
+template< typename HUVolumeGridType, typename HUVolumeSegmentVolumeType >
+HUVolumeSegmentVolumeType& HUVolumeSegment< HUVolumeGridType, HUVolumeSegmentVolumeType >::volume()
 {
     CARNA_ASSERT( hasVolume() );
     return **myVolume;
 }
 
 
-template< typename HUVolumeGrid, typename HUVolumeSegmentVolume >
-const HUVolumeSegmentVolume& HUVolumeSegment< HUVolumeGrid, HUVolumeSegmentVolume >::volume() const
+template< typename HUVolumeGridType, typename HUVolumeSegmentVolumeType >
+const HUVolumeSegmentVolumeType& HUVolumeSegment< HUVolumeGridType, HUVolumeSegmentVolumeType >::volume() const
 {
     CARNA_ASSERT( hasVolume() );
     return **myVolume;
 }
 
 
-template< typename HUVolumeGrid, typename HUVolumeSegmentVolume >
-bool HUVolumeSegment< HUVolumeGrid, HUVolumeSegmentVolume >::hasVolume() const
+template< typename HUVolumeGridType, typename HUVolumeSegmentVolumeType >
+bool HUVolumeSegment< HUVolumeGridType, HUVolumeSegmentVolumeType >::hasVolume() const
 {
     return myVolume.get() != nullptr && myVolume->get() != nullptr;
 }

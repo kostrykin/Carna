@@ -22,10 +22,10 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// BufferedHUVolumeUploader
+// uploadBufferedHUVolume
 // ----------------------------------------------------------------------------------
 
-void uploadUInt16HUVolume( const UInt16HUVolume& src, Texture3D& dst )
+void uploadBufferedHUVolume( const UInt16HUVolume& src, Texture3D& dst )
 {
     dst.upload( GL_INTENSITY16, src.size, GL_RED, GL_UNSIGNED_SHORT, &src.buffer().front() );
 }

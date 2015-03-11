@@ -64,7 +64,7 @@ public:
       */
     virtual ~Composition()
     {
-        AssociatedObjectType* const associatedObject = get();
+        AssociatedObjectType* const associatedObject = Association< AssociatedObjectType >::get();
         if( associatedObject )
         {
             delete associatedObject;

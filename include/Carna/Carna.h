@@ -28,6 +28,9 @@
 #       define CARNA_LIB
 #   endif
 #endif
+#if defined( NO_OVERRIDE_KEYWORD )
+#   define override
+#endif
 
 #include <vector>
 
@@ -104,7 +107,7 @@ namespace Carna
         template< typename Vertex > class MeshFactory;
         template< typename RenderableCompare > class MeshRenderingStage;
         template< typename Vector > class Ray;
-        template< typename Vector, typename Scalar = Vector::Scalar > class RayPlaneHitTest;
+        template< typename Vector, typename Scalar = typename Vector::Scalar > class RayPlaneHitTest;
         template< typename RenderableCompare > class RenderQueue;
         template< typename Vertex > class VertexBuffer;
         template< typename Type > class ShaderUniform;

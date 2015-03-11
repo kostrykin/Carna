@@ -71,7 +71,7 @@ public:
       */
     bool operator==( const Span< T >& another ) const
     {
-        return base::Math::isEqual( first, another.first ) && base::Math::isEqual( last, another.last );
+        return base::math::isEqual( first, another.first ) && base::math::isEqual( last, another.last );
     }
 
     /** \brief  Compares this span to \a another.

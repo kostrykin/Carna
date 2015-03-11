@@ -83,7 +83,7 @@ public:
 // Mesh
 // ----------------------------------------------------------------------------------
 
-template< typename Vertex, typename Index >
+template< typename VertexType, typename IndexType >
 class Mesh : public MeshBase
 {
 
@@ -91,63 +91,63 @@ class Mesh : public MeshBase
 
 public:
 
-    typedef typename Vertex Vertex;
+    typedef VertexType Vertex;
 
-    typedef typename Index Index;
+    typedef IndexType Index;
 
-    const VertexBuffer< Vertex >& vertexBuffer() const;
+    const VertexBuffer< VertexType >& vertexBuffer() const;
 
-    const IndexBuffer< Index >& indexBuffer() const;
+    const IndexBuffer< IndexType >& indexBuffer() const;
 
-    VertexBuffer< Vertex >& vertexBuffer();
+    VertexBuffer< VertexType >& vertexBuffer();
 
-    IndexBuffer< Index >& indexBuffer();
+    IndexBuffer< IndexType >& indexBuffer();
 
     /** \brief
       * Instantiates. Call \ref release when you do not need the object any longer.
       */
-    static Mesh< Vertex, Index >& create( unsigned int primitiveType );
+    static Mesh< VertexType, IndexType >& create( unsigned int primitiveType );
 
 }; // Mesh
 
 
-template< typename Vertex, typename Index >
-Mesh< Vertex, Index >::Mesh( unsigned int primitiveType )
+template< typename VertexType, typename IndexType >
+Mesh< VertexType, IndexType >::Mesh( unsigned int primitiveType )
     : MeshBase( new VertexBuffer< Vertex >(), new IndexBuffer< Index >( primitiveType ), Vertex::attributes )
 {
 }
 
 
-template< typename Vertex, typename Index >
-const VertexBuffer< Vertex >& Mesh< Vertex, Index >::vertexBuffer() const
+template< typename VertexType, typename IndexType >
+const VertexBuffer< VertexType >& Mesh< VertexType, IndexType >::vertexBuffer() const
 {
     return static_cast< const VertexBuffer< Vertex >& >( MeshBase::vertexBuffer() );
 }
 
 
-template< typename Vertex, typename Index >
-const IndexBuffer< Index >& Mesh< Vertex, Index >::indexBuffer() const
+template< typename VertexType, typename IndexType >
+const IndexBuffer< IndexType >& Mesh< VertexType, IndexType >::indexBuffer() const
 {
     return static_cast< const IndexBuffer< Index >& >( MeshBase::indexBuffer() );
 }
 
 
-template< typename Vertex, typename Index >
-VertexBuffer< Vertex >& Mesh< Vertex, Index >::vertexBuffer()
+template< typename VertexType, typename IndexType >
+VertexBuffer< VertexType >& Mesh< VertexType, IndexType >::vertexBuffer()
 {
     return static_cast< VertexBuffer< Vertex >& >( MeshBase::vertexBuffer() );
 }
 
 
-template< typename Vertex, typename Index >
-IndexBuffer< Index >& Mesh< Vertex, Index >::indexBuffer()
+template< typename VertexType, typename IndexType >
+IndexBuffer< IndexType >& Mesh< VertexType, IndexType >::indexBuffer()
 {
     return static_cast< IndexBuffer< Index >& >( MeshBase::indexBuffer() );
 }
 
 
-template< typename Vertex, typename Index >
-Mesh< Vertex, Index >& Mesh< Vertex, Index >::create( unsigned int primitiveType )
+template< typename VertexType, typename IndexType >
+Mesh< VertexType, IndexType >& Mesh< VertexType, IndexType >::create( unsigned int primitiveType )
 {
     return *new Mesh< Vertex, Index >( primitiveType );
 }
