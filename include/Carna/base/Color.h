@@ -40,6 +40,12 @@ public:
     const static Color WHITE_NO_ALPHA;
     const static Color BLACK;
     const static Color BLACK_NO_ALPHA;
+    const static Color RED;
+    const static Color RED_NO_ALPHA;
+    const static Color GREEN;
+    const static Color GREEN_NO_ALPHA;
+    const static Color BLUE;
+    const static Color BLUE_NO_ALPHA;
 
     Color( unsigned char r, unsigned char g, unsigned char b, unsigned char a );
 

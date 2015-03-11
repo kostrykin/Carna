@@ -134,6 +134,16 @@ public:
       * <code>hasParent() == true</code>
       */
     const Node& parent() const;
+
+    /** \brief
+      * References the root node this spatial belongs to.
+      */
+    Node& findRoot();
+    
+    /** \brief
+      * References the root node this spatial belongs to.
+      */
+    const Node& findRoot() const;
     
     /** \brief
       * Defines the location, rotation and scale of this spatial in relation to it's

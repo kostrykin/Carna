@@ -58,7 +58,7 @@ class FrameRendererHelper
 
 public:
 
-    FrameRendererHelper( base::FrameRenderer& renderer );
+    explicit FrameRendererHelper( base::FrameRenderer& renderer );
 
     ~FrameRendererHelper();
     

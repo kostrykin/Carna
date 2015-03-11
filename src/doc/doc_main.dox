@@ -1,76 +1,75 @@
+namespace Carna
+{
+
 /** \mainpage
   *
-  * %Carna provides classes for simple and fast visualization of CT data.
-  * It is named after the greek god of organs (yup, they really did have even one for organs).
-  * It is based on Qt 4.8, OpenGL 2.1 and TRTK.
+  * %Carna provides classes for simple and fast visualization of CT data. It is named
+  * after the greek god of organs (yup, they really did have even one for organs). It
+  * is based on OpenGL 3.3 and Eigen.
   *
-  * Jump to: \ref QuickStart | \ref VersionLog | \ref Carna::testing "Test Suite Documentation"
+  * Jump to:
+        \ref QuickStart | \ref VersionLog | \ref testing "Test Suite Documentation"
   *
-  * \image html api_overview01.png
+  * \section QuickStart Quick Start
   *
-  * As you might guess from the above illustration, visualizations are the core components
-  * the framework is organized around. There are different kinds of visualizations provided
-  * as ready-to-use, being supposed to work out-of-the-box: those are configurations of the
-  * \c %Visualization class, each being made up by particular \c %Renderer and
-  * \c %InteractionStrategy implementations. Refer to the \ref GettingStarted section for details.
+  *  -# Implement the abstract \ref base::GLContext class. If you're using Qt, you
+  *     can simply instantiate the \ref base::QGLContextAdapter template.
+  *  -# Instantiate and configure a \ref base::FrameRenderer, e.g. like this:
+  *     \code
+  *     const static unsigned int GEOMETRY_TYPE_VOLUMETRIC = 0;
+  *     const static unsigned int GEOMETRY_TYPE_PLANE      = 1;
+  *     const static unsigned int GEOMETRY_TYPE_OPAQUE     = 2;
   *
-  * \section TOC Table of Contents
+  *     using namespace Carna;
   *
-  * \subsection ChangeLogs Change Logs
+  *     base::FrameRenderer fr( glContext, 800, 600, true );
+  *     helpers::FrameRendererHelper< > frHelper( fr );
+  *     frHelper << new presets::CuttingPlanesStage( GEOMETRY_TYPE_VOLUMETRIC, GEOMETRY_TYPE_PLANE );
+  *     frHelper << new presets::MeshColorCodingStage();
+  *     frHelper << new presets::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
+  *     frHelper << new presets::DRRStage( GEOMETRY_TYPE_VOLUMETRIC );
+  *     frHelper << new presets::OccludedRenderingStage();
+  *     frHelper.commit();
   *
-  * - \ref From1xTo2x
-  * - \ref VersionLog
+  *     fr.findStage< presets::DRRStage >().setRenderingInverse( true );
+  *     fr.setBackgroundColor( base::Color::WHITE_NO_ALPHA );
+  *     \endcode
+  *     The values of the \c GEOMETRY_TYPE_ variables can be chosen arbitrary, but
+  *     must be distinct.
+  *  -# Build the \ref SceneGraph "scene graph", e.g. like this:
+  *     \code
+  *     base::Node root;
   *
-  * \subsection GettingStarted Getting Started
-  * 
-  * You can find a \ref MinimalExample as well as some more extensive examples on the \ref QuickStart page.
+  *     // configure camera
+  *     base::Camera* const cam = new base::Camera();
+  *     cam->localTransform = base::math::translation4f( 0, 0, 350 );
+  *     cam->setProjection( base::math::frustum4f( base::math::deg2rad( 45 ), 1, 10, 2000 ) );
+  *     root.attachChild( cam );
   *
-  * Essential classes:
-  * - \ref Carna::base::Scene "Scene" - represents the data model.
-  * - \ref Carna::base::qt::Display "Display" - \c QWidget that shows a particular visualization.
-  * - \ref Carna::base::OffscreenDisplay "OffscreenDisplay" - performs offscreen rendering of a particular visualization.
-  * - \ref Carna::base::Visualization "Visualization" - combines a view and a controller component.
-  * - \ref Carna::base::controller::InteractionStrategy "InteractionStrategy" - represents the controller component of a visualization.
-  * - \ref Carna::base::Renderer "Renderer" - is the view component of a visualization and implements its rendering logic.
-  * - \ref Carna::base::SceneProvider "SceneProvider" - interfaces the data model and provides OpenGL-equivalents of model elements, shared among renderers.
-  * - \ref Carna::base::Camera "Camera" - defines the coordinate mapping from scene space into screen space.
+  *     // configure geometry node for volume data
+  *     // TODO: to be written...
   *
-  * Provided visualizations:
+  *     // configure cutting planes
+  *     base::Geometry* const plane1 = new base::Geometry( GEOMETRY_TYPE_PLANE );
+  *     plane1->localTransform = base::math::plane4f( base::math::Vector3f( 1, 1, 1 ).normalized(), 0 );
+  *     root.attachChild( plane1 );
   *
-  * - Multi Planar Reformat (MPR) \ref MPRExample "Example" | \ref Carna::MPR::AxialPlaneRenderer "API"
-  * - Slice Plane Visualization \ref SlicePlaneExample "Example" | \ref Carna::SlicePlanes::SlicePlaneRenderer "API"
-  * - Volume Rendering \ref VolumeRenderingExample "Example" | \ref Carna::VolumeRenderings::VolumeRenderer "API"
-  *
-  * \subsection AdditionalTasks Additional Tasks
-  *
-  * Managing additional geometries:
-  *
-  * - \ref DisplayingCustom3D "Displaying custom 3D geometry?"
-  * - \ref CoordinateSystems "Positioning 3D objects?"
-  * - \ref PolylineGettingStarted "Using polylines?"
-  *
-  * Implementing your own views and visualizations:
-  *
-  * - \ref CreatingViews
-  * - \ref VolumeFromCPU "Operating with HU values?"
-  *
-  * \subsection Tools Tool Classes and Functions
-  *
-  * Application design:
-  *
-  * - \ref Carna::base::Association "Associations"
-  *   - \ref Carna::base::Aggregation "Aggregations"
-  *   - \ref Carna::base::Composition "Compositions"
-  * - \ref NON_COPYABLE "Non-copyable classes"
-  * - \ref Carna::base::Singleton "Singletons"
-  * - \ref Carna::base::Flags "Type-safe bit operations (Flags)"
-  *
-  * Application flow control:
-  *
-  * - \ref ParallelizationTools
-  * - \ref MathTools
-  * - \ref MemoryTools
-  * - \ref StringTools
-  *
-  * There is also a \ref Widgets "set of widgets" you might find useful when working with %Carna.
+  *     // configure opaque geometries
+  *     base::MeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 10, 10, 10 );
+  *     base::Material& boxMaterial = base::Material::create( "unshaded" );
+  *     boxMaterial.addUniform( new base::ShaderUniform< base::math::Vector4f >( "color", base::Color::GREEN ) );
+  *     base::Geometry* const boxGeometry = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
+  *     boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
+  *     boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
+  *     boxGeometry->localTransform = base::math::translation4f( 0, 30, 50 );
+  *     boxMaterial.release();
+  *     boxMesh.release();
+  *     root.attachChild( boxGeometry );
+  *     \endcode
+  *  -# Issue the \ref base::FrameRenderer::render method:
+  *     \code
+  *     fr.render( *cam );
+  *     \endcode
   */
+
+}

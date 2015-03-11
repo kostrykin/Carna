@@ -32,6 +32,12 @@ namespace base
 // GLContext
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Wraps and represents an OpenGL context.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 10.3.15
+  */
 class CARNA_LIB GLContext
 {
 
@@ -78,6 +84,16 @@ public:
 // QGLContextAdapter
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * If you're using Qt, this class template implements the abstract \ref GLContext
+  * class as an adapter to the \c QGLContext class from Qt.
+  *
+  * Example:
+  *     \code
+  *     #include <QGLContext>
+  *     typedef Carna::base::QGLContextAdapter< QGLContext > GLContext;
+  *     \endcode
+  */
 template< typename QGLContext >
 class QGLContextAdapter : public GLContext
 {

@@ -32,6 +32,12 @@ namespace presets
 // DRRStage
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Renders digital radiograph reconstructs of volume geometries in the scene.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 11.3.15
+  */
 class CARNA_LIB DRRStage : public RayMarchingStage
 {
 
@@ -63,6 +69,10 @@ public:
 
     float upperMultiplier() const;
 
+    /** \brief
+      * Tells whether ray attenuation at a particular pixel is \em inverse
+      * proportional to the brightness of that pixel or just proportional.
+      */
     bool isRenderingInverse() const;
 
     void setWaterAttenuation( float muWater );
@@ -75,6 +85,20 @@ public:
 
     void setUpperMultiplier( float multiplier );
 
+    /** \brief
+      * Sets whether the colors of the DRR should be \a inverse or not. The ray
+      * attenuation at a particular pixel is proportional to the brightness of that
+      * pixel if \a inverse is \c false.
+      *
+      * \note
+      *     If you set \a inverse to \c true, you will also have to change the
+      *     \ref base::FrameRenderer::setBackgroundColor "rendering's background
+      *     color" from default \ref base::Color::BLACK_NO_ALPHA "black" to something
+      *     brighter, like \ref base::Color::WHITE_NO_ALPHA "white". Otherwise you
+      *     might not see any rendering results from this stage.
+      *
+      * Default value is \c false.
+      */
     void setRenderingInverse( bool inverse );
 
 protected:

@@ -240,13 +240,7 @@ set( FORMS
 set( DOC_SRC
 		src/doc/Doxyfile.in
 		src/doc/doc_00style.css
-		src/doc/doc_common.dox
-		src/doc/doc_coordinate_systems.dox
-		src/doc/doc_creating_views.dox
-		src/doc/doc_displaying_custom_3d.dox
-		src/doc/doc_from_1.x_to_2.x.dox
 		src/doc/doc_main.dox
-		src/doc/doc_quick_start.dox
 		src/doc/doc_version_log.dox
 	)
 set( SHADERS_SRC

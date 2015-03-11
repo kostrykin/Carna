@@ -12,6 +12,7 @@
 #include <Carna/base/glew.h>
 #include <Carna/base/glError.h>
 #include <Carna/base/FrameRenderer.h>
+#include <Carna/base/Camera.h>
 #include <Carna/base/RenderTask.h>
 #include <Carna/base/RenderStage.h>
 #include <Carna/base/Node.h>
@@ -250,6 +251,14 @@ void FrameRenderer::reshape( unsigned int width, unsigned int height, bool fitSq
     pimpl->height = height;
     pimpl->viewport.reset( new Viewport( *this, fitSquare ) );
     pimpl->reshaped = true;
+}
+
+
+void FrameRenderer::render( Camera& cam ) const
+{
+    Node& root = cam.findRoot();
+    CARNA_ASSERT( static_cast< Spatial* >( &root ) != static_cast< Spatial* >( &cam ) );
+    render( cam, root );
 }
 
 

@@ -75,6 +75,36 @@ const Node& Spatial::parent() const
 }
 
 
+Node& Spatial::findRoot()
+{
+    if( hasParent() )
+    {
+        return parent().findRoot();
+    }
+    else
+    {
+        Node* const node = dynamic_cast< Node* >( this );
+        CARNA_ASSERT( node != nullptr );
+        return *node;
+    }
+}
+
+
+const Node& Spatial::findRoot() const
+{
+    if( hasParent() )
+    {
+        return parent().findRoot();
+    }
+    else
+    {
+        const Node* const node = dynamic_cast< const Node* >( this );
+        CARNA_ASSERT( node != nullptr );
+        return *node;
+    }
+}
+
+
 void Spatial::updateWorldTransform()
 {
     if( hasParent() )
