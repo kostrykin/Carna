@@ -16,7 +16,7 @@
   * \brief  Defines \ref Carna::base::Span.
   */
 
-#include <Carna/base/math.h>
+#include <Carna/base/Math.h>
 
 namespace Carna
 {

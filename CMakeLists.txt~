@@ -412,14 +412,6 @@ add_library( ${TARGET_NAME} SHARED
 		)
 
 ############################################
-# Add compiler flags
-############################################
-
-if( ${CMAKE_COMPILER_IS_GNUCC} )
-	set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x" )
-endif()
-
-############################################
 
 add_definitions( -D${PROJECT_NAME_CAPS}_EXPORT -DNOMINMAX -D_NO_FRAMEBUFFER_DEBUG )
 
