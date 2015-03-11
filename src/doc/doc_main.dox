@@ -8,68 +8,24 @@ namespace Carna
   * is based on OpenGL 3.3 and Eigen.
   *
   * Jump to:
-        \ref QuickStart | \ref VersionLog | \ref testing "Test Suite Documentation"
+  *     \ref QuickStart | \ref VersionLog | \ref testing "Test Suite Documentation"
+  *
+  * \image html FrameRendererIntegrationTest/typical.png "rendering result from example code below"
   *
   * \section QuickStart Quick Start
   *
   *  -# Implement the abstract \ref base::GLContext class. If you're using Qt, you
   *     can simply instantiate the \ref base::QGLContextAdapter template.
   *  -# Instantiate and configure a \ref base::FrameRenderer, e.g. like this:
-  *     \code
-  *     const static unsigned int GEOMETRY_TYPE_VOLUMETRIC = 0;
-  *     const static unsigned int GEOMETRY_TYPE_PLANE      = 1;
-  *     const static unsigned int GEOMETRY_TYPE_OPAQUE     = 2;
-  *
-  *     using namespace Carna;
-  *
-  *     base::FrameRenderer fr( glContext, 800, 600, true );
-  *     helpers::FrameRendererHelper< > frHelper( fr );
-  *     frHelper << new presets::CuttingPlanesStage( GEOMETRY_TYPE_VOLUMETRIC, GEOMETRY_TYPE_PLANE );
-  *     frHelper << new presets::MeshColorCodingStage();
-  *     frHelper << new presets::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
-  *     frHelper << new presets::DRRStage( GEOMETRY_TYPE_VOLUMETRIC );
-  *     frHelper << new presets::OccludedRenderingStage();
-  *     frHelper.commit();
-  *
-  *     fr.findStage< presets::DRRStage >().setRenderingInverse( true );
-  *     fr.setBackgroundColor( base::Color::WHITE_NO_ALPHA );
-  *     \endcode
-  *     The values of the \c GEOMETRY_TYPE_ variables can be chosen arbitrary, but
+  *     \snippet IntegrationTests/FrameRendererIntegrationTest.cpp typical_renderer_setup
+  *     The values of the `GEOMETRY_TYPE_` variables can be chosen arbitrary, but
   *     must be distinct.
-  *  -# Build the \ref SceneGraph "scene graph", e.g. like this:
-  *     \code
-  *     base::Node root;
-  *
-  *     // configure camera
-  *     base::Camera* const cam = new base::Camera();
-  *     cam->localTransform = base::math::translation4f( 0, 0, 350 );
-  *     cam->setProjection( base::math::frustum4f( base::math::deg2rad( 45 ), 1, 10, 2000 ) );
-  *     root.attachChild( cam );
-  *
-  *     // configure geometry node for volume data
-  *     // TODO: to be written...
-  *
-  *     // configure cutting planes
-  *     base::Geometry* const plane1 = new base::Geometry( GEOMETRY_TYPE_PLANE );
-  *     plane1->localTransform = base::math::plane4f( base::math::Vector3f( 1, 1, 1 ).normalized(), 0 );
-  *     root.attachChild( plane1 );
-  *
-  *     // configure opaque geometries
-  *     base::MeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 10, 10, 10 );
-  *     base::Material& boxMaterial = base::Material::create( "unshaded" );
-  *     boxMaterial.addUniform( new base::ShaderUniform< base::math::Vector4f >( "color", base::Color::GREEN ) );
-  *     base::Geometry* const boxGeometry = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
-  *     boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
-  *     boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
-  *     boxGeometry->localTransform = base::math::translation4f( 0, 30, 50 );
-  *     boxMaterial.release();
-  *     boxMesh.release();
-  *     root.attachChild( boxGeometry );
-  *     \endcode
+  *  -# Assuming you have somehow loaded `data` and know the voxel `spacings`, build
+  *     the \ref SceneGraph "scene graph", e.g. like this:
+  *     \snippet IntegrationTests/FrameRendererIntegrationTest.cpp typical_scene_setup
   *  -# Issue the \ref base::FrameRenderer::render method:
-  *     \code
-  *     fr.render( *cam );
-  *     \endcode
+  *     \snippet IntegrationTests/FrameRendererIntegrationTest.cpp typical_renderer_invocation
+  *     This code produces the rendering above.
   */
 
 }

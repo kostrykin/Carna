@@ -36,13 +36,13 @@ namespace base
   *
   * \section CustomVertexFormats Custom Vertex Formats
   *
-  *     It is easy to define custom vertex formats. The paradigm is best explained
-  *     with an example. Lets assume you want to define a vertex that has additional
-  *     properties for normal vectors and colors.
+  * It is easy to define custom vertex formats. The paradigm is best explained with
+  * an example. Lets assume you want to define a vertex that has additional
+  * properties for normal vectors and colors.
   *
-  *     The first step is to define the missing vertex components. The
-  *     \ref VertexNormal type already provides a vertex component for normal
-  *     vectors, so lets define a component for colors:
+  * The first step is to define the missing vertex components. The \ref VertexNormal
+  * type already provides a vertex component for normal vectors, so lets define a
+  * component for colors:
   *
   *     \code
   *     struct VertexColor
@@ -51,11 +51,11 @@ namespace base
   *     };
   *     \endcode
   *
-  *     It is important to only use primitive types like \c float and \c int when
-  *     defining vertex components. Virtual methods are forbidden for they would mess
-  *     up the memory layout. However, you might define a constructor if you wanted.
+  * It is very important that a vertex component is implemented as a POD, i.e. *plain
+  * old data type*. Virtual methods would mess up the memory layout. However, you
+  * might define a constructor that initializes default values, if you wanted.
   *
-  *     The next step is to compose the vertex format:
+  * The next step is to compose the vertex format:
   *
   *     \code
   *     using namespace Carna::base;
@@ -68,8 +68,8 @@ namespace base
   *     };
   *     \endcode
   *
-  *     The order of the base classes is arbitrary, but it must be consistent with
-  *     what comes next, namely the specification of the vertex format.
+  * The order of the base classes is arbitrary, but it must be consistent with what
+  * comes next, namely the specification of the vertex format.
   *
   *     \code
   *     #include <vector>
@@ -85,16 +85,16 @@ namespace base
   *     }();
   *     \endcode
   *
-  *     You should read the above like:
+  * You should read the above like:
   *
-  *       - Attribute 1 starts at offset 0 and has 4 components, namely the
-  *         positional \c x, \c y, \c z, \c w.
-  *       - Attribute 2 starts at offset 4 and has 4 components, namely the
-  *         \c nx, \c ny, \c nz, \c nw of the normal vector.
-  *       - Attribute 3 starts at offset 8 and has 4 components, namely the
-  *         \c r, \c g, \c b, \c a of the color vector.
+  *   - Attribute 1 starts at offset 0 and has 4 components, namely the
+  *     positional \c x, \c y, \c z, \c w.
+  *   - Attribute 2 starts at offset 4 and has 4 components, namely the
+  *     \c nx, \c ny, \c nz, \c nw of the normal vector.
+  *   - Attribute 3 starts at offset 8 and has 4 components, namely the
+  *     \c r, \c g, \c b, \c a of the color vector.
   *
-  *     When writing your shader, you must declare the vertex format consistently:
+  * When writing your shader, you must declare the vertex format consistently:
   *
   *     \code
   *     layout( location = 0 ) in vec4 inPosition;

@@ -39,22 +39,21 @@ namespace base
   *
   * \section SceneGraph Scene Graph
   *
-  *     The parent-child relationship induces a tree structure, that is commonly
-  *     referred to as \em scene \em graph. Such a scene graph represents a scene.
-  *     This has two implications: First, that each scene contains exactly one node
-  *     that has no parent, namely the tree's root. Second, that it is sufficient to
-  *     specify only the root node in order to reach each spatial element of the
-  *     scene.
+  * The parent-child relationship induces a tree structure, that is commonly referred
+  * to as \em scene \em graph. Such a scene graph represents a scene. This has two
+  * implications: First, that each scene contains exactly one node that has no
+  * parent, namely the tree's root. Second, that it is sufficient to specify only the
+  * root node in order to reach each spatial element of the scene.
   *
-  *     The specific type of a spatial decides upon whether the spatial is an inner
-  *     node or a leaf of the scene graph: If it is \em allowed to have children, the
-  *     spatial will be realized by an instance of the \ref Node class, even if it
-  *     has no children in a particular situation. In contrast, visible scene
-  *     elements, i.e. such that can be rendered, must always be leafs. They will be
-  *     realized by instances of the \ref Geometry class usually.
+  * The specific type of a spatial decides upon whether the spatial is an inner node
+  * or a leaf of the scene graph: If it is \em allowed to have children, the spatial
+  * will be realized by an instance of the \ref Node class, even if it has no
+  * children in a particular situation. In contrast, visible scene elements, i.e.
+  * such that can be rendered, must always be leafs. They will be realized by
+  * instances of the \ref Geometry class usually.
   *
-  *     It should be clear from the above why the root of a scene graph always is a
-  *     \ref Node instance.
+  * It should be clear from the above why the root of a scene graph always is a
+  * \ref Node instance.
   *
   * \author Leonid Kostrykin
   * \date   21.2.15 - 6.3.15

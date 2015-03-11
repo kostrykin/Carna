@@ -60,6 +60,8 @@ public:
 
     void setWindowingWidth( unsigned int windowingWidth );
 
+    void setRenderingInverse( bool inverse );
+
     base::HUV windowingLevel() const;
 
     unsigned int windowingWidth() const;
@@ -67,6 +69,8 @@ public:
     base::HUV minimumHUV() const;
 
     base::HUV maximumHUV() const;
+
+    bool isRenderingInverse() const;
 
 protected:
 

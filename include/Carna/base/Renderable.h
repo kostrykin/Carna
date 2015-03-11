@@ -31,7 +31,8 @@ namespace base
 // Renderable
 // ----------------------------------------------------------------------------------
 
-/** \brief  Represents a \ref Geometry object that has been queued into a \ref RenderQueue.
+/** \brief
+  * Represents a \ref Geometry object that has been queued into a \ref RenderQueue.
   *
   * Instances of this class are copyable and assignable.
   *

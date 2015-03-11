@@ -25,6 +25,7 @@ set( TESTS
 set( TESTS_MISC_FILES
 		UnitTests/configure.cmake
 		ModuleTests/configure.cmake
+		IntegrationTests/configure.cmake
 	)
 	
 set( TESTS_RESOURCES
@@ -33,6 +34,7 @@ set( TESTS_RESOURCES
 
 include( UnitTests/configure.cmake )
 include( ModuleTests/configure.cmake )
+include( IntegrationTests/configure.cmake )
 
 ############################################
 # Compose test suite
@@ -85,6 +87,9 @@ SOURCE_GROUP( "Unit Tests"
 
 SOURCE_GROUP( "Module Tests"
 	REGULAR_EXPRESSION \(.*test/ModuleTests/.*\\.\)\(\(h\)|\(cpp\)|\(cmake\)\) )
+
+SOURCE_GROUP( "Integration Tests"
+	REGULAR_EXPRESSION \(.*test/IntegrationTests/.*\\.\)\(\(h\)|\(cpp\)|\(cmake\)\) )
 
 SOURCE_GROUP( "Miscellaneous"
 	REGULAR_EXPRESSION .*\\.\(\(in\)|\(txt\)|\(qrc\)\) )
