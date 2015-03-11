@@ -278,7 +278,7 @@ base::math::Vector3ui HUVolumeGridHelper< HUVolumeSegmentVolume >::computeMaxSeg
     ( const base::math::Vector3ui& resolution, std::size_t maxSegmentBytesize )
 {
     const float maxSideLengthF = std::pow
-        ( maxSegmentBytesize / static_cast< float >( sizeof( HUVolumeSegmentVolume::VoxelType ) ), 1.f / 3 );
+        ( maxSegmentBytesize / static_cast< float >( sizeof( HUVolumeSegmentVolume::Voxel ) ), 1.f / 3 );
     const unsigned int maxSideLength = base::math::makeEven( base::math::round_ui( maxSideLengthF ), -1 );
 
     /* We subtract the redundant texels from effective segment size.

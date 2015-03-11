@@ -65,7 +65,7 @@ template< typename BufferedHUVolume >
 BufferedHUVolumeTexture< BufferedHUVolume >::BufferedHUVolumeTexture( const BufferedHUVolume& volume )
     : HUVolumeTexture( volume )
 {
-    BufferedHUVolumeUploader< BufferedHUVolume >::upload( volume, *this );
+    uploadBufferedHUVolume( volume, *this );
 }
 
 

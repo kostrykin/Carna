@@ -68,7 +68,7 @@ private:
 
     base::HUV huvByIndex( unsigned int index ) const;
 
-    base::UInt16HUVolume::BufferType* bufferPtr;
+    base::UInt16HUVolume::Buffer* bufferPtr;
 
     std::unique_ptr< base::UInt16HUVolume > volume;
 

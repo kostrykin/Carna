@@ -30,7 +30,7 @@ void BufferedHUVolumeTest::cleanupTestCase()
 
 void BufferedHUVolumeTest::init()
 {
-    static_assert( !std::numeric_limits< base::UInt16HUVolume::VoxelType >::is_signed, "Type conflict detected." );
+    static_assert( !std::numeric_limits< base::UInt16HUVolume::Voxel >::is_signed, "Type conflict detected." );
 }
 
 
@@ -43,8 +43,8 @@ void BufferedHUVolumeTest::cleanup()
 void BufferedHUVolumeTest::test_instantiation()
 {
     const base::math::Vector3ui size( 3, 3, 3 );
-    bufferPtr = new base::UInt16HUVolume::BufferType( size.x() * size.y() * size.z() );
-    volume.reset( new base::UInt16HUVolume( size, new base::Composition< base::UInt16HUVolume::BufferType >( bufferPtr ) ) );
+    bufferPtr = new base::UInt16HUVolume::Buffer( size.x() * size.y() * size.z() );
+    volume.reset( new base::UInt16HUVolume( size, new base::Composition< base::UInt16HUVolume::Buffer >( bufferPtr ) ) );
 }
 
 
@@ -73,8 +73,8 @@ void BufferedHUVolumeTest::test_bufferValueToHUV()
 
 void BufferedHUVolumeTest::test_HUVToBufferValue()
 {
-    const base::UInt16HUVolume::VoxelType actual   = base::UInt16HUVolume::HUVToBufferValue( 1024 );
-    const base::UInt16HUVolume::VoxelType expected = 2048 * 16;
+    const base::UInt16HUVolume::Voxel actual   = base::UInt16HUVolume::HUVToBufferValue( 1024 );
+    const base::UInt16HUVolume::Voxel expected = 2048 * 16;
     QCOMPARE( actual, expected );
 }
 
@@ -85,7 +85,7 @@ void BufferedHUVolumeTest::test_parenthesisOperator()
 
     /* Prepare volume buffer.
      */
-    base::UInt16HUVolume::BufferType& buffer = *bufferPtr;
+    base::UInt16HUVolume::Buffer& buffer = *bufferPtr;
     base::math::Vector3ui pos;
     for( pos.z() = 0; pos.z() < volume->size.z(); ++pos.z() )
     for( pos.y() = 0; pos.y() < volume->size.y(); ++pos.y() )
@@ -93,7 +93,7 @@ void BufferedHUVolumeTest::test_parenthesisOperator()
     {
         const unsigned int index = indexByPosition( pos );
         const base::HUV huv = huvByIndex( index );
-        const base::UInt16HUVolume::VoxelType bufferValue = 16 * static_cast< base::UInt16HUVolume::VoxelType >( 1024 + huv );
+        const base::UInt16HUVolume::Voxel bufferValue = 16 * static_cast< base::UInt16HUVolume::Voxel >( 1024 + huv );
         buffer[ index ] = bufferValue;
     }
 
@@ -129,14 +129,14 @@ void BufferedHUVolumeTest::test_setVoxel()
 
     /* Validate volume buffer.
      */
-    base::UInt16HUVolume::BufferType& buffer = *bufferPtr;
+    base::UInt16HUVolume::Buffer& buffer = *bufferPtr;
     for( pos.z() = 0; pos.z() < volume->size.z(); ++pos.z() )
     for( pos.y() = 0; pos.y() < volume->size.y(); ++pos.y() )
     for( pos.x() = 0; pos.x() < volume->size.x(); ++pos.x() )
     {
         const unsigned int index = indexByPosition( pos );
         const base::HUV expected = huvByIndex( index );
-        const base::UInt16HUVolume::VoxelType bufferValue = buffer[ index ];
+        const base::UInt16HUVolume::Voxel bufferValue = buffer[ index ];
         const base::HUV actual = static_cast< const base::HUV >( bufferValue / 16 ) - 1024;
         QCOMPARE( actual, expected );
     }

@@ -417,7 +417,6 @@ add_library( ${TARGET_NAME} SHARED
 
 if( ${CMAKE_COMPILER_IS_GNUCC} )
 	set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x" )
-
 	execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
 	if( GCC_VERSION VERSION_LESS 4.7 )
 		add_definitions( -DNO_OVERRIDE_KEYWORD )
@@ -440,8 +439,6 @@ add_definitions( -D${PROJECT_NAME_CAPS}_EXPORT -DNOMINMAX -D_NO_FRAMEBUFFER_DEBU
 target_link_libraries( ${TARGET_NAME}
 			${OPENGL_LIBRARIES}
 			${GLEW_LIBRARIES}
-			${QT_LIBRARIES}
-			${TRTK_LIBRARIES}
 		)
 
 ############################################
