@@ -239,7 +239,7 @@ set( FORMS
 	)
 set( DOC_SRC
 		src/doc/Doxyfile.in
-		src/doc/doc_00style.css
+		src/doc/doc_extra.css
 		src/doc/doc_main.dox
 		src/doc/doc_version_log.dox
 	)
