@@ -35,7 +35,7 @@ add_definitions( ${QT_DEFINITIONS} )
 # Boost
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.55.0 COMPONENTS iostreams)
+find_package(Boost 1.48.0 COMPONENTS iostreams)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
 endif()
@@ -52,9 +52,6 @@ link_directories( ${CMAKE_BINARY_DIR}/bin )
 find_package( Eigen3 REQUIRED )
 include_directories( ${EIGEN3_INCLUDE_DIR} )
 
-# Carna-DICOM
-find_package(CarnaDICOM QUIET)
-
 ############################################
 # Project
 ############################################
@@ -63,17 +60,13 @@ include_directories(${CMAKE_PROJECT_DIR}src)
 include_directories(${CMAKE_PROJECT_DIR}../Tools)
 set( HEADERS
 		../Tools/HUGZSceneFactory.h
-#		../Tools/HUIO.h
-#		src/CompressedVolumeImporter.h
+		../Tools/HUIO.h
 	)
 set( QOBJECT_HEADERS
-#		src/OffscreenDisplayTestingWidget.h
-#		src/OpeningDialog.h
+		""
 	)
 set( SRC
 		src/main.cpp
-#		src/OffscreenDisplayDemo.cpp
-#		src/OffscreenDisplayTestingWidget.cpp
 	)
 set( FORMS
 		""
@@ -81,15 +74,15 @@ set( FORMS
 set( RESOURCES
 		""
 	)
-	
-unset( RESOURCES_RCC )
-QT4_WRAP_CPP( QOBJECT_HEADERS_MOC ${QOBJECT_HEADERS} )
-QT4_WRAP_UI( FORMS_HEADERS ${FORMS} )
-QT4_ADD_RESOURCES( RESOURCES_RCC ${RESOURCES} )
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
-if(CARNADICOM_FOUND AND Boost_FOUND)
+if(Boost_FOUND)
+	
+	unset( RESOURCES_RCC )
+	QT4_WRAP_CPP( QOBJECT_HEADERS_MOC ${QOBJECT_HEADERS} )
+	QT4_WRAP_UI( FORMS_HEADERS ${FORMS} )
+	QT4_ADD_RESOURCES( RESOURCES_RCC ${RESOURCES} )
 
 	add_definitions(
 			-DNOMINMAX
@@ -113,10 +106,11 @@ if(CARNADICOM_FOUND AND Boost_FOUND)
 			${RESOURCES_RCC}
 		)
 
+	include( "../../misc/compiler_specific.cmake" )
+
 	target_link_libraries( ${TARGET_NAME}
-			opengl32
-			glu32
-			${GLEW_LIBLIST}
+			${OPENGL_LIBRARIES}
+			${GLEW_LIBRARIES}
 			${QT_LIBRARIES}
 			${TRTK_LIBRARIES}
 			${Boost_LIBRARIES}
@@ -133,17 +127,7 @@ if(CARNADICOM_FOUND AND Boost_FOUND)
 			)
 	endif(MSVC)
 
-elseif(NOT CARNADICOM_FOUND)
-
-	message(WARNING
-		"\nCarnaDICOM not found, skipping ${PROJECT_NAME}.\n"
-		  "You don't have to worry about this unless you need "
-		  "an executable demo project within your Carna "
-		  "development environment, i.e. when you are going to "
-		  "work on Carna. In this case, build and install the "
-		  "Carna-DICOM module and then re-run Carna CMake script.\n")
-
-elseif(NOT Boost_FOUND)
+else(Boost_FOUND)
 
 	message(WARNING
 		"\nBoost not found, skipping ${PROJECT_NAME}.\n"
@@ -153,4 +137,4 @@ elseif(NOT Boost_FOUND)
 		  "work on Carna. In this case, build and install the "
 		  "Carna-DICOM module and then re-run Carna CMake script.\n")
 
-endif()
+endif(Boost_FOUND)

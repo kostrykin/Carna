@@ -51,10 +51,10 @@ void FrameRendererHelperTest::cleanup()
 void FrameRendererHelperTest::test_emptyCommit()
 {
     renderer->appendStage( new presets::OpaqueRenderingStage( 0 ) );
-    QCOMPARE( renderer->stages(), 1u );
+    QCOMPARE( renderer->stages(), static_cast< std::size_t >( 1u ) );
     helpers::FrameRendererHelper< > helper( *renderer );
     helper.commit();
-    QCOMPARE( renderer->stages(), 0u );
+    QCOMPARE( renderer->stages(), static_cast< std::size_t >( 0u ) );
 }
 
 
@@ -69,7 +69,7 @@ void FrameRendererHelperTest::test_complete()
     helper << new presets::MeshColorCodingStage();
     helper.commit();
 
-    QCOMPARE( renderer->stages(), 6u );
+    QCOMPARE( renderer->stages(), static_cast< std::size_t >( 6u ) );
 
     QVERIFY( dynamic_cast< presets::     MeshColorCodingStage* >( &renderer->stageAt( 0 ) ) != nullptr );
     QVERIFY( dynamic_cast< presets::       CuttingPlanesStage* >( &renderer->stageAt( 1 ) ) != nullptr );

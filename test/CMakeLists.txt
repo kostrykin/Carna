@@ -154,6 +154,8 @@ if(Boost_FOUND AND QT_FOUND)
 		PROPERTIES
 		HEADER_FILE_ONLY TRUE )
 
+	include( "../misc/compiler_specific.cmake" )
+
 	add_executable( ${TARGET_NAME}-testsuite
 			Tools/TestSuite.h
 			${TEST_SUITE_SRC_FILE}
@@ -166,8 +168,7 @@ if(Boost_FOUND AND QT_FOUND)
 		)
 			
 	target_link_libraries( ${TARGET_NAME}-testsuite
-			opengl32
-			glu32
+			${OPENGL_LIBRARIES}
 			${GLEW_LIBRARIES}
 			${QT_LIBRARIES}
 			${Boost_LIBRARIES}

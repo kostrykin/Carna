@@ -278,7 +278,7 @@ base::math::Vector3ui HUVolumeGridHelper< HUVolumeSegmentVolume >::computeMaxSeg
     ( const base::math::Vector3ui& resolution, std::size_t maxSegmentBytesize )
 {
     const float maxSideLengthF = std::pow
-        ( maxSegmentBytesize / static_cast< float >( sizeof( HUVolumeSegmentVolume::Voxel ) ), 1.f / 3 );
+        ( maxSegmentBytesize / static_cast< float >( sizeof( typename HUVolumeSegmentVolume::Voxel ) ), 1.f / 3 );
     const unsigned int maxSideLength = base::math::makeEven( base::math::round_ui( maxSideLengthF ), -1 );
 
     /* We subtract the redundant texels from effective segment size.
@@ -423,8 +423,9 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
                segmentCoord.x() + 1 == myGrid->segmentCounts.x()
             || segmentCoord.y() + 1 == myGrid->segmentCounts.y()
             || segmentCoord.z() + 1 == myGrid->segmentCounts.z();
+        const base::math::Vector3ui& volumeSize = segment.volume().size;
         const base::math::Vector3f dimensions = !isTail ? regularSegmentDimensions
-            : ( ( segment.volume().size.cast< int >() - base::math::Vector3i( 1, 1, 1 ) )
+            : ( ( volumeSize.cast< int >() - base::math::Vector3i( 1, 1, 1 ) )
                 .cast< float >().cwiseProduct( spacing.millimeters ) );
 
         /* Create geometry node for particular grid segment.
@@ -461,8 +462,9 @@ template< typename HUVolumeSegmentVolume >
 base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
     ( const base::GLContext& glc, unsigned int geometryType, const Dimensions& dimensions, unsigned int volumeTextureRole ) const
 {
+    const base::math::Vector3f& mmDimensions = dimensions.millimeters;
     const base::math::Vector3f spacing
-        = dimensions.millimeters.cast< float >().cwiseQuotient( ( dimensions.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ) );
+        = mmDimensions.cast< float >().cwiseQuotient( ( resolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ) );
     return createNode( glc, geometryType, Spacing( spacing ), dimensions, volumeTextureRole );
 }
 

@@ -61,7 +61,7 @@ namespace math
       *     \mathrm{val} & \mbox{else}.\end{array} \right. \f$
       */
     template< typename T >
-    inline T clamp( T val, T my_min, T my_max )
+    T clamp( T val, T my_min, T my_max )
     {
         return std::min( std::max( val, my_min ), my_max );
     }
@@ -70,7 +70,7 @@ namespace math
       * Computes and returns \f$ x^2 \f$
       */
     template< typename T >
-    inline T sq( T x )
+    T sq( T x )
     {
         return x * x;
     }
@@ -95,7 +95,7 @@ namespace math
       * Defines the maximum difference of two objects treated as equal.
       */
     template< typename T >
-    inline T epsilon()
+    T epsilon()
     {
         return static_cast< T >( 0 );
     }
@@ -135,7 +135,7 @@ namespace math
     /** \brief
       * Retrieves element types of vectors and scalars. Specialization for \ref Vector class.
       */
-    template< typename VectorElementType, unsigned int dimension >
+    template< typename VectorElementType, int dimension >
     struct element_type_of< Eigen::Matrix< VectorElementType, dimension, 1 > >
     {
     
@@ -153,7 +153,7 @@ namespace math
       * Retrieves the squared length of vector and scalar types. General case assumes scalar type.
       */
     template< typename T >
-    inline T length2( const T& x )
+    T length2( const T& x )
     {
         return x * x;
     }
@@ -163,8 +163,8 @@ namespace math
     /** \brief
       * Retrieves the length of vector and scalar types. Specialization for \ref Vector class.
       */
-    template< typename VectorElementType, unsigned int dimension >
-    inline VectorElementType length2( const Eigen::Matrix< VectorElementType, dimension, 1 >& x )
+    template< typename VectorElementType, int dimension >
+    VectorElementType length2( const Eigen::Matrix< VectorElementType, dimension, 1 >& x )
     {
         return x.squaredNorm();
     }
@@ -173,7 +173,7 @@ namespace math
       * Tells whether two objects are equal respectively to \ref epsilon.
       */
     template< typename InputType >
-    inline bool isEqual( const InputType& x, const InputType& y )
+    bool isEqual( const InputType& x, const InputType& y )
     {
         typedef typename element_type_of< InputType >::type ScalarType;
         const InputType difference = x - y;
@@ -436,12 +436,12 @@ namespace math
         return static_cast< unsigned int >( x + static_cast< ScalarType >( 0.5 ) );
     }
 
-    template< typename MatrixElementType, unsigned int cols, unsigned int rows >
+    template< typename MatrixElementType, int cols, int rows >
     Eigen::Matrix< unsigned int, cols, rows > round_ui( const Eigen::Matrix< MatrixElementType, cols, rows >& m )
     {
         Eigen::Matrix< unsigned int, cols, rows > result;
-        for( unsigned int i = 0; i < cols; ++i )
-        for( unsigned int j = 0; j < rows; ++j )
+        for( int i = 0; i < cols; ++i )
+        for( int j = 0; j < rows; ++j )
         {
             result( i, j ) = round_ui( m( i, j ) );
         }
@@ -456,12 +456,12 @@ namespace math
         return x + s * ( x % 2 );
     }
 
-    template< typename MatrixElementType, unsigned int cols, unsigned int rows >
+    template< typename MatrixElementType, int cols, int rows >
     Eigen::Matrix< MatrixElementType, cols, rows > makeEven( const Eigen::Matrix< MatrixElementType, cols, rows >& m, int s )
     {
         Eigen::Matrix< unsigned int, cols, rows > result;
-        for( unsigned int i = 0; i < cols; ++i )
-        for( unsigned int j = 0; j < rows; ++j )
+        for( int i = 0; i < cols; ++i )
+        for( int j = 0; j < rows; ++j )
         {
             result( i, j ) = makeEven( m( i, j ), s );
         }

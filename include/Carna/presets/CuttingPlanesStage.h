@@ -43,9 +43,9 @@ class CARNA_LIB CuttingPlanesStage : public base::GeometryStage< void >
 
 public:
 
-    const static unsigned int DEFAULT_WINDOWING_WIDTH = 4096;
-    const static    base::HUV DEFAULT_WINDOWING_LEVEL = static_cast< base::HUV >( DEFAULT_WINDOWING_WIDTH / 2 ) - 1024;
-    const static unsigned int ROLE_HU_VOLUME = 0;
+    const static unsigned int DEFAULT_WINDOWING_WIDTH;
+    const static    base::HUV DEFAULT_WINDOWING_LEVEL;
+    const static unsigned int ROLE_HU_VOLUME;
 
     CuttingPlanesStage( unsigned int volumeGeometryType, unsigned int planeGeometryType );
 
