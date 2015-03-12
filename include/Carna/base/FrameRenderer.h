@@ -178,6 +178,12 @@ public:
       */
     void reshape( unsigned int width, unsigned int height, bool fitSquare );
     
+    /** \overload
+      *
+      * Takes same value for \a fitSquare that was given last time.
+      */
+    void reshape( unsigned int width, unsigned int height );
+    
     /** \brief
       * Renders scene \a root from \a cam point of view to the currently bound
       * framebuffer by issuing the \ref RenderingProcess "rendering process". The

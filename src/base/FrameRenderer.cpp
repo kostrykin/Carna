@@ -118,6 +118,8 @@ struct FrameRenderer::Details
     std::vector< RenderStage* > stages;
 
     unsigned int width, height;
+    
+    bool fitSquare;
 
     mutable bool reshaped;
 
@@ -177,6 +179,7 @@ FrameRenderer::FrameRenderer( GLContext& glContext, unsigned int width, unsigned
     : pimpl( new Details( glContext, width, height ) )
 {
     pimpl->viewport.reset( new Viewport( *this, fitSquare ) );
+    pimpl->fitSquare = fitSquare;
 }
 
 
@@ -249,8 +252,15 @@ void FrameRenderer::reshape( unsigned int width, unsigned int height, bool fitSq
 {
     pimpl->width = width;
     pimpl->height = height;
+    pimpl->fitSquare = fitSquare;
     pimpl->viewport.reset( new Viewport( *this, fitSquare ) );
     pimpl->reshaped = true;
+}
+
+
+void FrameRenderer::reshape( unsigned int width, unsigned int height )
+{
+    reshape( width, height, pimpl->fitSquare );
 }
 
 
