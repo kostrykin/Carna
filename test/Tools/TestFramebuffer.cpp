@@ -12,6 +12,7 @@
 #include "TestFramebuffer.h"
 #include <Carna/base/CarnaException.h>
 #include <Carna/base/RenderTexture.h>
+#include <Carna/base/math.h>
 #include <QFileInfo>
 #include <regex>
 
@@ -27,6 +28,9 @@ namespace testing
 // FramebufferTester
 // ----------------------------------------------------------------------------------
 
+const double TestFramebuffer::DEFAULT_EPSILON = 0.01;
+
+
 TestFramebuffer::TestFramebuffer( base::GLContext& glContext, unsigned int width, unsigned int height )
     : frame( new QImage( width, height, QImage::Format_RGB888 ) )
     , renderTexture( [&]()->base::RenderTexture*
@@ -37,6 +41,7 @@ TestFramebuffer::TestFramebuffer( base::GLContext& glContext, unsigned int width
         )
     , fbo( new base::Framebuffer( *renderTexture ) )
     , fboBinding( new base::Framebuffer::Binding( *fbo ) )
+    , myEpsilon( DEFAULT_EPSILON )
     , glContext( glContext )
 {
 }
@@ -100,7 +105,7 @@ void TestFramebuffer::verifyFramebuffer
     }
 
     const QImage expected( expectedPath.c_str() );
-    if( !areSimilar( *frame, expected ) )
+    if( !areSimilar( *frame, expected, myEpsilon ) )
     {
         if( saveActualResult( *frame, actualPath ) )
         {
@@ -111,6 +116,18 @@ void TestFramebuffer::verifyFramebuffer
             QFAIL( ( "Rendered image differs from expected. Result FAILED to be written to: " + actualPath ).c_str() );
         }
     }
+}
+
+
+void TestFramebuffer::setEpsilon( double epsilon )
+{
+    myEpsilon = epsilon;
+}
+
+
+double TestFramebuffer::epsilon() const
+{
+    return myEpsilon;
 }
 
 
@@ -126,25 +143,28 @@ bool TestFramebuffer::saveActualResult( const QImage& frame, const std::string& 
 }
 
 
-bool TestFramebuffer::areSimilar( const QImage& img1, const QImage& img2 )
+bool TestFramebuffer::areSimilar( const QImage& img1, const QImage& img2, double epsilon )
 {
     if( img1.width() != img2.width() || img1.height() != img2.height() )
     {
         return false;
     }
 
+    double sqError = 0;
     for( int y = 0; y < img1.height(); ++y )
     for( int x = 0; x < img1.width(); ++x )
     {
-        const QRgb color1 = img1.pixel( x, y );
-        const QRgb color2 = img2.pixel( x, y );
-        if( color1 != color2 )
-        {
-            return false;
-        }
+        const QRgb rgb1 = img1.pixel( x, y );
+        const QRgb rgb2 = img2.pixel( x, y );
+        
+        const base::math::Vector3i color1( qRed( rgb1 ), qGreen( rgb1 ), qBlue( rgb1 ) );
+        const base::math::Vector3i color2( qRed( rgb2 ), qGreen( rgb2 ), qBlue( rgb2 ) );
+        
+        sqError += ( ( color1 - color2 ).cast< float >() / 255 ).squaredNorm();
     }
-
-    return true;
+    
+    const double rms = std::sqrt( sqError / ( img1.width() * img1.height() ) );
+    return rms < epsilon;
 }
 
 
