@@ -133,6 +133,8 @@ namespace Carna
     namespace helpers
     {
 
+        class CameraNavigationHelper;
+        class CameraShowcaseHelper;
         class DefaultRenderStageOrder;
 
         template< typename RenderStageOrder = DefaultRenderStageOrder > class FrameRendererHelper;
