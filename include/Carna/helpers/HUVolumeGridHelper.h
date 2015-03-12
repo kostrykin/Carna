@@ -399,7 +399,7 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
     glc.makeActive();
     CARNA_FOR_VECTOR3UI( segmentCoord, myGrid->segmentCounts )
     {
-        const base::HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& segment = myGrid->segmentAt( segmentCoord );
+        const typename base::HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& segment = myGrid->segmentAt( segmentCoord );
 
         /* Check whether the texture already is available or needs to be uploaded.
          */

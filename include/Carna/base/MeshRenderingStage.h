@@ -18,6 +18,7 @@
 #include <Carna/base/RenderTask.h>
 #include <Carna/base/ShaderUniform.h>
 #include <Carna/base/Material.h>
+#include <Carna/base/Mesh.h>
 
 /** \file   MeshRenderingStage.h
   * \brief  Defines \ref Carna::base::MeshRenderingStage.

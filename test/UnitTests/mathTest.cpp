@@ -63,6 +63,11 @@ void mathTest::test_length2()
 
     QVERIFY ( math::isEqual< float >( math::length2< float >( -2.5f ), 2.5f * 2.5f ) );
 
+    /* TODO: Below is not working, check why.
+     */
+    //static_assert( std::is_same< math::length2( math::Vector2f( 0, 0 ) ), float >::value, "Type mismatch." );
+
+	const float test = math::length2( math::Vector2f( 0, 0 ) );
     QVERIFY ( math::isEqual< float >( math::length2( math::Vector2f( 0, 0 ) ), 0 ) );
     QVERIFY ( math::isEqual< float >( math::length2( math::Vector2f( 2, 2 ) ), 8 ) );
 }

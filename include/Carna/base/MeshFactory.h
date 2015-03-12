@@ -81,8 +81,9 @@ Mesh< Vertex, uint8_t >& MeshFactory< Vertex >::createBox( float sizeX, float si
     const std::size_t verticesCount = 6 * 4;
     const std::size_t indicesCount  = 6 * 2 * 3;
 
-    Vertex              vertices[ verticesCount ];
-    MeshInstance::Index  indices[  indicesCount ];
+	typedef typename MeshInstance::Index Index;
+    Vertex vertices[ verticesCount ];
+    Index   indices[  indicesCount ];
 
     int lastVertex = -1;
     int lastIndex  = -1;

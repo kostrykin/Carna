@@ -39,14 +39,14 @@ namespace base
   * \author Leonid Kostrykin
   * \date 22.2.2015
   */
-template< typename BufferedHUVolume >
+template< typename BufferedHUVolumeType >
 class BufferedHUVolumeTexture : public HUVolumeTexture
 {
 
 //protected:
 public:
 
-    BufferedHUVolumeTexture( const BufferedHUVolume& volume );
+    BufferedHUVolumeTexture( const BufferedHUVolumeType& volume );
 
 public:
 
@@ -54,33 +54,33 @@ public:
       * Creates new OpenGL texture object and initializes it with data from \a volume.
       * Invoke \ref release when it isn't needed any longer.
       */
-    static BufferedHUVolumeTexture< BufferedHUVolume >& create( const BufferedHUVolume& volume );
+    static BufferedHUVolumeTexture< BufferedHUVolumeType >& create( const BufferedHUVolumeType& volume );
 
     virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
 
 }; // BufferedHUVolumeTexture
 
 
-template< typename BufferedHUVolume >
-BufferedHUVolumeTexture< BufferedHUVolume >::BufferedHUVolumeTexture( const BufferedHUVolume& volume )
+template< typename BufferedHUVolumeType >
+BufferedHUVolumeTexture< BufferedHUVolumeType >::BufferedHUVolumeTexture( const BufferedHUVolumeType& volume )
     : HUVolumeTexture( volume )
 {
     uploadBufferedHUVolume( volume, *this );
 }
 
 
-template< typename BufferedHUVolume >
-BufferedHUVolumeTexture< BufferedHUVolume >& BufferedHUVolumeTexture< BufferedHUVolume >::create( const BufferedHUVolume& volume )
+template< typename BufferedHUVolumeType >
+BufferedHUVolumeTexture< BufferedHUVolumeType >& BufferedHUVolumeTexture< BufferedHUVolumeType >::create( const BufferedHUVolumeType& volume )
 {
-    return *new BufferedHUVolumeTexture< BufferedHUVolume >( volume );
+    return *new BufferedHUVolumeTexture< BufferedHUVolumeType >( volume );
 }
 
 
-template< typename BufferedHUVolume >
-bool BufferedHUVolumeTexture< BufferedHUVolume >::controlsSameVideoResource( const GeometryFeature& other ) const
+template< typename BufferedHUVolumeType >
+bool BufferedHUVolumeTexture< BufferedHUVolumeType >::controlsSameVideoResource( const GeometryFeature& other ) const
 {
-    typedef BufferedHUVolumeTexture< typename BufferedHUVolume > MyType;
-    const MyType* const other2 = dynamic_cast< const MyType* >( &other );
+    typedef BufferedHUVolumeTexture< BufferedHUVolumeType > BufferedHUVolume;
+    const BufferedHUVolume* const other2 = dynamic_cast< const BufferedHUVolume* >( &other );
     if( other2 == nullptr )
     {
         return false;

@@ -15,6 +15,7 @@
 #include <Carna/Carna.h>
 #include <Carna/base/noncopyable.h>
 #include <stack>
+#include <memory>
 
 /** \file   GLContext.h
   * \brief  Defines \ref Carna::base::GLContext.

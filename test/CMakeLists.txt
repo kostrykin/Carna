@@ -54,7 +54,7 @@ endif()
 # Boost
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.55.0 COMPONENTS iostreams)
+find_package(Boost 1.48.0 COMPONENTS iostreams)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
 endif()
