@@ -43,7 +43,8 @@
 namespace Carna
 {
 
-    /** \brief  Contains the core framework components.
+    /** \brief
+      * Contains the core framework components.
       */
     namespace base
     {

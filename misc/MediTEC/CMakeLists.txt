@@ -27,9 +27,9 @@ if( DEFINED ENV{MEDITEC_LIBS} )
 	else()
 		# set default installation paths (relative to CMAKE_INSTALL_PREFIX)
 		# now so they won't be set to different default values later
-		set(INSTALL_LIBRARY_DIR "${PROJECT_NAME}/${FULL_VERSION}/bin" PARENT_SCOPE)
+		set(INSTALL_LIBRARY_DIR "${PROJECT_NAME}/${FULL_VERSION}/bin"     PARENT_SCOPE)
 		set(INSTALL_HEADERS_DIR "${PROJECT_NAME}/${FULL_VERSION}/include" PARENT_SCOPE)
-		set(INSTALL_CMAKE_DIR "${PROJECT_NAME}/${FULL_VERSION}" PARENT_SCOPE)
+		set(INSTALL_CMAKE_DIR   "${PROJECT_NAME}/${FULL_VERSION}"         PARENT_SCOPE)
 	endif()
 	
 	# find GLEW headers

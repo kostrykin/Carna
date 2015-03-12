@@ -14,4 +14,5 @@ set( CARNA_LIBLIST
 include_directories( ${CARNA_INCLUDE} )
 link_directories( ${CARNA_LIBDIR} )
 
-include( $ENV{MEDITEC_LIBS}/TRTK/0.13.1/configure.cmake )
+include( $ENV{MEDITEC_LIBS}/Eigen/3.0.5/configure.cmake )
+

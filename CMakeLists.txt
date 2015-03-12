@@ -55,11 +55,7 @@ option_default_to(INSTALL_LIBRARY_DIR "lib" String "Installation directory for l
 option_default_to(INSTALL_HEADERS_DIR "include" String "Installation directory for headers")
 
 # set default destination for CMake modules
-if( WIN32 )
-	option_default_to(INSTALL_CMAKE_DIR "share/cmake-3.0/Modules" String "Installation directory for CMake files")
-else( WIN32 )
-	option_default_to(INSTALL_CMAKE_DIR "share/cmake/Modules" String "Installation directory for CMake files")
-endif( WIN32 )
+option_default_to(INSTALL_CMAKE_DIR "${CMAKE_ROOT}/Modules" String "Installation directory for CMake files")
 
 ############################################
 # Normalize installation paths
