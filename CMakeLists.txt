@@ -466,7 +466,7 @@ add_meditec_install_routines()
 ############################################
 
 if( BUILD_DEMO )
-	add_subdirectory( test/CarnaInteractiveTest )
+	add_subdirectory( test/Demo )
 endif()
 
 ############################################
