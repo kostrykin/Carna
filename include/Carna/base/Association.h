@@ -73,6 +73,11 @@ public:
     {
         return *this->get();
     }
+    
+    operator bool() const
+    {
+        return this->get() != nullptr;
+    }
 
     /** \brief	Makes this association forget it's referenced object.
       *

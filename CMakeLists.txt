@@ -166,8 +166,13 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/presets/OccludedRenderingStage.h
 		include/${PROJECT_NAME}/presets/OpaqueRenderingStage.h
 		include/${PROJECT_NAME}/presets/TransparentRenderingStage.h
+		include/${PROJECT_NAME}/helpers/CameraControl.h
+		include/${PROJECT_NAME}/helpers/CameraNavigationControl.h
+		include/${PROJECT_NAME}/helpers/CameraShowcaseControl.h
 		include/${PROJECT_NAME}/helpers/FrameRendererHelper.h
 		include/${PROJECT_NAME}/helpers/HUVolumeGridHelper.h
+		include/${PROJECT_NAME}/helpers/PerspectiveControl.h
+		include/${PROJECT_NAME}/helpers/ProjectionControl.h
 		include/${PROJECT_NAME}/Carna.h
 		include/${PROJECT_NAME}/Version.h
 	)
@@ -228,7 +233,12 @@ set( SRC
 		src/presets/CuttingPlanesStage.cpp
 		src/presets/OccludedRenderingStage.cpp
 		src/presets/TransparentRenderingStage.cpp
+		src/helpers/CameraControl.cpp
+		src/helpers/CameraNavigationControl.cpp
+		src/helpers/CameraShowcaseControl.cpp
 		src/helpers/FrameRendererHelper.cpp
+		src/helpers/PerspectiveControl.cpp
+		src/helpers/ProjectionControl.cpp
 	)
 set( FORMS
 		""

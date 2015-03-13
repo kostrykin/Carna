@@ -63,9 +63,9 @@ void FrameRendererIntegrationTest::test_typical()
     frHelper << new presets::OccludedRenderingStage();
     frHelper.commit();
 
-    fr.findStage< presets::CuttingPlanesStage >().setWindowingWidth( 2000 );
-    fr.findStage< presets::CuttingPlanesStage >().setRenderingInverse( true );
-    fr.findStage< presets::DRRStage >().setRenderingInverse( true );
+    fr.findStage< presets::CuttingPlanesStage >()->setWindowingWidth( 2000 );
+    fr.findStage< presets::CuttingPlanesStage >()->setRenderingInverse( true );
+    fr.findStage< presets::DRRStage >()->setRenderingInverse( true );
     fr.setBackgroundColor( base::Color::WHITE_NO_ALPHA );
     //! [typical_renderer_setup]
 

@@ -133,9 +133,12 @@ namespace Carna
     namespace helpers
     {
 
-        class CameraNavigationHelper;
-        class CameraShowcaseHelper;
+        class CameraControl;
+        class CameraNavigationControl;
+        class CameraShowcaseControl;
         class DefaultRenderStageOrder;
+        class PerspectiveControl;
+        class ProjectionControl;
 
         template< typename RenderStageOrder = DefaultRenderStageOrder > class FrameRendererHelper;
         template< typename HUVolumeSegmentVolume > class HUVolumeGridHelper;
@@ -145,3 +148,4 @@ namespace Carna
 }  // namespace Carna
 
 #endif // CARNA_GLOBAL_H_6014714286
+

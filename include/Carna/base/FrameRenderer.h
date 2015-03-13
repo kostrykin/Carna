@@ -13,7 +13,7 @@
 #define FRAMERENDERER_H_6014714286
 
 #include <Carna/Carna.h>
-#include <Carna/base/CarnaException.h>
+#include <Carna/base/Aggregation.h>
 #include <Carna/base/noncopyable.h>
 #include <Carna/base/math.h>
 #include <memory>
@@ -131,14 +131,11 @@ public:
 
     /** \brief
       * References the first \a RenderStage within the rendering stages sequence.
-      * This method performs a linear search.
-      *
-      * \throws AssertionFailure
-      *     Thrown if no stage from type \a RenderStage is found within the rendering
-      *     stages sequence.
+      * This method performs a linear search. Returns \ref Aggregation::NULL_PTR if
+      * \a RenderStage is not found withing hte rendering stages sequence.
       */
     template< typename RenderStage >
-    RenderStage& findStage() const;
+    Aggregation< RenderStage > findStage() const;
     
     /** \brief
       * Tells the current frame width. Value is changed through \ref reshape.
@@ -273,17 +270,17 @@ private:
 
 
 template< typename RenderStage >
-RenderStage& FrameRenderer::findStage() const
+Aggregation< RenderStage > FrameRenderer::findStage() const
 {
     for( std::size_t index = 0; index < stages(); ++index )
     {
         RenderStage* const rs = dynamic_cast< RenderStage* >( &stageAt( index ) );
         if( rs != nullptr )
         {
-            return *rs;
+            return Aggregation< RenderStage >( *rs );
         }
     }
-    CARNA_FAIL( "RenderStage not found." );
+    return Aggregation< RenderStage >::NULL_PTR;
 }
 
 
