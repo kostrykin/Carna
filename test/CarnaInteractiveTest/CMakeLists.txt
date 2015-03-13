@@ -95,8 +95,6 @@ if(Boost_FOUND)
 		)
 	remove_definitions( -DCARNA_EXPORT )
 	
-	include_directories(${CARNADICOM_INCLUDE_DIR})
-	
 	add_executable( ${TARGET_NAME} WIN32
 			${SRC}
 			${HEADERS}
@@ -112,9 +110,7 @@ if(Boost_FOUND)
 			${OPENGL_LIBRARIES}
 			${GLEW_LIBRARIES}
 			${QT_LIBRARIES}
-			${TRTK_LIBRARIES}
 			${Boost_LIBRARIES}
-			${CARNADICOM_LIBRARIES}
 			optimized	Carna-${FULL_VERSION}
 			debug		Carna-${FULL_VERSION}${CMAKE_DEBUG_POSTFIX}
 		)
@@ -134,7 +130,6 @@ else(Boost_FOUND)
 		  "You don't have to worry about this unless you need "
 		  "an executable demo project within your Carna "
 		  "development environment, i.e. when you are going to "
-		  "work on Carna. In this case, build and install the "
-		  "Carna-DICOM module and then re-run Carna CMake script.\n")
+		  "work on Carna.\n")
 
 endif(Boost_FOUND)
