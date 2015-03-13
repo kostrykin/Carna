@@ -15,6 +15,10 @@
 #include <Carna/Carna.h>
 #include <Carna/base/FrameRenderer.h>
 #include <Carna/base/RenderStage.h>
+#include <Carna/base/GLContext.h>
+#include <Carna/base/MeshRenderingStage.h>
+#include <Carna/presets/MeshColorCodingStage.h>
+#include <Carna/presets/OccludedRenderingStage.h>
 #include <set>
 
 /** \file   FrameRendererHelper.h
