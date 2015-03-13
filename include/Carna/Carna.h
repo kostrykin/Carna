@@ -99,7 +99,8 @@ namespace Carna
         template< typename AssociatedObjectType > class Aggregation;
         template< typename AssociatedObjectType > class Association;
         template< typename VoxelType, typename BufferType = std::vector< VoxelType > > class BufferedHUVolume;
-        template< typename BufferedHUVolume > class BufferedHUVolumeTexture;
+        template< typename BufferedHUVolumeType > struct BufferedHUVolumeFormat;
+        template< typename BufferedHUVolumeType > class BufferedHUVolumeTexture;
         template< typename AssociatedObjectType > class Composition;
         template< typename RenderableCompare > class GeometryStage;
         template< typename HUVolumeSegmentVolume > class HUVolumeGrid;

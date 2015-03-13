@@ -37,12 +37,64 @@ struct Material::Details
 
 
 // ----------------------------------------------------------------------------------
+// Material :: VideoResourceAcquisition
+// ----------------------------------------------------------------------------------
+
+Material::VideoResourceAcquisition::VideoResourceAcquisition( GLContext& glc, Material& material )
+    : GeometryFeature::VideoResourceAcquisition( glc, material )
+    , material( material )
+{
+    if( material.videoResourceAcquisitionsCount() == 1 )
+    {
+        /* Acquire the shader.
+         */
+        material.shader = &ShaderManager::instance().acquireShader( material.shaderName );
+    }
+}
+
+
+Material::VideoResourceAcquisition::~VideoResourceAcquisition()
+{
+    if( material.videoResourceAcquisitionsCount() == 1 )
+    {
+        /* Release the shader.
+         */
+        ShaderManager::instance().releaseShader( *material.shader );
+        material.shader = nullptr;
+    }
+}
+
+
+const ShaderProgram& Material::VideoResourceAcquisition::shader() const
+{
+    CARNA_ASSERT( material.shader != nullptr );
+    return *material.shader;
+}
+
+
+void Material::VideoResourceAcquisition::activate( RenderState& rs, GLContext& glc ) const
+{
+    /* Ensure the shader is activated.
+     */
+    glc.setShader( shader() );
+
+    /* Upload uniform variables.
+     */
+    for( auto uniformItr = material.pimpl->uniforms.begin(); uniformItr != material.pimpl->uniforms.end(); ++uniformItr )
+    {
+        uniformItr->second->upload();
+    }
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // Material
 // ----------------------------------------------------------------------------------
 
 Material::Material( const std::string& shaderName )
     : pimpl( new Details() )
-    , myShader( nullptr )
+    , shader( nullptr )
     , shaderName( shaderName )
 {
 }
@@ -57,35 +109,6 @@ Material::~Material()
 Material& Material::create( const std::string& shaderName )
 {
     return *new Material( shaderName );
-}
-
-
-void Material::acquireVideoResource()
-{
-    GeometryFeature::acquireVideoResource();
-    if( myShader == nullptr )
-    {
-
-        myShader = &ShaderManager::instance().acquireShader( shaderName );
-    }
-}
-
-
-void Material::releaseVideoResource()
-{
-    GeometryFeature::releaseVideoResource();
-    if( videoResourceAcquisitionsCount() == 0 )
-    {
-        ShaderManager::instance().releaseShader( *myShader );
-        myShader = nullptr;
-    }
-}
-
-
-const ShaderProgram& Material::shader() const
-{
-    CARNA_ASSERT( myShader != nullptr );
-    return *myShader;
 }
 
 
@@ -136,18 +159,9 @@ void Material::removeUniform( const std::string& name )
 }
 
 
-void Material::activate( RenderState& rs, GLContext& glc ) const
+Material::VideoResourceAcquisition* Material::acquireVideoResource( GLContext& glc )
 {
-    /* Ensure the shader is activated.
-     */
-    glc.setShader( shader() );
-
-    /* Upload uniform variables.
-     */
-    for( auto uniformItr = pimpl->uniforms.begin(); uniformItr != pimpl->uniforms.end(); ++uniformItr )
-    {
-        uniformItr->second->upload();
-    }
+    return new VideoResourceAcquisition( glc, *this );
 }
 
 

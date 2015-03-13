@@ -14,11 +14,9 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/UInt16HUVolume.h>
-#include <Carna/base/CarnaException.h>
 
-/** \file   BufferedHUVolumeUploader.h
-  * \brief  Defines \ref Carna::base::uploadBufferedHUVolume.
-  * \todo	Rename this file.
+/** \file   BufferedHUVolumeFormat.h
+  * \brief  Defines \ref Carna::base::BufferedHUVolumeFormat.
   */
 
 namespace Carna
@@ -30,10 +28,22 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// BufferedHUVolumeUploader
+// BufferedHUVolumeFormat
 // ----------------------------------------------------------------------------------
 
-void CARNA_LIB uploadBufferedHUVolume( const UInt16HUVolume& src, Texture3D& dst );
+template< typename BufferedHUVolumeType >
+struct BufferedHUVolumeFormat
+{
+    static_assert( sizeof( BufferedHUVolumeType ) == -1, "Unknown BufferedHUVolumeType." );
+};
+
+
+template< >
+struct BufferedHUVolumeFormat< UInt16HUVolume >
+{
+    const static unsigned int INTERNAL_FORMAT;
+    const static unsigned int BUFFER_TYPE;
+};
 
 
 

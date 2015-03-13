@@ -71,12 +71,8 @@ static Sampler* createFullFrameQuadSampler( GLContext& glContext )
 // createFullFrameQuadMesh
 // ----------------------------------------------------------------------------------
 
-static MeshBase& createFullFrameQuadMesh( GLContext& glContext )
+static MeshBase& createFullFrameQuadMesh()
 {
-    glContext.makeActive();
-    typedef Mesh< VertexBase, uint8_t > FullFrameQuadMesh;
-    FullFrameQuadMesh& mesh = FullFrameQuadMesh::create( IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN );
-
     /* Lets create clipping coordinates directly,
      * s.t. we won't need to pass any matrices to the shader.
      */
@@ -99,10 +95,8 @@ static MeshBase& createFullFrameQuadMesh( GLContext& glContext )
     vertices[ 3 ].y = +1;
     indices [ 3 ] = 3;
 
-    mesh.vertexBuffer().copy( vertices, 4 );
-    mesh. indexBuffer().copy( indices, 4 );
-
-    return mesh;
+    return Mesh< VertexBase, uint8_t >::create
+        ( IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN, vertices, 4, indices, 4 );
 }
 
 
@@ -130,6 +124,7 @@ struct FrameRenderer::Details
     const std::unique_ptr< Sampler > fullFrameQuadSampler;
 
     MeshBase& fullFrameQuadMesh;
+    std::unique_ptr< MeshBase::VideoResourceAcquisition > fullFrameQuadMeshVR;
 
     const ShaderProgram& fullFrameQuadShader;
 
@@ -144,7 +139,8 @@ FrameRenderer::Details::Details( GLContext& glContext, unsigned int width, unsig
     , reshaped( true )
     , glContext( &glContext )
     , fullFrameQuadSampler( createFullFrameQuadSampler( glContext ) )
-    , fullFrameQuadMesh( createFullFrameQuadMesh( glContext ) )
+    , fullFrameQuadMesh( createFullFrameQuadMesh() )
+    , fullFrameQuadMeshVR( new MeshBase::VideoResourceAcquisition( glContext, fullFrameQuadMesh ) )
     , fullFrameQuadShader( acquireFullFrameQuadShader( glContext ) )
     , backgroundColorChanged( true )
 {
@@ -349,7 +345,7 @@ void FrameRenderer::renderTexture( const RenderTextureParams& params ) const
     }
 
     ShaderUniform< int >( params.textureUniformName, params.unit ).upload();
-    pimpl->fullFrameQuadMesh.render();
+    pimpl->fullFrameQuadMeshVR->render();
 }
 
 

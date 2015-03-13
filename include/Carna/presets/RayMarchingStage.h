@@ -67,7 +67,7 @@ public:
 
 protected:
 
-    virtual void loadVideoResources();
+    virtual void loadVideoResources( base::GLContext& glc );
 
     virtual void render( base::GLContext& glc, const base::Renderable& ) override;
 

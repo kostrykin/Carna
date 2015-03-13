@@ -35,7 +35,7 @@ namespace base
   * Represents \em "components" that are aggregated by \ref Geometry instances.
   *
   * \author Leonid Kostrykin
-  * \date   1.3.2015
+  * \date   1.3.15 - 13.3.15
   */
 class CARNA_LIB GeometryFeature
 {
@@ -60,39 +60,17 @@ public:
 
     unsigned int videoResourceAcquisitionsCount() const;
 
-    /** \brief
-      * Instantiates. Call \ref release when you do not need the object any longer.
-      */
-    //static GeometryFeature& create();
-
-    /** \brief
-      * Increments video resource acquisition counter.
-      * Uploads resources to video memory if not happened yet.
-      *
-      * \attention
-      * The caller must ensure that this method is called while proper OpenGL context is active.
-      */
-    virtual void acquireVideoResource();
-    
-    /** \brief
-      * Decrements video resource acquisition counter.
-      * Frees acquired video memory if counter reaches 0.
-      *
-      * \attention
-      * The caller must ensure that this method is called while proper OpenGL context is active.
-      */
-    virtual void releaseVideoResource();
-
     virtual bool controlsSameVideoResource( const GeometryFeature& ) const = 0;
 
     /** \brief
-      * Denotes that this object is no longer required and may be deleted as soon as it is valid to delete it.
+      * Denotes that this object is no longer required and may be deleted as soon as
+      * it is valid to delete it.
       *
-      * It will be deleted as soon as the following conditions become true, which may also be immediately:
-      * - The video resources are not loaded, i.e. the last acquisition has been released.
+      * It will be deleted as soon as the following conditions become true, which may
+      * also be immediately:
+      *
+      * - The video resources are not loaded, i.e. the last acquisition was released.
       * - This aggregate is no longer referenced by a scene graph.
-      *
-      * If no video resources are acquired currently, this object is deleted immediately.
       */
     void release();
 
@@ -109,6 +87,29 @@ public:
     * This is equivalent to \ref Geometry::removeDefinition.
       */
     void removeFrom( Geometry& sceneGraphNode );
+
+    // ------------------------------------------------------------------------------
+    // GeometryFeature :: VideoResourceAcquisition
+    // ------------------------------------------------------------------------------
+
+    class VideoResourceAcquisition
+    {
+    
+        NON_COPYABLE
+        
+    protected:
+    
+        VideoResourceAcquisition( GLContext& glc, GeometryFeature& gf );
+        
+    public:
+    
+        virtual ~VideoResourceAcquisition();
+        
+        GeometryFeature& geometryFeature;
+        
+    }; // GeometryFeature :: VideoResourceAcquisition
+    
+    virtual VideoResourceAcquisition* acquireVideoResource( GLContext& glc ) = 0;
 
 }; // GeometryFeature
 

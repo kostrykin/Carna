@@ -21,6 +21,32 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
+// GeometryFeature :: VideoResourceAcquisition
+// ----------------------------------------------------------------------------------
+
+GeometryFeature::VideoResourceAcquisition::VideoResourceAcquisition( GLContext& glc, GeometryFeature& gf )
+    : geometryFeature( gf )
+{
+    ++geometryFeature.myVideoResourceAcquisitions;
+    glc.makeActive();
+}
+
+
+GeometryFeature::VideoResourceAcquisition::~VideoResourceAcquisition()
+{
+    CARNA_ASSERT( geometryFeature.myVideoResourceAcquisitions > 0 );
+    if( --geometryFeature.myVideoResourceAcquisitions == 0 )
+    {
+        if( geometryFeature.released )
+        {
+            geometryFeature.deleteIfAllowed();
+        }
+    }
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // GeometryFeature
 // ----------------------------------------------------------------------------------
 
@@ -43,25 +69,6 @@ GeometryFeature::~GeometryFeature()
 unsigned int GeometryFeature::videoResourceAcquisitionsCount() const
 {
     return myVideoResourceAcquisitions;
-}
-
-
-void GeometryFeature::acquireVideoResource()
-{
-    ++myVideoResourceAcquisitions;
-}
-
-
-void GeometryFeature::releaseVideoResource()
-{
-    CARNA_ASSERT( myVideoResourceAcquisitions > 0 );
-    if( --myVideoResourceAcquisitions == 0 )
-    {
-        if( released )
-        {
-            deleteIfAllowed();
-        }
-    }
 }
 
 

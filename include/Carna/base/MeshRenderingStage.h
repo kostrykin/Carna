@@ -131,14 +131,14 @@ void MeshRenderingStage< RenderableCompare >::render( GLContext& glc, const Rend
 {
     RenderState rs( glc );
     const Material& material = static_cast< Material& >( renderable.geometry().feature( ROLE_DEFAULT_MATERIAL ) );
-    material.activate( rs, glc );
+    this->videoResource( material ).activate( rs, glc );
 
     ShaderUniform< math::Matrix4f >( "modelView", renderable.modelViewTransform() ).upload();
     ShaderUniform< math::Matrix4f >( "projection", renderTask->projection ).upload();
     ShaderUniform< math::Matrix4f >( "modelViewProjection", renderTask->projection * renderable.modelViewTransform() ).upload();
 
     const MeshBase& mesh = static_cast< MeshBase& >( renderable.geometry().feature( ROLE_DEFAULT_MESH ) );
-    mesh.render();
+    this->videoResource( mesh ).render();
 }
 
 

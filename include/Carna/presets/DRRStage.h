@@ -103,7 +103,7 @@ public:
 
 protected:
 
-    virtual void loadVideoResources() override;
+    virtual void loadVideoResources( base::GLContext& glc ) override;
 
     virtual void createSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler ) override;
 

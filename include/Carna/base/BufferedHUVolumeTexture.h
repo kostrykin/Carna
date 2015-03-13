@@ -13,7 +13,7 @@
 #define BUFFEREDHUVOLUMETEXTURE_H_6014714286
 
 #include <Carna/base/HUVolumeTexture.h>
-#include <Carna/base/BufferedHUVolumeUploader.h>
+#include <Carna/base/BufferedHUVolumeFormat.h>
 #include <memory>
 
 /** \file   BufferedHUVolumeTexture.h
@@ -37,14 +37,13 @@ namespace base
   * \ref BufferedHUVolume instances.
   *
   * \author Leonid Kostrykin
-  * \date 22.2.2015
+  * \date 22.2.15 - 13.3.15
   */
 template< typename BufferedHUVolumeType >
 class BufferedHUVolumeTexture : public HUVolumeTexture
 {
 
-//protected:
-public:
+protected:
 
     BufferedHUVolumeTexture( const BufferedHUVolumeType& volume );
 
@@ -63,14 +62,18 @@ public:
 
 template< typename BufferedHUVolumeType >
 BufferedHUVolumeTexture< BufferedHUVolumeType >::BufferedHUVolumeTexture( const BufferedHUVolumeType& volume )
-    : HUVolumeTexture( volume )
+    : HUVolumeTexture
+        ( volume
+        , BufferedHUVolumeFormat< BufferedHUVolumeType >::INTERNAL_FORMAT
+        , BufferedHUVolumeFormat< BufferedHUVolumeType >::BUFFER_TYPE
+        , &volume.buffer().front() )
 {
-    uploadBufferedHUVolume( volume, *this );
 }
 
 
 template< typename BufferedHUVolumeType >
-BufferedHUVolumeTexture< BufferedHUVolumeType >& BufferedHUVolumeTexture< BufferedHUVolumeType >::create( const BufferedHUVolumeType& volume )
+BufferedHUVolumeTexture< BufferedHUVolumeType >& BufferedHUVolumeTexture< BufferedHUVolumeType >::create
+    ( const BufferedHUVolumeType& volume )
 {
     return *new BufferedHUVolumeTexture< BufferedHUVolumeType >( volume );
 }
@@ -79,8 +82,9 @@ BufferedHUVolumeTexture< BufferedHUVolumeType >& BufferedHUVolumeTexture< Buffer
 template< typename BufferedHUVolumeType >
 bool BufferedHUVolumeTexture< BufferedHUVolumeType >::controlsSameVideoResource( const GeometryFeature& other ) const
 {
-    typedef BufferedHUVolumeTexture< BufferedHUVolumeType > BufferedHUVolume;
-    const BufferedHUVolume* const other2 = dynamic_cast< const BufferedHUVolume* >( &other );
+    typedef BufferedHUVolumeTexture< BufferedHUVolumeType > CompatibleBufferedHUVolumeTexture;
+    const CompatibleBufferedHUVolumeTexture* const other2
+        = dynamic_cast< const CompatibleBufferedHUVolumeTexture* >( &other );
     if( other2 == nullptr )
     {
         return false;

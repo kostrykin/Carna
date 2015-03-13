@@ -263,7 +263,7 @@ void MeshColorCodingStage::render( base::GLContext& glc, const base::Renderable&
         /* Do the rendering.
          */
         const MeshBase& mesh = static_cast< const MeshBase& >( renderable.geometry().feature( roleItr->second ) );
-        mesh.render();
+        this->videoResource( mesh ).render();
 
         /* Update rendering state.
          */

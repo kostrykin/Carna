@@ -24,8 +24,9 @@ namespace base
 // HUVolumeTexture
 // ----------------------------------------------------------------------------------
 
-HUVolumeTexture::HUVolumeTexture( const HUVolume& volume )
-    : volume( volume )
+HUVolumeTexture::HUVolumeTexture( const HUVolume& huVolume, int internalFormat, int bufferType, const void* bufferPtr )
+    : Texture3D( huVolume.size, internalFormat, GL_RED, bufferType, bufferPtr )
+    , huVolume( huVolume )
 {
 }
 
@@ -39,7 +40,7 @@ bool HUVolumeTexture::controlsSameVideoResource( const GeometryFeature& other ) 
     }
     else
     {
-        return &volume == &other2->volume;
+        return &huVolume == &other2->huVolume;
     }
 }
 

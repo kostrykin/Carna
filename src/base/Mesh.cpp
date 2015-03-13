@@ -21,16 +21,8 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// MeshBase
+// computeVertexStride
 // ----------------------------------------------------------------------------------
-
-static unsigned int createGLVertexArray()
-{
-    unsigned int id;
-    glGenVertexArrays( 1, &id );
-    return id;
-}
-
 
 static std::size_t computeVertexStride( const VertexAttributes& vertexAttributes )
 {
@@ -43,77 +35,126 @@ static std::size_t computeVertexStride( const VertexAttributes& vertexAttributes
 }
 
 
-MeshBase::MeshBase( VertexBufferBase* vertex_buffer, IndexBufferBase* index_buffer, const VertexAttributes& vertexAttributes )
-    : id( createGLVertexArray() )
-    , myVertexBuffer( vertex_buffer )
-    , myIndexBuffer( index_buffer )
-{
-    glBindVertexArray( id );
-    vertexBuffer().bind();
+// ----------------------------------------------------------------------------------
+// MeshBase :: VideoResourceAcquisition
+// ----------------------------------------------------------------------------------
 
-    std::size_t offset = 0;
-    const std::size_t stride = computeVertexStride( vertexAttributes );
-    for( auto itr = vertexAttributes.begin(); itr != vertexAttributes.end(); ++itr )
+MeshBase::VideoResourceAcquisition::VideoResourceAcquisition
+        ( GLContext& glc
+        , MeshBase& mesh )
+    : GeometryFeature::VideoResourceAcquisition( glc, mesh )
+    , mesh( mesh )
+{
+    if( mesh.videoResourceAcquisitionsCount() == 1 )
     {
-        glEnableVertexAttribArray( itr->position );
-        glVertexAttribPointer( itr->position, itr->componentsCount, itr->type, false, stride, static_cast< float* >( nullptr ) + offset );
-        offset += itr->componentsCount;
+        /* Upload the vertices and indices to video memory.
+         */
+        mesh.vertexBuffer.reset( mesh.loadVertexBuffer() );
+        mesh. indexBuffer.reset( mesh.loadIndexBuffer () );
+         
+        /* Create vertex array.
+         */
+        glGenVertexArrays( 1, &mesh.id );
+        glBindVertexArray( mesh.id );
+        vertexBuffer().bind();
+        std::size_t offset = 0;
+        const std::size_t stride = computeVertexStride( mesh.vertexAttributes );
+        for( auto itr = mesh.vertexAttributes.begin(); itr != mesh.vertexAttributes.end(); ++itr )
+        {
+            glEnableVertexAttribArray( itr->position );
+            glVertexAttribPointer
+                ( itr->position
+                , itr->componentsCount
+                , itr->type
+                , false
+                , stride
+                , static_cast< float* >( nullptr ) + offset );
+            offset += itr->componentsCount;
+        }
+        glBindVertexArray( 0 );
     }
-
-    glBindVertexArray( 0 );
 }
 
 
-MeshBase::~MeshBase()
+MeshBase::VideoResourceAcquisition::~VideoResourceAcquisition()
 {
-    glDeleteVertexArrays( 1, &id );
+    if( mesh.videoResourceAcquisitionsCount() == 1 )
+    {
+        /* Delete mesh from video memory.
+         */
+        glDeleteVertexArrays( 1, &mesh.id );
+        mesh.id = 0;
+    }
 }
 
 
-void MeshBase::bind() const
+void MeshBase::VideoResourceAcquisition::bind() const
 {
-    glBindVertexArray( id );
+    glBindVertexArray( mesh.id );
 }
 
 
-void MeshBase::render() const
+void MeshBase::VideoResourceAcquisition::render() const
 {
     CARNA_ASSERT_EX( vertexBuffer().isValid(), "Vertex buffer is invalid." );
     CARNA_ASSERT_EX(  indexBuffer().isValid(),  "Index buffer is invalid." );
 
-    glBindVertexArray( id );
+    glBindVertexArray( mesh.id );
     indexBuffer().bind();
     glDrawElements( indexBuffer().primitiveType, indexBuffer().size(), indexBuffer().type, nullptr );
 }
 
 
-const VertexBufferBase& MeshBase::vertexBuffer() const
+const VertexBufferBase& MeshBase::VideoResourceAcquisition::vertexBuffer() const
 {
-    return *myVertexBuffer;
+    return *mesh.vertexBuffer;
 }
 
 
-const IndexBufferBase& MeshBase::indexBuffer() const
+const IndexBufferBase& MeshBase::VideoResourceAcquisition::indexBuffer() const
 {
-    return *myIndexBuffer;
+    return *mesh.indexBuffer;
 }
 
 
-VertexBufferBase& MeshBase::vertexBuffer()
+VertexBufferBase& MeshBase::VideoResourceAcquisition::vertexBuffer()
 {
-    return *myVertexBuffer;
+    return *mesh.vertexBuffer;
 }
 
 
-IndexBufferBase& MeshBase::indexBuffer()
+IndexBufferBase& MeshBase::VideoResourceAcquisition::indexBuffer()
 {
-    return *myIndexBuffer;
+    return *mesh.indexBuffer;
+}
+
+
+
+// ----------------------------------------------------------------------------------
+// MeshBase
+// ----------------------------------------------------------------------------------
+
+MeshBase::MeshBase( unsigned int primitiveType, const VertexAttributes& va )
+    : primitiveType( primitiveType )
+    , vertexAttributes( va )
+{
+}
+
+
+MeshBase::~MeshBase()
+{
 }
 
 
 bool MeshBase::controlsSameVideoResource( const GeometryFeature& ) const
 {
     return false;
+}
+
+
+MeshBase::VideoResourceAcquisition* MeshBase::acquireVideoResource( GLContext& glc )
+{
+    return new VideoResourceAcquisition( glc, *this );
 }
 
 

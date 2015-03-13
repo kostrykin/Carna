@@ -33,11 +33,16 @@ namespace presets
 struct RayMarchingStage::Details
 {
 
+    typedef base::Mesh< base::VertexBase, uint8_t > SliceMesh;
+
     Details();
+    
+    ~Details();
 
     base::RenderTask* renderTask;
     const base::Viewport* viewPort;
     unsigned int mySampleRate;
+    SliceMesh& sliceMesh;
 
 }; // RayMarchingStage :: Details
 
@@ -46,7 +51,44 @@ RayMarchingStage::Details::Details()
     : renderTask( nullptr )
     , viewPort( nullptr )
     , mySampleRate( DEFAULT_SAMPLE_RATE )
+    , sliceMesh( []()->SliceMesh&
+            {
+                /* Actually, one would assume that the radius should be _half_ of the
+                 * square root of 3. But if specified so, one encounters "holes" in
+                 * volume renderings. For the moment, just the square root of 3 seems
+                 * to produce slices that are large enough, although this particular
+                 * value is somewhat "random".
+                 */
+                const float radius = std::sqrt( 3.f );
+                base::VertexBase vertices[ 4 ];
+                uint8_t indices[ 4 ];
+
+                vertices[ 0 ].x = -radius;
+                vertices[ 0 ].y = -radius;
+                indices [ 0 ] = 0;
+
+                vertices[ 1 ].x = +radius;
+                vertices[ 1 ].y = -radius;
+                indices [ 1 ] = 1;
+
+                vertices[ 2 ].x = +radius;
+                vertices[ 2 ].y = +radius;
+                indices [ 2 ] = 2;
+
+                vertices[ 3 ].x = -radius;
+                vertices[ 3 ].y = +radius;
+                indices [ 3 ] = 3;
+
+                return SliceMesh::create( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN, vertices, 4, indices, 4 );
+            }()
+        )
 {
+}
+
+
+RayMarchingStage::Details::~Details()
+{
+    sliceMesh.release();
 }
 
 
@@ -58,13 +100,9 @@ RayMarchingStage::Details::Details()
 struct RayMarchingStage::VideoResources
 {
 
-    VideoResources( const base::ShaderProgram& shader );
+    VideoResources( base::GLContext& glc, const base::ShaderProgram& shader, Details::SliceMesh& sliceMesh );
 
-    ~VideoResources();
-
-    typedef base::Mesh< base::VertexBase, uint8_t > SliceMesh;
-
-    SliceMesh& sliceMesh;
+    Details::SliceMesh::VideoResourceAcquisition sliceMeshVR;
     const base::ShaderProgram& shader;
     std::map< unsigned int, base::Sampler* > samplers;
 
@@ -77,43 +115,13 @@ struct RayMarchingStage::VideoResources
 }; // RayMarchingStage :: VideoResources
 
 
-RayMarchingStage::VideoResources::VideoResources( const base::ShaderProgram& shader )
-    : sliceMesh( SliceMesh::create( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN ) )
+RayMarchingStage::VideoResources::VideoResources
+        ( base::GLContext& glc
+        , const base::ShaderProgram& shader
+        , Details::SliceMesh& sliceMesh )
+    : sliceMeshVR( glc, sliceMesh )
     , shader( shader )
 {
-    /* Actually, one would assume that the radius should be _half_ of the square root
-     * of 3. But if specified so, one encounters "holes" in volume renderings. For
-     * the moment, just the square root of 3 seems to produce slices that are large
-     * enough, although this particular value is somewhat "random".
-     */
-    const float radius = std::sqrt( 3.f );
-    base::VertexBase vertices[ 4 ];
-    uint8_t indices[ 4 ];
-
-    vertices[ 0 ].x = -radius;
-    vertices[ 0 ].y = -radius;
-    indices [ 0 ] = 0;
-
-    vertices[ 1 ].x = +radius;
-    vertices[ 1 ].y = -radius;
-    indices [ 1 ] = 1;
-
-    vertices[ 2 ].x = +radius;
-    vertices[ 2 ].y = +radius;
-    indices [ 2 ] = 2;
-
-    vertices[ 3 ].x = -radius;
-    vertices[ 3 ].y = +radius;
-    indices [ 3 ] = 3;
-
-    sliceMesh.vertexBuffer().copy( vertices, 4 );
-    sliceMesh. indexBuffer().copy( indices, 4 );
-}
-
-
-RayMarchingStage::VideoResources::~VideoResources()
-{
-    sliceMesh.release();
 }
 
 
@@ -132,7 +140,7 @@ void RayMarchingStage::VideoResources::renderSlice
             {
                 const base::Texture3D& texture = static_cast< const base::Texture3D& >( gf );
                 anyTexture = &texture;
-                texture.bind( ++lastUnit );
+                self.videoResource( texture ).bind( ++lastUnit );
                 samplers[ role ]->bind( lastUnit );
                 roles.push_back( role );
             }
@@ -143,7 +151,7 @@ void RayMarchingStage::VideoResources::renderSlice
      * textures, i.e. all textures have same resolution.
      */
     const base::math::Matrix4f modelTexture =
-        ( anyTexture == nullptr ? base::math::identity4f() : anyTexture->textureCoordinatesCorrection() )
+        ( anyTexture == nullptr ? base::math::identity4f() : anyTexture->textureCoordinatesCorrection )
         * base::math::translation4f( 0.5f, 0.5f, 0.5f );
 
     /* Configure shader.
@@ -161,7 +169,7 @@ void RayMarchingStage::VideoResources::renderSlice
 
     /* Invoke shader.
      */
-    sliceMesh.render();
+    sliceMeshVR.render();
 }
 
 
@@ -238,10 +246,10 @@ void RayMarchingStage::render( base::GLContext& glc, const base::Renderable& ren
 }
 
 
-void RayMarchingStage::loadVideoResources()
+void RayMarchingStage::loadVideoResources( base::GLContext& glc )
 {
     const base::ShaderProgram& shader = loadShader();
-    vr.reset( new VideoResources( shader ) );
+    vr.reset( new VideoResources( glc, shader, pimpl->sliceMesh ) );
     createSamplers( [&]( unsigned int role, base::Sampler* sampler )
         {
             CARNA_ASSERT( vr->samplers.find( role ) == vr->samplers.end() );
@@ -258,7 +266,7 @@ void RayMarchingStage::renderPass
 {
     if( vr.get() == nullptr )
     {
-        loadVideoResources();
+        loadVideoResources( rt.renderer.glContext() );
     }
 
     rt.renderer.glContext().setShader( vr->shader );

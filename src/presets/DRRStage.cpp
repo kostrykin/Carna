@@ -177,9 +177,9 @@ void DRRStage::reshape( const base::FrameRenderer& fr, const base::Viewport& vp 
 }
 
 
-void DRRStage::loadVideoResources()
+void DRRStage::loadVideoResources( base::GLContext& glc )
 {
-    RayMarchingStage::loadVideoResources();
+    RayMarchingStage::loadVideoResources( glc );
     pimpl->exponentialShader = &base::ShaderManager::instance().acquireShader( "drr_exponential" );
 }
 

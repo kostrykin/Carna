@@ -51,34 +51,53 @@ class CARNA_LIB Material : public GeometryFeature
     struct Details;
     const std::unique_ptr< Details > pimpl;
 
-    const ShaderProgram* myShader;
+    const ShaderProgram* shader;
+    
+protected:
 
-public:
+    friend class GeometryFeature;
 
     virtual ~Material();
 
+public:
+
     const std::string shaderName;
-
-    /** \brief
-      * Instantiates. Call \ref release when you do not need the object any longer.
-      */
-    static Material& create( const std::string& shaderName );
-
-    virtual void acquireVideoResource() override;
-
-    virtual void releaseVideoResource() override;
-
-    const ShaderProgram& shader() const;
-
-    virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
-
-    void activate( RenderState&, GLContext& ) const;
 
     void addUniform( ShaderUniformBase* );
 
     void clearUniforms();
 
     void removeUniform( const std::string& name );
+
+    /** \brief
+      * Instantiates. Call \ref release when you do not need the object any longer.
+      */
+    static Material& create( const std::string& shaderName );
+
+    virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
+
+    // ------------------------------------------------------------------------------
+    // Material :: VideoResourceAcquisition
+    // ------------------------------------------------------------------------------
+
+    class VideoResourceAcquisition : public GeometryFeature::VideoResourceAcquisition
+    {
+    
+    public:
+    
+        VideoResourceAcquisition( GLContext& glc, Material& material );
+    
+        virtual ~VideoResourceAcquisition();
+
+        void activate( RenderState& rs, GLContext& glc ) const;
+
+        const ShaderProgram& shader() const;
+    
+        Material& material;
+    
+    }; // Material :: VideoResourceAcquisition
+    
+    virtual VideoResourceAcquisition* acquireVideoResource( GLContext& glc ) override;
 
 }; // Material
 

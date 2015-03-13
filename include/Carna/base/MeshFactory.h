@@ -63,9 +63,6 @@ Vertex MeshFactory< Vertex >::vertex( const Vector& v )
 template< typename Vertex >
 Mesh< Vertex, uint8_t >& MeshFactory< Vertex >::createBox( float sizeX, float sizeY, float sizeZ )
 {
-    typedef Mesh< Vertex, uint8_t > MeshInstance;
-    MeshInstance& mesh = MeshInstance::create( IndexBufferBase::PRIMITIVE_TYPE_TRIANGLES );
-
     const math::Matrix4f baseTransform = math::scaling4f( sizeX / 2, sizeY / 2, sizeZ / 2 );
 
     /* Define faces.
@@ -81,6 +78,7 @@ Mesh< Vertex, uint8_t >& MeshFactory< Vertex >::createBox( float sizeX, float si
     const std::size_t verticesCount = 6 * 4;
     const std::size_t indicesCount  = 6 * 2 * 3;
 
+    typedef Mesh< Vertex, uint8_t > MeshInstance;
 	typedef typename MeshInstance::Index Index;
     Vertex vertices[ verticesCount ];
     Index   indices[  indicesCount ];
@@ -107,9 +105,10 @@ Mesh< Vertex, uint8_t >& MeshFactory< Vertex >::createBox( float sizeX, float si
         indices[ ++lastIndex ] = lastVertex - 1;
     }
 
-    mesh.vertexBuffer().copy( vertices, verticesCount );
-    mesh. indexBuffer().copy(  indices,  indicesCount );
-    return mesh;
+    return MeshInstance::create
+        ( IndexBufferBase::PRIMITIVE_TYPE_TRIANGLES
+        , vertices, verticesCount
+        ,  indices,  indicesCount );
 }
 
 

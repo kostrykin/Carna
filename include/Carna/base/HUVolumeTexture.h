@@ -35,11 +35,11 @@ class CARNA_LIB HUVolumeTexture : public Texture3D
 
 protected:
 
-    HUVolumeTexture( const HUVolume& volume );
+    HUVolumeTexture( const HUVolume& huVolume, int internalFormat, int bufferType, const void* bufferPtr );
 
 public:
 
-    const HUVolume& volume;
+    const HUVolume& huVolume;
 
     virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
 

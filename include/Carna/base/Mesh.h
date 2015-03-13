@@ -36,44 +36,73 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Format-independent \ref Mesh base class.
+  * Format-independent abstract \ref Mesh base class.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 10.3.15
+  * \date   22.2.15 - 13.3.15
   */
 class CARNA_LIB MeshBase : public GeometryFeature
 {
 
     NON_COPYABLE
 
-    const std::unique_ptr< VertexBufferBase > myVertexBuffer;
-    const std::unique_ptr< IndexBufferBase > myIndexBuffer;
+    std::unique_ptr< VertexBufferBase > vertexBuffer;
+    std::unique_ptr< IndexBufferBase > indexBuffer;
+    
+    unsigned int id;
 
 protected:
 
     friend class GeometryFeature;
 
-    MeshBase( VertexBufferBase* vb, IndexBufferBase* ib, const VertexAttributes& va );
+    MeshBase( unsigned int primitiveType, const VertexAttributes& va );
 
     virtual ~MeshBase();
+    
+    virtual VertexBufferBase* loadVertexBuffer() = 0;
+    
+    virtual IndexBufferBase* loadIndexBuffer() = 0;
 
 public:
 
-    const unsigned int id;
-
-    void bind() const;
-
-    void render() const;
-
-    const VertexBufferBase& vertexBuffer() const;
-
-    const IndexBufferBase& indexBuffer() const;
-
-    VertexBufferBase& vertexBuffer();
-
-    IndexBufferBase& indexBuffer();
-
     virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
+    
+    const unsigned int primitiveType;
+    
+    const VertexAttributes vertexAttributes;
+
+    // ------------------------------------------------------------------------------
+    // MeshBase :: VideoResourceAcquisition
+    // ------------------------------------------------------------------------------
+
+    class VideoResourceAcquisition : public GeometryFeature::VideoResourceAcquisition
+    {
+    
+    public:
+    
+        VideoResourceAcquisition( GLContext& glc, MeshBase& mesh );
+    
+        virtual ~VideoResourceAcquisition();
+    
+        unsigned int id() const;
+
+        void bind() const;
+
+        void render() const;
+
+        const VertexBufferBase& vertexBuffer() const;
+
+        const IndexBufferBase& indexBuffer() const;
+
+        VertexBufferBase& vertexBuffer();
+
+        IndexBufferBase& indexBuffer();
+    
+        MeshBase& mesh;
+    
+    }; // MeshBase :: VideoResourceAcquisition
+    
+    virtual VideoResourceAcquisition* acquireVideoResource( GLContext& glc ) override;
 
 }; // MeshBase
 
@@ -87,7 +116,20 @@ template< typename VertexType, typename IndexType >
 class Mesh : public MeshBase
 {
 
-    Mesh( unsigned int primitiveType );
+    const std::vector< VertexType > vertices;
+    const std::vector<  IndexType > indices;
+
+    Mesh( unsigned int primitiveType
+        , const VertexType* vertices
+        , const std::size_t vertexCount
+        , const IndexType* indices
+        , const std::size_t indexCount );
+    
+protected:
+    
+    virtual VertexBufferBase* loadVertexBuffer() override;
+    
+    virtual IndexBufferBase* loadIndexBuffer() override;
 
 public:
 
@@ -95,61 +137,60 @@ public:
 
     typedef IndexType Index;
 
-    const VertexBuffer< VertexType >& vertexBuffer() const;
-
-    const IndexBuffer< IndexType >& indexBuffer() const;
-
-    VertexBuffer< VertexType >& vertexBuffer();
-
-    IndexBuffer< IndexType >& indexBuffer();
-
     /** \brief
       * Instantiates. Call \ref release when you do not need the object any longer.
       */
-    static Mesh< VertexType, IndexType >& create( unsigned int primitiveType );
+    static Mesh< VertexType, IndexType >& create
+        ( unsigned int primitiveType
+        , const VertexType* vertices
+        , const std::size_t vertexCount
+        , const IndexType* indices
+        , const std::size_t indexCount );
 
 }; // Mesh
 
 
 template< typename VertexType, typename IndexType >
-Mesh< VertexType, IndexType >::Mesh( unsigned int primitiveType )
-    : MeshBase( new VertexBuffer< Vertex >(), new IndexBuffer< Index >( primitiveType ), Vertex::attributes )
+Mesh< VertexType, IndexType >::Mesh
+        ( unsigned int primitiveType
+        , const VertexType* vertices
+        , const std::size_t vertexCount
+        , const IndexType* indices
+        , const std::size_t indexCount )
+    : MeshBase( primitiveType, Vertex::attributes )
+    , vertices( vertices, vertices + vertexCount )
+    , indices (  indices,  indices +  indexCount )
 {
 }
 
 
 template< typename VertexType, typename IndexType >
-const VertexBuffer< VertexType >& Mesh< VertexType, IndexType >::vertexBuffer() const
+VertexBufferBase* Mesh< VertexType, IndexType >::loadVertexBuffer()
 {
-    return static_cast< const VertexBuffer< Vertex >& >( MeshBase::vertexBuffer() );
+    VertexBuffer< VertexType >* const vb = new VertexBuffer< VertexType >();
+    vb->copy( &vertices.front(), vertices.size() );
+    return vb;
 }
 
 
 template< typename VertexType, typename IndexType >
-const IndexBuffer< IndexType >& Mesh< VertexType, IndexType >::indexBuffer() const
+IndexBufferBase* Mesh< VertexType, IndexType >::loadIndexBuffer()
 {
-    return static_cast< const IndexBuffer< Index >& >( MeshBase::indexBuffer() );
+    IndexBuffer< IndexType >* const ib = new IndexBuffer< IndexType >( primitiveType );
+    ib->copy( &indices.front(), indices.size() );
+    return ib;
 }
 
 
 template< typename VertexType, typename IndexType >
-VertexBuffer< VertexType >& Mesh< VertexType, IndexType >::vertexBuffer()
+Mesh< VertexType, IndexType >& Mesh< VertexType, IndexType >::create
+    ( unsigned int primitiveType
+    , const VertexType* vertices
+    , const std::size_t vertexCount
+    , const IndexType* indices
+    , const std::size_t indexCount )
 {
-    return static_cast< VertexBuffer< Vertex >& >( MeshBase::vertexBuffer() );
-}
-
-
-template< typename VertexType, typename IndexType >
-IndexBuffer< IndexType >& Mesh< VertexType, IndexType >::indexBuffer()
-{
-    return static_cast< IndexBuffer< Index >& >( MeshBase::indexBuffer() );
-}
-
-
-template< typename VertexType, typename IndexType >
-Mesh< VertexType, IndexType >& Mesh< VertexType, IndexType >::create( unsigned int primitiveType )
-{
-    return *new Mesh< Vertex, Index >( primitiveType );
+    return *new Mesh< Vertex, Index >( primitiveType, vertices, vertexCount, indices, indexCount );
 }
 
 

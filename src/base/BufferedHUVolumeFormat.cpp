@@ -10,7 +10,7 @@
  */
 
 #include <Carna/base/glew.h>
-#include <Carna/base/BufferedHUVolumeUploader.h>
+#include <Carna/base/BufferedHUVolumeFormat.h>
 #include <Carna/base/Texture3D.h>
 
 namespace Carna
@@ -22,13 +22,11 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// uploadBufferedHUVolume
+// BufferedHUVolumeFormat
 // ----------------------------------------------------------------------------------
 
-void uploadBufferedHUVolume( const UInt16HUVolume& src, Texture3D& dst )
-{
-    dst.upload( GL_INTENSITY16, src.size, GL_RED, GL_UNSIGNED_SHORT, &src.buffer().front() );
-}
+const unsigned int BufferedHUVolumeFormat< UInt16HUVolume >::INTERNAL_FORMAT = GL_INTENSITY16;
+const unsigned int BufferedHUVolumeFormat< UInt16HUVolume >::BUFFER_TYPE     = GL_UNSIGNED_SHORT;
 
 
 

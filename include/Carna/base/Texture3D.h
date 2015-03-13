@@ -37,16 +37,16 @@ class CARNA_LIB Texture3D : public GeometryFeature
 {
 
     NON_COPYABLE
+    
+    const void* const bufferPtr;
 
-    math::Vector3ui mySize;
-
-    mutable std::unique_ptr< base::math::Matrix4f > myTextureCoordinatesCorrection;
+    unsigned int id;
 
 protected:
 
     friend class GeometryFeature;
 
-    Texture3D();
+    Texture3D( const math::Vector3ui& size, int internalFormat, int pixelFormat, int bufferType, const void* bufferPtr );
 
     /** \brief
       * Deletes the associated OpenGL object.
@@ -65,23 +65,20 @@ public:
       * Instantiates and associates with a newly created OpenGL texture object.
       * Invoke \ref release when it isn't needed any longer.
       */
-    static Texture3D& create();
+    static Texture3D& create
+        ( const math::Vector3ui& size
+        , int internalFormat
+        , int pixelFormat
+        , int bufferType
+        , const void* bufferPtr );
 
-    /** \brief
-      * The ID of the associated OpenGL object.
-      */
-    const unsigned int id;
-
-    /** \brief
-      * Binds this texture to \a unit.
-      *
-      * Consider using \ref SETUP_UNIT if you're binding the texture temporarily.
-      */
-    void bind( unsigned int unit ) const;
-
-    void upload( int internalFormat, const math::Vector3ui& size, int pixelFormat, int bufferType, const void* bufferData );
-
-    const math::Vector3ui& size() const;
+    const math::Vector3ui size;
+    
+    const int internalFormat;
+    
+    const int pixelFormat;
+    
+    const int bufferType;
 
     /** \brief
       * Stretches texture coordinates s.t. the centers of the texels, that are
@@ -96,9 +93,37 @@ public:
       * considerations from above. The matrix is computed the first time the method
       * is invoked. It is reused until the \ref upload "texture resolution changes".
       */
-    const base::math::Matrix4f& textureCoordinatesCorrection() const;
+    const base::math::Matrix4f textureCoordinatesCorrection;
 
     virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
+
+    // ------------------------------------------------------------------------------
+    // Texture3D :: VideoResourceAcquisition
+    // ------------------------------------------------------------------------------
+
+    class VideoResourceAcquisition : public GeometryFeature::VideoResourceAcquisition
+    {
+    
+    public:
+    
+        VideoResourceAcquisition( GLContext& glc, Texture3D& texture );
+    
+        virtual ~VideoResourceAcquisition();
+        
+        unsigned int id() const;
+
+        /** \brief
+          * Binds this texture to \a unit.
+          *
+          * Consider using \ref SETUP_UNIT if you're binding the texture temporarily.
+          */
+        void bind( unsigned int unit ) const;
+    
+        Texture3D& texture;
+    
+    }; // Texture3D :: VideoResourceAcquisition
+    
+    virtual VideoResourceAcquisition* acquireVideoResource( GLContext& glc ) override;
 
 }; // Texture3D
 

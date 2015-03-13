@@ -17,6 +17,7 @@
 #include <Carna/base/GeometryFeature.h>
 #include <Carna/base/math.h>
 #include <memory>
+#include <map>
 
 /** \file   GeometryStage.h
   * \brief  Defines \ref Carna::base::GeometryStage.
@@ -54,9 +55,11 @@ template< typename RenderableCompare >
 class GeometryStage : public RenderStage
 {
 
+    typedef GeometryFeature::VideoResourceAcquisition VideoResource;
+
     Node* root;
     std::size_t passesRendered;
-    std::set< GeometryFeature* > acquiredFeatures;
+    std::map< GeometryFeature*, VideoResource* > acquiredFeatures;
     GLContext* myContext;
 
 protected:
@@ -83,6 +86,12 @@ public:
     virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) override;
 
     std::size_t renderedPassesCount() const;
+    
+    template< typename GeometryFeatureType >
+    typename GeometryFeatureType::VideoResourceAcquisition& videoResource( GeometryFeatureType& ) const;
+    
+    template< typename GeometryFeatureType >
+    const typename GeometryFeatureType::VideoResourceAcquisition& videoResource( const GeometryFeatureType& ) const;
 
 protected:
 
@@ -111,9 +120,10 @@ template< typename RenderableCompare >
 GeometryStage< RenderableCompare >::~GeometryStage()
 {
     activateGLContext();
-    std::for_each( acquiredFeatures.begin(), acquiredFeatures.end(), [&]( GeometryFeature* ga )
+    std::for_each( acquiredFeatures.begin(), acquiredFeatures.end(),
+        [&]( const std::pair< GeometryFeature*, VideoResource* >& entry )
         {
-            ga->releaseVideoResource();
+            delete entry.second;
         }
     );
 }
@@ -191,8 +201,8 @@ void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewT
                      */
                     if( acquiredFeatures.find( &gf ) == acquiredFeatures.end() )
                     {
-                        gf.acquireVideoResource();
-                        acquiredFeatures.insert( &gf );
+                        VideoResource* const vr = gf.acquireVideoResource( *myContext );
+                        acquiredFeatures[ &gf ] = vr;
                     }
                 }
             );
@@ -204,7 +214,7 @@ void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewT
         // release unused video resources
         for( auto itr = acquiredFeatures.begin(); itr != acquiredFeatures.end(); )
         {
-            if( usedFeatures.find( *itr ) == usedFeatures.end() )
+            if( usedFeatures.find( itr->first ) == usedFeatures.end() )
             {
                 acquiredFeatures.erase( itr++ );
             }
@@ -228,6 +238,26 @@ template< typename RenderableCompare >
 bool GeometryStage< RenderableCompare >::isInitialized() const
 {
     return this->myContext != nullptr;
+}
+
+
+template< typename RenderableCompare >
+template< typename GeometryFeatureType >
+typename GeometryFeatureType::VideoResourceAcquisition& GeometryStage< RenderableCompare >
+    ::videoResource( GeometryFeatureType& gf ) const
+{
+    const auto itr = acquiredFeatures.find( &gf );
+    CARNA_ASSERT( itr != acquiredFeatures.end() );
+    return static_cast< typename GeometryFeatureType::VideoResourceAcquisition& >( *itr->second );
+}
+
+
+template< typename RenderableCompare >
+template< typename GeometryFeatureType >
+const typename GeometryFeatureType::VideoResourceAcquisition& GeometryStage< RenderableCompare >
+    ::videoResource( const GeometryFeatureType& gf ) const
+{
+    return videoResource( const_cast< GeometryFeatureType& >( gf ) );
 }
 
 
