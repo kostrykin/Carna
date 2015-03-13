@@ -9,12 +9,12 @@
  *
  */
 
-#include <Carna/helpers/CameraControl.h>
+#include <Carna/base/CameraControl.h>
 
 namespace Carna
 {
 
-namespace helpers
+namespace base
 {
 
 
@@ -30,6 +30,6 @@ CameraControl::~CameraControl()
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace Carna :: base
 
 }  // namespace Carna

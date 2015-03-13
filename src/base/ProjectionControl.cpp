@@ -9,12 +9,12 @@
  *
  */
 
-#include <Carna/helpers/ProjectionControl.h>
+#include <Carna/base/ProjectionControl.h>
 
 namespace Carna
 {
 
-namespace helpers
+namespace base
 {
 
 
@@ -111,7 +111,7 @@ float ProjectionControl::maximumVisibleDistance() const
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace Carna :: base
 
 }  // namespace Carna
 

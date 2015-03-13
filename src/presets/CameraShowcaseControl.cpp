@@ -9,14 +9,14 @@
  *
  */
 
-#include <Carna/helpers/CameraShowcaseControl.h>
+#include <Carna/presets/CameraShowcaseControl.h>
 #include <Carna/base/Camera.h>
 #include <Carna/base/math.h>
 
 namespace Carna
 {
 
-namespace helpers
+namespace presets
 {
 
 
@@ -136,6 +136,6 @@ void CameraShowcaseControl::moveAxially( float distance )
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace Carna :: presets
 
 }  // namespace Carna

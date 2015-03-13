@@ -13,6 +13,7 @@
 #define RENDERABLE_H_6014714286
 
 #include <Carna/Carna.h>
+#include <Carna/base/GeometryFeature.h>
 #include <Carna/base/math.h>
 
 /** \file   Renderable.h

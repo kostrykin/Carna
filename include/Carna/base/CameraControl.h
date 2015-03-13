@@ -15,13 +15,13 @@
 #include <Carna/Carna.h>
 
 /** \file   CameraControl.h
-  * \brief  Defines \ref Carna::helpers::CameraControl.
+  * \brief  Defines \ref Carna::base::CameraControl.
   */
 
 namespace Carna
 {
 
-namespace helpers
+namespace base
 {
 
 
@@ -39,7 +39,7 @@ public:
     
     virtual ~CameraControl();
 
-    virtual void setCamera( base::Spatial& ) = 0;
+    virtual void setCamera( Spatial& ) = 0;
     
     virtual void rotateHorizontally( float radians ) = 0;
     
@@ -51,7 +51,7 @@ public:
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace Carna :: base
 
 }  // namespace Carna
 

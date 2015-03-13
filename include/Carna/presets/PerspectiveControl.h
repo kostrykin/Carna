@@ -13,7 +13,7 @@
 #define PERSPECTIVECONTROL_H_6014714286
 
 #include <Carna/Carna.h>
-#include <Carna/helpers/ProjectionControl.h>
+#include <Carna/base/ProjectionControl.h>
 
 /** \file   PerspectiveControl.h
   * \brief  Defines \ref Carna::helpers::PerspectiveControl.
@@ -22,7 +22,7 @@
 namespace Carna
 {
 
-namespace helpers
+namespace presets
 {
 
 
@@ -31,7 +31,7 @@ namespace helpers
 // PerspectiveControl
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB PerspectiveControl : public ProjectionControl
+class CARNA_LIB PerspectiveControl : public base::ProjectionControl
 {
 
     NON_COPYABLE
@@ -57,7 +57,7 @@ public:
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace Carna :: presets
 
 }  // namespace Carna
 

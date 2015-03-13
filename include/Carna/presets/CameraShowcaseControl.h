@@ -9,30 +9,30 @@
  *
  */
 
-#ifndef CAMERANAVIGATIONCONTROL_H_6014714286
-#define CAMERANAVIGATIONCONTROL_H_6014714286
+#ifndef CAMERASHOWCASECONTROL_H_6014714286
+#define CAMERASHOWCASECONTROL_H_6014714286
 
 #include <Carna/Carna.h>
-#include <Carna/helpers/CameraControl.h>
+#include <Carna/base/CameraControl.h>
 #include <memory>
 
-/** \file   CameraNavigationControl.h
-  * \brief  Defines \ref Carna::helpers::CameraNavigationControl.
+/** \file   CameraShowcaseControl.h
+  * \brief  Defines \ref Carna::presets::CameraShowcaseControl.
   */
 
 namespace Carna
 {
 
-namespace helpers
+namespace presets
 {
 
 
 
 // ----------------------------------------------------------------------------------
-// CameraNavigationControl
+// CameraShowcaseControl
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB CameraNavigationControl : public CameraControl
+class CARNA_LIB CameraShowcaseControl : public base::CameraControl
 {
 
     NON_COPYABLE
@@ -42,9 +42,20 @@ class CARNA_LIB CameraNavigationControl : public CameraControl
 
 public:
 
-    CameraNavigationControl();
+    const static float DEFAULT_MIN_DISTANCE;
+    const static float DEFAULT_MAX_DISTANCE;
+
+    CameraShowcaseControl();
     
-    virtual ~CameraNavigationControl();
+    ~CameraShowcaseControl();
+    
+    void setMinDistance( float minDistance );
+    
+    void setMaxDistance( float maxDistance );
+    
+    float minDistance() const;
+    
+    float maxDistance() const;
 
     virtual void setCamera( base::Spatial& ) override;
     
@@ -54,14 +65,14 @@ public:
     
     virtual void moveAxially( float distance ) override;
 
-}; // CameraNavigationControl
+}; // CameraShowcaseControl
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace Carna :: presets
 
 }  // namespace Carna
 
 
 
-#endif // CAMERANAVIGATIONCONTROL_H_6014714286
+#endif // CAMERASHOWCASECONTROL_H_6014714286

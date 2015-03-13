@@ -55,6 +55,7 @@ namespace Carna
         class  AssertionFailure;
         class  BoundingBox;
         class  BoundingVolume;
+        class  CameraControl;
         class  CarnaException;
         class  Log;
         class  Text;
@@ -73,6 +74,7 @@ namespace Carna
         class  MeshBase;
         class  MeshRenderingStageBase;
         class  Node;
+        class  ProjectionControl;
         class  Ray3f;
         class  Renderable;
         class  RenderStage;
@@ -119,6 +121,9 @@ namespace Carna
     namespace presets
     {
 
+        class CameraNavigationControl;
+        class CameraShowcaseControl;
+        class PerspectiveControl;
         class MeshColorCodingStage;
         class RayMarchingStage;
         class MIPStage;
@@ -133,12 +138,7 @@ namespace Carna
     namespace helpers
     {
 
-        class CameraControl;
-        class CameraNavigationControl;
-        class CameraShowcaseControl;
         class DefaultRenderStageOrder;
-        class PerspectiveControl;
-        class ProjectionControl;
 
         template< typename RenderStageOrder = DefaultRenderStageOrder > class FrameRendererHelper;
         template< typename HUVolumeSegmentVolume > class HUVolumeGridHelper;

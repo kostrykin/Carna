@@ -9,14 +9,14 @@
  *
  */
 
-#include <Carna/helpers/CameraNavigationControl.h>
+#include <Carna/presets/CameraNavigationControl.h>
 #include <Carna/base/Camera.h>
 #include <Carna/base/math.h>
 
 namespace Carna
 {
 
-namespace helpers
+namespace presets
 {
 
 
@@ -96,6 +96,6 @@ void CameraNavigationControl::moveAxially( float distance )
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace Carna :: presets
 
 }  // namespace Carna

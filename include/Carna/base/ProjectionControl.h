@@ -17,13 +17,13 @@
 #include <memory>
 
 /** \file   ProjectionControl.h
-  * \brief  Defines \ref Carna::helpers::ProjectionControl.
+  * \brief  Defines \ref Carna::base::ProjectionControl.
   */
 
 namespace Carna
 {
 
-namespace helpers
+namespace base
 {
 
 
@@ -65,13 +65,13 @@ public:
     
     float maximumVisibleDistance() const;
     
-    virtual void updateProjection( base::math::Matrix4f& ) const = 0;
+    virtual void updateProjection( math::Matrix4f& ) const = 0;
 
 }; // ProjectionControl
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace Carna :: base
 
 }  // namespace Carna
 
