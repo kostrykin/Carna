@@ -216,7 +216,7 @@ void Demo::initializeGL()
         , baseVolume->size.x() * baseVolume->size.y() * baseVolume->size.z() * sizeof( base::UInt16HUVolume::Voxel ) / 2 ) );
     gridHelper->loadData( *baseVolume );
     base::Node* const volumeNode = gridHelper->createNode
-        ( *glContext, GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ), presets::MIPStage::ROLE_HU_VOLUME );
+        ( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ), presets::MIPStage::ROLE_HU_VOLUME );
     gridHelper->invalidateTextures( *glContext );
 
     base::MeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 10, 10, 10 );

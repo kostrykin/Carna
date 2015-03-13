@@ -406,7 +406,7 @@ namespace math
         return maxAbs;
     }
 
-    Matrix4f frustum4f( float left, float right, float bottom, float top, float zNear, float zFar )
+    inline Matrix4f frustum4f( float left, float right, float bottom, float top, float zNear, float zFar )
     {
         Matrix4f result;
         result.setZero();
@@ -422,7 +422,7 @@ namespace math
         return result;
     }
 
-    Matrix4f frustum4f( float fovRadiansHorizontal, float heightOverWidth, float zNear, float zFar )
+    inline Matrix4f frustum4f( float fovRadiansHorizontal, float heightOverWidth, float zNear, float zFar )
     {
         const float halfProjPlaneWidth  = zNear * std::tan( fovRadiansHorizontal );
         const float halfProjPlaneHeight = halfProjPlaneWidth * heightOverWidth;

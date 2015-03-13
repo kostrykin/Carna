@@ -24,6 +24,7 @@
 #include <Carna/base/Composition.h>
 #include <Carna/base/CarnaException.h>
 #include <vector>
+#include <memory>
 
 namespace Carna
 {

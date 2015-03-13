@@ -28,7 +28,7 @@ void MIPStageTest::initTestCase()
 
     qglContextHolder.reset( new QGLContextHolder() );
     testFramebuffer.reset( new TestFramebuffer( qglContextHolder->glContext(), width, height ) );
-    scene.reset( new TestScene( qglContextHolder->glContext() ) );
+    scene.reset( new TestScene() );
     renderer.reset( new base::FrameRenderer( qglContextHolder->glContext(), width, height, true ) );
 
     mip = new presets::MIPStage( TestScene::GEOMETRY_TYPE_VOLUMETRIC );

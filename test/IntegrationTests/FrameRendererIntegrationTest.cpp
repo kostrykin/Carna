@@ -91,7 +91,7 @@ void FrameRendererIntegrationTest::test_typical()
     typedef helpers::HUVolumeGridHelper< base::UInt16HUVolume > UInt16HUGridHelper;
     UInt16HUGridHelper gridHelper( data.size );
     gridHelper.loadData( data );
-    root.attachChild( gridHelper.createNode( glContext, GEOMETRY_TYPE_VOLUMETRIC, UInt16HUGridHelper::Spacing( spacings ), presets::DRRStage::ROLE_HU_VOLUME ) );
+    root.attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, UInt16HUGridHelper::Spacing( spacings ), presets::DRRStage::ROLE_HU_VOLUME ) );
     gridHelper.invalidateTextures( glContext );
 
     /* Configure cutting planes.

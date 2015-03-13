@@ -31,7 +31,7 @@ void OpaqueRenderingStageTest::initTestCase()
 
     qglContextHolder.reset( new QGLContextHolder() );
     testFramebuffer.reset( new TestFramebuffer( qglContextHolder->glContext(), width, height ) );
-    scene.reset( new TestScene( qglContextHolder->glContext() ) );
+    scene.reset( new TestScene() );
     renderer.reset( new base::FrameRenderer( qglContextHolder->glContext(), width, height, true ) );
 
     opaque = new presets::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );

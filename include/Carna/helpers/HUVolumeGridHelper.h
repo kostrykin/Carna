@@ -221,8 +221,7 @@ public:
       *     "put the volume textures on the Geometry objects".
       */
     base::Node* createNode
-        ( const base::GLContext& glc
-        , unsigned int geometryType
+        ( unsigned int geometryType
         , const Spacing& spacing
         , unsigned int volumeTextureRole = DEFAULT_VOLUME_TEXTURE_ROLE ) const;
     
@@ -254,16 +253,14 @@ public:
       *     "put the volume textures on the Geometry objects".
       */
     base::Node* createNode
-        ( const base::GLContext& glc
-        , unsigned int geometryType
+        ( unsigned int geometryType
         , const Dimensions& dimensions
         , unsigned int volumeTextureRole = DEFAULT_VOLUME_TEXTURE_ROLE ) const;
 
 private:
 
     base::Node* createNode
-        ( const base::GLContext& glc
-        , unsigned int geometryType
+        ( unsigned int geometryType
         , const Spacing& spacing
         , const Dimensions& dimensions
         , unsigned int volumeTextureRole ) const;
@@ -377,8 +374,7 @@ base::HUVolumeGrid< HUVolumeSegmentVolume >& HUVolumeGridHelper< HUVolumeSegment
 
 template< typename HUVolumeSegmentVolume >
 base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
-    ( const base::GLContext& glc
-    , unsigned int geometryType
+    ( unsigned int geometryType
     , const Spacing& spacing
     , const Dimensions& dimensions
     , unsigned int volumeTextureRole ) const
@@ -396,7 +392,6 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
 
     /* Create geometry nodes for all grid segments.
      */
-    glc.makeActive();
     CARNA_FOR_VECTOR3UI( segmentCoord, myGrid->segmentCounts )
     {
         const typename base::HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& segment = myGrid->segmentAt( segmentCoord );
@@ -450,22 +445,22 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
 
 template< typename HUVolumeSegmentVolume >
 base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
-    ( const base::GLContext& glc, unsigned int geometryType, const Spacing& spacing, unsigned int volumeTextureRole ) const
+    ( unsigned int geometryType, const Spacing& spacing, unsigned int volumeTextureRole ) const
 {
     const base::math::Vector3f dimensions
         = ( resolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >().cwiseProduct( spacing.millimeters );
-    return createNode( glc, geometryType, spacing, Dimensions( dimensions ), volumeTextureRole );
+    return createNode( geometryType, spacing, Dimensions( dimensions ), volumeTextureRole );
 }
 
 
 template< typename HUVolumeSegmentVolume >
 base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
-    ( const base::GLContext& glc, unsigned int geometryType, const Dimensions& dimensions, unsigned int volumeTextureRole ) const
+    ( unsigned int geometryType, const Dimensions& dimensions, unsigned int volumeTextureRole ) const
 {
     const base::math::Vector3f& mmDimensions = dimensions.millimeters;
     const base::math::Vector3f spacing
         = mmDimensions.cast< float >().cwiseQuotient( ( resolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ) );
-    return createNode( glc, geometryType, Spacing( spacing ), dimensions, volumeTextureRole );
+    return createNode( geometryType, Spacing( spacing ), dimensions, volumeTextureRole );
 }
 
 
