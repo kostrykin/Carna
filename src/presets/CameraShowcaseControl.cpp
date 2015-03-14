@@ -39,6 +39,8 @@ struct CameraShowcaseControl::Details
 
 CameraShowcaseControl::Details::Details()
     : cam( nullptr )
+    , minDistance( DEFAULT_MIN_DISTANCE )
+    , maxDistance( DEFAULT_MAX_DISTANCE )
 {
 }
 
@@ -106,12 +108,9 @@ void CameraShowcaseControl::rotateVertically( float radians )
 {
     CARNA_ASSERT( pimpl->cam != nullptr );
     
-    base::math::Matrix4f rotation = pimpl->cam->localTransform;
-    rotation( 0, 3 ) = rotation( 1, 3 ) = rotation( 2, 3 ) = 0;
-
-    const base::math::Matrix4f newRotation = base::math::rotation4f( 1, 0, 0, radians );
-    const base::math::Matrix4f translation = base::math::translation4f( pimpl->cam->localTransform.col( 3 ) );
-    pimpl->cam->localTransform = rotation * newRotation * translation;
+    const base::math::Vector4f rotAxis  = pimpl->cam->localTransform * base::math::Vector4f( 1, 0, 0, 0 );
+    const base::math::Matrix4f rotation = base::math::rotation4f( base::math::vector3f( rotAxis ), radians );
+    pimpl->cam->localTransform = rotation * pimpl->cam->localTransform;
 }
 
 
@@ -119,19 +118,9 @@ void CameraShowcaseControl::moveAxially( float distance )
 {
     CARNA_ASSERT( pimpl->cam != nullptr );
 
-    /* Compute new offset from origin.
+    /* TODO: Make below pay attention to 'pimpl->minDistance' and 'pimpl->maxDistance'.
      */
-    const float offset0 = std::sqrt( base::math::translationDistanceSq( pimpl->cam->localTransform ) );
-    const float offset1 = base::math::clamp( offset0 + distance, pimpl->minDistance, pimpl->maxDistance );
-    
-    /* Compute new camera location.
-     */
-    const base::math::Vector3f viewDirection = base::math::vector3f( pimpl->cam->localTransform.col( 2 ) );
-    const base::math::Vector3f location = viewDirection * offset1;
-    
-    /* Keep the rotation, update the translation.
-     */
-    pimpl->cam->localTransform.col( 3 ) = base::math::vector4f( location, 1 );
+    pimpl->cam->localTransform = pimpl->cam->localTransform * base::math::translation4f( 0, 0, distance );
 }
 
 
