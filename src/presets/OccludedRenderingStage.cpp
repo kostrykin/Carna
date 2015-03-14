@@ -56,7 +56,7 @@ void OccludedRenderingStage::Details::activateGLContext() const
 {
     if( context != nullptr )
     {
-        context->makeActive();
+        context->makeCurrent();
     }
 }
 

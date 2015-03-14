@@ -134,7 +134,7 @@ void GeometryStage< RenderableCompare >::activateGLContext() const
 {
     if( myContext != nullptr )
     {
-        myContext->makeActive();
+        myContext->makeCurrent();
     }
 }
 

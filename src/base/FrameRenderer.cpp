@@ -40,7 +40,7 @@ namespace base
 
 static const ShaderProgram& acquireFullFrameQuadShader( GLContext& glContext )
 {
-    glContext.makeActive();
+    glContext.makeCurrent();
     return ShaderManager::instance().acquireShader( "full_frame_quad" );
 }
 
@@ -52,7 +52,7 @@ static const ShaderProgram& acquireFullFrameQuadShader( GLContext& glContext )
 
 static Sampler* createFullFrameQuadSampler( GLContext& glContext )
 {
-    glContext.makeActive();
+    glContext.makeCurrent();
     Sampler* const sampler = new Sampler();
 
     sampler->setMinFilter( Sampler::FILTER_LINEAR );
@@ -220,7 +220,7 @@ void FrameRenderer::appendStage( RenderStage* rs )
     
 void FrameRenderer::clearStages()
 {
-    pimpl->glContext->makeActive();
+    pimpl->glContext->makeCurrent();
     std::for_each( pimpl->stages.begin(), pimpl->stages.end(), std::default_delete< RenderStage >() );
     pimpl->stages.clear();
 }
@@ -274,7 +274,7 @@ void FrameRenderer::render( Camera& cam, Node& root ) const
      */
     root.updateWorldTransform();
 
-    glContext().makeActive();
+    glContext().makeCurrent();
     render( cam, root, *pimpl->viewport );
 }
 

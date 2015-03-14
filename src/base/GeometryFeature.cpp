@@ -27,8 +27,8 @@ namespace base
 GeometryFeature::VideoResourceAcquisition::VideoResourceAcquisition( GLContext& glc, GeometryFeature& gf )
     : geometryFeature( gf )
 {
+    CARNA_ASSERT( glc.isCurrent() );
     ++geometryFeature.myVideoResourceAcquisitions;
-    glc.makeActive();
 }
 
 

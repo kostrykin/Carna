@@ -35,7 +35,7 @@ TestFramebuffer::TestFramebuffer( base::GLContext& glContext, unsigned int width
     : frame( new QImage( width, height, QImage::Format_RGB888 ) )
     , renderTexture( [&]()->base::RenderTexture*
             {
-                glContext.makeActive();
+                glContext.makeCurrent();
                 return new base::RenderTexture( width, height );
             }()
         )
@@ -49,13 +49,13 @@ TestFramebuffer::TestFramebuffer( base::GLContext& glContext, unsigned int width
 
 TestFramebuffer::~TestFramebuffer()
 {
-    glContext.makeActive();
+    glContext.makeCurrent();
 }
 
 
 void TestFramebuffer::grabFrame() const
 {
-    glContext.makeActive();
+    glContext.makeCurrent();
     base::Framebuffer::MinimalBinding binding( *fbo );
 
     glReadBuffer( GL_COLOR_ATTACHMENT0_EXT );

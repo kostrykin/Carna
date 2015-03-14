@@ -84,7 +84,7 @@ GLContext& GLContext::current()
 }
 
 
-bool GLContext::isActive() const
+bool GLContext::isCurrent() const
 {
     return myCurrent == this;
 }
@@ -94,11 +94,8 @@ void GLContext::setShader( const ShaderProgram& shader )
 {
     if( myShader != nullptr || myShader != &shader )
     {
+        CARNA_ASSERT( isCurrent() );
         myShader = &shader;
-        if( !isActive() )
-        {
-            makeActive();
-        }
         glUseProgram( shader.id );
     }
 }
@@ -113,11 +110,7 @@ const ShaderProgram& GLContext::shader() const
 
 void GLContext::clearBuffers( unsigned int flags )
 {
-    if( !isActive() )
-    {
-        makeActive();
-    }
-
+    CARNA_ASSERT( isCurrent() );
     RenderState rs( *this );
     if( flags & GL_DEPTH_BUFFER_BIT )
     {

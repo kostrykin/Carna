@@ -38,18 +38,45 @@ namespace base
 /** \brief
   * Format-independent abstract \ref Mesh base class.
   *
+  * The class maintains one \ref VertexBuffer and one \ref IndexBuffer on an
+  * application level. The buffers are created the first time the
+  * \ref MeshBase::VideoResourceAcquisition "mesh's video resources" are acquired.
+  * The buffer are deleted when the last acqusition is released. The buffers are
+  * available accross all \ref GLContext "OpenGL contexts".
+  *
+  * The class also maintains one so-called OpenGL vertex array, which, contrary to
+  * its name, basically is a conjunction of vertex and index buffer. This is
+  * maintained on a per-context level. This is explained further below.
+  *
+  * \section VertexArrays OpenGL Background on Vertex Arrays
+  *
+  * OpenGL vertex arrays cannot be shared accross OpenGL contexts. Hence we need to
+  * create one vertex array per context that it is acquired within.
+  *
+  * > Any OpenGL object types which are not containers are sharable, as well as Sync
+  * > Objects and GLSL Objects (excluding program pipeline objects). All container
+  * > objects are not shared between contexts. [1]
+  * >
+  * > Container objects:
+  * > - Framebuffer Objects
+  * > - Program Pipeline
+  * > - Transform Feedback Objects
+  * > - Vertex Array Objects [2]
+  *
+  * References:
+  *  -# This is https://www.opengl.org/wiki/OpenGL_Context
+  *  -# https://www.opengl.org/wiki/OpenGL_Object#Container_objects
+  *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 13.3.15
+  * \date   22.2.15 - 14.3.15
   */
 class CARNA_LIB MeshBase : public GeometryFeature
 {
 
     NON_COPYABLE
-
-    std::unique_ptr< VertexBufferBase > vertexBuffer;
-    std::unique_ptr< IndexBufferBase > indexBuffer;
     
-    unsigned int id;
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
 
 protected:
 
@@ -78,6 +105,8 @@ public:
     class VideoResourceAcquisition : public GeometryFeature::VideoResourceAcquisition
     {
     
+        unsigned int myId;
+    
     public:
     
         VideoResourceAcquisition( GLContext& glc, MeshBase& mesh );
@@ -97,6 +126,8 @@ public:
         VertexBufferBase& vertexBuffer();
 
         IndexBufferBase& indexBuffer();
+        
+        GLContext& glContext;
     
         MeshBase& mesh;
     

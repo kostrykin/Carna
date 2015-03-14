@@ -338,7 +338,7 @@ HUVolumeGridHelper< HUVolumeSegmentVolume >::~HUVolumeGridHelper()
 template< typename HUVolumeSegmentVolume >
 void HUVolumeGridHelper< HUVolumeSegmentVolume >::invalidateTextures( const base::GLContext& glc )
 {
-    glc.makeActive();
+    glc.makeCurrent();
     for( auto itr = textures.begin(); itr != textures.end(); ++itr )
     {
         base::Texture3D& texture = *itr->second;

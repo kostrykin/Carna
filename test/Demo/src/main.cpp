@@ -142,7 +142,7 @@ Demo::~Demo()
 {
     if( renderer.get() != nullptr )
     {
-        renderer->glContext().makeActive();
+        renderer->glContext().makeCurrent();
     }
 }
 

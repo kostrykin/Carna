@@ -36,8 +36,26 @@ namespace base
 /** \brief
   * Wraps and represents an OpenGL context.
   *
+  * This is a good explanation of the essence of OpenGL contexts:
+  *
+  * > An OpenGL context represents many things. A context stores all of the state
+  * > associated with this instance of OpenGL. [...] Each context can represent a
+  * > separate viewable surface, like a window in an application. Contexts can share
+  * > many kinds of objects between each other. Any OpenGL object types which are not
+  * > containers are sharable, as well as [...] GLSL Objects. [...] In order for any
+  * > OpenGL commands to work, a context must be current; all OpenGL commands affect
+  * > the state of whichever context is current. The current context is a
+  * > thread-local variable, so a single process can have several threads, each of
+  * > which has its own current context.
+  *
+  * Reference: https://www.opengl.org/wiki/OpenGL_Context
+  *
+  * %Carna assumes that all OpenGL contexts within your application are capable of
+  * sharing objects. %Carna does not support multi-threading environments, i.e. all
+  * %Carna-related code must be run on the same thread.
+  *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 10.3.15
+  * \date   22.2.15 - 14.3.15
   */
 class CARNA_LIB GLContext
 {
@@ -67,9 +85,9 @@ public:
 
     static GLContext& current();
 
-    virtual void makeActive() const = 0;
+    virtual void makeCurrent() const = 0;
 
-    bool isActive() const;
+    bool isCurrent() const;
 
     void setShader( const ShaderProgram& );
 
@@ -107,7 +125,7 @@ public:
 
     QGLContextAdapter( const QGLContext& qglcontext );
 
-    virtual void makeActive() const override;
+    virtual void makeCurrent() const override;
 
 }; // QGLContextAdapter
 
@@ -129,7 +147,7 @@ QGLContextAdapter< QGLContext >::QGLContextAdapter( const QGLContext& qglcontext
 
 
 template< typename QGLContext >
-void QGLContextAdapter< QGLContext >::makeActive() const
+void QGLContextAdapter< QGLContext >::makeCurrent() const
 {
     qglcontext.makeCurrent();
 }
