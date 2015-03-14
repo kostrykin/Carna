@@ -40,10 +40,11 @@ namespace base
   *
   * \section RenderingProcess Rendering Process
   *
-  * A frame renderer mainly defines a \em sequence of \ref RenderStage "rendering
-  * stages". Each stage contributes several rendering instructions to the overall
-  * rendering process. Such instructions can be the rendering of 3D objects or also
-  * something completely different, like taking care of stereoscopic rendering.
+  * The `%FrameRenderer` mainly defines a *sequence* of
+  * \ref RenderStage "rendering stages". Each stage contributes several rendering
+  * instructions to the overall rendering process. Such instructions can be the
+  * rendering of 3D objects or also something completely different, like taking care
+  * of stereoscopic rendering.
   *
   * The rendering process is made up by the execution of occasionally nested *render
   * tasks*. At the beginning of the process there is always exactly one render task.
@@ -55,13 +56,12 @@ namespace base
   * invokes rendering on each render stage once.
   *
   * However, there is an important concept about render tasks, that allows
-  * realization of more complex rendering processes: Rendering stages may
-  * \ref RenderTask::RenderTask(const RenderTask&, Framebuffer&) "fork" the task they
-  * are invoked by. Such a forked task is basically a clone of the original one: It
-  * continuous processing rendering stages with the next stage that it was created
-  * by. It's purpose usually is to obtain a rendering from the succeeding stages,
-  * store it to a texture and process this texture somehow afterwards. When finished,
-  * the original task continuous with the same.
+  * realization of more complex rendering processes: Rendering stages may *fork* the
+  * task they are invoked by. Such a forked task is basically a clone of the original
+  * one: It continuous processing rendering stages with the next stage that it was
+  * created by. It's purpose usually is to obtain a rendering from the succeeding
+  * stages, store it to a texture and process this texture somehow afterwards. When
+  * finished, the original task continuous with the same.
   *
   * \author Leonid Kostrykin
   * \date   21.2.15 - 6.3.15
