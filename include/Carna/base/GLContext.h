@@ -36,6 +36,11 @@ namespace base
 /** \brief
   * Wraps and represents an OpenGL context.
   *
+  * \attention
+  * If you implement this class, you *must* call \ref shutdownContext from the
+  * destructor while the represented OpenGL context is still alive. In particular
+  * it must still be legal to call `makeCurrent` on that object.
+  *
   * This is a good explanation of the essence of OpenGL contexts:
   *
   * > An OpenGL context represents many things. A context stores all of the state
@@ -52,7 +57,8 @@ namespace base
   *
   * %Carna assumes that all OpenGL contexts within your application are capable of
   * sharing objects. %Carna does not support multi-threading environments, i.e. all
-  * %Carna-related code must be run on the same thread.
+  * %Carna-related code must be run on the same thread. The states are maintained
+  * through the \ref RenderState class.
   *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 14.3.15
@@ -60,13 +66,25 @@ namespace base
 class CARNA_LIB GLContext
 {
 
-    static GLContext* myCurrent;
-
     const ShaderProgram* myShader;
 
     const std::unique_ptr< RenderState > myRenderState;
+    
+    bool wasContextShutdown;
 
 protected:
+
+    GLContext( bool isDoubleBuffered );
+
+    /** \brief
+      * Tells the base class that the represented OpenGL context is being shut down.
+      *
+      * If this is the last OpenGL context left within the application, the base
+      * class will notify those participants who
+      * \ref addOnGLShutdownListener "enrolled" for this notification. This will give
+      * them a last chance to properly clean up their OpenGL resources.
+      */
+    void shutdownContext();
 
     friend class RenderState;
 
@@ -76,8 +94,6 @@ public:
 
     const static unsigned int DEPTH_BUFFER_BIT;
     const static unsigned int COLOR_BUFFER_BIT;
-
-    GLContext( bool isDoubleBuffered );
 
     virtual ~GLContext();
 
@@ -94,6 +110,20 @@ public:
     const ShaderProgram& shader() const;
 
     void clearBuffers( unsigned int flags );
+    
+    // ------------------------------------------------------------------------------
+    // GLContext :: OnGLShutdownListener
+    // ------------------------------------------------------------------------------
+    
+    struct CARNA_LIB OnGLShutdownListener
+    {
+        virtual ~OnGLShutdownListener();
+        virtual void onGLShutdown( const GLContext& lastGLContext ) = 0;
+    };
+    
+    static void addOnGLShutdownListener( OnGLShutdownListener& );
+    
+    static void removeOnGLShutdownListener( const OnGLShutdownListener& );
 
 }; // GLContext
 
@@ -124,6 +154,8 @@ public:
     QGLContextAdapter();
 
     QGLContextAdapter( const QGLContext& qglcontext );
+    
+    virtual ~QGLContextAdapter();
 
     virtual void makeCurrent() const override;
 
@@ -143,6 +175,13 @@ QGLContextAdapter< QGLContext >::QGLContextAdapter( const QGLContext& qglcontext
     : GLContext( qglcontext.format().doubleBuffer() )
     , qglcontext( const_cast< QGLContext& >( qglcontext ) )
 {
+}
+
+
+template< typename QGLContext >
+QGLContextAdapter< QGLContext >::~QGLContextAdapter()
+{
+    shutdownContext();
 }
 
 
