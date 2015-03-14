@@ -41,8 +41,8 @@ namespace base
   * The class maintains one \ref VertexBuffer and one \ref IndexBuffer on an
   * application level. The buffers are created the first time the
   * \ref MeshBase::VideoResourceAcquisition "mesh's video resources" are acquired.
-  * The buffer are deleted when the last acqusition is released. The buffers are
-  * available accross all \ref GLContext "OpenGL contexts".
+  * The buffers are deleted when the last acqusition is released. The buffer
+  * instances are available across all \ref GLContext "OpenGL contexts".
   *
   * The class also maintains one so-called OpenGL vertex array, which, contrary to
   * its name, basically is a conjunction of vertex and index buffer. This is
@@ -50,7 +50,7 @@ namespace base
   *
   * \section VertexArrays OpenGL Background on Vertex Arrays
   *
-  * OpenGL vertex arrays cannot be shared accross OpenGL contexts. Hence we need to
+  * OpenGL vertex arrays cannot be shared across OpenGL contexts. Hence we need to
   * create one vertex array per context that it is acquired within.
   *
   * > Any OpenGL object types which are not containers are sharable, as well as Sync
@@ -58,13 +58,13 @@ namespace base
   * > objects are not shared between contexts. [1]
   * >
   * > Container objects:
-  * > - Framebuffer Objects
+  * > - %Framebuffer Objects
   * > - Program Pipeline
   * > - Transform Feedback Objects
   * > - Vertex Array Objects [2]
   *
   * References:
-  *  -# This is https://www.opengl.org/wiki/OpenGL_Context
+  *  -# https://www.opengl.org/wiki/OpenGL_Context
   *  -# https://www.opengl.org/wiki/OpenGL_Object#Container_objects
   *
   * \author Leonid Kostrykin
