@@ -76,6 +76,7 @@ namespace Carna
         class  Node;
         class  ProjectionControl;
         class  Ray3f;
+        class  Releasable;
         class  Renderable;
         class  RenderStage;
         class  RenderState;

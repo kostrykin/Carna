@@ -17,6 +17,7 @@
   */
 
 #include <Carna/base/noncopyable.h>
+#include <Carna/base/Releasable.h>
 #include <set>
 
 namespace Carna
@@ -37,7 +38,7 @@ namespace base
   * \author Leonid Kostrykin
   * \date   1.3.15 - 13.3.15
   */
-class CARNA_LIB GeometryFeature
+class CARNA_LIB GeometryFeature : public Releasable
 {
 
     NON_COPYABLE
@@ -72,7 +73,7 @@ public:
       * - The video resources are not loaded, i.e. the last acquisition was released.
       * - This aggregate is no longer referenced by a scene graph.
       */
-    void release();
+    virtual void release() override;
 
     /** \brief
       * Puts this geometry aggregate on the \a sceneGraphNode.

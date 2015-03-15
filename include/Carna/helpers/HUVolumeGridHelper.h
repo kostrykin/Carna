@@ -18,7 +18,7 @@
 #include <Carna/base/HUVolumeSegment.h>
 #include <Carna/base/BufferedHUVolumeTexture.h>
 #include <Carna/base/Geometry.h>
-#include <Carna/base/Log.h>
+#include <Carna/base/Releasable.h>
 #include <map>
 #include <memory>
 #include <cmath>
@@ -61,7 +61,7 @@ namespace helpers
   * \date   8.3.15 - 10.3.15
   */
 template< typename HUVolumeSegmentVolume >
-class HUVolumeGridHelper
+class HUVolumeGridHelper : public base::Releasable
 {
 
     NON_COPYABLE
@@ -109,12 +109,6 @@ public:
     HUVolumeGridHelper( const base::math::Vector3ui& nativeResolution, std::size_t maxSegmentBytesize = DEFAULT_MAX_SEGMENT_BYTESIZE );
 
     /** \brief
-      * Checks whether \ref invalidateTextures has been invoked before, if required.
-      * An error is logged occasionally.
-      */
-    ~HUVolumeGridHelper();
-
-    /** \brief
       * Holds the effective resolution, i.e. the resolution covered by the grid.
       */
     const base::math::Vector3ui resolution;
@@ -136,9 +130,7 @@ public:
     const base::math::Vector3ui regularSegmentSize;
 
     /** \brief
-      * Alters the volume data. You must also call \ref invalidateTextures if
-      * \ref createNode was invoked previously, in order for succeeding invocations
-      * to \ref createNode to reflect the changes made to the volume data.
+      * Alters the volume data.
       *
       * \param data
       *     Unary function that maps \ref base::math::Vector3ui to \ref base::HUV. It
@@ -148,24 +140,16 @@ public:
     void loadData( const UnaryVector3uiToHUVFunction& data );
 
     /** \brief
-      * Releases all previously acquired textures.
+      * Releases all previously acquired textures. Invoke this method when the volume
+      * data changes, \ref loadData already does takes care of that.
       *
-      * \warning
-      *     Always invoke this method at least once before deleting
-      *     \c %HUVolumeGridHelper instances, if \ref createNode might have been
-      *     called on the instance earlier!
-      *
-      * You might also want to invoke this method when the volume data changes, e.g.
-      * through \ref loadData. This will allow video resources, that were occupied by
-      * earlier calls to \ref createNode, to be freed sooner.
-      *
-      * \attention
-      *     Note however, that if you call this method between two invocations of
-      *     \ref createNode, without the volume data being altered, same textures
-      *     will get uploaded twice to video memory, i.e. video resources will be
-      *     wasted.
+      * If this method is not invoked after an update of the volume data, succeeding
+      * calls to \ref createNode will not reflect the new data. Note however, that if
+      * you call this method between two invocations of \ref createNode without the
+      * volume data been altered, same textures will get uploaded twice to video
+      * memory, i.e. video resources will be wasted.
       */
-    void invalidateTextures( const base::GLContext& glc );
+    void invalidateTextures();
 
     /** \brief
       * References the underlying grid.
@@ -201,14 +185,6 @@ public:
       *     "localTransform" attribute when you know what you're doing! Put it into
       *     another node otherwise.
       *
-      * Also make sure you have called \ref invalidateTextures before, in case the
-      * volume data has been altered, e.g. through \ref loadData,
-      * since \c %createNode was called the last time.
-      *
-      * \param glc
-      *     References the GL context wrapper that will be activated before uploading
-      *     textures to video memory.
-      *
       * \param geometryType
       *     Will be used for \ref base::Geometry instantiation.
       *
@@ -234,14 +210,6 @@ public:
       *     "localTransform" attribute when you know what you're doing! Put it into
       *     another node otherwise.
       *
-      * Also make sure you have called \ref invalidateTextures before, in case the
-      * volume data has been altered, e.g. through \ref loadData, since
-      * \c %createNode was called the last time.
-      *
-      * \param glc
-      *     References the GL context wrapper that will be activated before uploading
-      *     textures to video memory.
-      *
       * \param geometryType
       *     Will be used for \ref base::Geometry instantiation.
       *
@@ -256,6 +224,14 @@ public:
         ( unsigned int geometryType
         , const Dimensions& dimensions
         , unsigned int volumeTextureRole = DEFAULT_VOLUME_TEXTURE_ROLE ) const;
+    
+protected:
+    
+    /** \brief
+      * Implements the \ref base::Releasable base class. Delegates to
+      * \ref invalidateTextures s.t. all acquired texture objects are released.
+      */
+    virtual void release() override;
 
 private:
 
@@ -324,21 +300,8 @@ HUVolumeGridHelper< HUVolumeSegmentVolume >::HUVolumeGridHelper
 
 
 template< typename HUVolumeSegmentVolume >
-HUVolumeGridHelper< HUVolumeSegmentVolume >::~HUVolumeGridHelper()
+void HUVolumeGridHelper< HUVolumeSegmentVolume >::invalidateTextures()
 {
-    if( !textures.empty() )
-    {
-        base::Log::instance().record
-            ( base::Log::error
-            , "Leaking video memory! Invoke 'invalidateTextures' before deleting 'HUVolumeGridHelper' to solve." );
-    }
-}
-
-
-template< typename HUVolumeSegmentVolume >
-void HUVolumeGridHelper< HUVolumeSegmentVolume >::invalidateTextures( const base::GLContext& glc )
-{
-    glc.makeCurrent();
     for( auto itr = textures.begin(); itr != textures.end(); ++itr )
     {
         base::Texture3D& texture = *itr->second;
@@ -353,6 +316,7 @@ template< typename UnaryVector3uiToHUVFunction >
 void HUVolumeGridHelper< HUVolumeSegmentVolume >::loadData
     ( const UnaryVector3uiToHUVFunction& data )
 {
+    invalidateTextures();
     CARNA_FOR_VECTOR3UI( coord, resolution )
     {
         const bool outOfOriginalBounds
@@ -461,6 +425,13 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
     const base::math::Vector3f spacing
         = mmDimensions.cast< float >().cwiseQuotient( ( resolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ) );
     return createNode( geometryType, Spacing( spacing ), dimensions, volumeTextureRole );
+}
+
+
+template< typename HUVolumeSegmentVolume >
+void HUVolumeGridHelper< HUVolumeSegmentVolume >::release()
+{
+    invalidateTextures();
 }
 
 

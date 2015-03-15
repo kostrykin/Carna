@@ -217,7 +217,6 @@ void Demo::initializeGL()
     gridHelper->loadData( *baseVolume );
     base::Node* const volumeNode = gridHelper->createNode
         ( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ), presets::MIPStage::ROLE_HU_VOLUME );
-    gridHelper->invalidateTextures( *glContext );
 
     base::MeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 10, 10, 10 );
     base::Material& boxMaterial = base::Material::create( "unshaded" );

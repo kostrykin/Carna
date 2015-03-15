@@ -92,7 +92,6 @@ void FrameRendererIntegrationTest::test_typical()
     UInt16HUGridHelper gridHelper( data.size );
     gridHelper.loadData( data );
     root.attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, UInt16HUGridHelper::Spacing( spacings ), presets::DRRStage::ROLE_HU_VOLUME ) );
-    gridHelper.invalidateTextures( glContext );
 
     /* Configure cutting planes.
      */
@@ -109,8 +108,6 @@ void FrameRendererIntegrationTest::test_typical()
     boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
     boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
     boxGeometry->localTransform = base::math::translation4f( 0, -15, 0 );
-    boxMaterial.release();
-    boxMesh.release();
     root.attachChild( boxGeometry );
     //! [typical_scene_setup]
 

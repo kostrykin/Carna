@@ -118,6 +118,11 @@ public:
     struct CARNA_LIB OnGLShutdownListener
     {
         virtual ~OnGLShutdownListener();
+        
+        /** \brief
+          * Notifies that the last remained \lastGLContext is about to shut down.
+          * This is also the currently active context.
+          */
         virtual void onGLShutdown( const GLContext& lastGLContext ) = 0;
     };
     
