@@ -102,7 +102,7 @@ Material::Material( const std::string& shaderName )
 
 Material::~Material()
 {
-    clearUniforms();
+    clearParameters();
 }
 
 
@@ -126,7 +126,7 @@ bool Material::controlsSameVideoResource( const GeometryFeature& other ) const
 }
 
 
-void Material::addUniform( ShaderUniformBase* uniform )
+void Material::addParameter( ShaderUniformBase* uniform )
 {
     CARNA_ASSERT( !uniform->name.empty() );
     const auto uniformItr = pimpl->uniforms.find( uniform->name );
@@ -138,7 +138,7 @@ void Material::addUniform( ShaderUniformBase* uniform )
 }
 
 
-void Material::clearUniforms()
+void Material::clearParameters()
 {
     for( auto uniformItr = pimpl->uniforms.begin(); uniformItr != pimpl->uniforms.end(); ++uniformItr )
     {
@@ -148,7 +148,7 @@ void Material::clearUniforms()
 }
 
 
-void Material::removeUniform( const std::string& name )
+void Material::removeParameter( const std::string& name )
 {
     const auto uniformItr = pimpl->uniforms.find( name );
     if( uniformItr != pimpl->uniforms.end() )

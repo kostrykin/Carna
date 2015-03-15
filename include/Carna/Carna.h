@@ -115,6 +115,7 @@ namespace Carna
         template< typename RenderableCompare > class RenderQueue;
         template< typename Vertex > class VertexBuffer;
         template< typename Type > class ShaderUniform;
+        template< typename ParameterType > class ShaderUniformType;
         template< typename Concrete > class Singleton;
         template< typename T > class Span;
         

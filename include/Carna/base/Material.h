@@ -15,6 +15,7 @@
 #include <Carna/Carna.h>
 #include <Carna/base/GeometryFeature.h>
 #include <Carna/base/ShaderManager.h>
+#include <Carna/base/ShaderUniform.h>
 #include <Carna/base/noncopyable.h>
 #include <string>
 
@@ -63,11 +64,14 @@ public:
 
     const std::string shaderName;
 
-    void addUniform( ShaderUniformBase* );
+    void addParameter( ShaderUniformBase* );
+    
+    template< typename ParameterType >
+    void setParameter( const std::string& name, const ParameterType& value );
 
-    void clearUniforms();
+    void clearParameters();
 
-    void removeUniform( const std::string& name );
+    void removeParameter( const std::string& name );
 
     /** \brief
       * Instantiates. Call \ref release when you do not need the object any longer.
@@ -100,6 +104,13 @@ public:
     virtual VideoResourceAcquisition* acquireVideoResource( GLContext& glc ) override;
 
 }; // Material
+
+    
+template< typename ParameterType >
+void Material::setParameter( const std::string& name, const ParameterType& value )
+{
+    addParameter( new ShaderUniform< typename ShaderUniformType< ParameterType >::UniformType >( name, value ) );
+}
 
 
 

@@ -42,8 +42,8 @@ void OpaqueRenderingStageTest::initTestCase()
     base::MeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 40, 40, 40 );
     base::Material& redMaterial   = base::Material::create( "unshaded" );
     base::Material& greenMaterial = base::Material::create( "unshaded" );
-    redMaterial  .addUniform( new base::ShaderUniform< base::math::Vector4f >( "color", base::math::Vector4f( 1, 0, 0, 1 ) ) );
-    greenMaterial.addUniform( new base::ShaderUniform< base::math::Vector4f >( "color", base::math::Vector4f( 0, 1, 0, 1 ) ) );
+    redMaterial  .setParameter( "color", base::math::Vector4f( 1, 0, 0, 1 ) );
+    greenMaterial.setParameter( "color", base::math::Vector4f( 0, 1, 0, 1 ) );
 
     base::Geometry* const box1 = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
     base::Geometry* const box2 = new base::Geometry( GEOMETRY_TYPE_OPAQUE );

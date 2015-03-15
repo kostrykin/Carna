@@ -28,6 +28,25 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
+// ShaderUniformType
+// ----------------------------------------------------------------------------------
+
+template< typename ParameterType >
+struct ShaderUniformType
+{
+    typedef ParameterType UniformType;
+};
+
+
+template< >
+struct ShaderUniformType< Color >
+{
+    typedef math::Vector4f UniformType;
+};
+
+
+
+// ----------------------------------------------------------------------------------
 // ShaderUniformBase
 // ----------------------------------------------------------------------------------
 
