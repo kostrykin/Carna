@@ -5,10 +5,13 @@ namespace Carna
   *
   * %Carna provides classes for simple and fast visualization of CT data. It is named
   * after the greek god of organs (yup, they really did have even one for organs). It
-  * is based on OpenGL 3.3 and Eigen.
+  * is based on OpenGL 3.3 and Eigen. The scene graph API is inspired by the JMonkey
+  * Engine 3.
   *
   * Jump to:
   *     \ref QuickStart | \ref VersionLog | \ref testing "Test Suite Documentation"
+  *
+  * --
   *
   * \image html FrameRendererIntegrationTest/typical.png "rendering result from example code below"
   *
@@ -26,6 +29,79 @@ namespace Carna
   *  -# Issue the \ref base::FrameRenderer::render method:
   *     \snippet IntegrationTests/FrameRendererIntegrationTest.cpp typical_renderer_invocation
   *     This code produces the rendering above.
+  *
+  * --
+  *
+  * Now lets take a closer look to what the code presented above actually does.
+  *
+  * \subsection QuickStart_FrameRenderer The Frame Renderer
+  *
+  * The `%FrameRenderer` consists of multiple components, each of which defines a
+  * particular aspect of the rendering logic. Those components are called *rendering
+  * stages* because their rendering logic is executed sequentially. The rendering
+  * results depends heavily on the stages order. The correct order always depends on
+  * what type of image one actually wants to produce. The `%FrameRendererHelper`
+  * class assumes a \ref helpers::DefaultRenderStageOrder "default order" that
+  * presumably in almost all cases leads to the desired results. Of course one could
+  * also leave out this helper and add the stages to the renderer in any desired
+  * order manually.
+  *
+  * \see
+  * The rendering process is explained \ref RenderingProcess "here" in detail.
+  *
+  * In the example code above, several typical rendering stages are used:
+  *
+  * - The \ref presets::CuttingPlanesStage renders an arbitrary number of cutting
+  *   planes through volume data.
+  * - The \ref presets::OpaqueRenderingStage renders opaque meshes, i.e. polygonal
+  *   geometry.
+  * - The \ref presets::DRRStage produces a digital radiograph reconstruct of the
+  *   volume data.
+  * - The \ref presets::OccludedRenderingStage ensures that meshes, that are actually
+  *   occluded by other geometry that is closer to the viewer, shine through.
+  *
+  * As one may guess from this list, each scene might contain multiple types of
+  * renderable objects. At least one could distinguish between polygonal and
+  * volumetric objects. Planes are certainly a third type: They are neither polygonal
+  * because they are infinitely extended, nor they are volumetric. This is the very
+  * breakdown that was used in the example, but it is up to the user to choose a more
+  * detailed classification if required. Note that each rendering stage expects to be
+  * told which *geometry type* it should render. By using two `%CuttingPlanesStage`
+  * instances with different geometry types for example, one could render multiple
+  * cutting planes with different windowing settings.
+  *
+  * \subsection SceneGraph The Scene Graph
+  *
+  * %Carna represents spatial entities with instances of the `%Spatial` class. Such
+  * entities can be renderable objects, as well as imaginary points in space. The
+  * location of each spaital entity is determined relatively to another one that is
+  * called its *parent*. This parent-child relationship induces a tree structure,
+  * that is commonly referred to as \em scene \em graph. Such a scene graph
+  * represents a scene. This has two implications: First, that each scene contains
+  * exactly one node that has no parent, namely the tree's root. Second, that it is
+  * sufficient to specify an arbitrary node in order to reach any other `%Spatial`
+  * of the scene.
+  *
+  * The specific type of a `%Spatial` decides upon whether it is an inner node or a
+  * leaf of the scene graph. If it is *allowed* to have children, the spatial entity
+  * will be realized by an instance of the \ref base::Node class, even if it has no
+  * children in a particular situation. In contrast, visible scene elements, i.e.
+  * such that can be rendered, must always be leafs. They will be realized by
+  * instances of the \ref base::Geometry class usually. Another leaf type is the
+  * `%Camera` that not only has a location within the scene, but also specifies how
+  * the 3D space is to be projected into 2D.
+  *
+  * It should be clear from the above why the root of a scene graph always is a
+  * \ref base::Node instance. The *roles* concept is explained
+  * \ref base::Geometry "here".
+  *
+  * \see
+  * The classes \ref presets::CameraShowcaseControl and
+  * \ref presets::CameraNavigationControl simplify the `%Camera` handling.
+  *
+  * \see
+  * The \ref base::SpatialMovement class makes the implementation of drag-&-drop like
+  * behaviour for `%Geometry` objects very easy.
   */
 
 }
