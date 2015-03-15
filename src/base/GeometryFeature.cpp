@@ -11,12 +11,54 @@
 
 #include <Carna/base/GeometryFeature.h>
 #include <Carna/base/Log.h>
+#include <set>
 
 namespace Carna
 {
 
 namespace base
 {
+
+
+
+// ----------------------------------------------------------------------------------
+// GeometryFeatureLeakWatcher
+// ----------------------------------------------------------------------------------
+
+class GeometryFeatureLeakWatcher : public Singleton< GeometryFeatureLeakWatcher >
+{
+
+    NON_COPYABLE
+
+protected:
+
+    friend class Carna::base::Singleton< GeometryFeatureLeakWatcher >;
+
+    GeometryFeatureLeakWatcher();
+
+public:
+
+    std::set< const GeometryFeature* > featureInstances;
+
+    virtual ~GeometryFeatureLeakWatcher();
+
+}; // GeometryFeatureLeakWatcher
+
+
+GeometryFeatureLeakWatcher::GeometryFeatureLeakWatcher()
+{
+}
+
+
+GeometryFeatureLeakWatcher::~GeometryFeatureLeakWatcher()
+{
+    if( !featureInstances.empty() )
+    {
+        std::stringstream ss;
+        ss << featureInstances.size() << " GeometryFeature objects leaked!";
+        Log::instance().record( Log::error, ss.str() );
+    }
+}
 
 
 
@@ -53,11 +95,13 @@ GeometryFeature::GeometryFeature()
     : myVideoResourceAcquisitions( 0 )
     , released( false )
 {
+    GeometryFeatureLeakWatcher::instance().featureInstances.insert( this );
 }
 
 
 GeometryFeature::~GeometryFeature()
 {
+    GeometryFeatureLeakWatcher::instance().featureInstances.erase( this );
     if( myVideoResourceAcquisitions != 0 )
     {
         Log::instance().record( Log::error, "GeometryFeature deleted while video resources still acquired!" );

@@ -109,7 +109,6 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/Node.h
 		include/${PROJECT_NAME}/base/Geometry.h
 		include/${PROJECT_NAME}/base/Renderable.h
-		include/${PROJECT_NAME}/base/Releasable.h
 		include/${PROJECT_NAME}/base/FrameRenderer.h
 		include/${PROJECT_NAME}/base/RenderTask.h
 		include/${PROJECT_NAME}/base/RenderStage.h
@@ -194,7 +193,6 @@ set( SRC
 		src/base/Geometry.cpp
 		src/base/GLContext.cpp
 		src/base/Renderable.cpp
-		src/base/Releasable.cpp
 		src/base/FrameRenderer.cpp
 		src/base/RenderTask.cpp
 		src/base/RenderStage.cpp

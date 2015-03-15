@@ -55,6 +55,8 @@ protected:
 
 public:
 
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
     /** \brief
       * Texture unit that is fine to be used for temporal bindings, i.e. for setting
       * textures up. This unit shouldn't be used for lasting bindings.
@@ -101,7 +103,7 @@ public:
     // Texture3D :: VideoResourceAcquisition
     // ------------------------------------------------------------------------------
 
-    class VideoResourceAcquisition : public GeometryFeature::VideoResourceAcquisition
+    class CARNA_LIB VideoResourceAcquisition : public GeometryFeature::VideoResourceAcquisition
     {
     
     public:

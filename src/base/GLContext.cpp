@@ -25,16 +25,6 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// GLContext :: OnGLShutdownListener
-// ----------------------------------------------------------------------------------
-
-GLContext::OnGLShutdownListener::~OnGLShutdownListener()
-{
-}
-
-
-
-// ----------------------------------------------------------------------------------
 // GLContext
 // ----------------------------------------------------------------------------------
 
@@ -43,18 +33,14 @@ GLContext* currentGLContext = nullptr;
 const unsigned int GLContext::DEPTH_BUFFER_BIT = GL_DEPTH_BUFFER_BIT;
 const unsigned int GLContext::COLOR_BUFFER_BIT = GL_COLOR_BUFFER_BIT;
 
-typedef std::set< GLContext::OnGLShutdownListener* > OnGLShutdownListeners;
-static OnGLShutdownListeners onGLShutdownListeners = OnGLShutdownListeners();
-
-typedef std::set< GLContext* > GLContextInstances;
-static GLContextInstances glContextInstances = GLContextInstances();
+typedef std::set< const GLContext* > GLContextSet;
+static GLContextSet glContextInstances = GLContextSet();
 
 
 GLContext::GLContext( bool isDoubleBuffered )
     : isDoubleBuffered( isDoubleBuffered )
     , myShader( nullptr )
     , myRenderState( new RenderState() )
-    , wasContextShutdown( false )
 {
     CARNA_GLEW_INIT;
     glContextInstances.insert( this );
@@ -89,16 +75,12 @@ GLContext::GLContext( bool isDoubleBuffered )
 
 GLContext::~GLContext()
 {
-    CARNA_ASSERT_EX
-        ( wasContextShutdown
-        , "You must invoke GLContext::shutdownContext() before destroying the implementation!" );
-    
     glContextInstances.erase( this );
     if( currentGLContext == this )
     {
         /* The destroyed context was the current one. Since we want there always to
          * be a 'current' context and since we want 'currentGLContext' to be
-         * synchronized, we will pick some arbitary and make it current.
+         * synchronized, we will pick some arbitrary and make it current.
          */
         if( glContextInstances.empty() )
         {
@@ -106,27 +88,10 @@ GLContext::~GLContext()
         }
         else
         {
-            GLContext* const nextGLContext = *glContextInstances.begin();
+            const GLContext* const nextGLContext = *glContextInstances.begin();
             nextGLContext->makeCurrent();
         }
     }
-}
-
-
-void GLContext::shutdownContext()
-{
-    if( glContextInstances.size() == 1 )
-    {
-        GLContext& lastGLContext = *this;
-        lastGLContext.makeCurrent();
-        std::for_each( onGLShutdownListeners.begin(), onGLShutdownListeners.end(),
-            [ &lastGLContext ]( GLContext::OnGLShutdownListener* listener )
-            {
-                listener->onGLShutdown( lastGLContext );
-            }
-        );
-    }
-    wasContextShutdown = true;
 }
 
 
@@ -170,18 +135,6 @@ void GLContext::clearBuffers( unsigned int flags )
         rs.setDepthWrite( true );
     }
     glClear( flags );
-}
-
-
-void GLContext::addOnGLShutdownListener( GLContext::OnGLShutdownListener& onGLShutdownListener )
-{
-    onGLShutdownListeners.insert( &onGLShutdownListener );
-}
-
-
-void GLContext::removeOnGLShutdownListener( const GLContext::OnGLShutdownListener& onGLShutdownListener )
-{
-    onGLShutdownListeners.erase( const_cast< OnGLShutdownListener* >( &onGLShutdownListener ) );
 }
 
 

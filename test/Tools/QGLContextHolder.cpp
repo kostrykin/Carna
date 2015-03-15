@@ -29,6 +29,7 @@ const QGLFormat QGLContextHolder::format = []()->QGLFormat
     {
         QGLFormat format = QGLFormat::defaultFormat();
         format.setDoubleBuffer( false );
+        format.setVersion( 3, 3 );
         return format;
     }
 ();
@@ -37,8 +38,7 @@ const QGLFormat QGLContextHolder::format = []()->QGLFormat
 Carna::base::GLContext* QGLContextHolder::createGLContextWrapper( QGLPixelBuffer& pbuffer )
 {
     pbuffer.makeCurrent();
-    QGLContext* const qglContext = const_cast< QGLContext* >( QGLContext::currentContext() );
-    return new Carna::base::QGLContextAdapter< QGLContext >( *qglContext );
+    return new Carna::base::QGLContextAdapter< QGLContext >();
 }
 
 

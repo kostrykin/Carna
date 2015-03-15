@@ -91,6 +91,8 @@ void QDebugLogWriter::writeFormatted( base::Log::Severity severity, const std::s
 class Demo : public QGLWidget
 {
 
+    static QGLFormat format();
+
     const static int GEOMETRY_TYPE_VOLUMETRIC    = 0;
     const static int GEOMETRY_TYPE_OPAQUE        = 1;
     const static int GEOMETRY_TYPE_CUTTING_PLANE = 2;

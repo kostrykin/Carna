@@ -18,7 +18,6 @@
 #include <Carna/base/HUVolumeSegment.h>
 #include <Carna/base/BufferedHUVolumeTexture.h>
 #include <Carna/base/Geometry.h>
-#include <Carna/base/Releasable.h>
 #include <map>
 #include <memory>
 #include <cmath>
@@ -61,7 +60,7 @@ namespace helpers
   * \date   8.3.15 - 10.3.15
   */
 template< typename HUVolumeSegmentVolume >
-class HUVolumeGridHelper : public base::Releasable
+class HUVolumeGridHelper
 {
 
     NON_COPYABLE
@@ -138,18 +137,18 @@ public:
       */
     template< typename UnaryVector3uiToHUVFunction >
     void loadData( const UnaryVector3uiToHUVFunction& data );
-
+    
     /** \brief
-      * Releases all previously acquired textures. Invoke this method when the volume
-      * data changes, \ref loadData already does takes care of that.
-      *
-      * If this method is not invoked after an update of the volume data, succeeding
-      * calls to \ref createNode will not reflect the new data. Note however, that if
-      * you call this method between two invocations of \ref createNode without the
-      * volume data been altered, same textures will get uploaded twice to video
-      * memory, i.e. video resources will be wasted.
+    * Releases all previously acquired textures. Invoke this method when the volume
+    * data changes, \ref loadData already does takes care of that.
+    *
+    * If this method is not invoked after an update of the volume data, succeeding
+    * calls to \ref createNode will not reflect the new data. Note however, that if
+    * you call this method between two invocations of \ref createNode without the
+    * volume data been altered, same textures will get uploaded twice to video
+    * memory, i.e. video resources will be wasted.
       */
-    void invalidateTextures();
+    void releaseGeometryFeatures();
 
     /** \brief
       * References the underlying grid.
@@ -224,14 +223,6 @@ public:
         ( unsigned int geometryType
         , const Dimensions& dimensions
         , unsigned int volumeTextureRole = DEFAULT_VOLUME_TEXTURE_ROLE ) const;
-    
-protected:
-    
-    /** \brief
-      * Implements the \ref base::Releasable base class. Delegates to
-      * \ref invalidateTextures s.t. all acquired texture objects are released.
-      */
-    virtual void release() override;
 
 private:
 
@@ -300,7 +291,7 @@ HUVolumeGridHelper< HUVolumeSegmentVolume >::HUVolumeGridHelper
 
 
 template< typename HUVolumeSegmentVolume >
-void HUVolumeGridHelper< HUVolumeSegmentVolume >::invalidateTextures()
+void HUVolumeGridHelper< HUVolumeSegmentVolume >::releaseGeometryFeatures()
 {
     for( auto itr = textures.begin(); itr != textures.end(); ++itr )
     {
@@ -316,7 +307,7 @@ template< typename UnaryVector3uiToHUVFunction >
 void HUVolumeGridHelper< HUVolumeSegmentVolume >::loadData
     ( const UnaryVector3uiToHUVFunction& data )
 {
-    invalidateTextures();
+    releaseGeometryFeatures();
     CARNA_FOR_VECTOR3UI( coord, resolution )
     {
         const bool outOfOriginalBounds
@@ -425,13 +416,6 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
     const base::math::Vector3f spacing
         = mmDimensions.cast< float >().cwiseQuotient( ( resolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ) );
     return createNode( geometryType, Spacing( spacing ), dimensions, volumeTextureRole );
-}
-
-
-template< typename HUVolumeSegmentVolume >
-void HUVolumeGridHelper< HUVolumeSegmentVolume >::release()
-{
-    invalidateTextures();
 }
 
 

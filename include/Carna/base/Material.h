@@ -84,7 +84,7 @@ public:
     // Material :: VideoResourceAcquisition
     // ------------------------------------------------------------------------------
 
-    class VideoResourceAcquisition : public GeometryFeature::VideoResourceAcquisition
+    class CARNA_LIB VideoResourceAcquisition : public GeometryFeature::VideoResourceAcquisition
     {
     
     public:

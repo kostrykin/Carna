@@ -39,7 +39,7 @@ struct BufferedHUVolumeFormat
 
 
 template< >
-struct BufferedHUVolumeFormat< UInt16HUVolume >
+struct CARNA_LIB BufferedHUVolumeFormat< UInt16HUVolume >
 {
     const static unsigned int INTERNAL_FORMAT;
     const static unsigned int BUFFER_TYPE;

@@ -129,11 +129,10 @@ namespace Carna
   *     got attached. You may `release` it now, but it will not be deleted until the
   *     `%Geometry` object it is attached to also dies.
   *
-  * The idea is that the user invokes `release` on the feature at the particular
-  * moment that it is sure that the feature is not going to be attached to any
-  * *further* `%Geometry` objects. If you do not ever `release` the feature, it will
-  * be automatically released the moment that the last
-  * \ref base::GLContext "OpenGL context" is destroyed.
+  * The idea is that the user invokes `release` on the feature as soon as it is sure
+  * that the feature is not going to be attached to any *further* `%Geometry`
+  * objects. The feature object is leaked when it never is released, in which case
+  * you will also get an error message on the \ref base::Log "log" output.
   *
   * \subsubsection QuickStart_Materials Materials
   *

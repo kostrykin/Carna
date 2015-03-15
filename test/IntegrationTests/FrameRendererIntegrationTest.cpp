@@ -109,6 +109,12 @@ void FrameRendererIntegrationTest::test_typical()
     boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
     boxGeometry->localTransform = base::math::translation4f( 0, -15, 0 );
     root.attachChild( boxGeometry );
+
+    /* Release geometry features.
+     */
+    boxMesh.release();
+    boxMaterial.release();
+    gridHelper.releaseGeometryFeatures();
     //! [typical_scene_setup]
 
     //! [typical_renderer_invocation]

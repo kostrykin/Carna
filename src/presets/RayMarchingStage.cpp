@@ -44,44 +44,47 @@ struct RayMarchingStage::Details
     unsigned int mySampleRate;
     SliceMesh& sliceMesh;
 
+    static SliceMesh& createSliceMesh();
+
 }; // RayMarchingStage :: Details
+
+
+RayMarchingStage::Details::SliceMesh& RayMarchingStage::Details::createSliceMesh()
+{
+    /* Actually, one would assume that the radius should be _half_ of the square root
+     * of 3. But if specified so, one encounters "holes" in volume renderings. For
+     * the moment, just the square root of 3 seems to produce slices that are large
+     * enough, although this particular value is somewhat "random".
+     */
+    const float radius = std::sqrt( 3.f );
+    base::VertexBase vertices[ 4 ];
+    uint8_t indices[ 4 ];
+
+    vertices[ 0 ].x = -radius;
+    vertices[ 0 ].y = -radius;
+    indices [ 0 ] = 0;
+
+    vertices[ 1 ].x = +radius;
+    vertices[ 1 ].y = -radius;
+    indices [ 1 ] = 1;
+
+    vertices[ 2 ].x = +radius;
+    vertices[ 2 ].y = +radius;
+    indices [ 2 ] = 2;
+
+    vertices[ 3 ].x = -radius;
+    vertices[ 3 ].y = +radius;
+    indices [ 3 ] = 3;
+
+    return SliceMesh::create( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN, vertices, 4, indices, 4 );
+}
 
 
 RayMarchingStage::Details::Details()
     : renderTask( nullptr )
     , viewPort( nullptr )
     , mySampleRate( DEFAULT_SAMPLE_RATE )
-    , sliceMesh( []()->SliceMesh&
-            {
-                /* Actually, one would assume that the radius should be _half_ of the
-                 * square root of 3. But if specified so, one encounters "holes" in
-                 * volume renderings. For the moment, just the square root of 3 seems
-                 * to produce slices that are large enough, although this particular
-                 * value is somewhat "random".
-                 */
-                const float radius = std::sqrt( 3.f );
-                base::VertexBase vertices[ 4 ];
-                uint8_t indices[ 4 ];
-
-                vertices[ 0 ].x = -radius;
-                vertices[ 0 ].y = -radius;
-                indices [ 0 ] = 0;
-
-                vertices[ 1 ].x = +radius;
-                vertices[ 1 ].y = -radius;
-                indices [ 1 ] = 1;
-
-                vertices[ 2 ].x = +radius;
-                vertices[ 2 ].y = +radius;
-                indices [ 2 ] = 2;
-
-                vertices[ 3 ].x = -radius;
-                vertices[ 3 ].y = +radius;
-                indices [ 3 ] = 3;
-
-                return SliceMesh::create( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN, vertices, 4, indices, 4 );
-            }()
-        )
+    , sliceMesh( createSliceMesh() )
 {
 }
 

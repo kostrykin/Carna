@@ -49,6 +49,8 @@ struct CuttingPlanesStage::Details
     unsigned int windowingWidth;
     bool renderingIvnerse;
 
+    static PlaneMesh& createPlaneMesh();
+
     static inline float huvToIntensity( base::HUV huv )
     {
         return ( huv + 1024 ) / 4095.f;
@@ -57,34 +59,34 @@ struct CuttingPlanesStage::Details
 }; // CuttingPlanesStage :: Details
 
 
+CuttingPlanesStage::Details::PlaneMesh& CuttingPlanesStage::Details::createPlaneMesh()
+{
+    const float radius = std::sqrt( 3.f ) / 2;
+    base::VertexBase vertices[ 4 ];
+    uint8_t indices[ 4 ];
+
+    vertices[ 0 ].x = -radius;
+    vertices[ 0 ].y = -radius;
+    indices [ 0 ] = 0;
+
+    vertices[ 1 ].x = +radius;
+    vertices[ 1 ].y = -radius;
+    indices [ 1 ] = 1;
+
+    vertices[ 2 ].x = +radius;
+    vertices[ 2 ].y = +radius;
+    indices [ 2 ] = 2;
+
+    vertices[ 3 ].x = -radius;
+    vertices[ 3 ].y = +radius;
+    indices [ 3 ] = 3;
+
+    return PlaneMesh::create( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN, vertices, 4, indices, 4 );
+}
+
+
 CuttingPlanesStage::Details::Details( unsigned int planeGeometryType )
-    : planeMesh( []()->PlaneMesh&
-            {
-                /* Create plane mesh.
-                 */
-                const float radius = std::sqrt( 3.f ) / 2;
-                base::VertexBase vertices[ 4 ];
-                uint8_t indices[ 4 ];
-
-                vertices[ 0 ].x = -radius;
-                vertices[ 0 ].y = -radius;
-                indices [ 0 ] = 0;
-
-                vertices[ 1 ].x = +radius;
-                vertices[ 1 ].y = -radius;
-                indices [ 1 ] = 1;
-
-                vertices[ 2 ].x = +radius;
-                vertices[ 2 ].y = +radius;
-                indices [ 2 ] = 2;
-
-                vertices[ 3 ].x = -radius;
-                vertices[ 3 ].y = +radius;
-                indices [ 3 ] = 3;
-
-                return PlaneMesh::create( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN, vertices, 4, indices, 4 );
-            }()
-        )
+    : planeMesh( createPlaneMesh() )
     , planes( planeGeometryType )
     , renderTask( nullptr )
     , viewPort( nullptr )

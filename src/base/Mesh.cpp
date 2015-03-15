@@ -230,7 +230,13 @@ unsigned int MeshBase::VideoResourceAcquisition::id() const
 // ----------------------------------------------------------------------------------
 
 MeshBase::MeshBase( unsigned int primitiveType, const VertexAttributes& va )
+#pragma warning( push )
+#pragma warning( disable:4355 )
+    /* It is okay to use 'this' in class initialization list, as long as it is not
+     * used to access any members that may not have been initialized yet.
+     */
     : pimpl( new Details( *this ) )
+#pragma warning( pop )
     , primitiveType( primitiveType )
     , vertexAttributes( va )
 {
