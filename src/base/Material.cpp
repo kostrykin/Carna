@@ -40,8 +40,8 @@ struct Material::Details
 // Material :: VideoResourceAcquisition
 // ----------------------------------------------------------------------------------
 
-Material::VideoResourceAcquisition::VideoResourceAcquisition( GLContext& glc, Material& material )
-    : GeometryFeature::VideoResourceAcquisition( glc, material )
+Material::VideoResourceAcquisition::VideoResourceAcquisition( Material& material )
+    : GeometryFeature::VideoResourceAcquisition( material )
     , material( material )
 {
     if( material.videoResourceAcquisitionsCount() == 1 )
@@ -161,7 +161,7 @@ void Material::removeUniform( const std::string& name )
 
 Material::VideoResourceAcquisition* Material::acquireVideoResource( GLContext& glc )
 {
-    return new VideoResourceAcquisition( glc, *this );
+    return new VideoResourceAcquisition( *this );
 }
 
 

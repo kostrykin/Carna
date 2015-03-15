@@ -85,7 +85,7 @@ public:
     
     public:
     
-        VideoResourceAcquisition( GLContext& glc, Material& material );
+        VideoResourceAcquisition( Material& material );
     
         virtual ~VideoResourceAcquisition();
 

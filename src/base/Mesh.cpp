@@ -139,7 +139,7 @@ void MeshBase::Details::release( const GLContext& glc )
 MeshBase::VideoResourceAcquisition::VideoResourceAcquisition
         ( GLContext& glc
         , MeshBase& mesh )
-    : GeometryFeature::VideoResourceAcquisition( glc, mesh )
+    : GeometryFeature::VideoResourceAcquisition( mesh )
     , glContext( glc )
     , mesh( mesh )
 {

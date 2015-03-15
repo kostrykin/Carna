@@ -27,8 +27,8 @@ namespace base
 // Texture3D :: VideoResourceAcquisition
 // ----------------------------------------------------------------------------------
 
-Texture3D::VideoResourceAcquisition::VideoResourceAcquisition( GLContext& glc, Texture3D& texture )
-    : GeometryFeature::VideoResourceAcquisition( glc, texture )
+Texture3D::VideoResourceAcquisition::VideoResourceAcquisition( Texture3D& texture )
+    : GeometryFeature::VideoResourceAcquisition( texture )
     , texture( texture )
 {
     if( texture.videoResourceAcquisitionsCount() == 1 )
@@ -164,7 +164,7 @@ bool Texture3D::controlsSameVideoResource( const GeometryFeature& ) const
 
 Texture3D::VideoResourceAcquisition* Texture3D::acquireVideoResource( GLContext& glc )
 {
-    return new VideoResourceAcquisition( glc, *this );
+    return new VideoResourceAcquisition( *this );
 }
 
 

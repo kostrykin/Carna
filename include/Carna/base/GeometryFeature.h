@@ -100,7 +100,7 @@ public:
         
     protected:
     
-        VideoResourceAcquisition( GLContext& glc, GeometryFeature& gf );
+        explicit VideoResourceAcquisition( GeometryFeature& gf );
         
     public:
     

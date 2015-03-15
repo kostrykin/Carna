@@ -106,7 +106,7 @@ public:
     
     public:
     
-        VideoResourceAcquisition( GLContext& glc, Texture3D& texture );
+        VideoResourceAcquisition( Texture3D& texture );
     
         virtual ~VideoResourceAcquisition();
         

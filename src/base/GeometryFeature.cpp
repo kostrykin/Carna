@@ -24,10 +24,9 @@ namespace base
 // GeometryFeature :: VideoResourceAcquisition
 // ----------------------------------------------------------------------------------
 
-GeometryFeature::VideoResourceAcquisition::VideoResourceAcquisition( GLContext& glc, GeometryFeature& gf )
+GeometryFeature::VideoResourceAcquisition::VideoResourceAcquisition( GeometryFeature& gf )
     : geometryFeature( gf )
 {
-    CARNA_ASSERT( glc.isCurrent() );
     ++geometryFeature.myVideoResourceAcquisitions;
 }
 
