@@ -99,8 +99,10 @@ namespace Carna
   * \ref base::Node instance.
   *
   * \see
-  * The classes \ref presets::CameraShowcaseControl and
-  * \ref presets::CameraNavigationControl simplify the `%Camera` handling.
+  * Following classes simplify the `%Camera` handling:
+  *     \ref presets::PerspectiveControl,
+  *     \ref presets::CameraShowcaseControl,
+  *     \ref presets::CameraNavigationControl
   *
   * \see
   * The \ref base::SpatialMovement class makes the implementation of drag-&-drop like
