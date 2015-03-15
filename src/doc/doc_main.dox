@@ -5,8 +5,7 @@ namespace Carna
   *
   * %Carna provides classes for simple and fast visualization of CT data. It is named
   * after the greek god of organs (yup, they really did have even one for organs). It
-  * is based on OpenGL 3.3 and Eigen. The scene graph API is inspired by the JMonkey
-  * Engine 3.
+  * is based on OpenGL 3.3 and Eigen.
   *
   * Jump to:
   *     \ref QuickStart | \ref VersionLog | \ref testing "Test Suite Documentation"
@@ -92,8 +91,7 @@ namespace Carna
   * the 3D space is to be projected into 2D.
   *
   * It should be clear from the above why the root of a scene graph always is a
-  * \ref base::Node instance. The *roles* concept is explained
-  * \ref base::Geometry "here".
+  * \ref base::Node instance.
   *
   * \see
   * The classes \ref presets::CameraShowcaseControl and
@@ -102,6 +100,39 @@ namespace Carna
   * \see
   * The \ref base::SpatialMovement class makes the implementation of drag-&-drop like
   * behaviour for `%Geometry` objects very easy.
+  *
+  * \subsection GeometryFeatures Geometry Features
+  *
+  * Each `%Geometry` node is rendered by the rendering stage with a matching geometry
+  * type. Usually that rendering stage will query particular \em features from this
+  * `%Geometry` object: Features are like components that make up the `%Geometry`
+  * object in its entirety, but the `%Geometry` object *aggregates* them, i.e. does
+  * not take their possession. This allows the same feature to be reused many times
+  * across the scene, or even across many scenes. Rendering stages identify features
+  * through the \em roles they take when associated with a `%Geometry` object.
+  *
+  * \subsubsection GeometryFeatureLifecycle The Lifecycle of Geometry Features
+  *
+  * Because of their shared-use nature, the lifecycle of geometry features is very
+  * important. They have neither a public constructor, nor a public destructor:
+  *
+  *   - %Geometry features are acquired using their static `::create` function. Each
+  *     feature possess *itself*, hence a reference is returned.
+  *   - If you invoke `release` on the feature right after its creation, it will be
+  *     deleted immediately because its unused.
+  *   - By putting the feature on a `%Geometry` object, the feature notices that it
+  *     got attached. You may `release` it now, but it will not be deleted until the
+  *     `%Geometry` object it is attached to also dies.
+  *
+  * The idea is that the user invokes `release` on the feature at the particular
+  * moment that it is sure that the feature is not going to be attached to any
+  * *further* `%Geometry` objects. If you do not ever `release` the feature, it will
+  * be automatically released the moment that the last
+  * \ref base::GLContext "OpenGL context" is destroyed.
+  *
+  * \subsubsection QuickStart_Materials Materials
+  *
+  * asdf
   */
 
 }
