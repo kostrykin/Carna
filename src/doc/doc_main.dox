@@ -12,6 +12,11 @@ namespace Carna
   *
   * --
   *
+  *  1. \ref QuickStart_FrameRenderer
+  *  2. \ref SceneGraph
+  *  3. \ref GeometryFeatures "Geometry Features":
+  *     \ref GeometryFeatureLifecycle and \ref QuickStart_Materials
+  *
   * \image html FrameRendererIntegrationTest/typical.png "rendering result from example code below"
   *
   * \section QuickStart Quick Start
