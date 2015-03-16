@@ -16,6 +16,8 @@
   * \brief  Defines \ref Carna::base::Singleton.
   */
 
+#include <Carna/base/CarnaException.h>
+
 namespace Carna
 {
 
@@ -28,9 +30,11 @@ namespace base
 // Singleton
 // ----------------------------------------------------------------------------------
 
-/** \brief  Singleton base class
+/** \brief
+  * Singleton base class
   *
-  * \param  Concrete    Names the class, which derives from this class.
+  * \param InstanceType
+  *     Names the class, which derives from this class.
   *
   * Example of usage:
   *
@@ -51,45 +55,65 @@ namespace base
   * is no need for the friend class declaration.
   *
   * \author Leonid Kostrykin
-  * \date   2.3.2011
+  * \date   2.3.11 - 16.3.15
   */
-template< typename Concrete >
+template< typename InstanceType >
 class Singleton
 {
 
+    static InstanceType* instancePtr;
+
 protected:
 
-    /** \brief  Default constructor is hidden.
+    /** \brief
+      * Default constructor is hidden.
+      * Denotes that the instance was created.
       */
     Singleton()
     {
+        CARNA_ASSERT_EX( instancePtr == nullptr, "Multiple singleton instances created." );
+        instancePtr = static_cast< InstanceType* >( this );
     }
 
-    /** \brief  Copy constructor is hidden.
+    /** \brief
+      * Copy constructor is hidden.
       */
-    explicit Singleton( const Concrete& )
+    explicit Singleton( const InstanceType& )
     {
+        CARNA_FAIL( "Singleton copy constructor may not be used." );
     }
 
+    static void reset()
+    {
+        if( instancePtr != nullptr )
+        {
+            delete instancePtr;
+        }
+    }
 
 public:
 
-    /** \brief  Does nothing.
+    /** \brief
+      * Denotes that the instance was deleted.
       */
     virtual ~Singleton()
     {
+        instancePtr = nullptr;
     }
 
-
-    /** \brief  Returns the only concreteInstance from class \a Concrete
+    /** \brief
+      * Returns the only instance from class \a InstanceType.
       */
-    static Concrete& instance()
+    static InstanceType& instance()
     {
-        static Concrete concreteInstance;
-        return concreteInstance;
+        return instancePtr == nullptr ? *new InstanceType() : *instancePtr;
     }
 
 }; // Singleton
+
+
+template< typename InstanceType >
+InstanceType* Singleton< InstanceType >::instancePtr = nullptr;
 
 
 

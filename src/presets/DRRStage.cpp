@@ -177,9 +177,9 @@ void DRRStage::reshape( const base::FrameRenderer& fr, const base::Viewport& vp 
 }
 
 
-void DRRStage::loadVideoResources( base::GLContext& glc )
+void DRRStage::loadVideoResources()
 {
-    RayMarchingStage::loadVideoResources( glc );
+    RayMarchingStage::loadVideoResources();
     pimpl->exponentialShader = &base::ShaderManager::instance().acquireShader( "drr_exponential" );
 }
 
@@ -280,7 +280,7 @@ const std::string& DRRStage::uniformName( unsigned int role ) const
 }
 
 
-void DRRStage::configureShader( base::GLContext& glc )
+void DRRStage::configureShader()
 {
     base::ShaderUniform< float >(       "stepLength", pimpl->stepLength ).upload();
     base::ShaderUniform< float >( "waterAttenuation", pimpl->waterAttenuation ).upload();

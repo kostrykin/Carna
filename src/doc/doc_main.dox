@@ -13,7 +13,8 @@ namespace Carna
   * --
   *
   *  1. \ref QuickStart_FrameRenderer
-  *  2. \ref SceneGraph
+  *  2. \ref SceneGraph "The Scene Graph":
+  *     \ref SceneGraph_SpecialSpatialClasses and \ref QuickStart_HUVolumeGridHelper
   *  3. \ref GeometryFeatures "Geometry Features":
   *     \ref GeometryFeatureLifecycle and \ref QuickStart_Materials
   *
@@ -36,7 +37,7 @@ namespace Carna
   *
   * --
   *
-  * Now lets take a closer look to what the code presented above actually does.
+  * Now lets take a closer look at what the code presented above actually does.
   *
   * \subsection QuickStart_FrameRenderer The Frame Renderer
   *
@@ -86,6 +87,8 @@ namespace Carna
   * sufficient to specify an arbitrary node in order to reach any other `%Spatial`
   * of the scene.
   *
+  * \subsubsection SceneGraph_SpecialSpatialClasses Spatial Class Specializations
+  *
   * The specific type of a `%Spatial` decides upon whether it is an inner node or a
   * leaf of the scene graph. If it is *allowed* to have children, the spatial entity
   * will be realized by an instance of the \ref base::Node class, even if it has no
@@ -107,6 +110,17 @@ namespace Carna
   * \see
   * The \ref base::SpatialMovement class makes the implementation of drag-&-drop like
   * behaviour for `%Geometry` objects very easy.
+  *
+  * \subsubsection QuickStart_HUVolumeGridHelper Positioning CT Data
+  *
+  * The `HUVolumeGridHelper` class takes care of two things. First, it partitions the
+  * volumetric `data` into multiple smaller, box-shaped volumes. This partitioning is
+  * done according to an upper limit of each volume's memory size. In the example no
+  * specific limit is set, hence the
+  * \ref helpers::HUVolumeGridHelper::DEFAULT_MAX_SEGMENT_BYTESIZE "default" is used.
+  * Second, the `HUVolumeGridHelper` class creates a scene `Node` that represents the
+  * partitioned `data` within the scene. This `Node` has one `Geometry` child per
+  * volume partition.
   *
   * \subsection GeometryFeatures Geometry Features
   *
@@ -138,7 +152,12 @@ namespace Carna
   *
   * \subsubsection QuickStart_Materials Materials
   *
-  * asdf
+  * Materials determine how polygonal geometries are rendered. Each material consists
+  * of at least a \ref base::ShaderProgram "shader". It can also have a set of
+  * parameters that will be uploaded to the shader. Furthermore it could enforce a
+  * particular \ref base::RenderState "OpenGL render state". The `unshaded` shader is
+  * provided out-of-the-box: It colors the rendered mesh in a single color uniformly.
+  * The creation of custom materials is explained \ref CustomMaterials "here".
   */
 
 }

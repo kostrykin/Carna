@@ -246,7 +246,7 @@ void MeshColorCodingStage::renderPass( const base::math::Matrix4f& viewTransform
 }
 
 
-void MeshColorCodingStage::render( base::GLContext& glc, const base::Renderable& renderable )
+void MeshColorCodingStage::render( const base::Renderable& renderable )
 {
     using namespace base;
     const unsigned int geometryType = renderable.geometry().geometryType;

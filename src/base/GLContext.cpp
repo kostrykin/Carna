@@ -40,7 +40,13 @@ static GLContextSet glContextInstances = GLContextSet();
 GLContext::GLContext( bool isDoubleBuffered )
     : isDoubleBuffered( isDoubleBuffered )
     , myShader( nullptr )
-    , myRenderState( new RenderState() )
+#pragma warning( push )
+#pragma warning( disable:4355 )
+    /* It is okay to use 'this' in class initialization list, as long as it is not
+     * used to access any members that may not have been initialized yet.
+     */
+    , myRenderState( RenderState::createDefaultRenderState( *this ) )
+#pragma warning( pop )
 {
     CARNA_GLEW_INIT;
     glContextInstances.insert( this );

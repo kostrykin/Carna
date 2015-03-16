@@ -79,7 +79,7 @@ protected:
         , const base::math::Matrix4f& viewTransform
         , bool viewTransformTriggered ) override;
 
-    virtual void render( base::GLContext& glc, const base::Renderable& ) override;
+    virtual void render( const base::Renderable& ) override;
 
 }; // CuttingPlanesStage
 

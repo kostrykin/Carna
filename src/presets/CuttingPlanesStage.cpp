@@ -111,7 +111,7 @@ CuttingPlanesStage::Details::~Details()
 struct CuttingPlanesStage::VideoResources
 {
 
-    VideoResources( base::GLContext& glc, const base::ShaderProgram& shader, Details::PlaneMesh& planeMesh );
+    VideoResources( const base::ShaderProgram& shader, Details::PlaneMesh& planeMesh );
 
     Details::PlaneMesh::VideoResourceAcquisition planeMeshVR;
     const base::ShaderProgram& shader;
@@ -120,11 +120,8 @@ struct CuttingPlanesStage::VideoResources
 }; // CuttingPlanesStage :: VideoResources
 
 
-CuttingPlanesStage::VideoResources::VideoResources
-        ( base::GLContext& glc
-        , const base::ShaderProgram& shader
-        , Details::PlaneMesh& planeMesh )
-    : planeMeshVR( glc, planeMesh )
+CuttingPlanesStage::VideoResources::VideoResources( const base::ShaderProgram& shader, Details::PlaneMesh& planeMesh )
+    : planeMeshVR( planeMesh )
     , shader( shader )
 {
     /* Configure volume volumeSampler.
@@ -233,7 +230,7 @@ void CuttingPlanesStage::updateRenderQueues( base::Node& root, const base::math:
 }
 
 
-void CuttingPlanesStage::render( base::GLContext& glc, const base::Renderable& volume )
+void CuttingPlanesStage::render( const base::Renderable& volume )
 {
     /* Bind texture and volumeSampler to free texture unit.
      */
@@ -307,10 +304,7 @@ void CuttingPlanesStage::renderPass
 {
     if( vr.get() == nullptr )
     {
-        vr.reset( new VideoResources
-            ( rt.renderer.glContext()
-            , base::ShaderManager::instance().acquireShader( "cutting_plane" )
-            , pimpl->planeMesh ) );
+        vr.reset( new VideoResources( base::ShaderManager::instance().acquireShader( "cutting_plane" ), pimpl->planeMesh ) );
     }
     
     rt.renderer.glContext().setShader( vr->shader );

@@ -35,24 +35,11 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// acquireFullFrameQuadShader
-// ----------------------------------------------------------------------------------
-
-static const ShaderProgram& acquireFullFrameQuadShader( GLContext& glContext )
-{
-    glContext.makeCurrent();
-    return ShaderManager::instance().acquireShader( "full_frame_quad" );
-}
-
-
-
-// ----------------------------------------------------------------------------------
 // createFullFrameQuadSampler
 // ----------------------------------------------------------------------------------
 
-static Sampler* createFullFrameQuadSampler( GLContext& glContext )
+static Sampler* createFullFrameQuadSampler()
 {
-    glContext.makeCurrent();
     Sampler* const sampler = new Sampler();
 
     sampler->setMinFilter( Sampler::FILTER_LINEAR );
@@ -63,6 +50,18 @@ static Sampler* createFullFrameQuadSampler( GLContext& glContext )
     sampler->setWrapModeT( Sampler::WRAP_MODE_CLAMP );
 
     return sampler;
+}
+
+
+
+// ----------------------------------------------------------------------------------
+// glContextMadeCurrent
+// ----------------------------------------------------------------------------------
+
+static GLContext& glContextMadeCurrent( GLContext& glc )
+{
+    glc.makeCurrent();
+    return glc;
 }
 
 
@@ -137,11 +136,11 @@ FrameRenderer::Details::Details( GLContext& glContext, unsigned int width, unsig
     : width( width )
     , height( height )
     , reshaped( true )
-    , glContext( &glContext )
-    , fullFrameQuadSampler( createFullFrameQuadSampler( glContext ) )
+    , glContext( &glContextMadeCurrent( glContext ) )
+    , fullFrameQuadSampler( createFullFrameQuadSampler() )
     , fullFrameQuadMesh( createFullFrameQuadMesh() )
-    , fullFrameQuadMeshVR( new MeshBase::VideoResourceAcquisition( glContext, fullFrameQuadMesh ) )
-    , fullFrameQuadShader( acquireFullFrameQuadShader( glContext ) )
+    , fullFrameQuadMeshVR( new MeshBase::VideoResourceAcquisition( fullFrameQuadMesh ) )
+    , fullFrameQuadShader( ShaderManager::instance().acquireShader( "full_frame_quad" ) )
     , backgroundColorChanged( true )
 {
     backgroundColor[ 0 ] = 0;

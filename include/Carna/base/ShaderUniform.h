@@ -71,7 +71,7 @@ private:
 
     const static int NULL_UNIFORM_LOCATION = -1;
 
-    int location( const GLContext& glc ) const;
+    int location( const ShaderProgram& ) const;
 
 }; // ShaderUniformBase
 

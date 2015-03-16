@@ -85,7 +85,7 @@ protected:
 
     virtual const std::string& uniformName( unsigned int role ) const override;
 
-    virtual void configureShader( base::GLContext& ) override;
+    virtual void configureShader() override;
 
 }; // MIPStage
 

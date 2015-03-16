@@ -104,7 +104,7 @@ public:
 
 protected:
 
-    virtual void render( GLContext& glc, const Renderable& renderable ) override;
+    virtual void render( const Renderable& renderable ) override;
 
 }; // MeshRenderingStage
 
@@ -127,11 +127,11 @@ void MeshRenderingStage< RenderableCompare >::renderPass( const math::Matrix4f& 
 
 
 template< typename RenderableCompare >
-void MeshRenderingStage< RenderableCompare >::render( GLContext& glc, const Renderable& renderable )
+void MeshRenderingStage< RenderableCompare >::render( const Renderable& renderable )
 {
-    RenderState rs( glc );
+    RenderState rs( GLContext::current() );
     const Material& material = static_cast< Material& >( renderable.geometry().feature( ROLE_DEFAULT_MATERIAL ) );
-    this->videoResource( material ).activate( rs, glc );
+    this->videoResource( material ).activate( rs );
 
     ShaderUniform< math::Matrix4f >( "modelView", renderable.modelViewTransform() ).upload();
     ShaderUniform< math::Matrix4f >( "projection", renderTask->projection ).upload();

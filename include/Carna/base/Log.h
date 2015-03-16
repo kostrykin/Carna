@@ -35,10 +35,10 @@ namespace base
 // Log
 // ----------------------------------------------------------------------------------
     
-/** \brief  Provides set of text-related helper functions.
+/** \brief
+  * Records log messages.
   *
-  * \since  \ref v_2_4
-  * \date   26.1.14
+  * \date   22.2.15
   * \author Leonid Kostrykin
   */
 class CARNA_LIB Log : public Singleton< Log >

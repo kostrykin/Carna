@@ -67,9 +67,9 @@ public:
 
 protected:
 
-    virtual void loadVideoResources( base::GLContext& glc );
+    virtual void loadVideoResources();
 
-    virtual void render( base::GLContext& glc, const base::Renderable& ) override;
+    virtual void render( const base::Renderable& ) override;
 
     virtual void createSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler ) = 0;
 
@@ -88,7 +88,7 @@ protected:
     /** \brief
       * Performs custom shader configuration that goes beyond the default setup.
       */
-    virtual void configureShader( base::GLContext& ) = 0;
+    virtual void configureShader() = 0;
 
 }; // RayMarchingStage
 

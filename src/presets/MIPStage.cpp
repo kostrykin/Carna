@@ -240,7 +240,7 @@ const std::string& MIPStage::uniformName( unsigned int role ) const
 }
 
 
-void MIPStage::configureShader( base::GLContext& glc )
+void MIPStage::configureShader()
 {
     CARNA_ASSERT( pimpl->currentChannel != nullptr );
     const MIPChannel& ch = *pimpl->currentChannel;

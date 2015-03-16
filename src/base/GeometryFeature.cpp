@@ -42,6 +42,8 @@ public:
 
     virtual ~GeometryFeatureLeakWatcher();
 
+    static void reset();
+
 }; // GeometryFeatureLeakWatcher
 
 
@@ -58,6 +60,12 @@ GeometryFeatureLeakWatcher::~GeometryFeatureLeakWatcher()
         ss << featureInstances.size() << " GeometryFeature objects leaked!";
         Log::instance().record( Log::error, ss.str() );
     }
+}
+
+
+void GeometryFeatureLeakWatcher::reset()
+{
+    Singleton< GeometryFeatureLeakWatcher >::reset();
 }
 
 
@@ -162,6 +170,12 @@ void GeometryFeature::removeFrom( Geometry& sceneGraphNode )
     {
         deleteIfAllowed();
     }
+}
+
+
+void GeometryFeature::checkLeakedInstances()
+{
+    GeometryFeatureLeakWatcher::reset();
 }
 
 

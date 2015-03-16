@@ -116,7 +116,7 @@ namespace Carna
         template< typename Vertex > class VertexBuffer;
         template< typename Type > class ShaderUniform;
         template< typename ParameterType > struct ShaderUniformType;
-        template< typename Concrete > class Singleton;
+        template< typename InstanceType > class Singleton;
         template< typename T > class Span;
         
     }

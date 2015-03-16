@@ -103,7 +103,7 @@ RayMarchingStage::Details::~Details()
 struct RayMarchingStage::VideoResources
 {
 
-    VideoResources( base::GLContext& glc, const base::ShaderProgram& shader, Details::SliceMesh& sliceMesh );
+    VideoResources( const base::ShaderProgram& shader, Details::SliceMesh& sliceMesh );
 
     Details::SliceMesh::VideoResourceAcquisition sliceMeshVR;
     const base::ShaderProgram& shader;
@@ -118,11 +118,8 @@ struct RayMarchingStage::VideoResources
 }; // RayMarchingStage :: VideoResources
 
 
-RayMarchingStage::VideoResources::VideoResources
-        ( base::GLContext& glc
-        , const base::ShaderProgram& shader
-        , Details::SliceMesh& sliceMesh )
-    : sliceMeshVR( glc, sliceMesh )
+RayMarchingStage::VideoResources::VideoResources( const base::ShaderProgram& shader, Details::SliceMesh& sliceMesh )
+    : sliceMeshVR( sliceMesh )
     , shader( shader )
 {
 }
@@ -208,7 +205,7 @@ RayMarchingStage::~RayMarchingStage()
 }
 
 
-void RayMarchingStage::render( base::GLContext& glc, const base::Renderable& renderable )
+void RayMarchingStage::render( const base::Renderable& renderable )
 {
     using base::math::Matrix4f;
     using base::math::Vector4f;
@@ -249,10 +246,10 @@ void RayMarchingStage::render( base::GLContext& glc, const base::Renderable& ren
 }
 
 
-void RayMarchingStage::loadVideoResources( base::GLContext& glc )
+void RayMarchingStage::loadVideoResources()
 {
     const base::ShaderProgram& shader = loadShader();
-    vr.reset( new VideoResources( glc, shader, pimpl->sliceMesh ) );
+    vr.reset( new VideoResources( shader, pimpl->sliceMesh ) );
     createSamplers( [&]( unsigned int role, base::Sampler* sampler )
         {
             CARNA_ASSERT( vr->samplers.find( role ) == vr->samplers.end() );
@@ -269,11 +266,11 @@ void RayMarchingStage::renderPass
 {
     if( vr.get() == nullptr )
     {
-        loadVideoResources( rt.renderer.glContext() );
+        loadVideoResources();
     }
 
     rt.renderer.glContext().setShader( vr->shader );
-    configureShader( rt.renderer.glContext() );
+    configureShader();
 
     pimpl->renderTask = &rt;
     pimpl->viewPort = &vp;

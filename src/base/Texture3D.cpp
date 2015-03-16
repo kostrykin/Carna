@@ -162,7 +162,7 @@ bool Texture3D::controlsSameVideoResource( const GeometryFeature& ) const
 }
 
 
-Texture3D::VideoResourceAcquisition* Texture3D::acquireVideoResource( GLContext& glc )
+Texture3D::VideoResourceAcquisition* Texture3D::acquireVideoResource()
 {
     return new VideoResourceAcquisition( *this );
 }

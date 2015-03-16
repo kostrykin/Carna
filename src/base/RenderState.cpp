@@ -29,10 +29,13 @@ namespace base
 struct RenderState::Details
 {
 
-    Details( const RenderState* parent );
+    Details( const RenderState* parent, GLContext* );
 
     const RenderState* const parent;
     GLContext* glc;
+
+    static bool isCurrent( RenderState* self );
+    static void assertCurrent( RenderState* self );
 
     bool     depthTest;
     bool     depthWrite;
@@ -47,10 +50,30 @@ struct RenderState::Details
 }; // RenderState :: Details
 
 
-RenderState::Details::Details( const RenderState* parent )
+RenderState::Details::Details( const RenderState* parent, GLContext* glc )
     : parent( parent )
-    , glc( nullptr )
+    , glc( glc )
 {
+}
+
+
+bool RenderState::Details::isCurrent( RenderState* self )
+{
+    CARNA_ASSERT( self->pimpl->glc != nullptr );
+    if( self->pimpl->glc->renderStates.empty() )
+    {
+        return self->pimpl->parent == nullptr;
+    }
+    else
+    {
+        return self->pimpl->glc->renderStates.top() == self;
+    }
+}
+
+
+void RenderState::Details::assertCurrent( RenderState* self )
+{
+    CARNA_ASSERT_EX( isCurrent( self ), "RenderState instance is locked, because it is not the current one." );
 }
 
 
@@ -60,17 +83,24 @@ RenderState::Details::Details( const RenderState* parent )
 // ----------------------------------------------------------------------------------
 
 RenderState::RenderState()
-    : pimpl( new Details( nullptr ) )
+    : pimpl( new Details( nullptr, nullptr ) )
 {
 }
 
 
-RenderState::RenderState( GLContext& glc )
-    : pimpl( new Details( glc.renderStates.top() ) )
+RenderState* RenderState::createDefaultRenderState( GLContext& glc )
 {
-    const RenderState& parent = *glc.renderStates.top();
+    RenderState* const rs = new RenderState();
+    rs->pimpl->glc = &glc;
+    return rs;
+}
+
+
+RenderState::RenderState( GLContext& glc )
+    : pimpl( new Details( glc.renderStates.top(), &glc ) )
+{
+    const RenderState& parent = *pimpl->parent;
     glc.renderStates.push( this );
-    pimpl->glc = &glc;
 
     pimpl->depthTest                      = parent.pimpl->depthTest;
     pimpl->depthWrite                     = parent.pimpl->depthWrite;
@@ -98,9 +128,7 @@ RenderState::~RenderState()
         setBlendEquation( parent.blendEquation );
         setCullFace( parent.cullFace );
         setFrontFace( parent.frontFaceCCW );
-    }
-    if( pimpl->glc != nullptr )
-    {
+
         pimpl->glc->renderStates.pop();
     }
 }
@@ -121,6 +149,7 @@ void RenderState::commit() const
 
 void RenderState::setDepthTest( bool dt )
 {
+    Details::assertCurrent( this );
     if( dt != pimpl->depthTest )
     {
         pimpl->depthTest = dt;
@@ -131,6 +160,7 @@ void RenderState::setDepthTest( bool dt )
 
 void RenderState::setDepthWrite( bool dw )
 {
+    Details::assertCurrent( this );
     if( dw != pimpl->depthWrite )
     {
         pimpl->depthWrite = dw;
@@ -141,6 +171,7 @@ void RenderState::setDepthWrite( bool dw )
 
 void RenderState::setDepthTestFunction( int dtf )
 {
+    Details::assertCurrent( this );
     if( dtf != pimpl->depthTestFunction )
     {
         pimpl->depthTestFunction = dtf;
@@ -151,6 +182,7 @@ void RenderState::setDepthTestFunction( int dtf )
 
 void RenderState::setBlend( bool b )
 {
+    Details::assertCurrent( this );
     if( b != pimpl->blend )
     {
         pimpl->blend = b;
@@ -161,6 +193,7 @@ void RenderState::setBlend( bool b )
 
 void RenderState::setBlendFunction( const BlendFunction& bf )
 {
+    Details::assertCurrent( this );
     if( bf.sourceFactor != pimpl->blendFunctionSourceFactor || bf.destinationFactor != pimpl->blendFunctionDestinationFactor )
     {
         pimpl->blendFunctionSourceFactor = bf.sourceFactor;
@@ -172,6 +205,7 @@ void RenderState::setBlendFunction( const BlendFunction& bf )
 
 void RenderState::setBlendEquation( int be )
 {
+    Details::assertCurrent( this );
     if( be != pimpl->blendEquation )
     {
         pimpl->blendEquation = be;
@@ -182,6 +216,7 @@ void RenderState::setBlendEquation( int be )
 
 void RenderState::setCullFace( CullFace cf )
 {
+    Details::assertCurrent( this );
     if( cf != pimpl->cullFace )
     {
         pimpl->cullFace = cf;
@@ -192,6 +227,7 @@ void RenderState::setCullFace( CullFace cf )
 
 void RenderState::setFrontFace( bool ccw )
 {
+    Details::assertCurrent( this );
     if( ccw != pimpl->frontFaceCCW )
     {
         pimpl->frontFaceCCW = ccw;

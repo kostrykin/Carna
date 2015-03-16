@@ -75,6 +75,13 @@ public:
     void release();
 
     /** \brief
+      * Assumes that all remained instances are leaked and records their number on
+      * the \ref Log "log" with `error` severity if it is not zero. Instances, that
+      * are counted this time, will not be counted by succeeding method calls.
+      */
+    static void checkLeakedInstances();
+
+    /** \brief
       * Puts this geometry aggregate on the \a sceneGraphNode.
       *
       * This is equivalent to \ref Geometry::setDefinition.
@@ -109,7 +116,7 @@ public:
         
     }; // GeometryFeature :: VideoResourceAcquisition
     
-    virtual VideoResourceAcquisition* acquireVideoResource( GLContext& glc ) = 0;
+    virtual VideoResourceAcquisition* acquireVideoResource() = 0;
 
 }; // GeometryFeature
 

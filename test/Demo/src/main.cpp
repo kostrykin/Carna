@@ -48,6 +48,38 @@ namespace testing
 
 
 // ----------------------------------------------------------------------------------
+// MyApplication
+// ----------------------------------------------------------------------------------
+
+class MyApplication : public QApplication
+{
+
+public:
+
+    MyApplication( int &argc, char **argv );
+
+    virtual ~MyApplication();
+
+}; // MyApplication
+
+
+MyApplication::MyApplication( int& argc, char** argv )
+    : QApplication( argc, argv )
+{
+}
+
+
+MyApplication::~MyApplication()
+{
+    /* We need to do this as long as QApplication is still alive, so that QDebug is
+     * also still available.
+     */
+    base::GeometryFeature::checkLeakedInstances();
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // QDebugLogWriter
 // ----------------------------------------------------------------------------------
 
@@ -228,6 +260,7 @@ void Demo::initializeGL()
     boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
     boxGeometry->localTransform = base::math::translation4f( 0, 30, 50 );
 
+    gridHelper->releaseGeometryFeatures();
     boxMaterial.release();
     boxMesh.release();
 
@@ -315,9 +348,8 @@ void Demo::paintGL()
 int main( int argc, char** argv )
 {
     Carna::base::Log::instance().setWriter( new Carna::testing::QDebugLogWriter() );
-    QApplication app( argc, argv );
+    Carna::testing::MyApplication app( argc, argv );
     Carna::testing::Demo demo;
-    //demo.resize( 400, 400 );
     demo.show();
     return QApplication::exec();
 }

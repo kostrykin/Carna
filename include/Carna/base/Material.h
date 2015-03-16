@@ -39,6 +39,21 @@ namespace base
   * Specifies the shader and it's configuration that are to be used for rendering a
   * \ref Geometry node with a \ref MeshRenderingStage.
   *
+  * \section CustomMaterials Custom Materials
+  *
+  * \todo finish this
+  *
+  * Following uniform variables are available:
+  *
+  *   - `modelView` takes the model-view transform. This is the concatenation of the
+  *     \ref Camera::viewTransform "view transform" and the
+  *     \ref Spatial::modelTransform "model transform". It maps from model space to
+  *     view space.
+  *   - `projection` takes the \ref Camera::projection "projection matrix" that maps
+  *     from view space to clipping coordinates.
+  *   - `modelViewProjection` is the concatenation of `projection` and `modelView`.
+  *     It maps from model space to clipping coordinates.
+  *
   * \author Leonid Kostrykin
   * \date 27.2.2015
   */
@@ -93,7 +108,7 @@ public:
     
         virtual ~VideoResourceAcquisition();
 
-        void activate( RenderState& rs, GLContext& glc ) const;
+        void activate( RenderState& rs ) const;
 
         const ShaderProgram& shader() const;
     
@@ -101,7 +116,7 @@ public:
     
     }; // Material :: VideoResourceAcquisition
     
-    virtual VideoResourceAcquisition* acquireVideoResource( GLContext& glc ) override;
+    virtual VideoResourceAcquisition* acquireVideoResource() override;
 
 }; // Material
 

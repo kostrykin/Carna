@@ -109,7 +109,7 @@ public:
     
     public:
     
-        VideoResourceAcquisition( GLContext& glc, MeshBase& mesh );
+        VideoResourceAcquisition( MeshBase& mesh );
     
         virtual ~VideoResourceAcquisition();
     
@@ -126,14 +126,12 @@ public:
         VertexBufferBase& vertexBuffer();
 
         IndexBufferBase& indexBuffer();
-        
-        GLContext& glContext;
     
         MeshBase& mesh;
     
     }; // MeshBase :: VideoResourceAcquisition
     
-    virtual VideoResourceAcquisition* acquireVideoResource( GLContext& glc ) override;
+    virtual VideoResourceAcquisition* acquireVideoResource() override;
 
 }; // MeshBase
 

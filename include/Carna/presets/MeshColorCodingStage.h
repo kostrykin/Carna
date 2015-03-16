@@ -67,7 +67,7 @@ public:
 
 protected:
 
-    virtual void render( base::GLContext& glc, const base::Renderable& renderable ) override;
+    virtual void render( const base::Renderable& renderable ) override;
 
 }; // MeshColorCodingStage
 

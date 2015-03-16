@@ -55,8 +55,8 @@ struct MeshBase::Details
     };
     std::map< const GLContext*, GLContextInfo* > acquisitions;
     
-    unsigned int acquire( const GLContext& glc );
-    void release( const GLContext& glc );
+    unsigned int acquire();
+    void release();
 };
 
 
@@ -73,14 +73,14 @@ MeshBase::Details::GLContextInfo::GLContextInfo()
 }
 
 
-unsigned int MeshBase::Details::acquire( const GLContext& glc )
+unsigned int MeshBase::Details::acquire()
 {
+    const GLContext& glc = GLContext::current();
     const auto infoItr = acquisitions.find( &glc );
     if( infoItr == acquisitions.end() )
     {
         /* Create new vertex array.
          */
-        CARNA_ASSERT( glc.isCurrent() );
         GLContextInfo* const info = new GLContextInfo();
         acquisitions[ &glc ] = info;
         glGenVertexArrays( 1, &info->id );
@@ -114,8 +114,9 @@ unsigned int MeshBase::Details::acquire( const GLContext& glc )
 }
 
 
-void MeshBase::Details::release( const GLContext& glc )
+void MeshBase::Details::release()
 {
+    const GLContext& glc = GLContext::current();
     const auto infoItr = acquisitions.find( &glc );
     CARNA_ASSERT( infoItr != acquisitions.end() );
     unsigned int& acquisitionCount = infoItr->second->acquisitionCount;
@@ -124,7 +125,6 @@ void MeshBase::Details::release( const GLContext& glc )
     {
         /* Delete vertex array.
          */
-        CARNA_ASSERT( glc.isCurrent() );
         glDeleteVertexArrays( 1, &infoItr->second->id );
         acquisitions.erase( infoItr );
     }
@@ -136,11 +136,8 @@ void MeshBase::Details::release( const GLContext& glc )
 // MeshBase :: VideoResourceAcquisition
 // ----------------------------------------------------------------------------------
 
-MeshBase::VideoResourceAcquisition::VideoResourceAcquisition
-        ( GLContext& glc
-        , MeshBase& mesh )
+MeshBase::VideoResourceAcquisition::VideoResourceAcquisition( MeshBase& mesh )
     : GeometryFeature::VideoResourceAcquisition( mesh )
-    , glContext( glc )
     , mesh( mesh )
 {
     if( mesh.videoResourceAcquisitionsCount() == 1 )
@@ -155,7 +152,7 @@ MeshBase::VideoResourceAcquisition::VideoResourceAcquisition
     
     /* Acquire vertex array within current context.
      */
-    myId = mesh.pimpl->acquire( glContext );
+    myId = mesh.pimpl->acquire();
 }
 
 
@@ -163,7 +160,7 @@ MeshBase::VideoResourceAcquisition::~VideoResourceAcquisition()
 {
     /* Release vertex array within current context.
      */
-    mesh.pimpl->release( glContext );
+    mesh.pimpl->release();
     
     if( mesh.videoResourceAcquisitionsCount() == 1 )
     {
@@ -254,9 +251,9 @@ bool MeshBase::controlsSameVideoResource( const GeometryFeature& ) const
 }
 
 
-MeshBase::VideoResourceAcquisition* MeshBase::acquireVideoResource( GLContext& glc )
+MeshBase::VideoResourceAcquisition* MeshBase::acquireVideoResource()
 {
-    return new VideoResourceAcquisition( glc, *this );
+    return new VideoResourceAcquisition( *this );
 }
 
 

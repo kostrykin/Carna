@@ -101,7 +101,7 @@ protected:
 
     virtual void rewindRenderQueues();
 
-    virtual void render( GLContext& glc, const Renderable& renderable ) = 0;
+    virtual void render( const Renderable& renderable ) = 0;
 
 }; // GeometryStage
 
@@ -201,17 +201,18 @@ void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewT
                      */
                     if( acquiredFeatures.find( &gf ) == acquiredFeatures.end() )
                     {
-                        VideoResource* const vr = gf.acquireVideoResource( *myContext );
+                        VideoResource* const vr = gf.acquireVideoResource();
                         acquiredFeatures[ &gf ] = vr;
                     }
                 }
             );
         }
-        render( *myContext, renderable );
+        render( renderable );
     }
     if( isFirstPass )
     {
-        // release unused video resources
+        /* Release unused video resources.
+         */
         for( auto itr = acquiredFeatures.begin(); itr != acquiredFeatures.end(); )
         {
             if( usedFeatures.find( itr->first ) == usedFeatures.end() )

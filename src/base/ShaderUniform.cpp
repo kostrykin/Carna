@@ -35,9 +35,8 @@ ShaderUniformBase::~ShaderUniformBase()
 }
 
 
-int ShaderUniformBase::location( const GLContext& glc ) const
+int ShaderUniformBase::location( const ShaderProgram& shader ) const
 {
-    const ShaderProgram& shader = glc.shader();
     const GLint location = glGetUniformLocation( shader.id, name.c_str() );
     return location;
 }
@@ -46,7 +45,7 @@ int ShaderUniformBase::location( const GLContext& glc ) const
 void ShaderUniformBase::upload() const
 {
     GLContext& glc = GLContext::current();
-    const int loc = location( glc );
+    const int loc = location( glc.shader() );
     if( loc != NULL_UNIFORM_LOCATION )
     {
         uploadTo( loc );

@@ -72,10 +72,11 @@ const ShaderProgram& Material::VideoResourceAcquisition::shader() const
 }
 
 
-void Material::VideoResourceAcquisition::activate( RenderState& rs, GLContext& glc ) const
+void Material::VideoResourceAcquisition::activate( RenderState& rs ) const
 {
     /* Ensure the shader is activated.
      */
+    GLContext& glc = GLContext::current();
     glc.setShader( shader() );
 
     /* Upload uniform variables.
@@ -159,7 +160,7 @@ void Material::removeParameter( const std::string& name )
 }
 
 
-Material::VideoResourceAcquisition* Material::acquireVideoResource( GLContext& glc )
+Material::VideoResourceAcquisition* Material::acquireVideoResource()
 {
     return new VideoResourceAcquisition( *this );
 }

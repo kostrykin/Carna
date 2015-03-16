@@ -125,7 +125,7 @@ public:
     
     }; // Texture3D :: VideoResourceAcquisition
     
-    virtual VideoResourceAcquisition* acquireVideoResource( GLContext& glc ) override;
+    virtual VideoResourceAcquisition* acquireVideoResource() override;
 
 }; // Texture3D
 
