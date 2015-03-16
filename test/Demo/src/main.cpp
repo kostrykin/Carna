@@ -2,6 +2,7 @@
 #include <QGLWidget>
 #include <QApplication>
 #include <QMouseEvent>
+#include <QWheelEvent>
 
 #include <Carna/Version.h>
 #include <Carna/base/Log.h>
@@ -18,6 +19,7 @@
 #include <Carna/base/ShaderUniform.h>
 #include <Carna/base/BufferedHUVolume.h>
 #include <Carna/base/SpatialMovement.h>
+#include <Carna/presets/CameraNavigationControl.h>
 #include <Carna/presets/OccludedRenderingStage.h>
 #include <Carna/presets/OpaqueRenderingStage.h>
 #include <Carna/presets/MeshColorCodingStage.h>
@@ -139,6 +141,7 @@ class Demo : public QGLWidget
     presets::MeshColorCodingStage* mccs;
     std::unique_ptr< base::SpatialMovement > spatialMovement;
 
+    presets::CameraNavigationControl cameraControl;
     bool mouseInteraction;
     QPoint mousepos;
 
@@ -161,6 +164,8 @@ protected:
     virtual void mouseMoveEvent( QMouseEvent* ev ) override;
     
     virtual void mouseReleaseEvent( QMouseEvent* ev ) override;
+
+    virtual void wheelEvent( QWheelEvent* ev ) override;
 
 }; // Demo
 
@@ -200,7 +205,7 @@ void Demo::mousePressEvent( QMouseEvent* ev )
 
 void Demo::mouseMoveEvent( QMouseEvent* ev )
 {
-    const static float ROTATION_SPEED = 1e-2f;
+    const static float ROTATION_SPEED = -1e-2f;
     if( mouseInteraction )
     {
         if( spatialMovement.get() == nullptr )
@@ -209,10 +214,14 @@ void Demo::mouseMoveEvent( QMouseEvent* ev )
             const int dy = ( ev->y() - mousepos.y() );
             mousepos = ev->pos();
 
-            if( dx != 0 )
+            if( dx != 0 || dy != 0 )
             {
+                /*
                 base::math::Matrix4f rotation = base::math::rotation4f( 0, 1, 0, dx * ROTATION_SPEED );
                 camera->localTransform = rotation * camera->localTransform;
+                */
+                cameraControl.rotateHorizontally( dx * ROTATION_SPEED );
+                cameraControl.rotateVertically  ( dy * ROTATION_SPEED );
                 updateGL();
                 ev->accept();
             }
@@ -233,6 +242,15 @@ void Demo::mouseReleaseEvent( QMouseEvent* ev )
 {
     mouseInteraction = false;
     spatialMovement.reset();
+    ev->accept();
+}
+
+
+void Demo::wheelEvent( QWheelEvent* ev )
+{
+    const static float SPEED = -5e-2f;
+    cameraControl.moveAxially( ev->delta() * SPEED );
+    updateGL();
     ev->accept();
 }
 
@@ -267,6 +285,7 @@ void Demo::initializeGL()
     camera = new base::Camera();
     camera->setProjection( base::math::frustum4f( 3.14f * 45 / 180.f, 1, 10, 2000 ) );
     camera->localTransform = base::math::translation4f( 0, 0, 500 );
+    cameraControl.setCamera( *camera );
     root->attachChild( camera );
     root->attachChild( volumeNode );
     root->attachChild( boxGeometry );

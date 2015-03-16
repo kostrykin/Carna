@@ -43,12 +43,8 @@ CameraNavigationControl::Details::Details()
 
 void CameraNavigationControl::Details::rotate( float axisX, float axisY, float axisZ, float radians )
 {
-    base::math::Matrix4f rotation = cam->localTransform;
-    rotation( 0, 3 ) = rotation( 1, 3 ) = rotation( 2, 3 ) = 0;
-
     const base::math::Matrix4f newRotation = base::math::rotation4f( axisX, axisY, axisZ, radians );
-    const base::math::Matrix4f translation = base::math::translation4f( cam->localTransform.col( 3 ) );
-    cam->localTransform = rotation * newRotation * translation;
+    cam->localTransform = cam->localTransform * newRotation;
 }
 
 
@@ -91,7 +87,7 @@ void CameraNavigationControl::rotateVertically( float radians )
 void CameraNavigationControl::moveAxially( float distance )
 {
     CARNA_ASSERT( pimpl->cam != nullptr );
-    pimpl->cam->localTransform *= base::math::translation4f( 0, 0, -distance );
+    pimpl->cam->localTransform = pimpl->cam->localTransform * base::math::translation4f( 0, 0, -distance );
 }
 
 
