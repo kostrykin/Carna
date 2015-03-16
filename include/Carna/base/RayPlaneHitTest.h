@@ -33,66 +33,93 @@ namespace base
 // RayPlaneHitTest
 // ----------------------------------------------------------------------------------
 
-template< typename Vector, typename Scalar >
+/** \brief
+  * Tests whether particular plane is hit by a \ref Ray object.
+  *
+  * \param VectorType defines the vector type to use for computation.
+  * \param ScalarType defines the scalar type to use for computation.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 16.3.15
+  */
+template< typename VectorType, typename ScalarType >
 class RayPlaneHitTest
 {
 
     bool myHitExists;
-    Vector myHitLocation;
+    VectorType myHitLocation;
 
 public:
 
+    /** \brief
+      * Instantiates.
+      *
+      * \post `hitExists() == false`
+      */
     RayPlaneHitTest();
 
-    void compute( const Ray< Vector >& ray, const Vector& planeNormal, Scalar planeOriginOffset );
+    /** \brief
+      * Performs a hit test of \a ray with the plane with \a planeNormal and
+      * \a planeOriginOffset. Use \ref hitExists and \ref hitLocation to obtain the
+      * test results.
+      */
+    void compute( const Ray< VectorType >& ray, const VectorType& planeNormal, ScalarType planeOriginOffset );
 
+    /** \brief
+      * Tells whether a hit exists.
+      */
     bool hitExists() const;
 
-    const Vector& hitLocation() const;
+    /** \brief
+      * References the location of the hit.
+      *
+      * \pre `hitExists() == true`
+      */
+    const VectorType& hitLocation() const;
 
 }; // RayPlaneHitTest
 
 
-template< typename Vector, typename Scalar >
-RayPlaneHitTest< Vector, Scalar >::RayPlaneHitTest()
+template< typename VectorType, typename ScalarType >
+RayPlaneHitTest< VectorType, ScalarType >::RayPlaneHitTest()
     : myHitExists( false )
 {
 }
 
 
-template< typename Vector, typename Scalar >
-bool RayPlaneHitTest< Vector, Scalar >::hitExists() const
+template< typename VectorType, typename ScalarType >
+bool RayPlaneHitTest< VectorType, ScalarType >::hitExists() const
 {
     return myHitExists;
 }
 
 
-template< typename Vector, typename Scalar >
-const Vector& RayPlaneHitTest< Vector, Scalar >::hitLocation() const
+template< typename VectorType, typename ScalarType >
+const VectorType& RayPlaneHitTest< VectorType, ScalarType >::hitLocation() const
 {
     CARNA_ASSERT( hitExists() );
     return myHitLocation;
 }
 
 
-template< typename Vector, typename Scalar >
-void RayPlaneHitTest< Vector, Scalar >::compute
-    ( const Ray< Vector >& ray
-    , const Vector& planeNormal
-    , Scalar planeOriginOffset )
+template< typename VectorType, typename ScalarType >
+void RayPlaneHitTest< VectorType, ScalarType >::compute
+    ( const Ray< VectorType >& ray
+    , const VectorType& planeNormal
+    , ScalarType planeOriginOffset )
 {
-    CARNA_ASSERT( math::isEqual< Scalar >( ray.direction.norm(), 1 ) );
-    CARNA_ASSERT( math::isEqual< Scalar >(  planeNormal.norm(), 1 ) );
+    CARNA_ASSERT( math::isEqual< ScalarType >( ray.direction.norm(), 1 ) );
+    CARNA_ASSERT( math::isEqual< ScalarType >(  planeNormal.norm(), 1 ) );
     CARNA_ASSERT( ray.direction.rows() == ray.origin.rows() && ray.origin.rows() == planeNormal.rows() );
     CARNA_ASSERT( ray.direction.cols() == ray.origin.cols() && ray.origin.cols() == planeNormal.cols() && planeNormal.cols() == 1 );
 
-    if( math::isEqual< Scalar >( ray.direction.dot( planeNormal ), 0 ) )
+    if( math::isEqual< ScalarType >( ray.direction.dot( planeNormal ), 0 ) )
     {
         myHitExists = false;
     }
     else
     {
-        const Scalar rayLength = ( planeOriginOffset - ray.origin.dot( planeNormal ) ) / ray.direction.dot( planeNormal );
+        const ScalarType rayLength = ( planeOriginOffset - ray.origin.dot( planeNormal ) ) / ray.direction.dot( planeNormal );
         if( rayLength < 0 )
         {
             myHitExists = false;

@@ -12,13 +12,14 @@ namespace Carna
   * \f$\vec p' = \left(wx, wy, wz, w\right)^\mathrm T, w \in \mathbb R\f$
   * and obeys the following rules:
   *
-  *   - We will get the *inhomogeneous coordinates*
-  *     \f$\vec p = \left(x, y, z\right)^\mathrm T \in \mathbb R^3\f$
-  *     from \f$\vec p' = \left(wx, wy, wz, w\right) \in \mathbb R\mathrm P^3\f$ by
-  *     choosing \f$w = 1\f$. Hence we can transform the *homogeneous coordinates*
+  *   - Given the *inhomogeneous coordinates*
+  *     \f$\vec p = \left(x, y, z\right)^\mathrm T \in \mathbb R^3\f$, we construct
+  *     the corresponding *homogeneous coordinates*
+  *     \f[\vec p' = \left(wx, wy, wz, w\right) \in \mathbb R\mathrm P^3\f] by
+  *     choosing \f$w = 1\f$. Hence we can transform the homogeneous coordinates
   *     \f$\vec p' = \left(x', y', z', w\right)^\mathrm T\f$ to inhomogeneous
   *     through a simple division by \f$w'\f$, i.e.
-  *     \f$\vec p = \left(x'/w, y'/w, z'/w\right)^\mathrm T \in \mathbb R^3\f$.
+  *     \f[\vec p = \left(x'/w, y'/w, z'/w\right)^\mathrm T \in \mathbb R^3\text.\f]
   *   - For \f$w = 0\f$ we identify \f$\vec p' \in \mathbb R\mathrm P^3\f$ not as a
   *     coordinate, but as *directional vector*.
   *
@@ -45,7 +46,7 @@ namespace Carna
   *
   * The matrix \f$A\f$, that maps from the local *model space* to world space, is
   * called the *model matrix*. For a particular node \f$x\f$ with a parent \f$p\f$ it
-  * is \f$A_x = A_p L_x\f$, where \f$L_x\f$ denotes the
+  * is \f$A_x = A_p \, L_x\f$, where \f$L_x\f$ denotes the
   * \ref base::Spatial::localTransform "local transform" of node \f$x\f$ relatively
   * to its parent. Now lets further assume that \f$\vec p_{T_A}\f$ and
   * \f$\vec p_{T_B}\f$ were representations of the same point, given in the
@@ -125,6 +126,11 @@ namespace Carna
   *     viewport.
   *   - \f$\left(0, -1, z_\text{nd}\right)^\mathrm T\f$ maps to the top edge of the
   *     viewport.
+  *
+  * \subsection FrameCoordinates Frame Coordinates
+  *
+  * The frame coordinates are obtained from the window coordinates by shifting the
+  * viewport's \ref base::Viewport::left and \ref base::Viewport::top location.
   */
 
 }

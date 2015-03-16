@@ -113,8 +113,8 @@ namespace Carna
         template< typename Vertex, typename Index > class Mesh;
         template< typename Vertex > class MeshFactory;
         template< typename RenderableCompare > class MeshRenderingStage;
-        template< typename Vector > class Ray;
-        template< typename Vector, typename Scalar = typename Vector::Scalar > class RayPlaneHitTest;
+        template< typename VectorType > class Ray;
+        template< typename VectorType, typename ScalarType = typename VectorType::Scalar > class RayPlaneHitTest;
         template< typename RenderableCompare > class RenderQueue;
         template< typename Vertex > class VertexBuffer;
         template< typename Type > class ShaderUniform;
