@@ -46,19 +46,22 @@ class CARNA_LIB Camera : public Spatial
 public:
 
     /** \brief
-      * Sets the matrix that is to be used for mapping view space to clipping
-      * coordinates. Perspective projections can be obtained via \ref math::frustum.
+      * Sets the matrix that is to be used for mapping \ref ViewSpace "view space" to
+      * \ref ClippingCoordinates "clipping coordinates". Perspective projections can
+      * be obtained via \ref math::frustum.
       */
     void setProjection( const math::Matrix4f& );
 
     /** \brief
       * References the projection matrix of this camera. The projection matrix maps
-      * from view space to clipping coordinates.
+      * from \ref ViewSpace "view space" to
+      * \ref ClippingCoordinates "clipping coordinates".
       */
     const math::Matrix4f& projection() const;
 
     /** \brief
-      * References the inverse \ref worldTransform matrix.
+      * References the \ref ViewSpace "view matrix", that is the inverse
+      * \ref worldTransform matrix.
       */
     const math::Matrix4f& viewTransform() const;
 

@@ -1,0 +1,130 @@
+namespace Carna
+{
+
+/** \page CoordinateSystems Coordinate Systems
+  *
+  * \section HomogeneousCoordinates Homogeneous Coordinates
+  *
+  * The *projective space* \f$\mathbb R\mathrm P^3\f$ is the set of all vectors
+  * \f$\vec p' \in \mathbb R^4\f$, that represents each vector
+  * \f$\vec p = \left(x, y, z\right)^\mathrm T \in \mathbb R^3\f$ with the straight
+  * line of points
+  * \f$\vec p' = \left(wx, wy, wz, w\right)^\mathrm T, w \in \mathbb R\f$
+  * and obeys the following rules:
+  *
+  *   - We will get the *inhomogeneous coordinates*
+  *     \f$\vec p = \left(x, y, z\right)^\mathrm T \in \mathbb R^3\f$
+  *     from \f$\vec p' = \left(wx, wy, wz, w\right) \in \mathbb R\mathrm P^3\f$ by
+  *     choosing \f$w = 1\f$. Hence we can transform the *homogeneous coordinates*
+  *     \f$\vec p' = \left(x', y', z', w\right)^\mathrm T\f$ to inhomogeneous
+  *     through a simple division by \f$w'\f$, i.e.
+  *     \f$\vec p = \left(x'/w, y'/w, z'/w\right)^\mathrm T \in \mathbb R^3\f$.
+  *   - For \f$w = 0\f$ we identify \f$\vec p' \in \mathbb R\mathrm P^3\f$ not as a
+  *     coordinate, but as *directional vector*.
+  *
+  * Each affine transformation \f$f : \mathbb R^3 \to \mathbb R^3\f$ with
+  * \f$f\left(\vec x\right) = A\vec x + \vec t\f$ can be written as a single
+  * matrix-vector product using homogeneous coordinates. This unifies the
+  * concatenation of rotations, scalings and translations to the multiplication of
+  * matrices.
+  *
+  * \section CoordinateTransformations Coordinate Transformations
+  *
+  * %Carna uses a \ref SceneGraph "scene graph" to organize objects in 3D space.
+  * Within this approach the location of each spatial object is specified relatively
+  * to another object that is its *parent*. Since this parent-child relationship
+  * induces a tree-like structure, there always will be a node without a parent. This
+  * node is the *root* of the scene. Its coordinate system is called *world space*.
+  *
+  * The location (and rotation, scaling) of a spatial object's local coordinate
+  * system can be written as a matrix using homogeneous coordinates. For example, the
+  * point \f$\vec p\f$ whose coordinates are given within the coordinate system \f$T_A\f$, is transformed to
+  * the world space as follows:
+  *
+  * \f[ \vec p_W = A \vec p_{T_A} \f]
+  *
+  * The matrix \f$A\f$, that maps from the local *model space* to world space, is
+  * called the *model matrix*. For a particular node \f$x\f$ with a parent \f$p\f$ it
+  * is \f$A_x = A_p L_x\f$, where \f$L_x\f$ denotes the
+  * \ref base::Spatial::localTransform "local transform" of node \f$x\f$ relatively
+  * to its parent. Now lets further assume that \f$\vec p_{T_A}\f$ and
+  * \f$\vec p_{T_B}\f$ were representations of the same point, given in the
+  * coordinate systems \f$T_A\f$ and \f$T_B\f$ respectively:
+  *
+  * \f[ A \vec p_{T_A} = B \vec p_{T_B} \f]
+  *
+  * From this it is easy to derive a rule on how to transform the coordinates
+  * \f$\vec p_{T_A}\f$ to the coordinate system \f$T_B\f$:
+  *
+  * \f[ \vec p_{T_B} = B^{-1} A \vec p_{T_A} = B^{-1} \vec p_W \f]
+  *
+  * \subsection ViewSpace Camera Coordinates
+  *
+  * The process of rendering a scene from a particular point of view requires the
+  * transformation of all coordinates within the scene into the coordinate system of
+  * the camera. This coordinate system is often called *view space* or *eye space*.
+  * The inverse of the camera's world matrix, i.e. the matrix that maps world space
+  * coordinates to view space, is the *view matrix* \f$V\f$:
+  *
+  * \f[ \vec p_V = V \vec p_W \f]
+  *
+  * Note that most of the time neither the pure model matrix, nor the pure view
+  * matrix are of interest, but their concatenation, that the term *model-view
+  * matrix* refers to. All coordinate systems described up to here were right-handed.
+  * The coordinate systems introduced below are all left-handed, meaning that their
+  * z-axis is flipped in comparison to the view space.
+  *
+  * \subsection ClippingCoordinates Clipping Coordinates
+  *
+  * The *projection matrix* \f$C\f$ maps the view space coordinates to so-called
+  * *clipping coordinates*, i.e. \f$\vec p_C = C \vec p_V\f$. A typical perspectival
+  * projection matrix looks as follows:
+  *
+  * \f[ C = \begin{pmatrix}
+  *     \frac{2n}{r-l} & 0 & \frac{r+l}{r-l} & 0 \\
+  *     0 & \frac{2n}{t-b} & \frac{t+b}{t-b} & 0 \\
+  *     0 & 0 & \frac{f+n}{n-f} & \frac{2nf}{n-f} \\
+  *     0 & 0 & -1 & 0
+  * \end{pmatrix} \f]
+  *
+  * The six parameters determine the six clipping planes of the perspectival *view
+  * frustum*:
+  *
+  *   - \f$r, l\f$ are the view-space x-coordinates of the intersection lines of the
+  *     left and right clipping planes with the near clipping plane, respectively.
+  *   - \f$t, b\f$ are the view-space y-coordinates of the intersection lines of the
+  *     top and bottom clipping planes with the near clipping plane, respectively.
+  *   - \f$n, f\f$ are the *left-handed* view-space z-coordinates of the far and near
+  *     clipping planes, respectively.
+  *
+  * The term *clipping* refers to the testing whether a coordinate vector
+  * \f$\vec p_C = \left(x_C, y_C, z_C, w_C\right)\f$ lies within the view frustum or
+  * not. The tested condition is the following:
+  *
+  * \f[
+  * -w_C \leq x_C \leq w_C \enspace\wedge\enspace
+  * -w_C \leq y_C \leq w_C \enspace\wedge\enspace
+  * -w_C \leq z_C \leq w_C
+  * \f]
+  *
+  * The vector \f$\vec p_C\f$ is inside the frustum if the above condition is true.
+  * It cannot be visible if it is false.
+  *
+  * \subsection NormalizedDeviceCoordinates Normalized Device Coordinates
+  *
+  * With \f$\vec p_\text{nd} = \left(x_C, y_C, z_C\right)^\mathrm T / w_C\f$ the
+  * visible, frustum-shaped volume is morphed into a box-shaped
+  * \f$\left[-1, +1\right]^2 \times \left[0, 1\right]\f$.
+  *
+  * \subsection WindowCoordinates Window Coordinates
+  *
+  * The normalized window coordinates are mapped linearly to pixel-based window
+  * coordinates, s.t.:
+  *
+  *   - \f$\left(-1, 0, z_\text{nd}\right)^\mathrm T\f$ maps to the left edge of the
+  *     viewport.
+  *   - \f$\left(0, -1, z_\text{nd}\right)^\mathrm T\f$ maps to the top edge of the
+  *     viewport.
+  */
+
+}

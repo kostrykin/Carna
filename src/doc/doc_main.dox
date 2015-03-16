@@ -99,7 +99,9 @@ namespace Carna
   * the 3D space is to be projected into 2D.
   *
   * It should be clear from the above why the root of a scene graph always is a
-  * \ref base::Node instance.
+  * \ref base::Node instance. The coordinate system of the root is often called
+  * *world space*. You can read more on the different coordinate systems and how they
+  * are related to each other \ref CoordinateSystems "here".
   *
   * \see
   * Following classes simplify the `%Camera` handling:

@@ -54,6 +54,9 @@ namespace base
   *   - `modelViewProjection` is the concatenation of `projection` and `modelView`.
   *     It maps from model space to clipping coordinates.
   *
+  * The coordinate systems and their relations to each other are explained
+  * \ref CoordinateSystems "here".
+  *
   * \author Leonid Kostrykin
   * \date 27.2.2015
   */
