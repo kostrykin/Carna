@@ -18,8 +18,7 @@
 namespace Carna
 {
 
-/** \namespace
-  * Carna::testing
+/** \namespace Carna::testing
   *
   * \brief
   * This namespace contains the test suite components.
@@ -34,43 +33,46 @@ namespace Carna
   *
   * When executed, the the test suite returns \c 0 if and only if all tests pass.
   *
-  * \subsection TestSuite_TestTypes Unit tests and module tests
+  * \subsection TestSuite_TestTypes Unit Tests, Module Tests, Integration Tests
   *
-  * Considering test types, the test suite currently differs among unit tests and
-  * module tests. For each test type there is a single <code>configure.cmake</code>
-  * file. This is where the test cases are specified:
+  * Considering test types, the test suite currently differs among unit tests, module
+  * tests and integration tests. For each test type there is a dedicated
+  * <code>configure.cmake</code> file.
   *
-  * - Module tests are specified within
-  *   <code>test/ModuleTests/configure.cmake</code>.
-  * - Unit tests are specified within <code>test/UnitTests/configure.cmake</code>.
+  * This is where the test cases are specified:
   *
-  * \subsection TestSuite_EnlistingTests Defining the test files
+  *   - Unit tests are specified within <code>test/UnitTests/configure.cmake</code>.
+  *   - Module tests are specified within
+  *     <code>test/ModuleTests/configure.cmake</code>.
+  *   - Integration tests are specified within
+  *     <code>test/IntegrationTests/configure.cmake</code>.
+  *
+  * \subsection TestSuite_EnlistingTests Defining the Test Files
   *
   * In order to add a new test, simply choose the proper test type and modify the
-  * corresponding <code>configure.cmake</code> file.
+  * corresponding `configure.cmake` file.
   *
-  *Each consists of the sections below.
+  * Each consists of the sections below.
   *
-  * - The variable <b>TESTS</b> lists the class names of all test classes. If your
-  *   class <code>MyClass</code> was tested by the test class named <code>MyClassTest
-  *   </code>, you would have <code>MyClassTest</code> listed here.
-  * - The variable <b>TESTS_QOBJECT_HEADERS</b> lists the header files where the test
-  *   classes are defined. QTestLib requires each test class to be derived from
-  *   <code>QObject</code>.
-  * - If you had any additional header files that do not contain the <code>Q_OBJECT
-  *   </code> macro, they needed to be listed within <b>TESTS_HEADERS</b>.
-  * - <b>APPEND TESTS_SOURCES</b> lists the test classes implementation files.
+  *   - The variable `TESTS` lists the class names of all test classes. If your class
+  *     `MyClass` was tested by the test class named `MyClassTest`, you would have
+  *     `MyClassTest` listed here.
+  *   - The variable `TESTS_QOBJECT_HEADERS` lists the header files where the test
+  *     classes are defined. QTestLib requires each test class to be derived from
+  *     `QObject`.
+  *   - If you had any additional header files that did not require the
+  *     `Q_OBJECT` macro, they needed to be listed within `TESTS_HEADERS`.
+  *   - `APPEND TESTS_SOURCES` lists the test classes implementation files.
   *
-  * \subsection TestSuite_MiscellaneousFiles Miscellaneous files
+  * \subsection TestSuite_MiscellaneousFiles Miscellaneous Files
   *
   * There are two ways of specifying the test suite's additional files that do not
   * define any test classes. If these files are only required by a certain test type,
-  * they should be enlisted within the <b>TESTS_QOBJECT_HEADERS</b> or
-  * <b>TESTS_HEADERS</b> variable of the corresponding <code> configure.cmake</code>
-  * file, depending on whether they do use the <code>Q_OBJECT</code> macro or not.
-  * The other option is to enlist them within the <code>test/CMakeLists.txt</code>
-  * file, beneath the same variables. This way they become available to each test
-  * type.
+  * they should be enlisted within the `TESTS_QOBJECT_HEADERS` or `TESTS_HEADERS`
+  * variable of the corresponding `configure.cmake` file, depending on whether they
+  * do use the `Q_OBJECT` macro or not. The other option is to enlist them within the
+  * `test/CMakeLists.txt` file, beneath the same variables. This way they become
+  * available to each test type.
   */
 namespace testing
 {
