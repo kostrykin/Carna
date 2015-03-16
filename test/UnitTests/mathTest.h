@@ -112,4 +112,9 @@ private slots:
       */
     void test_makeEven();
     
+    /** \brief
+      * Test cases for \ref Carna::base::math::CARNA_FOR_VECTOR3UI
+      */
+    void test_CARNA_FOR_VECTOR3UI();
+    
 }; // mathTest

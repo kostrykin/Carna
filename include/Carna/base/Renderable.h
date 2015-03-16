@@ -90,7 +90,7 @@ public:
 template< int order >
 bool Renderable::DepthOrder< order >::operator()( const Renderable& l, const Renderable& r ) const
 {
-    return order * ( math::translationDistanceSq( l.modelViewTransform() ) - math::translationDistanceSq( r.modelViewTransform() ) ) > 0;
+    return order * ( math::translationDistance2( l.modelViewTransform() ) - math::translationDistance2( r.modelViewTransform() ) ) > 0;
 }
 
 

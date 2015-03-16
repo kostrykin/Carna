@@ -30,6 +30,12 @@ namespace base
 // CameraControl
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Defines interface for intuitive \ref Camera control.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 16.3.15
+  */
 class CARNA_LIB CameraControl
 {
 
@@ -37,14 +43,32 @@ class CARNA_LIB CameraControl
 
 public:
     
+    /** \brief
+      * Does nothing.
+      */
     virtual ~CameraControl();
 
-    virtual void setCamera( Spatial& ) = 0;
+    /** \brief
+      * Sets the \a camera that this object should control.
+      */
+    virtual void setCamera( Spatial& camera ) = 0;
     
+    /** \brief
+      * Rotates the \ref setCamera "previously set camera" horizontally. The rotation
+      * axis depends on the implementation.
+      */
     virtual void rotateHorizontally( float radians ) = 0;
     
+    /** \brief
+      * Rotates the \ref setCamera "previously set camera" vertically. The rotation
+      * axis depends on the implementation.
+      */
     virtual void rotateVertically( float radians ) = 0;
     
+    /** \brief
+      * Moves the camera along its z-axis. The parameters of this movement depend on
+      * the implementation.
+      */
     virtual void moveAxially( float distance ) = 0;
 
 }; // CameraControl

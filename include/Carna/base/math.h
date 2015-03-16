@@ -15,6 +15,7 @@
 #include <Carna/Carna.h>
 #include <Carna/base/CarnaException.h>
 #include <algorithm>
+#include <type_traits>
 #include <cmath>
 #include <Eigen/Dense>
 
@@ -31,11 +32,11 @@
 #endif
 
 /** \file   math.h
-  * \brief  Defines \ref Carna::base::math.
+  * \brief  Defines \ref Carna::base::math namespace and \ref CARNA_FOR_VECTOR3UI.
   *
   * \attention
-  * If you include \c windows.h before including this file, make sure to have \c NOMINMAX
-  * defined before including the \c windows.h header file.
+  * If you include `windows.h` before including this file, make sure you have
+  * `NOMINMAX` defined before including the `windows.h` header file.
   */
 
 namespace Carna
@@ -44,10 +45,11 @@ namespace Carna
 namespace base
 {
 
-/** \brief  Provides set of math-related classes and functions.
+/** \brief
+  * Provides set of math-related classes and functions.
   *
-  * \date   26.1.14 - 26.2.15
   * \author Leonid Kostrykin
+  * \date   26.1.14 - 16.3.15
   */
 namespace math
 {
@@ -101,7 +103,8 @@ namespace math
     }
 
     /** \brief
-      * Defines the maximum difference of two single-precision floating point objects treated as equal.
+      * Defines the maximum difference of two single-precision floating point objects
+      * treated as equal.
       */
     template< >
     inline float epsilon< float >()
@@ -110,7 +113,8 @@ namespace math
     }
 
     /** \brief
-      * Defines the maximum difference of two double-precision floating point objects treated as equal.
+      * Defines the maximum difference of two double-precision floating point objects
+      * treated as equal.
       */
     template< >
     inline double epsilon< double >()
@@ -119,26 +123,25 @@ namespace math
     }
 
     /** \brief
-      * Retrieves element types of vectors and scalars. General case assumes a scalar type.
+      * Retrieves element types of vectors and scalars. General case assumes a scalar
+      * type.
       */
     template< typename T >
     struct element_type_of
     {
-
         /** \brief
           * Since \a T is assumed to be scalar type, it's element type is also \a T.
           */
         typedef T type;
-
     };
 
     /** \brief
-      * Retrieves element types of vectors and scalars. Specialization for \ref Vector class.
+      * Retrieves element types of vectors and scalars. This is the specialization
+      * for vector and matrix types.
       */
-    template< typename VectorElementType, int dimension >
-    struct element_type_of< Eigen::Matrix< VectorElementType, dimension, 1 > >
+    template< typename VectorElementType, int rows, int cols >
+    struct element_type_of< Eigen::Matrix< VectorElementType, rows, cols > >
     {
-    
         /** \brief
           * The vector element type is known implicitly for each vector type.
           */
@@ -146,11 +149,9 @@ namespace math
 
     };
 
-#pragma warning( push )
-#pragma warning( disable:4146 )
-
     /** \brief
-      * Retrieves the squared length of vector and scalar types. General case assumes scalar type.
+      * Retrieves the squared length of vector and scalar types. General case assumes
+      * scalar type.
       */
     template< typename T >
     T length2( const T& x )
@@ -158,10 +159,9 @@ namespace math
         return x * x;
     }
 
-#pragma warning( pop )
-
     /** \brief
-      * Retrieves the length of vector and scalar types. Specialization for \ref Vector class.
+      * Retrieves the squared length of vector and scalar types. This is the
+      * specialization for vector types.
       */
     template< typename VectorElementType, int dimension >
     VectorElementType length2( const Eigen::Matrix< VectorElementType, dimension, 1 >& x )
@@ -181,28 +181,38 @@ namespace math
         const ScalarType _epsilon  = epsilon< ScalarType >();
         return distance2 <= _epsilon;
     }
-
+    
+    /** \brief
+      * Tells whether two objects are equal. This is the specialization for `bool`
+      * types.
+      */
     template< >
     inline bool isEqual( const bool& x, const bool& y )
     {
         return x == y;
     }
 
-    typedef Eigen::Matrix< float, 4, 4, Eigen::ColMajor > Matrix4f;
-    typedef Eigen::Matrix< float, 4, 1 > Vector4f;
-    typedef Eigen::Matrix< float, 3, 1 > Vector3f;
-    typedef Eigen::Matrix< float, 2, 1 > Vector2f;
-    typedef Eigen::Matrix< signed int, 3, 1 > Vector3i;
-    typedef Eigen::Matrix< unsigned int, 3, 1 > Vector3ui;
-    typedef Eigen::Matrix< unsigned int, 2, 1 > Vector2ui;
+    typedef Eigen::Matrix< float, 4, 4, Eigen::ColMajor > Matrix4f; ///< Defines \f$\mathbb R^{4 \times 4}\f$ matrix.
+    typedef Eigen::Matrix< float, 4, 1 > Vector4f;                  ///< Defines \f$\mathbb R^{4 \times 1}\f$ vector.
+    typedef Eigen::Matrix< float, 3, 1 > Vector3f;                  ///< Defines \f$\mathbb R^{3 \times 1}\f$ vector.
+    typedef Eigen::Matrix< float, 2, 1 > Vector2f;                  ///< Defines \f$\mathbb R^{2 \times 1}\f$ vector.
+    typedef Eigen::Matrix< signed int, 3, 1 > Vector3i;             ///< Defines \f$\mathbb Z^{3 \times 1}\f$ vector.
+    typedef Eigen::Matrix< unsigned int, 3, 1 > Vector3ui;          ///< Defines \f$\mathbb Z^{3 \times 1}_{\geq 0}\f$ vector.
+    typedef Eigen::Matrix< unsigned int, 2, 1 > Vector2ui;          ///< Defines \f$\mathbb Z^{2 \times 1}_{\geq 0}\f$ vector.
 
+    /** \brief
+      * Returns \f$\mathbb R^{4 \times 4}\f$ identity matrix.
+      */
     inline Matrix4f identity4f()
     {
         Matrix4f result;
         result.setIdentity();
         return result;
     }
-
+    
+    /** \brief
+      * Returns \f$0_{4 \times 4}\f$ matrix.
+      */
     inline Matrix4f zeros4f()
     {
         Matrix4f result;
@@ -210,6 +220,15 @@ namespace math
         return result;
     }
 
+    /** \brief
+      * Creates \f$\mathbb R^{3 \times 3}\f$ basis embedded into a
+      * \f$\mathbb R^{4 \times 4}\f$ homogenous coordinates matrix.
+      *
+      * \param x the \a x basis vector
+      * \param y the \a y basis vector
+      * \param z the \a z basis vector
+      * \param t the translation component
+      */
     inline Matrix4f basis4f( const Vector4f& x, const Vector4f& y, const Vector4f& z, const Vector4f& t = Vector4f( 0, 0, 0, 0 ) )
     {
         Matrix4f result;
@@ -225,6 +244,8 @@ namespace math
         return result;
     }
 
+    /** \overload
+      */
     inline Matrix4f basis4f( const Vector3f& x, const Vector3f& y, const Vector3f& z, const Vector3f& t = Vector3f( 0, 0, 0 ) )
     {
         const Vector4f x4( x.x(), x.y(), x.z(), 0 );
@@ -234,6 +255,9 @@ namespace math
         return basis4f( x4, y4, z4, t4 );
     }
 
+    /** \brief
+      * Returns matrix that translates homogeneous coordinates.
+      */
     inline Matrix4f translation4f( float x, float y, float z )
     {
         Matrix4f result;
@@ -244,12 +268,17 @@ namespace math
         return result;
     }
 
+    /** \overload
+      */
     template< typename Vector >
     Matrix4f translation4f( const Vector& v )
     {
         return translation4f( v.x(), v.y(), v.z() );
     }
 
+    /** \brief
+      * Creates scaling matrix for homogeneous coordinates.
+      */
     inline Matrix4f scaling4f( float x, float y, float z )
     {
         Matrix4f result;
@@ -260,17 +289,26 @@ namespace math
         return result;
     }
 
+    /** \overload
+      */
     template< typename VectorElementType >
     inline Matrix4f scaling4f( const Eigen::Matrix< VectorElementType, 3, 1 >& v )
     {
         return scaling4f( v.x(), v.y(), v.z() );
     }
-
-    inline Matrix4f scaling4f( float uniform_scale_factor )
+    
+    /** \overload
+      */
+    inline Matrix4f scaling4f( float uniformScaleFactor )
     {
-        return scaling4f( uniform_scale_factor, uniform_scale_factor, uniform_scale_factor );
+        return scaling4f( uniformScaleFactor, uniformScaleFactor, uniformScaleFactor );
     }
 
+    /** \brief
+      * Creates rotation matrix for homogeneous coordinates. The rotation is
+      * performed around the axis that is specified by the vector with the components
+      * \a x, \a y and \a z.
+      */
     inline Matrix4f rotation4f( float x, float y, float z, float radians )
     {
         const float c = std::cos( radians );
@@ -294,12 +332,19 @@ namespace math
         return result;
     }
 
+    /** \overload
+      */
     template< typename Vector >
     Matrix4f rotation4f( const Vector& v, float radians )
     {
         return rotation4f( v.x(), v.y(), v.z(), radians );
     }
 
+    /** \brief
+      * Constructs \f$\mathbb R^3\f$ vector that is orthogonal to \a in. The result
+      * is undefined if the \ref length2 "squared length" of \a in
+      * \ref isEqual "equals" zero.
+      */
     inline Vector3f orthogonal3f( const Vector3f& in )
     {
         Vector3f out;
@@ -354,22 +399,40 @@ namespace math
         {
             out = Vector3f( -in.x(), in.y(), 0 );
         }
-        CARNA_ASSERT( std::abs( in.dot( out ) ) < 1e-4f );
+
+        /** Obviously the vector was too short. Check this. If it was not, than
+          * something went wrong.
+          */
+        CARNA_ASSERT( isEqual< float >( in.dot( out ), 0 ) );
         return out;
     }
 
+    /** \brief
+      * Creates \f$\mathbb R^4\f$ vector by taking only the first three components of
+      * \a v and appending \a w as its fourth component. This requires \a v to be a
+      * vector in \f$\mathbb R^3\f$ or higher.
+      */
     template< typename Vector3 >
     Vector4f vector4f( const Vector3& v, float w )
     {
         return Vector4f( v.x(), v.y(), v.z(), w );
     }
 
+    /** \brief
+      * Creates \f$\mathbb R^3\f$ vector by leaving out the fourth component of \a v.
+      * This requires \a v to be a vector in \f$\mathbb R^3\f$ or higher.
+      */
     template< typename Vector4 >
     Vector3f vector3f( const Vector4& v )
     {
         return Vector3f( v.x(), v.y(), v.z() );
     }
 
+    /** \brief
+      * Creates matrix that transforms from the tangent space of a plane with
+      * particular \a normal vector and origin \a distance to the space that
+      * \a normal and \a distance are given within.
+      */
     inline Matrix4f plane4f( const Vector3f& normal, float distance )
     {
         CARNA_ASSERT( isEqual< float >( normal.norm(), 1 ) );
@@ -382,6 +445,8 @@ namespace math
             , vector4f( normal * distance, 1 ) );
     }
 
+    /** \overload
+      */
     inline Matrix4f plane4f( const Vector3f& normal, const Vector3f& support )
     {
         CARNA_ASSERT( isEqual< float >( normal.norm(), 1 ) );
@@ -389,13 +454,20 @@ namespace math
         return plane4f( normal, distance );
     }
 
-    inline float translationDistanceSq( const Matrix4f& m )
+    /** \brief
+      * Returns the squared length of the translation component of the homogeneous
+      * coordinates transformation matrix \a m.
+      */
+    inline float translationDistance2( const Matrix4f& m )
     {
         return m( 1, 3 ) * m( 1, 3 ) + m( 2, 3 ) * m( 2, 3 ) + m( 3, 3 ) * m( 3, 3 );
     }
 
+    /** \brief
+      * Returns \f$\max_{i,j} \left|m_{i,j}\right|\f$ where $m$ is \a m.
+      */
     template< typename Matrix >
-    float maxAbsElement( const Matrix& m )
+    typename Matrix::Scalar maxAbsElement( const Matrix& m )
     {
         const std::size_t length = m.rows() * m.cols();
         typename Matrix::Scalar maxAbs = 0;
@@ -406,6 +478,20 @@ namespace math
         return maxAbs;
     }
 
+    /** \brief
+      * Returns the projection matrix that is described by the specified frustum.
+      *
+      * The frustum consists of six clipping planes. The near clipping plane is also
+      * the plane that the 3D scene is projected upon. The planes are specified as
+      * follows:
+      *
+      *   - \a left and \a right specify the horizontal coordinates where the left
+      *     and right frustum planes intersect the near clipping plane.
+      *   - \a top and \a bottom specify the vertical coordinates where the top and
+      *     bottom frustum planes intersect the near clipping plane.
+      *   - \a zNear and \a zFar specify the distance of the near and the far frustum
+      *     planes to the eye.
+      */
     inline Matrix4f frustum4f( float left, float right, float bottom, float top, float zNear, float zFar )
     {
         Matrix4f result;
@@ -422,6 +508,21 @@ namespace math
         return result;
     }
 
+    /** \overload
+      *
+      * \param fovRadiansHorizontal
+      *     Specifies the *half* angle between the left and the right frustum planes.
+      *
+      * \param heightOverWidth
+      *     Specifies the ratio \f$\frac{\text{height}}{\text{width}}\f$ for the
+      *     projection plane.
+      *
+      * \param zNear
+      *     Specifies the distance of the projection plane to the eye.
+      *
+      * \param zFar
+      *     Specifies the distance of the far clipping plane to the eye.
+      */
     inline Matrix4f frustum4f( float fovRadiansHorizontal, float heightOverWidth, float zNear, float zFar )
     {
         const float halfProjPlaneWidth  = zNear * std::tan( fovRadiansHorizontal );
@@ -429,13 +530,22 @@ namespace math
         return frustum4f( -halfProjPlaneWidth, +halfProjPlaneWidth, -halfProjPlaneHeight, +halfProjPlaneHeight, zNear, zFar );
     }
 
+    /** \brief
+      * Rounds \a x to the closest \f$x' \in \mathbb Z_{\geq 0}\f$. Either the
+      * data type of \f$x\f$ must be unsigned or $x \geq 0$.
+      */
     template< typename ScalarType >
     unsigned int round_ui( ScalarType x )
     {
-        CARNA_ASSERT( !std::numeric_limits< ScalarType >::is_signed || x > 0 );
+        CARNA_ASSERT( !std::numeric_limits< ScalarType >::is_signed || x >= 0 );
         return static_cast< unsigned int >( x + static_cast< ScalarType >( 0.5 ) );
     }
 
+    /** \brief
+      * Rounds matrix \a m to such \f$m'\f$ that every element in \f$m'\f$ is
+      * close-most to its corresponding element in \f$m\f$. Either the element data
+      * type of \f$m\f$ must be unsigned or \f$m_{i,j} \geq 0 \forall i,j\f$.
+      */
     template< typename MatrixElementType, int cols, int rows >
     Eigen::Matrix< unsigned int, cols, rows > round_ui( const Eigen::Matrix< MatrixElementType, cols, rows >& m )
     {
@@ -448,14 +558,25 @@ namespace math
         return result;
     }
 
+    /** \brief
+      * Returns \f$x\f$ if \f$x\f$ is even and \f$x + s\f$ if \f$x\f$ is odd, where
+      * \f$s \in \left\{-1, +1\right\}\f$. The data type of \f$x\f$ must be integral.
+      */
     template< typename ScalarType >
     ScalarType makeEven( ScalarType x, int s )
     {
         CARNA_ASSERT( s == +1 || s == -1 );
-        static_assert( std::numeric_limits< ScalarType >::is_integer, "Only integral data types allowed." );
+        static_assert( std::is_integral< ScalarType >::value, "Only integral data types allowed." );
         return x + s * ( x % 2 );
     }
 
+    /** \brief
+      * Returns matrix \f$m'\f$ of the same size like \f$m\f$ where
+      * \f$m'_{i,j} = m_{i,j}\f$ if \f$m_{i,j}\f$ is even and
+      * \f$m'_{i,j} = m_{i,j} + s\f$ if \f$m_{i,j}\f$ is odd, where
+      * \f$s \in \left\{-1, +1\right\}\f$. The element data type of
+      * \f$m\f$ must be integral.
+      */
     template< typename MatrixElementType, int cols, int rows >
     Eigen::Matrix< MatrixElementType, cols, rows > makeEven( const Eigen::Matrix< MatrixElementType, cols, rows >& m, int s )
     {
@@ -470,19 +591,25 @@ namespace math
 
 
 
-}  // namespace Carna :: base :: math
-
-}  // namespace Carna :: base
-
-}  // namespace Carna
-
-
-
+/** \brief
+  * Loops \a vecName over all \f$\vec x \in \mathbb Z^3_{\geq 0} : x_i < n_i \forall i\f$
+  * where \f$\vec n\f$ is \a vecLimit.
+  *
+  * Example: \snippet UnitTests/mathTest.cpp example_CARNA_FOR_VECTOR3UI
+  */
 #define CARNA_FOR_VECTOR3UI( vecName, vecLimit ) \
     Carna::base::math::Vector3ui vecName; \
     for( vecName.z() = 0; vecName.z() < vecLimit.z(); ++vecName.z() ) \
     for( vecName.y() = 0; vecName.y() < vecLimit.y(); ++vecName.y() ) \
     for( vecName.x() = 0; vecName.x() < vecLimit.x(); ++vecName.x() )
+
+
+
+}  // namespace Carna :: base :: math
+
+}  // namespace Carna :: base
+
+}  // namespace Carna
 
 
 

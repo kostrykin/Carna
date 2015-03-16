@@ -49,6 +49,9 @@ namespace Carna
     namespace base
     {
 
+        /** \brief
+          * Represents values in \f$\left[-1024, +3071\right]\f$.
+          */
         typedef signed short HUV;
     
         class  Application;
@@ -121,6 +124,10 @@ namespace Carna
         
     }
 
+    /** \brief
+      * Contains ready-to-use components that are assembled only using the
+      * \ref base "core" framework components.
+      */
     namespace presets
     {
 
@@ -138,6 +145,9 @@ namespace Carna
 
     }
 
+    /** \brief
+      * Contains components that simplify the handling of more complex interfaces.
+      */
     namespace helpers
     {
 
@@ -151,4 +161,3 @@ namespace Carna
 }  // namespace Carna
 
 #endif // CARNA_GLOBAL_H_6014714286
-

@@ -67,7 +67,7 @@ void mathTest::test_length2()
      */
     //static_assert( std::is_same< math::length2( math::Vector2f( 0, 0 ) ), float >::value, "Type mismatch." );
 
-	const float test = math::length2( math::Vector2f( 0, 0 ) );
+    const float test = math::length2( math::Vector2f( 0, 0 ) );
     QVERIFY ( math::isEqual< float >( math::length2( math::Vector2f( 0, 0 ) ), 0 ) );
     QVERIFY ( math::isEqual< float >( math::length2( math::Vector2f( 2, 2 ) ), 8 ) );
 }
@@ -231,3 +231,27 @@ void mathTest::test_makeEven()
 {
     QWARN( "not implemented yet" );
 }
+
+
+void mathTest::test_CARNA_FOR_VECTOR3UI()
+{
+    //! [example_CARNA_FOR_VECTOR3UI]
+    using namespace Carna::base;
+    UInt16HUVolume data( math::Vector3ui( 100, 100, 30 ) );
+  
+    /* Initialize all 'data' voxels with '-1024'.
+     */
+    const HUV expected = -1024;
+    CARNA_FOR_VECTOR3UI( p, data.size )
+    {
+        data.setVoxel( p, expected );
+    }
+  
+    /* Verify the result.
+     */
+    for( std::size_t i = 0; i < data.buffer().size(); ++i )
+    {
+        QCOMPARE( data.buffer()[ i ], UInt16HUVolume::HUVToBufferValue( expected ) );
+    }
+    //! [example_CARNA_FOR_VECTOR3UI]
+};
