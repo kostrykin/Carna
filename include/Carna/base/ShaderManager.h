@@ -43,7 +43,7 @@ class CARNA_LIB ShaderManager : public Singleton< ShaderManager >
 
 protected:
 
-    friend class Carna::base::Singleton< ShaderManager >;
+    friend class BaseSingleton;
 
     ShaderManager();
 

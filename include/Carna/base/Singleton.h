@@ -17,6 +17,7 @@
   */
 
 #include <Carna/base/CarnaException.h>
+#include <Carna/base/noncopyable.h>
 
 namespace Carna
 {
@@ -41,14 +42,11 @@ namespace base
   * \code
   * class Config : public Carna::base::Singleton< Config >
   * {
-  *
   * protected:
   *
-  *     friend class Carna::base::Singleton< Config >;
-  *
+  *     friend class BaseSingleton;
   *     Config();
-  *
-  * }; // Config
+  * };
   * \endcode
   *
   * If you do require a special implementation of the default constructor, than there
@@ -61,13 +59,22 @@ template< typename InstanceType >
 class Singleton
 {
 
+    NON_COPYABLE
+
+    /** \brief
+      * References the only instance from type \a InstanceType.
+      */
     static InstanceType* instancePtr;
 
 protected:
 
     /** \brief
-      * Default constructor is hidden.
-      * Denotes that the instance was created.
+      * Denotes the type of the instantiated class template.
+      */
+    typedef Singleton< InstanceType > BaseSingleton;
+
+    /** \brief
+      * Denotes that the instance was created. Default constructor is hidden.
       */
     Singleton()
     {
@@ -76,13 +83,8 @@ protected:
     }
 
     /** \brief
-      * Copy constructor is hidden.
+      * Deletes the only instance from class \a InstanceType.
       */
-    explicit Singleton( const InstanceType& )
-    {
-        CARNA_FAIL( "Singleton copy constructor may not be used." );
-    }
-
     static void reset()
     {
         if( instancePtr != nullptr )
@@ -92,6 +94,11 @@ protected:
     }
 
 public:
+
+    /** \brief
+      * Denotes the class, that is derived from this class template.
+      */
+    typedef InstanceType Instance;
 
     /** \brief
       * Denotes that the instance was deleted.

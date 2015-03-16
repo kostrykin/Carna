@@ -48,7 +48,7 @@ class CARNA_LIB Log : public Singleton< Log >
 
 protected:
 
-    friend class Carna::base::Singleton< Log >;
+    friend class BaseSingleton;
 
     Log();
 
