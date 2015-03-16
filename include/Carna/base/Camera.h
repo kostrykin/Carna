@@ -30,6 +30,12 @@ namespace base
 // Camera
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Represents the point-of-view and defines the 3D to 2D projection.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 16.3.15
+  */
 class CARNA_LIB Camera : public Spatial
 {
 
@@ -39,12 +45,26 @@ class CARNA_LIB Camera : public Spatial
 
 public:
 
+    /** \brief
+      * Sets the matrix that is to be used for mapping view space to clipping
+      * coordinates. Perspective projections can be obtained via \ref math::frustum.
+      */
     void setProjection( const math::Matrix4f& );
 
+    /** \brief
+      * References the projection matrix of this camera. The projection matrix maps
+      * from view space to clipping coordinates.
+      */
     const math::Matrix4f& projection() const;
 
+    /** \brief
+      * References the inverse \ref worldTransform matrix.
+      */
     const math::Matrix4f& viewTransform() const;
 
+    /** \brief
+      * Updates the \ref viewTransform matrix.
+      */
     virtual void updateWorldTransform() override;
 
 }; // Camera

@@ -47,7 +47,7 @@ namespace base
   *
   *   - `modelView` takes the model-view transform. This is the concatenation of the
   *     \ref Camera::viewTransform "view transform" and the
-  *     \ref Spatial::modelTransform "model transform". It maps from model space to
+  *     \ref Spatial::worldTransform "world transform". It maps from model space to
   *     view space.
   *   - `projection` takes the \ref Camera::projection "projection matrix" that maps
   *     from view space to clipping coordinates.
