@@ -31,6 +31,12 @@ namespace presets
 // PerspectiveControl
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Controls projection matrices that induce frustum-shaped visible volume.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 16.3.15
+  */
 class CARNA_LIB PerspectiveControl : public base::ProjectionControl
 {
 
@@ -41,16 +47,34 @@ class CARNA_LIB PerspectiveControl : public base::ProjectionControl
 
 public:
 
+    /** \brief
+      * Holds the default *half* angle betwen the left and the right frustum planes.
+      */
     const static float DEFAULT_FOV_HORIZONTAL;
 
+    /** \brief
+      * Instantiates.
+      */
     PerspectiveControl();
     
+    /** \brief
+      * Deletes.
+      */
     virtual ~PerspectiveControl();
     
-    virtual void updateProjection( base::math::Matrix4f& ) const override;
+    /** \brief
+      * Creates \a perspectiveProjection matrix using \ref base::math::frustum4f.
+      */
+    virtual void updateProjection( base::math::Matrix4f& perspectiveProjection ) const override;
     
+    /** \brief
+      * Sets the *half* angle between the left and the right frustum planes.
+      */
     void setFovHorizontal( float radians );
     
+    /** \brief
+      * Tells the *half* angle between the left and the right frustum planes.
+      */
     float fovHorizontal() const;
 
 }; // PerspectiveControl

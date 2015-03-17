@@ -10,6 +10,7 @@
  */
 
 #include <Carna/base/ProjectionControl.h>
+#include <Carna/base/CarnaException.h>
 
 namespace Carna
 {
@@ -64,12 +65,14 @@ ProjectionControl::~ProjectionControl()
 
 void ProjectionControl::setViewportWidth( unsigned int width )
 {
+    CARNA_ASSERT( width > 0 );
     pimpl->viewportWidth = width;
 }
 
 
 void ProjectionControl::setViewportHeight( unsigned int height )
 {
+    CARNA_ASSERT( height > 0 );
     pimpl->viewportHeight = height;
 }
 
@@ -88,12 +91,14 @@ unsigned int ProjectionControl::viewportHeight() const
 
 void ProjectionControl::setMinimumVisibileDistance( float minimumVisibleDistance )
 {
+    CARNA_ASSERT( minimumVisibleDistance > 0 );
     pimpl->minimumVisibleDistance = minimumVisibleDistance;
 }
 
 
 void ProjectionControl::setMaximumVisibileDistance( float maximumVisibleDistance )
 {
+    CARNA_ASSERT( maximumVisibleDistance > 0 );
     pimpl->maximumVisibleDistance = maximumVisibleDistance;
 }
 
