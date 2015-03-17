@@ -25,7 +25,7 @@ namespace presets
 // ----------------------------------------------------------------------------------
 
 TransparentRenderingStage::TransparentRenderingStage( unsigned int geometryType )
-    : MeshRenderingStage< base::Renderable::DepthOrder< base::Renderable::ORDER_BACK_TO_FRONT > >::MeshRenderingStage( geometryType )
+    : MeshRenderingStage< base::Renderable::BackToFront >::MeshRenderingStage( geometryType )
 {
 }
 
@@ -43,8 +43,7 @@ void TransparentRenderingStage::renderPass
 
     /* Do the rendering.
      */
-    base::MeshRenderingStage< base::Renderable::DepthOrder< base::Renderable::ORDER_BACK_TO_FRONT > >
-        ::renderPass( viewTransform, rt, vp );
+    base::MeshRenderingStage< base::Renderable::BackToFront >::renderPass( viewTransform, rt, vp );
 }
 
 

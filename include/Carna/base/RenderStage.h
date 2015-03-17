@@ -37,7 +37,7 @@ namespace base
   * \ref RenderingProcess "rendering process".
   *
   * \author Leonid Kostrykin
-  * \date   21.2.15 - 6.3.15
+  * \date   21.2.15 - 17.3.15
   */
 class CARNA_LIB RenderStage
 {
@@ -53,7 +53,8 @@ public:
     virtual ~RenderStage();
     
     /** \brief
-      * Sets whether the view transform is pass-invariant for the duration of a single frame.
+      * Sets whether the view transform is pass-invariant for the duration of a
+      * single frame.
       *
       * \note
       * This method is for internal usage only.
@@ -61,21 +62,24 @@ public:
     void setViewTransformFixed( bool viewTransformFixed );
     
     /** \brief
-      * Tells whether the view transform is pass-invariant for the duration of a single frame.
+      * Tells whether the view transform is pass-invariant for the duration of a
+      * single frame.
       */
     bool isViewTransformFixed() const;
     
     /** \brief
-      * Orders this scene processor to reshape it's buffers according to the specified dimensions.
+      * Orders this stage to reshape its buffers according to the specified
+      * dimensions.
       */
     virtual void reshape( const FrameRenderer& fr, const Viewport& vp ) = 0;
     
     /** \brief
-      * Tells whether this scene processor is ready for rendering.
+      * Tells whether this stage is ready for rendering.
       *
-      * In particular this method returns \c true if this scene processor only requires
-      * \ref reshape to be called if the dimensions actually have changed. In contrary, i.e.
-      * if this method returns \c false, \ref reshape will be called before every frame.
+      * In particular, this method returns `true` if this rendering stage only
+      * requires \ref reshape to be called, if the dimensions actually have changed.
+      * In contrary, i.e. if this method returns `false`, \ref reshape will be called
+      * before every frame.
       */
     virtual bool isInitialized() const = 0;
     
@@ -87,13 +91,12 @@ public:
     /** \brief
       * Called once per pass.
       *
-      * If this scene processor requires a \ref RenderQueue "render queue",
-      * than this is the right place to \ref RenderQueue::build "build" it.
-      * Note that the queue needs to be rebuilt only once per \em frame and
-      * not per \em pass, unless \ref isViewTransformFixed is \c false. If
-      * it is \c true and this is not the first invocation of this method
-      * since the last time \ref prepareFrame was called,
-      * \ref RenderQueue::rewind "rewinding" the queue will be sufficient.
+      * If this rendering stage maintains one or more \ref RenderQueue objects, than
+      * this is the right place to \ref RenderQueue::build "build" them. Note that
+      * the queues need to be rebuilt only *once per frame* and not *per pass*,
+      * unless \ref isViewTransformFixed is `false`. If it is `true` and this is not
+      * the first invocation of this method since the last time \ref prepareFrame was
+      * called, \ref RenderQueue::rewind "rewinding" the queue will be sufficient.
       */
     virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) = 0;
 

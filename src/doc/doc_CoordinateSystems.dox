@@ -98,7 +98,7 @@ namespace Carna
   *   - \f$n, f\f$ are the *left-handed* view-space z-coordinates of the far and near
   *     clipping planes, respectively.
   *
-  * The term *clipping* refers to the testing whether a coordinate vector
+  * The term *frustum culling* refers to the testing whether a coordinate vector
   * \f$\vec p_C = \left(x_C, y_C, z_C, w_C\right)\f$ lies within the view frustum or
   * not. The tested condition is the following:
   *

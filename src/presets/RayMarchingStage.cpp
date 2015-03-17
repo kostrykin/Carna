@@ -179,8 +179,7 @@ void RayMarchingStage::VideoResources::renderSlice
 // ----------------------------------------------------------------------------------
 
 RayMarchingStage::RayMarchingStage( unsigned int geometryType )
-    : base::GeometryStage< base::Renderable::DepthOrder< base::Renderable::ORDER_BACK_TO_FRONT > >
-        ::GeometryStage( geometryType )
+    : base::GeometryStage< base::Renderable::BackToFront >::GeometryStage( geometryType )
     , pimpl( new Details() )
 {
 }
@@ -282,7 +281,7 @@ void RayMarchingStage::renderPass
     
     /* Do the rendering.
      */
-    base::GeometryStage< base::Renderable::DepthOrder< base::Renderable::ORDER_BACK_TO_FRONT > >::renderPass( vt, rt, vp );
+    base::GeometryStage< base::Renderable::BackToFront >::renderPass( vt, rt, vp );
 
     /* There is no guarantee that 'renderTask' will be valid later.
      */

@@ -34,6 +34,8 @@ namespace base
 
 /** \brief
   * Represents a \ref Geometry object that has been queued into a \ref RenderQueue.
+  * The object's \ref ViewSpace "model-view transform" has been computed in
+  * particular.
   *
   * Instances of this class are copyable and assignable.
   *
@@ -49,28 +51,55 @@ class CARNA_LIB Renderable
 
 public:
 
+    /** \brief
+      * Associates \a geometry with \a modelViewTransform.
+      */
     Renderable( const Geometry& geometry, const math::Matrix4f& modelViewTransform );
 
+    /** \brief
+      * Copies from \a other.
+      */
     Renderable( const Renderable& other );
 
+    /** \brief
+      * References the \ref SceneGraph_SpecialSpatialClasses "geometry node".
+      */
     const Geometry& geometry() const;
 
+    /** \brief
+      * References the \ref ViewSpace "model-view transform".
+      */
     const math::Matrix4f& modelViewTransform() const;
 
-    Renderable& operator=( const Renderable& );
-
-    const static int ORDER_BACK_TO_FRONT = +1;
-
-    const static int ORDER_FRONT_TO_BACK = -1;
+    /** \brief
+      * Assigns from \a other.
+      */
+    Renderable& operator=( const Renderable& other );
 
     /** \brief
-      * Establishes partial order for renderables w.r.t. to their depth in eye space.
+      * Defines partial order for renderables w.r.t. to their depth in eye space.
+      *
+      * \param order
+      *     establishes order back-to-front for positive \a order and front-to-back
+      *     for negative \a order.
       */
     template< int order >
     struct DepthOrder
     {
         bool operator()( const Renderable& l, const Renderable& r ) const;
     };
+
+    /** \brief
+      * Defines partial order for renderables w.r.t. to their depth in eye space s.t.
+      * distant renderables come before closer renderables.
+      */
+    typedef DepthOrder< +1 > BackToFront;
+    
+    /** \brief
+      * Defines partial order for renderables w.r.t. to their depth in eye space s.t.
+      * closer renderables come before distant renderables.
+      */
+    typedef DepthOrder< -1 > FrontToBack;
 
     /** \brief
       * Establishes partial order for renderables s.t. geometries with such

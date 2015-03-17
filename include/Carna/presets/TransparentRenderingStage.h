@@ -30,8 +30,7 @@ namespace presets
 // TransparentRenderingStage
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB TransparentRenderingStage
-    : public base::MeshRenderingStage< base::Renderable::DepthOrder< base::Renderable::ORDER_BACK_TO_FRONT > >
+class CARNA_LIB TransparentRenderingStage : public base::MeshRenderingStage< base::Renderable::BackToFront >
 {
 
 public:

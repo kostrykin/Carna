@@ -13,6 +13,7 @@
 #define RAYMARCHINGSTAGE_H_6014714286
 
 #include <Carna/base/GeometryStage.h>
+#include <Carna/base/Renderable.h>
 #include <Carna/Carna.h>
 #include <map>
 
@@ -32,8 +33,7 @@ namespace presets
 // RayMarchingStage
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB RayMarchingStage
-    : public base::GeometryStage< base::Renderable::DepthOrder< base::Renderable::ORDER_BACK_TO_FRONT > >
+class CARNA_LIB RayMarchingStage : public base::GeometryStage< base::Renderable::BackToFront >
 {
 
     struct Details;

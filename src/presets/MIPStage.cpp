@@ -134,7 +134,7 @@ const MIPChannel& MIPStage::channel( std::size_t channelIndex ) const
 
 void MIPStage::reshape( const base::FrameRenderer& fr, const base::Viewport& vp )
 {
-    base::GeometryStage< base::Renderable::DepthOrder< base::Renderable::ORDER_BACK_TO_FRONT > >::reshape( fr, vp );
+    base::GeometryStage< base::Renderable::BackToFront >::reshape( fr, vp );
     pimpl->channelColorBuffer.reset( new base::RenderTexture( vp.width, vp.height ) );
     pimpl->channelFrameBuffer.reset( new base::Framebuffer( *pimpl->channelColorBuffer ) );
 }

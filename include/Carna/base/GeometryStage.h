@@ -41,8 +41,11 @@ namespace base
   *
   * \param RenderableCompare
   * Defines partial order of \ref Renderable "renderables" that is applied to the
-  * \ref rq "default rendering queue" of this stage. Set this to \c void if no
+  * \ref rq "predefined rendering queue" of this stage. Set this to \c void if no
   * particular order is required.
+  *
+  * Override \ref updateRenderQueues and \ref rewindRenderQueues if you require
+  * further rendering queues.
   *
   * \see
   * Refer to the documentation of the \ref RenderingProcess "rendering process" for
@@ -64,10 +67,18 @@ class GeometryStage : public RenderStage
 
 protected:
 
+    /** \brief
+      * Holds the predefined rendering queue of this rendering stage.
+      */
     RenderQueue< RenderableCompare > rq;
 
 public:
 
+    /** \brief
+      * Instantiates s.t. the \ref rq "predefined rendering queue" enqueues such
+      * \ref Geometry scene graph nodes whose geometry type *AND*-linked with
+      * \a geometryTypeMask equals the \a geometryType specified here.
+      */
     GeometryStage
         ( unsigned int geometryType
         , unsigned int geometryTypeMask = RenderQueue< RenderableCompare >::EXACT_MATCH_GEOMETRY_TYPE_MASK );
@@ -76,31 +87,73 @@ public:
       * Releases acquired video resources.
       */
     virtual ~GeometryStage();
-    
+
     virtual void reshape( const FrameRenderer& fr, const Viewport& vp ) override;
-    
+
     virtual bool isInitialized() const override;
 
     virtual void prepareFrame( Node& root ) override;
-    
+
     virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) override;
 
+    /** \brief
+      * Tells the number of \ref renderPass "passes rendered so far" since the
+      * \ref prepareFrame "beginning of the current frame".
+      */
     std::size_t renderedPassesCount() const;
     
+    /** \brief
+      * Interfaces the \a geometryFeature video resources that were acquired by
+      * this rendering stage.
+      */
     template< typename GeometryFeatureType >
-    typename GeometryFeatureType::VideoResourceAcquisition& videoResource( GeometryFeatureType& ) const;
+    typename GeometryFeatureType::VideoResourceAcquisition& videoResource( GeometryFeatureType& geometryFeature ) const;
     
+    /** \overload
+      */
     template< typename GeometryFeatureType >
-    const typename GeometryFeatureType::VideoResourceAcquisition& videoResource( const GeometryFeatureType& ) const;
+    const typename GeometryFeatureType::VideoResourceAcquisition& videoResource( const GeometryFeatureType& geometryFeature ) const;
 
 protected:
 
+    /** \brief
+      * Ensures that the \ref GLContext "OpenGL context" of the hosting
+      * \ref FrameRenderer is the current one.
+      */
     void activateGLContext() const;
 
+    /** \brief
+      * Builds or rewinds the rendering queues of this stage, depending on the
+      * arguments.
+      *
+      * \param root
+      *     is the root node of the scene that objects should be gathered from.
+      *
+      * \param viewTransform
+      *     is the \ref ViewSpace "view matrix" that is to be used to compute the
+      *     model-view transforms.
+      *
+      * \param viewTransformTriggered
+      *     is `true` if this invocation was triggered by an altered
+      *     \a viewTransform.
+      *
+      * \note
+      * If \a viewTransformTriggered is `true` and the renderables order of your
+      * rendering queue is \a viewTransform invariant, i.e. it is *not* a
+      * \ref Renderable::DepthOrder in particular, than it is safe to just
+      * \ref RenderQueue::rewind "rewind" the queue instead of
+      * \ref RenderQueue::build "rebuilding" it.
+      */
     virtual void updateRenderQueues( Node& root, const math::Matrix4f& viewTransform, bool viewTransformTriggered );
 
+    /** \brief
+      * Rewinds the rendering queues of this stage.
+      */
     virtual void rewindRenderQueues();
 
+    /** \brief
+      * Renders the \a renderable.
+      */
     virtual void render( const Renderable& renderable ) = 0;
 
 }; // GeometryStage
@@ -158,7 +211,14 @@ std::size_t GeometryStage< RenderableCompare >::renderedPassesCount() const
 template< typename RenderableCompare >
 void GeometryStage< RenderableCompare >::updateRenderQueues( Node& root, const math::Matrix4f& vt, bool vtTriggered )
 {
-    rq.build( root, vt );
+    if( !vtTriggered )
+    {
+        rq.build( root, vt );
+    }
+    else
+    {
+        rq.rewind();
+    }
 }
 
 
