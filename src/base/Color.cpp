@@ -45,6 +45,14 @@ Color::Color( unsigned char r, unsigned char g, unsigned char b, unsigned char a
 }
 
 
+Color::Color( const math::Vector4f& fp )
+    : r( static_cast< unsigned char >( math::round_ui( math::clamp( fp.x(), 0, 1 ) / 255 ) ) )
+    , g( static_cast< unsigned char >( math::round_ui( math::clamp( fp.y(), 0, 1 ) / 255 ) ) )
+    , b( static_cast< unsigned char >( math::round_ui( math::clamp( fp.z(), 0, 1 ) / 255 ) ) )
+{
+}
+
+
 Color::operator math::Vector4f() const
 {
     return math::Vector4f( r / 255.f, g / 255.f, b / 255.f, a / 255.f );

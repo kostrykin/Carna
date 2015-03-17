@@ -14,6 +14,7 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/noncopyable.h>
+#include <Carna/base/math.h>
 
 /** \file   Color.h
   * \brief  Defines \ref Carna::base::Color.
@@ -31,31 +32,53 @@ namespace base
 // Color
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Represents a color. Objects from this class are copyable and assignable.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 17.3.15
+  */
 class CARNA_LIB Color
 {
 
 public:
 
-    const static Color WHITE;
-    const static Color WHITE_NO_ALPHA;
-    const static Color BLACK;
-    const static Color BLACK_NO_ALPHA;
-    const static Color RED;
-    const static Color RED_NO_ALPHA;
-    const static Color GREEN;
-    const static Color GREEN_NO_ALPHA;
-    const static Color BLUE;
-    const static Color BLUE_NO_ALPHA;
+    const static Color WHITE;           ///< Holds `Color(255, 255, 255, 255)`.
+    const static Color WHITE_NO_ALPHA;  ///< Holds `Color(255, 255, 255, 0)`.
+    const static Color BLACK;           ///< Holds `Color(0, 0, 0, 255)`.
+    const static Color BLACK_NO_ALPHA;  ///< Holds `Color(0, 0, 0, 0)`.
+    const static Color RED;             ///< Holds `Color(255, 0, 0, 255)`.
+    const static Color RED_NO_ALPHA;    ///< Holds `Color(255, 0, 0, 0)`.
+    const static Color GREEN;           ///< Holds `Color(0, 255, 0, 255)`.
+    const static Color GREEN_NO_ALPHA;  ///< Holds `Color(0, 255, 0, 0)`.
+    const static Color BLUE;            ///< Holds `Color(0, 0, 255, 255)`.
+    const static Color BLUE_NO_ALPHA;   ///< Holds `Color(0, 0, 255, 0)`.
 
+    /** \brief
+      * Instantiates from floating point values, clamped to interval
+      * \f$\left[0, 1\right]\f$.
+      */
+    Color( const math::Vector4f& );
+
+    /** \brief
+      * Instantiates.
+      */
     Color( unsigned char r, unsigned char g, unsigned char b, unsigned char a );
 
-    unsigned char r;
-    unsigned char g;
-    unsigned char b;
-    unsigned char a;
+    unsigned char r;    ///< Holds the   red component.
+    unsigned char g;    ///< Holds the green component.
+    unsigned char b;    ///< Holds the  blue component.
+    unsigned char a;    ///< Holds the alpha component.
 
+    /** \brief
+      * Converts to floating point representation with values in interval
+      * \f$\left[0, 1\right]\f$.
+      */
     operator math::Vector4f() const;
 
+    /** \brief
+      * Assigns values from \a other.
+      */
     bool operator==( const Color& other ) const;
 
 }; // Color
