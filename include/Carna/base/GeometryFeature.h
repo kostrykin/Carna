@@ -32,7 +32,8 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Represents \em "components" that are aggregated by \ref Geometry instances.
+  * Represents \em "components" that are aggregated by \ref Geometry objects.
+  * Closer description is given \ref GeometryFeatures "here".
   *
   * \author Leonid Kostrykin
   * \date   1.3.15 - 13.3.15
@@ -52,15 +53,28 @@ class CARNA_LIB GeometryFeature
 
 protected:
 
+    /** \brief
+      * Instantiates.
+      */
     GeometryFeature();
 
+    /** \brief
+      * Deletes.
+      */
     virtual ~GeometryFeature();
 
 public:
 
+    /** \brief
+      * Tells current number of
+      * \ref VideoResourceAcquisition "video resource acquisitions".
+      */
     unsigned int videoResourceAcquisitionsCount() const;
 
-    virtual bool controlsSameVideoResource( const GeometryFeature& ) const = 0;
+    /** \brief
+      * Tells whether this instance maintains the same video resources like \a other.
+      */
+    virtual bool controlsSameVideoResource( const GeometryFeature& other ) const = 0;
 
     /** \brief
       * Denotes that this object is no longer required and may be deleted as soon as
@@ -70,7 +84,7 @@ public:
       * also be immediately:
       *
       * - The video resources are not loaded, i.e. the last acquisition was released.
-      * - This aggregate is no longer referenced by a scene graph.
+      * - This feature is no longer referenced by a scene graph.
       */
     void release();
 
@@ -82,14 +96,14 @@ public:
     static void checkLeakedInstances();
 
     /** \brief
-      * Puts this geometry aggregate on the \a sceneGraphNode.
+      * Puts this geometry feature on the \a sceneGraphNode.
       *
       * This is equivalent to \ref Geometry::setDefinition.
       */
     void addTo( Geometry& sceneGraphNode, unsigned int role );
 
     /** \brief
-    * Removes this geometry aggregate from the \a sceneGraphNode.
+    * Removes this geometry feature from the \a sceneGraphNode.
     *
     * This is equivalent to \ref Geometry::removeDefinition.
       */
@@ -99,6 +113,10 @@ public:
     // GeometryFeature :: VideoResourceAcquisition
     // ------------------------------------------------------------------------------
 
+    /** \brief
+      * Represents an acquisition of video resources from a particular
+      * \ref GeometryFeature. This realizes the RAII idiom.
+      */
     class CARNA_LIB VideoResourceAcquisition
     {
     
@@ -106,16 +124,39 @@ public:
         
     protected:
     
-        explicit VideoResourceAcquisition( GeometryFeature& gf );
+        /** \brief
+          * Acquires the video resources from \a geometryFeature.
+          *
+          * The instantiated \ref VideoResourceAcquisition object is only valid
+          * within the \ref GLContext "current OpenGL context". Delete the object in
+          * order to release the acquired resources. Usually the resources are
+          * uploaded to video memory, when they are first acquired, and deleted from
+          * video memory, when the last acquisition is released. This depends on
+          * whether the resources are \ref GLContext "sharable" across OpenGL
+          * contexts.
+          */
+        explicit VideoResourceAcquisition( GeometryFeature& geometryFeature );
         
     public:
     
+        /** \brief
+          * Releases the video resources previously acquired from
+          * \ref geometryFeature.
+          */
         virtual ~VideoResourceAcquisition();
         
+        /** \brief
+          * References the `%GeometryFeature` that video resources are acquired from.
+          */
         GeometryFeature& geometryFeature;
         
     }; // GeometryFeature :: VideoResourceAcquisition
     
+    /** \brief
+      * Acquires the video resources from this `%GeometryFeature` by returning new
+      * instance of a class derived from \ref VideoResourceAcquisition, that realizes
+      * the RAII idiom. Refer to its documentation for details.
+      */
     virtual VideoResourceAcquisition* acquireVideoResource() = 0;
 
 }; // GeometryFeature

@@ -30,7 +30,8 @@ namespace base
 // Aggregation
 // ----------------------------------------------------------------------------------
 
-/** \brief  Represents an aggregation.
+/** \brief
+  * Represents an aggregation, i.e. a weak reference.
   *
   * \author Leonid Kostrykin
   * \date   26.10.11 - 4.3.15
@@ -46,21 +47,30 @@ class Aggregation : public Association< AssociatedObjectType >
 
 public:
 
+    /** \brief
+      * Holds instance of this class template that behaves like a `nullptr` pointer.
+      */
     const static Aggregation< AssociatedObjectType > NULL_PTR;
 
+    /** \brief
+      * Creates instance of this class template that behaves like a `nullptr`
+      * pointer. For internal use only. Use \ref NULL_PTR instead.
+      */
     static Aggregation< AssociatedObjectType > createNullPtr()
     {
         return Aggregation< AssociatedObjectType >();
     }
 
-    /** \brief  Instantiates.
+    /** \brief
+      * Instantiates.
       */
     explicit Aggregation( AssociatedObjectType& associatedObject )
         : Association< AssociatedObjectType >( &associatedObject )
     {
     }
 
-    /** \brief  Instantiates.
+    /** \brief
+      * Copies reference from \a other.
       */
     Aggregation( const Aggregation< AssociatedObjectType >& other )
         : Association< AssociatedObjectType >( other.get() )

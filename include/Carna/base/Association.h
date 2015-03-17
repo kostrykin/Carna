@@ -31,15 +31,14 @@ namespace base
 // Association
 // ----------------------------------------------------------------------------------
 
-/** \brief  Represents an association.
+/** \brief
+  * Represents an association.
   *
   * By using this class it is possible to let the user of some software module decide
   * whether he wants to pass the ownership of some object to that module or not.
   *
-  * \see    Take a look at the \ref Carna::base::Scene::Scene "Scene constructor"
-  *         for an example.
   * \author Leonid Kostrykin
-  * \date   26.10.11 - 4.10.11
+  * \date   26.10.11 - 17.3.15
   */
 template< typename AssociatedObjectType >
 class Association
@@ -49,40 +48,49 @@ class Association
 
 public:
 
-    /** \brief  Does nothing.
+    /** \brief
+      * Does nothing.
       */
     virtual ~Association()
     {
     }
 
-    /** \brief  Returns a raw pointer to the referenced object.
+    /** \brief
+      * Returns raw pointer to the referenced object.
       */
     AssociatedObjectType* get() const
     {
         return associatedObject;
     }
 
-    /** \brief  Returns a raw pointer to the referenced object.
+    /** \overload
       */
     AssociatedObjectType* operator->() const
     {
         return this->get();
     }
 
+    /** \brief
+      * Returns raw reference to the referenced object.
+      */
     AssociatedObjectType& operator*() const
     {
         return *this->get();
     }
     
+    /** \brief
+      * Tells whether any object is referenced by this association.
+      */
     operator bool() const
     {
         return this->get() != nullptr;
     }
 
-    /** \brief	Makes this association forget it's referenced object.
+    /** \brief
+      * Makes this association forget it's referenced object.
       *
-      * Using this method it is possible to bypass the default behavior of the association
-      * when it is released.
+      * Using this method it is possible to bypass the default behavior of the
+      * association when it is released.
       */
     void forget()
     {
@@ -91,9 +99,10 @@ public:
 
 protected:
 
-    /** \brief  Instantiates.
+    /** \brief
+      * Instantiates.
       */
-    explicit Association( AssociatedObjectType* associatedObject = 0 )
+    explicit Association( AssociatedObjectType* associatedObject = nullptr )
         : associatedObject( associatedObject )
     {
     }

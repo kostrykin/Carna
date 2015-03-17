@@ -30,21 +30,23 @@ namespace base
 // Composition
 // ----------------------------------------------------------------------------------
 
-/** \brief  Represents a composition.
+/** \brief
+  * Represents a composition, i.e. a strong reference. This basically is a
+  * `std::unique_ptr` that supports the \ref Association interface.
   *
-  * If an object A \em composes an object B, it means that the lifetime of object B
-  * cannot exceed the lifetime of object A: Therefor, object B is \em part \em of object A.
-  * One and the same object cannot be part of more than one object at the same time.
+  * If an object `B` is a *component* of an object `A`, it means that the lifetime of
+  * `B` is bounded to the lifetime of `A`: Therefore, `B` is a *part* of object `A`.
+  * The same object cannot be part of more than one object at the same time.
   *
   * \see
-  * In opposite to that, one and the same object may be \ref Aggregation "aggregated"
-  * by any number of other objects at the same time.
+  * In opposite to this, the same object may be \ref Aggregation "aggregated" by any
+  * number of other objects at the same time.
   *
-  * Saying that object B is part of object A implies that object A has the ownership
-  * over object B and is therefor responsible of deleting it at some moment.
+  * Saying that object `B` is part of object `A` implies that object A possesses `B`
+  * and is therefore responsible of deleting it at some time.
   *
   * \author Leonid Kostrykin
-  * \date   26.10.11 - 4.10.11
+  * \date   26.10.11 - 17.3.15
   */
 template< typename AssociatedObjectType >
 class Composition : public Association< AssociatedObjectType >
@@ -52,7 +54,8 @@ class Composition : public Association< AssociatedObjectType >
 
 public:
 
-    /** \brief  Instantiates.
+    /** \brief
+      * Instantiates.
       */
     explicit Composition( AssociatedObjectType* associatedObject )
         : Association< AssociatedObjectType >( associatedObject )
@@ -60,7 +63,8 @@ public:
     }
 
 
-    /** \brief  Releases the associated object if any.
+    /** \brief
+      * Deletes the associated object, if there is one.
       */
     virtual ~Composition()
     {

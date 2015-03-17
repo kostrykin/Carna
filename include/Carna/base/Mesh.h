@@ -41,7 +41,7 @@ namespace base
   * The class maintains one \ref VertexBuffer and one \ref IndexBuffer on an
   * application level. The buffers are created the first time the
   * \ref MeshBase::VideoResourceAcquisition "mesh's video resources" are acquired.
-  * The buffers are deleted when the last acqusition is released. The buffer
+  * The buffers are deleted when the last acquisition is released. The buffer
   * instances are available across all \ref GLContext "OpenGL contexts".
   *
   * The class also maintains one so-called OpenGL vertex array, which, contrary to
@@ -82,20 +82,39 @@ protected:
 
     friend class GeometryFeature;
 
+    /** \brief
+      * Instantiates.
+      */
     MeshBase( unsigned int primitiveType, const VertexAttributes& va );
 
+    /** \brief
+      * Deletes.
+      */
     virtual ~MeshBase();
     
+    /** \brief
+      * Creates OpenGL vertex buffer object and fills it with data.
+      */
     virtual VertexBufferBase* loadVertexBuffer() = 0;
     
+    /** \brief
+      * Creates OpenGL index buffer object and fills it with data.
+      */
     virtual IndexBufferBase* loadIndexBuffer() = 0;
 
 public:
 
     virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
     
+    /** \brief
+      * Holds the primitive type, like `GL_TRIANGLES`, that should be used when
+      * rendering this mesh.
+      */
     const unsigned int primitiveType;
     
+    /** \brief
+      * Holds the vertex format of the vertices contained by the vertex buffer.
+      */
     const VertexAttributes vertexAttributes;
 
     // ------------------------------------------------------------------------------

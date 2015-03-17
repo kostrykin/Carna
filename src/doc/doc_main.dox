@@ -134,6 +134,8 @@ namespace Carna
   * across the scene, or even across many scenes. Rendering stages identify features
   * through the \em roles they take when associated with a `%Geometry` object.
   *
+  * The geometry features API is documented \ref base::GeometryFeature "here".
+  *
   * \subsubsection GeometryFeatureLifecycle The Lifecycle of Geometry Features
   *
   * Because of their shared-use nature, the lifecycle of geometry features is very
