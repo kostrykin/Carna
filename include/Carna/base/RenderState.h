@@ -96,12 +96,21 @@ protected:
 
     friend class GLContext;
 
-    static RenderState* createDefaultRenderState( GLContext& );
+    /** \brief
+      * Creates the root instance of \a glContext. For internal usage only.
+      */
+    static RenderState* createDefaultRenderState( GLContext& glContext );
 
+    /** \brief
+      * Commits the full state. For internal usage only.
+      */
     void commit() const;
 
 public:
 
+    /** \brief
+      * Lists supported face culling modes.
+      */
     enum CullFace
     {
 
@@ -111,35 +120,66 @@ public:
         cullNone,
         
         /** \brief
-          * Polygons recognized as back-faces will fail the cull test.
+          * Polygons recognized as back-faces will be discarded.
           */
         cullBack,
         
         /** \brief
-          * Polygons recognized as front-faces will fail the cull test.
+          * Polygons recognized as front-faces will be discarded.
           */
         cullFront
 
     }; // CullFace
 
-    explicit RenderState( GLContext& );
+    /** \brief
+      * Derives new render state from the current one of \a glContext.
+      */
+    explicit RenderState( GLContext& glContext );
 
+    /** \brief
+      * Restores previous render state.
+      */
     ~RenderState();
 
+    /** \brief
+      * Enables or disables depth testing.
+      */
     void setDepthTest( bool dt );
 
+    /** \brief
+      * Enables or disables depth writing.
+      */
     void setDepthWrite( bool dw );
 
+    /** \brief
+      * Sets `glDepthFunc` to \a dtf.
+      */
     void setDepthTestFunction( int dtf );
 
+    /** \brief
+      * Enables or disables alpha blending.
+      */
     void setBlend( bool b );
 
+    /** \brief
+      * Sets `glBlendFunc` to \a bf.
+      */
     void setBlendFunction( const BlendFunction& bf );
 
+    /** \brief
+      * Sets `glBlendEquation` to \a be.
+      */
     void setBlendEquation( int be );
 
+    /** \brief
+      * Configures face culling. Also see \ref setFrontFace.
+      */
     void setCullFace( CullFace cf );
 
+    /** \brief
+      * Sets whether front faces are winded contra-clockwise. Also see
+      * \ref setCullFace.
+      */
     void setFrontFace( bool ccw );
 
 private:
