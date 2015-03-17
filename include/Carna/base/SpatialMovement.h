@@ -39,7 +39,8 @@ namespace base
   * If the object that is to be handled by an instance of this class is not
   * \ref Spatial::isMovable "movable", than instead it's first movable parent will be
   * moved. If no movable parent exists on the path from the object to the scene root,
-  * nothing will be moved.
+  * nothing will be moved. Objects are always moved within the plane that is parallel
+  * to the projection plane and intersects the object's origin.
   *
   * \attention
   * The class expects that neither the camera object, nor the projection, nor the
@@ -86,6 +87,11 @@ public:
         , unsigned int frameX, unsigned int frameY
         , const Viewport& vp
         , const Camera& cam );
+
+    /** \brief
+      * Deletes.
+      */
+    ~SpatialMovement();
 
     /** \brief
       * References the \ref FrameRenderer::viewport "root viewport" that the frame

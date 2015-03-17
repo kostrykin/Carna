@@ -31,7 +31,14 @@ namespace presets
 // ----------------------------------------------------------------------------------
 // CameraNavigationControl
 // ----------------------------------------------------------------------------------
-
+    
+/** \brief
+  * Implements \ref base::CameraControl, rotates the camera around itself and allows
+  * completely free camera movement.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 17.3.15
+  */
 class CARNA_LIB CameraNavigationControl : public base::CameraControl
 {
 
@@ -42,17 +49,35 @@ class CARNA_LIB CameraNavigationControl : public base::CameraControl
 
 public:
 
+    /** \brief
+      * Instantiates.
+      */
     CameraNavigationControl();
     
+    /** \brief
+      * Deletes.
+      */
     virtual ~CameraNavigationControl();
 
     virtual void setCamera( base::Spatial& ) override;
     
+    /** \brief
+      * Rotates the camera around its local \f$\left(0, 1, 0\right)^\mathrm T\f$
+      * vector by \a radians.
+      */
     virtual void rotateHorizontally( float radians ) override;
     
+    /** \brief
+      * Rotates the camera around its local \f$\left(1, 0, 0\right)^\mathrm T\f$
+      * vector by \a radians.
+      */
     virtual void rotateVertically( float radians ) override;
     
-    virtual void moveAxially( float distance ) override;
+    /** \brief
+      * Moves the camera along its local \f$\left(0, 0, 1\right)^\mathrm T\f$ vector
+      * by \a units.
+      */
+    virtual void moveAxially( float units ) override;
 
 }; // CameraNavigationControl
 

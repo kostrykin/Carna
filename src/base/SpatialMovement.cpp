@@ -141,6 +141,11 @@ SpatialMovement::SpatialMovement
 }
 
 
+SpatialMovement::~SpatialMovement()
+{
+}
+
+
 bool SpatialMovement::update( unsigned int frameX, unsigned int frameY )
 {
     if( hasMovedSpatial() && frameX >= 0 && frameY >= 0 && ( frameX != pimpl->frameXprev || frameY != pimpl->frameYprev ) )
