@@ -43,13 +43,8 @@ class CARNA_LIB GeometryFeature
 
     NON_COPYABLE
 
-    unsigned int myVideoResourceAcquisitions;
-
-    std::set< Geometry* > referencingSceneGraphNodes;
-
-    bool released;
-
-    bool deleteIfAllowed();
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
 
 protected:
 
@@ -59,7 +54,7 @@ protected:
     GeometryFeature();
 
     /** \brief
-      * Deletes.
+      * Deletes and \ref Log "logs" error if video resources are leaked.
       */
     virtual ~GeometryFeature();
 
@@ -87,13 +82,6 @@ public:
       * - This feature is no longer referenced by a scene graph.
       */
     void release();
-
-    /** \brief
-      * Assumes that all remained instances are leaked and records their number on
-      * the \ref Log "log" with `error` severity if it is not zero. Instances, that
-      * are counted this time, will not be counted by succeeding method calls.
-      */
-    static void checkLeakedInstances();
 
     /** \brief
       * Puts this geometry feature on the \a sceneGraphNode.

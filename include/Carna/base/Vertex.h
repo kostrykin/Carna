@@ -16,7 +16,7 @@
 #include <Carna/base/VertexAttributes.h>
 
 /** \file   Vertex.h
-  * \brief  Defines \ref Carna::base::Vertex.
+  * \brief  Defines \ref Carna::base::VertexBase.
   */
 
 namespace Carna

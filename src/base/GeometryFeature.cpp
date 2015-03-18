@@ -32,16 +32,13 @@ class GeometryFeatureLeakWatcher : public Singleton< GeometryFeatureLeakWatcher 
 
 protected:
 
-    friend class Carna::base::Singleton< GeometryFeatureLeakWatcher >;
-
+    friend class BaseSingleton;
     GeometryFeatureLeakWatcher();
 
 public:
 
     std::set< const GeometryFeature* > featureInstances;
-
     virtual ~GeometryFeatureLeakWatcher();
-
     static void reset();
 
 }; // GeometryFeatureLeakWatcher
@@ -71,24 +68,78 @@ void GeometryFeatureLeakWatcher::reset()
 
 
 // ----------------------------------------------------------------------------------
+// GeometryFeature :: Details
+// ----------------------------------------------------------------------------------
+
+struct GeometryFeature::Details : public Log::OnShutdownListener
+{
+    Details();
+
+    unsigned int videoResourceAcquisitions;
+    std::set< Geometry* > referencingSceneGraphNodes;
+
+    bool released;
+    bool deleteIfAllowed( GeometryFeature* self );
+
+    void logLeakedInstances() const;
+    virtual void onLogShutdown() override;
+};
+
+
+GeometryFeature::Details::Details()
+    : videoResourceAcquisitions( 0 )
+    , released( false )
+{
+}
+
+
+bool GeometryFeature::Details::deleteIfAllowed( GeometryFeature* self )
+{
+    if( videoResourceAcquisitions == 0 && referencingSceneGraphNodes.empty() )
+    {
+        delete self;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+void GeometryFeature::Details::logLeakedInstances() const
+{
+    Log::instance().removeOnShutdownListener( *this );
+    GeometryFeatureLeakWatcher::reset();
+}
+
+
+void GeometryFeature::Details::onLogShutdown()
+{
+    logLeakedInstances();
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // GeometryFeature :: VideoResourceAcquisition
 // ----------------------------------------------------------------------------------
 
 GeometryFeature::VideoResourceAcquisition::VideoResourceAcquisition( GeometryFeature& gf )
     : geometryFeature( gf )
 {
-    ++geometryFeature.myVideoResourceAcquisitions;
+    ++geometryFeature.pimpl->videoResourceAcquisitions;
 }
 
 
 GeometryFeature::VideoResourceAcquisition::~VideoResourceAcquisition()
 {
-    CARNA_ASSERT( geometryFeature.myVideoResourceAcquisitions > 0 );
-    if( --geometryFeature.myVideoResourceAcquisitions == 0 )
+    CARNA_ASSERT( geometryFeature.pimpl->videoResourceAcquisitions > 0 );
+    if( --geometryFeature.pimpl->videoResourceAcquisitions == 0 )
     {
-        if( geometryFeature.released )
+        if( geometryFeature.pimpl->released )
         {
-            geometryFeature.deleteIfAllowed();
+            geometryFeature.pimpl->deleteIfAllowed( &geometryFeature );
         }
     }
 }
@@ -100,17 +151,17 @@ GeometryFeature::VideoResourceAcquisition::~VideoResourceAcquisition()
 // ----------------------------------------------------------------------------------
 
 GeometryFeature::GeometryFeature()
-    : myVideoResourceAcquisitions( 0 )
-    , released( false )
+    : pimpl( new Details() )
 {
     GeometryFeatureLeakWatcher::instance().featureInstances.insert( this );
+    Log::instance().addOnShutdownListener( *pimpl );
 }
 
 
 GeometryFeature::~GeometryFeature()
 {
     GeometryFeatureLeakWatcher::instance().featureInstances.erase( this );
-    if( myVideoResourceAcquisitions != 0 )
+    if( pimpl->videoResourceAcquisitions != 0 )
     {
         Log::instance().record( Log::error, "GeometryFeature deleted while video resources still acquired!" );
     }
@@ -119,39 +170,25 @@ GeometryFeature::~GeometryFeature()
 
 unsigned int GeometryFeature::videoResourceAcquisitionsCount() const
 {
-    return myVideoResourceAcquisitions;
-}
-
-
-bool GeometryFeature::deleteIfAllowed()
-{
-    if( myVideoResourceAcquisitions == 0 && referencingSceneGraphNodes.empty() )
-    {
-        delete this;
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return pimpl->videoResourceAcquisitions;
 }
 
 
 void GeometryFeature::release()
 {
-    CARNA_ASSERT( !released );
-    if( !deleteIfAllowed() )
+    CARNA_ASSERT( !pimpl->released );
+    if( !pimpl->deleteIfAllowed( this ) )
     {
-        released = true;
+        pimpl->released = true;
     }
 }
 
 
 void GeometryFeature::addTo( Geometry& sceneGraphNode, unsigned int role )
 {
-    const std::size_t size0 = referencingSceneGraphNodes.size();
-    referencingSceneGraphNodes.insert( &sceneGraphNode );
-    if( size0 != referencingSceneGraphNodes.size() )
+    const std::size_t size0 = pimpl->referencingSceneGraphNodes.size();
+    pimpl->referencingSceneGraphNodes.insert( &sceneGraphNode );
+    if( size0 != pimpl->referencingSceneGraphNodes.size() )
     {
         sceneGraphNode.putFeature( role, *this );
     }
@@ -160,22 +197,16 @@ void GeometryFeature::addTo( Geometry& sceneGraphNode, unsigned int role )
 
 void GeometryFeature::removeFrom( Geometry& sceneGraphNode )
 {
-    const std::size_t size0 = referencingSceneGraphNodes.size();
-    referencingSceneGraphNodes.erase( &sceneGraphNode );
-    if( size0 != referencingSceneGraphNodes.size() )
+    const std::size_t size0 = pimpl->referencingSceneGraphNodes.size();
+    pimpl->referencingSceneGraphNodes.erase( &sceneGraphNode );
+    if( size0 != pimpl->referencingSceneGraphNodes.size() )
     {
         sceneGraphNode.removeFeature( *this );
     }
-    if( released )
+    if( pimpl->released )
     {
-        deleteIfAllowed();
+        pimpl->deleteIfAllowed( this );
     }
-}
-
-
-void GeometryFeature::checkLeakedInstances()
-{
-    GeometryFeatureLeakWatcher::reset();
 }
 
 

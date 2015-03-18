@@ -12,6 +12,8 @@
 #include <Carna/base/ShaderManager.h>
 #include <Carna/base/Shader.h>
 #include <Carna/base/ShaderProgram.h>
+#include <Carna/base/Log.h>
+#include <sstream>
 
 namespace Carna
 {
@@ -25,7 +27,7 @@ namespace base
 // ShaderManager :: Details
 // ----------------------------------------------------------------------------------
 
-struct ShaderManager::Details
+struct ShaderManager::Details : public Log::OnShutdownListener
 {
 
     struct ShaderInfo
@@ -42,6 +44,9 @@ struct ShaderManager::Details
 
     const ShaderProgram& loadShader( const std::string& name );
 
+    void logLeakedShaders() const;
+    virtual void onLogShutdown() override;
+
 }; // ShaderManager :: Details
 
 
@@ -56,8 +61,8 @@ const ShaderProgram& ShaderManager::Details::loadShader( const std::string& name
     const auto srcFragItr = sources.find( name + ".frag" );
     if( srcVertItr != sources.end() && srcFragItr != sources.end() )
     {
-        srcVertPtr = &*srcVertItr;
-        srcFragPtr = &*srcFragItr;
+        srcVertPtr = &srcVertItr->second;
+        srcFragPtr = &srcFragItr->second;
     }
     else
     {
@@ -83,6 +88,29 @@ const ShaderProgram& ShaderManager::Details::loadShader( const std::string& name
 }
 
 
+void ShaderManager::Details::logLeakedShaders() const
+{
+    Log::instance().removeOnShutdownListener( *this );
+    if( !loadedShaders.empty() )
+    {
+        std::stringstream msg;
+        msg << loadedShaders.size() << " shaders leaked!" << std::endl;
+        for( auto nameItr = loadedShaders.begin(); nameItr != loadedShaders.end(); ++nameItr )
+        {
+            const std::string& name = nameItr->first;
+            msg << "    \"" << name << "\"" << std::endl;
+        }
+        Log::instance().record( Log::error, msg.str() );
+    }
+}
+
+
+void ShaderManager::Details::onLogShutdown()
+{
+    logLeakedShaders();
+}
+
+
 
 // ----------------------------------------------------------------------------------
 // ShaderManager
@@ -91,16 +119,19 @@ const ShaderProgram& ShaderManager::Details::loadShader( const std::string& name
 ShaderManager::ShaderManager()
     : pimpl( new Details() )
 {
+    Log::instance().addOnShutdownListener( *pimpl );
 }
 
 
 ShaderManager::~ShaderManager()
 {
+    pimpl->logLeakedShaders();
 }
 
 
 const ShaderProgram& ShaderManager::acquireShader( const std::string& shaderName )
 {
+    CARNA_ASSERT( !shaderName.empty() );
     const auto infoItr = pimpl->loadedShaders.find( shaderName );
     if( infoItr == pimpl->loadedShaders.end() )
     {

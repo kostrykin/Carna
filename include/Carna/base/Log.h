@@ -36,13 +36,18 @@ namespace base
 // ----------------------------------------------------------------------------------
     
 /** \brief
-  * Records log messages.
+  * Records log messages. The log writing is delegated to implementations of the
+  * \ref Log::Writer interface. The default writer is an instance from
+  * \ref Log::StdWriter class.
   *
-  * \date   22.2.15
+  * \date   22.2.15 - 18.3.15
   * \author Leonid Kostrykin
   */
 class CARNA_LIB Log : public Singleton< Log >
 {
+
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
 
     NON_COPYABLE
 
@@ -50,15 +55,40 @@ protected:
 
     friend class BaseSingleton;
 
+    /** \brief
+      * Instantiates.
+      */
     Log();
 
 public:
 
+    /** \brief
+      * Deletes. Notifies its \ref addOnShutdownListener "shutdown listeners" if they
+      * haven't been notified yet.
+      */
+    virtual ~Log();
+
+    /** \brief
+      * Describes the severity of a log entry.
+      */
     enum Severity
     {
-        fatal, error, warning, debug
+        fatal,   ///< Indicates errors that might lead to misbehaving program logic.
+        error,   ///< Indicates errors like memory leaks.
+        warning, ///< Indicates warnings.
+        debug    ///< Indicates messages that do not deserve much attention usually.
     };
 
+    // ------------------------------------------------------------------------------
+    // Log :: Writer
+    // ------------------------------------------------------------------------------
+
+    /** \brief
+      * Writes log entries.
+      *
+      * \date   22.2.15
+      * \author Leonid Kostrykin
+      */
     class CARNA_LIB Writer
     {
 
@@ -66,12 +96,29 @@ public:
 
     public:
 
+        /** \brief
+          * Deletes.
+          */
         virtual ~Writer();
 
-        virtual void write( Severity, const std::string& ) const = 0;
+        /** \brief
+          * Logs \a entry with \a severity.
+          */
+        virtual void write( Severity severity, const std::string& entry ) const = 0;
 
-    }; // Writer
+    }; // Log :: Writer
 
+    // ------------------------------------------------------------------------------
+    // Log :: TextWriter
+    // ------------------------------------------------------------------------------
+    
+    /** \brief
+      * Abstract implementation of the \ref Writer interface, that formats log
+      * messages along with their severity as pure ASCII character chains.
+      *
+      * \date   22.2.15
+      * \author Leonid Kostrykin
+      */
     class CARNA_LIB TextWriter : public Writer
     {
 
@@ -81,10 +128,24 @@ public:
 
     protected:
 
-        virtual void writeFormatted( Severity, const std::string& ) const = 0;
+        /** \brief
+          * Logs \a formattedEntry with \a severity.
+          */
+        virtual void writeFormatted( Severity severity, const std::string& formattedEntry ) const = 0;
 
-    }; // TextWriter
+    }; // Log :: TextWriter
 
+    // ------------------------------------------------------------------------------
+    // Log :: StdWriter
+    // ------------------------------------------------------------------------------
+
+    /** \brief
+      * Writes `fatal` and `error` classified log messages to `std::cerr` and such
+      * classified as `warning` or `debug` to `std::cout`.
+      *
+      * \date   22.2.15
+      * \author Leonid Kostrykin
+      */
     class CARNA_LIB StdWriter : public TextWriter
     {
 
@@ -92,15 +153,65 @@ public:
 
         virtual void writeFormatted( Severity, const std::string& ) const override;
 
-    }; // StdWriter
+    }; // Log :: StdWriter
 
+    /** \brief
+      * Sets object that log writing will be delegated to.
+      */
     void setWriter( Writer* );
 
-    void record( Severity, const std::string& ) const;
+    /** \brief
+      * Instructs \ref setWriter "current writer" to write \a entry with \a severity.
+      */
+    void record( Severity severity, const std::string& entry ) const;
 
-private:
+    // ------------------------------------------------------------------------------
+    // Log :: OnShutdownListener
+    // ------------------------------------------------------------------------------
 
-    std::unique_ptr< Writer > writer;
+    /** \brief
+      * Defines callback interface that is invoked when the \ref Log system is about
+      * to shut down.
+      *
+      * \author Leonid Kostrykin
+      * \date   18.3.15
+      */
+    class CARNA_LIB OnShutdownListener
+    {
+
+    public:
+
+        /** \brief
+          * Does nothing.
+          */
+        virtual ~OnShutdownListener();
+
+        /** \brief
+          * Indicates that `%Log::instance` is about to shut down.
+          */
+        virtual void onLogShutdown() = 0;
+
+    }; // Log :: OnShutdownListener
+
+    /** \brief
+      * Makes \a listener be notified when the log system is about to shut down.
+      */
+    void addOnShutdownListener( OnShutdownListener& listener );
+    
+    /** \brief
+      * Makes \a listener no longer be notified when the log system is about to shut
+      * down.
+      */
+    void removeOnShutdownListener( const OnShutdownListener& listener );
+
+    /** \brief
+      * Notifies the \ref addOnShutdownListener "shutdown listeners" that the log
+      * system is about to shut down, if they haven't been notified yet. Usually
+      * there should be no necessity to call this method, unless the
+      * \ref setWriter "current writer" is becoming invalid. No further messages will
+      * be logged.
+      */
+    void shutdown();
 
 }; // Log
 

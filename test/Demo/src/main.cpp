@@ -76,7 +76,7 @@ MyApplication::~MyApplication()
     /* We need to do this as long as QApplication is still alive, so that QDebug is
      * also still available.
      */
-    base::GeometryFeature::checkLeakedInstances();
+    base::Log::instance().shutdown();
 }
 
 

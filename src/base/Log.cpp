@@ -22,25 +22,83 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
+// Log :: Details
+// ----------------------------------------------------------------------------------
+
+struct Log::Details
+{
+    Details();
+
+    std::unique_ptr< Writer > writer;
+    std::set< OnShutdownListener* > onShutdownListeners;
+    bool isShutDown;
+};
+
+
+Log::Details::Details()
+    : writer( new Log::StdWriter() )
+    , isShutDown( false )
+{
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // Log
 // ----------------------------------------------------------------------------------
 
 Log::Log()
-    : writer( new Log::StdWriter() )
+    : pimpl( new Details() )
 {
+}
+
+
+Log::~Log()
+{
+    shutdown();
 }
 
 
 void Log::setWriter( Writer* writer )
 {
     CARNA_ASSERT( writer != nullptr )
-    this->writer.reset( writer );
+    pimpl->writer.reset( writer );
 }
 
 
 void Log::record( Severity severity, const std::string& message ) const
 {
-    writer->write( severity, message );
+    if( !pimpl->isShutDown )
+    {
+        pimpl->writer->write( severity, message );
+    }
+}
+
+
+void Log::addOnShutdownListener( OnShutdownListener& listener )
+{
+    pimpl->onShutdownListeners.insert( &listener );
+}
+
+
+void Log::removeOnShutdownListener( const OnShutdownListener& listener )
+{
+    pimpl->onShutdownListeners.erase( const_cast< OnShutdownListener* >( &listener ) );
+}
+
+
+void Log::shutdown()
+{
+    if( !pimpl->isShutDown )
+    {
+        pimpl->isShutDown = true;
+        std::for_each( pimpl->onShutdownListeners.begin(), pimpl->onShutdownListeners.end(),
+            []( OnShutdownListener* listener )
+            {
+                listener->onLogShutdown();
+            }
+        );
+    }
 }
 
 
@@ -96,6 +154,16 @@ void Log::StdWriter::writeFormatted( Severity severity, const std::string& messa
 {
     std::ostream& out = ( severity == fatal || severity == error ? std::cerr : std::cout );
     out << message << std::endl;
+}
+
+
+
+// ----------------------------------------------------------------------------------
+// Log :: OnShutdownListener
+// ----------------------------------------------------------------------------------
+
+Log::OnShutdownListener::~OnShutdownListener()
+{
 }
 
 
