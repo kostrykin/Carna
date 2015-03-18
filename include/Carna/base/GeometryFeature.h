@@ -116,6 +116,9 @@ public:
     /** \brief
       * Represents an acquisition of video resources from a particular
       * \ref GeometryFeature. This realizes the RAII idiom.
+      *
+      * \author Leonid Kostrykin
+      * \date   22.2.15 - 18.3.15
       */
     class CARNA_LIB VideoResourceAcquisition
     {

@@ -58,13 +58,16 @@ namespace base
   * \ref CoordinateSystems "here".
   *
   * \author Leonid Kostrykin
-  * \date 27.2.2015
+  * \date   22.2.15 - 18.3.15
   */
 class CARNA_LIB Material : public GeometryFeature
 {
 
     NON_COPYABLE
-
+        
+    /** \brief
+      * Instantiates.
+      */
     Material( const std::string& shaderName );
 
     struct Details;
@@ -75,20 +78,41 @@ class CARNA_LIB Material : public GeometryFeature
 protected:
 
     friend class GeometryFeature;
-
+    
+    /** \brief
+      * Deletes.
+      */
     virtual ~Material();
 
 public:
 
+    /** \brief
+      * Identifies this material's shader.
+      */
     const std::string shaderName;
 
-    void addParameter( ShaderUniformBase* );
+    /** \brief
+      * Records \a uniform as shader parameter. This will be uploaded to the shader
+      * when the material is \ref VideoResourceAcquisition::activate "activated".
+      *
+      * Any previously set parameters with the same
+      * \ref ShaderUniformBase::name "name" are overriden.
+      */
+    void addParameter( ShaderUniformBase* uniform );
     
+    /** \overload
+      */
     template< typename ParameterType >
     void setParameter( const std::string& name, const ParameterType& value );
 
+    /** \brief
+      * Removes all previously set parameters.
+      */
     void clearParameters();
 
+    /** \brief
+      * Removes the parameter named \a name if it exists.
+      */
     void removeParameter( const std::string& name );
 
     /** \brief
@@ -96,25 +120,55 @@ public:
       */
     static Material& create( const std::string& shaderName );
 
-    virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
+    /** \copydoc GeometryFeature::controlsSameVideoResource(const GeometryFeature&) const
+      *
+      * This implementation checks whether \a other also is a `%Material` and if yes,
+      * whether its \ref shaderName is the same.
+      */
+    virtual bool controlsSameVideoResource( const GeometryFeature& other ) const override;
 
     // ------------------------------------------------------------------------------
     // Material :: VideoResourceAcquisition
     // ------------------------------------------------------------------------------
-
+    
+    /** \brief
+      * Represents an acquisition of video resources from a particular \ref Material.
+      * This realizes the RAII idiom.
+      *
+      * \author Leonid Kostrykin
+      * \date   22.2.15 - 18.3.15
+      */
     class CARNA_LIB VideoResourceAcquisition : public GeometryFeature::VideoResourceAcquisition
     {
     
     public:
     
+        /** \brief
+          * Acquires the video resources from \a material.
+          *
+          * \copydetails GeometryFeature::VideoResourceAcquisition::VideoResourceAcquisition(GeometryFeature&)
+          */
         VideoResourceAcquisition( Material& material );
     
+        /** \copydoc GeometryFeature::VideoResourceAcquisition::~VideoResourceAcquisition()
+          */
         virtual ~VideoResourceAcquisition();
 
-        void activate( RenderState& rs ) const;
+        /** \brief
+          * Activates \ref material "this material" by setting the
+          * \ref shader "proper shader" on the current context, configuring it and
+          * tweaking the \a renderState.
+          */
+        void activate( RenderState& renderState ) const;
 
+        /** \brief
+          * References the shader of \ref material "this material".
+          */
         const ShaderProgram& shader() const;
     
+        /** \brief
+          * References the material.
+          */
         Material& material;
     
     }; // Material :: VideoResourceAcquisition

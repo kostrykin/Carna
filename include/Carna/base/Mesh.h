@@ -36,7 +36,11 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Format-independent abstract \ref Mesh base class.
+  * Format-independent abstract \ref Mesh base class. Each mesh consists of a
+  * \ref VertexBuffer, an \ref IndexBuffer and a \ref VertexArrays "vertex array".
+  *
+  * \see
+  * The \ref MeshFactory class contains a few examples.
   *
   * The class maintains one \ref VertexBuffer and one \ref IndexBuffer on an
   * application level. The buffers are created the first time the
@@ -120,7 +124,14 @@ public:
     // ------------------------------------------------------------------------------
     // MeshBase :: VideoResourceAcquisition
     // ------------------------------------------------------------------------------
-
+    
+    /** \brief
+      * Represents an acquisition of video resources from a particular
+      * \ref MeshBase "mesh". This realizes the RAII idiom.
+      *
+      * \author Leonid Kostrykin
+      * \date   22.2.15 - 18.3.15
+      */
     class CARNA_LIB VideoResourceAcquisition : public GeometryFeature::VideoResourceAcquisition
     {
     
@@ -128,24 +139,41 @@ public:
     
     public:
     
+        /** \brief
+          * Acquires the video resources from \a mesh.
+          *
+          * \copydetails GeometryFeature::VideoResourceAcquisition::VideoResourceAcquisition(GeometryFeature&)
+          */
         VideoResourceAcquisition( MeshBase& mesh );
     
+        /** \copydoc GeometryFeature::VideoResourceAcquisition::~VideoResourceAcquisition()
+          */
         virtual ~VideoResourceAcquisition();
     
+        /** \brief
+          * Tells the ID of the \ref VertexArrays "OpenGL vertex array object".
+          */
         unsigned int id() const;
 
+        /** \brief
+          * Binds the \ref VertexArrays "vertex array object".
+          */
         void bind() const;
 
+        /** \brief
+          * Renders the mesh.
+          */
         void render() const;
 
-        const VertexBufferBase& vertexBuffer() const;
-
-        const IndexBufferBase& indexBuffer() const;
-
-        VertexBufferBase& vertexBuffer();
-
-        IndexBufferBase& indexBuffer();
+        const VertexBufferBase& vertexBuffer() const;   ///< References the mesh's vertex buffer.
+        const  IndexBufferBase&  indexBuffer() const;   ///< References the mesh's index buffer.
+        
+        VertexBufferBase& vertexBuffer();   ///< References the mesh's vertex buffer.
+         IndexBufferBase&  indexBuffer();   ///< References the mesh's index buffer.
     
+        /** \brief
+          * References the mesh.
+          */
         MeshBase& mesh;
     
     }; // MeshBase :: VideoResourceAcquisition
@@ -160,6 +188,18 @@ public:
 // Mesh
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Implements \ref MeshBase class for particular \a VertexType and \a IndexType.
+  *
+  * \param VertexType specifies the \ref VertexBuffer "vertex buffer" format.
+  * \param VertexType specifies the \ref  IndexBuffer  "index buffer" format.
+  *
+  * \see
+  * The \ref MeshFactory class contains a few examples.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 14.3.15
+  */
 template< typename VertexType, typename IndexType >
 class Mesh : public MeshBase
 {
@@ -181,9 +221,8 @@ protected:
 
 public:
 
-    typedef VertexType Vertex;
-
-    typedef IndexType Index;
+    typedef VertexType Vertex;  ///< Holds the element type of the vertex buffer.
+    typedef  IndexType  Index;  ///< Holds the element type of the  index buffer.
 
     /** \brief
       * Instantiates. Call \ref release when you do not need the object any longer.

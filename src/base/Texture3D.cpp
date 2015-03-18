@@ -141,11 +141,11 @@ Texture3D::Texture3D
         , int pixelFormat
         , int bufferType
         , const void* bufferPtr )
-    : bufferPtr( bufferPtr )
-    , size( size )
+    : size( size )
     , internalFormat( internalFormat )
     , pixelFormat( pixelFormat )
     , bufferType( bufferType )
+    , bufferPtr( bufferPtr )
     , textureCoordinatesCorrection( computeTextureCoordinatesCorrection( size ) )
 {
 }

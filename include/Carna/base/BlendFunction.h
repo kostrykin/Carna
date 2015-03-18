@@ -30,10 +30,11 @@ namespace base
 // BlendFunction
 // ----------------------------------------------------------------------------------
 
-/** \brief  Interfaces channel overlay behavior definitions.
+/** \brief
+  * Defines how alpha blending is to be performed.
   *
   * \author Leonid Kostrykin
-  * \date   26.7.11 - 26.2.15
+  * \date   22.2.15 - 17.3.15
   */
 class CARNA_LIB BlendFunction
 {

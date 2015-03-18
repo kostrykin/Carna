@@ -34,25 +34,43 @@ namespace base
 // MeshFactory
 // ----------------------------------------------------------------------------------
 
-template< typename Vertex >
+/** \brief
+  * Creates simple predefined \ref Mesh instances.
+  *
+  * \param VertexType
+  *     specifies the vertex type that is to be used to build the
+  *     \ref VertexBuffer "vertex buffers".
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 14.3.15
+  */
+template< typename VertexType >
 class MeshFactory
 {
 
-    template< typename Vector >
-    static Vertex vertex( const Vector& );
+    template< typename VectorType >
+    static VertexType vertex( const VectorType& );
 
 public:
 
-    static Mesh< Vertex, uint8_t >& createBox( float sizeX, float sizeY, float sizeZ );
+    /** \brief
+      * Creates box with \a width, \a height and \a depth. The box is centered in
+      * \f$\left(0, 0, 0\right)^\mathrm T\f$.
+      */
+    static Mesh< VertexType, uint8_t >& createBox( float width, float height, float depth );
+
+    /** \overload
+      */
+    static Mesh< VertexType, uint8_t >& createBox( const math::Vector3f& size );
 
 }; // MeshFactory
 
 
-template< typename Vertex >
-template< typename Vector >
-Vertex MeshFactory< Vertex >::vertex( const Vector& v )
+template< typename VertexType >
+template< typename VectorType >
+VertexType MeshFactory< VertexType >::vertex( const VectorType& v )
 {
-    Vertex vertex;
+    VertexType vertex;
     vertex.x = v.x();
     vertex.y = v.y();
     vertex.z = v.z();
@@ -60,8 +78,15 @@ Vertex MeshFactory< Vertex >::vertex( const Vector& v )
 }
 
 
-template< typename Vertex >
-Mesh< Vertex, uint8_t >& MeshFactory< Vertex >::createBox( float sizeX, float sizeY, float sizeZ )
+template< typename VertexType >
+Mesh< VertexType, uint8_t >& MeshFactory< VertexType >::createBox( const math::Vector3f& size )
+{
+    return createBox( size.x(), size.y(), size.z() );
+}
+
+
+template< typename VertexType >
+Mesh< VertexType, uint8_t >& MeshFactory< VertexType >::createBox( float sizeX, float sizeY, float sizeZ )
 {
     const math::Matrix4f baseTransform = math::scaling4f( sizeX / 2, sizeY / 2, sizeZ / 2 );
 
@@ -78,8 +103,9 @@ Mesh< Vertex, uint8_t >& MeshFactory< Vertex >::createBox( float sizeX, float si
     const std::size_t verticesCount = 6 * 4;
     const std::size_t indicesCount  = 6 * 2 * 3;
 
-    typedef Mesh< Vertex, uint8_t > MeshInstance;
-	typedef typename MeshInstance::Index Index;
+    typedef Mesh< VertexType, uint8_t > MeshInstance;
+    typedef typename MeshInstance::Vertex Vertex;
+    typedef typename MeshInstance:: Index  Index;
     Vertex vertices[ verticesCount ];
     Index   indices[  indicesCount ];
 
