@@ -36,6 +36,7 @@ struct ShaderManager::Details
         unsigned int acquisitionsCount;
     };
 
+    std::map< std::string, std::string > sources;
     std::map< std::string, ShaderInfo > loadedShaders;
     std::map< ShaderProgram*, std::string > loadedShaderNames;
 
@@ -46,8 +47,28 @@ struct ShaderManager::Details
 
 const ShaderProgram& ShaderManager::Details::loadShader( const std::string& name )
 {
-    const std::string& srcVert = res::string( name + "_vert" );
-    const std::string& srcFrag = res::string( name + "_frag" );
+    const std::string* srcVertPtr;
+    const std::string* srcFragPtr;
+
+    /* Look up the shader sources.
+     */
+    const auto srcVertItr = sources.find( name + ".vert" );
+    const auto srcFragItr = sources.find( name + ".frag" );
+    if( srcVertItr != sources.end() && srcFragItr != sources.end() )
+    {
+        srcVertPtr = &*srcVertItr;
+        srcFragPtr = &*srcFragItr;
+    }
+    else
+    {
+        srcVertPtr = &res::string( name + "_vert" );
+        srcFragPtr = &res::string( name + "_frag" );
+    }
+
+    /* Build the shader sources.
+     */
+    const std::string& srcVert = *srcVertPtr;
+    const std::string& srcFrag = *srcFragPtr;
 
     ShaderInfo info;
     info.acquisitionsCount = 1;
@@ -104,6 +125,18 @@ void ShaderManager::releaseShader( const ShaderProgram& shader )
         pimpl->loadedShaders.erase( shaderName );
         pimpl->loadedShaderNames.erase( nameItr );
     }
+}
+
+
+void ShaderManager::setSource( const std::string& srcName, const std::string& src )
+{
+    pimpl->sources[ srcName ] = src;
+}
+
+
+void ShaderManager::removeSource( const std::string& srcName )
+{
+    pimpl->sources.erase( srcName );
 }
 
 

@@ -51,6 +51,10 @@ public:
 
     virtual ~ShaderManager();
 
+    void setSource( const std::string& srcName, const std::string& src );
+
+    void removeSource( const std::string& srcName );
+
     const ShaderProgram& acquireShader( const std::string& shaderName );
 
     void releaseShader( const ShaderProgram& shader );

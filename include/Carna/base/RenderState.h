@@ -152,17 +152,24 @@ public:
     void setDepthWrite( bool dw );
 
     /** \brief
-      * Sets `glDepthFunc` to \a dtf.
+      * Configures how the depth test is to be performed. Depth test only applies if
+      * \ref setDepthTest "it is activated."
+      *
+      * This is the equivalent of `glDepthFunc`.
       */
     void setDepthTestFunction( int dtf );
 
     /** \brief
-      * Enables or disables alpha blending.
+      * Enables or disables alpha blending. Alpha blending is configured through
+      * \ref setBlendFunction and \ref glBlendEquation.
       */
     void setBlend( bool b );
 
     /** \brief
-      * Sets `glBlendFunc` to \a bf.
+      * Configures how alpha blending is to be done. Alpha blending only applies if
+      * \ref setBlend "it is activated."
+      *
+      * This is the equivalent of `glBlendFunc`.
       */
     void setBlendFunction( const BlendFunction& bf );
 

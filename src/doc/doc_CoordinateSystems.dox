@@ -3,6 +3,10 @@ namespace Carna
 
 /** \page CoordinateSystems Coordinate Systems
   *
+  * This page explains the typical OpenGL coordinate systems. If you are interested
+  * in how these coordinate systems are related to the
+  * \ref RenderingPipeline "rendering pipeline", refer to its documentation.
+  *
   * \section HomogeneousCoordinates Homogeneous Coordinates
   *
   * The *projective space* \f$\mathbb R\mathrm P^3\f$ is the set of all vectors
