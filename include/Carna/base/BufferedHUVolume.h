@@ -13,11 +13,7 @@
 #define BUFFEREDHUVOLUME_H_6014714286
 
 /** \file   BufferedHUVolume.h
-  *
   * \brief  Defines \ref Carna::base::BufferedHUVolume.
-  *
-  * \author Leonid Kostrykin
-  * \date   25.7.11
   */
 
 #include <Carna/base/HUVolume.h>
@@ -38,14 +34,13 @@ namespace base
 // BufferedHUVolume
 // ----------------------------------------------------------------------------------
 
-/** \brief  Generic \ref HUVolume implementation.
+/** \brief
+  * Implements \ref HUVolume generically for a particular \a VoxelType.
   *
-  * \invariant  <code>sizeof( VoxelType ) >= 2</code>
+  * \invariant `sizeof(VoxelType) >= 2`
   *
-  * Template Arguments:
-  *
-  * - The \a VoxelType is the data type used to store the value of a single voxel / HU-value.
-  * - The \a BufferType is the data type used as voxel container.
+  * \param VoxelType is the data type used to store the value of a single voxel.
+  * \param BufferType is the data type used as voxel container.
   *
   * \author Leonid Kostrykin
   * \date   2011 - 2015
@@ -56,15 +51,23 @@ class BufferedHUVolume : public HUVolume
 
 public:
 
-    /** \brief  Holds the used buffer type.
+    /** \brief
+      * Holds the used buffer type.
       */
     typedef BufferType Buffer;
 
-    /** \brief  Holds the used voxel type.
+    /** \brief
+      * Holds the used voxel type.
       */
     typedef VoxelType Voxel;
 
-    /** \brief  Instantiates.
+    /** \brief
+      * Instantiates \f$D \to \left[-1024, 3071\right]\f$ with
+      * \f$D = [0, s_x) \times [0, s_y) \times [0, s_z)\f$, where \f$s_x, s_y, s_z\f$
+      * is \a size.
+      *
+      * \pre `buffer != nullptr && buffer->get() != nullptr`
+      * \pre `(**buffer).size() >= size.x * size.y * size.z`
       */
     BufferedHUVolume( const math::Vector3ui& size, Association< BufferType >* buffer )
         : HUVolume( size )
@@ -73,13 +76,7 @@ public:
         initializeBuffer();
     }
 
-    /** \brief  Instantiates.
-      *
-      * This constructor is similar to:
-      *
-      * \code
-      * BufferedHUVolume( size, new Composition< BufferType >( new BufferType( size.x * size.y * size.z ) ) );
-      * \endcode
+    /** \overload
       */
     explicit BufferedHUVolume( const math::Vector3ui& size )
         : HUVolume( size )
@@ -89,19 +86,19 @@ public:
     }
 
     /** \brief
-      * Returns the buffer value corresponding to the given HU value.
+      * Returns the HU value corresponding to \a bufferValue.
       */
-    static HUV bufferValueToHUV( VoxelType voxel_value )
+    static HUV bufferValueToHUV( VoxelType bufferValue )
     {
-        return static_cast< HUV >( voxel_value >> ( sizeof( VoxelType ) * 8 - 12 ) ) - 1024;
+        return static_cast< HUV >( bufferValue >> ( sizeof( VoxelType ) * 8 - 12 ) ) - 1024;
     }
-    
+
     /** \brief
-      * Returns the HU value corresponding to the given buffer value.
+      * Returns the buffer value corresponding to \a huValue.
       */
-    static VoxelType HUVToBufferValue( HUV huv )
+    static VoxelType HUVToBufferValue( HUV huValue )
     {
-        return ( static_cast< VoxelType >( huv + 1024 ) << ( sizeof( VoxelType ) * 8 - 12 ) );
+        return ( static_cast< VoxelType >( huValue + 1024 ) << ( sizeof( VoxelType ) * 8 - 12 ) );
     }
 
     /** \brief
@@ -160,13 +157,13 @@ public:
 protected:
 
     /** \brief
-      * Holds the computed data.
+      * Holds the underlying buffer.
       *
-      * The voxels are written \f$x\f$-\f$y\f$-plane wise, each plane \f$x\f$-row wise.
+      * The voxels are written \f$x\f$-\f$y\f$-plane wise, each plane \f$x\f$-row
+      * wise. To compute the index of some voxel \f$\left(x, y, z\right)\f$, use the
+      * following computation rule:
       *
-      * To compute the position of some voxel \f$\big(\; x, y, z \;\big)\f$ in \a data:
-      *
-      * \f[ \mathrm{position} = x + \mathrm{width} \cdot y + \mathrm{height} \cdot \mathrm{width} \cdot z \f]
+      * \f[ x + \mathrm{width} \cdot y + \mathrm{height} \cdot \mathrm{width} \cdot z \f]
       */
     const std::unique_ptr< Association< BufferType > > myBuffer;
 
@@ -176,15 +173,15 @@ private:
     {
         CARNA_ASSERT_EX
             ( myBuffer.get() && myBuffer->get()
-            , "no volume data buffer supplied" );
+            , "No volume data buffer supplied!" );
 
         CARNA_ASSERT_EX
             ( myBuffer->get()->size() >= size.x() * size.y() * size.z()
-            , "supplied volume data buffer is of size "
+            , "Supplied volume data buffer is of size "
                 << myBuffer->get()->size()
                 << " bytes but must be at least "
                 << size.x() * size.y() * size.z()
-                << " bytes" );
+                << " bytes!" );
     }
 
 }; // BufferedHUVolume

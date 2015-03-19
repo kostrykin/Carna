@@ -35,10 +35,12 @@ namespace base
 // HUVolume
 // ----------------------------------------------------------------------------------
 
-/** \brief  Abstract definition of \f$\mathbb N_0^3 \to [-1024,3071]\f$ volumetric data.
+/** \brief
+  * Defines interface to \f$\mathbb N_0^3 \to \left[-1024,3071\right]\f$ volumetric
+  * data.
   *
   * \author Leonid Kostrykin
-  * \date   25.7.11
+  * \date   25.7.11 - 19.3.15
   */
 class CARNA_LIB HUVolume : public ScalarField< HUV >
 {
@@ -47,25 +49,30 @@ class CARNA_LIB HUVolume : public ScalarField< HUV >
 
 public:
 
-    /** \brief  Instantiates.
+    /** \brief
+      * Instantiates.
       */
     HUVolume();
 
-    /** \brief  Instantiates.
+    /** \brief
+      * Instantiates.
       */
     explicit HUVolume( const math::Vector3ui& size );
     
-    /** \brief  Holds the dimensions.
+    /** \brief
+      * Holds the resolution.
       */
     math::Vector3ui size;
 
-    /** \brief  Returns HUV of specified voxel.
+    /** \brief
+      * Returns HUV of specified voxel.
       */
     virtual HUV operator()( unsigned int x
                           , unsigned int y
                           , unsigned int z ) const override = 0;
 
-    /** \brief  Returns HUV of specified voxel.
+    /** \brief
+      * Returns HUV of specified voxel.
       */
     virtual HUV operator()( const math::Vector3ui& at ) const override = 0;
 
