@@ -248,13 +248,9 @@ void DRRStage::renderPass
 
 void DRRStage::createSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler )
 {
-    base::Sampler* const huVolumeSampler = new base::Sampler();
-    huVolumeSampler->setMinFilter( base::Sampler::FILTER_LINEAR );
-    huVolumeSampler->setMagFilter( base::Sampler::FILTER_LINEAR );
-    huVolumeSampler->setWrapModeR( base::Sampler::WRAP_MODE_CLAMP );
-    huVolumeSampler->setWrapModeS( base::Sampler::WRAP_MODE_CLAMP );
-    huVolumeSampler->setWrapModeT( base::Sampler::WRAP_MODE_CLAMP );
-    registerSampler( ROLE_HU_VOLUME, huVolumeSampler );
+    registerSampler( ROLE_HU_VOLUME, new base::Sampler
+        ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
+        , base::Sampler::FILTER_LINEAR, base::Sampler::FILTER_LINEAR ) );
 }
 
 

@@ -40,16 +40,9 @@ namespace base
 
 static Sampler* createFullFrameQuadSampler()
 {
-    Sampler* const sampler = new Sampler();
-
-    sampler->setMinFilter( Sampler::FILTER_LINEAR );
-    sampler->setMagFilter( Sampler::FILTER_LINEAR );
-
-    sampler->setWrapModeR( Sampler::WRAP_MODE_CLAMP );
-    sampler->setWrapModeS( Sampler::WRAP_MODE_CLAMP );
-    sampler->setWrapModeT( Sampler::WRAP_MODE_CLAMP );
-
-    return sampler;
+    return new Sampler
+        ( Sampler::WRAP_MODE_CLAMP, Sampler::WRAP_MODE_CLAMP, Sampler::WRAP_MODE_CLAMP
+        , Sampler::FILTER_LINEAR, Sampler::FILTER_LINEAR );
 }
 
 

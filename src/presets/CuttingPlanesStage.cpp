@@ -123,14 +123,10 @@ struct CuttingPlanesStage::VideoResources
 CuttingPlanesStage::VideoResources::VideoResources( const base::ShaderProgram& shader, Details::PlaneMesh& planeMesh )
     : planeMeshVR( planeMesh )
     , shader( shader )
+    , volumeSampler
+        ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
+        , base::Sampler::FILTER_LINEAR, base::Sampler::FILTER_LINEAR )
 {
-    /* Configure volume volumeSampler.
-     */
-    volumeSampler.setMinFilter( base::Sampler::FILTER_LINEAR );
-    volumeSampler.setMagFilter( base::Sampler::FILTER_LINEAR );
-    volumeSampler.setWrapModeR( base::Sampler::WRAP_MODE_CLAMP );
-    volumeSampler.setWrapModeS( base::Sampler::WRAP_MODE_CLAMP );
-    volumeSampler.setWrapModeT( base::Sampler::WRAP_MODE_CLAMP );
 }
 
 

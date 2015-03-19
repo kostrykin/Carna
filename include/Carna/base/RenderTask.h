@@ -67,15 +67,18 @@ public:
       */
     const FrameRenderer& renderer;
 
-    /** References the \ref ClippingCoordinates "projection matrix" to be used.
+    /** \brief
+      * References the \ref ClippingCoordinates "projection matrix" to be used.
       */
     const math::Matrix4f& projection;
 
-    /** References the \ref ViewSpace "view matrix" to be used.
+    /** \brief
+      * References the \ref ViewSpace "view matrix" to be used.
       */
     const math::Matrix4f& viewTransform() const;
 
-    /** Overrides the \ref ViewSpace "view matrix" to be used for further rendering.
+    /** \brief
+      * Overrides the \ref ViewSpace "view matrix" to be used for further rendering.
       */
     void overrideViewTransform( const math::Matrix4f& );
     
@@ -92,7 +95,8 @@ public:
 
 protected:
 
-    /** Renders \a rs with \a viewport.
+    /** \brief
+      * Renders \a rs with \a viewport.
       */
     virtual void renderStage( RenderStage& rs, const Viewport& viewport );
 

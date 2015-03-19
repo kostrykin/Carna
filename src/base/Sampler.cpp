@@ -12,6 +12,7 @@
 #include <Carna/base/glew.h>
 #include <Carna/base/glError.h>
 #include <Carna/base/Sampler.h>
+#include <Carna/base/Texture3D.h>
 #include <Carna/base/CarnaException.h>
 
 namespace Carna
@@ -19,6 +20,35 @@ namespace Carna
 
 namespace base
 {
+
+
+
+// ----------------------------------------------------------------------------------
+// validateWrapMode
+// ----------------------------------------------------------------------------------
+
+static inline void validateWrapMode( unsigned int wrapMode )
+{
+    CARNA_ASSERT_EX
+        (  wrapMode == Sampler::WRAP_MODE_CLAMP
+        || wrapMode == Sampler::WRAP_MODE_REPEAT
+        || wrapMode == Sampler::WRAP_MODE_MIRRORED_REPEAT
+        , "Unknown wrap mode." );
+}
+
+
+
+// ----------------------------------------------------------------------------------
+// validateTextureFilter
+// ----------------------------------------------------------------------------------
+
+static inline void validateTextureFilter( unsigned int filter )
+{
+    CARNA_ASSERT_EX
+        (  filter == Sampler::FILTER_NEAREST
+        || filter == Sampler::FILTER_LINEAR
+        , "Unknown texture filter." );
+}
 
 
 
@@ -42,9 +72,22 @@ static unsigned int createGLSampler()
 }
 
 
-Sampler::Sampler()
+Sampler::Sampler
+        ( unsigned int wrapModeS
+        , unsigned int wrapModeT
+        , unsigned int wrapModeR
+        , unsigned int minFilter
+        , unsigned int magFilter )
     : id( createGLSampler() )
 {
+    bind( Texture3D::SETUP_UNIT );
+    
+    setWrapModeS( wrapModeS );
+    setWrapModeT( wrapModeT );
+    setWrapModeR( wrapModeR );
+    
+    setMinFilter( minFilter );
+    setMagFilter( magFilter );
 }
 
 
@@ -60,33 +103,38 @@ void Sampler::bind( int unit ) const
 }
 
 
-void Sampler::setWrapModeS( unsigned int wrap_mode )
+void Sampler::setWrapModeS( unsigned int wrapMode )
 {
-    glSamplerParameteri( id, GL_TEXTURE_WRAP_S, wrap_mode );
+    validateWrapMode( wrapMode );
+    glSamplerParameteri( id, GL_TEXTURE_WRAP_S, wrapMode );
 }
 
 
-void Sampler::setWrapModeT( unsigned int wrap_mode )
+void Sampler::setWrapModeT( unsigned int wrapMode )
 {
-    glSamplerParameteri( id, GL_TEXTURE_WRAP_T, wrap_mode );
+    validateWrapMode( wrapMode );
+    glSamplerParameteri( id, GL_TEXTURE_WRAP_T, wrapMode );
 }
 
 
-void Sampler::setWrapModeR( unsigned int wrap_mode )
+void Sampler::setWrapModeR( unsigned int wrapMode )
 {
-    glSamplerParameteri( id, GL_TEXTURE_WRAP_R, wrap_mode );
+    validateWrapMode( wrapMode );
+    glSamplerParameteri( id, GL_TEXTURE_WRAP_R, wrapMode );
 }
 
 
-void Sampler::setMinFilter( unsigned int min_filter )
+void Sampler::setMinFilter( unsigned int minFilter )
 {
-    glSamplerParameteri( id, GL_TEXTURE_MIN_FILTER, min_filter );
+    validateTextureFilter( minFilter );
+    glSamplerParameteri( id, GL_TEXTURE_MIN_FILTER, minFilter );
 }
 
 
-void Sampler::setMagFilter( unsigned int mag_filter )
+void Sampler::setMagFilter( unsigned int magFilter )
 {
-    glSamplerParameteri( id, GL_TEXTURE_MAG_FILTER, mag_filter );
+    validateTextureFilter( magFilter );
+    glSamplerParameteri( id, GL_TEXTURE_MAG_FILTER, magFilter );
 }
 
 
