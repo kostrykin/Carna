@@ -35,16 +35,14 @@ namespace base
 // ShaderProgram
 // ----------------------------------------------------------------------------------
 
-/** \brief  Represents a shader-program object.
+/** \brief
+  * Maintains an OpenGL shader program. Realizes the RAII-idiom.
   *
-  * Merged from GAL library (http://evoid.de)
-  *
-  * \see    Shader
-  * \see    VertexShader
-  * \see    FragmentShader
+  * \see
+  * The concept of shaders is explained \ref RenderingPipeline "here".
   *
   * \author Leonid Kostrykin
-  * \date   2009 - 2011
+  * \date   2009 - 2015
   */
 class CARNA_LIB ShaderProgram
 {
@@ -53,38 +51,39 @@ class CARNA_LIB ShaderProgram
 
 public:
 
-    /** \brief  Acquires a new GL shader-program object.
+    /** \brief
+      * Creates new OpenGL shader program.
       *
-      * Forbidden during the acquisition of a Painter object.
-      *
-      * \throw  std::runtime_error  Either the GL shader-program object acquisition
-      *                             failed, a Painter object is currently acquired,
-      *                             or the linking failed. See description for details.
+      * \throw AssertionFailure
+      *     thrown when creation of OpenGL program or the linking of the shader
+      *     objects fails.
       */
     ShaderProgram( const Shader& vertexShader, const Shader& fragmentShader );
 
-    /** \brief  Releases the associated GL shader-program object.
+    /** \brief
+      * Deletes the maintained OpenGL shader program.
       */
     virtual ~ShaderProgram();
 
-    /** \brief  Holds the shader program ID.
+    /** \brief
+      * Holds the shader program ID.
       */
     const unsigned int id;
 
 private:
 
-    /** \brief  Queries this shader for compilation errors.
-      *
-      * \throws std::runtime_error  when shader compilation failed.
+    /** \brief
+      * Queries this shader program for errors.
       */
     void checkErrors() const;
 
-    /** \brief  Releases the associated GL shader-object.
+    /** \brief
+      * Deletes the maintained OpenGL shader program.
       *
       * \warning
-      * Invoking this method puts this object in an invalid state!
-      * It is only allowed be used for cleaning up when a constructor needs to
-      * throw an exception, and from the destructor.
+      * Invoking this method puts this object in an invalid state! It is only allowed
+      * be used for cleaning up when a constructor needs to throw an exception, and
+      * from the destructor.
       */
     void release();
 
