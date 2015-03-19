@@ -30,8 +30,8 @@ namespace base
 // Span
 // ----------------------------------------------------------------------------------
     
-/** \brief  Defines an interval \f$ [ \mathrm{ first }, \mathrm{ last } ] \f$ with
-  * \f$ first, last \in \mathrm T \f$.
+/** \brief
+  * Defines an interval \f$\left[a, b\right]\f$ with \f$a,b \in\f$ \a T.
   *
   * \author Leonid Kostrykin
   * \date   12.3.13
@@ -42,21 +42,23 @@ class CARNA_LIB Span
 
 public:
     
-    /** \brief  Instantiates.
+    /** \brief
+      * Instantiates.
       */
     Span()
         : first( T() ), last( T() )
     {
     }
 
-    /** \brief  Instantiates.
+    /** \overload
       */
     Span( const T& first, const T& last )
         : first( first ), last( last )
     {
     }
     
-    /** \brief  Instantiates.
+    /** \brief
+      * Copies \a other.
       */
     Span( const Span< T >& other )
         : first( other.first )
@@ -65,32 +67,33 @@ public:
     }
 
 
-    /** \brief  Returns whether this span equals \a another span.
-      *
-      * Since \ref v_2_1_2 the equality is tested through \ref base::Math::isEqual.
+    /** \brief
+      * Returns whether this span equals \a other.
       */
-    bool operator==( const Span< T >& another ) const
+    bool operator==( const Span< T >& other ) const
     {
-        return base::math::isEqual( first, another.first ) && base::math::isEqual( last, another.last );
+        return base::math::isEqual( first, other.first ) && base::math::isEqual( last, other.last );
     }
 
-    /** \brief  Compares this span to \a another.
+    /** \brief
+      * Compares this span to \a other.
       *
-      * The ordering is determined by the spans' \c first attribute.
-      * If they are equal in \c first, the ordering is defined based on the comparison of their \c last attribute.
-      * The spans' natural order is implied by the natural order of \a T.
+      * The ordering is determined by the spans' `first` attribute. If they are equal
+      * in `first`, the ordering is done through comparison of the `last` attributes.
       */
-    bool operator<( const Span< T > another ) const
+    bool operator<( const Span< T > other ) const
     {
-        return first != another.first ? first < another.first : last < another.last;
+        return first != other.first ? first < other.first : last < other.last;
     }
 
 
-    /** \brief  Holds \f$ \mathrm{ first } \f$ within \f$ [ \mathrm{ first }, \mathrm{ last } ] \f$.
+    /** \brief
+      * Holds the \f$a\f$ of \f$\left[a, b\right]\f$.
       */
     T first;
 
-    /** \brief  Holds \f$ \mathrm{ last } \f$ within \f$ [ \mathrm{ first }, \mathrm{ last } ] \f$.
+    /** \brief
+      * Holds the \f$b\f$ of \f$\left[a, b\right]\f$.
       */
     T last;
 
