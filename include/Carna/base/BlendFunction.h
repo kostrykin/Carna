@@ -41,10 +41,23 @@ class CARNA_LIB BlendFunction
 
 public:
 
+    /** \brief
+      * Creates blend function with \a sourceFactor and \a destinationFactor.
+      *
+      * \attention
+      * The arguments \a sourceFactor and \a destinationFactor do not accept
+      * arbitrary values. Instead, use constants like `GL_ONE` and `GL_SRC_ALPHA`.
+      */
     BlendFunction( int sourceFactor, int destinationFactor );
 
+    /** \brief
+      * Holds the source factor.
+      */
     int sourceFactor;
 
+    /** \brief
+      * Holds the destination factor.
+      */
     int destinationFactor;
 
 }; // BlendFunction

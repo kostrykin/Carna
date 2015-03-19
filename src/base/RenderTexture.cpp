@@ -55,24 +55,24 @@ RenderTexture::~RenderTexture()
 }
 
 
-void RenderTexture::resize( unsigned int w, unsigned int h )
+void RenderTexture::resize( unsigned int width, unsigned int height )
 {
-    CARNA_ASSERT_EX( w > 0, "texture width must be greater zero" );
-    CARNA_ASSERT_EX( h > 0, "texture height must be greater zero" );
+    CARNA_ASSERT_EX(  width > 0, "Texture width must be greater zero!" );
+    CARNA_ASSERT_EX( height > 0, "Texture height must be greater zero!" );
 
-    this->w = w;
-    this->h = h;
+    myWidth  = width;
+    myHeight = height;
 
     glBindTexture( GL_TEXTURE_2D, id );
 
     if( floatingPoint )
     {
-        glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA16F, w, h, 0
+        glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA16F, width, height, 0
                     , GL_RGBA, GL_UNSIGNED_BYTE, NULL );
     }
     else
     {
-        glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA8, w, h, 0
+        glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0
                     , GL_RGBA, GL_UNSIGNED_BYTE, NULL );
     }
 

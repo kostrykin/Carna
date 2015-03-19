@@ -31,9 +31,11 @@ namespace base
 // RenderTexture
 // ----------------------------------------------------------------------------------
 
-/** \brief  Represents a texture that can be rendered to.
+/** \brief
+  * Maintains a 2D texture that can be rendered to. Realizes the RAII-idiom.
   *
-  * Instances of this class must be bound to \ref FramebufferObject "framebuffer objects" in order to render to them.
+  * Instances of this class must be bound to
+  * \ref Framebuffer "framebuffer objects" in order to render to them.
   *
   * \author Leonid Kostrykin
   * \date   9.3.2011 - 18.3.13
@@ -43,61 +45,68 @@ class CARNA_LIB RenderTexture
 
     NON_COPYABLE
 
+    unsigned int myWidth;
+    unsigned int myHeight;
+
 public:
 
-    /** \brief  Acquires GL texture object.
+    /** \brief
+      * Creates new OpenGL texture object.
       *
-      * \param  w   specifies texture's width.
-      * \param  h   specifies texture's height.
-      * \param  fp  uses floating point pixels instead of unsigned byte when \c true.
+      * \param width
+      *     is the texture's width.
+      *
+      * \param height
+      *     is the texture's height.
+      *
+      * \param floatingPoint
+      *     sets whether `float`-based pixels shall be used instead of unsigned byte.
       */
-    RenderTexture( unsigned int w, unsigned int h, bool fp = false );
+    RenderTexture( unsigned int width, unsigned int height, bool floatingPoint = false );
 
-    /** \brief  Releases associated GL texture object.
+    /** \brief
+      * Deletes the maintained OpenGL texture object.
       */
     ~RenderTexture();
 
 
-    /** \brief  Identifies the associated GL texture object.
+    /** \brief
+      * Identifies the maintained OpenGL texture object.
       */
     const unsigned int id;
 
-    /** \brief  Holds whether texture format is floating point but not unsigned byte.
+    /** \brief
+      * Holds whether texture format is floating point or unsigned byte.
       */
     const bool floatingPoint;
 
 
-    /** \brief  Invalidates the texture's contents and resizes it.
+    /** \brief
+      * Invalidates the texture's contents and resizes it.
       */
-    void resize( unsigned int w, unsigned int h );
+    void resize( unsigned int width, unsigned int height );
 
+    /** \brief
+      * Binds the maintained OpenGL texture object to texture \a unit.
+      */
     void bind( unsigned int unit ) const;
 
 
-    /** \brief  Returns the texture's width.
+    /** \brief
+      * Tells the texture's width.
       */
     inline unsigned int width() const
     {
-        return w;
+        return myWidth;
     }
 
-    /** \brief  Returns the texture's height.
+    /** \brief
+      * Tells the texture's height.
       */
     inline unsigned int height() const
     {
-        return h;
+        return myHeight;
     }
-
-
-private:
-
-    /** \property w
-      * \brief  This texture's width.
-      *
-      * \property h
-      * \brief  This texture's height.
-      */
-    unsigned int w, h;
 
 }; // RenderTexture
 

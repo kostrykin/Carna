@@ -37,7 +37,7 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Defines \ref MeshRenderingStage instance-invariants.
+  * Defines \ref MeshRenderingStage class template instance invariants.
   *
   * \author Leonid Kostrykin
   * \date   21.2.15 - 6.3.15
@@ -47,8 +47,18 @@ class CARNA_LIB MeshRenderingStageBase
 
 public:
 
+    /** \brief
+      * Instantiates.
+      *
+      * \param geometryType
+      *     is the \ref QuickStart_FrameRenderer "geometry type" rendered by this
+      *     \ref MeshRenderingStage.
+      */
     MeshRenderingStageBase( unsigned int geometryType );
 
+    /** \brief
+      * Does nothing.
+      */   
     virtual ~MeshRenderingStageBase();
 
     /** \brief
@@ -63,6 +73,10 @@ public:
       */
     const static unsigned int ROLE_DEFAULT_MATERIAL = 1;
 
+    /** \brief
+      * Holds the \ref QuickStart_FrameRenderer "geometry type" rendered by this
+      * \ref MeshRenderingStage.
+      */
     const unsigned int geometryType;
 
 }; // MeshRenderingStageBase
@@ -98,6 +112,13 @@ class MeshRenderingStage : public GeometryStage< RenderableCompare >, public Mes
 
 public:
 
+    /** \brief
+      * Instantiates.
+      *
+      * \param geometryType
+      *     is the \ref QuickStart_FrameRenderer "geometry type" rendered by this
+      *     stage.
+      */
     MeshRenderingStage( unsigned int geometryType );
 
     virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) override;
