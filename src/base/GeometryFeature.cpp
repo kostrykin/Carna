@@ -32,7 +32,7 @@ class GeometryFeatureLeakWatcher : public Singleton< GeometryFeatureLeakWatcher 
 
 protected:
 
-    friend class BaseSingleton;
+    friend class Singleton< GeometryFeatureLeakWatcher >;
     GeometryFeatureLeakWatcher();
 
 public:

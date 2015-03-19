@@ -51,7 +51,7 @@ public:
     /** \brief
       * Reflects the `VectorType` argument this class template was instantiated with.
       */
-    typedef typename VectorType Vector;
+    typedef VectorType Vector;
 
     /** \brief
       * Holds the origin of this ray.

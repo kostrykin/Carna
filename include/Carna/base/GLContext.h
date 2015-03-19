@@ -133,7 +133,7 @@ QGLContextAdapter< QGLContext >::QGLContextAdapter()
     : GLContext( QGLContext::currentContext()->format().doubleBuffer() )
     , qglcontext( const_cast< QGLContext& >( *QGLContext::currentContext() ) )
 {
-    const QGLFormat& format = QGLContext::currentContext()->format();
+    const auto& format = QGLContext::currentContext()->format();
     CARNA_ASSERT_EX
         ( format.majorVersion() >= 3 && format.minorVersion() >= 3
         , "OpenGL context version is too low." );

@@ -44,7 +44,7 @@ namespace base
   * {
   * protected:
   *
-  *     friend class BaseSingleton;
+  *     friend class Carna::base::Singleton< Config >
   *     Config();
   * };
   * \endcode
@@ -67,11 +67,6 @@ class Singleton
     static InstanceType* instancePtr;
 
 protected:
-
-    /** \brief
-      * Denotes the type of the instantiated class template.
-      */
-    typedef Singleton< InstanceType > BaseSingleton;
 
     /** \brief
       * Denotes that the instance was created. Default constructor is hidden.

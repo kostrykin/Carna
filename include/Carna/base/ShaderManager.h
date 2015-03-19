@@ -50,7 +50,7 @@ class CARNA_LIB ShaderManager : public Singleton< ShaderManager >
 
 protected:
 
-    friend class BaseSingleton;
+    friend class Singleton< ShaderManager >;
 
     /** \brief
       * Instantiates.

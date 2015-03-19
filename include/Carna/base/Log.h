@@ -53,7 +53,7 @@ class CARNA_LIB Log : public Singleton< Log >
 
 protected:
 
-    friend class BaseSingleton;
+    friend class Singleton< Log >;
 
     /** \brief
       * Instantiates.
