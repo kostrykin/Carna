@@ -49,7 +49,7 @@ namespace base
   * The rendering process is made up by the execution of occasionally nested *render
   * tasks*. At the beginning of the process there is always exactly one render task.
   * It's purpose is to invoke the rendering stages of the frame renderer
-  * successively.
+  * successively. The render task API is documented \ref RenderTask "here".
   *
   * In the most simple case, there is only one render task all the time. An
   * invocation to \ref FrameRenderer::render triggers it's execution, which in turn

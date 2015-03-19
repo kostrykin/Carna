@@ -5,7 +5,7 @@ namespace Carna
   *
   * %Carna provides classes for simple and fast visualization of CT data. It is named
   * after the greek god of organs (yup, they really did have even one for organs). It
-  * is based on OpenGL 3.3 and Eigen.
+  * is based on OpenGL 3.3 and Eigen 3.
   *
   * Jump to:
   *     \ref QuickStart | \ref VersionLog | \ref testing "Test Suite Documentation"

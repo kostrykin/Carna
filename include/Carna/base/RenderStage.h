@@ -45,11 +45,18 @@ class CARNA_LIB RenderStage
     NON_COPYABLE
 
     bool viewTransformFixed;
+    bool enabled;
 
 public:
 
+    /** \brief
+      * Instantiates in enabled-state.
+      */
     RenderStage();
 
+    /** \brief
+      * Deletes.
+      */
     virtual ~RenderStage();
     
     /** \brief
@@ -99,6 +106,18 @@ public:
       * called, \ref RenderQueue::rewind "rewinding" the queue will be sufficient.
       */
     virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) = 0;
+    
+    /** \brief
+      * Tells whether this stage is enabled. Disabled stages are not rendered by
+      * \ref RenderTask "render tasks".
+      */
+    bool isEnabled() const;
+    
+    /** \brief
+      * Sets whether this stage is enabled. Disabled stages are not rendered by
+      * \ref RenderTask "render tasks".
+      */
+    void setEnabled( bool );
 
 }; // RenderStage
 

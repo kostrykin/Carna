@@ -85,7 +85,10 @@ void RenderTask::render( const Viewport& vp, unsigned int clearBuffersMask )
     {
         RenderStage& rs = renderer.stageAt( nextRenderStage );
         ++nextRenderStage;
-        renderStage( rs, vp );
+        if( rs.isEnabled() )
+        {
+            renderStage( rs, vp );
+        }
     }
     vp.done();
 }

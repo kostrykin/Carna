@@ -25,6 +25,7 @@ namespace base
 
 RenderStage::RenderStage()
     : viewTransformFixed( true )
+    , enabled( true )
 {
 }
 
@@ -49,6 +50,18 @@ bool RenderStage::isViewTransformFixed() const
 void RenderStage::prepareFrame( Node& root )
 {
     viewTransformFixed = true;
+}
+
+
+bool RenderStage::isEnabled() const
+{
+    return enabled;
+}
+
+
+void RenderStage::setEnabled( bool enabled )
+{
+    this->enabled = enabled;
 }
 
 

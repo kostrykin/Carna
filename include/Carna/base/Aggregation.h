@@ -54,7 +54,7 @@ public:
 
     /** \brief
       * Creates instance of this class template that behaves like a `nullptr`
-      * pointer. For internal use only. Use \ref NULL_PTR instead.
+      * pointer. For internal usage only. Use \ref NULL_PTR instead.
       */
     static Aggregation< AssociatedObjectType > createNullPtr()
     {

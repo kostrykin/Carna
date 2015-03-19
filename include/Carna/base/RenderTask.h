@@ -31,6 +31,12 @@ namespace base
 // RenderTask
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Invokes the rendering stages of the frame renderer successively.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 19.3.15
+  */
 class CARNA_LIB RenderTask
 {
 
@@ -42,8 +48,13 @@ class CARNA_LIB RenderTask
 
 public:
 
+    /** \brief
+      * Instantiates. For internal usage only.
+      */
     RenderTask( const FrameRenderer& renderer, const math::Matrix4f& projection, const math::Matrix4f& viewTransform );
 
+    /** \overload
+      */
     RenderTask( const FrameRenderer& renderer, const math::Matrix4f& projection, const math::Matrix4f& viewTransform, Framebuffer& output );
     
     /** \brief
@@ -51,16 +62,26 @@ public:
       */
     RenderTask( const RenderTask& parent, Framebuffer& output );
 
+    /** \brief
+      * References the frame renderer.
+      */
     const FrameRenderer& renderer;
 
+    /** References the \ref ClippingCoordinates "projection matrix" to be used.
+      */
     const math::Matrix4f& projection;
 
+    /** References the \ref ViewSpace "view matrix" to be used.
+      */
     const math::Matrix4f& viewTransform() const;
 
+    /** Overrides the \ref ViewSpace "view matrix" to be used for further rendering.
+      */
     void overrideViewTransform( const math::Matrix4f& );
     
     /** \brief
       * Invokes \ref RenderStage::render an all associated scene processors remained.
+      * Disabled stages are skipped.
       */
     void render( const Viewport& vp, unsigned int clearBuffersMask = 0 );
     
@@ -71,7 +92,9 @@ public:
 
 protected:
 
-    virtual void renderStage( RenderStage& rs, const Viewport& vp );
+    /** Renders \a rs with \a viewport.
+      */
+    virtual void renderStage( RenderStage& rs, const Viewport& viewport );
 
 }; // RenderTask
 
