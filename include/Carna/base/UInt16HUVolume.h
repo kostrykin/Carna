@@ -37,7 +37,8 @@ namespace base
 // UInt16HUVolume
 // ----------------------------------------------------------------------------------
 
-/** \brief  Defines 16bit unsigned integer volume data.
+/** \brief
+  * Defines 16bit unsigned integer \ref HUV "HU" volume data.
   */
 typedef BufferedHUVolume< uint16_t > UInt16HUVolume;
 

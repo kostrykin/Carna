@@ -154,7 +154,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/RayPlaneHitTest.h
 		include/${PROJECT_NAME}/base/Span.h
 		include/${PROJECT_NAME}/base/Singleton.h
-		include/${PROJECT_NAME}/base/Text.h
+		include/${PROJECT_NAME}/base/text.h
 		include/${PROJECT_NAME}/base/Log.h
 		include/${PROJECT_NAME}/base/Ray.h
 		include/${PROJECT_NAME}/base/CameraControl.h
@@ -223,7 +223,7 @@ set( SRC
 		src/base/ShaderUniform.cpp
 		src/base/HUVolume.cpp
 		src/base/CarnaException.cpp
-		src/base/Text.cpp
+		src/base/text.cpp
 		src/base/Log.cpp
 		src/base/Ray.cpp
 		src/base/CameraControl.cpp

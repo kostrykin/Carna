@@ -18,19 +18,24 @@ namespace Carna
 namespace base
 {
 
+namespace text
+{
+
 
 
 // ----------------------------------------------------------------------------------
 // Text
 // ----------------------------------------------------------------------------------
 
-std::string Text::cat( const std::string& fileName )
+std::string cat( const std::string& fileName )
 {
     std::ifstream in( fileName.c_str(), std::ios::in );
     return std::string( std::istreambuf_iterator< char >( in ), std::istreambuf_iterator< char >() );
 }
 
 
+
+}  // namespace Carna :: base :: text
 
 }  // namespace Carna :: base
 
