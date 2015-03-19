@@ -45,13 +45,13 @@ IndexBufferBase::IndexBufferBase( unsigned int type, unsigned int primitiveType 
 }
 
 
-void IndexBufferBase::copy( const void* buffer_ptr, std::size_t buffer_size, std::size_t elements_count )
+void IndexBufferBase::copy( const void* bufferPtr, std::size_t bufferSize, std::size_t elementsCount )
 {
     valid = true;
-    setSize( elements_count );
+    setSize( elementsCount );
 
     glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, id );
-    glBufferData( GL_ELEMENT_ARRAY_BUFFER, buffer_size, buffer_ptr, GL_STATIC_DRAW );
+    glBufferData( GL_ELEMENT_ARRAY_BUFFER, bufferSize, bufferPtr, GL_STATIC_DRAW );
 }
 
 

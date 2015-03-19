@@ -72,7 +72,7 @@ namespace base
   *  -# https://www.opengl.org/wiki/OpenGL_Object#Container_objects
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 14.3.15
+  * \date   1.9.14 - 14.3.15
   */
 class CARNA_LIB MeshBase : public GeometryFeature
 {

@@ -32,7 +32,7 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Defines ray in \f$D^d\f$ where \f$D\f$ is the `::Scalar` type derived from
+  * Defines ray in \f$D^d\f$ where \f$D\f$ is the `Scalar` type derived from
   * \a VectorType and \f$d\f$ is dimension of \a VectorType.
   *
   * \param VectorType Specifies the which vector type is to use.

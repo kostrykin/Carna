@@ -32,15 +32,29 @@ namespace base
 // VertexBufferBase
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Maintains `GL_ARRAY_BUFFER` object that holds vertices. This class realizes the
+  * RAII-idiom.
+  *
+  * \author Leonid Kostrykin
+  * \date   1.9.14 - 14.3.15
+  */
 class CARNA_LIB VertexBufferBase : public BaseBuffer
 {
 
 protected:
 
-    void copy( const void* buffer_ptr, std::size_t buffer_size, std::size_t vertices_count );
+    /** \brief
+      * Copies \a verticesCount vertices referenced by \a bufferPtr to the maintained
+      * vertex buffer object.
+      */
+    void copy( const void* bufferPtr, std::size_t bufferSize, std::size_t verticesCount );
 
 public:
 
+    /** \brief
+      * Creates `GL_ARRAY_BUFFER` object.
+      */
     VertexBufferBase();
 
 }; // VertexBufferBase
@@ -51,23 +65,36 @@ public:
 // VertexBuffer
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Specializes \ref VertexBufferBase for particular \a VertexType.
+  *
+  * \author Leonid Kostrykin
+  * \date   1.9.14 - 14.3.15
+  */
 template< typename VertexType >
 class VertexBuffer : public VertexBufferBase
 {
 
 public:
 
+    /** \brief
+      * Holds the vertex type maintained by this vertex buffer object.
+      */
     typedef VertexType Vertex;
-
-    void copy( const Vertex* vertices_ptr, const std::size_t vertices_count );
+    
+    /** \brief
+      * Copies \a verticesCount vertices referenced by \a verticesPtr to the
+      * maintained vertex buffer object.
+      */
+    void copy( const Vertex* verticesPtr, const std::size_t verticesCount );
 
 }; // VertexBuffer
 
 
 template< typename VertexType >
-void VertexBuffer< VertexType >::copy( const Vertex* vertices_ptr, const std::size_t vertices_count )
+void VertexBuffer< VertexType >::copy( const Vertex* verticesPtr, const std::size_t verticesCount )
 {
-    VertexBufferBase::copy( vertices_ptr, vertices_count * sizeof( Vertex ), vertices_count );
+    VertexBufferBase::copy( verticesPtr, verticesCount * sizeof( Vertex ), verticesCount );
 }
 
 

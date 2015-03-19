@@ -30,6 +30,12 @@ namespace base
 // BaseBuffer
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Implements OpenGL buffer objects maintenance RAII base class.
+  *
+  * \author Leonid Kostrykin
+  * \date   1.9.14 - 14.3.15
+  */
 class CARNA_LIB BaseBuffer
 {
 
@@ -37,25 +43,55 @@ class CARNA_LIB BaseBuffer
 
 protected:
 
+    /** \brief
+      * Flag that indicates whether the maintained OpenGL buffer object is valid.
+      */
     bool valid;
 
+    /** \brief
+      * Acquires new OpenGL buffer object.
+      *
+      * \param target
+      *     specifies where the buffer object is to be bound to by `glBindBuffer`.
+      */
     explicit BaseBuffer( unsigned int target );
 
+    /** \brief
+      * Sets the size of the maintained buffer object.
+      */
     void setSize( std::size_t size );
 
 public:
 
+    /** \brief
+      * Deletes the maintained OpenGL buffer object.
+      */
+    virtual ~BaseBuffer();
+
+    /** \brief
+      * Holds where the maintained buffer object is to be bound to by `glBindBuffer`.
+      */
     const unsigned int target;
 
+    /** \brief
+      * Holds the ID of the maintained OpenGL buffer object.
+      */
     const unsigned int id;
 
+    /** \brief
+      * Tells the \ref setSize "previously set size" of the maintained buffer object.
+      */
     std::size_t size() const;
 
+    /** \brief
+      * Invokes `glBindBuffer` to bind the maintained buffer object to \ref target.
+      */
     void bind() const;
 
+    /** \brief
+      * Tells whether the buffer object \ref valid "was marked as valid".
+      */
     bool isValid() const;
-
-    virtual ~BaseBuffer();
 
 }; // BaseBuffer
 

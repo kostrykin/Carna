@@ -29,13 +29,13 @@ VertexBufferBase::VertexBufferBase()
 {
 }
 
-void VertexBufferBase::copy( const void* buffer_ptr, std::size_t buffer_size, std::size_t elements_count )
+void VertexBufferBase::copy( const void* bufferPtr, std::size_t bufferSize, std::size_t elementsCount )
 {
     valid = true;
-    setSize( elements_count );
+    setSize( elementsCount );
 
     glBindBuffer( GL_ARRAY_BUFFER, id );
-    glBufferData( GL_ARRAY_BUFFER, buffer_size, buffer_ptr, GL_STATIC_DRAW );
+    glBufferData( GL_ARRAY_BUFFER, bufferSize, bufferPtr, GL_STATIC_DRAW );
 }
 
 
