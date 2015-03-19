@@ -37,7 +37,7 @@ Shader::Shader( unsigned int type, const std::string& src )
 {
     try
     {
-        CARNA_ASSERT_EX( id != 0, "failed to acquire shader object" );
+        CARNA_ASSERT_EX( id != 0, "Failed to acquire shader object!" );
 
         const char* pcSrc = src.c_str();
         const GLint nSrcLength = src.length();

@@ -16,7 +16,7 @@
   * \brief  Defines \ref Carna::base::Shader.
   *
   * \author Leonid Kostrykin
-  * \date   2009 - 2011
+  * \date   2009 - 2015
   */
 
 #include <string>
@@ -35,9 +35,11 @@ namespace base
 // Shader
 // ----------------------------------------------------------------------------------
 
-/** \brief  Represents a shader object.
+/** \brief
+  * Maintains an OpenGL shader object. Realizes the RAII-idiom.
   *
-  * \see    ShaderProgram
+  * \see
+  * The concept of shaders is explained \ref RenderingPipeline "here".
   *
   * \author Leonid Kostrykin
   * \date   2009 - 2015
@@ -47,39 +49,50 @@ class CARNA_LIB Shader
 
     NON_COPYABLE
 
-    /** \brief  Releases the associated GL shader-object.
+    /** \brief
+      * Deletes the maintained OpenGL shader object.
       *
       * \warning
-      * Invoking this method puts this object in an invalid state!
-      * It is only allowed be used for cleaning up when a constructor needs to
-      * throw an exception, and from the destructor.
+      * Invoking this method puts this object in an invalid state! It is only allowed
+      * be used for cleaning up when a constructor needs to throw an exception, and
+      * from the destructor.
       */
     void release();
 
 public:
 
-    const static unsigned int TYPE_VERTEX_SHADER;
-    const static unsigned int TYPE_FRAGMENT_SHADER;
+    const static unsigned int TYPE_VERTEX_SHADER;   ///< Indicates shader object of `GL_VERTEX_SHADER` type.
+    const static unsigned int TYPE_FRAGMENT_SHADER; ///< Indicates shader object of `GL_FRAGMENT_SHADER` type.
 
-    /** \brief  Acquires a new GL shader-object.
+    /** \brief
+      * Compiles \a src and creates new OpenGL shader object of \a type.
       *
-      * \param  type    usually \ref TYPE_VERTEX_SHADER or \ref TYPE_FRAGMENT_SHADER
-      * \param  src     the shader source code
+      * \param type
+      *     is usually `TYPE_VERTEX_SHADER` or `TYPE_FRAGMENT_SHADER`.
       *
-      * \throw  std::runtime_error  Either the GL-shader object acquisition failed
-      *                             or there was an error in the source code. See
-      *                             description for more details.
+      * \param src
+      *     references the shader source code.
+      *
+      * \throw AssertionFailure thrown when creation of OpenGL shader object fails.
+      * \throw ShaderCompilationError thrown when shader compilation fails.
       */
     Shader( unsigned int type, const std::string& src );
 
-    /** \brief  Releases the associated GL shader-object.
+    /** \brief
+      * Deletes the maintained OpenGL shader object.
       */
     ~Shader();
 
-    /** \brief  Identifies the GL shader-object.
+    /** \brief
+      * Identifies the maintained OpenGL shader object.
       */
     const unsigned int id;
 
+    /** \brief
+      * Holds the type of the maintained OpenGL shader object. This is
+      * `TYPE_VERTEX_SHADER` or `TYPE_FRAGMENT_SHADER` usually.
+      *
+      */
     const unsigned int type;
 
 }; // Shader
