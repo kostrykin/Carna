@@ -292,7 +292,7 @@ public:
 template< typename ParameterType >
 void Material::setParameter( const std::string& name, const ParameterType& value )
 {
-    addParameter( new ShaderUniform< typename ShaderUniformType< ParameterType >::UniformType >( name, value ) );
+    addParameter( new ShaderUniform< ParameterType >( name, value ) );
 }
 
 

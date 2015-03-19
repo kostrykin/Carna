@@ -16,7 +16,9 @@
 #include <Carna/base/math.h>
 
 /** \file   Mesh.h
-  * \brief  Defines \ref Carna::base::ShaderUniform.
+  * \brief  Defines \ref Carna::base::ShaderUniformType,
+  *                 \ref Carna::base::ShaderUniformBase and
+  *                 \ref Carna::base::ShaderUniform.
   */
 
 namespace Carna
@@ -31,13 +33,20 @@ namespace base
 // ShaderUniformType
 // ----------------------------------------------------------------------------------
 
-template< typename ParameterType >
+/** \brief
+  * Maps \ref ShaderUniform::Value "ShaderUniform value types" to actually uploaded
+  * data types. This general case maps `T` to `T`.
+  */
+template< typename ValueType >
 struct ShaderUniformType
 {
-    typedef ParameterType UniformType;
+    typedef ValueType UniformType;
 };
 
 
+/** \brief
+  * Maps the \ref ShaderUniform value type \ref Color to uploaded type \ref math::Vector4f.
+  */
 template< >
 struct ShaderUniformType< Color >
 {
@@ -50,21 +59,42 @@ struct ShaderUniformType< Color >
 // ShaderUniformBase
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Type-independent abstract \ref ShaderUniform base class.
+  *
+  * \author Leonid Kostrykin
+  * \date   1.9.14 - 14.3.15
+  */
 class CARNA_LIB ShaderUniformBase
 {
 
 public:
 
+    /** \brief
+      * Instantiates.
+      */
     ShaderUniformBase( const std::string& name );
 
+    /** \brief
+      * Does nothing.
+      */
     virtual ~ShaderUniformBase();
 
+    /** \brief
+      * Holds the name of this uniform.
+      */
     std::string name;
 
+    /** \brief
+      * Uploads this uniform to the current shader.
+      */
     void upload() const;
 
 protected:
 
+    /** \brief
+      * Uploads this uniform to \a location.
+      */
     virtual void uploadTo( int location ) const = 0;
 
 private:
@@ -81,6 +111,10 @@ private:
 // uploadUniform
 // ----------------------------------------------------------------------------------
 
+/** \cond 0
+  * Excluded from Doxygen -->
+  */
+
 void CARNA_LIB uploadUniform( int location, const int value );
 
 void CARNA_LIB uploadUniform( int location, const unsigned int value );
@@ -95,13 +129,29 @@ void CARNA_LIB uploadUniform( int location, const math::Vector4f& value );
 
 void CARNA_LIB uploadUniform( int location, const math::Matrix4f& value );
 
+/** <-- Excluded from Doxygen
+  * \endcond
+  */
+
 
 
 // ----------------------------------------------------------------------------------
 // ShaderUniform
 // ----------------------------------------------------------------------------------
 
-template< typename UniformType >
+/** \brief
+  * Implements \ref ShaderUniformBase class for particular \a ValueType.
+  *
+  * \param ValueType
+  *     specifies the accepted value type.
+  *
+  * The particular `glUniform` function used for upload is chosen by the mapping
+  * \ref ShaderUniformType and its specializations induce.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 14.3.15
+  */
+template< typename ValueType >
 class ShaderUniform : public ShaderUniformBase
 {
 
@@ -109,11 +159,18 @@ public:
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    typedef UniformType Type;
+    /** \brief
+      * Holds the accepted value type.
+      */
+    typedef ValueType Value;
 
-    ShaderUniform( const std::string& name, const Type& type );
+    /** Instantiates.
+      */
+    ShaderUniform( const std::string& name, const ValueType& value );
 
-    Type value;
+    /** Holds the value of this uniform.
+      */
+    ValueType value;
 
 protected:
 
@@ -122,18 +179,19 @@ protected:
 }; // ShaderUniform
 
 
-template< typename UniformType >
-ShaderUniform< UniformType >::ShaderUniform( const std::string& name, const Type& value )
+template< typename ValueType >
+ShaderUniform< ValueType >::ShaderUniform( const std::string& name, const ValueType& value )
     : ShaderUniformBase( name )
     , value( value )
 {
 }
 
 
-template< typename UniformType >
-void ShaderUniform< UniformType >::uploadTo( int location ) const
+template< typename ValueType >
+void ShaderUniform< ValueType >::uploadTo( int location ) const
 {
-    uploadUniform( location, value );
+    typedef typename ShaderUniformType< ValueType >::UniformType UniformType;
+    uploadUniform( location, static_cast< const UniformType& >( value ) );
 }
 
 

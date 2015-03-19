@@ -61,7 +61,6 @@ namespace Carna
         class  CameraControl;
         class  CarnaException;
         class  Log;
-        class  Text;
         class  HUVolume;
         class  BaseBuffer;
         class  BlendFunction;
@@ -109,16 +108,16 @@ namespace Carna
         template< typename RenderableCompare > class GeometryStage;
         template< typename HUVolumeSegmentVolume > class HUVolumeGrid;
         template< typename HUVolumeGrid, typename HUVolumeSegmentVolume > class HUVolumeSegment;
-        template< typename Index > class IndexBuffer;
-        template< typename Vertex, typename Index > class Mesh;
-        template< typename Vertex > class MeshFactory;
+        template< typename IndexType > class IndexBuffer;
+        template< typename VertexType, typename IndexType > class Mesh;
+        template< typename VertexType > class MeshFactory;
         template< typename RenderableCompare > class MeshRenderingStage;
         template< typename VectorType > class Ray;
         template< typename VectorType, typename ScalarType = typename VectorType::Scalar > class RayPlaneHitTest;
         template< typename RenderableCompare > class RenderQueue;
-        template< typename Vertex > class VertexBuffer;
-        template< typename Type > class ShaderUniform;
-        template< typename ParameterType > struct ShaderUniformType;
+        template< typename VertexType > class VertexBuffer;
+        template< typename ValueType > class ShaderUniform;
+        template< typename ValueType > struct ShaderUniformType;
         template< typename InstanceType > class Singleton;
         template< typename T > class Span;
         

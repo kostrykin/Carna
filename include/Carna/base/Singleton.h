@@ -32,7 +32,7 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Singleton base class
+  * %Singleton base class
   *
   * \param InstanceType
   *     Names the class, which derives from this class.
