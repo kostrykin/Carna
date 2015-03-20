@@ -102,9 +102,18 @@ public:
     
     /** \brief
       * Rewinds this queue. This is an \f$\mathcal O\left(1\right)\f$ operation in
-      * contrast to \ref build, so prefer it whenever possible.
+      * contrast to \ref build, so prefer it whenever possible. You might also need
+      * to \ref updateModelViewTransforms if you use this.
       */
     void rewind();
+    
+    /** \brief
+      * Recomputes the \ref Renderable::modelViewTransform "model-view transforms" of
+      * all enqueued renderables. This only is neccessary in certain cases when you
+      * have \ref rewind "rewinded" this queue previously. Also recomputes the
+      * elements order of this queue if necessary.
+      */
+    void updateModelViewTransforms( const math::Matrix4f& viewTransform );
     
     /** \brief
       * Tells whether this queue has reached it's end.
@@ -153,9 +162,9 @@ RenderQueue< RenderableCompare >::RenderQueue( unsigned int geometryType, unsign
 template< typename RenderableCompare >
 struct RenderableSort
 {
-    static void sort( std::vector< Renderable >& renderables )
+    static void sort( std::vector< Renderable >& renderables, bool skipIfViewDependent )
     {
-        if( renderables.size() > 2 )
+        if( renderables.size() > 2 && ( RenderableCompare::isViewDependent || !skipIfViewDependent ) )
         {
             std::sort( renderables.begin(), renderables.end(), RenderableCompare() );
         }
@@ -166,7 +175,7 @@ struct RenderableSort
 template< >
 struct RenderableSort< void >
 {
-    static void sort( std::vector< Renderable >& )
+    static void sort( std::vector< Renderable >& renderables, bool skipIfViewDependent )
     {
     }
 };
@@ -178,7 +187,8 @@ void RenderQueue< RenderableCompare >::build( const Node& root, const math::Matr
     renderables.clear();
     nextRenderableIndex = 0;
     
-    // collect all geometries
+    /* Collect all geometries.
+     */
     root.visitChildren( true, [&]( const Spatial& spatial )
         {
             const Geometry* const geom = dynamic_cast< const Geometry* >( &spatial );
@@ -190,8 +200,9 @@ void RenderQueue< RenderableCompare >::build( const Node& root, const math::Matr
         }
     );
     
-    // order geometries as required
-    RenderableSort< RenderableCompare >::sort( renderables );
+    /* Order geometries as required. Do not skip anything.
+     */
+    RenderableSort< RenderableCompare >::sort( renderables, false );
 }
 
 
@@ -199,6 +210,24 @@ template< typename RenderableCompare >
 void RenderQueue< RenderableCompare >::rewind()
 {
     nextRenderableIndex = 0;
+}
+
+
+template< typename RenderableCompare >
+void RenderQueue< RenderableCompare >::updateModelViewTransforms( const math::Matrix4f& viewTransform )
+{
+    /* Recompute the model-view transforms.
+     */
+    std::for_each( renderables.begin(), renderables.end(),
+        [&viewTransform]( Renderable& r )
+        {
+            r.setModelViewTransform( viewTransform * r.geometry().worldTransform() );
+        }
+    );
+    
+    /* Order geometries as required. Skip if the order is not view-dependent.
+     */
+    RenderableSort< RenderableCompare >::sort( renderables, true );
 }
 
 

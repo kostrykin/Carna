@@ -72,6 +72,11 @@ public:
     const math::Matrix4f& modelViewTransform() const;
 
     /** \brief
+      * Alters the \ref ViewSpace "model-view transform".
+      */
+    void setModelViewTransform( const math::Matrix4f& );
+
+    /** \brief
       * Assigns from \a other.
       */
     Renderable& operator=( const Renderable& other );
@@ -86,6 +91,7 @@ public:
     template< int order >
     struct DepthOrder
     {
+        const static bool isViewDependent = true;
         bool operator()( const Renderable& l, const Renderable& r ) const;
     };
 
@@ -110,6 +116,7 @@ public:
     template< unsigned int role >
     struct VideoResourcesOrder
     {
+        const static bool isViewDependent = false;
         bool operator()( const Renderable& l, const Renderable& r ) const;
     };
 

@@ -121,35 +121,22 @@ protected:
       * \ref FrameRenderer is the current one.
       */
     void activateGLContext() const;
-
+    
     /** \brief
-      * Builds or rewinds the rendering queues of this stage, depending on the
-      * arguments.
-      *
-      * \param root
-      *     is the root node of the scene that objects should be gathered from.
-      *
-      * \param viewTransform
-      *     is the \ref ViewSpace "view matrix" that is to be used to compute the
-      *     model-view transforms.
-      *
-      * \param viewTransformTriggered
-      *     is `true` if this invocation was triggered by an altered
-      *     \a viewTransform.
-      *
-      * \note
-      * If \a viewTransformTriggered is `true` and the renderables order of your
-      * rendering queue is \a viewTransform invariant, i.e. it is *not* a
-      * \ref Renderable::DepthOrder in particular, than it is safe to just
-      * \ref RenderQueue::rewind "rewind" the queue instead of
-      * \ref RenderQueue::build "rebuilding" it.
+      * Builds the rendering queues of this stage.
       */
-    virtual void updateRenderQueues( Node& root, const math::Matrix4f& viewTransform, bool viewTransformTriggered );
+    virtual void buildRenderQueues( Node& root, const math::Matrix4f& viewTransform );
 
     /** \brief
       * Rewinds the rendering queues of this stage.
       */
     virtual void rewindRenderQueues();
+
+    /** \brief
+      * Recomputes the \ref ViewSpace "model-view transforms" of the renderables
+      * enqueued by this stage.
+      */
+    virtual void updateRenderQueues( const math::Matrix4f& viewTransform );
 
     /** \brief
       * Renders the \a renderable.
@@ -209,16 +196,9 @@ std::size_t GeometryStage< RenderableCompare >::renderedPassesCount() const
 
 
 template< typename RenderableCompare >
-void GeometryStage< RenderableCompare >::updateRenderQueues( Node& root, const math::Matrix4f& vt, bool vtTriggered )
+void GeometryStage< RenderableCompare >::buildRenderQueues( Node& root, const math::Matrix4f& viewTransform )
 {
-    if( !vtTriggered )
-    {
-        rq.build( root, vt );
-    }
-    else
-    {
-        rq.rewind();
-    }
+    rq.build( root, viewTransform );
 }
 
 
@@ -230,19 +210,31 @@ void GeometryStage< RenderableCompare >::rewindRenderQueues()
 
 
 template< typename RenderableCompare >
+void GeometryStage< RenderableCompare >::updateRenderQueues( const math::Matrix4f& viewTransform )
+{
+    rq.updateModelViewTransforms( viewTransform );
+}
+
+
+template< typename RenderableCompare >
 void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp )
 {
     CARNA_ASSERT( myContext != nullptr );
-
     const bool isFirstPass = passesRendered == 0;
-    if( ++passesRendered == 1 || !isViewTransformFixed() )
+    
+    /* Maintain the render queues.
+     */
+    if( isFirstPass )
     {
-        const bool viewTransformTriggered = passesRendered != 1;
-        updateRenderQueues( *root, viewTransform, viewTransformTriggered );
+        buildRenderQueues( *root, viewTransform );
     }
     else
     {
         rewindRenderQueues();
+        if( isViewTransformFixed() )
+        {
+            updateRenderQueues( viewTransform );
+        }
     }
 
     std::set< GeometryFeature* > usedFeatures;

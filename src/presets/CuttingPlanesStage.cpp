@@ -206,23 +206,25 @@ bool CuttingPlanesStage::isRenderingInverse() const
     return pimpl->renderingIvnerse;
 }
 
-
-void CuttingPlanesStage::updateRenderQueues( base::Node& root, const base::math::Matrix4f& vt, bool vtTriggered )
+    
+void CuttingPlanesStage::buildRenderQueues( base::Node& root, const base::math::Matrix4f& viewTransform )
 {
-    /* Since we do not require the renderables to be sorted by any
-     * specific order within the render queue, we also do not have to
-     * rebuild the render queue when the 'view transformation' changes.
-     * It's absolutely sufficient to rewind the render queue then.
-     */
-    if( vtTriggered )
-    {
-        rewindRenderQueues();
-    }
-    else
-    {
-        GeometryStage< void >::updateRenderQueues( root, vt, vtTriggered );
-        pimpl->planes.build( root, vt );
-    }
+    GeometryStage< void >::buildRenderQueues( root, viewTransform );
+    pimpl->planes.build( root, viewTransform );
+}
+
+
+void CuttingPlanesStage::rewindRenderQueues()
+{
+    GeometryStage< void >::rewindRenderQueues();
+    pimpl->planes.rewind();
+}
+
+
+void CuttingPlanesStage::updateRenderQueues( const base::math::Matrix4f& viewTransform )
+{
+    GeometryStage< void >::updateRenderQueues( viewTransform );
+    pimpl->planes.updateModelViewTransforms( viewTransform );
 }
 
 

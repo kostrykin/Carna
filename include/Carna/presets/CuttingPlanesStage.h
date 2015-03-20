@@ -73,11 +73,12 @@ public:
     bool isRenderingInverse() const;
 
 protected:
+    
+    virtual void buildRenderQueues( base::Node& root, const base::math::Matrix4f& viewTransform ) override;
 
-    virtual void updateRenderQueues
-        ( base::Node& root
-        , const base::math::Matrix4f& viewTransform
-        , bool viewTransformTriggered ) override;
+    virtual void rewindRenderQueues() override;
+
+    virtual void updateRenderQueues( const base::math::Matrix4f& viewTransform ) override;
 
     virtual void render( const base::Renderable& ) override;
 

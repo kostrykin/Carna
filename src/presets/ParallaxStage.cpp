@@ -87,7 +87,7 @@ void ParallaxStage::renderPass
     }
     else
     {
-        rt.overrideViewTransform( vtNew );
+        rtFork.overrideViewTransform( vtNew );
         rtFork.render( vp );
         rt.finish();
     }

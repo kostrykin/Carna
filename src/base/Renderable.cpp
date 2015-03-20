@@ -49,6 +49,12 @@ const math::Matrix4f& Renderable::modelViewTransform() const
 }
 
 
+void Renderable::setModelViewTransform( const math::Matrix4f& modelViewTransform )
+{
+    *myModelViewTransform = modelViewTransform;
+}
+
+
 Renderable& Renderable::operator=( const Renderable& r )
 {
     myGeometry = r.myGeometry;

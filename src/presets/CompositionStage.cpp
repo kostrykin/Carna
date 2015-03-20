@@ -70,9 +70,9 @@ void CompositionStage::Details::renderAside
     , const base::Viewport& vp )
 {
     base::Viewport vp2( vp, vp.marginLeft() / 2, vp.marginTop() / 2, vp.width() / 2, vp.height() );
-    self->renderPass( vt, rt, vp2, true, true ^ swap );
+    self->renderPass( vt, rt, vp2, true, false ^ swap );
     vp2.setMarginLeft( vp2.marginLeft() + vp.parentWidth() / 2 );
-    self->renderPass( vt, rt, vp2, false, false ^ swap );
+    self->renderPass( vt, rt, vp2, false, true ^ swap );
 }
 
 
