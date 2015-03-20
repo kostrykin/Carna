@@ -272,9 +272,9 @@ unsigned int Framebuffer::currentId()
 
 void Framebuffer::copy( unsigned int srcId, unsigned int dstId, const Viewport& src, const Viewport& dst, unsigned int flags )
 {
-    const unsigned int  width = std::min( src.width , dst.width  );
-    const unsigned int height = std::min( src.height, dst.height );
-    copy( srcId, dstId, src.left, src.top, dst.left, dst.top, width, height, flags );
+    const unsigned int  width = std::min( src.width() , dst.width()  );
+    const unsigned int height = std::min( src.height(), dst.height() );
+    copy( srcId, dstId, src.marginLeft(), src.marginTop(), dst.marginLeft(), dst.marginTop(), width, height, flags );
 }
 
 

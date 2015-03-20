@@ -216,11 +216,11 @@ void MeshColorCodingStage::renderPass( const base::math::Matrix4f& viewTransform
         if( vr.get() == nullptr )
         {
             const ShaderProgram& shader = ShaderManager::instance().acquireShader( "unshaded" );
-            vr.reset( new VideoResources( shader, vp.width, vp.height ) );
+            vr.reset( new VideoResources( shader, vp.width(), vp.height() ) );
         }
 
-        pimpl->vpOffsetX = vp.left;
-        pimpl->vpOffsetY = vp.top;
+        pimpl->vpOffsetX = vp.marginLeft();
+        pimpl->vpOffsetY = vp.marginTop();
         pimpl->nextColorCodingId = Details::FIRST_COLOR_CODING_ID;
         pimpl->geometryById.clear();
         pimpl->renderTask = &rt;
@@ -286,7 +286,7 @@ void MeshColorCodingStage::reshape( const base::FrameRenderer& fr, const base::V
     base::GeometryStage< void >::reshape( fr, vp );
     if( vr.get() != nullptr )
     {
-        vr.reset( new VideoResources( vr->shader, vp.width, vp.height ) );
+        vr.reset( new VideoResources( vr->shader, vp.width(), vp.height() ) );
     }
 }
 

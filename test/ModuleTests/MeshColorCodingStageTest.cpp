@@ -100,8 +100,8 @@ Carna::base::math::Vector2ui MeshColorCodingStageTest::computeFrameLocation( con
     const base::math::Vector4f clippingCoordinates = modelViewProjection * base::math::Vector4f( 0, 0, 0, 1 );
     const base::math::Vector3f       ndCoordinates = base::math::vector3f( clippingCoordinates / clippingCoordinates.w() );
     const base::math::Vector2f    frameCoordinates = base::math::Vector2f
-        ( (  ndCoordinates.x() / 2 + 0.5f ) * vp.width  + vp.left
-        , ( -ndCoordinates.y() / 2 + 0.5f ) * vp.height + vp.top );
+        ( (  ndCoordinates.x() / 2 + 0.5f ) * vp.width () + vp.marginLeft()
+        , ( -ndCoordinates.y() / 2 + 0.5f ) * vp.height() + vp.marginTop () );
 
     return base::math::round_ui( frameCoordinates );
 }

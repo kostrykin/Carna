@@ -36,16 +36,15 @@ namespace base
   * of the \ref GLContext "current OpenGL context".
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 19.3.15
+  * \date   22.2.15 - 20.3.15
   */
 class CARNA_LIB Viewport
 {
 
     NON_COPYABLE
 
-    const Viewport* parent;
-
-    mutable bool isDone;
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
 
 public:
 
@@ -60,34 +59,40 @@ public:
     Viewport( const Viewport& parent, unsigned int left, unsigned int top, unsigned int width, unsigned int height );
 
     /** \brief
-      * Derives viewport from \a parent. The arguments must be given relatively.
-      *
-      * \todo finish this
-      */
-    Viewport( const Viewport& parent, float width, float height, float left, float top );
-
-    /** \brief
       * Restores the parent viewport if this viewport is still active.
       */
     ~Viewport();
-
-    unsigned int left;
-
-    unsigned int top;
-
-    unsigned int width;
-
-    unsigned int height;
 
     /** Makes this viewport the active one of the
       * \ref GLContext "current OpenGL context".
       */
     void makeActive() const;
+    
+    bool isActive() const;
 
     /** \brief
-      * Restores the parent viewport.
+      * Restores the previous viewport.
+      *
+      * \pre `isActive() == true`
       */
     void done() const;
+    
+    void setWidth ( unsigned int );
+    void setHeight( unsigned int );
+    
+    void setMarginLeft( unsigned int );
+    void setMarginTop ( unsigned int );
+    
+    unsigned int  width() const;
+    unsigned int height() const;
+    
+    unsigned int parentWidth () const;
+    unsigned int parentHeight() const;
+    
+    unsigned int marginLeft  () const;
+    unsigned int marginTop   () const;
+    unsigned int marginRight () const;
+    unsigned int marginBottom() const;
 
 }; // Viewport
 

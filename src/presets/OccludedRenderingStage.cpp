@@ -180,7 +180,7 @@ void OccludedRenderingStage::renderPass
     if( vr.get() == nullptr )
     {
         const ShaderProgram& shader = ShaderManager::instance().acquireShader( "unshaded" );
-        vr.reset( new VideoResources( shader, vp.width, vp.height ) );
+        vr.reset( new VideoResources( shader, vp.width(), vp.height() ) );
     }
 
     /* Fork the render task.
@@ -236,7 +236,7 @@ void OccludedRenderingStage::reshape( const base::FrameRenderer& fr, const base:
     pimpl->context = &fr.glContext();
     if( vr.get() != nullptr )
     {
-        vr.reset( new VideoResources( vr->shader, vp.width, vp.height ) );
+        vr.reset( new VideoResources( vr->shader, vp.width(), vp.height() ) );
     }
 }
 
