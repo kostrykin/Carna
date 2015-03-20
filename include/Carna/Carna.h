@@ -141,6 +141,7 @@ namespace Carna
         class CuttingPlanesStage;
         class TransparentRenderingStage;
         class OccludedRenderingStage;
+        class CompositionStage;
 
     }
 
