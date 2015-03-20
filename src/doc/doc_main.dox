@@ -12,7 +12,8 @@ namespace Carna
   *
   * --
   *
-  *  1. \ref QuickStart_FrameRenderer
+  *  1. \ref QuickStart_FrameRenderer "The Frame Renderer":
+  *     \ref RenderStages and \ref GeometryTypes
   *  2. \ref SceneGraph "The Scene Graph":
   *     \ref SceneGraph_SpecialSpatialClasses and \ref QuickStart_HUVolumeGridHelper
   *  3. \ref GeometryFeatures "Geometry Features":
@@ -54,6 +55,8 @@ namespace Carna
   * \see
   * The rendering process is explained \ref RenderingProcess "here" in detail.
   *
+  * \subsubsection RenderStages Built-in Rendering Stages
+  *
   * In the example code above, several typical rendering stages are used:
   *
   *   - The \ref presets::CuttingPlanesStage renders an arbitrary number of cutting
@@ -74,6 +77,8 @@ namespace Carna
   *     volume data.
   *   - The \ref presets::ParallaxStage produces stereoscopic renderings.
   *   - The \ref presets::TransparentRenderingStage renders transparent meshes.
+  *
+  * \subsubsection GeometryTypes Geometry Types
   *
   * As one may guess from this list, each scene might contain multiple types of
   * renderable objects. At least one could distinguish between polygonal and
