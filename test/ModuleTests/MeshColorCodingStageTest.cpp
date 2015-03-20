@@ -37,12 +37,16 @@ void MeshColorCodingStageTest::initTestCase()
     scene.reset( new TestScene() );
     renderer.reset( new base::FrameRenderer( qglContextHolder->glContext(), width, height, true ) );
 
+    //! [MeshColorCodingStage_Opaque_Setup]
     opaque = new presets::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
     renderer->appendStage( opaque );
+    //! [MeshColorCodingStage_Opaque_Setup]
 
+    //! [MeshColorCodingStage_instantiation]
     mccs = new presets::MeshColorCodingStage();
     mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH );
     renderer->appendStage( mccs );
+    //! [MeshColorCodingStage_instantiation]
 
     /* Create and add objects to scene.
      */

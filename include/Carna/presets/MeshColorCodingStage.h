@@ -32,6 +32,32 @@ namespace presets
 // MeshColorCodingStage
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Implements a simple interface for mapping
+  * \ref FrameCoordinates "frame coordinates" to \ref Mesh objects.
+  *
+  * Lets assume we have an \ref OpaqueRenderingStage defined, e.g.:
+  *
+  * \snippet ModuleTests/MeshColorCodingStageTest.cpp MeshColorCodingStage_Opaque_Setup
+  *
+  * The concept of geometry types is explained \ref QuickStart_FrameRenderer "here".
+  *
+  * Than we can instantiate the `%MeshColorCodingStage` like this:
+  *
+  * \snippet ModuleTests/MeshColorCodingStageTest.cpp MeshColorCodingStage_instantiation
+  *
+  * After rendering the frame, we can query the `%MeshColorCodingStage` object for
+  * meshes at particular frame coordinates using its \ref pick method.
+  *
+  * \note
+  * In the \ref RenderingProcess "rendering process" this stage can be inserted
+  * *anywhere*. However, it is a good idea to insert it as close to the beginning of
+  * the rendering stages sequence as possible, because this will prevent it from
+  * being processed multiple times occasionally.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 20.3.15
+  */
 class CARNA_LIB MeshColorCodingStage : public base::GeometryStage< void >
 {
 
