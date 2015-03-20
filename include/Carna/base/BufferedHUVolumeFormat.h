@@ -31,6 +31,9 @@ namespace base
 // BufferedHUVolumeFormat
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Maps \ref BufferedHUVolume class template instances to \ref Texture3D formats.
+  */
 template< typename BufferedHUVolumeType >
 struct BufferedHUVolumeFormat
 {
@@ -38,6 +41,9 @@ struct BufferedHUVolumeFormat
 };
 
 
+/** \brief
+  * Defines \ref Texture3D format for \ref UInt16HUVolume.
+  */
 template< >
 struct CARNA_LIB BufferedHUVolumeFormat< UInt16HUVolume >
 {

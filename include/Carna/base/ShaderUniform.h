@@ -111,7 +111,7 @@ private:
 // uploadUniform
 // ----------------------------------------------------------------------------------
 
-/** \cond 0
+/** \cond false
   * Excluded from Doxygen -->
   */
 

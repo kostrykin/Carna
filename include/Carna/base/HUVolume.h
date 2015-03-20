@@ -14,7 +14,7 @@
 
 /** \file   HUVolume.h
   *
-  * \brief  Defines \ref Carna::base::Volume.
+  * \brief  Defines \ref Carna::base::HUVolume.
   *
   * \author Leonid Kostrykin
   * \date   25.7.11

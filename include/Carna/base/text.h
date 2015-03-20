@@ -16,8 +16,8 @@
 #include <string>
 #include <sstream>
 
-/** \file   Text.h
-  * \brief  Defines \ref Carna::base::Text.
+/** \file   text.h
+  * \brief  Defines \ref Carna::base::text.
   */
 
 namespace Carna

@@ -59,7 +59,7 @@ public:
 
     /** \brief
       * Draws triangles. Indicates that the indices
-      * \f$3i+k, k \in \left\{0,1,2\right\}\f$ make up the \f$i\$th triangle with
+      * \f$3i+k, k \in \left\{0,1,2\right\}\f$ make up the \f$i\f$th triangle with
       * \f$i \geq 2\f$.
       */
     const static unsigned int PRIMITIVE_TYPE_TRIANGLES;
@@ -72,13 +72,13 @@ public:
     const static unsigned int PRIMITIVE_TYPE_TRIANGLE_STRIP;
 
     /** \brief
-      * Draws triangles. Indicates that the indices \f$0, i-2, i-1\f$\f$\f$ make up
-      * the \f$i\f$th triangle with \f$i \geq 2\f$.
+      * Draws triangles. Indicates that the indices \f$0, i-2, i-1\f$ make up the
+      * \f$i\f$th triangle with \f$i \geq 2\f$.
       */
     const static unsigned int PRIMITIVE_TYPE_TRIANGLE_FAN;
 
     /** \brief
-      * Draws lines. Indicates that the indices \f$2i, 2i-1\f$ make up the \f$i\$th
+      * Draws lines. Indicates that the indices \f$2i, 2i-1\f$ make up the \f$i\f$th
       * line segment with \f$i \geq 1\f$.
       */
     const static unsigned int PRIMITIVE_TYPE_LINES;

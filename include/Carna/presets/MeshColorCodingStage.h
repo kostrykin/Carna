@@ -51,9 +51,12 @@ namespace presets
   *
   * \note
   * In the \ref RenderingProcess "rendering process" this stage can be inserted
-  * *anywhere*. However, it is a good idea to insert it as close to the beginning of
-  * the rendering stages sequence as possible, because this will prevent it from
-  * being processed multiple times occasionally.
+  * *anywhere*.
+  *
+  * \see
+  * The \ref base::SpatialMovement class in combination with `%MeshColorCodingStage`
+  * makes the implementation of drag-&-drop like behaviour for \ref base::Spatial
+  * objects very easy.
   *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 20.3.15
@@ -69,26 +72,66 @@ class CARNA_LIB MeshColorCodingStage : public base::GeometryStage< void >
 
 public:
 
+    /** \brief
+      * Instantiates.
+      */
     MeshColorCodingStage();
 
+    /** \brief
+      * Deletes.
+      */
     virtual ~MeshColorCodingStage();
 
+    /** \brief
+      * Sets on which pass this stage should do its work.
+      *
+      * If this stage is processed multiple times per frame, than it will contribute
+      * its own processing logic to the rendering process only on the \f$n\f$th pass,
+      * where \f$n\f$ is \a activationPassIndex. Default is \f$n = 0\f$.
+      */
     void setActivationPassIndex( unsigned int activationPassIndex );
 
+    /** \brief
+      * Tells on which pass this stage will do its work.
+      *
+      * If this stage is processed multiple times per frame, than it will contribute
+      * its own processing logic to the rendering process only on the \f$n\f$th pass,
+      * where \f$n\f$ is the returned value. Default is \f$n = 0\f$.
+      */
     unsigned int activationPassIndex() const;
 
+    /** \brief
+      * Activates \a geometryType. Meshes with \a meshRole attached to geometry nodes
+      * with \a geometryType will be processed by this stage.
+      *
+      * If \a geometryType was activated with another \a meshRole previosly, than the
+      * old \a meshRole is overridden by the new one.
+      */
     void putGeometryType( unsigned int geometryType, unsigned int meshRole );
 
+    /** \brief
+      * Deactivates \a geometryType.
+      */
     void removeGeometryType( unsigned int geometryType );
 
+    /** \brief
+      * Deactivates all geometry types.
+      */
     void clearGeometryTypes();
 
     virtual void reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height ) override;
 
     virtual void renderPass( const base::math::Matrix4f& viewTransform, base::RenderTask& rt, const base::Viewport& vp ) override;
 
+    /** \brief
+      * Maps the \ref FrameCoordinates "frame coordinates" \a x and \a y to the
+      * \ref base::Geometry object that was rendered at the queried location. If no
+      * object was rendered there, \ref base::Aggregation::NULL_PTR is returned.
+      */
     base::Aggregation< const base::Geometry > pick( unsigned int x, unsigned int y ) const;
 
+    /** \overload
+      */
     base::Aggregation< const base::Geometry > pick( const base::math::Vector2ui& ) const;
 
 protected:
