@@ -31,6 +31,13 @@ namespace base
 // Viewport
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Defines a \ref WindowCoordinates "rendering viewport". The viewport is a property
+  * of the \ref GLContext "current OpenGL context".
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 19.3.15
+  */
 class CARNA_LIB Viewport
 {
 
@@ -42,12 +49,26 @@ class CARNA_LIB Viewport
 
 public:
 
+    /** \brief
+      * Creates root viewport. For internal usage only.
+      */
     Viewport( const FrameRenderer& fr, bool fitSquare );
     
+    /** \brief
+      * Derives viewport from \a parent.
+      */
     Viewport( const Viewport& parent, unsigned int left, unsigned int top, unsigned int width, unsigned int height );
 
+    /** \brief
+      * Derives viewport from \a parent. The arguments must be given relatively.
+      *
+      * \todo finish this
+      */
     Viewport( const Viewport& parent, float width, float height, float left, float top );
 
+    /** \brief
+      * Restores the parent viewport if this viewport is still active.
+      */
     ~Viewport();
 
     unsigned int left;
@@ -58,8 +79,14 @@ public:
 
     unsigned int height;
 
+    /** Makes this viewport the active one of the
+      * \ref GLContext "current OpenGL context".
+      */
     void makeActive() const;
 
+    /** \brief
+      * Restores the parent viewport.
+      */
     void done() const;
 
 }; // Viewport
