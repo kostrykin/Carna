@@ -274,7 +274,13 @@ void Framebuffer::copy( unsigned int srcId, unsigned int dstId, const Viewport& 
 {
     const unsigned int  width = std::min( src.width() , dst.width()  );
     const unsigned int height = std::min( src.height(), dst.height() );
-    copy( srcId, dstId, src.marginLeft(), src.marginTop(), dst.marginLeft(), dst.marginTop(), width, height, flags );
+    copy
+        ( srcId, dstId
+        , src.marginLeft(), src.marginTop()
+        , dst.marginLeft(), dst.marginTop()
+        , src.width(), src.height()
+        , dst.width(), dst.height()
+        , flags );
 }
 
 
@@ -282,7 +288,8 @@ void Framebuffer::copy
     ( unsigned int idFrom, unsigned int idTo
     , unsigned int srcX0, unsigned int srcY0
     , unsigned int dstX0, unsigned int dstY0
-    , unsigned int width, unsigned int height
+    , unsigned int srcWidth, unsigned int srcHeight
+    , unsigned int dstWidth, unsigned int dstHeight
     , unsigned int flags )
 {
     REPORT_GL_ERROR;
@@ -292,11 +299,12 @@ void Framebuffer::copy
     glBindFramebufferEXT( GL_READ_FRAMEBUFFER, idFrom );
     glBindFramebufferEXT( GL_DRAW_FRAMEBUFFER, idTo   );
 
-    /* Do the copying.
+    /* Do the copying. The lower bounds of the rectangles passed to
+     * 'glBlitFramebuffer' are inclusive, while the upper bounds are exclusive.
      */
     glBlitFramebufferEXT
-        ( srcX0, srcY0, srcX0 + width - 1, srcY0 + height - 1
-        , dstX0, dstY0, dstX0 + width - 1, dstY0 + height - 1
+        ( srcX0, srcY0, srcX0 + srcWidth, srcY0 + srcHeight
+        , dstX0, dstY0, dstX0 + dstWidth, dstY0 + dstHeight
         , flags
         , GL_NEAREST );
 

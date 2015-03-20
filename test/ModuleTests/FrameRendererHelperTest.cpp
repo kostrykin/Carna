@@ -16,6 +16,7 @@
 #include <Carna/presets/DRRStage.h>
 #include <Carna/presets/OccludedRenderingStage.h>
 #include <Carna/presets/MeshColorCodingStage.h>
+#include <Carna/presets/ParallaxStage.h>
 #include <Carna/helpers/FrameRendererHelper.h>
 
 
@@ -67,14 +68,16 @@ void FrameRendererHelperTest::test_complete()
     helper << new presets::CuttingPlanesStage( 1, 2 );
     helper << new presets::OccludedRenderingStage();
     helper << new presets::MeshColorCodingStage();
+    helper << new presets::ParallaxStage( presets::ParallaxStage::aside );
     helper.commit();
 
-    QCOMPARE( renderer->stages(), static_cast< std::size_t >( 6u ) );
+    QCOMPARE( renderer->stages(), static_cast< std::size_t >( 7u ) );
 
     QVERIFY( dynamic_cast< presets::     MeshColorCodingStage* >( &renderer->stageAt( 0 ) ) != nullptr );
-    QVERIFY( dynamic_cast< presets::       CuttingPlanesStage* >( &renderer->stageAt( 1 ) ) != nullptr );
-    QVERIFY( dynamic_cast< presets::   OccludedRenderingStage* >( &renderer->stageAt( 2 ) ) != nullptr );
-    QVERIFY( dynamic_cast< presets::     OpaqueRenderingStage* >( &renderer->stageAt( 3 ) ) != nullptr );
-    QVERIFY( dynamic_cast< presets::TransparentRenderingStage* >( &renderer->stageAt( 4 ) ) != nullptr );
-    QVERIFY( dynamic_cast< presets::                 DRRStage* >( &renderer->stageAt( 5 ) ) != nullptr );
+    QVERIFY( dynamic_cast< presets::            ParallaxStage* >( &renderer->stageAt( 1 ) ) != nullptr );
+    QVERIFY( dynamic_cast< presets::       CuttingPlanesStage* >( &renderer->stageAt( 2 ) ) != nullptr );
+    QVERIFY( dynamic_cast< presets::   OccludedRenderingStage* >( &renderer->stageAt( 3 ) ) != nullptr );
+    QVERIFY( dynamic_cast< presets::     OpaqueRenderingStage* >( &renderer->stageAt( 4 ) ) != nullptr );
+    QVERIFY( dynamic_cast< presets::TransparentRenderingStage* >( &renderer->stageAt( 5 ) ) != nullptr );
+    QVERIFY( dynamic_cast< presets::                 DRRStage* >( &renderer->stageAt( 6 ) ) != nullptr );
 }

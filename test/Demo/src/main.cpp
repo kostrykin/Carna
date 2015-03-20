@@ -238,9 +238,8 @@ void Demo::resizeGL( int w, int h )
         
         /* Parallax
          */
-        //presets::ParallaxStage* const parallax
-        //    = new presets::ParallaxStage( presets::ParallaxStage::aside );
-        //renderer->appendStage( parallax );
+        presets::ParallaxStage* const parallax = new presets::ParallaxStage( presets::ParallaxStage::aside );
+        renderer->appendStage( parallax );
 
         /* Cutting Planes
          */

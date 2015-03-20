@@ -65,7 +65,8 @@ public:
         ( unsigned int srcId, unsigned int dstId
         , unsigned int srcX0, unsigned int srcY0
         , unsigned int dstX0, unsigned int dstY0
-        , unsigned int width, unsigned int height
+        , unsigned int srcWidth, unsigned int srcHeight
+        , unsigned int dstWidth, unsigned int dstHeight
         , unsigned int flags );
 
     static void copy( unsigned int srcId, unsigned int dstId, const Viewport& src, const Viewport& dst, unsigned int flags );

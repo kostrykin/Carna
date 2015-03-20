@@ -45,6 +45,7 @@ const float ParallaxStage::DEFAULT_EYE_DISTANCE = 60;
 
 ParallaxStage::ParallaxStage( CompositionStage::CompositionMode compositionMode )
     : CompositionStage( compositionMode )
+    , pimpl( new Details() )
 {
     setEyeDistance( DEFAULT_EYE_DISTANCE );
 }
@@ -78,15 +79,17 @@ void ParallaxStage::renderPass
 {
     const base::math::Matrix4f& vtShift = isFirstSource ? pimpl->vtLeft : pimpl->vtRight;
     const base::math::Matrix4f vtNew = viewTransform * vtShift;
+    base::RenderTask rtFork( rt );
     if( isFirstInvocation )
     {
-        base::RenderTask rtFork( rt );
         rtFork.overrideViewTransform( vtNew );
         rtFork.render( vp );
     }
     else
     {
         rt.overrideViewTransform( vtNew );
+        rtFork.render( vp );
+        rt.finish();
     }
 }
 
