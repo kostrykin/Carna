@@ -113,8 +113,6 @@ public:
   *
   * Default configuration will produce <code>%BreakForDebug::isEnabled() == true</code>.
   *
-  * \since  \ref v_2_2
-  *
   * \author Leonid Kostrykin
   * \date   27.5.13
   */

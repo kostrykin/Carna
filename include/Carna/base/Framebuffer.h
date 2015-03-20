@@ -211,6 +211,10 @@ private:
 // CARNA_RENDER_TO_FRAMEBUFFER_EX
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Binds \a fbo using a binding named \a binding and performs \a instructions before
+  * revoking the \a binding.
+  */
 #define CARNA_RENDER_TO_FRAMEBUFFER_EX( fbo, binding, instructions ) \
     { \
         Carna::base::Framebuffer::Binding binding( fbo ); \
@@ -223,6 +227,8 @@ private:
 // CARNA_RENDER_TO_FRAMEBUFFER
 // ----------------------------------------------------------------------------------
 
+/** \overload
+  */
 #define CARNA_RENDER_TO_FRAMEBUFFER( fbo, instructions ) \
     CARNA_RENDER_TO_FRAMEBUFFER_EX( fbo, fboBinding##__COUNTER__, instructions )
 

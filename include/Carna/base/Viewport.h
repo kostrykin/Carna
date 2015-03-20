@@ -74,11 +74,15 @@ public:
       */
     ~Viewport();
 
-    /** Makes this viewport the active one of the
+    /** \brief
+      * Makes this viewport the active one of the
       * \ref GLContext "current OpenGL context".
       */
     void makeActive() const;
     
+    /** \brief
+      * Tells whether this viewport is currently active.
+      */
     bool isActive() const;
 
     /** \brief
@@ -88,22 +92,22 @@ public:
       */
     void done() const;
     
-    void setWidth ( unsigned int );
-    void setHeight( unsigned int );
+    void setWidth ( unsigned int );     ///< Sets \ref FrameCoordinates "viewport"  width. \pre `isActive() == false`
+    void setHeight( unsigned int );     ///< Sets \ref FrameCoordinates "viewport" height. \pre `isActive() == false`
     
-    void setMarginLeft( unsigned int );
-    void setMarginTop ( unsigned int );
+    void setMarginLeft( unsigned int ); ///< Sets \ref FrameCoordinates "viewport" left margin. \pre `isActive() == false`
+    void setMarginTop ( unsigned int ); ///< Sets \ref FrameCoordinates "viewport"  top margin. \pre `isActive() == false`
     
-    unsigned int  width() const;
-    unsigned int height() const;
+    unsigned int  width() const;        ///< Tells \ref FrameCoordinates "viewport"  width.
+    unsigned int height() const;        ///< Tells \ref FrameCoordinates "viewport" height.
     
-    unsigned int parentWidth () const;
-    unsigned int parentHeight() const;
+    unsigned int parentWidth () const;  ///< Tells parent viewport's  width.
+    unsigned int parentHeight() const;  ///< Tells parent viewport's height.
     
-    unsigned int marginLeft  () const;
-    unsigned int marginTop   () const;
-    unsigned int marginRight () const;
-    unsigned int marginBottom() const;
+    unsigned int marginLeft  () const;  ///< Tells \ref FrameCoordinates "viewport's"   left margin.
+    unsigned int marginTop   () const;  ///< Tells \ref FrameCoordinates "viewport's"    top margin.
+    unsigned int marginRight () const;  ///< Tells \ref FrameCoordinates "viewport's"  right margin.
+    unsigned int marginBottom() const;  ///< Tells \ref FrameCoordinates "viewport's" bottom margin.
 
 }; // Viewport
 

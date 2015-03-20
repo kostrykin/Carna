@@ -16,8 +16,11 @@ namespace testing
 
 
 
-/** \brief      Reads value of type \a ValueType from stream of type \a StreamType.
-  * \relates    HUGZSceneFactory
+/** \brief
+  * Reads value of type \a ValueType from stream of type \a StreamType.
+  *
+  * \relates
+  * HUGZSceneFactory
   */
 template< typename StreamType, typename ValueType >
 void stream_read( StreamType& in, ValueType& out )
@@ -25,7 +28,8 @@ void stream_read( StreamType& in, ValueType& out )
     in.read( reinterpret_cast< char* >( &out ), sizeof( out ) );
 }
 
-/** \brief  Creates \ref Carna::base::Scene object from HUGZ-file.
+/** \brief
+  * Creates \ref Carna::base::UInt16HUVolume object from HUGZ-file.
   *
   * \section HUGZFileFormat HUGZ File Format
   *
@@ -38,13 +42,15 @@ void stream_read( StreamType& in, ValueType& out )
   * -# Bytes 21 to 24 are an IEEE 754 single precision floating point number that describes the z-spacing.
   * -# Each voxel is represented as a \c signed \c short.
   *
-  * \todo   Use \c int16_t instead of \c signed \c short.
+  * \todo
+  * Use `int16_t` instead of `signed short`.
   */
 struct HUGZSceneFactory
 {
-    /** \brief  Reads HUGZ file and returns created \ref Carna::base::Scene object.
+    /** \brief
+      * Reads HUGZ file and returns created \ref Carna::base::UInt16HUVolume object.
       *
-      * The HUGZ file format is described \ref HUGZFileFormat here.
+      * The HUGZ file format is described \ref HUGZFileFormat "here".
       */
     static Carna::base::UInt16HUVolume* importVolume( const std::string& filename, Carna::base::math::Vector3f& spacing )
     {

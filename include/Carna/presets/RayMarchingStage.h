@@ -33,6 +33,16 @@ namespace presets
 // RayMarchingStage
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Defines \ref base::RenderStage "rendering stage" that performs an rendering
+  * algorithm analogous to ray marching.
+  *
+  * \todo
+  * Finish this.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 11.3.15
+  */
 class CARNA_LIB RayMarchingStage : public base::GeometryStage< base::Renderable::BackToFront >
 {
 

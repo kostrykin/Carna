@@ -27,9 +27,13 @@
 #error MAX macro defined, define NOMINMAX first!
 #endif
 
+/** \cond false
+  */
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
+/** \endcond
+  */
 
 /** \file   math.h
   * \brief  Defines \ref Carna::base::math namespace and \ref CARNA_FOR_VECTOR3UI.
@@ -532,7 +536,7 @@ namespace math
 
     /** \brief
       * Rounds \a x to the closest \f$x' \in \mathbb Z_{\geq 0}\f$. Either the
-      * data type of \f$x\f$ must be unsigned or $x \geq 0$.
+      * data type of \f$x\f$ must be unsigned or \f$x \geq 0\f$.
       */
     template< typename ScalarType >
     unsigned int round_ui( ScalarType x )

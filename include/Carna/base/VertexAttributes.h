@@ -95,6 +95,9 @@ struct VertexAttribute
 }; // VertexAttribute
 
 
+/** \brief
+  * Defines \ref VertexAttribute vector.
+  */
 typedef std::vector< VertexAttribute > VertexAttributes;
 
 

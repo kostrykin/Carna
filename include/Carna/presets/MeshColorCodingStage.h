@@ -34,7 +34,7 @@ namespace presets
 
 /** \brief
   * Implements a simple interface for mapping
-  * \ref FrameCoordinates "frame coordinates" to \ref Mesh objects.
+  * \ref FrameCoordinates "frame coordinates" to \ref base::Mesh objects.
   *
   * Lets assume we have an \ref OpaqueRenderingStage defined, e.g.:
   *

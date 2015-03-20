@@ -13,7 +13,7 @@
 #define BLENDFUNCTION_H_6014714286
 
 /** \file   BlendFunction.h
-  * \brief  Defines \ref Carna::VolumeRenderings::MIP::BlendFunction.
+  * \brief  Defines \ref Carna::base::BlendFunction.
   */
 
 #include <Carna/Carna.h>

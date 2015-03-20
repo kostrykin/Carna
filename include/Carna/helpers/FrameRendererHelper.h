@@ -37,11 +37,21 @@ namespace helpers
 // DefaultRenderStageOrder
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Defines default \ref QuickStart_FrameRenderer "rendering stages order" used by
+  * \ref FrameRendererHelper.
+  *
+  * \author Leonid Kostrykin
+  * \date   26.10.11 - 20.3.15
+  */
 class CARNA_LIB DefaultRenderStageOrder : std::binary_function< base::RenderStage*, base::RenderStage*, bool >
 {
 
 public:
 
+    /** \brief
+      * Compares \a x to \a y.
+      */
     bool operator()( const base::RenderStage* x, const base::RenderStage* y ) const;
 
 }; // DefaultRenderStageOrder
@@ -52,6 +62,16 @@ public:
 // FrameRendererHelper
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Adds \ref base::RenderStage "rendering stages" to a \ref base::FrameRenderer
+  * object according to \a RenderStageOrder.
+  *
+  * \todo
+  * Finish this.
+  *
+  * \author Leonid Kostrykin
+  * \date   26.10.11 - 20.3.15
+  */
 template< typename RenderStageOrder >
 class FrameRendererHelper
 {
