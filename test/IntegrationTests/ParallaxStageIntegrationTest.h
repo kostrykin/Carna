@@ -22,10 +22,10 @@ namespace testing
 
 
 // ----------------------------------------------------------------------------------
-// ParallaxStageTest
+// ParallaxStageIntegrationTest
 // ----------------------------------------------------------------------------------
 
-class ParallaxStageTest : public QObject
+class ParallaxStageIntegrationTest : public QObject
 {
 
     Q_OBJECT
@@ -67,7 +67,7 @@ private:
     
     presets::ParallaxStage* parallax;
 
-}; // ParallaxStageTest
+}; // ParallaxStageIntegrationTest
 
 
 

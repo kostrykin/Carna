@@ -9,7 +9,7 @@
  *
  */
 
-#include "ParallaxStageTest.h"
+#include "ParallaxStageIntegrationTest.h"
 #include <Carna/base/Node.h>
 #include <Carna/base/Geometry.h>
 #include <Carna/base/Vertex.h>
@@ -23,10 +23,10 @@
 
 
 // ----------------------------------------------------------------------------------
-// ParallaxStageTest
+// ParallaxStageIntegrationTest
 // ----------------------------------------------------------------------------------
 
-void ParallaxStageTest::initTestCase()
+void ParallaxStageIntegrationTest::initTestCase()
 {
     const unsigned int width  = 640;
     const unsigned int height = 480;
@@ -75,7 +75,7 @@ void ParallaxStageTest::initTestCase()
 }
 
 
-void ParallaxStageTest::cleanupTestCase()
+void ParallaxStageIntegrationTest::cleanupTestCase()
 {
     renderer.reset();
     scene.reset();
@@ -84,24 +84,24 @@ void ParallaxStageTest::cleanupTestCase()
 }
 
 
-void ParallaxStageTest::init()
+void ParallaxStageIntegrationTest::init()
 {
 }
 
 
-void ParallaxStageTest::cleanup()
+void ParallaxStageIntegrationTest::cleanup()
 {
 }
 
 
-void ParallaxStageTest::test_aside()
+void ParallaxStageIntegrationTest::test_aside()
 {
     renderer->render( scene->cam(), *scene->root );
     VERIFY_FRAMEBUFFER( *testFramebuffer );
 }
 
 
-void ParallaxStageTest::test_interleaved()
+void ParallaxStageIntegrationTest::test_interleaved()
 {
     QWARN( "not implemented yet" );
 }
