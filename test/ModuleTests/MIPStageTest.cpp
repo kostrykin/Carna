@@ -31,10 +31,13 @@ void MIPStageTest::initTestCase()
     scene.reset( new TestScene() );
     renderer.reset( new base::FrameRenderer( qglContextHolder->glContext(), width, height, true ) );
 
-    mip = new presets::MIPStage( TestScene::GEOMETRY_TYPE_VOLUMETRIC );
+    const static unsigned int GEOMETRY_TYPE_VOLUMETRIC = TestScene::GEOMETRY_TYPE_VOLUMETRIC;
+    //! [mip_instantiation]
+    mip = new presets::MIPStage( GEOMETRY_TYPE_VOLUMETRIC );
     mip->appendChannel( new presets::MIPChannel( -1024,    0, base::math::Vector4f( 0, 0, 1, 0.5f ) ) );
     mip->appendChannel( new presets::MIPChannel(     0, 3071, base::math::Vector4f( 1, 1, 0, 0.5f ) ) );
     renderer->appendStage( mip );
+    //! [mip_instantiation]
 }
 
 
@@ -68,7 +71,9 @@ void MIPStageTest::test_channelReplace()
 
 void MIPStageTest::test_channelAdditive()
 {
+    //! [mip_setup_additive]
     mip->channel( 1 ).setFunction( presets::MIPChannel::CHANNEL_FUNCTION_ADD );
+    //! [mip_setup_additive]
     renderer->render( scene->cam(), *scene->root );
     VERIFY_FRAMEBUFFER( *testFramebuffer );
 }

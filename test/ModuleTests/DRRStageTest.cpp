@@ -31,8 +31,11 @@ void DRRStageTest::initTestCase()
     scene.reset( new TestScene() );
     renderer.reset( new base::FrameRenderer( qglContextHolder->glContext(), width, height, true ) );
 
-    drr = new presets::DRRStage( TestScene::GEOMETRY_TYPE_VOLUMETRIC );
+    const static unsigned int GEOMETRY_TYPE_VOLUMETRIC = TestScene::GEOMETRY_TYPE_VOLUMETRIC;
+    //! [drr_instantiation]
+    drr = new presets::DRRStage( GEOMETRY_TYPE_VOLUMETRIC );
     renderer->appendStage( drr );
+    //! [drr_instantiation]
 }
 
 
@@ -47,12 +50,14 @@ void DRRStageTest::cleanupTestCase()
 
 void DRRStageTest::init()
 {
+    //! [drr_setup_base]
     drr->setSampleRate( 100 );
     drr->setWaterAttenuation( 2.f );
     drr->setBaseIntensity( 1.f );
     drr->setLowerThreshold( -400 );
     drr->setUpperThreshold( +400 );
     drr->setUpperMultiplier( 1.5f );
+    //! [drr_setup_base]
     drr->setRenderingInverse( false );
     renderer->setBackgroundColor( base::Color::BLACK_NO_ALPHA );
 }
@@ -72,8 +77,10 @@ void DRRStageTest::test_nonInverted()
 
 void DRRStageTest::test_inverted()
 {
+    //! [drr_setup_inverse]
     drr->setRenderingInverse( true );
     renderer->setBackgroundColor( base::Color::WHITE_NO_ALPHA );
+    //! [drr_setup_inverse]
 
     renderer->render( scene->cam(), *scene->root );
     VERIFY_FRAMEBUFFER( *testFramebuffer );

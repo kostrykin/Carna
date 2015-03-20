@@ -35,7 +35,20 @@ namespace presets
 /** \brief
   * Renders cutting planes of volume geometries in the scene.
   *
-  * \image html CuttingPlanesStageTest/threePlanes.png "exemplary rendering of three interleaved cutting planes"
+  * The `%CuttingPlanesStage` constructor takes two geometry type parameters:
+  *
+  * \snippet ModuleTests/CuttingPlanesStageTest.cpp cutting_planes_instantiation
+  *
+  * The concept of geometry types is explained \ref QuickStart_FrameRenderer "here".
+  *
+  * The following example code attaches three orthogonal planes to a node named
+  * `pivot`:
+  *
+  * \snippet ModuleTests/CuttingPlanesStageTest.cpp cutting_planes_setup
+  *
+  * This produces the rendering below.
+  *
+  * \image html CuttingPlanesStageTest/threePlanes.png "rendering result of example code above"
   *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 20.3.15

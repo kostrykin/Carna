@@ -37,12 +37,16 @@ void ParallaxStageIntegrationTest::initTestCase()
     renderer.reset( new base::FrameRenderer( qglContextHolder->glContext(), width, height, true ) );
     scene->cam().localTransform *= base::math::translation4f( 0, 0, -200 );
     
+    //! [parallax_instantiation]
     /* Create parallax rendering stage.
      */
     parallax = new presets::ParallaxStage( presets::ParallaxStage::aside );
     parallax->setEyeDistance( presets::ParallaxStage::DEFAULT_EYE_DISTANCE * 3 );
     renderer->appendStage( parallax );
+    //! [parallax_instantiation]
 
+    const static unsigned int GEOMETRY_TYPE_VOLUMETRIC = TestScene::GEOMETRY_TYPE_VOLUMETRIC;
+    //! [parallax_instantiation_others]
     /* Create opaque rendering stage.
      */
     presets::OpaqueRenderingStage* const opaque = new presets::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
@@ -50,7 +54,7 @@ void ParallaxStageIntegrationTest::initTestCase()
 
     /* Create volumetric rendering stage.
      */
-    presets::DRRStage* const drr = new presets::DRRStage( TestScene::GEOMETRY_TYPE_VOLUMETRIC );
+    presets::DRRStage* const drr = new presets::DRRStage( GEOMETRY_TYPE_VOLUMETRIC );
     renderer->appendStage( drr );
     drr->setSampleRate( 100 );
     drr->setWaterAttenuation( 2.f );
@@ -58,9 +62,11 @@ void ParallaxStageIntegrationTest::initTestCase()
     drr->setLowerThreshold( -400 );
     drr->setUpperThreshold( +400 );
     drr->setUpperMultiplier( 1.5f );
+    //! [parallax_instantiation_others]
 
     /* Create and add opaque objects to scene.
      */
+    //! [parallax_scene_setup]
     base::MeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 40, 40, 40 );
     base::Material& material = base::Material::create( "unshaded" );
     material.setParameter( "color", base::Color::RED );
@@ -72,6 +78,7 @@ void ParallaxStageIntegrationTest::initTestCase()
 
     boxMesh.release();
     material.release();
+    //! [parallax_scene_setup]
 }
 
 

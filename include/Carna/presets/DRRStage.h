@@ -35,7 +35,28 @@ namespace presets
 /** \brief
   * Renders digital radiograph reconstructs of volume geometries in the scene.
   *
-  * \image html DRRStageTest/inverted.png "exemplary rendering in inverse-mode"
+  * The `%DRRStage` constructor takes a geometry type parameter:
+  *
+  * \snippet ModuleTests/DRRStageTest.cpp drr_instantiation
+  *
+  * The concept of geometry types is explained \ref QuickStart_FrameRenderer "here".
+  *
+  * \note
+  * In the \ref RenderingProcess "rendering process" this stage will usually be
+  * inserted \em after such stages that render opaque geometry, like
+  * \ref CuttingPlanesStage and \ref OpaqueRenderingStage.
+  *
+  * The following example code configures the `%DRRStage` s.t. it produces the
+  * rendering presented further below:
+  *
+  * \snippet ModuleTests/DRRStageTest.cpp drr_setup_base
+  *
+  * The last step is to state that the brightness of any particular pixel shall be
+  * *inverse* proportional to the ray attenuation at that pixel:
+  *
+  * \snippet ModuleTests/DRRStageTest.cpp drr_setup_inverse
+  *
+  * \image html DRRStageTest/inverted.png "exemplary rendering in inverse-mode from code above"
   *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 11.3.15
@@ -72,7 +93,7 @@ public:
     float upperMultiplier() const;
 
     /** \brief
-      * Tells whether ray attenuation at a particular pixel is \em inverse
+      * Tells whether ray attenuation at any particular pixel is *inverse*
       * proportional to the brightness of that pixel or just proportional.
       */
     bool isRenderingInverse() const;

@@ -35,7 +35,28 @@ namespace presets
 /** \brief
   * Renders maximum intensity projections of volume geometries in the scene.
   *
-  * \image html MIPStageTest/channelReplace.png "exemplary rendering with two channels"
+  * \section MIPStageBasics Basics
+  *
+  * The `%MIPStage` constructor takes a geometry type parameter:
+  *
+  * \snippet ModuleTests/MIPStageTest.cpp mip_instantiation
+  *
+  * The concept of geometry types is explained \ref QuickStart_FrameRenderer "here".
+  *
+  * \note
+  * In the \ref RenderingProcess "rendering process" this stage will usually be
+  * inserted \em after such stages that render opaque geometry, like
+  * \ref CuttingPlanesStage and \ref OpaqueRenderingStage.
+  *
+  * \image html MIPStageTest/channelReplace.png "exemplary rendering with two channels from the code above"
+  *
+  * \section MIPStageChannels Channels
+  *
+  * \todo Add documentation on channel functions.
+  *
+  * The next code snippet turns the second channel to *additive*-mode:
+  *
+  * \snippet ModuleTests/MIPStageTest.cpp mip_setup_additive
   *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 11.3.15

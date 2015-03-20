@@ -35,8 +35,11 @@ void CuttingPlanesStageTest::initTestCase()
      */
     scene->cam().localTransform = base::math::rotation4f( 0, 1, 0, base::math::deg2rad( 45 ) ) * scene->cam().localTransform;
 
-    planes = new presets::CuttingPlanesStage( TestScene::GEOMETRY_TYPE_VOLUMETRIC, GEOMETRY_TYPE_CUTTING_PLANE );
+    const static unsigned int GEOMETRY_TYPE_VOLUMETRIC = TestScene::GEOMETRY_TYPE_VOLUMETRIC;
+    //! [cutting_planes_instantiation]
+    planes = new presets::CuttingPlanesStage( GEOMETRY_TYPE_VOLUMETRIC, GEOMETRY_TYPE_CUTTING_PLANE );
     renderer->appendStage( planes );
+    //! [cutting_planes_instantiation]
 
     QCOMPARE( planes->windowingLevel(), presets::CuttingPlanesStage::DEFAULT_WINDOWING_LEVEL );
     QCOMPARE( planes->windowingWidth(), presets::CuttingPlanesStage::DEFAULT_WINDOWING_WIDTH );
@@ -75,6 +78,7 @@ void CuttingPlanesStageTest::test_threePlanes()
 {
     base::Node* const pivot = new base::Node();
     scene->root->attachChild( pivot );
+    //! [cutting_planes_setup]
     pivot->localTransform = base::math::plane4f( base::math::Vector3f( 1, 1, 1 ).normalized(), 0 );
 
     /* Create the planes.
@@ -91,6 +95,7 @@ void CuttingPlanesStageTest::test_threePlanes()
     planes[ 0 ]->localTransform = base::math::plane4f( base::math::Vector3f( 1, 0, 0 ), 0.f );
     planes[ 1 ]->localTransform = base::math::plane4f( base::math::Vector3f( 0, 1, 0 ), 0.f );
     planes[ 2 ]->localTransform = base::math::plane4f( base::math::Vector3f( 0, 0, 1 ), 0.f );
+    //! [cutting_planes_setup]
 
     /* Do the test.
      */

@@ -34,11 +34,14 @@ void OpaqueRenderingStageTest::initTestCase()
     scene.reset( new TestScene() );
     renderer.reset( new base::FrameRenderer( qglContextHolder->glContext(), width, height, true ) );
 
+    //! [opaque_stage_instantiation]
     opaque = new presets::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
     renderer->appendStage( opaque );
+    //! [opaque_stage_instantiation]
 
     /* Create and add opaque objects to scene.
      */
+    //! [opaque_stage_scene_setup]
     base::MeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 40, 40, 40 );
     base::Material& redMaterial   = base::Material::create( "unshaded" );
     base::Material& greenMaterial = base::Material::create( "unshaded" );
@@ -63,6 +66,7 @@ void OpaqueRenderingStageTest::initTestCase()
 
     box1->localTransform = base::math::translation4f( -10, -10, -40 );
     box2->localTransform = base::math::translation4f( +10, +10, +40 );
+    //! [opaque_stage_scene_setup]
 }
 
 

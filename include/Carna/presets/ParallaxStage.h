@@ -33,7 +33,28 @@ namespace presets
 /** \brief
   * Produces stereoscopic renderings.
   *
-  * \image html ParallaxStageIntegrationTest/aside.png "exemplary rendering in aside-mode"
+  * \section ParallaxStageExample Example
+  *
+  * The instantiation of the `%ParallaxStage` takes a parameter that decides how
+  * the composition of the two images should be done:
+  *
+  * \snippet IntegrationTests/ParallaxStageIntegrationTest.cpp parallax_instantiation
+  *
+  * We also enlarge the eye distance for demonstration purposes. For same reason,
+  * lets also add a few other rendering stages:
+  *
+  * \snippet IntegrationTests/ParallaxStageIntegrationTest.cpp parallax_instantiation_others
+  *
+  * The concept of geometry types is explained \ref QuickStart_FrameRenderer "here".
+  *
+  * The last step is to setup the scene, e.g.:
+  *
+  * \snippet IntegrationTests/ParallaxStageIntegrationTest.cpp parallax_scene_setup
+  *
+  * The concept of materials, meshes and other geometry feature is explained
+  * \ref GeometryFeatures "here".
+  *
+  * \image html ParallaxStageIntegrationTest/aside.png "exemplary rendering in aside-mode from code above"
   *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 11.3.15
