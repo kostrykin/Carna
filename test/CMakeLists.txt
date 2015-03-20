@@ -8,12 +8,14 @@ set( TESTS_HEADERS
 		Tools/HUGZSceneFactory.h
 		Tools/HUIO.h
 		Tools/QGLContextHolder.h
+		Tools/TestApplication.h
 		Tools/TestFramebuffer.h
 		Tools/TestScene.h
 	)
 	
 set( TESTS_SOURCES
 		Tools/QGLContextHolder.cpp
+		Tools/TestApplication.cpp
 		Tools/TestFramebuffer.cpp
 		Tools/TestScene.cpp
 	)
@@ -91,6 +93,7 @@ if(Boost_FOUND AND QT_FOUND)
 	file( APPEND	${TEST_SUITE_SRC_FILE}	"#include <QtTest/QtTest>\n" )
 	file( APPEND	${TEST_SUITE_SRC_FILE}	"#include <Carna/base/glew.h>\n" )
 	file( APPEND	${TEST_SUITE_SRC_FILE}	"#include \"TestSuite.h\"\n" )
+	file( APPEND	${TEST_SUITE_SRC_FILE}	"#include \"TestApplication.h\"\n" )
 	file( APPEND	${TEST_SUITE_SRC_FILE}	"const std::string SOURCE_PATH = \"${CMAKE_CURRENT_SOURCE_DIR}\";\n" )
 	file( APPEND	${TEST_SUITE_SRC_FILE}	"const std::string BINARY_PATH = \"${CMAKE_CURRENT_BINARY_DIR}\";\n" )
 
@@ -103,11 +106,10 @@ if(Boost_FOUND AND QT_FOUND)
 	endforeach( QT_GENERATED_SOURCE_FILE )
 
 	file( APPEND	${TEST_SUITE_SRC_FILE}	"\n" )
-	file( APPEND	${TEST_SUITE_SRC_FILE}	"#include <QApplication>\n" )
 	file( APPEND	${TEST_SUITE_SRC_FILE}	"#include <Carna/base/CarnaException.h>\n" )
 	file( APPEND	${TEST_SUITE_SRC_FILE}	"int main( int argc, char** argv )\n" )
 	file( APPEND	${TEST_SUITE_SRC_FILE}	"{\n" )
-	file( APPEND	${TEST_SUITE_SRC_FILE}	"    QApplication app( argc, argv );\n" )
+	file( APPEND	${TEST_SUITE_SRC_FILE}	"    Carna::testing::TestApplication app( argc, argv );\n" )
 	file( APPEND	${TEST_SUITE_SRC_FILE}	"    Carna::base::BreakForDebug::disable();\n" )
 	file( APPEND	${TEST_SUITE_SRC_FILE}	"    bool success = true;\n" )
 	foreach( TEST_CASE ${TESTS} )

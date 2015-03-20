@@ -17,12 +17,15 @@
   *         Also defines the \ref CARNA_GLEW_INIT macro.
   *
   * \author Leonid Kostrykin
-  * \date   24.2.2011
+  * \date   24.2.11 - 20.3.15
   */
+  
+#include <Carna/base/Log.h>
 
 #ifdef _WIN32
 #   include <windows.h>
 #endif
+
 #include <GL/glew.h>
 
 
@@ -39,6 +42,7 @@
     { \
         const GLenum glew_state = glewInit(); \
         CARNA_ASSERT( glew_state == GLEW_OK ); \
+        Carna::base::Log::instance().record( Carna::base::Log::debug, "GLEW initialized successfully." ); \
     }
 
 

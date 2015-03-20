@@ -68,7 +68,7 @@ class CARNA_LIB GLContext
 
 protected:
 
-    GLContext( bool isDoubleBuffered );
+    explicit GLContext( bool isDoubleBuffered );
 
     friend class RenderState;
 
@@ -108,12 +108,17 @@ public:
   * class as an adapter to the \c QGLContext class from Qt.
   *
   * Example:
+  *
   *     \code
   *     #include <QGLContext>
-  *     typedef Carna::base::QGLContextAdapter< QGLContext > GLContext;
+  *     #include <QGLFormat>
+  *     typedef Carna::base::QGLContextAdapter< QGLContext, QGLFormat > GLContext;
   *     \endcode
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 20.3.15
   */
-template< typename QGLContext >
+template< typename QGLContext, typename QGLFormat >
 class QGLContextAdapter : public GLContext
 {
 
@@ -122,26 +127,49 @@ class QGLContextAdapter : public GLContext
 public:
 
     QGLContextAdapter();
+    
+    static QGLFormat desiredFormat();
 
     virtual void makeCurrent() const override;
 
 }; // QGLContextAdapter
 
 
-template< typename QGLContext >
-QGLContextAdapter< QGLContext >::QGLContextAdapter()
+template< typename QGLContext, typename QGLFormat >
+QGLContextAdapter< QGLContext, QGLFormat >::QGLContextAdapter()
     : GLContext( QGLContext::currentContext()->format().doubleBuffer() )
     , qglcontext( const_cast< QGLContext& >( *QGLContext::currentContext() ) )
 {
-    const auto& format = QGLContext::currentContext()->format();
-    CARNA_ASSERT_EX
-        ( format.majorVersion() >= 3 && format.minorVersion() >= 3
-        , "OpenGL context version is too low." );
+    const QGLFormat& format = QGLContext::currentContext()->format();
+    if( format.majorVersion() < 3 || ( format.majorVersion() == 3 && format.minorVersion() < 3 ) )
+    {
+        std::stringstream msg;
+        msg << "OpenGL context version " << format.majorVersion() << "." << format.minorVersion() << " is too low.";
+        CARNA_FAIL( msg.str() );
+    }
+    else
+    {
+        CARNA_ASSERT( format.profile() != QGLFormat::NoProfile );
+        std::stringstream msg;
+        msg << "Recognized OpenGL " << format.majorVersion() << "." << format.minorVersion() << " context (";
+        msg << ( format.profile() == QGLFormat::CoreProfile ? "core" : "compatibility" ) << " profile)";
+        Log::instance().record( Log::debug, msg.str() );
+    }
+}
+
+    
+template< typename QGLContext, typename QGLFormat >
+QGLFormat QGLContextAdapter< QGLContext, QGLFormat >::desiredFormat()
+{
+    QGLFormat format = QGLFormat::defaultFormat();
+    format.setVersion( 3, 3 );
+    format.setProfile( QGLFormat::CompatibilityProfile );
+    return format;
 }
 
 
-template< typename QGLContext >
-void QGLContextAdapter< QGLContext >::makeCurrent() const
+template< typename QGLContext, typename QGLFormat >
+void QGLContextAdapter< QGLContext, QGLFormat >::makeCurrent() const
 {
     qglcontext.makeCurrent();
 }

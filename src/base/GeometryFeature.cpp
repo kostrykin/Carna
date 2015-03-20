@@ -25,7 +25,9 @@ namespace base
 // GeometryFeatureLeakWatcher
 // ----------------------------------------------------------------------------------
 
-class GeometryFeatureLeakWatcher : public Singleton< GeometryFeatureLeakWatcher >
+class GeometryFeatureLeakWatcher
+    : public Singleton< GeometryFeatureLeakWatcher >
+    , public Log::OnShutdownListener
 {
 
     NON_COPYABLE
@@ -39,13 +41,16 @@ public:
 
     std::set< const GeometryFeature* > featureInstances;
     virtual ~GeometryFeatureLeakWatcher();
-    static void reset();
+
+    void logLeakedInstances() const;
+    virtual void onLogShutdown() override;
 
 }; // GeometryFeatureLeakWatcher
 
 
 GeometryFeatureLeakWatcher::GeometryFeatureLeakWatcher()
 {
+    Log::instance().addOnShutdownListener( *this );
 }
 
 
@@ -60,9 +65,16 @@ GeometryFeatureLeakWatcher::~GeometryFeatureLeakWatcher()
 }
 
 
-void GeometryFeatureLeakWatcher::reset()
+void GeometryFeatureLeakWatcher::logLeakedInstances() const
 {
+    Log::instance().removeOnShutdownListener( *this );
     Singleton< GeometryFeatureLeakWatcher >::reset();
+}
+
+
+void GeometryFeatureLeakWatcher::onLogShutdown()
+{
+    logLeakedInstances();
 }
 
 
@@ -71,7 +83,7 @@ void GeometryFeatureLeakWatcher::reset()
 // GeometryFeature :: Details
 // ----------------------------------------------------------------------------------
 
-struct GeometryFeature::Details : public Log::OnShutdownListener
+struct GeometryFeature::Details
 {
     Details();
 
@@ -80,9 +92,6 @@ struct GeometryFeature::Details : public Log::OnShutdownListener
 
     bool released;
     bool deleteIfAllowed( GeometryFeature* self );
-
-    void logLeakedInstances() const;
-    virtual void onLogShutdown() override;
 };
 
 
@@ -104,19 +113,6 @@ bool GeometryFeature::Details::deleteIfAllowed( GeometryFeature* self )
     {
         return false;
     }
-}
-
-
-void GeometryFeature::Details::logLeakedInstances() const
-{
-    Log::instance().removeOnShutdownListener( *this );
-    GeometryFeatureLeakWatcher::reset();
-}
-
-
-void GeometryFeature::Details::onLogShutdown()
-{
-    logLeakedInstances();
 }
 
 
@@ -154,7 +150,6 @@ GeometryFeature::GeometryFeature()
     : pimpl( new Details() )
 {
     GeometryFeatureLeakWatcher::instance().featureInstances.insert( this );
-    Log::instance().addOnShutdownListener( *pimpl );
 }
 
 

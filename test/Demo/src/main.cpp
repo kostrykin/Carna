@@ -1,6 +1,5 @@
-#include <QDebug>
 #include <QGLWidget>
-#include <QApplication>
+#include <QGLFormat>
 #include <QMouseEvent>
 #include <QWheelEvent>
 
@@ -30,6 +29,7 @@
 #include <Carna/presets/ParallaxStage.h>
 #include <Carna/helpers/HUVolumeGridHelper.h>
 
+#include <TestApplication.h>
 #include <HUGZSceneFactory.h>
 
 #include <memory>
@@ -51,82 +51,11 @@ namespace testing
 
 
 // ----------------------------------------------------------------------------------
-// MyApplication
-// ----------------------------------------------------------------------------------
-
-class MyApplication : public QApplication
-{
-
-public:
-
-    MyApplication( int &argc, char **argv );
-
-    virtual ~MyApplication();
-
-}; // MyApplication
-
-
-MyApplication::MyApplication( int& argc, char** argv )
-    : QApplication( argc, argv )
-{
-}
-
-
-MyApplication::~MyApplication()
-{
-    /* We need to do this as long as QApplication is still alive, so that QDebug is
-     * also still available.
-     */
-    base::Log::instance().shutdown();
-}
-
-
-
-// ----------------------------------------------------------------------------------
-// QDebugLogWriter
-// ----------------------------------------------------------------------------------
-
-class QDebugLogWriter : public base::Log::TextWriter
-{
-
-protected:
-
-    virtual void writeFormatted( base::Log::Severity, const std::string& ) const override;
-
-};
-
-
-void QDebugLogWriter::writeFormatted( base::Log::Severity severity, const std::string& msg ) const
-{
-    switch( severity )
-    {
-
-    case base::Log::fatal:
-    case base::Log::error:
-        qFatal( "%s", msg.c_str() );
-        break;
-
-    case base::Log::warning:
-        qWarning( "%s", msg.c_str() );
-        break;
-
-    case base::Log::debug:
-        qDebug( "%s", msg.c_str() );
-        break;
-
-    }
-}
-
-
-
-// ----------------------------------------------------------------------------------
 // Demo
 // ----------------------------------------------------------------------------------
 
 class Demo : public QGLWidget
 {
-
-    static QGLFormat format();
 
     const static int GEOMETRY_TYPE_VOLUMETRIC    = 0;
     const static int GEOMETRY_TYPE_OPAQUE        = 1;
@@ -172,7 +101,8 @@ protected:
 
 
 Demo::Demo()
-    : mouseInteraction( false )
+    : QGLWidget( Carna::base::QGLContextAdapter< QGLContext, QGLFormat >::desiredFormat() )
+    , mouseInteraction( false )
 {
     setMouseTracking( true );
 }
@@ -217,10 +147,6 @@ void Demo::mouseMoveEvent( QMouseEvent* ev )
 
             if( dx != 0 || dy != 0 )
             {
-                /*
-                base::math::Matrix4f rotation = base::math::rotation4f( 0, 1, 0, dx * ROTATION_SPEED );
-                camera->localTransform = rotation * camera->localTransform;
-                */
                 cameraControl.rotateHorizontally( dx * ROTATION_SPEED );
                 cameraControl.rotateVertically  ( dy * ROTATION_SPEED );
                 updateGL();
@@ -249,7 +175,7 @@ void Demo::mouseReleaseEvent( QMouseEvent* ev )
 
 void Demo::wheelEvent( QWheelEvent* ev )
 {
-    const static float SPEED = -5e-2f;
+    const static float SPEED = 5e-2f;
     cameraControl.moveAxially( ev->delta() * SPEED );
     updateGL();
     ev->accept();
@@ -258,7 +184,7 @@ void Demo::wheelEvent( QWheelEvent* ev )
 
 void Demo::initializeGL()
 {
-    glContext.reset( new base::QGLContextAdapter< QGLContext >() );
+    glContext.reset( new base::QGLContextAdapter< QGLContext, QGLFormat >() );
     root.reset( new base::Node() );
 
     base::math::Vector3f spacing;
@@ -312,9 +238,9 @@ void Demo::resizeGL( int w, int h )
         
         /* Parallax
          */
-        presets::ParallaxStage* const parallax
-            = new presets::ParallaxStage( presets::ParallaxStage::aside );
-        renderer->appendStage( parallax );
+        //presets::ParallaxStage* const parallax
+        //    = new presets::ParallaxStage( presets::ParallaxStage::aside );
+        //renderer->appendStage( parallax );
 
         /* Cutting Planes
          */
@@ -373,8 +299,7 @@ void Demo::paintGL()
 
 int main( int argc, char** argv )
 {
-    Carna::base::Log::instance().setWriter( new Carna::testing::QDebugLogWriter() );
-    Carna::testing::MyApplication app( argc, argv );
+    Carna::testing::TestApplication app( argc, argv );
     Carna::testing::Demo demo;
     demo.show();
     return QApplication::exec();

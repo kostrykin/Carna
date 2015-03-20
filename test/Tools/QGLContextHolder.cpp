@@ -27,9 +27,8 @@ namespace testing
 
 const QGLFormat QGLContextHolder::format = []()->QGLFormat
     {
-        QGLFormat format = QGLFormat::defaultFormat();
+        QGLFormat format = Carna::base::QGLContextAdapter< QGLContext, QGLFormat >::desiredFormat();
         format.setDoubleBuffer( false );
-        format.setVersion( 3, 3 );
         return format;
     }
 ();
@@ -38,7 +37,7 @@ const QGLFormat QGLContextHolder::format = []()->QGLFormat
 Carna::base::GLContext* QGLContextHolder::createGLContextWrapper( QGLPixelBuffer& pbuffer )
 {
     pbuffer.makeCurrent();
-    return new Carna::base::QGLContextAdapter< QGLContext >();
+    return new Carna::base::QGLContextAdapter< QGLContext, QGLFormat >();
 }
 
 

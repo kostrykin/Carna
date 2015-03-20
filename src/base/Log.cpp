@@ -124,7 +124,7 @@ void Log::TextWriter::write( Severity severity, const std::string& message ) con
     {
 
     case fatal:
-        out << "[* FATAL *]";
+        out << "[! FATAL !]";
         break;
 
     case error:
