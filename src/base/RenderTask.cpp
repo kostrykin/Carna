@@ -56,6 +56,16 @@ RenderTask::RenderTask( const RenderTask& parent, Framebuffer& output )
 }
 
 
+RenderTask::RenderTask( const RenderTask& parent )
+    : myOutput( parent.myOutput )
+    , nextRenderStage( parent.nextRenderStage )
+    , myViewTransform( parent.myViewTransform )
+    , renderer( parent.renderer )
+    , projection( parent.projection )
+{
+}
+
+
 const math::Matrix4f& RenderTask::viewTransform() const
 {
     return myViewTransform;

@@ -27,6 +27,7 @@
 #include <Carna/presets/MIPChannel.h>
 #include <Carna/presets/DRRStage.h>
 #include <Carna/presets/CuttingPlanesStage.h>
+#include <Carna/presets/ParallaxStage.h>
 #include <Carna/helpers/HUVolumeGridHelper.h>
 
 #include <HUGZSceneFactory.h>
@@ -308,6 +309,12 @@ void Demo::resizeGL( int w, int h )
         mccs = new presets::MeshColorCodingStage();
         mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH );
         renderer->appendStage( mccs );
+        
+        /* Parallax
+         */
+        presets::ParallaxStage* const parallax
+            = new presets::ParallaxStage( presets::ParallaxStage::aside );
+        renderer->appendStage( parallax );
 
         /* Cutting Planes
          */

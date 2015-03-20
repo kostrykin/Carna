@@ -71,11 +71,11 @@ void CompositionStage::Details::renderAside
 {
     base::Viewport vp2( vp, vp.marginLeft() / 2, vp.marginTop() / 2, vp.width() / 2, vp.height() );
     vp2.makeActive();
-    self->renderPass( vt, rt, vp, true ^ swap );
+    self->renderPass( vt, rt, vp, true, true ^ swap );
     vp2.done();
     vp2.setMarginLeft( vp2.marginLeft() + vp.parentWidth() / 2 );
     vp2.makeActive();
-    self->renderPass( vt, rt, vp, false ^ swap );
+    self->renderPass( vt, rt, vp, false, false ^ swap );
     vp2.done();
 }
 

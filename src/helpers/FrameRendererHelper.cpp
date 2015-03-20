@@ -17,6 +17,7 @@
 #include <Carna/presets/DRRStage.h>
 #include <Carna/presets/OccludedRenderingStage.h>
 #include <Carna/presets/MeshColorCodingStage.h>
+#include <Carna/presets/ParallaxStage.h>
 
 namespace Carna
 {
@@ -64,6 +65,7 @@ bool DefaultRenderStageOrder::operator()( const base::RenderStage* x, const base
     const static bool PREFER_Y = false;
 
     CARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::MeshColorCodingStage );
+    CARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::ParallaxStage );
     CARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::CuttingPlanesStage );
     CARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::OccludedRenderingStage );
     CARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::OpaqueRenderingStage );

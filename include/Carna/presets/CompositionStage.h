@@ -73,7 +73,8 @@ protected:
         ( const base::math::Matrix4f& viewTransform
         , base::RenderTask& rt
         , const base::Viewport& vp
-        , bool isFirst ) = 0;
+        , bool isFirstInvocation
+        , bool isFirstSource ) = 0;
 
 }; // CompositionStage
 

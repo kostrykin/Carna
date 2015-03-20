@@ -61,6 +61,11 @@ public:
       * Forks \a parent. The result of the fork will be rendered to \a output.
       */
     RenderTask( const RenderTask& parent, Framebuffer& output );
+    
+    /** \brief
+      * Forks \a parent.
+      */
+    explicit RenderTask( const RenderTask& parent );
 
     /** \brief
       * References the frame renderer.
