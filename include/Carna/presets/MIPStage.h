@@ -32,6 +32,14 @@ namespace presets
 // MIPStage
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Renders maximum intensity projections of volume geometries in the scene.
+  *
+  * \image html MIPStageTest/channelReplace.png "exemplary rendering with two channels"
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 11.3.15
+  */
 class CARNA_LIB MIPStage : public RayMarchingStage
 {
 

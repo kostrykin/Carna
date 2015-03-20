@@ -32,6 +32,14 @@ namespace presets
 // CuttingPlanesStage
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Renders cutting planes of volume geometries in the scene.
+  *
+  * \image html CuttingPlanesStageTest/threePlanes.png "exemplary rendering of three interleaved cutting planes"
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 20.3.15
+  */
 class CARNA_LIB CuttingPlanesStage : public base::GeometryStage< void >
 {
 

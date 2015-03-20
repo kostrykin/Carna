@@ -30,6 +30,14 @@ namespace presets
 // ParallaxStage
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Produces stereoscopic renderings.
+  *
+  * \image html ParallaxStageIntegrationTest/aside.png "exemplary rendering in aside-mode"
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.15 - 11.3.15
+  */
 class CARNA_LIB ParallaxStage : public CompositionStage
 {
 

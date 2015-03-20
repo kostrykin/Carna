@@ -35,6 +35,8 @@ namespace presets
 /** \brief
   * Renders digital radiograph reconstructs of volume geometries in the scene.
   *
+  * \image html DRRStageTest/inverted.png "exemplary rendering in inverse-mode"
+  *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 11.3.15
   */

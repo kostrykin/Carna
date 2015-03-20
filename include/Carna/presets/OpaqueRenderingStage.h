@@ -31,7 +31,9 @@ namespace presets
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Defines rendering stage that renders opaque meshes.
+  * Implements rendering stage that renders opaque meshes.
+  *
+  * \image html OpaqueRenderingStageTest/fromFront.png "exemplary rendering of two box meshes"
   *
   * \note
   * In the \ref RenderingProcess "rendering process" this stage will usually be

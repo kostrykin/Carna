@@ -56,14 +56,24 @@ namespace Carna
   *
   * In the example code above, several typical rendering stages are used:
   *
-  * - The \ref presets::CuttingPlanesStage renders an arbitrary number of cutting
-  *   planes through volume data.
-  * - The \ref presets::OpaqueRenderingStage renders opaque meshes, i.e. polygonal
-  *   geometry.
-  * - The \ref presets::DRRStage produces a digital radiograph reconstruct of the
-  *   volume data.
-  * - The \ref presets::OccludedRenderingStage ensures that meshes, that are actually
-  *   occluded by other geometry that is closer to the viewer, shine through.
+  *   - The \ref presets::CuttingPlanesStage renders an arbitrary number of cutting
+  *     planes through volume data.
+  *   - The \ref presets::OpaqueRenderingStage renders opaque meshes, i.e. polygonal
+  *     geometry.
+  *   - The \ref presets::DRRStage produces a digital radiograph reconstruct of the
+  *     volume data.
+  *   - The \ref presets::OccludedRenderingStage ensures that meshes, that are
+  *     actually occluded by other geometry that is closer to the viewer, shine
+  *     through.
+  *
+  * At the moment the following other stages are available out-of-the-box:
+  *
+  *   - The \ref presets::MeshColorCodingStage implements a simple interface for
+  *     mapping \ref FrameCoordinates "frame coordinates" to \ref base::Mesh objects.
+  *   - The \ref presets::MIPStage implements *maximum intensity projections* of
+  *     volume data.
+  *   - The \ref presets::ParallaxStage produces stereoscopic renderings.
+  *   - The \ref presets::TransparentRenderingStage renders transparent meshes.
   *
   * As one may guess from this list, each scene might contain multiple types of
   * renderable objects. At least one could distinguish between polygonal and
