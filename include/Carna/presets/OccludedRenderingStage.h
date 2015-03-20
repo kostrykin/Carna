@@ -82,7 +82,7 @@ public:
 
     float occlusionTranslucency() const;
 
-    virtual void reshape( const base::FrameRenderer& fr, const base::Viewport& vp ) override;
+    virtual void reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height ) override;
 
     virtual bool isInitialized() const override;
     

@@ -166,7 +166,7 @@ FrameRenderer::RenderTextureParams::RenderTextureParams( unsigned int unit )
 FrameRenderer::FrameRenderer( GLContext& glContext, unsigned int width, unsigned int height, bool fitSquare )
     : pimpl( new Details( glContext, width, height ) )
 {
-    pimpl->viewport.reset( new Viewport( *this, fitSquare ) );
+    pimpl->viewport.reset( new Viewport( width, height, fitSquare ) );
     pimpl->fitSquare = fitSquare;
 }
 
@@ -241,7 +241,7 @@ void FrameRenderer::reshape( unsigned int width, unsigned int height, bool fitSq
     pimpl->width = width;
     pimpl->height = height;
     pimpl->fitSquare = fitSquare;
-    pimpl->viewport.reset( new Viewport( *this, fitSquare ) );
+    pimpl->viewport.reset( new Viewport( width, height, fitSquare ) );
     pimpl->reshaped = true;
 }
 
@@ -293,7 +293,7 @@ void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
          */
         if( pimpl->reshaped || !rs.isInitialized() )
         {
-            rs.reshape( *this, *pimpl->viewport );
+            rs.reshape( *this, pimpl->viewport->width(), pimpl->viewport->height() );
         }
 
         /* Notify stages of beginning frame.

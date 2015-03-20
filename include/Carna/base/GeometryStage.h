@@ -88,7 +88,7 @@ public:
       */
     virtual ~GeometryStage();
 
-    virtual void reshape( const FrameRenderer& fr, const Viewport& vp ) override;
+    virtual void reshape( const FrameRenderer& fr, unsigned int width, unsigned int height ) override;
 
     virtual bool isInitialized() const override;
 
@@ -289,7 +289,7 @@ void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewT
 
 
 template< typename RenderableCompare >
-void GeometryStage< RenderableCompare >::reshape( const FrameRenderer& fr, const Viewport& vp )
+void GeometryStage< RenderableCompare >::reshape( const FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     this->myContext = &fr.glContext();
 }

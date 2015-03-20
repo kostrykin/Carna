@@ -77,8 +77,12 @@ public:
     /** \brief
       * Orders this stage to reshape its buffers according to the specified
       * dimensions.
+      *
+      * \param fr references the frame renderer this stage belongs to.
+      * \param width is the width of the \ref Viewport "root viewport".
+      * \param height is the height of the \ref Viewport "root viewport".
       */
-    virtual void reshape( const FrameRenderer& fr, const Viewport& vp ) = 0;
+    virtual void reshape( const FrameRenderer& fr, unsigned int width, unsigned int height ) = 0;
     
     /** \brief
       * Tells whether this stage is ready for rendering.

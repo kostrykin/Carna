@@ -127,14 +127,22 @@ namespace Carna
   * coordinates, s.t.:
   *
   *   - \f$\left(-1, 0, z_\text{nd}\right)^\mathrm T\f$ maps to the left edge of the
-  *     viewport.
+  *     \ref base::Viewport "viewport".
   *   - \f$\left(0, -1, z_\text{nd}\right)^\mathrm T\f$ maps to the top edge of the
-  *     viewport.
+  *     \ref base::Viewport "viewport".
+  *   - \f$\left(+1, 0, z_\text{nd}\right)^\mathrm T\f$ maps to the right edge of the
+  *     \ref base::Viewport "viewport".
+  *   - \f$\left(0, +1, z_\text{nd}\right)^\mathrm T\f$ maps to the bottom edge of
+  *     the \ref base::Viewport "viewport".
+  *
+  * Note that the direction of the y-axis is flipped in comparison to the coordinate
+  * systems before.
   *
   * \subsection FrameCoordinates Frame Coordinates
   *
   * The frame coordinates are obtained from the window coordinates by shifting the
-  * viewport's \ref base::Viewport::left and \ref base::Viewport::top location.
+  * viewport's \ref base::Viewport::marginLeft and \ref base::Viewport::marginTop
+  * location.
   */
 
 }

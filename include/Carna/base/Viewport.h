@@ -35,6 +35,13 @@ namespace base
   * Defines a \ref WindowCoordinates "rendering viewport". The viewport is a property
   * of the \ref GLContext "current OpenGL context".
   *
+  * The viewport specifies how normalized device coordinates are mapped to frame
+  * coordinates, as described \ref WindowCoordinates "here". This makes the viewport
+  * always somehow *"naturally"* related to a frame. It has proven to be convenient
+  * to organize viewports hierarchically. In this terms, each `%Viewport` instance is
+  * associated with another *parent* viewport that it is derived from. Viewports,
+  * that do not have such a parent viewport, are named *root* viewports.
+  *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 20.3.15
   */
@@ -49,9 +56,13 @@ class CARNA_LIB Viewport
 public:
 
     /** \brief
-      * Creates root viewport. For internal usage only.
+      * Creates root viewport.
       */
-    Viewport( const FrameRenderer& fr, bool fitSquare );
+    Viewport( unsigned int rootWidth, unsigned int rootHeight, bool fitSquare );
+    
+    /** \overload
+      */
+    explicit Viewport( const Framebuffer& );
     
     /** \brief
       * Derives viewport from \a parent.

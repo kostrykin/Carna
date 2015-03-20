@@ -40,9 +40,11 @@ T mix( const T& a, const T& b, float t )
 
 struct Viewport::Details
 {
-    Details( const Viewport* parent, const FrameRenderer* fr );
+    Details( unsigned int rootWidth, unsigned int rootHeight );
+    Details( const Viewport* parent );
     const Viewport* const parent;
-    const FrameRenderer* const fr;
+    const unsigned int rootWidth;
+    const unsigned int rootHeight;
 
     unsigned int left;
     unsigned int top;
@@ -53,9 +55,18 @@ struct Viewport::Details
 };
 
 
-Viewport::Details::Details( const Viewport* parent, const FrameRenderer* fr )
+Viewport::Details::Details( unsigned int rootWidth, unsigned int rootHeight )
+    : parent( nullptr )
+    , rootWidth( rootWidth )
+    , rootHeight( rootHeight )
+{
+}
+
+
+Viewport::Details::Details( const Viewport* parent )
     : parent( parent )
-    , fr( fr )
+    , rootWidth( 0 )
+    , rootHeight( 0 )
 {
 }
 
@@ -75,27 +86,36 @@ typedef std::stack< const Viewport* > Viewports;
 static Viewports viewports = Viewports();
 
 
-Viewport::Viewport( const FrameRenderer& fr, bool fitSquare )
-    : pimpl( new Details( nullptr, &fr ) )
+Viewport::Viewport( unsigned int parentWidth, unsigned int parentHeight, bool fitSquare )
+    : pimpl( new Details( parentWidth, parentHeight ) )
 {
     if( fitSquare )
     {
-        const unsigned int s = std::min( fr.width(), fr.height() );
+        const unsigned int s = std::min( parentWidth, parentHeight );
         pimpl->width = pimpl->height = s;
-        pimpl->top  = fr.height() / 2 - s / 2;
-        pimpl->left = fr.width () / 2 - s / 2;
+        pimpl->top   = parentHeight / 2 - s / 2;
+        pimpl->left  = parentWidth  / 2 - s / 2;
     }
     else
     {
-        pimpl->left = pimpl->top = 0;
-        pimpl->width = fr.width();
-        pimpl->height = fr.height();
+        pimpl->top = pimpl->left = 0;
+        pimpl->width  = parentWidth;
+        pimpl->height = parentHeight;
     }
 }
 
 
+Viewport::Viewport( const Framebuffer& fb )
+    : pimpl( new Details( fb.width(), fb.height() ) )
+{
+    pimpl->top = pimpl->left = 0;
+    pimpl->width  = fb.width();
+    pimpl->height = fb.height();
+}
+
+
 Viewport::Viewport( const Viewport& parent, unsigned int left, unsigned int top, unsigned int width, unsigned int height )
-    : pimpl( new Details( &parent, nullptr ) )
+    : pimpl( new Details( &parent ) )
 {
     pimpl->left   = left;
     pimpl->top    = top;
@@ -188,7 +208,7 @@ unsigned int Viewport::parentWidth() const
     }
     else
     {
-        return pimpl->fr->width();
+        return pimpl->rootWidth;
     }
 }
 
@@ -201,7 +221,7 @@ unsigned int Viewport::parentHeight() const
     }
     else
     {
-        return pimpl->fr->height();
+        return pimpl->rootHeight;
     }
 }
 

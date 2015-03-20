@@ -132,10 +132,10 @@ const MIPChannel& MIPStage::channel( std::size_t channelIndex ) const
 }
 
 
-void MIPStage::reshape( const base::FrameRenderer& fr, const base::Viewport& vp )
+void MIPStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
-    base::GeometryStage< base::Renderable::BackToFront >::reshape( fr, vp );
-    pimpl->channelColorBuffer.reset( new base::RenderTexture( vp.width(), vp.height() ) );
+    base::GeometryStage< base::Renderable::BackToFront >::reshape( fr, width, height );
+    pimpl->channelColorBuffer.reset( new base::RenderTexture( width, height ) );
     pimpl->channelFrameBuffer.reset( new base::Framebuffer( *pimpl->channelColorBuffer ) );
 }
 
@@ -145,11 +145,6 @@ void MIPStage::renderPass
     , base::RenderTask& rt
     , const base::Viewport& outputViewport )
 {
-    const base::Viewport framebufferViewport
-        ( outputViewport, 0, 0
-        , pimpl->channelFrameBuffer->width()
-        , pimpl->channelFrameBuffer->height() );
-
     /* Configure proper OpenGL state.
      */
     base::RenderState rs( rt.renderer.glContext() );
@@ -159,6 +154,7 @@ void MIPStage::renderPass
 
     /* Copy depth buffer from output to dedicated frame buffer.
      */
+    const base::Viewport framebufferViewport( *pimpl->channelFrameBuffer );
     const unsigned int outputFramebufferId = base::Framebuffer::currentId();
     base::Framebuffer::copy
         ( outputFramebufferId

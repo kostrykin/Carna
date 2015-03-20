@@ -169,10 +169,10 @@ void DRRStage::setRenderingInverse( bool inverse )
 }
 
 
-void DRRStage::reshape( const base::FrameRenderer& fr, const base::Viewport& vp )
+void DRRStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
-    base::GeometryStage< base::Renderable::BackToFront >::reshape( fr, vp );
-    pimpl->accumulationColorBuffer.reset( new base::RenderTexture( vp.width(), vp.height(), true ) );
+    base::GeometryStage< base::Renderable::BackToFront >::reshape( fr, width, height );
+    pimpl->accumulationColorBuffer.reset( new base::RenderTexture( width, height, true ) );
     pimpl->accumulationFrameBuffer.reset( new base::Framebuffer( *pimpl->accumulationColorBuffer ) );
 }
 
@@ -189,11 +189,6 @@ void DRRStage::renderPass
     , base::RenderTask& rt
     , const base::Viewport& outputViewport )
 {
-    const base::Viewport framebufferViewport
-        ( outputViewport, 0, 0
-        , pimpl->accumulationFrameBuffer->width()
-        , pimpl->accumulationFrameBuffer->height() );
-
     /* Configure OpenGL state that is common to both following passes.
      */
     base::RenderState rs( rt.renderer.glContext() );
@@ -206,6 +201,7 @@ void DRRStage::renderPass
 
     /* Copy depth buffer from output to the accumulation frame buffer.
      */
+    const base::Viewport framebufferViewport( *pimpl->accumulationFrameBuffer );
     const unsigned int outputFramebufferId = base::Framebuffer::currentId();
     base::Framebuffer::copy
         ( outputFramebufferId

@@ -117,7 +117,7 @@ void CompositionStage::setCompositionMode( CompositionMode compositionMode )
 }
 
 
-void CompositionStage::reshape( const base::FrameRenderer& fr, const base::Viewport& vp )
+void CompositionStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     pimpl->glc = &fr.glContext();
 }

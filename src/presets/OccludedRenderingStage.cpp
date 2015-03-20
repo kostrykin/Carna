@@ -231,12 +231,12 @@ void OccludedRenderingStage::prepareFrame( base::Node& root )
 }
 
 
-void OccludedRenderingStage::reshape( const base::FrameRenderer& fr, const base::Viewport& vp )
+void OccludedRenderingStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     pimpl->context = &fr.glContext();
     if( vr.get() != nullptr )
     {
-        vr.reset( new VideoResources( vr->shader, vp.width(), vp.height() ) );
+        vr.reset( new VideoResources( vr->shader, width, height ) );
     }
 }
 
