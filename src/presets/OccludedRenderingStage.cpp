@@ -197,7 +197,7 @@ void OccludedRenderingStage::renderPass
 
         /* Configure render state.
          */
-        base::RenderState rs( rt.renderer.glContext() );
+        base::RenderState rs;
         rs.setDepthTestFunction( GL_GREATER );
 
         /* Do the rendering.
@@ -209,7 +209,7 @@ void OccludedRenderingStage::renderPass
 
     /* Draw results back to this stage's output framebuffer.
      */
-    RenderState rs( rt.renderer.glContext() );
+    RenderState rs;
     rs.setBlend( true );
     rs.setDepthWrite( false );
     rs.setDepthTest( false );

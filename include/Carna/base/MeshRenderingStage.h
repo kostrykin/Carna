@@ -150,7 +150,7 @@ void MeshRenderingStage< RenderableCompare >::renderPass( const math::Matrix4f& 
 template< typename RenderableCompare >
 void MeshRenderingStage< RenderableCompare >::render( const Renderable& renderable )
 {
-    RenderState rs( GLContext::current() );
+    RenderState rs;
     const Material& material = static_cast< Material& >( renderable.geometry().feature( ROLE_DEFAULT_MATERIAL ) );
     this->videoResource( material ).activate( rs );
 

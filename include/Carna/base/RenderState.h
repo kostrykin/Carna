@@ -47,7 +47,7 @@ namespace base
   *     \code
   *     void render()
   *     {
-  *         RenderState rs( GLContext::current() );
+  *         RenderState rs;
   *         rs.setDepthTest( false );
   *         rs.setBlend( true );
   *         render1();
@@ -56,7 +56,7 @@ namespace base
   *
   *     void render1()
   *     {
-  *         RenderState rs( GLContext::current() );
+  *         RenderState rs;
   *         rs.setDepthTest( false );
   *         rs.setBlendFunction( BlendFunction( GL_ONE, GL_ONE ) );
   *         renderSomething();
@@ -64,7 +64,7 @@ namespace base
   *
   *     void render2()
   *     {
-  *         RenderState rs( GLContext::current() );
+  *         RenderState rs;
   *         rs.setDepthTest( false );
   *         renderSomething();
   *     }
@@ -90,8 +90,6 @@ class CARNA_LIB RenderState
     struct Details;
     const std::unique_ptr< Details > pimpl;
 
-    RenderState();
-
 protected:
 
     friend class GLContext;
@@ -99,7 +97,7 @@ protected:
     /** \brief
       * Creates the root instance of \a glContext. For internal usage only.
       */
-    static RenderState* createDefaultRenderState( GLContext& glContext );
+    explicit RenderState( GLContext& glContext );
 
     /** \brief
       * Commits the full state. For internal usage only.
@@ -132,9 +130,10 @@ public:
     }; // CullFace
 
     /** \brief
-      * Derives new render state from the current one of \a glContext.
+      * Derives new render state from the current one of the
+      * \ref GLContext "current OpenGL context".
       */
-    explicit RenderState( GLContext& glContext );
+    RenderState();
 
     /** \brief
       * Restores previous render state.

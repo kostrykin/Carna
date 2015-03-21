@@ -15,12 +15,33 @@
 #include <Carna/base/RenderState.h>
 #include <Carna/base/CarnaException.h>
 #include <set>
+#include <stack>
 
 namespace Carna
 {
 
 namespace base
 {
+
+
+
+// ----------------------------------------------------------------------------------
+// GLContext :: Details
+// ----------------------------------------------------------------------------------
+
+struct GLContext::Details
+{
+    Details();
+    const ShaderProgram* shader;
+    std::unique_ptr< RenderState > defaultRenderState;
+    std::stack< const RenderState* > renderStates;
+};
+
+
+GLContext::Details::Details()
+    : shader( nullptr )
+{
+}
 
 
 
@@ -38,16 +59,12 @@ static GLContextSet glContextInstances = GLContextSet();
 
 
 GLContext::GLContext( bool isDoubleBuffered )
-    : isDoubleBuffered( isDoubleBuffered )
-    , myShader( nullptr )
-#pragma warning( push )
-#pragma warning( disable:4355 )
-    /* It is okay to use 'this' in class initialization list, as long as it is not
-     * used to access any members that may not have been initialized yet.
-     */
-    , myRenderState( RenderState::createDefaultRenderState( *this ) )
-#pragma warning( pop )
+    : pimpl( new Details() )
+    , isDoubleBuffered( isDoubleBuffered )
 {
+    pimpl->defaultRenderState.reset( new RenderState( *this ) );
+    RenderState& defaultRenderState = *pimpl->defaultRenderState;
+
     CARNA_GLEW_INIT;
     glContextInstances.insert( this );
     if( currentGLContext == nullptr )
@@ -57,25 +74,24 @@ GLContext::GLContext( bool isDoubleBuffered )
 
     /* Setup depth-write, depth-test and depth compare function.
      */
-    myRenderState->setDepthWrite( true );
-    myRenderState->setDepthTest( true );
-    myRenderState->setDepthTestFunction( GL_LEQUAL );
+    defaultRenderState.setDepthWrite( true );
+    defaultRenderState.setDepthTest( true );
+    defaultRenderState.setDepthTestFunction( GL_LEQUAL );
 
     /* Setup blending.
      */
-    myRenderState->setBlend( false );
-    myRenderState->setBlendFunction( BlendFunction( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ) );
-    myRenderState->setBlendEquation( GL_FUNC_ADD );
+    defaultRenderState.setBlend( false );
+    defaultRenderState.setBlendFunction( BlendFunction( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ) );
+    defaultRenderState.setBlendEquation( GL_FUNC_ADD );
 
     /* Setup back-face culling.
      */
-    myRenderState->setCullFace( RenderState::cullBack );
-    myRenderState->setFrontFace( true );
+    defaultRenderState.setCullFace( RenderState::cullBack );
+    defaultRenderState.setFrontFace( true );
 
     /* Set default render state.
      */
-    myRenderState->commit();
-    renderStates.push( myRenderState.get() );
+    defaultRenderState.commit();
 }
 
 
@@ -99,6 +115,26 @@ GLContext::~GLContext()
         }
     }
 }
+    
+    
+void GLContext::pushRenderState( const RenderState& rs )
+{
+    pimpl->renderStates.push( &rs );
+}
+
+
+void GLContext::popRenderState()
+{
+    CARNA_ASSERT( !pimpl->renderStates.empty() );
+    pimpl->renderStates.pop();
+}
+
+
+const RenderState& GLContext::currentRenderState() const
+{
+    CARNA_ASSERT( !pimpl->renderStates.empty() );
+    return *pimpl->renderStates.top();
+}
 
 
 GLContext& GLContext::current()
@@ -116,10 +152,10 @@ bool GLContext::isCurrent() const
 
 void GLContext::setShader( const ShaderProgram& shader )
 {
-    if( myShader != nullptr || myShader != &shader )
+    if( pimpl->shader != &shader )
     {
         CARNA_ASSERT( isCurrent() );
-        myShader = &shader;
+        pimpl->shader = &shader;
         glUseProgram( shader.id );
     }
 }
@@ -127,15 +163,15 @@ void GLContext::setShader( const ShaderProgram& shader )
 
 const ShaderProgram& GLContext::shader() const
 {
-    CARNA_ASSERT( myShader != nullptr );
-    return *myShader;
+    CARNA_ASSERT( pimpl->shader != nullptr );
+    return *pimpl->shader;
 }
 
 
 void GLContext::clearBuffers( unsigned int flags )
 {
     CARNA_ASSERT( isCurrent() );
-    RenderState rs( *this );
+    RenderState rs;
     if( flags & GL_DEPTH_BUFFER_BIT )
     {
         rs.setDepthWrite( true );

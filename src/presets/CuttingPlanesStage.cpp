@@ -312,7 +312,7 @@ void CuttingPlanesStage::renderPass
 
     /* Configure proper GL state.
      */
-    base::RenderState rs( rt.renderer.glContext() );
+    base::RenderState rs;
     rs.setCullFace( base::RenderState::cullNone );
 
     /* Set shader and upload all uniforms that are same for all planes and volumes.

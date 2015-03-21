@@ -276,7 +276,7 @@ void RayMarchingStage::renderPass
     
     /* Configure proper OpenGL state.
      */
-    base::RenderState rs( rt.renderer.glContext() );
+    base::RenderState rs;
     rs.setDepthWrite( false );
     
     /* Do the rendering.

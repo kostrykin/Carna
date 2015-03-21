@@ -60,13 +60,13 @@ RenderState::Details::Details( const RenderState* parent, GLContext* glc )
 bool RenderState::Details::isCurrent( RenderState* self )
 {
     CARNA_ASSERT( self->pimpl->glc != nullptr );
-    if( self->pimpl->glc->renderStates.empty() )
+    if( self->pimpl->glc->isCurrent() )
     {
-        return self->pimpl->parent == nullptr;
+        return &self->pimpl->glc->currentRenderState() == self;
     }
     else
     {
-        return self->pimpl->glc->renderStates.top() == self;
+        return false;
     }
 }
 
@@ -82,26 +82,19 @@ void RenderState::Details::assertCurrent( RenderState* self )
 // RenderState
 // ----------------------------------------------------------------------------------
 
-RenderState::RenderState()
-    : pimpl( new Details( nullptr, nullptr ) )
-{
-}
-
-
-RenderState* RenderState::createDefaultRenderState( GLContext& glc )
-{
-    RenderState* const rs = new RenderState();
-    rs->pimpl->glc = &glc;
-    return rs;
-}
-
-
 RenderState::RenderState( GLContext& glc )
-    : pimpl( new Details( glc.renderStates.top(), &glc ) )
+    : pimpl( new Details( nullptr, &glc ) )
+{
+    pimpl->glc->pushRenderState( *this );
+}
+
+
+RenderState::RenderState()
+    : pimpl( new Details( &GLContext::current().currentRenderState(), &GLContext::current() ) )
 {
     const RenderState& parent = *pimpl->parent;
-    glc.renderStates.push( this );
-
+    pimpl->glc->pushRenderState( *this );
+    
     pimpl->depthTest                      = parent.pimpl->depthTest;
     pimpl->depthWrite                     = parent.pimpl->depthWrite;
     pimpl->depthTestFunction              = parent.pimpl->depthTestFunction;
@@ -129,7 +122,7 @@ RenderState::~RenderState()
         setCullFace( parent.cullFace );
         setFrontFace( parent.frontFaceCCW );
 
-        pimpl->glc->renderStates.pop();
+        pimpl->glc->popRenderState();
     }
 }
 

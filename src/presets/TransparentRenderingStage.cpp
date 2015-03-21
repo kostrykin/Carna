@@ -37,7 +37,7 @@ void TransparentRenderingStage::renderPass
 {
     /* Configure render state.
      */
-    base::RenderState rs( rt.renderer.glContext() );
+    base::RenderState rs;
     rs.setBlend( true );
     rs.setDepthWrite( false );
 

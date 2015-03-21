@@ -15,7 +15,6 @@
 #include <Carna/Carna.h>
 #include <Carna/base/CarnaException.h>
 #include <Carna/base/noncopyable.h>
-#include <stack>
 #include <memory>
 
 /** \file   GLContext.h
@@ -62,17 +61,22 @@ namespace base
 class CARNA_LIB GLContext
 {
 
-    const ShaderProgram* myShader;
+    NON_COPYABLE
 
-    const std::unique_ptr< RenderState > myRenderState;
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
 
 protected:
 
     explicit GLContext( bool isDoubleBuffered );
 
     friend class RenderState;
-
-    std::stack< const RenderState* > renderStates;
+    
+    void pushRenderState( const RenderState& );
+    
+    void popRenderState();
+    
+    const RenderState& currentRenderState() const;
 
 public:
 
