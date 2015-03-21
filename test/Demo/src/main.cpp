@@ -19,7 +19,7 @@
 #include <Carna/base/ShaderUniform.h>
 #include <Carna/base/BufferedHUVolume.h>
 #include <Carna/base/SpatialMovement.h>
-#include <Carna/presets/CameraNavigationControl.h>
+#include <Carna/presets/CameraShowcaseControl.h>
 #include <Carna/presets/OccludedRenderingStage.h>
 #include <Carna/presets/OpaqueRenderingStage.h>
 #include <Carna/presets/MeshColorCodingStage.h>
@@ -73,7 +73,7 @@ class Demo : public QGLWidget
     presets::MeshColorCodingStage* mccs;
     std::unique_ptr< base::SpatialMovement > spatialMovement;
 
-    presets::CameraNavigationControl cameraControl;
+    presets::CameraShowcaseControl cameraControl;
     bool mouseInteraction;
     QPoint mousepos;
 
@@ -177,7 +177,7 @@ void Demo::mouseReleaseEvent( QMouseEvent* ev )
 
 void Demo::wheelEvent( QWheelEvent* ev )
 {
-    const static float SPEED = 5e-2f;
+    const static float SPEED = -5e-2f;
     cameraControl.moveAxially( ev->delta() * SPEED );
     updateGL();
     ev->accept();
@@ -241,7 +241,7 @@ void Demo::resizeGL( int w, int h )
         /* Parallax
          */
         presets::ParallaxStage* const parallax = new presets::ParallaxStage( presets::ParallaxStage::aside );
-        renderer->appendStage( parallax );
+        //renderer->appendStage( parallax );
 
         /* Cutting Planes
          */

@@ -16,7 +16,9 @@
 #include <Carna/base/ShaderManager.h>
 #include <Carna/base/RenderState.h>
 #include <Carna/base/ShaderUniform.h>
+#include <Carna/base/Log.h>
 #include <Carna/base/math.h>
+#include <Carna/base/text.h>
 
 namespace Carna
 {
@@ -32,66 +34,19 @@ namespace presets
 
 struct RayMarchingStage::Details
 {
-
-    typedef base::Mesh< base::VertexBase, uint8_t > SliceMesh;
-
     Details();
-    
-    ~Details();
 
     base::RenderTask* renderTask;
     const base::Viewport* viewPort;
-    unsigned int mySampleRate;
-    SliceMesh& sliceMesh;
-
-    static SliceMesh& createSliceMesh();
-
-}; // RayMarchingStage :: Details
-
-
-RayMarchingStage::Details::SliceMesh& RayMarchingStage::Details::createSliceMesh()
-{
-    /* Actually, one would assume that the radius should be _half_ of the square root
-     * of 3. But if specified so, one encounters "holes" in volume renderings. For
-     * the moment, just the square root of 3 seems to produce slices that are large
-     * enough, although this particular value is somewhat "random".
-     */
-    const float radius = std::sqrt( 3.f );
-    base::VertexBase vertices[ 4 ];
-    uint8_t indices[ 4 ];
-
-    vertices[ 0 ].x = -radius;
-    vertices[ 0 ].y = -radius;
-    indices [ 0 ] = 0;
-
-    vertices[ 1 ].x = +radius;
-    vertices[ 1 ].y = -radius;
-    indices [ 1 ] = 1;
-
-    vertices[ 2 ].x = +radius;
-    vertices[ 2 ].y = +radius;
-    indices [ 2 ] = 2;
-
-    vertices[ 3 ].x = -radius;
-    vertices[ 3 ].y = +radius;
-    indices [ 3 ] = 3;
-
-    return SliceMesh::create( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN, vertices, 4, indices, 4 );
-}
+    unsigned int sampleRate;
+};
 
 
 RayMarchingStage::Details::Details()
     : renderTask( nullptr )
     , viewPort( nullptr )
-    , mySampleRate( DEFAULT_SAMPLE_RATE )
-    , sliceMesh( createSliceMesh() )
+    , sampleRate( DEFAULT_SAMPLE_RATE )
 {
-}
-
-
-RayMarchingStage::Details::~Details()
-{
-    sliceMesh.release();
 }
 
 
@@ -102,20 +57,108 @@ RayMarchingStage::Details::~Details()
 
 struct RayMarchingStage::VideoResources
 {
+    VideoResources( const base::ShaderProgram& shader, unsigned int sampleRate );
 
-    VideoResources( const base::ShaderProgram& shader, Details::SliceMesh& sliceMesh );
-
-    Details::SliceMesh::VideoResourceAcquisition sliceMeshVR;
     const base::ShaderProgram& shader;
     std::map< unsigned int, base::Sampler* > samplers;
+    
+    typedef base::Mesh< base::VertexBase, uint16_t > SlicesMesh;
+    SlicesMesh::VideoResourceAcquisition& slicesMesh( unsigned int sampleRate );
+    
+private:
 
-}; // RayMarchingStage :: VideoResources
+    unsigned int mySampleRate;
+    std::unique_ptr< SlicesMesh::VideoResourceAcquisition > mySlicesMesh;
+    static SlicesMesh::VideoResourceAcquisition* createSlicesMesh( unsigned int sampleRate );
+};
 
 
-RayMarchingStage::VideoResources::VideoResources( const base::ShaderProgram& shader, Details::SliceMesh& sliceMesh )
-    : sliceMeshVR( sliceMesh )
-    , shader( shader )
+RayMarchingStage::VideoResources::VideoResources( const base::ShaderProgram& shader, unsigned int sampleRate )
+    : shader( shader )
+    , mySampleRate( sampleRate + 1 )
 {
+    /* Create the slices mesh.
+     */
+    slicesMesh( sampleRate );
+}
+
+
+RayMarchingStage::VideoResources::SlicesMesh::VideoResourceAcquisition* RayMarchingStage::VideoResources::createSlicesMesh
+    ( unsigned int sampleRate )
+{
+    /* Actually, one would assume that the radius should be _half_ of the square root
+     * of 3. But if specified so, one encounters "holes" in volume renderings. For
+     * the moment, just the square root of 3 seems to produce slices that are large
+     * enough, although this particular value is somewhat "random".
+     */
+    const float radius = std::sqrt( 3.f );
+    
+    /* Create slices.
+     */
+    std::vector< typename SlicesMesh::Vertex > vertices( 4 * sampleRate );
+    std::vector< typename SlicesMesh::Index  >  indices( 6 * sampleRate );
+    for( unsigned int sliceIdx = 0; sliceIdx < sampleRate; ++sliceIdx )
+    {
+        const float progress = static_cast< float >( sliceIdx ) / ( sampleRate - 1 );
+        const float offset = std::sqrt( 3.f ) * ( 0.5f - progress );
+
+        /* Create slice vertices.
+         */
+        vertices[ 4 * sliceIdx + 0 ].x = -radius;
+        vertices[ 4 * sliceIdx + 0 ].y = -radius;
+        vertices[ 4 * sliceIdx + 0 ].z =  offset;
+
+        vertices[ 4 * sliceIdx + 1 ].x = +radius;
+        vertices[ 4 * sliceIdx + 1 ].y = -radius;
+        vertices[ 4 * sliceIdx + 1 ].z =  offset;
+
+        vertices[ 4 * sliceIdx + 2 ].x = +radius;
+        vertices[ 4 * sliceIdx + 2 ].y = +radius;
+        vertices[ 4 * sliceIdx + 2 ].z =  offset;
+
+        vertices[ 4 * sliceIdx + 3 ].x = -radius;
+        vertices[ 4 * sliceIdx + 3 ].y = +radius;
+        vertices[ 4 * sliceIdx + 3 ].z =  offset;
+        
+        /* Create slice indices.
+         */
+        indices[ 6 * sliceIdx + 0 ] = 4 * sliceIdx + 0;
+        indices[ 6 * sliceIdx + 1 ] = 4 * sliceIdx + 1;
+        indices[ 6 * sliceIdx + 2 ] = 4 * sliceIdx + 2;
+        indices[ 6 * sliceIdx + 3 ] = 4 * sliceIdx + 2;
+        indices[ 6 * sliceIdx + 4 ] = 4 * sliceIdx + 3;
+        indices[ 6 * sliceIdx + 5 ] = 4 * sliceIdx + 0;
+    }
+
+    /* Create the mesh.
+     */
+    SlicesMesh& mesh = SlicesMesh::create
+        ( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLES
+        , &vertices.front(), vertices.size()
+        , &indices.front(), indices.size() );
+    
+    /* Acquire the video resources and release the mesh s.t. it is deleted when the
+     * video resources are released.
+     */
+    SlicesMesh::VideoResourceAcquisition* const meshVR = new SlicesMesh::VideoResourceAcquisition( mesh );
+    mesh.release();
+    return meshVR;
+}
+
+
+RayMarchingStage::VideoResources::SlicesMesh::VideoResourceAcquisition& RayMarchingStage::VideoResources::slicesMesh
+    ( unsigned int sampleRate )
+{
+    if( mySampleRate != sampleRate )
+    {
+        mySampleRate = sampleRate;
+        mySlicesMesh.reset( createSlicesMesh( sampleRate ) );
+
+        std::stringstream msg;
+        msg << "RayMarchingStage: Created new slices mesh with " << sampleRate << " samples per pixel.";
+        base::Log::instance().record( base::Log::debug, msg.str() );
+    }
+    return *mySlicesMesh;
 }
 
 
@@ -203,8 +246,6 @@ void RayMarchingStage::render( const base::Renderable& renderable )
     base::ShaderUniform< base::math::Matrix4f >( "modelViewProjection", pimpl->renderTask->projection * modelView ).upload();
     base::ShaderUniform< base::math::Matrix4f >( "modelTexture", modelTexture ).upload();
     base::ShaderUniform< base::math::Matrix4f >( "tangentModel", tangentModel ).upload();
-    base::ShaderUniform< base::math::Vector3f >( "viewDirectionInModelSpace", base::math::vector3f( viewDirectionInModelSpace ) ).upload();
-    base::ShaderUniform<                  int >( "sampleRate", pimpl->mySampleRate ).upload();
     for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {
         const unsigned int role = roles[ samplerOffset ];
@@ -215,15 +256,15 @@ void RayMarchingStage::render( const base::Renderable& renderable )
 
     /* Invoke shader.
      */
-    vr->sliceMeshVR.render();
-    REPORT_GL_ERROR;
+    VideoResources::SlicesMesh::VideoResourceAcquisition& slicesMesh = vr->slicesMesh( pimpl->sampleRate );
+    slicesMesh.render();
 }
 
 
 void RayMarchingStage::loadVideoResources()
 {
     const base::ShaderProgram& shader = loadShader();
-    vr.reset( new VideoResources( shader, pimpl->sliceMesh ) );
+    vr.reset( new VideoResources( shader, pimpl->sampleRate ) );
     createSamplers( [&]( unsigned int role, base::Sampler* sampler )
         {
             CARNA_ASSERT( vr->samplers.find( role ) == vr->samplers.end() );
@@ -267,13 +308,13 @@ void RayMarchingStage::renderPass
 void RayMarchingStage::setSampleRate( unsigned int sampleRate )
 {
     CARNA_ASSERT( sampleRate >= 2 );
-    pimpl->mySampleRate = sampleRate;
+    pimpl->sampleRate = sampleRate;
 }
 
 
 unsigned int RayMarchingStage::sampleRate() const
 {
-    return pimpl->mySampleRate;
+    return pimpl->sampleRate;
 }
 
 

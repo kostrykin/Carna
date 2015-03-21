@@ -84,10 +84,10 @@ void CameraNavigationControl::rotateVertically( float radians )
 }
 
 
-void CameraNavigationControl::moveAxially( float distance )
+void CameraNavigationControl::moveAxially( float units )
 {
     CARNA_ASSERT( pimpl->cam != nullptr );
-    pimpl->cam->localTransform = pimpl->cam->localTransform * base::math::translation4f( 0, 0, -distance );
+    pimpl->cam->localTransform = pimpl->cam->localTransform * base::math::translation4f( 0, 0, units );
 }
 
 

@@ -261,7 +261,6 @@ set( SHADERS_SRC
 		src/res/cutting-plane.vert
 		src/res/cutting-plane.frag
 		src/res/drr-accumulation.frag
-		src/res/drr-accumulation.geom
 		src/res/drr-accumulation.vert
 		src/res/drr-exponential.frag
 		src/res/drr-exponential.vert

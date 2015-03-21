@@ -34,12 +34,20 @@ namespace text
 
 
 
+// ----------------------------------------------------------------------------------
+// cat
+// ----------------------------------------------------------------------------------
+
 /** \brief
   * Reads \a file in text mode and returns contents.
   */
 std::string CARNA_LIB cat( const std::string& file );
 
 
+
+// ----------------------------------------------------------------------------------
+// lexical_cast
+// ----------------------------------------------------------------------------------
 
 /** \brief
   * Performs lexical cast.
@@ -55,6 +63,9 @@ std::string CARNA_LIB cat( const std::string& file );
   *
   *     CARNA_ASSERT( i == j );
   *     \endcode
+  *
+  * \todo
+  * Find out why this is not working.
   */
 template< typename To, typename From >
 To lexical_cast( const From& from )

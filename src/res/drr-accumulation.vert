@@ -11,7 +11,12 @@
  *
  */
 
+uniform mat4 tangentModel;
+uniform mat4 modelViewProjection;
+
 layout( location = 0 ) in vec4 inPosition;
+
+out vec4 modelSpaceCoordinates;
 
 
 // ----------------------------------------------------------------------------------
@@ -20,5 +25,7 @@ layout( location = 0 ) in vec4 inPosition;
 
 void main()
 {
-    gl_Position = inPosition;
+    modelSpaceCoordinates = tangentModel * inPosition;
+    vec4 clippingCoordinates = modelViewProjection * modelSpaceCoordinates;
+    gl_Position = clippingCoordinates;
 }
