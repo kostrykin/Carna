@@ -174,9 +174,9 @@ void MIPStage::renderPass
          */
         CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->channelFrameBuffer,
 
-            base::RenderState rs2;
-            rs2.setBlendEquation( GL_MAX );
-            rs2.setDepthTest( true );
+            base::RenderState rs;
+            rs.setBlendEquation( GL_MAX );
+            rs.setDepthTest( true );
 
             glClearColor( 0, 0, 0, 0 );
             rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT );
@@ -189,8 +189,8 @@ void MIPStage::renderPass
 
         /* Render result to output framebuffer.
          */
-        base::RenderState rs2;
-        rs2.setBlendFunction( pimpl->currentChannel->function() );
+        base::RenderState rs;
+        rs.setBlendFunction( pimpl->currentChannel->function() );
 
         pimpl->channelColorBuffer->bind( 0 );
         rt.renderer.renderTexture( base::FrameRenderer::RenderTextureParams( 0 ) );

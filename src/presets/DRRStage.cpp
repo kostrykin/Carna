@@ -216,8 +216,8 @@ void DRRStage::renderPass
 
         /* Configure OpenGL state for accumulation pass.
          */
-        base::RenderState rs2;
-        rs2.setBlendFunction( base::BlendFunction( GL_ONE, GL_ONE ) );
+        base::RenderState rs;
+        rs.setBlendFunction( base::BlendFunction( GL_ONE, GL_ONE ) );
 
         glClearColor( 0, 0, 0, 0 );
         rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT );
