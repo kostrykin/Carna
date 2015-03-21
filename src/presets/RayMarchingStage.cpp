@@ -99,7 +99,7 @@ RayMarchingStage::VideoResources::SlicesMesh::VideoResourceAcquisition* RayMarch
     for( unsigned int sliceIdx = 0; sliceIdx < sampleRate; ++sliceIdx )
     {
         const float progress = static_cast< float >( sliceIdx ) / ( sampleRate - 1 );
-        const float offset = 2 * radius * ( 0.5f - progress );
+        const float   offset = -2 * radius * ( 0.5f - progress );
 
         /* Create slice vertices.
          */
