@@ -61,14 +61,16 @@ class CARNA_LIB Shader
 
 public:
 
-    const static unsigned int TYPE_VERTEX_SHADER;   ///< Indicates shader object of `GL_VERTEX_SHADER` type.
+    const static unsigned int TYPE_VERTEX_SHADER;   ///< Indicates shader object of `GL_VERTEX_SHADER`   type.
     const static unsigned int TYPE_FRAGMENT_SHADER; ///< Indicates shader object of `GL_FRAGMENT_SHADER` type.
+    const static unsigned int TYPE_GEOMETRY_SHADER; ///< Indicates shader object of `GL_GEOMETRY_SHADER` type.
 
     /** \brief
       * Compiles \a src and creates new OpenGL shader object of \a type.
       *
       * \param type
-      *     is usually `TYPE_VERTEX_SHADER` or `TYPE_FRAGMENT_SHADER`.
+      *     is usually `TYPE_VERTEX_SHADER`, `TYPE_GEOMETRY_SHADER` or
+      *     `TYPE_FRAGMENT_SHADER`.
       *
       * \param src
       *     references the shader source code.
@@ -90,8 +92,8 @@ public:
 
     /** \brief
       * Holds the type of the maintained OpenGL shader object. This is
-      * `TYPE_VERTEX_SHADER` or `TYPE_FRAGMENT_SHADER` usually.
-      *
+      * `TYPE_VERTEX_SHADER`, `TYPE_GEOMETRY_SHADER` or `TYPE_FRAGMENT_SHADER`
+      * usually.
       */
     const unsigned int type;
 

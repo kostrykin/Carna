@@ -32,14 +32,15 @@ struct ShaderManager::Details : public Log::OnShutdownListener
 
     struct ShaderInfo
     {
-        ShaderProgram* shader;
-        Shader* vertexShader;
-        Shader* fragmentShader;
+        std::unique_ptr< Shader > vertShader;
+        std::unique_ptr< Shader > geomShader;
+        std::unique_ptr< Shader > fragShader;
+        std::unique_ptr< ShaderProgram > shader;
         unsigned int acquisitionsCount;
     };
 
     std::map< std::string, std::string > sources;
-    std::map< std::string, ShaderInfo > loadedShaders;
+    std::map< std::string, ShaderInfo* > loadedShaders;
     std::map< ShaderProgram*, std::string > loadedShaderNames;
 
     const ShaderProgram& loadShader( const std::string& name );
@@ -52,12 +53,14 @@ struct ShaderManager::Details : public Log::OnShutdownListener
 
 const ShaderProgram& ShaderManager::Details::loadShader( const std::string& name )
 {
-    const std::string* srcVertPtr;
-    const std::string* srcFragPtr;
+    const std::string* srcVertPtr = nullptr;
+    const std::string* srcGeomPtr = nullptr;
+    const std::string* srcFragPtr = nullptr;
 
     /* Look up the shader sources.
      */
     const auto srcVertItr = sources.find( name + ".vert" );
+    const auto srcGeomItr = sources.find( name + ".geom" );
     const auto srcFragItr = sources.find( name + ".frag" );
     if( srcVertItr != sources.end() && srcFragItr != sources.end() )
     {
@@ -69,22 +72,59 @@ const ShaderProgram& ShaderManager::Details::loadShader( const std::string& name
         srcVertPtr = &res::string( name + "_vert" );
         srcFragPtr = &res::string( name + "_frag" );
     }
+    
+    /* Assure the required sources were found.
+     */
+    CARNA_ASSERT_EX( srcVertPtr != nullptr,   "Vertex shader sources \"" + name + "\" not found!" );
+    CARNA_ASSERT_EX( srcFragPtr != nullptr, "Fragment shader sources \"" + name + "\" not found!" );
+    
+    /* Also look up the optional geometry shader definition.
+     */
+    if( srcGeomItr != sources.end() )
+    {
+        srcGeomPtr = &srcGeomItr->second;
+    }
+    else
+    {
+        const auto srcGeomItr = res::strings.find( name + "_geom" );
+        if( srcGeomItr != res::strings.end() )
+        {
+            srcGeomPtr = srcGeomItr->second;
+        }
+    }
+    
+    /* Prepare creation of new shader program.
+     */
+    ShaderInfo* const info = new ShaderInfo();
+    info->acquisitionsCount = 1;
+    loadedShaders[ name ] = info;
+    ShaderProgram::Factory factory;
 
-    /* Build the shader sources.
+    /* Build shader sources for vertex and fragment shader.
      */
     const std::string& srcVert = *srcVertPtr;
     const std::string& srcFrag = *srcFragPtr;
-
-    ShaderInfo info;
-    info.acquisitionsCount = 1;
-    info.vertexShader = new Shader( Shader::TYPE_VERTEX_SHADER, srcVert );
-    info.fragmentShader = new Shader( Shader::TYPE_FRAGMENT_SHADER, srcFrag );
-    info.shader = new ShaderProgram( *info.vertexShader, *info.fragmentShader );
-
-    loadedShaders[ name ] = info;
-    loadedShaderNames[ info.shader ] = name;
-
-    return *info.shader;
+    
+    info->vertShader.reset( new Shader( Shader::TYPE_VERTEX_SHADER  , srcVert ) );
+    info->fragShader.reset( new Shader( Shader::TYPE_FRAGMENT_SHADER, srcFrag ) );
+    
+    factory.setVertexShader  ( *info->vertShader );
+    factory.setFragmentShader( *info->fragShader );
+    
+    /* Build geometry shader sources if they were found.
+     */
+    if( srcGeomPtr != nullptr )
+    {
+        const std::string& srcGeom = *srcGeomPtr;
+        info->geomShader.reset( new Shader( Shader::TYPE_GEOMETRY_SHADER, srcGeom ) );
+        factory.setGeometryShader( *info->geomShader );
+    }
+    
+    /* Build the shader program.
+     */
+    info->shader.reset( factory.create() );
+    loadedShaderNames[ info->shader.get() ] = name;
+    return *info->shader;
 }
 
 
@@ -139,8 +179,8 @@ const ShaderProgram& ShaderManager::acquireShader( const std::string& shaderName
     }
     else
     {
-        ++infoItr->second.acquisitionsCount;
-        return *infoItr->second.shader;
+        ++infoItr->second->acquisitionsCount;
+        return *infoItr->second->shader;
     }
 }
 
@@ -149,10 +189,10 @@ void ShaderManager::releaseShader( const ShaderProgram& shader )
     const auto nameItr = pimpl->loadedShaderNames.find( const_cast< ShaderProgram* >( &shader ) );
     CARNA_ASSERT_EX( nameItr != pimpl->loadedShaderNames.end(), "Shader not loaded!" );
     const std::string& shaderName = nameItr->second;
-    Details::ShaderInfo& info = pimpl->loadedShaders[ shaderName ];
+    Details::ShaderInfo& info = *pimpl->loadedShaders[ shaderName ];
     if( --info.acquisitionsCount == 0 )
     {
-        delete info.shader;
+        delete &info;
         pimpl->loadedShaders.erase( shaderName );
         pimpl->loadedShaderNames.erase( nameItr );
     }

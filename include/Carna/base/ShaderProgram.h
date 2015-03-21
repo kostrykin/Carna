@@ -48,17 +48,71 @@ class CARNA_LIB ShaderProgram
 {
 
     NON_COPYABLE
+    
+    ShaderProgram();
 
 public:
 
+    // ------------------------------------------------------------------------------
+    // ShaderProgram :: Factory
+    // ------------------------------------------------------------------------------
+
     /** \brief
-      * Creates new OpenGL shader program.
+      * Creates \ref ShaderProgram "OpenGL shader program".
       *
-      * \throw AssertionFailure
-      *     thrown when creation of OpenGL program or the linking of the shader
-      *     objects fails.
+      * \author Leonid Kostrykin
+      * \date   21.3.15
       */
-    ShaderProgram( const Shader& vertexShader, const Shader& fragmentShader );
+    class Factory
+    {
+    
+        NON_COPYABLE
+        
+        struct Details;
+        const std::unique_ptr< Details > pimpl;
+    
+    public:
+    
+        /** \brief
+          * Prepares creation of new shader program.
+          */
+        Factory();
+        
+        /** \brief
+          * Cleans up.
+          */
+        ~Factory();
+        
+        /** \brief
+          * Uses \a shader as \ref RenderingPipeline "vertex shader".
+          * \pre `shader.type == Shader::TYPE_VERTEX_SHADER`
+          */
+        void setVertexShader  ( const Shader& shader );
+        
+        /** \brief
+          * Uses \a shader as \ref RenderingPipeline "geometry shader".
+          * \pre `shader.type == Shader::TYPE_GEOMETRY_SHADER`
+          */
+        void setGeometryShader( const Shader& shader );
+        
+        /** \brief
+          * Uses \a shader as \ref RenderingPipeline "fragment shader".
+          * \pre `shader.type == Shader::TYPE_FRAGMENT_SHADER`
+          */
+        void setFragmentShader( const Shader& shader );
+        
+        /** \brief
+          * Creates new OpenGL shader program.
+          *
+          * \throw AssertionFailure
+          *     thrown when creation of OpenGL program or the linking of the shader
+          *     objects fails.
+          */
+        ShaderProgram* create() const;
+        
+    }; // ShaderProgram :: Factory
+
+    // ------------------------------------------------------------------------------
 
     /** \brief
       * Deletes the maintained OpenGL shader program.
@@ -76,16 +130,6 @@ private:
       * Queries this shader program for errors.
       */
     void checkErrors() const;
-
-    /** \brief
-      * Deletes the maintained OpenGL shader program.
-      *
-      * \warning
-      * Invoking this method puts this object in an invalid state! It is only allowed
-      * be used for cleaning up when a constructor needs to throw an exception, and
-      * from the destructor.
-      */
-    void release();
 
 }; // ShaderProgram
 

@@ -24,29 +24,102 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// ShaderProgram
+// ShaderProgram :: Factory :: Details
 // ----------------------------------------------------------------------------------
 
-ShaderProgram::ShaderProgram( const Shader& vertexShader, const Shader& fragmentShader )
-    : id( glCreateProgram() )
+struct ShaderProgram::Factory::Details
 {
+    const Shader* vertShader;
+    const Shader* geomShader;
+    const Shader* fragShader;
+    Details();
+};
+
+
+ShaderProgram::Factory::Details::Details()
+    : vertShader( nullptr )
+    , geomShader( nullptr )
+    , fragShader( nullptr )
+{
+}
+
+
+
+// ----------------------------------------------------------------------------------
+// ShaderProgram :: Factory
+// ----------------------------------------------------------------------------------
+
+ShaderProgram::Factory::Factory()
+    : pimpl( new Details() )
+{
+}
+
+
+ShaderProgram::Factory::~Factory()
+{
+}
+
+
+void ShaderProgram::Factory::setVertexShader( const Shader& shader )
+{
+    CARNA_ASSERT( shader.type == Shader::TYPE_VERTEX_SHADER );
+    pimpl->vertShader = &shader;
+}
+
+
+void ShaderProgram::Factory::setGeometryShader( const Shader& shader )
+{
+    CARNA_ASSERT( shader.type == Shader::TYPE_GEOMETRY_SHADER );
+    pimpl->geomShader = &shader;
+}
+
+
+void ShaderProgram::Factory::setFragmentShader( const Shader& shader )
+{
+    CARNA_ASSERT( shader.type == Shader::TYPE_FRAGMENT_SHADER );
+    pimpl->fragShader = &shader;
+}
+
+
+ShaderProgram* ShaderProgram::Factory::create() const
+{
+    CARNA_ASSERT_EX( pimpl->vertShader != nullptr, "No vertex shader set!" );
+    CARNA_ASSERT_EX( pimpl->fragShader != nullptr, "No fragment shader set!" );
+    
+    ShaderProgram* const shaderProgram = new ShaderProgram();
     try
     {
-        CARNA_ASSERT( vertexShader.type == Shader::TYPE_VERTEX_SHADER );
-        CARNA_ASSERT( fragmentShader.type == Shader::TYPE_FRAGMENT_SHADER );
-        CARNA_ASSERT_EX( id != 0, "failed to acquire shader program object" );
-
-        glAttachShader( id, vertexShader.id );
-        glAttachShader( id, fragmentShader.id );
+        /* Compose the shader program.
+         */
+        const unsigned int id = shaderProgram->id;
+        glAttachShader( id, pimpl->vertShader->id );
+        glAttachShader( id, pimpl->fragShader->id );
+        if( pimpl->geomShader != nullptr )
+        {
+            glAttachShader( id, pimpl->geomShader->id );
+        }
+        
+        /* Link the shader program.
+         */
         glLinkProgram( id );
-
-        checkErrors();
+        return shaderProgram;
     }
     catch( ... )
     {
-        release();
+        delete shaderProgram;
         throw;
     }
+}
+
+
+
+// ----------------------------------------------------------------------------------
+// ShaderProgram
+// ----------------------------------------------------------------------------------
+
+ShaderProgram::ShaderProgram()
+    : id( glCreateProgram() )
+{
 }
 
 
@@ -68,12 +141,6 @@ void ShaderProgram::checkErrors() const
 
 
 ShaderProgram::~ShaderProgram()
-{
-    release();
-}
-
-
-void ShaderProgram::release()
 {
     if( id )
     {

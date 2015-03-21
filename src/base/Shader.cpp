@@ -29,7 +29,9 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 const unsigned int Shader::TYPE_VERTEX_SHADER   = GL_VERTEX_SHADER;
+const unsigned int Shader::TYPE_GEOMETRY_SHADER = GL_GEOMETRY_SHADER;
 const unsigned int Shader::TYPE_FRAGMENT_SHADER = GL_FRAGMENT_SHADER;
+
 
 Shader::Shader( unsigned int type, const std::string& src )
     : id( glCreateShader( type ) )
