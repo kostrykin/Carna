@@ -261,6 +261,11 @@ public:
       *     \ref GLContext::setShader "active shader".
       */
     void renderTexture( const RenderTextureParams& params ) const;
+    
+    /** \brief
+      * Tells the average of the reciprocal frame rendering time.
+      */
+    const math::Statistics< double >& framesPerSecond() const;
 
 private:
 

@@ -592,6 +592,71 @@ namespace math
         }
         return result;
     }
+    
+    /** \brief
+      * Holds mean and variance of an characteristic.
+      */
+    template< typename T >
+    struct Statistics
+    {
+        T mean;     ///< Holds the mean.
+        T variance; ///< Holds the variance.
+        
+        /** \brief
+          * Initializes with \a mean and \a variance.
+          */
+        Statistics( T mean, T variance ) : mean( mean ), variance( variance )
+        {
+        }
+        
+        /** \brief
+          * Computes statistics from \a size samples queried from \a values.
+          */
+        Statistics( std::size_t size, const std::function< T( std::size_t ) > values )
+        {
+            if( size == 0 )
+            {
+                mean = variance = 0;
+            }
+            else
+            {
+                /* Compute mean.
+                 */
+                T sum = 0;
+                for( std::size_t idx = 0; idx < size; ++idx )
+                {
+                    sum += values( idx );
+                }
+                mean = sum / size;
+                
+                /* Compute variance.
+                 */
+                sum = 0;
+                for( std::size_t idx = 0; idx < size; ++idx )
+                {
+                    sum += sq( mean - values( idx ) );
+                }
+                variance = sum / ( size - 1 );
+            }
+        }
+        
+        /** \brief
+          * Copies from \a other.
+          */
+        Statistics< T >& operator=( const Statistics< T >& other )
+        {
+            mean = other.mean;
+            variance = other.variance;
+        }
+        
+        /** \brief
+          * Computes the standard deviation.
+          */
+        T standardDeviation() const
+        {
+            return std::sqrt( variance );
+        }
+    };
 
 
 

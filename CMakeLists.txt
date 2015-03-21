@@ -157,6 +157,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/text.h
 		include/${PROJECT_NAME}/base/Log.h
 		include/${PROJECT_NAME}/base/Ray.h
+		include/${PROJECT_NAME}/base/Stopwatch.h
 		include/${PROJECT_NAME}/base/CameraControl.h
 		include/${PROJECT_NAME}/base/ProjectionControl.h
 		include/${PROJECT_NAME}/base/glew.h
@@ -215,6 +216,7 @@ set( SRC
 		src/base/BufferedHUVolumeFormat.cpp
 		src/base/HUVolumeTexture.cpp
 		src/base/GeometryFeature.cpp
+		src/base/Stopwatch.cpp
 		src/base/Vertex.cpp
 		src/base/VertexAttributes.cpp
 		src/base/VertexBuffer.cpp
@@ -434,6 +436,7 @@ include( "misc/compiler_specific.cmake" )
 target_link_libraries( ${TARGET_NAME}
 			${OPENGL_LIBRARIES}
 			${GLEW_LIBRARIES}
+			gomp
 		)
 
 ############################################

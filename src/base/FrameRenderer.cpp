@@ -24,6 +24,7 @@
 #include <Carna/base/VertexBuffer.h>
 #include <Carna/base/IndexBuffer.h>
 #include <Carna/base/Sampler.h>
+#include <Carna/base/Stopwatch.h>
 #include <vector>
 
 namespace Carna
@@ -94,6 +95,69 @@ static MeshBase& createFullFrameQuadMesh()
 
 
 // ----------------------------------------------------------------------------------
+// circular_buffer
+// ----------------------------------------------------------------------------------
+
+template< typename T >
+class circular_buffer
+{
+
+    std::vector< T > buffer;
+    unsigned int nextIdx;
+    bool saturated;
+
+public:
+
+    explicit circular_buffer( std::size_t size );
+    void push( const T& );
+    std::size_t size() const;
+    const T& operator[]( std::size_t idx ) const;
+    
+}; // circular_buffer
+
+
+template< typename T >
+circular_buffer< T >::circular_buffer( std::size_t size )
+    : buffer( size )
+    , nextIdx( 0 )
+    , saturated( false )
+{
+}
+
+
+template< typename T >
+void circular_buffer< T >::push( const T& val )
+{
+    buffer[ nextIdx ] = val;
+    nextIdx = ( ++nextIdx ) % buffer.size();
+    saturated = saturated || nextIdx == 0;
+}
+
+
+template< typename T >
+std::size_t circular_buffer< T >::size() const
+{
+    return saturated ? buffer.size() : nextIdx;
+}
+
+
+template< typename T >
+const T& circular_buffer< T >::operator[]( std::size_t idx ) const
+{
+    CARNA_ASSERT( idx < size() );
+    if( saturated )
+    {
+        return buffer[ ( nextIdx + idx ) % buffer.size() ];
+    }
+    else
+    {
+        return buffer[ idx ];
+    }
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // FrameRenderer :: Details
 // ----------------------------------------------------------------------------------
 
@@ -104,9 +168,7 @@ struct FrameRenderer::Details
     std::vector< RenderStage* > stages;
 
     unsigned int width, height;
-    
     bool fitSquare;
-
     mutable bool reshaped;
 
     std::unique_ptr< Viewport > viewport;
@@ -122,6 +184,10 @@ struct FrameRenderer::Details
 
     float backgroundColor[ 4 ];
     bool backgroundColorChanged;
+    
+    math::Statistics< double > fpsStatistics;
+    circular_buffer< double > fpsData;
+    void updateFpsStatistics();
 };
 
 
@@ -135,6 +201,8 @@ FrameRenderer::Details::Details( GLContext& glContext, unsigned int width, unsig
     , fullFrameQuadMeshVR( new MeshBase::VideoResourceAcquisition( fullFrameQuadMesh ) )
     , fullFrameQuadShader( ShaderManager::instance().acquireShader( "full_frame_quad" ) )
     , backgroundColorChanged( true )
+    , fpsStatistics( 0, 0 )
+    , fpsData( 10 )
 {
     backgroundColor[ 0 ] = 0;
     backgroundColor[ 1 ] = 0;
@@ -279,6 +347,10 @@ const Viewport& FrameRenderer::viewport() const
 
 void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
 {
+    /* Start time measurement.
+     */
+    Stopwatch stopwatch;
+
     /* Check for errors.
      */
     REPORT_GL_ERROR;
@@ -321,6 +393,18 @@ void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
     /* Check for errors.
      */
     REPORT_GL_ERROR;
+    
+    /* Stop and evaluate time measurement.
+     */
+    const double time = stopwatch.result();
+    const double fps  = 1 / time;
+    pimpl->fpsData.push( fps );
+    pimpl->fpsStatistics = math::Statistics< double >( pimpl->fpsData.size(),
+        [&]( std::size_t idx )->double
+        {
+            return pimpl->fpsData[ idx ];
+        }
+    );
 }
 
 
@@ -338,6 +422,12 @@ void FrameRenderer::renderTexture( const RenderTextureParams& params ) const
 
     ShaderUniform< int >( params.textureUniformName, params.unit ).upload();
     pimpl->fullFrameQuadMeshVR->render();
+}
+
+
+const math::Statistics< double >& FrameRenderer::framesPerSecond() const
+{
+    return pimpl->fpsStatistics;
 }
 
 

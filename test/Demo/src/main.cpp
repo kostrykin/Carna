@@ -33,6 +33,7 @@
 #include <HUGZSceneFactory.h>
 
 #include <memory>
+#include <iomanip>
 
 // ----------------------------------------------------------------------------------
 
@@ -283,6 +284,13 @@ void Demo::resizeGL( int w, int h )
 void Demo::paintGL()
 {
     renderer->render( *camera, *root );
+    std::stringstream title;
+    title
+        << "Carna Demo ("
+        << "FPS: " << std::setiosflags( std::ios::fixed ) << std::setprecision( 1 ) << renderer->framesPerSecond().mean
+        << " +/- " << std::setiosflags( std::ios::fixed ) << std::setprecision( 1 ) << renderer->framesPerSecond().standardDeviation()
+        << ")";
+    setWindowTitle( QString::fromStdString( title.str() ) );
 }
 
 
