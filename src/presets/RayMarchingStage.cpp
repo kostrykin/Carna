@@ -109,12 +109,6 @@ struct RayMarchingStage::VideoResources
     const base::ShaderProgram& shader;
     std::map< unsigned int, base::Sampler* > samplers;
 
-    void renderSlice
-        ( RayMarchingStage& self
-        , const base::Renderable& renderable
-        , const base::math::Matrix4f& sliceTangentModel
-        , const base::math::Matrix4f& modelView );
-
 }; // RayMarchingStage :: VideoResources
 
 
@@ -122,54 +116,6 @@ RayMarchingStage::VideoResources::VideoResources( const base::ShaderProgram& sha
     : sliceMeshVR( sliceMesh )
     , shader( shader )
 {
-}
-
-
-void RayMarchingStage::VideoResources::renderSlice
-    ( RayMarchingStage& self
-    , const base::Renderable& renderable
-    , const base::math::Matrix4f& sliceTangentModel
-    , const base::math::Matrix4f& modelView )
-{
-    unsigned int lastUnit = base::Texture3D::SETUP_UNIT;
-    std::vector< unsigned int > roles;
-    const base::Texture3D* anyTexture;
-    renderable.geometry().visitFeatures( [&]( base::GeometryFeature& gf, unsigned int role )
-        {
-            if( dynamic_cast< base::Texture3D* >( &gf ) != nullptr )
-            {
-                const base::Texture3D& texture = static_cast< const base::Texture3D& >( gf );
-                anyTexture = &texture;
-                self.videoResource( texture ).bind( ++lastUnit );
-                samplers[ role ]->bind( lastUnit );
-                roles.push_back( role );
-            }
-        }
-    );
-
-    /* We assume here that the texture coordinates correction is same for all
-     * textures, i.e. all textures have same resolution.
-     */
-    const base::math::Matrix4f modelTexture =
-        ( anyTexture == nullptr ? base::math::identity4f() : anyTexture->textureCoordinatesCorrection )
-        * base::math::translation4f( 0.5f, 0.5f, 0.5f );
-
-    /* Configure shader.
-     */
-    base::ShaderUniform< base::math::Matrix4f >( "sliceTangentModel", sliceTangentModel ).upload();
-    base::ShaderUniform< base::math::Matrix4f >( "modelViewProjection", self.pimpl->renderTask->projection * modelView ).upload();
-    base::ShaderUniform< base::math::Matrix4f >( "modelTexture", modelTexture ).upload();
-    for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
-    {
-        const unsigned int role = roles[ samplerOffset ];
-        const unsigned int unit = base::Texture3D::SETUP_UNIT + 1 + samplerOffset;
-        const std::string& uniformName = self.uniformName( role );
-        base::ShaderUniform< int >( uniformName, unit ).upload();
-    }
-
-    /* Invoke shader.
-     */
-    sliceMeshVR.render();
 }
 
 
@@ -226,22 +172,51 @@ void RayMarchingStage::render( const base::Renderable& renderable )
     const Vector4f modelTangent   = s * ( viewModel * Vector4f( 1, 0, 0, 0 ) ).normalized();
     const Vector4f modelBitangent = s * ( viewModel * Vector4f( 0, 1, 0, 0 ) ).normalized();
     const Matrix4f tangentModel   = base::math::basis4f( modelTangent, modelBitangent, modelNormal );
-
-    /* NOTE: This can be optimized using geometry shader, by sending only the central
-     * slice to the GPU and constructing the others in the shader.
+    
+    /* Bind all 'Texture3D' geometry features.
      */
-    for( unsigned int sampleIdx = 0; sampleIdx < pimpl->mySampleRate; ++sampleIdx )
+    unsigned int lastUnit = base::Texture3D::SETUP_UNIT;
+    std::vector< unsigned int > roles;
+    const base::Texture3D* anyTexture;
+    renderable.geometry().visitFeatures( [&]( base::GeometryFeature& gf, unsigned int role )
+        {
+            if( dynamic_cast< base::Texture3D* >( &gf ) != nullptr )
+            {
+                const base::Texture3D& texture = static_cast< const base::Texture3D& >( gf );
+                anyTexture = &texture;
+                videoResource( texture ).bind( ++lastUnit );
+                vr->samplers[ role ]->bind( lastUnit );
+                roles.push_back( role );
+            }
+        }
+    );
+
+    /* We assume here that the texture coordinates correction is same for all
+     * textures, i.e. all textures have same resolution.
+     */
+    const base::math::Matrix4f modelTexture =
+        ( anyTexture == nullptr ? base::math::identity4f() : anyTexture->textureCoordinatesCorrection )
+        * base::math::translation4f( 0.5f, 0.5f, 0.5f );
+        
+    /* Configure shader.
+     */
+    base::ShaderUniform< base::math::Matrix4f >( "modelViewProjection", pimpl->renderTask->projection * modelView ).upload();
+    base::ShaderUniform< base::math::Matrix4f >( "modelTexture", modelTexture ).upload();
+    base::ShaderUniform< base::math::Matrix4f >( "tangentModel", tangentModel ).upload();
+    base::ShaderUniform< base::math::Vector3f >( "viewDirectionInModelSpace", base::math::vector3f( viewDirectionInModelSpace ) ).upload();
+    base::ShaderUniform<                  int >( "sampleRate", pimpl->mySampleRate ).upload();
+    for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {
-        const float progress = static_cast< float >( sampleIdx ) / ( pimpl->mySampleRate - 1 );
-        const float offset = std::sqrt( 3.f ) * ( 0.5f - progress );
+        const unsigned int role = roles[ samplerOffset ];
+        const unsigned int unit = base::Texture3D::SETUP_UNIT + 1 + samplerOffset;
+        const std::string& uniformName = this->uniformName( role );
+        base::ShaderUniform< int >( uniformName, unit ).upload();
+    }
 
-        /* Construct transformation from tangent to model space for specific slice.
-         */
-        const Matrix4f sliceOffset = base::math::translation4f( viewDirectionInModelSpace * offset );
-        const Matrix4f sliceTangentModel = sliceOffset * tangentModel;
-
-        vr->renderSlice( *this, renderable, sliceTangentModel, modelView );
-    } 
+    /* Invoke shader.
+     */
+    vr->sliceMeshVR.render();
+    REPORT_GL_ERROR;
 }
 
 

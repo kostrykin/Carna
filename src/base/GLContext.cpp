@@ -10,6 +10,7 @@
  */
 
 #include <Carna/base/glew.h>
+#include <Carna/base/glError.h>
 #include <Carna/base/GLContext.h>
 #include <Carna/base/ShaderProgram.h>
 #include <Carna/base/RenderState.h>
@@ -157,6 +158,7 @@ void GLContext::setShader( const ShaderProgram& shader )
         CARNA_ASSERT( isCurrent() );
         pimpl->shader = &shader;
         glUseProgram( shader.id );
+        REPORT_GL_ERROR;
     }
 }
 

@@ -4,6 +4,7 @@
 #include <QWheelEvent>
 
 #include <Carna/Version.h>
+#include <Carna/base/text.h>
 #include <Carna/base/Log.h>
 #include <Carna/base/GLContext.h>
 #include <Carna/base/FrameRenderer.h>

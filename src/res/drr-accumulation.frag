@@ -19,12 +19,7 @@ uniform float     lowerThreshold;
 uniform float     upperThreshold;
 uniform float     upperMultiplier;
 
-struct VertexData
-{
-    vec4 modelSpaceCoordinates;
-};
-
-in VertexData frag;
+in vec4 modelSpaceCoordinates;
 
 out vec4 gl_FragColor;
 
@@ -45,12 +40,12 @@ float intensityAt( vec3 p )
 
 void main()
 {
-    if( abs( frag.modelSpaceCoordinates.x ) > 0.5 || abs( frag.modelSpaceCoordinates.y ) > 0.5 || abs( frag.modelSpaceCoordinates.z ) > 0.5 )
+    if( abs( modelSpaceCoordinates.x ) > 0.5 || abs( modelSpaceCoordinates.y ) > 0.5 || abs( modelSpaceCoordinates.z ) > 0.5 )
     {
         discard;
     }
     
-    vec4 textureCoordinates = modelTexture * frag.modelSpaceCoordinates;
+    vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;
     float intensity = intensityAt( textureCoordinates.xyz );
           intensity = intensity + step( upperThreshold, intensity ) * ( upperMultiplier - 1 ) * intensity;
     float huv       = intensity * 4096 - 1024;

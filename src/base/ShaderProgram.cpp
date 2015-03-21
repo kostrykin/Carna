@@ -102,6 +102,7 @@ ShaderProgram* ShaderProgram::Factory::create() const
         /* Link the shader program.
          */
         glLinkProgram( id );
+        shaderProgram->checkErrors();
         return shaderProgram;
     }
     catch( ... )
@@ -136,6 +137,13 @@ void ShaderProgram::checkErrors() const
         {
             throw ShaderCompilationError( err );
         }
+    }
+    
+    int linkStatus;
+    glGetProgramiv( id, GL_LINK_STATUS, &linkStatus );
+    if( linkStatus != GL_TRUE )
+    {
+        throw ShaderCompilationError( "Linking failed!" );
     }
 }
 
