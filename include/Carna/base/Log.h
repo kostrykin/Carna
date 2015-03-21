@@ -131,7 +131,7 @@ public:
         /** \brief
           * Logs \a formattedEntry with \a severity.
           */
-        virtual void writeFormatted( Severity severity, const std::string& formattedEntry ) const = 0;
+        virtual void writeLine( Severity severity, const std::string& formattedEntry ) const = 0;
 
     }; // Log :: TextWriter
 
@@ -151,7 +151,7 @@ public:
 
     protected:
 
-        virtual void writeFormatted( Severity, const std::string& ) const override;
+        virtual void writeLine( Severity, const std::string& ) const override;
 
     }; // Log :: StdWriter
 

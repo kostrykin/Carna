@@ -28,21 +28,35 @@ namespace testing
 class QDebugLogWriter : public base::Log::TextWriter
 {
 
+public:
+
+    virtual void write( base::Log::Severity severity, const std::string& msg ) const override;
+
 protected:
 
-    virtual void writeFormatted( base::Log::Severity, const std::string& ) const override;
+    virtual void writeLine( base::Log::Severity severity, const std::string& msg ) const override;
 
 };
 
 
-void QDebugLogWriter::writeFormatted( base::Log::Severity severity, const std::string& msg ) const
+void QDebugLogWriter::write( base::Log::Severity severity, const std::string& msg ) const
+{
+    base::Log::TextWriter::write( severity, msg );
+    if( severity == base::Log::fatal )
+    {
+        qFatal( "\n==================================================================\n%s", msg.c_str() );
+    }
+}
+
+
+void QDebugLogWriter::writeLine( base::Log::Severity severity, const std::string& msg ) const
 {
     switch( severity )
     {
 
     case base::Log::fatal:
     case base::Log::error:
-        qFatal( "%s", msg.c_str() );
+        qCritical( "%s", msg.c_str() );
         break;
 
     case base::Log::warning:

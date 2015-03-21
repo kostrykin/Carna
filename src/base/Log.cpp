@@ -119,29 +119,34 @@ Log::Writer::~Writer()
 
 void Log::TextWriter::write( Severity severity, const std::string& message ) const
 {
-    std::stringstream out;
+    std::stringstream linePrefix;
     switch( severity )
     {
 
     case fatal:
-        out << "[! FATAL !]";
+        linePrefix << "[! FATAL !]";
         break;
 
     case error:
-        out << "[* ERROR *]";
+        linePrefix << "[* ERROR *]";
         break;
 
     case warning:
-        out << "[ WARNING ]";
+        linePrefix << "[ WARNING ]";
         break;
 
     case debug:
-        out << "[  debug  ]";
+        linePrefix << "[  debug  ]";
         break;
 
     }
-    out << "  " << message;
-    writeFormatted( severity, out.str() );
+    linePrefix << "  ";
+    std::string msgLine;
+    std::stringstream in( message );
+    while( std::getline( in, msgLine ) )
+    {
+        writeLine( severity, linePrefix.str() + msgLine );
+    }
 }
 
 
@@ -150,7 +155,7 @@ void Log::TextWriter::write( Severity severity, const std::string& message ) con
 // Log :: StdWriter
 // ----------------------------------------------------------------------------------
 
-void Log::StdWriter::writeFormatted( Severity severity, const std::string& message ) const
+void Log::StdWriter::writeLine( Severity severity, const std::string& message ) const
 {
     std::ostream& out = ( severity == fatal || severity == error ? std::cerr : std::cout );
     out << message << std::endl;
