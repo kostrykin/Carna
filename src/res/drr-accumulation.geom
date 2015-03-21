@@ -11,26 +11,30 @@
  *
  */
 
-uniform mat4 sliceTangentModel;
-uniform mat4 modelViewProjection;
-
-layout( location = 0 ) in vec4 inPosition;
+layout( triangles ) in;
+layout( triangle_strip, max_vertices = 3 ) out;
 
 struct VertexData
 {
     vec4 modelSpaceCoordinates;
 };
 
-out VertexData vert;
+in  VertexData vert[];
+out VertexData frag;
 
 
 // ----------------------------------------------------------------------------------
-// Vertex Procedure
+// Geometry Procedure
 // ----------------------------------------------------------------------------------
 
 void main()
 {
-    vert.modelSpaceCoordinates = sliceTangentModel * inPosition;
-    vec4 clippingCoordinates = modelViewProjection * vert.modelSpaceCoordinates;
-    gl_Position = clippingCoordinates;
+    for( int i = 0; i < gl_in.length(); ++i )
+    {
+        gl_Position = gl_in[ i ].gl_Position;
+        frag = vert[ i ];
+        EmitVertex();
+    }
+    EndPrimitive();
 }
+
