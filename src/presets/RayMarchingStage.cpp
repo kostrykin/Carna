@@ -86,12 +86,11 @@ RayMarchingStage::VideoResources::VideoResources( const base::ShaderProgram& sha
 RayMarchingStage::VideoResources::SlicesMesh::VideoResourceAcquisition* RayMarchingStage::VideoResources::createSlicesMesh
     ( unsigned int sampleRate )
 {
-    /* Actually, one would assume that the radius should be _half_ of the square root
-     * of 3. But if specified so, one encounters "holes" in volume renderings. For
-     * the moment, just the square root of 3 seems to produce slices that are large
-     * enough, although this particular value is somewhat "random".
+    /* The mesh is constructed in model space. The box [-0,5; +0.5]^3 defines the
+     * space that we need to cover. For a ray that hits the center, the distant-most
+     * point of the box is half the square root of 3.
      */
-    const float radius = std::sqrt( 3.f );
+    const float radius = std::sqrt( 3.f ) / 2;
     
     /* Create slices.
      */
@@ -100,7 +99,7 @@ RayMarchingStage::VideoResources::SlicesMesh::VideoResourceAcquisition* RayMarch
     for( unsigned int sliceIdx = 0; sliceIdx < sampleRate; ++sliceIdx )
     {
         const float progress = static_cast< float >( sliceIdx ) / ( sampleRate - 1 );
-        const float offset = std::sqrt( 3.f ) * ( 0.5f - progress );
+        const float offset = 2 * radius * ( 0.5f - progress );
 
         /* Create slice vertices.
          */
@@ -208,12 +207,13 @@ void RayMarchingStage::render( const base::Renderable& renderable )
     const Matrix4f viewModel = modelView.inverse();
     const Vector4f viewDirectionInModelSpace = ( viewModel * Vector4f( 0, 0, -1, 0 ) ).normalized();
 
-    /* Construct billboard at segment center, i.e. plane that always faces the camera.
+    /* Construct billboard at segment center, i.e. a plane that always faces the
+     * camera. We choose the planes normal vector inverse to the view direction to
+     * ensure that the slices are rendered from back to front.
      */
-    const float s = std::sqrt( 2.f ) / 2;
-    const Vector4f modelNormal    = s * -viewDirectionInModelSpace;
-    const Vector4f modelTangent   = s * ( viewModel * Vector4f( 1, 0, 0, 0 ) ).normalized();
-    const Vector4f modelBitangent = s * ( viewModel * Vector4f( 0, 1, 0, 0 ) ).normalized();
+    const Vector4f modelNormal    = -viewDirectionInModelSpace;
+    const Vector4f modelTangent   = ( viewModel * Vector4f( 1, 0, 0, 0 ) ).normalized();
+    const Vector4f modelBitangent = ( viewModel * Vector4f( 0, 1, 0, 0 ) ).normalized();
     const Matrix4f tangentModel   = base::math::basis4f( modelTangent, modelBitangent, modelNormal );
     
     /* Bind all 'Texture3D' geometry features.
