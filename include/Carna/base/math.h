@@ -464,7 +464,7 @@ namespace math
       */
     inline float translationDistance2( const Matrix4f& m )
     {
-        return m( 1, 3 ) * m( 1, 3 ) + m( 2, 3 ) * m( 2, 3 ) + m( 3, 3 ) * m( 3, 3 );
+        return m( 0, 3 ) * m( 0, 3 ) + m( 1, 3 ) * m( 1, 3 ) + m( 2, 3 ) * m( 2, 3 );
     }
 
     /** \brief
