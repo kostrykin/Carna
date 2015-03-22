@@ -183,19 +183,6 @@ const BoundingVolume& Geometry::boundingVolume() const
 }
 
 
-void Geometry::computeClosemostPoint( math::Vector3f& out, const math::Vector3f& reference ) const
-{
-    if( hasBoundingVolume() )
-    {
-        boundingVolume().computeClosemostPoint( out, reference );
-    }
-    else
-    {
-        out = math::Vector3f( 0, 0, 0 );
-    }
-}
-
-
 
 }  // namespace Carna :: base
 

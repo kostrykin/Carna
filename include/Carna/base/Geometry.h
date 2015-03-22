@@ -96,13 +96,6 @@ public:
 
     const BoundingVolume& boundingVolume() const;
 
-    /** \brief
-      * Computes the point \a out that is close-most to \a reference w.r.t.
-      * \ref boundingVolume. If \ref hasBoundingVolume "no bounding volume" is set,
-      * than the center of this node is returned. Everything is in model space.
-      */
-    void computeClosemostPoint( math::Vector3f& out, const math::Vector3f& reference ) const;
-
 }; // Geometry
 
 

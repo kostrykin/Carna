@@ -119,24 +119,35 @@ float Renderable::eyeDistance2() const
     {
         pimpl->isEyeDistance2Dirty = false;
 
-        /* Transform eye location into the geometry's model space.
+        /* Recompute the eye-distance.
          */
-        const math::Matrix4f& viewModel = viewModelTransform();
-        const math::Vector4f eyeLocationInModelSpace = viewModel * math::Vector4f( 0, 0, 0, 1 );
+        if( pimpl->geometry->hasBoundingVolume() )
+        {
+            /* Transform eye location into the geometry's model space.
+             */
+            const math::Matrix4f& viewModel = viewModelTransform();
+            const math::Vector4f eyeLocationInModelSpace = viewModel * math::Vector4f( 0, 0, 0, 1 );
 
-        /* Compute the geometry-representative point that is close-most to the eye.
-         */
-        math::Vector3f closemost;
-        pimpl->geometry->computeClosemostPoint( closemost, math::vector3( eyeLocationInModelSpace ) );
+            /* Compute the geometry-representative point that is close-most to the eye.
+             */
+            math::Vector3f closemost;
+            pimpl->geometry->boundingVolume().computeClosemostPoint( closemost, math::vector3( eyeLocationInModelSpace ) );
 
-        /* Transform close-most point to eye space.
-         */
-        const math::Matrix4f& modelView = modelViewTransform();
-        closemost = math::vector3< float, 4 >( modelView * math::vector4( closemost, 1 ) );
+            /* Transform close-most point to eye space.
+             */
+            const math::Matrix4f& modelView = modelViewTransform();
+            closemost = math::vector3< float, 4 >( modelView * math::vector4( closemost, 1 ) );
 
-        /* Compute the squared distance.
-         */
-        pimpl->eyeDistance2 = closemost.squaredNorm();
+            /* Compute the squared distance.
+             */
+            pimpl->eyeDistance2 = closemost.squaredNorm();
+        }
+        else
+        {
+            /* Compute the distance w.r.t. the center of the geometry node.
+             */
+            pimpl->eyeDistance2 = math::translationDistance2( pimpl->modelViewTransform );
+        }
     }
     return pimpl->eyeDistance2;
 }
