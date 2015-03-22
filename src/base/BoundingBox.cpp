@@ -71,12 +71,12 @@ float BoundingBox::computeDistance2( const math::Vector3f& point ) const
 {
     /* Transform 'point' from model space to local coordinate system.
      */
-    const math::Vector3f pointLocal = math::vector3f( inverseTransform() * math::vector4f( point, 1 ) );
+    const math::Vector4f pointLocal = inverseTransform() * math::vector4( point, 1 );
 
     /* Compute point 'q' within the box volume that is close-most to 'pointLocal'.
      */
     const math::Vector3f halfSize = pimpl->size / 2;
-    const math::Vector3f q = pointLocal.cwiseMin( halfSize ).cwiseMax( -halfSize );
+    const math::Vector3f q = math::vector3( pointLocal ).cwiseMin( halfSize ).cwiseMax( -halfSize );
 
     /* Compute distance.
      */

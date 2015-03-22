@@ -131,7 +131,7 @@ void mathTest::test_basis4f()
      */
     math::Vector4f bx( std::cos(     pi / 4 ), std::sin(     pi / 4 ), 0, 0 );
     math::Vector4f by( std::cos( 3 * pi / 4 ), std::sin( 3 * pi / 4 ), 0, 0 );
-    math::Vector4f bz( math::vector4f( -math::vector3f( bx ).cross( math::vector3f( by ) ), 0 ) );
+    math::Vector4f bz( math::vector4< float, 3 >( -math::vector3( bx ).cross( math::vector3( by ) ), 0 ) );
     math::Matrix4f m ( math::basis4f( bx, by, bz ) );
 
     math::Vector4f ux( 1, 0, 0, 0 );
@@ -157,9 +157,9 @@ void mathTest::test_basis4f()
     bx.w() = by.w() = bz.w() = 1;
     ux.w() = uy.w() = uz.w() = 1;
 
-    QVERIFY( math::isEqual< math::Vector3f >( math::vector3f( m * ux ), math::vector3f( bx + bt ) ) );
-    QVERIFY( math::isEqual< math::Vector3f >( math::vector3f( m * uy ), math::vector3f( by + bt ) ) );
-    QVERIFY( math::isEqual< math::Vector3f >( math::vector3f( m * uz ), math::vector3f( bz + bt ) ) );
+    QVERIFY( math::isEqual< math::Vector3f >( math::vector3< float, 4 >( m * ux ), math::vector3< float, 4 >( bx + bt ) ) );
+    QVERIFY( math::isEqual< math::Vector3f >( math::vector3< float, 4 >( m * uy ), math::vector3< float, 4 >( by + bt ) ) );
+    QVERIFY( math::isEqual< math::Vector3f >( math::vector3< float, 4 >( m * uz ), math::vector3< float, 4 >( bz + bt ) ) );
 }
 
 

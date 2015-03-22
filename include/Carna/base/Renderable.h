@@ -45,9 +45,8 @@ namespace base
 class CARNA_LIB Renderable
 {
 
-    const Geometry* myGeometry;
-
-    std::unique_ptr< math::Matrix4f > myModelViewTransform;
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
 
 public:
 
@@ -60,6 +59,11 @@ public:
       * Copies from \a other.
       */
     Renderable( const Renderable& other );
+
+    /** \brief
+      * Deletes
+      */
+    ~Renderable();
 
     /** \brief
       * References the \ref SceneGraph_SpecialSpatialClasses "geometry node".
@@ -75,6 +79,17 @@ public:
       * Alters the \ref ViewSpace "model-view transform".
       */
     void setModelViewTransform( const math::Matrix4f& );
+
+    /** \brief
+      * Returns the inverse \ref modelViewTransform.
+      */
+    const math::Matrix4f& viewModelTransform() const;
+
+    /** \brief
+      * Returns the squared distance of \ref geometry to the eye. This is computed
+      * through \ref Geometry::computeDistance2.
+      */
+    float eyeDistance2() const;
 
     /** \brief
       * Assigns from \a other.

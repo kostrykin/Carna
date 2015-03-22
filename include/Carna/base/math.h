@@ -406,24 +406,25 @@ namespace math
     }
 
     /** \brief
-      * Creates \f$\mathbb R^4\f$ vector by taking only the first three components of
-      * \a v and appending \a w as its fourth component. This requires \a v to be a
-      * vector in \f$\mathbb R^3\f$ or higher.
+      * Creates 4-dimensional vector from 3-dimensional (or higher) with same
+      * component type, and a scalar that is appended as the fourth component.
       */
-    template< typename Vector3 >
-    Vector4f vector4f( const Vector3& v, float w )
+    template< typename VectorElementType, int rows, typename WType >
+    Eigen::Matrix< VectorElementType, 4, 1 > vector4( const Eigen::Matrix< VectorElementType, rows, 1 >& v, WType w )
     {
-        return Vector4f( v.x(), v.y(), v.z(), w );
+        static_assert( rows >= 3, "math::vector4 requires input vector with 3 rows or more." );
+        return Eigen::Matrix< VectorElementType, 4, 1 >( v.x(), v.y(), v.z(), static_cast< VectorElementType >( w ) );
     }
 
     /** \brief
-      * Creates \f$\mathbb R^3\f$ vector by leaving out the fourth component of \a v.
-      * This requires \a v to be a vector in \f$\mathbb R^3\f$ or higher.
+      * Creates 3-dimensional vector from 4-dimensional (or higher) with same
+      * component type by dropping the fourth component.
       */
-    template< typename Vector4 >
-    Vector3f vector3f( const Vector4& v )
+    template< typename VectorElementType, int rows >
+    Eigen::Matrix< VectorElementType, 3, 1 > vector3( const Eigen::Matrix< VectorElementType, rows, 1 >& v )
     {
-        return Vector3f( v.x(), v.y(), v.z() );
+        static_assert( rows >= 3, "math::vector3 requires input vector with 3 rows or more." );
+        return Eigen::Matrix< VectorElementType, 3, 1 >( v.x(), v.y(), v.z() );
     }
 
     /** \brief
@@ -436,11 +437,12 @@ namespace math
         CARNA_ASSERT( isEqual< float >( normal.norm(), 1 ) );
         const Vector3f tangent  ( orthogonal3f(  normal ).normalized() );
         const Vector3f bitangent( normal.cross( tangent ).normalized() );
+        const Vector3f translation( normal * distance );
         return basis4f
-            ( vector4f        ( bitangent, 0 )
-            , vector4f          ( tangent, 0 )
-            , vector4f           ( normal, 0 )
-            , vector4f( normal * distance, 1 ) );
+            ( vector4(   bitangent, 0 )
+            , vector4(     tangent, 0 )
+            , vector4(      normal, 0 )
+            , vector4( translation, 1 ) );
     }
 
     /** \overload

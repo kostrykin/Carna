@@ -120,7 +120,7 @@ void CameraShowcaseControl::rotateVertically( float radians )
     CARNA_ASSERT( pimpl->cam != nullptr );
     
     const base::math::Vector4f rotAxis  = pimpl->cam->localTransform * base::math::Vector4f( 1, 0, 0, 0 );
-    const base::math::Matrix4f rotation = base::math::rotation4f( base::math::vector3f( rotAxis ), radians );
+    const base::math::Matrix4f rotation = base::math::rotation4f( base::math::vector3( rotAxis ), radians );
     pimpl->cam->localTransform = rotation * pimpl->cam->localTransform;
 }
 
@@ -144,8 +144,8 @@ void CameraShowcaseControl::moveAxially( float units )
     if( offset < pimpl->minDistance || offset > pimpl->maxDistance )
     {
         const float correctedOffset = base::math::clamp( offset, pimpl->minDistance, pimpl->maxDistance );
-        const base::math::Vector3f location = base::math::vector3f( pimpl->cam->localTransform.col( 2 ) ) * correctedOffset;
-        pimpl->cam->localTransform.col( 3 ) = base::math::vector4f( location, 1 );
+        const base::math::Vector3f location = base::math::vector3< float, 4 >( pimpl->cam->localTransform.col( 2 ) ) * correctedOffset;
+        pimpl->cam->localTransform.col( 3 ) = base::math::vector4( location, 1 );
     }
 }
 

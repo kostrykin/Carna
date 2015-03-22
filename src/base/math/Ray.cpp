@@ -54,8 +54,8 @@ void Ray3f::fromEye
 
     /* Transform the ray direction and it's origin to world space.
      */
-    origin = vector3f( inverseView * Vector4f( 0, 0, 0, 1 ) );
-    direction = ( vector3f( inverseView * eyeDirection ) ).normalized();
+    origin = vector3< float, 4 >( inverseView * Vector4f( 0, 0, 0, 1 ) );
+    direction = ( vector3< float, 4 >( inverseView * eyeDirection ) ).normalized();
 }
 
 

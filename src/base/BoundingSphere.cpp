@@ -64,12 +64,12 @@ float BoundingSphere::computeDistance2( const math::Vector3f& point ) const
 {
     /* Transform 'point' from model space to local coordinate system.
      */
-    const math::Vector3f pointLocal = math::vector3f( inverseTransform() * math::vector4f( point, 1 ) );
+    const math::Vector4f pointLocal = inverseTransform() * math::vector4( point, 1 );
 
     /* Construct plane in 'pointLocal' that faces the origin, i.e. the sphere's
      * center in its local coordinate system.
      */
-    const math::Vector3f normal = pointLocal.normalized();
+    const math::Vector3f normal = math::vector3( pointLocal ).normalized();
 
     /* Compute the distance.
      */

@@ -68,8 +68,8 @@ math::Vector3f SpatialMovement::Details::computeMovementPlaneHitLocation
 {
     /* Construct plane parallel to projection plane that 'movedSpatial' lies in.
      */
-    const math::Vector3f  spatialLocationInWorld = math::vector3f( movedSpatial->worldTransform().col( 3 ) );
-    const math::Vector3f camViewDirectionInWorld = math::vector3f( self.cam.worldTransform().col( 2 ) );
+    const math::Vector3f  spatialLocationInWorld = math::vector3< float, 4 >( movedSpatial->worldTransform().col( 3 ) );
+    const math::Vector3f camViewDirectionInWorld = math::vector3< float, 4 >( self.cam.worldTransform().col( 2 ) );
 
     const math::Vector3f movementPlaneNormal       = camViewDirectionInWorld;
     const          float movementPlaneOriginOffset = movementPlaneNormal.dot( spatialLocationInWorld );

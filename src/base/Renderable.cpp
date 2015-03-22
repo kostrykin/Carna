@@ -20,45 +20,132 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
+// Renderable :: Details
+// ----------------------------------------------------------------------------------
+
+struct Renderable::Details
+{
+    Details( const Geometry& geometry, const math::Matrix4f& modelViewTransform );
+    explicit Details( const Details& );
+
+    const Geometry* geometry;
+
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+    math::Matrix4f modelViewTransform;
+    math::Matrix4f viewModelTransform;
+    bool isViewModelTransformDirty;
+
+    float eyeDistance2;
+    bool isEyeDistance2Dirty;
+};
+
+
+Renderable::Details::Details( const Geometry& geometry, const math::Matrix4f& modelViewTransform )
+    : geometry( &geometry )
+    , modelViewTransform( modelViewTransform )
+    , isViewModelTransformDirty( true )
+    , isEyeDistance2Dirty( true )
+{
+}
+
+
+Renderable::Details::Details( const Details& other )
+    : geometry( other.geometry )
+    , modelViewTransform( other.modelViewTransform )
+    , viewModelTransform( other.viewModelTransform )
+    , isViewModelTransformDirty( other.isViewModelTransformDirty )
+    , eyeDistance2( other.eyeDistance2 )
+    , isEyeDistance2Dirty( other.isEyeDistance2Dirty )
+{
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // Renderable
 // ----------------------------------------------------------------------------------
 
 Renderable::Renderable( const Geometry& geometry, const math::Matrix4f& modelViewTransform )
-    : myGeometry( &geometry )
-    , myModelViewTransform( new math::Matrix4f( modelViewTransform ) )
+    : pimpl( new Details( geometry, modelViewTransform ) )
 {
 }
 
 
 Renderable::Renderable( const Renderable& other )
-    : myGeometry( other.myGeometry )
-    , myModelViewTransform( new math::Matrix4f( *other.myModelViewTransform ) )
+    : pimpl( new Details( *other.pimpl ) )
+{
+}
+
+
+Renderable::~Renderable()
 {
 }
 
 
 const Geometry& Renderable::geometry() const
 {
-    return *myGeometry;
+    return *pimpl->geometry;
 }
 
 
 const math::Matrix4f& Renderable::modelViewTransform() const
 {
-    return *myModelViewTransform;
+    return pimpl->modelViewTransform;
 }
 
 
 void Renderable::setModelViewTransform( const math::Matrix4f& modelViewTransform )
 {
-    *myModelViewTransform = modelViewTransform;
+    pimpl->modelViewTransform = modelViewTransform;
+    pimpl->isViewModelTransformDirty = true;
+    pimpl->isEyeDistance2Dirty = true;
+}
+
+
+const math::Matrix4f& Renderable::viewModelTransform() const
+{
+    if( pimpl->isViewModelTransformDirty )
+    {
+        pimpl->isViewModelTransformDirty = false;
+        pimpl->viewModelTransform = pimpl->modelViewTransform.inverse();
+    }
+    return pimpl->viewModelTransform;
+}
+
+
+float Renderable::eyeDistance2() const
+{
+    if( pimpl->isEyeDistance2Dirty )
+    {
+        pimpl->isEyeDistance2Dirty = false;
+
+        /* Transform eye location into the geometry's model space.
+         */
+        const math::Matrix4f& viewModel = viewModelTransform();
+        const math::Vector4f eyeLocationInModelSpace = viewModel * math::Vector4f( 0, 0, 0, 1 );
+
+        /* Compute the squared distance.
+         */
+        pimpl->eyeDistance2 = pimpl->geometry->computeDistance2( math::vector3( eyeLocationInModelSpace ) );
+    }
+    return pimpl->eyeDistance2;
 }
 
 
 Renderable& Renderable::operator=( const Renderable& r )
 {
-    myGeometry = r.myGeometry;
-    *myModelViewTransform = *r.myModelViewTransform;
+    pimpl->geometry = r.pimpl->geometry;
+    pimpl->modelViewTransform = r.pimpl->modelViewTransform;
+    pimpl->isViewModelTransformDirty = r.pimpl->isViewModelTransformDirty;
+    pimpl->isEyeDistance2Dirty = r.pimpl->isEyeDistance2Dirty;
+    if( !pimpl->isViewModelTransformDirty )
+    {
+        pimpl->viewModelTransform = r.pimpl->viewModelTransform;
+    }
+    if( !pimpl->isEyeDistance2Dirty )
+    {
+        pimpl->eyeDistance2 = r.pimpl->eyeDistance2;
+    }
     return *this;
 }
 
