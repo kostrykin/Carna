@@ -100,6 +100,9 @@ set( PUBLIC_QOBJECT_HEADERS
 )
 set( PUBLIC_HEADERS
 		${PUBLIC_QOBJECT_HEADERS}
+		include/${PROJECT_NAME}/base/BoundingBox.h
+		include/${PROJECT_NAME}/base/BoundingSphere.h
+		include/${PROJECT_NAME}/base/BoundingVolume.h
 		include/${PROJECT_NAME}/base/BlendFunction.h
 		include/${PROJECT_NAME}/base/Camera.h
 		include/${PROJECT_NAME}/base/Color.h
@@ -157,9 +160,9 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/ProjectionControl.h
 		include/${PROJECT_NAME}/base/glew.h
 		include/${PROJECT_NAME}/base/math.h
-		include/${PROJECT_NAME}/base/math/RayPlaneHitTest.h
 		include/${PROJECT_NAME}/base/math/Span.h
 		include/${PROJECT_NAME}/base/math/Ray.h
+		include/${PROJECT_NAME}/base/math/RayPlaneHitTest.h
 		include/${PROJECT_NAME}/base/math/ScalarField.h
 		include/${PROJECT_NAME}/presets/MeshColorCodingStage.h
 		include/${PROJECT_NAME}/presets/RayMarchingStage.h
@@ -190,6 +193,9 @@ set( PRIVATE_HEADERS
 		src/include/Carna/base/glu.h
 	)
 set( SRC
+		src/base/BoundingBox.cpp
+		src/base/BoundingVolume.cpp
+		src/base/BoundingSphere.cpp
 		src/base/BlendFunction.cpp
 		src/base/Camera.cpp
 		src/base/Color.cpp
@@ -334,6 +340,9 @@ SOURCE_GROUP( "Sources"
 
 SOURCE_GROUP( "Sources\\base"
 	REGULAR_EXPRESSION src/base/[^/]*\\.cpp )
+
+SOURCE_GROUP( "Sources\\base\\math"
+	REGULAR_EXPRESSION src/base/math.*\\.cpp )
 
 SOURCE_GROUP( "Sources\\presets"
 	REGULAR_EXPRESSION src/presets/[^/]*\\.cpp )

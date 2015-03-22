@@ -12,6 +12,7 @@
 #include <Carna/base/Geometry.h>
 #include <Carna/base/GeometryFeature.h>
 #include <Carna/base/CarnaException.h>
+#include <Carna/base/Association.h>
 #include <vector>
 #include <map>
 
@@ -31,6 +32,7 @@ struct Geometry::Details
 {
     std::map< unsigned int, GeometryFeature* > featureByRole;
     std::map< GeometryFeature*, unsigned int > roleByFeature;
+    std::unique_ptr< Association< BoundingVolume > > boundingVolume;
 };
 
 
@@ -154,6 +156,43 @@ GeometryFeature& Geometry::feature( unsigned int role ) const
 std::size_t Geometry::featuresCount() const
 {
     return pimpl->featureByRole.size();
+}
+
+
+void Geometry::setBoundingVolume( Association< BoundingVolume >* boundingVolume )
+{
+    pimpl->boundingVolume.reset( boundingVolume );
+}
+
+
+bool Geometry::hasBoundingVolume() const
+{
+    return pimpl->boundingVolume.get() != nullptr && pimpl->boundingVolume->get() != nullptr;
+}
+
+
+BoundingVolume& Geometry::boundingVolume()
+{
+    return **pimpl->boundingVolume;
+}
+
+
+const BoundingVolume& Geometry::boundingVolume() const
+{
+    return **pimpl->boundingVolume;
+}
+
+
+float Geometry::computeDistance2( const math::Vector3f& point ) const
+{
+    if( hasBoundingVolume() )
+    {
+        return boundingVolume().computeDistance2( point );
+    }
+    else
+    {
+        return point.squaredNorm();
+    }
 }
 
 

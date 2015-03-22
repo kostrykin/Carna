@@ -88,6 +88,23 @@ public:
 
     void visitFeatures( const std::function< void( GeometryFeature& gf, unsigned int role ) >& ) const;
 
+    void setBoundingVolume( Association< BoundingVolume >* boundingVolume );
+
+    bool hasBoundingVolume() const;
+
+    BoundingVolume& boundingVolume();
+
+    const BoundingVolume& boundingVolume() const;
+
+    /** \brief
+      * Computes distance to \a point w.r.t. the \ref boundingVolume. The distance is
+      * computed w.r.t. the center of this node if
+      * \ref hasBoundingVolume "no bounding volume" is set.
+      *
+      * \param point is expected to be in model space.
+      */
+    float computeDistance2( const math::Vector3f& point ) const;
+
 }; // Geometry
 
 
