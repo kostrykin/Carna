@@ -290,11 +290,6 @@ void RayMarchingStage::renderPass
     pimpl->renderTask = &rt;
     pimpl->viewPort = &vp;
     
-    /* Configure proper OpenGL state.
-     */
-    base::RenderState rs;
-    rs.setDepthWrite( false );
-    
     /* Do the rendering.
      */
     base::GeometryStage< base::Renderable::BackToFront >::renderPass( vt, rt, vp );

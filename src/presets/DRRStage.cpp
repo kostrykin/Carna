@@ -193,7 +193,6 @@ void DRRStage::renderPass
      */
     base::RenderState rs;
     rs.setBlend( true );
-    rs.setDepthWrite( false );
 
     /* Compute step length for ray marching in model space.
      */
@@ -231,6 +230,7 @@ void DRRStage::renderPass
     /* Now compute the exponential of the integral.
      */
     rs.setDepthTest( false );
+    rs.setDepthWrite( false );
     rt.renderer.glContext().setShader( *pimpl->exponentialShader );
     base::ShaderUniform< float >( "baseIntensity", pimpl->baseIntensity ).upload();
     base::ShaderUniform< int >( "renderInverse", pimpl->renderInverse ? 1 : 0 ).upload();
