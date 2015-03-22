@@ -139,7 +139,6 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/BaseBuffer.h
 		include/${PROJECT_NAME}/base/ShaderManager.h
 		include/${PROJECT_NAME}/base/ShaderUniform.h
-		include/${PROJECT_NAME}/base/ScalarField.h
 		include/${PROJECT_NAME}/base/HUVolumeGrid.h
 		include/${PROJECT_NAME}/base/HUVolumeSegment.h
 		include/${PROJECT_NAME}/base/HUVolume.h
@@ -150,17 +149,18 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/CarnaException.h
 		include/${PROJECT_NAME}/base/Composition.h
 		include/${PROJECT_NAME}/base/noncopyable.h
-		include/${PROJECT_NAME}/base/math.h
-		include/${PROJECT_NAME}/base/RayPlaneHitTest.h
-		include/${PROJECT_NAME}/base/Span.h
 		include/${PROJECT_NAME}/base/Singleton.h
 		include/${PROJECT_NAME}/base/text.h
 		include/${PROJECT_NAME}/base/Log.h
-		include/${PROJECT_NAME}/base/Ray.h
 		include/${PROJECT_NAME}/base/Stopwatch.h
 		include/${PROJECT_NAME}/base/CameraControl.h
 		include/${PROJECT_NAME}/base/ProjectionControl.h
 		include/${PROJECT_NAME}/base/glew.h
+		include/${PROJECT_NAME}/base/math.h
+		include/${PROJECT_NAME}/base/math/RayPlaneHitTest.h
+		include/${PROJECT_NAME}/base/math/Span.h
+		include/${PROJECT_NAME}/base/math/Ray.h
+		include/${PROJECT_NAME}/base/math/ScalarField.h
 		include/${PROJECT_NAME}/presets/MeshColorCodingStage.h
 		include/${PROJECT_NAME}/presets/RayMarchingStage.h
 		include/${PROJECT_NAME}/presets/DRRStage.h
@@ -229,9 +229,9 @@ set( SRC
 		src/base/CarnaException.cpp
 		src/base/text.cpp
 		src/base/Log.cpp
-		src/base/Ray.cpp
 		src/base/CameraControl.cpp
 		src/base/ProjectionControl.cpp
+		src/base/math/Ray.cpp
 		src/presets/MeshColorCodingStage.cpp
 		src/presets/RayMarchingStage.cpp
 		src/presets/DRRStage.cpp
@@ -319,6 +319,9 @@ SOURCE_GROUP( "Headers"
 
 SOURCE_GROUP( "Headers\\base"
 	REGULAR_EXPRESSION .*include/Carna/base/[^/]*\\.h )
+
+SOURCE_GROUP( "Headers\\base\\math"
+	REGULAR_EXPRESSION .*include/Carna/base/math.*\\.h )
 
 SOURCE_GROUP( "Headers\\presets"
 	REGULAR_EXPRESSION .*include/Carna/presets/[^/]*\\.h )

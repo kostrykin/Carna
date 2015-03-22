@@ -16,13 +16,16 @@
 #include <Carna/base/math.h>
 
 /** \file   Ray.h
-  * \brief  Defines \ref Carna::base::Ray.
+  * \brief  Defines \ref Carna::base::math::Ray.
   */
 
 namespace Carna
 {
 
 namespace base
+{
+
+namespace math
 {
 
 
@@ -77,7 +80,7 @@ public:
   * \author Leonid Kostrykin
   * \date   22.2.15 - 16.3.15
   */
-class CARNA_LIB Ray3f : public Ray< math::Vector3f >
+class CARNA_LIB Ray3f : public Ray< Vector3f >
 {
 
 public:
@@ -88,8 +91,8 @@ public:
     void fromEye
         ( unsigned int frameX, unsigned int frameY
         , const Viewport& vp
-        , const math::Matrix4f& inverseProjection
-        , const math::Matrix4f& inverseView );
+        , const Matrix4f& inverseProjection
+        , const Matrix4f& inverseView );
 
     /** \brief
       * Computes a ray in world space.
@@ -102,6 +105,8 @@ public:
 }; // Ray3f
 
 
+
+}  // namespace Carna :: base :: math
 
 }  // namespace Carna :: base
 

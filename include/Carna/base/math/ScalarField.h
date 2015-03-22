@@ -14,7 +14,7 @@
 
 /** \file   ScalarField.h
   *
-  * \brief  Defines \ref Carna::base::ScalarField.
+  * \brief  Defines \ref Carna::base::math::ScalarField.
   *
   * \author Leonid Kostrykin
   * \date   21.2.13
@@ -27,6 +27,9 @@ namespace Carna
 {
 
 namespace base
+{
+
+namespace math
 {
 
 
@@ -71,7 +74,7 @@ public:
     /** \brief
       * Returns value of specified voxel.
       */
-    virtual ScalarType operator()( const math::Vector3ui& at ) const;
+    virtual ScalarType operator()( const Vector3ui& at ) const;
 
 }; // ScalarField
 
@@ -83,6 +86,8 @@ ScalarType ScalarField< ScalarType >::operator()( const math::Vector3ui& at ) co
 }
 
 
+
+}  // namespace Carna :: base :: math
 
 }  // namespace Carna :: base
 

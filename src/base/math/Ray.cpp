@@ -9,12 +9,15 @@
  *
  */
 
-#include <Carna/base/Ray.h>
+#include <Carna/base/math/Ray.h>
 
 namespace Carna
 {
 
 namespace base
+{
+
+namespace math
 {
 
 
@@ -26,8 +29,8 @@ namespace base
 void Ray3f::fromEye
     ( unsigned int frameX, unsigned int frameY
     , const Viewport& vp
-    , const math::Matrix4f& inverseProjection
-    , const math::Matrix4f& inverseView )
+    , const Matrix4f& inverseProjection
+    , const Matrix4f& inverseView )
 {
     using namespace math;
 
@@ -65,6 +68,8 @@ void Ray3f::fromEye
 }
 
 
+
+}  // namespace Carna :: base :: math
 
 }  // namespace Carna :: base
 

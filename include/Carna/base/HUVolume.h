@@ -20,7 +20,7 @@
   * \date   25.7.11
   */
 
-#include <Carna/base/ScalarField.h>
+#include <Carna/base/math/ScalarField.h>
 #include <Carna/base/noncopyable.h>
 
 namespace Carna
@@ -42,7 +42,7 @@ namespace base
   * \author Leonid Kostrykin
   * \date   25.7.11 - 19.3.15
   */
-class CARNA_LIB HUVolume : public ScalarField< HUV >
+class CARNA_LIB HUVolume : public math::ScalarField< HUV >
 {
 
     NON_COPYABLE

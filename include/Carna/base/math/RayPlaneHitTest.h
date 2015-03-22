@@ -14,17 +14,20 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/math.h>
-#include <Carna/base/Ray.h>
+#include <Carna/base/math/Ray.h>
 #include <Carna/base/CarnaException.h>
 
 /** \file   RayPlaneHitTest.h
-  * \brief  Defines \ref Carna::base::RayPlaneHitTest.
+  * \brief  Defines \ref Carna::base::math::RayPlaneHitTest.
   */
 
 namespace Carna
 {
 
 namespace base
+{
+
+namespace math
 {
 
 
@@ -108,12 +111,12 @@ void RayPlaneHitTest< VectorType, ScalarType >::compute
     , const VectorType& planeNormal
     , ScalarType planeOriginOffset )
 {
-    CARNA_ASSERT( math::isEqual< ScalarType >( ray.direction.norm(), 1 ) );
-    CARNA_ASSERT( math::isEqual< ScalarType >(  planeNormal.norm(), 1 ) );
+    CARNA_ASSERT( isEqual< ScalarType >( ray.direction.norm(), 1 ) );
+    CARNA_ASSERT( isEqual< ScalarType >(  planeNormal.norm(), 1 ) );
     CARNA_ASSERT( ray.direction.rows() == ray.origin.rows() && ray.origin.rows() == planeNormal.rows() );
     CARNA_ASSERT( ray.direction.cols() == ray.origin.cols() && ray.origin.cols() == planeNormal.cols() && planeNormal.cols() == 1 );
 
-    if( math::isEqual< ScalarType >( ray.direction.dot( planeNormal ), 0 ) )
+    if( isEqual< ScalarType >( ray.direction.dot( planeNormal ), 0 ) )
     {
         myHitExists = false;
     }
@@ -128,12 +131,14 @@ void RayPlaneHitTest< VectorType, ScalarType >::compute
         {
             myHitExists = true;
             myHitLocation = ray.origin + ray.direction * rayLength;
-            CARNA_ASSERT( math::isEqual( planeNormal.dot( myHitLocation ), planeOriginOffset ) );
+            CARNA_ASSERT( isEqual( planeNormal.dot( myHitLocation ), planeOriginOffset ) );
         }
     }
 }
 
 
+
+}  // namespace Carna :: base :: math
 
 }  // namespace Carna :: base
 

@@ -18,7 +18,7 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/noncopyable.h>
-#include <Carna/base/Span.h>
+#include <Carna/base/math/Span.h>
 #include <Carna/base/math.h>
 #include <Carna/base/BlendFunction.h>
 
@@ -56,7 +56,7 @@ public:
     /** \brief  Instantiates.
       */
     MIPChannel
-        ( const base::Span< base::HUV >& huRange
+        ( const base::math::Span< base::HUV >& huRange
         , const base::math::Vector4f& color
         , const base::BlendFunction& function = CHANNEL_FUNCTION_REPLACE );
 
@@ -67,7 +67,7 @@ public:
         , const base::math::Vector4f& color
         , const base::BlendFunction& function = CHANNEL_FUNCTION_REPLACE );
 
-    base::Span< base::HUV > huRange;
+    base::math::Span< base::HUV > huRange;
 
     base::math::Vector4f color;
 

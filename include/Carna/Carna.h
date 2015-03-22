@@ -77,7 +77,6 @@ namespace Carna
         class  MeshRenderingStageBase;
         class  Node;
         class  ProjectionControl;
-        class  Ray3f;
         class  Releasable;
         class  Renderable;
         class  RenderStage;
@@ -112,14 +111,26 @@ namespace Carna
         template< typename VertexType, typename IndexType > class Mesh;
         template< typename VertexType > class MeshFactory;
         template< typename RenderableCompare > class MeshRenderingStage;
-        template< typename VectorType > class Ray;
-        template< typename VectorType, typename ScalarType = typename VectorType::Scalar > class RayPlaneHitTest;
         template< typename RenderableCompare > class RenderQueue;
         template< typename VertexType > class VertexBuffer;
         template< typename ValueType > class ShaderUniform;
         template< typename ValueType > struct ShaderUniformType;
         template< typename InstanceType > class Singleton;
-        template< typename T > class Span;
+        
+        /** \brief
+          * Provides set of math-related classes and functions.
+          */
+        namespace math
+        {
+
+            class Ray3f;
+
+            template< typename VectorType > class Ray;
+            template< typename ScalarType > class ScalarField;
+            template< typename T > class Span;
+            template< typename VectorType, typename ScalarType = typename VectorType::Scalar > class RayPlaneHitTest;
+
+        }
         
     }
 

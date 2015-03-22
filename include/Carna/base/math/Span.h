@@ -13,7 +13,7 @@
 #define SPAN_H_6014714286
 
 /** \file   Span.h
-  * \brief  Defines \ref Carna::base::Span.
+  * \brief  Defines \ref Carna::base::math::Span.
   */
 
 #include <Carna/base/math.h>
@@ -22,6 +22,9 @@ namespace Carna
 {
 
 namespace base
+{
+
+namespace math
 {
 
 
@@ -72,7 +75,7 @@ public:
       */
     bool operator==( const Span< T >& other ) const
     {
-        return base::math::isEqual( first, other.first ) && base::math::isEqual( last, other.last );
+        return isEqual( first, other.first ) && isEqual( last, other.last );
     }
 
     /** \brief
@@ -100,6 +103,8 @@ public:
 }; // Span
 
 
+
+}  // namespace Carna :: base :: math
 
 }  // namespace Carna :: base
 

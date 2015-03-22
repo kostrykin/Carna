@@ -49,12 +49,6 @@ namespace Carna
 namespace base
 {
 
-/** \brief
-  * Provides set of math-related classes and functions.
-  *
-  * \author Leonid Kostrykin
-  * \date   26.1.14 - 16.3.15
-  */
 namespace math
 {
 

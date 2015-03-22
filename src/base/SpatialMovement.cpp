@@ -12,8 +12,8 @@
 #include <Carna/base/SpatialMovement.h>
 #include <Carna/base/Spatial.h>
 #include <Carna/base/CarnaException.h>
-#include <Carna/base/Ray.h>
-#include <Carna/base/RayPlaneHitTest.h>
+#include <Carna/base/math/Ray.h>
+#include <Carna/base/math/RayPlaneHitTest.h>
 
 namespace Carna
 {
@@ -76,12 +76,12 @@ math::Vector3f SpatialMovement::Details::computeMovementPlaneHitLocation
 
     /* Compute ray from eye at given location.
      */
-    Ray3f ray;
+    math::Ray3f ray;
     ray.fromEye( frameX, frameY, self.viewport, self.inverseProjection, self.cam.worldTransform() );
 
     /* Compute hit location of ray and movement plane.
      */
-    RayPlaneHitTest< math::Vector3f > hitTest;
+    math::RayPlaneHitTest< math::Vector3f > hitTest;
     hitTest.compute( ray, movementPlaneNormal, movementPlaneOriginOffset );
     CARNA_ASSERT( hitTest.hitExists() );
     return hitTest.hitLocation();
