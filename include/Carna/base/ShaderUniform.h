@@ -86,9 +86,10 @@ public:
     std::string name;
 
     /** \brief
-      * Uploads this uniform to the current shader.
+      * Uploads this uniform to the current shader. Returns `true` if the current
+      * shader has a matching uniform defined or `false` otherwise.
       */
-    void upload() const;
+    bool upload() const;
 
 protected:
 

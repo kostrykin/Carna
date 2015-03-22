@@ -39,6 +39,7 @@ struct RayMarchingStage::Details
     base::RenderTask* renderTask;
     const base::Viewport* viewPort;
     unsigned int sampleRate;
+    bool stepLengthRequired;
 };
 
 
@@ -46,6 +47,7 @@ RayMarchingStage::Details::Details()
     : renderTask( nullptr )
     , viewPort( nullptr )
     , sampleRate( DEFAULT_SAMPLE_RATE )
+    , stepLengthRequired( true )
 {
 }
 
@@ -220,18 +222,27 @@ void RayMarchingStage::render( const base::Renderable& renderable )
     const Vector4f modelBitangent = ( viewModel * Vector4f( 0, 1, 0, 0 ) ).normalized();
     const Matrix4f tangentModel   = base::math::basis4f( modelTangent, modelBitangent, modelNormal );
 
-    /* The slices are equally distributed along a line, that's length is the square
-     * root of 3. With this we can compute the location of the *last* slice. The
-     * *first* slice is located exactly on the opposite side of the model space
-     * origin. Transforming both locations to world space and taking their distance,
-     * we can compute the step length between two successive slices.
+    /* Lets compute the distance between the slices only if the shader requires this,
+     * i.e. it has a uniform named 'stepLength' defined. Initially however we assume
+     * that the shader does require this value.
      */
-    const Vector4f modelLastSlice  = base::math::vector4< float, 4 >( viewDirectionInModelSpace * std::sqrt( 3.f ) / 2, 1 );
-    const Vector4f modelFirstSlice = base::math::vector4< float, 4 >( -modelLastSlice, 1 );
-    const Vector4f worldLastSlice  = renderable.geometry().worldTransform() * modelLastSlice;
-    const Vector4f worldFirstSlice = renderable.geometry().worldTransform() * modelFirstSlice;
-    const float totalLength = base::math::vector3< float, 4 >( worldFirstSlice - worldLastSlice ).norm();
-    const float stepLength = totalLength / pimpl->sampleRate;
+    if( pimpl->stepLengthRequired )
+    {
+        /* The slices are equally distributed along a line, that's length is the
+         * square root of 3. With this we can compute the location of the *last*
+         * slice. The *first* slice is located exactly on the opposite side of the
+         * model space origin. Transforming both locations to world space and taking
+         * their distance, we can compute the step length between two successive
+         * slices.
+         */
+        const Vector4f modelLastSlice  = base::math::vector4< float, 4 >( viewDirectionInModelSpace * std::sqrt( 3.f ) / 2, 1 );
+        const Vector4f modelFirstSlice = base::math::vector4< float, 4 >( -modelLastSlice, 1 );
+        const Vector4f worldLastSlice  = renderable.geometry().worldTransform() * modelLastSlice;
+        const Vector4f worldFirstSlice = renderable.geometry().worldTransform() * modelFirstSlice;
+        const float totalLength = base::math::vector3< float, 4 >( worldFirstSlice - worldLastSlice ).norm();
+        const float stepLength = totalLength / pimpl->sampleRate;
+        pimpl->stepLengthRequired = base::ShaderUniform< float >( "stepLength", stepLength ).upload();
+    }
     
     /* Bind all 'Texture3D' geometry features.
      */
@@ -258,12 +269,11 @@ void RayMarchingStage::render( const base::Renderable& renderable )
         ( anyTexture == nullptr ? base::math::identity4f() : anyTexture->textureCoordinatesCorrection )
         * base::math::translation4f( 0.5f, 0.5f, 0.5f );
         
-    /* Configure shader.
+    /* Upload matrices to the shader and set the texture samplers properly.
      */
     base::ShaderUniform< base::math::Matrix4f >( "modelViewProjection", pimpl->renderTask->projection * modelView ).upload();
     base::ShaderUniform< base::math::Matrix4f >( "modelTexture", modelTexture ).upload();
     base::ShaderUniform< base::math::Matrix4f >( "tangentModel", tangentModel ).upload();
-    base::ShaderUniform<                float >( "stepLength", stepLength ).upload();
     for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {
         const unsigned int role = roles[ samplerOffset ];

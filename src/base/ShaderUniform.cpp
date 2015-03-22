@@ -42,13 +42,18 @@ int ShaderUniformBase::location( const ShaderProgram& shader ) const
 }
 
 
-void ShaderUniformBase::upload() const
+bool ShaderUniformBase::upload() const
 {
     GLContext& glc = GLContext::current();
     const int loc = location( glc.shader() );
     if( loc != NULL_UNIFORM_LOCATION )
     {
         uploadTo( loc );
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
 
