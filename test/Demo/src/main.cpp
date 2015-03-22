@@ -213,7 +213,7 @@ void Demo::initializeGL()
 
     camera = new base::Camera();
     camera->setProjection( base::math::frustum4f( 3.14f * 45 / 180.f, 1, 10, 2000 ) );
-    camera->localTransform = base::math::translation4f( 0, 0, 500 );
+    camera->localTransform = base::math::translation4f( 0, 0, 350 );
     cameraControl.setCamera( *camera );
     root->attachChild( camera );
     root->attachChild( volumeNode );
