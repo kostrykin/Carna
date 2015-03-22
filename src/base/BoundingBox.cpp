@@ -67,20 +67,20 @@ void BoundingBox::setSize( float width, float height, float depth )
 }
 
 
-float BoundingBox::computeDistance2( const math::Vector3f& point ) const
+void BoundingBox::computeClosemostPoint( math::Vector3f& out, const math::Vector3f& ref ) const
 {
-    /* Transform 'point' from model space to local coordinate system.
+    /* Transform 'ref' from model space to local coordinate system.
      */
-    const math::Vector4f pointLocal = inverseTransform() * math::vector4( point, 1 );
+    const math::Vector4f refLocal = inverseTransform() * math::vector4( ref, 1 );
 
-    /* Compute point 'q' within the box volume that is close-most to 'pointLocal'.
+    /* Compute point 'out' within the box volume that is close-most to 'pointLocal'.
      */
     const math::Vector3f halfSize = pimpl->size / 2;
-    const math::Vector3f q = math::vector3( pointLocal ).cwiseMin( halfSize ).cwiseMax( -halfSize );
+    out = math::vector3( refLocal ).cwiseMin( halfSize ).cwiseMax( -halfSize );
 
-    /* Compute distance.
+    /* Transform 'out' from local coordinate system to model space.
      */
-    return q.squaredNorm();
+    out = math::vector3< float, 4 >( transform() * math::vector4( out, 1 ) );
 }
 
 

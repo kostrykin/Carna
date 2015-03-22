@@ -18,6 +18,7 @@
 #include <Carna/base/HUVolumeSegment.h>
 #include <Carna/base/BufferedHUVolumeTexture.h>
 #include <Carna/base/Geometry.h>
+#include <Carna/base/BoundingBox.h>
 #include <map>
 #include <memory>
 #include <cmath>
@@ -380,10 +381,11 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
 
         /* Create geometry node for particular grid segment.
          */
-        base::Geometry* const geom = new  base::Geometry( geometryType );
+        base::Geometry* const geom = new base::Geometry( geometryType );
         pivot->attachChild( geom );
         geom->putFeature( volumeTextureRole, *texture );
         geom->setMovable( false );
+        geom->setBoundingVolume( new base::BoundingBox( 1, 1, 1 ) );
         geom->localTransform
             = base::math::translation4f( segmentCoord.cast< float >().cwiseProduct( regularSegmentDimensions )
                 - ( !isTail

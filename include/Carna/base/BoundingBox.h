@@ -76,7 +76,7 @@ public:
       */
     void setSize( float width, float height, float depth );
 
-    virtual float computeDistance2( const math::Vector3f& point ) const override;
+    virtual void computeClosemostPoint( math::Vector3f& out, const math::Vector3f& reference ) const override;
 
 }; // BoundingBox
 

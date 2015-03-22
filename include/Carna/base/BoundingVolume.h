@@ -58,13 +58,12 @@ public:
       * Deletes.
       */
     virtual ~BoundingVolume();
-
+    
     /** \brief
-      * Computes the squared distance from \a point to this volume.
-      *
-      * \param point is expected to be in model space.
+      * Computes the point \a out in model space that is close-most to \a reference,
+      * that is also in model space.
       */
-    virtual float computeDistance2( const math::Vector3f& point ) const = 0;
+    virtual void computeClosemostPoint( math::Vector3f& out, const math::Vector3f& reference ) const = 0;
     
     /** \brief
       * Sets the transform from the local coordinate system of this bounding volume

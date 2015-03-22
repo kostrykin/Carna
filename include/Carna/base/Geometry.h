@@ -88,7 +88,7 @@ public:
 
     void visitFeatures( const std::function< void( GeometryFeature& gf, unsigned int role ) >& ) const;
 
-    void setBoundingVolume( Association< BoundingVolume >* boundingVolume );
+    void setBoundingVolume( BoundingVolume* boundingVolume );
 
     bool hasBoundingVolume() const;
 
@@ -97,13 +97,11 @@ public:
     const BoundingVolume& boundingVolume() const;
 
     /** \brief
-      * Computes distance to \a point w.r.t. the \ref boundingVolume. The distance is
-      * computed w.r.t. the center of this node if
-      * \ref hasBoundingVolume "no bounding volume" is set.
-      *
-      * \param point is expected to be in model space.
+      * Computes the point \a out that is close-most to \a reference w.r.t.
+      * \ref boundingVolume. If \ref hasBoundingVolume "no bounding volume" is set,
+      * than the center of this node is returned. Everything is in model space.
       */
-    float computeDistance2( const math::Vector3f& point ) const;
+    void computeClosemostPoint( math::Vector3f& out, const math::Vector3f& reference ) const;
 
 }; // Geometry
 

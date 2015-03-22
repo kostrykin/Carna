@@ -60,21 +60,28 @@ void BoundingSphere::setRadius( float radius )
 }
 
 
-float BoundingSphere::computeDistance2( const math::Vector3f& point ) const
+void BoundingSphere::computeClosemostPoint( math::Vector3f& out, const math::Vector3f& ref ) const
 {
-    /* Transform 'point' from model space to local coordinate system.
+    /* Transform 'ref' from model space to local coordinate system.
      */
-    const math::Vector4f pointLocal = inverseTransform() * math::vector4( point, 1 );
+    const math::Vector3f refLocal = math::vector3< float, 4 >( inverseTransform() * math::vector4( ref, 1 ) );
 
     /* Construct plane in 'pointLocal' that faces the origin, i.e. the sphere's
      * center in its local coordinate system.
      */
-    const math::Vector3f normal = math::vector3( pointLocal ).normalized();
+    const math::Vector3f normal = refLocal.normalized();
 
-    /* Compute the distance.
+    /* Compute the distance in local coordinates.
      */
-    const float distance = normal.dot( point );
-    return math::sq( distance );
+    const float distance = normal.dot( refLocal );
+
+    /* Compute the close-most point.
+     */
+    out = normal * distance;
+    
+    /* Transform 'out' from local coordinate system to model space.
+     */
+    out = math::vector3< float, 4 >( transform() * math::vector4( out, 1 ) );
 }
 
 

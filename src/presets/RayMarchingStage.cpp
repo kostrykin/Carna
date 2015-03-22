@@ -204,8 +204,8 @@ void RayMarchingStage::render( const base::Renderable& renderable )
     /* Compute the directional vector from eye to segment center.
      * This vector needs to be renormalized since 'viewModel' may contain scalings.
      */
-    const Matrix4f viewModel = modelView.inverse();
-    const Vector4f viewDirectionInModelSpace = ( viewModel * Vector4f( 0, 0, -1, 0 ) ).normalized();
+    const Matrix4f& viewModel = renderable.viewModelTransform();
+    const Vector4f  viewDirectionInModelSpace = ( viewModel * Vector4f( 0, 0, -1, 0 ) ).normalized();
 
     /* Construct billboard at segment center, i.e. a plane that always faces the
      * camera. We choose the planes normal vector inverse to the view direction to

@@ -32,7 +32,7 @@ struct Geometry::Details
 {
     std::map< unsigned int, GeometryFeature* > featureByRole;
     std::map< GeometryFeature*, unsigned int > roleByFeature;
-    std::unique_ptr< Association< BoundingVolume > > boundingVolume;
+    std::unique_ptr< BoundingVolume > boundingVolume;
 };
 
 
@@ -159,7 +159,7 @@ std::size_t Geometry::featuresCount() const
 }
 
 
-void Geometry::setBoundingVolume( Association< BoundingVolume >* boundingVolume )
+void Geometry::setBoundingVolume( BoundingVolume* boundingVolume )
 {
     pimpl->boundingVolume.reset( boundingVolume );
 }
@@ -167,31 +167,31 @@ void Geometry::setBoundingVolume( Association< BoundingVolume >* boundingVolume 
 
 bool Geometry::hasBoundingVolume() const
 {
-    return pimpl->boundingVolume.get() != nullptr && pimpl->boundingVolume->get() != nullptr;
+    return pimpl->boundingVolume.get() != nullptr;
 }
 
 
 BoundingVolume& Geometry::boundingVolume()
 {
-    return **pimpl->boundingVolume;
+    return *pimpl->boundingVolume;
 }
 
 
 const BoundingVolume& Geometry::boundingVolume() const
 {
-    return **pimpl->boundingVolume;
+    return *pimpl->boundingVolume;
 }
 
 
-float Geometry::computeDistance2( const math::Vector3f& point ) const
+void Geometry::computeClosemostPoint( math::Vector3f& out, const math::Vector3f& reference ) const
 {
     if( hasBoundingVolume() )
     {
-        return boundingVolume().computeDistance2( point );
+        boundingVolume().computeClosemostPoint( out, reference );
     }
     else
     {
-        return point.squaredNorm();
+        out = math::Vector3f( 0, 0, 0 );
     }
 }
 

@@ -124,9 +124,19 @@ float Renderable::eyeDistance2() const
         const math::Matrix4f& viewModel = viewModelTransform();
         const math::Vector4f eyeLocationInModelSpace = viewModel * math::Vector4f( 0, 0, 0, 1 );
 
+        /* Compute the geometry-representative point that is close-most to the eye.
+         */
+        math::Vector3f closemost;
+        pimpl->geometry->computeClosemostPoint( closemost, math::vector3( eyeLocationInModelSpace ) );
+
+        /* Transform close-most point to eye space.
+         */
+        const math::Matrix4f& modelView = modelViewTransform();
+        closemost = math::vector3< float, 4 >( modelView * math::vector4( closemost, 1 ) );
+
         /* Compute the squared distance.
          */
-        pimpl->eyeDistance2 = pimpl->geometry->computeDistance2( math::vector3( eyeLocationInModelSpace ) );
+        pimpl->eyeDistance2 = closemost.squaredNorm();
     }
     return pimpl->eyeDistance2;
 }
