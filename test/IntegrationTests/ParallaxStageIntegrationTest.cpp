@@ -57,7 +57,7 @@ void ParallaxStageIntegrationTest::initTestCase()
     presets::DRRStage* const drr = new presets::DRRStage( GEOMETRY_TYPE_VOLUMETRIC );
     renderer->appendStage( drr );
     drr->setSampleRate( 100 );
-    drr->setWaterAttenuation( 2.f );
+    drr->setWaterAttenuation( 5e-3f );
     drr->setBaseIntensity( 1.f );
     drr->setLowerThreshold( -400 );
     drr->setUpperThreshold( +400 );

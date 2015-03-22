@@ -69,6 +69,13 @@ class CARNA_LIB DRRStage : public RayMarchingStage
 
 public:
 
+    const static float      DEFAULT_WATER_ATTENUATION;
+    const static float      DEFAULT_BASE_INTENSITY;
+    const static base::HUV  DEFAULT_LOWER_THRESHOLD;
+    const static base::HUV  DEFAULT_UPPER_THRESHOLD;
+    const static float      DEFAULT_UPPER_MULTIPLIER;
+    const static bool       DEFAULT_RENDER_INVERSE;
+
     const static unsigned int ROLE_HU_VOLUME = 0;
 
     DRRStage( unsigned int geometryType );

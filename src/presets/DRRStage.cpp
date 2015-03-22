@@ -58,12 +58,12 @@ struct DRRStage::Details
 
 
 DRRStage::Details::Details()
-    : waterAttenuation( 0.002f )
-    , baseIntensity( 1 )
-    , lowerThreshold( -400 )
-    , upperThreshold( +400 )
-    , upperMultiplier( 1.5f )
-    , renderInverse( false )
+    : waterAttenuation ( DEFAULT_WATER_ATTENUATION )
+    , baseIntensity    ( DEFAULT_BASE_INTENSITY )
+    , lowerThreshold   ( DEFAULT_LOWER_THRESHOLD )
+    , upperThreshold   ( DEFAULT_UPPER_THRESHOLD )
+    , upperMultiplier  ( DEFAULT_UPPER_MULTIPLIER )
+    , renderInverse    ( DEFAULT_RENDER_INVERSE )
     , exponentialShader( nullptr )
 {
 }
@@ -73,6 +73,14 @@ DRRStage::Details::Details()
 // ----------------------------------------------------------------------------------
 // DRRStage
 // ----------------------------------------------------------------------------------
+
+const float     DRRStage::DEFAULT_WATER_ATTENUATION = 5e-3f;
+const float     DRRStage::DEFAULT_BASE_INTENSITY    = 1;
+const base::HUV DRRStage::DEFAULT_LOWER_THRESHOLD   = -400;
+const base::HUV DRRStage::DEFAULT_UPPER_THRESHOLD   = +400;
+const float     DRRStage::DEFAULT_UPPER_MULTIPLIER  = 1.5f;
+const bool      DRRStage::DEFAULT_RENDER_INVERSE    = false;
+
 
 DRRStage::DRRStage( unsigned int geometryType )
     : RayMarchingStage( geometryType )

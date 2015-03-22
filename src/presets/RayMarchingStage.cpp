@@ -223,7 +223,7 @@ void RayMarchingStage::render( const base::Renderable& renderable )
     const Matrix4f tangentModel   = base::math::basis4f( modelTangent, modelBitangent, modelNormal );
 
     /* Lets compute the distance between the slices only if the shader requires this,
-     * i.e. it has a uniform named 'stepLength' defined. Initially however we assume
+     * i.e. it has an uniform named 'stepLength' defined. Initially however we assume
      * that the shader does require this value.
      */
     if( pimpl->stepLengthRequired )
