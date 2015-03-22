@@ -13,7 +13,7 @@
 #include <Carna/base/glError.h>
 #include <Carna/base/Texture3D.h>
 #include <Carna/base/CarnaException.h>
-#include <Carna/base/Text.h>
+#include <Carna/base/text.h>
 
 namespace Carna
 {
@@ -72,7 +72,7 @@ Texture3D::VideoResourceAcquisition::VideoResourceAcquisition( Texture3D& textur
                     break;
 
                 default:
-                    err_msg = base::Text::lexical_cast< std::string >( err );
+                    err_msg = base::text::lexical_cast< std::string >( err );
             }
 
             std::stringstream ss;

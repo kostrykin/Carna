@@ -647,6 +647,7 @@ namespace math
         {
             mean = other.mean;
             variance = other.variance;
+            return *this;
         }
         
         /** \brief

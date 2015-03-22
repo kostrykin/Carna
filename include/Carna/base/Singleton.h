@@ -111,6 +111,14 @@ public:
         return instancePtr == nullptr ? *new InstanceType() : *instancePtr;
     }
 
+    /** \brief
+      * Tells whether the instance from class \a InstanceType currently exists.
+      */
+    static bool exists()
+    {
+        return instancePtr != nullptr;
+    }
+
 }; // Singleton
 
 

@@ -436,7 +436,7 @@ include( "misc/compiler_specific.cmake" )
 target_link_libraries( ${TARGET_NAME}
 			${OPENGL_LIBRARIES}
 			${GLEW_LIBRARIES}
-			gomp
+			${GOMP_LIBRARIES}
 		)
 
 ############################################

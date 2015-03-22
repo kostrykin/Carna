@@ -77,13 +77,19 @@ void Log::record( Severity severity, const std::string& message ) const
 
 void Log::addOnShutdownListener( OnShutdownListener& listener )
 {
-    pimpl->onShutdownListeners.insert( &listener );
+    if( !pimpl->isShutDown )
+    {
+        pimpl->onShutdownListeners.insert( &listener );
+    }
 }
 
 
 void Log::removeOnShutdownListener( const OnShutdownListener& listener )
 {
-    pimpl->onShutdownListeners.erase( const_cast< OnShutdownListener* >( &listener ) );
+    if( !pimpl->isShutDown )
+    {
+        pimpl->onShutdownListeners.erase( const_cast< OnShutdownListener* >( &listener ) );
+    }
 }
 
 

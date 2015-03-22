@@ -1,4 +1,5 @@
 if( ${CMAKE_COMPILER_IS_GNUCC} )
+	set( GOMP_LIBRARIES "gomp" )
 	set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wno-enum-compare" )
 	execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
 	if( GCC_VERSION VERSION_LESS 4.7 )

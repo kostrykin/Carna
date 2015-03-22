@@ -29,6 +29,7 @@ namespace base
 
 struct ShaderManager::Details : public Log::OnShutdownListener
 {
+    Details();
 
     struct ShaderInfo
     {
@@ -45,10 +46,16 @@ struct ShaderManager::Details : public Log::OnShutdownListener
 
     const ShaderProgram& loadShader( const std::string& name );
 
+    bool hasLogShutDown;
     void logLeakedShaders() const;
     virtual void onLogShutdown() override;
+};
 
-}; // ShaderManager :: Details
+
+ShaderManager::Details::Details()
+    : hasLogShutDown( false )
+{
+}
 
 
 const ShaderProgram& ShaderManager::Details::loadShader( const std::string& name )
@@ -130,17 +137,19 @@ const ShaderProgram& ShaderManager::Details::loadShader( const std::string& name
 
 void ShaderManager::Details::logLeakedShaders() const
 {
-    Log::instance().removeOnShutdownListener( *this );
-    if( !loadedShaders.empty() )
+    if( !hasLogShutDown )
     {
-        std::stringstream msg;
-        msg << loadedShaders.size() << " shaders leaked!" << std::endl;
-        for( auto nameItr = loadedShaders.begin(); nameItr != loadedShaders.end(); ++nameItr )
+        if( !loadedShaders.empty() )
         {
-            const std::string& name = nameItr->first;
-            msg << "    \"" << name << "\"" << std::endl;
+            std::stringstream msg;
+            msg << loadedShaders.size() << " shaders leaked!" << std::endl;
+            for( auto nameItr = loadedShaders.begin(); nameItr != loadedShaders.end(); ++nameItr )
+            {
+                const std::string& name = nameItr->first;
+                msg << "    \"" << name << "\"" << std::endl;
+            }
+            Log::instance().record( Log::error, msg.str() );
         }
-        Log::instance().record( Log::error, msg.str() );
     }
 }
 
@@ -148,6 +157,7 @@ void ShaderManager::Details::logLeakedShaders() const
 void ShaderManager::Details::onLogShutdown()
 {
     logLeakedShaders();
+    hasLogShutDown = true;
 }
 
 
@@ -166,6 +176,10 @@ ShaderManager::ShaderManager()
 ShaderManager::~ShaderManager()
 {
     pimpl->logLeakedShaders();
+    if( pimpl->hasLogShutDown )
+    {
+        Log::instance().removeOnShutdownListener( *pimpl );
+    }
 }
 
 

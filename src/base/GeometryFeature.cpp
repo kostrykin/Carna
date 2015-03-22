@@ -31,6 +31,8 @@ class GeometryFeatureLeakWatcher
 {
 
     NON_COPYABLE
+    
+    bool hasLogShutDown;
 
 protected:
 
@@ -49,6 +51,7 @@ public:
 
 
 GeometryFeatureLeakWatcher::GeometryFeatureLeakWatcher()
+    : hasLogShutDown( false )
 {
     Log::instance().addOnShutdownListener( *this );
 }
@@ -56,7 +59,17 @@ GeometryFeatureLeakWatcher::GeometryFeatureLeakWatcher()
 
 GeometryFeatureLeakWatcher::~GeometryFeatureLeakWatcher()
 {
-    if( !featureInstances.empty() )
+    logLeakedInstances();
+    if( !hasLogShutDown )
+    {
+        Log::instance().removeOnShutdownListener( *this );
+    }
+}
+
+
+void GeometryFeatureLeakWatcher::logLeakedInstances() const
+{
+    if( !hasLogShutDown && !featureInstances.empty() )
     {
         std::stringstream ss;
         ss << featureInstances.size() << " GeometryFeature objects leaked!";
@@ -65,16 +78,10 @@ GeometryFeatureLeakWatcher::~GeometryFeatureLeakWatcher()
 }
 
 
-void GeometryFeatureLeakWatcher::logLeakedInstances() const
-{
-    Log::instance().removeOnShutdownListener( *this );
-    Singleton< GeometryFeatureLeakWatcher >::reset();
-}
-
-
 void GeometryFeatureLeakWatcher::onLogShutdown()
 {
     logLeakedInstances();
+    hasLogShutDown = true;
 }
 
 
@@ -155,7 +162,10 @@ GeometryFeature::GeometryFeature()
 
 GeometryFeature::~GeometryFeature()
 {
-    GeometryFeatureLeakWatcher::instance().featureInstances.erase( this );
+    if( GeometryFeatureLeakWatcher::exists() )
+    {
+        GeometryFeatureLeakWatcher::instance().featureInstances.erase( this );
+    }
     if( pimpl->videoResourceAcquisitions != 0 )
     {
         Log::instance().record( Log::error, "GeometryFeature deleted while video resources still acquired!" );
