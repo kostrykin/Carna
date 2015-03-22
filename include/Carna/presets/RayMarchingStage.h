@@ -40,6 +40,9 @@ namespace presets
   * \todo
   * Finish this.
   *
+  * \todo
+  * Rename to `VolumeRenderingStage`.
+  *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 11.3.15
   */

@@ -88,9 +88,13 @@ RayMarchingStage::VideoResources::SlicesMesh::VideoResourceAcquisition* RayMarch
 {
     /* The mesh is constructed in model space. The box [-0,5; +0.5]^3 defines the
      * space that we need to cover. For a ray that hits the center, the distant-most
-     * point of the box is half the square root of 3.
+     * point of the box is half the square root of 3. However, we use a radius that
+     * is *slightly* larger, ensuring that numerical errors do not prevent us from
+     * covering the whole area. Leaving out this correction factor causes ugly
+     * artifacts under particular view angles.
      */
-    const float radius = std::sqrt( 3.f ) / 2;
+    const float correctionTerm = 1e-2f;
+    const float radius = ( 1 + correctionTerm ) * std::sqrt( 3.f ) / 2;
     
     /* Create slices.
      */
@@ -215,6 +219,19 @@ void RayMarchingStage::render( const base::Renderable& renderable )
     const Vector4f modelTangent   = ( viewModel * Vector4f( 1, 0, 0, 0 ) ).normalized();
     const Vector4f modelBitangent = ( viewModel * Vector4f( 0, 1, 0, 0 ) ).normalized();
     const Matrix4f tangentModel   = base::math::basis4f( modelTangent, modelBitangent, modelNormal );
+
+    /* The slices are equally distributed along a line, that's length is the square
+     * root of 3. With this we can compute the location of the *last* slice. The
+     * *first* slice is located exactly on the opposite side of the model space
+     * origin. Transforming both locations to world space and taking their distance,
+     * we can compute the step length between two successive slices.
+     */
+    const Vector4f modelLastSlice  = base::math::vector4< float, 4 >( viewDirectionInModelSpace * std::sqrt( 3.f ) / 2, 1 );
+    const Vector4f modelFirstSlice = base::math::vector4< float, 4 >( -modelLastSlice, 1 );
+    const Vector4f worldLastSlice  = renderable.geometry().worldTransform() * modelLastSlice;
+    const Vector4f worldFirstSlice = renderable.geometry().worldTransform() * modelFirstSlice;
+    const float totalLength = base::math::vector3< float, 4 >( worldFirstSlice - worldLastSlice ).norm();
+    const float stepLength = totalLength / pimpl->sampleRate;
     
     /* Bind all 'Texture3D' geometry features.
      */
@@ -246,6 +263,7 @@ void RayMarchingStage::render( const base::Renderable& renderable )
     base::ShaderUniform< base::math::Matrix4f >( "modelViewProjection", pimpl->renderTask->projection * modelView ).upload();
     base::ShaderUniform< base::math::Matrix4f >( "modelTexture", modelTexture ).upload();
     base::ShaderUniform< base::math::Matrix4f >( "tangentModel", tangentModel ).upload();
+    base::ShaderUniform<                float >( "stepLength", stepLength ).upload();
     for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {
         const unsigned int role = roles[ samplerOffset ];

@@ -37,7 +37,6 @@ struct DRRStage::Details
 
     Details();
 
-    float stepLength;
     float waterAttenuation;
     float baseIntensity;
     base::HUV lowerThreshold;
@@ -59,8 +58,8 @@ struct DRRStage::Details
 
 
 DRRStage::Details::Details()
-    : waterAttenuation( 2.f )
-    , baseIntensity( 1.f )
+    : waterAttenuation( 0.002f )
+    , baseIntensity( 1 )
     , lowerThreshold( -400 )
     , upperThreshold( +400 )
     , upperMultiplier( 1.5f )
@@ -194,10 +193,6 @@ void DRRStage::renderPass
     base::RenderState rs;
     rs.setBlend( true );
 
-    /* Compute step length for ray marching in model space.
-     */
-    pimpl->stepLength = 1.f / sampleRate();
-
     /* Copy depth buffer from output to the accumulation frame buffer.
      */
     const base::Viewport framebufferViewport( *pimpl->accumulationFrameBuffer );
@@ -274,7 +269,6 @@ const std::string& DRRStage::uniformName( unsigned int role ) const
 
 void DRRStage::configureShader()
 {
-    base::ShaderUniform< float >(       "stepLength", pimpl->stepLength ).upload();
     base::ShaderUniform< float >( "waterAttenuation", pimpl->waterAttenuation ).upload();
     base::ShaderUniform< float >(   "lowerThreshold", Details::huvToIntensity( pimpl->lowerThreshold ) ).upload();
     base::ShaderUniform< float >(   "upperThreshold", Details::huvToIntensity( pimpl->upperThreshold ) ).upload();
