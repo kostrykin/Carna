@@ -118,16 +118,13 @@ public:
     /** \brief
       * Sets whether the colors of the DRR should be \a inverse or not. The ray
       * attenuation at a particular pixel is proportional to the brightness of that
-      * pixel if \a inverse is \c false.
+      * pixel if \a inverse is `false`.
       *
-      * \note
-      *     If you set \a inverse to \c true, you will also have to change the
-      *     \ref base::FrameRenderer::setBackgroundColor "rendering's background
-      *     color" from default \ref base::Color::BLACK_NO_ALPHA "black" to something
-      *     brighter, like \ref base::Color::WHITE_NO_ALPHA "white". Otherwise you
-      *     might not see any rendering results from this stage.
-      *
-      * Default value is \c false.
+      * If you set \a inverse to `true`, you will also have to change the
+      * \ref base::FrameRenderer::setBackgroundColor "rendering's background color"
+      * from default \ref base::Color::BLACK_NO_ALPHA "black" to something brighter,
+      * like \ref base::Color::WHITE_NO_ALPHA "white". Otherwise you might not see
+      * any rendering results from this stage. Default value is `false`.
       */
     void setRenderingInverse( bool inverse );
 
