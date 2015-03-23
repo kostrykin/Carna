@@ -145,8 +145,62 @@ namespace presets
   *
   * \subsection VolumeRenderingOrder Rendering
   *
-  * \todo
-  * Write here, why depth test/writing is used and why bounding volumes are important.
+  * Usually volume data is partitioned into smaller textures. This reduces the
+  * probability of out-of-memory exceptions due to memory fragmentation. The
+  * \ref helpers::HUVolumeGridHelper class performs such a partitioning. This means
+  * that we will often render not only single volumes but *grids* where each cell is
+  * made up by a volume that needs to be rendered. The algorithm presented here suits
+  * this use-case without compromises. However, additional measures need to be taken
+  * to avoid artifacts when adjacent cells, i.e. volumes, are rendered. We will go
+  * through the two types of artifacts that may arise, look at their causes and how
+  * this class avoids them.
+  *
+  * \subsubsection VolumeRenderingAdjacencyArtifacts Adjacency Artifacts
+  *
+  * The first type of artifacts encounters when \f$f\left(x_i\right)\f$ are somehow
+  * accumulated, like for digital radiograph reconstructs or direct volume
+  * renderings. As the figure below illustrates, voxels on the volume edges may be 
+  * sampled with a higher rate, because the same voxel is processed twice, once when
+  * rendering the left volume and once when rendering the right one. This causes
+  * faulty accumulated results.
+  *
+  * \image html VolumeRenderingArtifacts1.png "on the left: artifacts when rendering without depth test/write - on the right: how these artifacts are caused"
+  *
+  * The solution is rather simple:
+  *
+  *   - We ensure that for each volume the slices are rendered from back to front.
+  *     This is easy to achieve when payed attention to during the mesh creation.
+  *   - We also ensure that the volumes are rendered from back to front, like it is
+  *     a common practice for rendering transparent geometries.
+  *   - Finally we turn on depth testing and depth writing. This ensures that edge
+  *     voxels are only processed once.
+  *
+  * \subsubsection VolumeRenderingOcclusionArtifacts Occlusion Artifacts
+  *
+  * The other type of artifacts arises straight from the solution for the first one,
+  * depending on how the depth sorting is accomplished. Common implementations
+  * compute object distances by evaluating the distance to their centers. If this
+  * method was used here, we would observe the artifacts illustrated in the figure
+  * below when rendering grid cells of different sizes.
+  *
+  * \image html VolumeRenderingArtifacts2.png "on the left: artifacts when using distances to centers - on the right: how these artifacts are caused"
+  *
+  * The term *watershed* in the picture above refers to an analogy: If the eye is
+  * located on the left side, than the left cell is considered closer, otherwise the
+  * right cell. The numbers refer to the (reverse) recognized depth order, i.e. the
+  * order of rendering the volumes. The watershed, computed from the
+  * center-distances, is perfectly fine for equally sized cells, but becomes wrong if
+  * one cell is smaller: Here the watershed is shifted to left of where it actually
+  * should be. The left cell is rendered first, because the right one is considered
+  * closer. This prevents the red-shaded area of the right cell from being rendered
+  * afterwards, because the depth test fails in this area.
+  *
+  * The solution is to use a different distance measuring. Instead of computing the
+  * distances to the cell centers, we compute the *actual* distances to the cells.
+  * The \ref base::Renderable::DepthOrder "depth-sorting implementation" does this if
+  * an appropriate \ref \ref base::BoundingBox "bounding box" is set upon the
+  * geometry node. The \ref helpers::HUVolumeGridHelper class configures such
+  * bounding boxes for you.
   *
   * \section VolumeRenderingImplementation Implementation
   *
