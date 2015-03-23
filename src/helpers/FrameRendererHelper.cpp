@@ -70,7 +70,7 @@ bool DefaultRenderStageOrder::operator()( const base::RenderStage* x, const base
     CARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::OccludedRenderingStage );
     CARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::OpaqueRenderingStage );
     CARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::TransparentRenderingStage );
-    CARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::RayMarchingStage );
+    CARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::VolumeRenderingStage );
 
     CARNA_FAIL( "Unknown render stage." );
 }

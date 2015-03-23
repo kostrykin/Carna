@@ -165,7 +165,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/math/RayPlaneHitTest.h
 		include/${PROJECT_NAME}/base/math/ScalarField.h
 		include/${PROJECT_NAME}/presets/MeshColorCodingStage.h
-		include/${PROJECT_NAME}/presets/RayMarchingStage.h
+		include/${PROJECT_NAME}/presets/VolumeRenderingStage.h
 		include/${PROJECT_NAME}/presets/DRRStage.h
 		include/${PROJECT_NAME}/presets/MIPStage.h
 		include/${PROJECT_NAME}/presets/MIPChannel.h
@@ -239,7 +239,7 @@ set( SRC
 		src/base/ProjectionControl.cpp
 		src/base/math/Ray.cpp
 		src/presets/MeshColorCodingStage.cpp
-		src/presets/RayMarchingStage.cpp
+		src/presets/VolumeRenderingStage.cpp
 		src/presets/DRRStage.cpp
 		src/presets/MIPStage.cpp
 		src/presets/MIPChannel.cpp

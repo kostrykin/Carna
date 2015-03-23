@@ -42,7 +42,7 @@ namespace presets
   * \note
   * In the \ref RenderingProcess "rendering process" this stage will usually be
   * inserted \em before such stages that render transparent geometry, like
-  * \ref TransparentRenderingStage and \ref RayMarchingStage.
+  * \ref TransparentRenderingStage and \ref VolumeRenderingStage.
   *
   * The following example code configures the \ref SceneGraph "scene" s.t. it
   * produces the rendering presented further below:

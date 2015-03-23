@@ -12,7 +12,7 @@
 #ifndef DRRStage_H_6014714286
 #define DRRStage_H_6014714286
 
-#include <Carna/presets/RayMarchingStage.h>
+#include <Carna/presets/VolumeRenderingStage.h>
 #include <Carna/Carna.h>
 #include <memory>
 
@@ -61,7 +61,7 @@ namespace presets
   * \author Leonid Kostrykin
   * \date   22.2.15 - 11.3.15
   */
-class CARNA_LIB DRRStage : public RayMarchingStage
+class CARNA_LIB DRRStage : public VolumeRenderingStage
 {
 
     struct Details;

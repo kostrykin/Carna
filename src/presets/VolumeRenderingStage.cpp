@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/presets/RayMarchingStage.h>
+#include <Carna/presets/VolumeRenderingStage.h>
 #include <Carna/base/Mesh.h>
 #include <Carna/base/Vertex.h>
 #include <Carna/base/IndexBuffer.h>
@@ -29,10 +29,10 @@ namespace presets
 
 
 // ----------------------------------------------------------------------------------
-// RayMarchingStage :: Details
+// VolumeRenderingStage :: Details
 // ----------------------------------------------------------------------------------
 
-struct RayMarchingStage::Details
+struct VolumeRenderingStage::Details
 {
     Details();
 
@@ -43,7 +43,7 @@ struct RayMarchingStage::Details
 };
 
 
-RayMarchingStage::Details::Details()
+VolumeRenderingStage::Details::Details()
     : renderTask( nullptr )
     , viewPort( nullptr )
     , sampleRate( DEFAULT_SAMPLE_RATE )
@@ -54,10 +54,10 @@ RayMarchingStage::Details::Details()
 
 
 // ----------------------------------------------------------------------------------
-// RayMarchingStage :: VideoResources
+// VolumeRenderingStage :: VideoResources
 // ----------------------------------------------------------------------------------
 
-struct RayMarchingStage::VideoResources
+struct VolumeRenderingStage::VideoResources
 {
     VideoResources( const base::ShaderProgram& shader, unsigned int sampleRate );
 
@@ -75,7 +75,7 @@ private:
 };
 
 
-RayMarchingStage::VideoResources::VideoResources( const base::ShaderProgram& shader, unsigned int sampleRate )
+VolumeRenderingStage::VideoResources::VideoResources( const base::ShaderProgram& shader, unsigned int sampleRate )
     : shader( shader )
     , mySampleRate( sampleRate + 1 )
 {
@@ -85,7 +85,7 @@ RayMarchingStage::VideoResources::VideoResources( const base::ShaderProgram& sha
 }
 
 
-RayMarchingStage::VideoResources::SlicesMesh::VideoResourceAcquisition* RayMarchingStage::VideoResources::createSlicesMesh
+VolumeRenderingStage::VideoResources::SlicesMesh::VideoResourceAcquisition* VolumeRenderingStage::VideoResources::createSlicesMesh
     ( unsigned int sampleRate )
 {
     /* The mesh is constructed in model space. The box [-0,5; +0.5]^3 defines the
@@ -151,7 +151,7 @@ RayMarchingStage::VideoResources::SlicesMesh::VideoResourceAcquisition* RayMarch
 }
 
 
-RayMarchingStage::VideoResources::SlicesMesh::VideoResourceAcquisition& RayMarchingStage::VideoResources::slicesMesh
+VolumeRenderingStage::VideoResources::SlicesMesh::VideoResourceAcquisition& VolumeRenderingStage::VideoResources::slicesMesh
     ( unsigned int sampleRate )
 {
     if( mySampleRate != sampleRate )
@@ -160,7 +160,7 @@ RayMarchingStage::VideoResources::SlicesMesh::VideoResourceAcquisition& RayMarch
         mySlicesMesh.reset( createSlicesMesh( sampleRate ) );
 
         std::stringstream msg;
-        msg << "RayMarchingStage: Created new slices mesh with " << sampleRate << " samples per pixel.";
+        msg << "VolumeRenderingStage: Created new slices mesh with " << sampleRate << " samples per pixel.";
         base::Log::instance().record( base::Log::debug, msg.str() );
     }
     return *mySlicesMesh;
@@ -169,17 +169,17 @@ RayMarchingStage::VideoResources::SlicesMesh::VideoResourceAcquisition& RayMarch
 
 
 // ----------------------------------------------------------------------------------
-// RayMarchingStage
+// VolumeRenderingStage
 // ----------------------------------------------------------------------------------
 
-RayMarchingStage::RayMarchingStage( unsigned int geometryType )
+VolumeRenderingStage::VolumeRenderingStage( unsigned int geometryType )
     : base::GeometryStage< base::Renderable::BackToFront >::GeometryStage( geometryType )
     , pimpl( new Details() )
 {
 }
 
 
-RayMarchingStage::~RayMarchingStage()
+VolumeRenderingStage::~VolumeRenderingStage()
 {
     activateGLContext();
     if( vr.get() != nullptr )
@@ -198,7 +198,7 @@ RayMarchingStage::~RayMarchingStage()
 }
 
 
-void RayMarchingStage::render( const base::Renderable& renderable )
+void VolumeRenderingStage::render( const base::Renderable& renderable )
 {
     using base::math::Matrix4f;
     using base::math::Vector4f;
@@ -289,7 +289,7 @@ void RayMarchingStage::render( const base::Renderable& renderable )
 }
 
 
-void RayMarchingStage::loadVideoResources()
+void VolumeRenderingStage::loadVideoResources()
 {
     const base::ShaderProgram& shader = loadShader();
     vr.reset( new VideoResources( shader, pimpl->sampleRate ) );
@@ -302,7 +302,7 @@ void RayMarchingStage::loadVideoResources()
 }
 
 
-void RayMarchingStage::renderPass
+void VolumeRenderingStage::renderPass
     ( const base::math::Matrix4f& vt
     , base::RenderTask& rt
     , const base::Viewport& vp )
@@ -328,14 +328,14 @@ void RayMarchingStage::renderPass
 }
 
 
-void RayMarchingStage::setSampleRate( unsigned int sampleRate )
+void VolumeRenderingStage::setSampleRate( unsigned int sampleRate )
 {
     CARNA_ASSERT( sampleRate >= 2 );
     pimpl->sampleRate = sampleRate;
 }
 
 
-unsigned int RayMarchingStage::sampleRate() const
+unsigned int VolumeRenderingStage::sampleRate() const
 {
     return pimpl->sampleRate;
 }

@@ -145,7 +145,7 @@ namespace Carna
         class CameraShowcaseControl;
         class PerspectiveControl;
         class MeshColorCodingStage;
-        class RayMarchingStage;
+        class VolumeRenderingStage;
         class MIPStage;
         class MIPChannel;
         class DRRStage;

@@ -66,7 +66,7 @@ MIPStage::Details::Details()
 // ----------------------------------------------------------------------------------
 
 MIPStage::MIPStage( unsigned int geometryType )
-    : RayMarchingStage( geometryType )
+    : VolumeRenderingStage( geometryType )
     , pimpl( new Details() )
 {
 }
@@ -182,7 +182,7 @@ void MIPStage::renderPass
             rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT );
 
             framebufferViewport.makeActive();
-            RayMarchingStage::renderPass( vt, rt, framebufferViewport );
+            VolumeRenderingStage::renderPass( vt, rt, framebufferViewport );
             framebufferViewport.done();
 
         );

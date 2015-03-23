@@ -83,7 +83,7 @@ const bool      DRRStage::DEFAULT_RENDER_INVERSE    = false;
 
 
 DRRStage::DRRStage( unsigned int geometryType )
-    : RayMarchingStage( geometryType )
+    : VolumeRenderingStage( geometryType )
     , pimpl( new Details() )
 {
 }
@@ -186,7 +186,7 @@ void DRRStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsig
 
 void DRRStage::loadVideoResources()
 {
-    RayMarchingStage::loadVideoResources();
+    VolumeRenderingStage::loadVideoResources();
     pimpl->exponentialShader = &base::ShaderManager::instance().acquireShader( "drr_exponential" );
 }
 
@@ -225,7 +225,7 @@ void DRRStage::renderPass
         rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT );
 
         framebufferViewport.makeActive();
-        RayMarchingStage::renderPass( vt, rt, framebufferViewport );
+        VolumeRenderingStage::renderPass( vt, rt, framebufferViewport );
         framebufferViewport.done();
 
     );
