@@ -202,7 +202,7 @@ namespace presets
   * geometry node. The \ref helpers::HUVolumeGridHelper class configures such
   * bounding boxes for you.
   *
-  * \section VolumeRenderingHowToImplementation How to Implement
+  * \section VolumeRenderingHowToImplementat How to Implement
   *
   * It is important to have an idea of how shaders access textures. For each texture
   * that a shader is able to read from, it must have an uniform variable declared. It
@@ -212,6 +212,8 @@ namespace presets
   * it looks for such \ref GeometryFeatures "geometry features" that are from type
   * \ref base::Texture3D. It then queries the names of the uniform variables, that
   * these textures shall be linked with, from the implementation.
+  *
+  * \subsection VolumeRenderingDeriving Deriving the Class
   *
   * There are four functions that must be implemented:
   *
@@ -234,7 +236,76 @@ namespace presets
   * \ref base::RenderState::setBlendEquation "blend equation", or the \ref DRRStage
   * accumulates with `GL_ADD` to compute an integral.
   *
-  * For an example on how to implement the shader, refer to the files
+  * \subsection VolumeRenderingShader Writing the Shader
+  *
+  * Below are a few hints on how to implement the shader. Refer to the
+  * \ref ShaderMaterialIntegration section for hints on how to actually load the
+  * shader.
+  * 
+  * \subsubsection VolumeRenderingVertexShader Vertex Shader
+  *
+  * The vertex shader must declare the following GLSL version, uniform variables and
+  * \ref CustomVertexFormats "vertex formats":
+  *
+  *     \code
+  *     #version 330
+  *     uniform mat4 tangentModel;
+  *     uniform mat4 modelViewProjection;
+  *
+  *     layout( location = 0 ) in vec4 inPosition;
+  *     \endcode
+  *
+  * Furthermore, it must pass the model-space coordinates to the fragment shader,
+  * although the name of the variable used for this is arbitrary:
+  *
+  *     \code
+  *     out vec4 modelSpaceCoordinates;
+  *     \endcode
+  *
+  * Most of the time you should be able to stick to this implementation:
+  *
+  *     \code
+  *     void main()
+  *     {
+  *         modelSpaceCoordinates = tangentModel * inPosition;
+  *         vec4 clippingCoordinates = modelViewProjection * modelSpaceCoordinates;
+  *         gl_Position = clippingCoordinates;
+  *     }
+  *     \endcode
+  *
+  * \subsubsection VolumeRenderingFragmentShader Fragment Shader
+  *
+  * The fragment shader must declare the following GLSL version and uniform
+  * variables, along with a varying for the model-space coordinates, whose name must
+  * match the name used in the vertex shader:
+  *
+  *     \code
+  *     #version 330
+  *
+  *     uniform mat4 modelTexture;
+  *
+  *     in  vec4 modelSpaceCoordinates;
+  *     out vec4 gl_FragColor;
+  *     \endcode
+  *
+  * The name of the color output variable `gl_FragColor` is arbitrary.
+  *
+  * Below is the body of a typical implementation of the fragment shader, that writes
+  * the texture coordinates to the color output:
+  *
+  *     \code
+  *     void main()
+  *     {
+  *         if( abs( modelSpaceCoordinates.x ) > 0.5 || abs( modelSpaceCoordinates.y ) > 0.5 || abs( modelSpaceCoordinates.z ) > 0.5 )
+  *         {
+  *             discard;
+  *         }
+  *         vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;
+  *         gl_FragColor = vec4( textureCoordinates.rgb, 1 );
+  *     }
+  *     \endcode
+  *
+  * For a full example on how to implement the shader, refer to the files
   * \ref src/res/mip.vert and \ref src/res/mip.frag. These should be
   * self-explaining.
   *
