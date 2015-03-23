@@ -81,7 +81,7 @@ namespace presets
   * requirements.
   *
   * \see
-  * A short introduction to shaders exists in the \ref CustomMaterials section.
+  * A short introduction to shaders is given in the \ref CustomMaterials section.
   *
   * It is within the responsibility of this shader to transform the vertices of the
   * slices s.t. they are put in place correctly. Furthermore it is of course the job
