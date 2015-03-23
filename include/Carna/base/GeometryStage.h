@@ -76,7 +76,7 @@ public:
 
     /** \brief
       * Instantiates s.t. the \ref rq "predefined rendering queue" enqueues such
-      * \ref Geometry scene graph nodes whose geometry type *AND*-linked with
+      * \ref Geometry scene graph nodes, whose geometry type *AND*-linked with
       * \a geometryTypeMask equals the \a geometryType specified here.
       */
     GeometryStage

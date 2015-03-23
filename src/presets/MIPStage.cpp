@@ -210,7 +210,7 @@ void MIPStage::createSamplers( const std::function< void( unsigned int, base::Sa
 }
 
 
-const base::ShaderProgram& MIPStage::loadShader()
+const base::ShaderProgram& MIPStage::acquireShader()
 {
     return base::ShaderManager::instance().acquireShader( "mip" );
 }

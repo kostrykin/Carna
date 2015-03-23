@@ -202,10 +202,41 @@ namespace presets
   * geometry node. The \ref helpers::HUVolumeGridHelper class configures such
   * bounding boxes for you.
   *
-  * \section VolumeRenderingImplementation Implementation
+  * \section VolumeRenderingHowToImplementation How to Implement
   *
-  * \todo
-  * Write here some notes on how to implement classes derived from this.
+  * It is important to have an idea of how shaders access textures. For each texture
+  * that a shader is able to read from, it must have an uniform variable declared. It
+  * is in the responsibility of the CPU-side program to map such variables to texture
+  * units. The uniform variable will then reflect the texture that is currently bound
+  * to that unit. For geometry nodes that \ref GeometryTypes "this stage processes",
+  * it looks for such \ref GeometryFeatures "geometry features" that are from type
+  * \ref base::Texture3D. It then queries the names of the uniform variables, that
+  * these textures shall be linked with, from the implementation.
+  *
+  * There are four functions that must be implemented:
+  *
+  *   - \ref acquireShader acquires the shader to be used for
+  *     \ref VolumeRenderingAlgorithm "rendering the slices".
+  *   - \ref uniformName maps the volume texture roles to uniform variable names.
+  *   - \ref configureShader performs arbitrary setup of the shader.
+  *   - \ref createSamplers creates \ref base::Sampler "texture samplers" and assigns
+  *     them to the roles that they should be used with.
+  *
+  * Furthermore, you might want to override \ref renderPass. The default
+  * implementation invokes the volume rendering algorithm, as it is described above.
+  * It is a typical practice for implementations of this class to override this
+  * method s.t. it setups a different render target, than invokes the default
+  * implementation to render to this target, and finally to process the results by
+  * rendering them back to the actually configured output buffer. If alpha blending
+  * is used while doing the volume rendering to a dedicated buffer, than this step is
+  * frequently referred to as *accumulation*. For example, the \ref MIPStage
+  * accumulates using the `GL_MAX`
+  * \ref base::RenderState::setBlendEquation "blend equation", or the \ref DRRStage
+  * accumulates with `GL_ADD` to compute an integral.
+  *
+  * For an example on how to implement the shader, refer to the files
+  * \ref src/res/mip.vert and \ref src/res/mip.frag. These should be
+  * self-explaining.
   *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 23.3.15
@@ -226,20 +257,32 @@ public:
       */
     const static unsigned int DEFAULT_SAMPLE_RATE = 100;
 
+    /** \brief
+      * Instantiates. The created stage will render such \ref base::Geometry scene
+      * graph nodes, whose \ref GeometryTypes "geometry types" equal \a geometryType.
+      */
     VolumeRenderingStage( unsigned int geometryType );
 
+    /** \brief
+      * Deletes.
+      */
     virtual ~VolumeRenderingStage();
 
     /** \brief
       * Sets number of slices to be rendered per segment.
+      * \pre `sampleRate >= 2`
       */
     void setSampleRate( unsigned int sampleRate );
     
     /** \brief
       * Tells number of slices to be rendered per segment.
+      * \pre `sampleRate() >= 2`
       */
     unsigned int sampleRate() const;
 
+    /** \brief
+      * Triggers the \ref VolumeRenderingApproach "volume rendering".
+      */
     virtual void renderPass
         ( const base::math::Matrix4f& viewTransform
         , base::RenderTask& rt
@@ -247,17 +290,26 @@ public:
 
 protected:
 
+    /** \brief
+      * Loads video resources when rendering is triggered for the first time.
+      * Override this method if you need any additional resources to be loaded, but
+      * always call the base implementation.
+      */
     virtual void loadVideoResources();
 
     virtual void render( const base::Renderable& ) override;
 
+    /** \brief
+      * Creates \ref base::Sampler "texture samplers" and uses \a registerSampler to
+      * assign them to the roles that they should be used with.
+      */
     virtual void createSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler ) = 0;
 
     /** \brief
-      * Loads the shader used for
+      * Acquires the shader from the \ref base::ShaderManager, that is to be used for
       * \ref VolumeRenderingAlgorithm "rendering the slices".
       */
-    virtual const base::ShaderProgram& loadShader() = 0;
+    virtual const base::ShaderProgram& acquireShader() = 0;
 
     /** \brief
       * Tells the name of the uniform variable, that the \a role texture is to be bound to.

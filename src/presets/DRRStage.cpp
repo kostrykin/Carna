@@ -253,7 +253,7 @@ void DRRStage::createSamplers( const std::function< void( unsigned int, base::Sa
 }
 
 
-const base::ShaderProgram& DRRStage::loadShader()
+const base::ShaderProgram& DRRStage::acquireShader()
 {
     return base::ShaderManager::instance().acquireShader( "drr_accumulation" );
 }
