@@ -37,6 +37,40 @@ namespace presets
   * Defines abstract base class for \ref base::RenderStage "rendering stages" that
   * render volume geometries in the scene.
   *
+  * The necessity to evaluate \f$f\left(x_i\right)\f$ for equidistant samples
+  * \f$x_i\f$ of a ray, that is shot from each pixel of the screen into the volume
+  * geometries of the scene, is common to the typical volume rendering applications
+  * like *digital radiograph reconstructs*, *maximum intensity projections* or
+  * *direct volume renderings*.
+  *
+  * \section VolumeRenderingApproach Approach
+  *
+  * The approach, that probably seems most natural, is the following. By rendering a
+  * bounding box around the volume, we would get an invocation of a fragment shader
+  * for each such pixel whose ray intersects the volume. The next step would be to
+  * somehow obtain the first and last intersection locations \f$x_1\f$ and \f$x_n\f$
+  * respectively within the shader. Finally one would iterate over the equidistant
+  * samples \f$x_i\f$ and evaluate them through \f$f\f$.
+  *
+  * This actually is a very wide-spread approach to volume rendering, that is called
+  * *ray marching*. It has two disadvantages. First, the looping within the fragment
+  * shader comes at the cost of heavy dynamic branching, that slows down the GPU a
+  * lot. Second, it requires quite a lot of shader logic to be implemented
+  * redundantly for each application. For this two reasons, this class uses a
+  * different approach, but one that is certainly inspired by ray marching.
+  *
+  * \image html VolumeRenderingApproach.png "on the left: the ray marching approach - on the right: algorithm implemented here"
+  *
+  * The idea is to use *precomputed* sample locations. Therefor the samples \f$x_i\f$
+  * of different rays but with same \f$i\f$ are identified as *slices*. The creation
+  * of a mesh that consists of \f$n\f$ slices is easy. The challenge is to position
+  * and scale that mesh s.t. it covers the whole volume, i.e. its bounding box like
+  * illustrated in the figure above, irrespectively of the view direction. The mesh
+  * is oriented s.t. the slices become orthogonal to the viewing direction. It is
+  * positioned s.t. its center matches the center of the bounding box. The scaling is
+  * a little tricky: We stretch it s.t. it becomes the minimum boundary box to the
+  * volume's *bounding ellipsoid*.
+  *
   * \section VolumeRenderingAlgorithm Algorithm
   *
   * This is an abstract base class for volume rendering stages. The algorithm
@@ -109,10 +143,15 @@ namespace presets
   * edges-correction matrix, is uploaded to the shader as an uniform named
   * `modelTexture` from type `mat4`.
   *
-  * \subsection VolumeRenderingShader Shader
+  * \subsection VolumeRenderingOrder Rendering
   *
   * \todo
-  * Put an examplary shader implementation here.
+  * Write here, why depth test/writing is used and why bounding volumes are important.
+  *
+  * \section VolumeRenderingImplementation Implementation
+  *
+  * \todo
+  * Write here some notes on how to implement classes derived from this.
   *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 23.3.15
