@@ -12,7 +12,6 @@
 #include <Carna/base/glew.h>
 #include <Carna/base/glError.h>
 #include <Carna/base/Texture3D.h>
-#include <Carna/base/ManagedTexture3D.h>
 #include <Carna/base/CarnaException.h>
 #include <Carna/base/text.h>
 
@@ -25,21 +24,14 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// computeTextureCoordinatesCorrection
+// createGLTextureObject
 // ----------------------------------------------------------------------------------
 
-static base::math::Matrix4f computeTextureCoordinatesCorrection( const math::Vector3ui& size )
+static unsigned int createGLTextureObject()
 {
-    const base::math::Vector3f texelSize   = size.cast< float >().cwiseInverse();
-    const base::math::Vector3f texelOffset = texelSize / 2;
-    const base::math::Vector3f texelScale  = base::math::Vector3f( 1, 1, 1 ) - texelSize;
-
-    base::math::Matrix4f m;
-    m << texelScale.x(),              0,              0, texelOffset.x(),
-                      0, texelScale.y(),              0, texelOffset.y(),
-                      0,              0, texelScale.z(), texelOffset.z(),
-                      0,              0,              0,               1;
-    return m;
+    unsigned int id;
+    glGenTextures( 1, &id );
+    return id;
 }
 
 
@@ -54,30 +46,82 @@ Texture3D::Texture3D
         , int pixelFormat
         , int bufferType
         , const void* bufferPtr )
-    : size( size )
+    : id( createGLTextureObject() )
+    , size( size )
     , internalFormat( internalFormat )
     , pixelFormat( pixelFormat )
-    , bufferType( bufferType )
-    , bufferPtr( bufferPtr )
-    , textureCoordinatesCorrection( computeTextureCoordinatesCorrection( size ) )
 {
+    try
+    {
+        CARNA_ASSERT_EX( id != 0, "Texture3D acquisition failed." );
+        CARNA_ASSERT_EX
+            ( size.x() % 2 == 0 && size.y() % 2 == 0 && size.z() % 2 == 0
+            , "Texture3D only supports even sizes." );
+        
+        /* Upload texture data.
+         */
+        bind( SETUP_UNIT );
+        glTexImage3D( GL_TEXTURE_3D, 0, internalFormat
+                    , size.x(), size.y(), size.z()
+                    , 0, pixelFormat, bufferType, bufferPtr );
+
+        const unsigned int err = glGetError();
+        if( err != GL_NO_ERROR )
+        {
+            std::string err_msg;
+            switch( err )
+            {
+                case GL_INVALID_ENUM:
+                    err_msg = "invalid enumerator";
+                    break;
+
+                case GL_INVALID_VALUE:
+                    err_msg = "invalid value";
+                    break;
+
+                case GL_INVALID_OPERATION:
+                    err_msg = "invalid operation";
+                    break;
+
+                case GL_OUT_OF_MEMORY:
+                    err_msg = "out of memory";
+                    break;
+
+                default:
+                    err_msg = base::text::lexical_cast< std::string >( err );
+            }
+
+            std::stringstream ss;
+            ss << "OpenGL 3D texture object acquisition failed: "
+                << err_msg;
+
+            CARNA_FAIL( ss.str() );
+        }
+    }
+    catch( ... )
+    {
+        cleanup();
+        throw;
+    }
 }
 
 
 Texture3D::~Texture3D()
 {
+    cleanup();
 }
 
 
-bool Texture3D::controlsSameVideoResource( const GeometryFeature& ) const
+void Texture3D::cleanup()
 {
-    return false;
+    glDeleteTextures( 1, &id );
 }
 
 
-ManagedTexture3D* Texture3D::acquireVideoResource()
+void Texture3D::bind( unsigned int unit ) const
 {
-    return new ManagedTexture3D( *this );
+    glActiveTexture( GL_TEXTURE0 + unit );
+    glBindTexture( GL_TEXTURE_3D, id );
 }
 
 

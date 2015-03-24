@@ -102,8 +102,8 @@ public:
     // ------------------------------------------------------------------------------
 
     /** \brief
-      * Represents an acquisition of the video resources, that are  managed by a
-      * particular \ref GeometryFeature. This *acquisition* realizes the RAII idiom.
+      * Represents an acquisition of the video resources from a particular
+      * \ref GeometryFeature. This *acquisition* realizes the RAII idiom.
       *
       * \author Leonid Kostrykin
       * \date   22.2.15 - 18.3.15
@@ -116,7 +116,7 @@ public:
     protected:
     
         /** \brief
-          * Acquires the video resources managed by \a manager.
+          * Acquires the video resources from \a gf.
           *
           * The instantiated `%ManagedInterface` object is only valid within the
           * \ref GLContext "current OpenGL context". Delete the object in order to
@@ -125,7 +125,7 @@ public:
           * when the last acquisition is released. This depends on whether the
           * resources are \ref GLContext "sharable" across OpenGL contexts.
           */
-        explicit ManagedInterface( GeometryFeature& manager );
+        explicit ManagedInterface( GeometryFeature& gf );
         
     public:
     

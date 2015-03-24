@@ -12,7 +12,7 @@
 #ifndef HUVOLUMETEXTURE_H_6014714286
 #define HUVOLUMETEXTURE_H_6014714286
 
-#include <Carna/base/Texture3D.h>
+#include <Carna/base/ManagedTexture3D.h>
 
 /** \file   HUVolumeTexture.h
   * \brief  Defines \ref Carna::base::HUVolumeTexture.
@@ -30,7 +30,7 @@ namespace base
 // HUVolumeTexture
 // ----------------------------------------------------------------------------------
 
-class CARNA_LIB HUVolumeTexture : public Texture3D
+class CARNA_LIB HUVolumeTexture : public ManagedTexture3D
 {
 
 protected:

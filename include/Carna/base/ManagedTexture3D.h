@@ -13,6 +13,7 @@
 #define MANAGEDTEXTURE3D_H_6014714286
 
 #include <Carna/Carna.h>
+#include <Carna/base/ManagedTexture3DInterface.h>
 #include <Carna/base/GeometryFeature.h>
 #include <Carna/base/noncopyable.h>
 #include <Carna/base/math.h>
@@ -34,48 +35,94 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Interfaces a \ref Texture3DObject that is managed by a \ref Texture3D.
+  * Represents \ref Texture3D "3D OpenGL texture object" whose lifetime is managed by
+  * instances of this class.
   *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 24.3.15
   */
-class CARNA_LIB ManagedTexture3D : public GeometryFeature::ManagedInterface
+class CARNA_LIB ManagedTexture3D : public GeometryFeature
 {
 
     NON_COPYABLE
+
+protected:
+
+    friend class GeometryFeature;
+    friend class ManagedTexture3DInterface;
+
+    /** \brief
+      * Instantiates.
+      *
+      * \copydetails Texture3D::Texture3D(const math::Vector3ui&, int, int, int, const void*)
+      *
+      * \attention
+      * The instance does neither upload the pixel data from \a bufferPtr
+      * immediately, nor does it create a copy. Hence the pixel data located at
+      * \a bufferPtr must stay valid as long as an upload might be required.
+      */
+    ManagedTexture3D( const math::Vector3ui& size, int internalFormat, int pixelFormat, int bufferType, const void* bufferPtr );
+
+    /** \brief
+      * Deletes.
+      */
+    ~ManagedTexture3D();
+
+    /** \brief
+      * Holds the maintained OpenGL texture object.
+      */
+    std::unique_ptr< Texture3D > textureObject;
 
 public:
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /** \brief
-      * Creates a new interface to the \ref Texture3DObject that is managed by
-      * \a manager.
+      * Defines the type to be used for interfacing the video resource.
       */
-    explicit ManagedTexture3D( Texture3D& manager );
+    typedef ManagedTexture3DInterface ManagedInterface;
 
     /** \brief
-      * Releases this interface.
-      */
-    virtual ~ManagedTexture3D();
-
-    /** \brief
-      * References the `%Texture3D` object that manages the \ref Texture3DObject that
-      * this object interfaces.
-      */
-    Texture3D& manager;
-        
-    /** \brief
-      * Tells the ID of the managed texture.
-      */
-    unsigned int id() const;
-
-    /** \brief
-      * Binds the managed texture to \a unit.
+      * Instantiates and associates with a newly created OpenGL texture object.
+      * Invoke \ref release when it isn't needed any longer.
       *
-      * \copydetails Texture3DObject::bind
+      * \copydetails Texture3D::Texture3D(const math::Vector3ui&, int, int, int, const void*)
       */
-    void bind( unsigned int unit ) const;
+    static ManagedTexture3D& create
+        ( const math::Vector3ui& size
+        , int internalFormat
+        , int pixelFormat
+        , int bufferType
+        , const void* bufferPtr );
+
+    const math::Vector3ui size;  ///< \copydoc Texture3D::size
+    const int internalFormat;    ///< \copydoc Texture3D::internalFormat
+    const int pixelFormat;       ///< \copydoc Texture3D::pixelFormat
+    const int bufferType;        ///< \copydoc Texture3D::bufferType
+    const void* const bufferPtr; ///< \copydoc Texture3D::bufferPtr
+
+    /** \brief
+      * Stretches texture coordinates s.t. the centers of the texels, that are
+      * located in the texture corners, become located in those corners.
+      *
+      * Consider a \f$4 \times 4\f$ texture. Each texel occupies \f$\frac{1}{4}\f$
+      * along each axis, hence the texels' centers are located at \f$\frac{1}{8}\f$,
+      * \f$\frac{3}{8}\f$, \f$\frac{5}{8}\f$ and \f$\frac{7}{8}\f$ along those axis.
+      *
+      * The matrix returned by this method transforms texture coordinates s.t.
+      * \f$ 0 \mapsto \frac{1}{8}\f$ and \f$ 1 \mapsto \frac{7}{8}\f$ following the
+      * considerations from above. The matrix is computed the first time the method
+      * is invoked. It is reused until the \ref upload "texture resolution changes".
+      */
+    const base::math::Matrix4f textureCoordinatesCorrection;
+    
+    /** \copydoc GeometryFeature::controlsSameVideoResource(const GeometryFeature&) const
+      *
+      * This implementation always returns `false`.
+      */
+    virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
+    
+    virtual ManagedTexture3DInterface* acquireVideoResource() override;
 
 }; // ManagedTexture3D
 

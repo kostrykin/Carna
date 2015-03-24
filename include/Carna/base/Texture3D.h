@@ -13,8 +13,6 @@
 #define TEXTURE3D_H_6014714286
 
 #include <Carna/Carna.h>
-#include <Carna/base/ManagedTexture3D.h>
-#include <Carna/base/GeometryFeature.h>
 #include <Carna/base/noncopyable.h>
 #include <Carna/base/math.h>
 
@@ -35,93 +33,75 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Maintains a \ref Texture3DObject "3D OpenGL texture object".
+  * Represents a 3D OpenGL texture object. This class realizes the RAII-idiom.
   *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 24.3.15
   */
-class CARNA_LIB Texture3D : public GeometryFeature
+class CARNA_LIB Texture3D
 {
 
     NON_COPYABLE
 
-protected:
-
-    friend class GeometryFeature;
-    friend class ManagedTexture3D;
-
-    /** \brief
-      * Instantiates.
-      *
-      * \copydetails Texture3DObject::Texture3DObject
-      *
-      * \attention
-      * The instance does neither upload the pixel data from \a bufferPtr
-      * immediately, nor does it create a copy. Hence the pixel data located at
-      * \a bufferPtr must stay valid as long as an upload might be required.
-      */
-    Texture3D( const math::Vector3ui& size, int internalFormat, int pixelFormat, int bufferType, const void* bufferPtr );
-
-    /** \brief
-      * Deletes.
-      */
-    ~Texture3D();
-
-    /** \brief
-      * Holds the maintained OpenGL texture object.
-      */
-    std::unique_ptr< Texture3DObject > textureObject;
+    void cleanup();
 
 public:
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /** \brief
-      * Defines the type to be used for interfacing the video resource.
-      */
-    typedef ManagedTexture3D ManagedInterface;
-
-    /** \brief
-      * Instantiates and associates with a newly created OpenGL texture object.
-      * Invoke \ref release when it isn't needed any longer.
+      * Creates OpenGL texture object.
       *
-      * \copydetails Texture3D::Texture3D(const math::Vector3ui&, int, int, int, const void*)
+      * \param size
+      *     is the resolution of this texture.
+      *
+      * \param internalFormat
+      *     specifies the number of color components in the texture, e.g.
+      *     `GL_RGBA8UI` or `GL_INTENSITY16`.
+      *
+      * \param pixelFormat
+      *     specifies the format of the pixel data, e.g. `GL_RED`, `GL_RGB` or
+      *     `GL_RGBA`.
+      *
+      * \param bufferType
+      *     specifies the data type of the pixel data pointed to by \a bufferPtr.
+      *
+      * \param bufferPtr
+      *     points to the pixel data that will be uploaded to the texture.
+      *
+      * \see
+      * Valid values for the parameters are available here:
+      * https://www.opengl.org/sdk/docs/man3/xhtml/glTexImage3D.xml
       */
-    static Texture3D& create
+    Texture3D
         ( const math::Vector3ui& size
         , int internalFormat
         , int pixelFormat
         , int bufferType
         , const void* bufferPtr );
 
-    const math::Vector3ui size;  ///< \copydoc Texture3DObject::size
-    const int internalFormat;    ///< \copydoc Texture3DObject::internalFormat
-    const int pixelFormat;       ///< \copydoc Texture3DObject::pixelFormat
-    const int bufferType;        ///< \copydoc Texture3DObject::bufferType
-    const void* const bufferPtr; ///< \copydoc Texture3DObject::bufferPtr
+    /** \brief
+      * Deletes the maintained OpenGL texture object.
+      */
+    ~Texture3D();
 
     /** \brief
-      * Stretches texture coordinates s.t. the centers of the texels, that are
-      * located in the texture corners, become located in those corners.
-      *
-      * Consider a \f$4 \times 4\f$ texture. Each texel occupies \f$\frac{1}{4}\f$
-      * along each axis, hence the texels' centers are located at \f$\frac{1}{8}\f$,
-      * \f$\frac{3}{8}\f$, \f$\frac{5}{8}\f$ and \f$\frac{7}{8}\f$ along those axis.
-      *
-      * The matrix returned by this method transforms texture coordinates s.t.
-      * \f$ 0 \mapsto \frac{1}{8}\f$ and \f$ 1 \mapsto \frac{7}{8}\f$ following the
-      * considerations from above. The matrix is computed the first time the method
-      * is invoked. It is reused until the \ref upload "texture resolution changes".
+      * Texture unit that is fine to be used for temporal bindings, i.e. for setting
+      * textures up. This unit shouldn't be used for lasting bindings.
       */
-    const base::math::Matrix4f textureCoordinatesCorrection;
-    
-    /** \copydoc GeometryFeature::controlsSameVideoResource(const GeometryFeature&) const
-      *
-      * This implementation always returns `false`.
-      */
-    virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
-    
-    virtual ManagedTexture3D* acquireVideoResource() override;
+    const static unsigned int SETUP_UNIT = 0;
+
+    const unsigned int id;       ///< Holds the ID of the represented OpenGL texture object.
+    const math::Vector3ui size;  ///< Holds the resolution of this texture.
+    const int internalFormat;    ///< Holds the number of color components in the texture, e.g. `GL_RGBA8UI` or `GL_INTENSITY16`.
+    const int pixelFormat;       ///< Holds the format of the pixel data, e.g. `GL_RED`, `GL_RGB` or `GL_RGBA`.
+
+    /** \brief
+     * Binds this texture to \a unit.
+     *
+     * Consider using \ref SETUP_UNIT if you're binding the texture temporarily.
+     */
+    void bind( unsigned int unit ) const;
 
 }; // Texture3D
 

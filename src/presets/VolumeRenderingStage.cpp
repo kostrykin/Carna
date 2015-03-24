@@ -246,14 +246,14 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
     
     /* Bind all 'Texture3D' geometry features.
      */
-    unsigned int lastUnit = base::Texture3DObject::SETUP_UNIT;
+    unsigned int lastUnit = base::Texture3D::SETUP_UNIT;
     std::vector< unsigned int > roles;
-    const base::Texture3D* anyTexture;
+    const base::ManagedTexture3D* anyTexture;
     renderable.geometry().visitFeatures( [&]( base::GeometryFeature& gf, unsigned int role )
         {
-            if( dynamic_cast< base::Texture3D* >( &gf ) != nullptr )
+            if( dynamic_cast< base::ManagedTexture3D* >( &gf ) != nullptr )
             {
-                const base::Texture3D& texture = static_cast< const base::Texture3D& >( gf );
+                const base::ManagedTexture3D& texture = static_cast< const base::ManagedTexture3D& >( gf );
                 anyTexture = &texture;
                 videoResource( texture ).bind( ++lastUnit );
                 vr->samplers[ role ]->bind( lastUnit );
@@ -277,7 +277,7 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
     for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {
         const unsigned int role = roles[ samplerOffset ];
-        const unsigned int unit = base::Texture3DObject::SETUP_UNIT + 1 + samplerOffset;
+        const unsigned int unit = base::Texture3D::SETUP_UNIT + 1 + samplerOffset;
         const std::string& uniformName = this->uniformName( role );
         base::ShaderUniform< int >( uniformName, unit ).upload();
     }

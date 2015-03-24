@@ -9,8 +9,11 @@
  *
  */
 
+#include <Carna/base/glew.h>
+#include <Carna/base/glError.h>
 #include <Carna/base/ManagedTexture3D.h>
-#include <Carna/base/Texture3D.h>
+#include <Carna/base/CarnaException.h>
+#include <Carna/base/text.h>
 
 namespace Carna
 {
@@ -21,43 +24,59 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
+// computeTextureCoordinatesCorrection
+// ----------------------------------------------------------------------------------
+
+static base::math::Matrix4f computeTextureCoordinatesCorrection( const math::Vector3ui& size )
+{
+    const base::math::Vector3f texelSize   = size.cast< float >().cwiseInverse();
+    const base::math::Vector3f texelOffset = texelSize / 2;
+    const base::math::Vector3f texelScale  = base::math::Vector3f( 1, 1, 1 ) - texelSize;
+
+    base::math::Matrix4f m;
+    m << texelScale.x(),              0,              0, texelOffset.x(),
+                      0, texelScale.y(),              0, texelOffset.y(),
+                      0,              0, texelScale.z(), texelOffset.z(),
+                      0,              0,              0,               1;
+    return m;
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // ManagedTexture3D
 // ----------------------------------------------------------------------------------
 
-ManagedTexture3D::ManagedTexture3D( Texture3D& manager )
-    : GeometryFeature::ManagedInterface( manager )
-    , manager( manager )
+ManagedTexture3D::ManagedTexture3D
+        ( const math::Vector3ui& size
+        , int internalFormat
+        , int pixelFormat
+        , int bufferType
+        , const void* bufferPtr )
+    : size( size )
+    , internalFormat( internalFormat )
+    , pixelFormat( pixelFormat )
+    , bufferType( bufferType )
+    , bufferPtr( bufferPtr )
+    , textureCoordinatesCorrection( computeTextureCoordinatesCorrection( size ) )
 {
-    if( manager.videoResourceAcquisitionsCount() == 1 )
-    {
-        manager.textureObject.reset( new Texture3DObject
-            ( manager.size
-            , manager.internalFormat
-            , manager.pixelFormat
-            , manager.bufferType
-            , manager.bufferPtr ) );
-    }
 }
 
 
 ManagedTexture3D::~ManagedTexture3D()
 {
-    if( manager.videoResourceAcquisitionsCount() == 1 )
-    {
-        manager.textureObject.reset();
-    }
 }
 
 
-unsigned int ManagedTexture3D::id() const
+bool ManagedTexture3D::controlsSameVideoResource( const GeometryFeature& ) const
 {
-    return manager.textureObject->id;
+    return false;
 }
 
 
-void ManagedTexture3D::bind( unsigned int unit ) const
+ManagedTexture3DInterface* ManagedTexture3D::acquireVideoResource()
 {
-    manager.textureObject->bind( unit );
+    return new ManagedTexture3DInterface( *this );
 }
 
 

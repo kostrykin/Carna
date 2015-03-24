@@ -25,7 +25,7 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 HUVolumeTexture::HUVolumeTexture( const HUVolume& huVolume, int internalFormat, int bufferType, const void* bufferPtr )
-    : Texture3D( huVolume.size, internalFormat, GL_RED, bufferType, bufferPtr )
+    : ManagedTexture3D( huVolume.size, internalFormat, GL_RED, bufferType, bufferPtr )
     , huVolume( huVolume )
 {
 }

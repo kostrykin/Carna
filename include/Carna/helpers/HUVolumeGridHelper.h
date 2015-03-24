@@ -79,7 +79,7 @@ class HUVolumeGridHelper
     /** \brief
       * Caches volume textures created from \ref myGrid.
       */
-    mutable std::map< const typename base::HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment*, base::Texture3D* > textures;
+    mutable std::map< const typename base::HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment*, base::ManagedTexture3D* > textures;
 
 public:
 
@@ -296,7 +296,7 @@ void HUVolumeGridHelper< HUVolumeSegmentVolume >::releaseGeometryFeatures()
 {
     for( auto itr = textures.begin(); itr != textures.end(); ++itr )
     {
-        base::Texture3D& texture = *itr->second;
+        base::ManagedTexture3D& texture = *itr->second;
         texture.release();
     }
     textures.clear();
@@ -355,7 +355,7 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
         /* Check whether the texture already is available or needs to be uploaded.
          */
         auto textureItr = textures.find( &segment );
-        base::Texture3D* texture;
+        base::ManagedTexture3D* texture;
         if( textureItr == textures.end() )
         {
             /* Upload the texture to video memory.

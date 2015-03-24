@@ -93,8 +93,8 @@ namespace Carna
         class  Spatial;
         class  SpatialMovement;
         class  Texture3D;
-        class  Texture3DObject;
         class  ManagedTexture3D;
+        class  ManagedTexture3DInterface;
         struct VertexBase;
         struct VertexAttribute;
         class  VertexBufferBase;
