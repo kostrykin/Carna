@@ -176,9 +176,8 @@ public:
     const int pixelFormat;    ///< Holds the format of the pixel data, e.g. `GL_RED`, `GL_RGB` or `GL_RGBA`.
 
     /** \brief
-     * Binds this texture to \a unit.
-     *
-     * Consider using \ref Texture<0>::SETUP_UNIT if you're binding the texture temporarily.
+     * Binds this texture to \a unit. Consider using \ref Texture<0>::SETUP_UNIT if
+     * you're binding the texture temporarily.
      */
     void bind( unsigned int unit ) const;
 
@@ -187,7 +186,7 @@ public:
 
 template< unsigned int dimension >
 Texture< dimension >::Texture
-        ( const Texture< dimension >::Resolution& size
+        ( const Eigen::Matrix< unsigned int, dimension, 1 >& size
         , int internalFormat
         , int pixelFormat
         , int bufferType

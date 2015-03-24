@@ -135,9 +135,9 @@ void ManagedMeshBase::releaseMesh()
     if( --acquisitionCount == 0 )
     {
         /* Delete the mesh within the current OpenGL context.
-         */
-        pimpl->acquisitions.erase( infoItr );
+        */
         delete infoItr->second;
+        pimpl->acquisitions.erase( infoItr );
     }
     
     /* Delete vertex and index buffers if necessary.
