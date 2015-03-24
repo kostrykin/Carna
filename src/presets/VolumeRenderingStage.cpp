@@ -246,7 +246,7 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
     
     /* Bind all 'Texture3D' geometry features.
      */
-    unsigned int lastUnit = base::Texture3D::SETUP_UNIT;
+    unsigned int lastUnit = base::Texture3DObject::SETUP_UNIT;
     std::vector< unsigned int > roles;
     const base::Texture3D* anyTexture;
     renderable.geometry().visitFeatures( [&]( base::GeometryFeature& gf, unsigned int role )
@@ -277,7 +277,7 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
     for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {
         const unsigned int role = roles[ samplerOffset ];
-        const unsigned int unit = base::Texture3D::SETUP_UNIT + 1 + samplerOffset;
+        const unsigned int unit = base::Texture3DObject::SETUP_UNIT + 1 + samplerOffset;
         const std::string& uniformName = this->uniformName( role );
         base::ShaderUniform< int >( uniformName, unit ).upload();
     }

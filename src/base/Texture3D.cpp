@@ -12,6 +12,7 @@
 #include <Carna/base/glew.h>
 #include <Carna/base/glError.h>
 #include <Carna/base/Texture3D.h>
+#include <Carna/base/ManagedTexture3D.h>
 #include <Carna/base/CarnaException.h>
 #include <Carna/base/text.h>
 
@@ -20,94 +21,6 @@ namespace Carna
 
 namespace base
 {
-
-
-
-// ----------------------------------------------------------------------------------
-// Texture3D :: VideoResourceAcquisition
-// ----------------------------------------------------------------------------------
-
-Texture3D::VideoResourceAcquisition::VideoResourceAcquisition( Texture3D& texture )
-    : GeometryFeature::VideoResourceAcquisition( texture )
-    , texture( texture )
-{
-    if( texture.videoResourceAcquisitionsCount() == 1 )
-    {
-        CARNA_ASSERT_EX
-            ( texture.size.x() % 2 == 0 && texture.size.y() % 2 == 0 && texture.size.z() % 2 == 0
-            , "Texture3D only supports even sizes." );
-        
-        /* Acquire the texture.
-         */
-        glGenTextures( 1, &texture.id );
-        CARNA_ASSERT_EX( texture.id != 0, "Texture3D acquisition failed." );
-        
-        /* Upload texture data.
-         */
-        bind( SETUP_UNIT );
-        glTexImage3D( GL_TEXTURE_3D, 0, texture.internalFormat
-                    , texture.size.x(), texture.size.y(), texture.size.z()
-                    , 0, texture.pixelFormat, texture.bufferType, texture.bufferPtr );
-
-        const unsigned int err = glGetError();
-        if( err != GL_NO_ERROR )
-        {
-            std::string err_msg;
-            switch( err )
-            {
-                case GL_INVALID_ENUM:
-                    err_msg = "invalid enumerator";
-                    break;
-
-                case GL_INVALID_VALUE:
-                    err_msg = "invalid value";
-                    break;
-
-                case GL_INVALID_OPERATION:
-                    err_msg = "invalid operation";
-                    break;
-
-                case GL_OUT_OF_MEMORY:
-                    err_msg = "out of memory";
-                    break;
-
-                default:
-                    err_msg = base::text::lexical_cast< std::string >( err );
-            }
-
-            std::stringstream ss;
-            ss << "3D texture acquisition failed: "
-               << err_msg;
-
-            CARNA_FAIL( ss.str() );
-        }
-    }
-}
-
-
-Texture3D::VideoResourceAcquisition::~VideoResourceAcquisition()
-{
-    if( texture.videoResourceAcquisitionsCount() == 1 )
-    {
-        /* Release the texture.
-         */
-        glDeleteTextures( 1, &texture.id );
-        texture.id = 0;
-    }
-}
-
-
-unsigned int Texture3D::VideoResourceAcquisition::id() const
-{
-    return texture.id;
-}
-
-
-void Texture3D::VideoResourceAcquisition::bind( unsigned int unit ) const
-{
-    glActiveTexture( GL_TEXTURE0 + unit );
-    glBindTexture( GL_TEXTURE_3D, texture.id );
-}
 
 
 
@@ -162,9 +75,9 @@ bool Texture3D::controlsSameVideoResource( const GeometryFeature& ) const
 }
 
 
-Texture3D::VideoResourceAcquisition* Texture3D::acquireVideoResource()
+ManagedTexture3D* Texture3D::acquireVideoResource()
 {
-    return new VideoResourceAcquisition( *this );
+    return new ManagedTexture3D( *this );
 }
 
 

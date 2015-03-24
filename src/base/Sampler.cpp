@@ -12,7 +12,7 @@
 #include <Carna/base/glew.h>
 #include <Carna/base/glError.h>
 #include <Carna/base/Sampler.h>
-#include <Carna/base/Texture3D.h>
+#include <Carna/base/Texture3DObject.h>
 #include <Carna/base/CarnaException.h>
 
 namespace Carna
@@ -80,7 +80,7 @@ Sampler::Sampler
         , unsigned int magFilter )
     : id( createGLSampler() )
 {
-    bind( Texture3D::SETUP_UNIT );
+    bind( Texture3DObject::SETUP_UNIT );
     
     setWrapModeS( wrapModeS );
     setWrapModeT( wrapModeT );

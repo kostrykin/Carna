@@ -13,6 +13,7 @@
 #define TEXTURE3D_H_6014714286
 
 #include <Carna/Carna.h>
+#include <Carna/base/ManagedTexture3D.h>
 #include <Carna/base/GeometryFeature.h>
 #include <Carna/base/noncopyable.h>
 #include <Carna/base/math.h>
@@ -34,67 +35,51 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Maintains a 3D OpenGL texture object.
+  * Maintains a \ref Texture3DObject "3D OpenGL texture object".
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 18.3.15
+  * \date   22.2.15 - 24.3.15
   */
 class CARNA_LIB Texture3D : public GeometryFeature
 {
 
     NON_COPYABLE
 
-    unsigned int id;
-
 protected:
 
     friend class GeometryFeature;
+    friend class ManagedTexture3D;
 
     /** \brief
       * Instantiates.
       *
-      * \param size
-      *     is the resolution of this texture.
-      *
-      * \param internalFormat
-      *     specifies the number of color components in the texture, e.g.
-      *     `GL_RGBA8UI` or `GL_INTENSITY16`.
-      *
-      * \param pixelFormat
-      *     specifies the format of the pixel data, e.g. `GL_RED`, `GL_RGB` or
-      *     `GL_RGBA`.
-      *
-      * \param bufferType
-      *     specifies the data type of the pixel data pointed to by \a bufferPtr.
-      *
-      * \param bufferPtr
-      *     points to the pixel data that will be uploaded to the texture.
+      * \copydetails Texture3DObject::Texture3DObject
       *
       * \attention
       * The instance does neither upload the pixel data from \a bufferPtr
       * immediately, nor does it create a copy. Hence the pixel data located at
       * \a bufferPtr must stay valid as long as an upload might be required.
-      *
-      * \see
-      * Valid values for the parameters are available here:
-      * https://www.opengl.org/sdk/docs/man3/xhtml/glTexImage3D.xml
       */
     Texture3D( const math::Vector3ui& size, int internalFormat, int pixelFormat, int bufferType, const void* bufferPtr );
 
     /** \brief
       * Deletes.
       */
-    virtual ~Texture3D();
+    ~Texture3D();
+
+    /** \brief
+      * Holds the maintained OpenGL texture object.
+      */
+    std::unique_ptr< Texture3DObject > textureObject;
 
 public:
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /** \brief
-      * Texture unit that is fine to be used for temporal bindings, i.e. for setting
-      * textures up. This unit shouldn't be used for lasting bindings.
+      * Defines the type to be used for interfacing the video resource.
       */
-    const static unsigned int SETUP_UNIT = 0;
+    typedef ManagedTexture3D VideoResourceAcquisition;
 
     /** \brief
       * Instantiates and associates with a newly created OpenGL texture object.
@@ -109,11 +94,11 @@ public:
         , int bufferType
         , const void* bufferPtr );
 
-    const math::Vector3ui size;  ///< Holds the resolution of this texture.
-    const int internalFormat;    ///< Holds the number of color components in the texture, e.g. `GL_RGBA8UI` or `GL_INTENSITY16`.
-    const int pixelFormat;       ///< Holds the format of the pixel data, e.g. `GL_RED`, `GL_RGB` or `GL_RGBA`.
-    const int bufferType;        ///< Holds the data type of the pixel data pointed to by \ref bufferPtr.
-    const void* const bufferPtr; ///< Points to the pixel data that will be uploaded to the texture.
+    const math::Vector3ui size;  ///< \copydoc Texture3DObject::size
+    const int internalFormat;    ///< \copydoc Texture3DObject::internalFormat
+    const int pixelFormat;       ///< \copydoc Texture3DObject::pixelFormat
+    const int bufferType;        ///< \copydoc Texture3DObject::bufferType
+    const void* const bufferPtr; ///< \copydoc Texture3DObject::bufferPtr
 
     /** \brief
       * Stretches texture coordinates s.t. the centers of the texels, that are
@@ -135,54 +120,8 @@ public:
       * This implementation always returns `false`.
       */
     virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
-
-    // ------------------------------------------------------------------------------
-    // Texture3D :: VideoResourceAcquisition
-    // ------------------------------------------------------------------------------
     
-    /** \brief
-      * Represents an acquisition of video resources from a particular
-      * \ref Texture3D. This realizes the RAII idiom.
-      *
-      * \author Leonid Kostrykin
-      * \date   22.2.15 - 18.3.15
-      */
-    class CARNA_LIB VideoResourceAcquisition : public GeometryFeature::VideoResourceAcquisition
-    {
-    
-    public:
-    
-        /** \brief
-          * Acquires the video resources from \a texture.
-          *
-          * \copydetails GeometryFeature::VideoResourceAcquisition::VideoResourceAcquisition(GeometryFeature&)
-          */
-        VideoResourceAcquisition( Texture3D& texture );
-    
-        /** \copydoc GeometryFeature::VideoResourceAcquisition::~VideoResourceAcquisition()
-          */
-        virtual ~VideoResourceAcquisition();
-        
-        /** \brief
-          * Tells the texture ID.
-          */
-        unsigned int id() const;
-
-        /** \brief
-          * Binds this texture to \a unit.
-          *
-          * Consider using \ref SETUP_UNIT if you're binding the texture temporarily.
-          */
-        void bind( unsigned int unit ) const;
-    
-        /** \brief
-          * References the texture.
-          */
-        Texture3D& texture;
-    
-    }; // Texture3D :: VideoResourceAcquisition
-    
-    virtual VideoResourceAcquisition* acquireVideoResource() override;
+    virtual ManagedTexture3D* acquireVideoResource() override;
 
 }; // Texture3D
 
