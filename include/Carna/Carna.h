@@ -94,7 +94,6 @@ namespace Carna
         class  ShaderUniformBase;
         class  Spatial;
         class  SpatialMovement;
-        class  Texture3D;
         class  ManagedTexture3D;
         class  ManagedTexture3DInterface;
         struct VertexBase;
@@ -121,6 +120,7 @@ namespace Carna
         template< typename ValueType > class ShaderUniform;
         template< typename ValueType > struct ShaderUniformType;
         template< typename InstanceType > class Singleton;
+        template< unsigned int dimension > class Texture;
         
         /** \brief
           * Provides set of math-related classes and functions.

@@ -44,14 +44,14 @@ namespace base
   * \em roles they take when associated with a geometry object.
   *
   * \note
-  * Conventionally, the default role for \ref Texture3D "3D textures" that represent
-  * HU data, such as \ref presets::DRRStage::ROLE_HU_VOLUME or
+  * Conventionally, the default role for \ref HUVolumeTexture "3D textures" that
+  * represent HU data, such as \ref presets::DRRStage::ROLE_HU_VOLUME or
   * \ref presets::CuttingPlanesStage::ROLE_HU_VOLUME, is 0.
   * 
   * What features a geometry object aggregates depends on the \c %geometryType and
   * what the corresponding rendering stage expects. Typical examples are
-  * \ref Mesh "meshes", \ref Material "materials" and
-  * \ref Texture3D "volume textures".
+  * \ref ManagedMesh "meshes", \ref Material "materials" and
+  * \ref ManagedTexture3D "volume textures".
   *
   * \author Leonid Kostrykin
   * \date   21.2.15 - 6.3.15

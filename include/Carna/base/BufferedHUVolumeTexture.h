@@ -33,8 +33,8 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Generic \ref Texture3D specialization that initializes the texture with data from
-  * \ref BufferedHUVolume instances.
+  * Generic \ref HUVolumeTexture specialization that initializes the texture with
+  * data from \ref BufferedHUVolume instances.
   *
   * \author Leonid Kostrykin
   * \date 22.2.15 - 13.3.15

@@ -233,7 +233,7 @@ void CuttingPlanesStage::render( const base::Renderable& volume )
 {
     /* Bind texture and volumeSampler to free texture unit.
      */
-    const static unsigned int TEXTURE_UNIT = base::Texture3D::SETUP_UNIT + 1;
+    const static unsigned int TEXTURE_UNIT = base::Texture< 0 >::SETUP_UNIT + 1;
     const base::ManagedTexture3D& texture = static_cast< const base::ManagedTexture3D& >( volume.geometry().feature( ROLE_HU_VOLUME ) );
     this->videoResource( texture ).get().bind( TEXTURE_UNIT );
     vr->volumeSampler.bind( TEXTURE_UNIT );

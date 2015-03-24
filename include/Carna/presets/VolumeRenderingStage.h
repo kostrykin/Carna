@@ -135,9 +135,10 @@ namespace presets
   * one might expect. As a consequence, not only the values in between of the texture
   * values are interpolated, but also the values on the edges of the texture. These
   * extrapolated edges are usually not expected by applications. This class
-  * \ref base::Texture3D::textureCoordinatesCorrection "obtains a matrix" that shifts
-  * and scales the texture coordinates s.t. these edges are avoided. It creates the
-  * illusion as if the texture values were actually mapped to the grid intersections.
+  * \ref base::ManagedTexture3D::textureCoordinatesCorrection "obtains a matrix" that
+  * shifts and scales the texture coordinates s.t. these edges are avoided. It
+  * creates the illusion as if the texture values were actually mapped to the grid
+  * intersections.
   *
   * The matrix, that results from the concatenation of the translation and the
   * edges-correction matrix, is uploaded to the shader as an uniform named
@@ -210,8 +211,8 @@ namespace presets
   * units. The uniform variable will then reflect the texture that is currently bound
   * to that unit. For geometry nodes that \ref GeometryTypes "this stage processes",
   * it looks for such \ref GeometryFeatures "geometry features" that are from type
-  * \ref base::Texture3D. It then queries the names of the uniform variables, that
-  * these textures shall be linked with, from the implementation.
+  * \ref base::ManagedTexture3D. It then queries the names of the uniform variables,
+  * that these textures shall be linked with, from the implementation.
   *
   * \subsection VolumeRenderingDeriving Deriving the Class
   *

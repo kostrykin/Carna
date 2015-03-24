@@ -11,7 +11,7 @@
 
 #include <Carna/base/ManagedTexture3DInterface.h>
 #include <Carna/base/ManagedTexture3D.h>
-#include <Carna/base/Texture3D.h>
+#include <Carna/base/Texture.h>
 
 namespace Carna
 {
@@ -31,7 +31,7 @@ ManagedTexture3DInterface::ManagedTexture3DInterface( ManagedTexture3D& managed 
 {
     if( managed.videoResourceAcquisitionsCount() == 1 )
     {
-        managed.textureObject.reset( new Texture3D
+        managed.textureObject.reset( new Texture< 3 >
             ( managed.size
             , managed.internalFormat
             , managed.pixelFormat
@@ -50,7 +50,7 @@ ManagedTexture3DInterface::~ManagedTexture3DInterface()
 }
 
 
-const Texture3D& ManagedTexture3DInterface::get() const
+const Texture< 3 >& ManagedTexture3DInterface::get() const
 {
     return *managed.textureObject;
 }

@@ -65,7 +65,7 @@ public:
         
     /** Referencs the texture represented by \ref managed.
       */
-    const Texture3D& get() const;
+    const Texture< 3 >& get() const;
 
 }; // ManagedTexture3DInterface
 

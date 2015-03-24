@@ -11,7 +11,6 @@
 
 #include <Carna/base/glew.h>
 #include <Carna/base/BufferedHUVolumeFormat.h>
-#include <Carna/base/Texture3D.h>
 
 namespace Carna
 {

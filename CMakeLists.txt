@@ -128,7 +128,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/Material.h
 		include/${PROJECT_NAME}/base/Viewport.h
 		include/${PROJECT_NAME}/base/glError.h
-		include/${PROJECT_NAME}/base/Texture3D.h
+		include/${PROJECT_NAME}/base/Texture.h
 		include/${PROJECT_NAME}/base/ManagedTexture3D.h
 		include/${PROJECT_NAME}/base/ManagedTexture3DInterface.h
 		include/${PROJECT_NAME}/base/BufferedHUVolumeFormat.h
@@ -221,7 +221,7 @@ set( SRC
 		src/base/Material.cpp
 		src/base/ShaderCompilationError.cpp
 		src/base/ShaderProgram.cpp
-		src/base/Texture3D.cpp
+		src/base/Texture.cpp
 		src/base/ManagedTexture3D.cpp
 		src/base/ManagedTexture3DInterface.cpp
 		src/base/Viewport.cpp

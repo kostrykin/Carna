@@ -35,7 +35,7 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Represents \ref Texture3D "3D OpenGL texture object" whose lifetime is managed by
+  * Represents \ref Texture "3D OpenGL texture object" whose lifetime is managed by
   * instances of this class.
   *
   * \author Leonid Kostrykin
@@ -54,7 +54,26 @@ protected:
     /** \brief
       * Instantiates.
       *
-      * \copydetails Texture3D::Texture3D(const math::Vector3ui&, int, int, int, const void*)
+      * \param size
+      *     is the resolution of this texture.
+      *
+      * \param internalFormat
+      *     specifies the number of color components in the texture, e.g.
+      *     `GL_RGBA8UI` or `GL_INTENSITY16`.
+      *
+      * \param pixelFormat
+      *     specifies the format of the pixel data, e.g. `GL_RED`, `GL_RGB` or
+      *     `GL_RGBA`.
+      *
+      * \param bufferType
+      *     specifies the data type of the pixel data pointed to by \a bufferPtr.
+      *
+      * \param bufferPtr
+      *     points to the pixel data that will be uploaded to the texture.
+      *
+      * \see
+      * Valid values for the parameters are available here:
+      * https://www.opengl.org/sdk/docs/man3/xhtml/glTexImage3D.xml
       *
       * \attention
       * The instance does neither upload the pixel data from \a bufferPtr
@@ -71,7 +90,7 @@ protected:
     /** \brief
       * Holds the maintained OpenGL texture object.
       */
-    std::unique_ptr< Texture3D > textureObject;
+    std::unique_ptr< Texture< 3 > > textureObject;
 
 public:
 
@@ -86,7 +105,7 @@ public:
       * Instantiates and associates with a newly created OpenGL texture object.
       * Invoke \ref release when it isn't needed any longer.
       *
-      * \copydetails Texture3D::Texture3D(const math::Vector3ui&, int, int, int, const void*)
+      * \copydetails ManagedTexture3D::ManagedTexture3D(const math::Vector3ui&, int, int, int, const void*)
       */
     static ManagedTexture3D& create
         ( const math::Vector3ui& size
@@ -95,11 +114,11 @@ public:
         , int bufferType
         , const void* bufferPtr );
 
-    const math::Vector3ui size;  ///< \copydoc Texture3D::size
-    const int internalFormat;    ///< \copydoc Texture3D::internalFormat
-    const int pixelFormat;       ///< \copydoc Texture3D::pixelFormat
-    const int bufferType;        ///< \copydoc Texture3D::bufferType
-    const void* const bufferPtr; ///< \copydoc Texture3D::bufferPtr
+    const math::Vector3ui size;  ///< \copydoc Texture::size
+    const int internalFormat;    ///< \copydoc Texture::internalFormat
+    const int pixelFormat;       ///< \copydoc Texture::pixelFormat
+    const int bufferType;        ///< \copydoc Texture::bufferType
+    const void* const bufferPtr; ///< \copydoc Texture::bufferPtr
 
     /** \brief
       * Stretches texture coordinates s.t. the centers of the texels, that are
