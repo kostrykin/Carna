@@ -25,6 +25,7 @@
 #include <Carna/base/IndexBuffer.h>
 #include <Carna/base/Sampler.h>
 #include <Carna/base/Stopwatch.h>
+#include <Carna/base/Composition.h>
 #include <vector>
 
 namespace Carna
@@ -64,13 +65,16 @@ static GLContext& glContextMadeCurrent( GLContext& glc )
 // createFullFrameQuadMesh
 // ----------------------------------------------------------------------------------
 
-static MeshBase& createFullFrameQuadMesh()
+static MeshBase* createFullFrameQuadMesh()
 {
+    typedef VertexBase VertexType;
+    typedef    uint8_t  IndexType;
+    
     /* Lets create clipping coordinates directly,
      * s.t. we won't need to pass any matrices to the shader.
      */
-    VertexBase vertices[ 4 ];
-    uint8_t indices[ 4 ];
+    VertexType vertices[ 4 ];
+     IndexType  indices[ 4 ];
 
     vertices[ 0 ].x = -1;
     vertices[ 0 ].y = -1;
@@ -88,8 +92,21 @@ static MeshBase& createFullFrameQuadMesh()
     vertices[ 3 ].y = +1;
     indices [ 3 ] = 3;
 
-    return Mesh< VertexBase, uint8_t >::create
-        ( IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN, vertices, 4, indices, 4 );
+    /* Create vertex buffer.
+     */
+    VertexBuffer< VertexType >* const vertexBuffer = new VertexBuffer< VertexType >();
+    vertexBuffer->copy( vertices, 4 );
+    
+    /* Create index buffer.
+     */
+    IndexBuffer< IndexType >* const indexBuffer = new IndexBuffer< IndexType >( IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN );
+    indexBuffer->copy( indices, 4 );
+     
+    /* Compose the mesh.
+     */
+    return new Mesh< VertexType, IndexType >
+        ( new Composition< VertexBufferBase >( vertexBuffer )
+        , new Composition<  IndexBufferBase >(  indexBuffer ) );
 }
 
 
@@ -176,10 +193,7 @@ struct FrameRenderer::Details
     GLContext* const glContext;
 
     const std::unique_ptr< Sampler > fullFrameQuadSampler;
-
-    MeshBase& fullFrameQuadMesh;
-    std::unique_ptr< MeshBase::ManagedInterface > fullFrameQuadMeshVR;
-
+    const std::unique_ptr< MeshBase > fullFrameQuadMesh;
     const ShaderProgram& fullFrameQuadShader;
 
     float backgroundColor[ 4 ];
@@ -195,10 +209,9 @@ FrameRenderer::Details::Details( GLContext& glContext, unsigned int width, unsig
     : width( width )
     , height( height )
     , reshaped( true )
-    , glContext( &glContextMadeCurrent( glContext ) )
+    , glContext( &glContextMadeCurrent( glContext ) ) // makes 'glContext' current
     , fullFrameQuadSampler( createFullFrameQuadSampler() )
     , fullFrameQuadMesh( createFullFrameQuadMesh() )
-    , fullFrameQuadMeshVR( new MeshBase::ManagedInterface( fullFrameQuadMesh ) )
     , fullFrameQuadShader( ShaderManager::instance().acquireShader( "full_frame_quad" ) )
     , backgroundColorChanged( true )
     , fpsStatistics( 0, 0 )
@@ -246,7 +259,6 @@ FrameRenderer::~FrameRenderer()
      */
     clearStages();
     ShaderManager::instance().releaseShader( pimpl->fullFrameQuadShader );
-    pimpl->fullFrameQuadMesh.release();
 }
 
 
@@ -421,7 +433,7 @@ void FrameRenderer::renderTexture( const RenderTextureParams& params ) const
     }
 
     ShaderUniform< int >( params.textureUniformName, params.unit ).upload();
-    pimpl->fullFrameQuadMeshVR->render();
+    pimpl->fullFrameQuadMesh->render();
 }
 
 

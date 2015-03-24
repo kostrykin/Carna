@@ -101,7 +101,7 @@ void FrameRendererIntegrationTest::test_typical()
 
     /* Configure opaque geometries.
      */
-    base::MeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 40, 40, 40 );
+    base::ManagedMeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 40, 40, 40 );
     base::Material& boxMaterial = base::Material::create( "unshaded" );
     boxMaterial.setParameter( "color", base::Color::GREEN );
     base::Geometry* const boxGeometry = new base::Geometry( GEOMETRY_TYPE_OPAQUE );

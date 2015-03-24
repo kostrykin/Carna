@@ -157,8 +157,8 @@ void MeshRenderingStage< RenderableCompare >::render( const Renderable& renderab
     ShaderUniform< math::Matrix4f >( "projection", renderTask->projection ).upload();
     ShaderUniform< math::Matrix4f >( "modelViewProjection", renderTask->projection * renderable.modelViewTransform() ).upload();
 
-    const MeshBase& mesh = static_cast< MeshBase& >( renderable.geometry().feature( ROLE_DEFAULT_MESH ) );
-    this->videoResource( mesh ).render();
+    const ManagedMeshBase& mesh = static_cast< ManagedMeshBase& >( renderable.geometry().feature( ROLE_DEFAULT_MESH ) );
+    this->videoResource( mesh ).get().render();
 }
 
 

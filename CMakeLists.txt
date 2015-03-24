@@ -140,6 +140,8 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/VertexAttributes.h
 		include/${PROJECT_NAME}/base/IndexBuffer.h
 		include/${PROJECT_NAME}/base/Mesh.h
+		include/${PROJECT_NAME}/base/ManagedMesh.h
+		include/${PROJECT_NAME}/base/ManagedMeshInterface.h
 		include/${PROJECT_NAME}/base/MeshFactory.h
 		include/${PROJECT_NAME}/base/BaseBuffer.h
 		include/${PROJECT_NAME}/base/ShaderManager.h
@@ -232,6 +234,8 @@ set( SRC
 		src/base/VertexBuffer.cpp
 		src/base/IndexBuffer.cpp
 		src/base/Mesh.cpp
+		src/base/ManagedMesh.cpp
+		src/base/ManagedMeshInterface.cpp
 		src/base/BaseBuffer.cpp
 		src/base/ShaderManager.cpp
 		src/base/ShaderUniform.cpp

@@ -32,13 +32,7 @@ namespace presets
 
 struct CuttingPlanesStage::Details
 {
-
     Details( unsigned int planeGeometryType );
-
-    ~Details();
-    
-    typedef base::Mesh< base::VertexBase, uint8_t > PlaneMesh;
-    PlaneMesh& planeMesh;
 
     base::RenderQueue< void > planes;
 
@@ -49,17 +43,53 @@ struct CuttingPlanesStage::Details
     unsigned int windowingWidth;
     bool renderingIvnerse;
 
-    static PlaneMesh& createPlaneMesh();
-
     static inline float huvToIntensity( base::HUV huv )
     {
         return ( huv + 1024 ) / 4095.f;
     }
+};
 
-}; // CuttingPlanesStage :: Details
+
+CuttingPlanesStage::Details::Details( unsigned int planeGeometryType )
+    : planes( planeGeometryType )
+    , renderTask( nullptr )
+    , viewPort( nullptr )
+    , windowingLevel( DEFAULT_WINDOWING_LEVEL )
+    , windowingWidth( DEFAULT_WINDOWING_WIDTH )
+    , renderingIvnerse( false )
+{
+}
 
 
-CuttingPlanesStage::Details::PlaneMesh& CuttingPlanesStage::Details::createPlaneMesh()
+
+// ----------------------------------------------------------------------------------
+// CuttingPlanesStage :: VideoResources
+// ----------------------------------------------------------------------------------
+
+struct CuttingPlanesStage::VideoResources
+{
+    VideoResources( const base::ShaderProgram& shader );
+
+    typedef base::Mesh< base::VertexBase, uint8_t > PlaneMesh;
+    const std::unique_ptr< PlaneMesh > planeMesh;
+    static PlaneMesh* createPlaneMesh();
+    
+    const base::ShaderProgram& shader;
+    base::Sampler volumeSampler;
+};
+
+
+CuttingPlanesStage::VideoResources::VideoResources( const base::ShaderProgram& shader )
+    : planeMesh( createPlaneMesh() )
+    , shader( shader )
+    , volumeSampler
+        ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
+        , base::Sampler::FILTER_LINEAR, base::Sampler::FILTER_LINEAR )
+{
+}
+
+
+CuttingPlanesStage::VideoResources::PlaneMesh* CuttingPlanesStage::VideoResources::createPlaneMesh()
 {
     const float radius = std::sqrt( 3.f ) / 2;
     base::VertexBase vertices[ 4 ];
@@ -80,53 +110,24 @@ CuttingPlanesStage::Details::PlaneMesh& CuttingPlanesStage::Details::createPlane
     vertices[ 3 ].x = -radius;
     vertices[ 3 ].y = +radius;
     indices [ 3 ] = 3;
+    
+    /* Create vertex buffer.
+     */
+    typedef base::VertexBuffer< PlaneMesh::Vertex > VBuffer;
+    VBuffer* const vertexBuffer = new VBuffer();
+    vertexBuffer->copy( vertices, 4 );
+    
+    /* Create index buffer.
+     */
+    typedef base::IndexBuffer< PlaneMesh::Index > IBuffer;
+    IBuffer* const indexBuffer = new IBuffer( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN );
+    indexBuffer->copy( indices, 4 );
 
-    return PlaneMesh::create( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLE_FAN, vertices, 4, indices, 4 );
-}
-
-
-CuttingPlanesStage::Details::Details( unsigned int planeGeometryType )
-    : planeMesh( createPlaneMesh() )
-    , planes( planeGeometryType )
-    , renderTask( nullptr )
-    , viewPort( nullptr )
-    , windowingLevel( DEFAULT_WINDOWING_LEVEL )
-    , windowingWidth( DEFAULT_WINDOWING_WIDTH )
-    , renderingIvnerse( false )
-{
-}
-
-
-CuttingPlanesStage::Details::~Details()
-{
-    planeMesh.release();
-}
-
-
-
-// ----------------------------------------------------------------------------------
-// CuttingPlanesStage :: VideoResources
-// ----------------------------------------------------------------------------------
-
-struct CuttingPlanesStage::VideoResources
-{
-
-    VideoResources( const base::ShaderProgram& shader, Details::PlaneMesh& planeMesh );
-
-    Details::PlaneMesh::ManagedInterface planeMeshVR;
-    const base::ShaderProgram& shader;
-    base::Sampler volumeSampler;
-
-}; // CuttingPlanesStage :: VideoResources
-
-
-CuttingPlanesStage::VideoResources::VideoResources( const base::ShaderProgram& shader, Details::PlaneMesh& planeMesh )
-    : planeMeshVR( planeMesh )
-    , shader( shader )
-    , volumeSampler
-        ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
-        , base::Sampler::FILTER_LINEAR, base::Sampler::FILTER_LINEAR )
-{
+    /* Create the mesh.
+     */
+    return new PlaneMesh
+        ( new base::Composition< base::VertexBufferBase >( vertexBuffer )
+        , new base::Composition< base:: IndexBufferBase >(  indexBuffer ) );
 }
 
 
@@ -234,8 +235,8 @@ void CuttingPlanesStage::render( const base::Renderable& volume )
      */
     const static unsigned int TEXTURE_UNIT = base::Texture3D::SETUP_UNIT + 1;
     const base::ManagedTexture3D& texture = static_cast< const base::ManagedTexture3D& >( volume.geometry().feature( ROLE_HU_VOLUME ) );
+    this->videoResource( texture ).get().bind( TEXTURE_UNIT );
     vr->volumeSampler.bind( TEXTURE_UNIT );
-    this->videoResource( texture ).bind( TEXTURE_UNIT );
     
     /* Upload volume-specific uniforms that are equal for all planes.
      */
@@ -290,7 +291,7 @@ void CuttingPlanesStage::render( const base::Renderable& volume )
 
         /* Draw the plane.
          */
-        vr->planeMeshVR.render();
+        vr->planeMesh->render();
     }
 }
 
@@ -302,7 +303,7 @@ void CuttingPlanesStage::renderPass
 {
     if( vr.get() == nullptr )
     {
-        vr.reset( new VideoResources( base::ShaderManager::instance().acquireShader( "cutting_plane" ), pimpl->planeMesh ) );
+        vr.reset( new VideoResources( base::ShaderManager::instance().acquireShader( "cutting_plane" ) ) );
     }
     
     rt.renderer.glContext().setShader( vr->shader );

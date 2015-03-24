@@ -11,6 +11,8 @@
 
 #include <Carna/presets/VolumeRenderingStage.h>
 #include <Carna/base/Mesh.h>
+#include <Carna/base/ManagedTexture3D.h>
+#include <Carna/base/ManagedTexture3DInterface.h>
 #include <Carna/base/Vertex.h>
 #include <Carna/base/IndexBuffer.h>
 #include <Carna/base/ShaderManager.h>
@@ -65,13 +67,13 @@ struct VolumeRenderingStage::VideoResources
     std::map< unsigned int, base::Sampler* > samplers;
     
     typedef base::Mesh< base::VertexBase, uint16_t > SlicesMesh;
-    SlicesMesh::ManagedInterface& slicesMesh( unsigned int sampleRate );
+    SlicesMesh& slicesMesh( unsigned int sampleRate );
     
 private:
 
     unsigned int mySampleRate;
-    std::unique_ptr< SlicesMesh::ManagedInterface > mySlicesMesh;
-    static SlicesMesh::ManagedInterface* createSlicesMesh( unsigned int sampleRate );
+    std::unique_ptr< SlicesMesh > mySlicesMesh;
+    static SlicesMesh* createSlicesMesh( unsigned int sampleRate );
 };
 
 
@@ -85,8 +87,7 @@ VolumeRenderingStage::VideoResources::VideoResources( const base::ShaderProgram&
 }
 
 
-VolumeRenderingStage::VideoResources::SlicesMesh::ManagedInterface* VolumeRenderingStage::VideoResources::createSlicesMesh
-    ( unsigned int sampleRate )
+VolumeRenderingStage::VideoResources::SlicesMesh* VolumeRenderingStage::VideoResources::createSlicesMesh( unsigned int sampleRate )
 {
     /* The mesh is constructed in model space. The box [-0,5; +0.5]^3 defines the
      * space that we need to cover. For a ray that hits the center, the distant-most
@@ -134,25 +135,28 @@ VolumeRenderingStage::VideoResources::SlicesMesh::ManagedInterface* VolumeRender
         indices[ 6 * sliceIdx + 4 ] = 4 * sliceIdx + 3;
         indices[ 6 * sliceIdx + 5 ] = 4 * sliceIdx + 0;
     }
+    
+    /* Create vertex buffer.
+     */
+    typedef base::VertexBuffer< SlicesMesh::Vertex > VBuffer;
+    VBuffer* const vertexBuffer = new VBuffer();
+    vertexBuffer->copy( &vertices.front(), vertices.size() );
+    
+    /* Create index buffer.
+     */
+    typedef base::IndexBuffer< SlicesMesh::Index > IBuffer;
+    IBuffer* const indexBuffer = new IBuffer( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLES );
+    indexBuffer->copy( &indices.front(), indices.size() );
 
     /* Create the mesh.
      */
-    SlicesMesh& mesh = SlicesMesh::create
-        ( base::IndexBufferBase::PRIMITIVE_TYPE_TRIANGLES
-        , &vertices.front(), vertices.size()
-        , &indices.front(), indices.size() );
-    
-    /* Acquire the video resources and release the mesh s.t. it is deleted when the
-     * video resources are released.
-     */
-    SlicesMesh::ManagedInterface* const meshVR = new SlicesMesh::ManagedInterface( mesh );
-    mesh.release();
-    return meshVR;
+    return new SlicesMesh
+        ( new base::Composition< base::VertexBufferBase >( vertexBuffer )
+        , new base::Composition< base:: IndexBufferBase >(  indexBuffer ) );
 }
 
 
-VolumeRenderingStage::VideoResources::SlicesMesh::ManagedInterface& VolumeRenderingStage::VideoResources::slicesMesh
-    ( unsigned int sampleRate )
+VolumeRenderingStage::VideoResources::SlicesMesh& VolumeRenderingStage::VideoResources::slicesMesh( unsigned int sampleRate )
 {
     if( mySampleRate != sampleRate )
     {
@@ -255,7 +259,7 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
             {
                 const base::ManagedTexture3D& texture = static_cast< const base::ManagedTexture3D& >( gf );
                 anyTexture = &texture;
-                videoResource( texture ).bind( ++lastUnit );
+                videoResource( texture ).get().bind( ++lastUnit );
                 vr->samplers[ role ]->bind( lastUnit );
                 roles.push_back( role );
             }
@@ -284,7 +288,7 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
 
     /* Invoke shader.
      */
-    VideoResources::SlicesMesh::ManagedInterface& slicesMesh = vr->slicesMesh( pimpl->sampleRate );
+    VideoResources::SlicesMesh& slicesMesh = vr->slicesMesh( pimpl->sampleRate );
     slicesMesh.render();
 }
 

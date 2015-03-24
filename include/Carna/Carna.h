@@ -74,6 +74,8 @@ namespace Carna
         class  HUVolumeTexture;
         class  IndexBufferBase;
         class  MeshBase;
+        class  ManagedMeshBase;
+        class  ManagedMeshInterface;
         class  MeshRenderingStageBase;
         class  Node;
         class  ProjectionControl;
@@ -111,6 +113,7 @@ namespace Carna
         template< typename HUVolumeGrid, typename HUVolumeSegmentVolume > class HUVolumeSegment;
         template< typename IndexType > class IndexBuffer;
         template< typename VertexType, typename IndexType > class Mesh;
+        template< typename VertexType, typename IndexType > class ManagedMesh;
         template< typename VertexType > class MeshFactory;
         template< typename RenderableCompare > class MeshRenderingStage;
         template< typename RenderableCompare > class RenderQueue;

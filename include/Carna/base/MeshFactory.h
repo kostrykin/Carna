@@ -15,7 +15,7 @@
 #include <Carna/base/VertexAttributes.h>
 #include <Carna/base/VertexBuffer.h>
 #include <Carna/base/IndexBuffer.h>
-#include <Carna/base/Mesh.h>
+#include <Carna/base/ManagedMesh.h>
 #include <Carna/base/math.h>
 
 /** \file   MeshFactory.h
@@ -35,7 +35,7 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Creates simple predefined \ref Mesh instances.
+  * Creates simple predefined \ref ManagedMesh instances.
   *
   * \param VertexType
   *     specifies the vertex type that is to be used to build the
@@ -57,11 +57,11 @@ public:
       * Creates box with \a width, \a height and \a depth. The box is centered in
       * \f$\left(0, 0, 0\right)^\mathrm T\f$.
       */
-    static Mesh< VertexType, uint8_t >& createBox( float width, float height, float depth );
+    static ManagedMesh< VertexType, uint8_t >& createBox( float width, float height, float depth );
 
     /** \overload
       */
-    static Mesh< VertexType, uint8_t >& createBox( const math::Vector3f& size );
+    static ManagedMesh< VertexType, uint8_t >& createBox( const math::Vector3f& size );
 
 }; // MeshFactory
 
@@ -79,14 +79,14 @@ VertexType MeshFactory< VertexType >::vertex( const VectorType& v )
 
 
 template< typename VertexType >
-Mesh< VertexType, uint8_t >& MeshFactory< VertexType >::createBox( const math::Vector3f& size )
+ManagedMesh< VertexType, uint8_t >& MeshFactory< VertexType >::createBox( const math::Vector3f& size )
 {
     return createBox( size.x(), size.y(), size.z() );
 }
 
 
 template< typename VertexType >
-Mesh< VertexType, uint8_t >& MeshFactory< VertexType >::createBox( float sizeX, float sizeY, float sizeZ )
+ManagedMesh< VertexType, uint8_t >& MeshFactory< VertexType >::createBox( float sizeX, float sizeY, float sizeZ )
 {
     const math::Matrix4f baseTransform = math::scaling4f( sizeX / 2, sizeY / 2, sizeZ / 2 );
 
@@ -103,7 +103,7 @@ Mesh< VertexType, uint8_t >& MeshFactory< VertexType >::createBox( float sizeX, 
     const std::size_t verticesCount = 6 * 4;
     const std::size_t indicesCount  = 6 * 2 * 3;
 
-    typedef Mesh< VertexType, uint8_t > MeshInstance;
+    typedef ManagedMesh< VertexType, uint8_t > MeshInstance;
     typedef typename MeshInstance::Vertex Vertex;
     typedef typename MeshInstance:: Index  Index;
     Vertex vertices[ verticesCount ];

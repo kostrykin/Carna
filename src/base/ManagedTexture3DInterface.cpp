@@ -50,15 +50,9 @@ ManagedTexture3DInterface::~ManagedTexture3DInterface()
 }
 
 
-unsigned int ManagedTexture3DInterface::id() const
+const Texture3D& ManagedTexture3DInterface::get() const
 {
-    return managed.textureObject->id;
-}
-
-
-void ManagedTexture3DInterface::bind( unsigned int unit ) const
-{
-    managed.textureObject->bind( unit );
+    return *managed.textureObject;
 }
 
 

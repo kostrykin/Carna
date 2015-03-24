@@ -15,9 +15,7 @@
 #include <Carna/base/VertexAttributes.h>
 #include <Carna/base/VertexBuffer.h>
 #include <Carna/base/IndexBuffer.h>
-#include <Carna/base/GeometryFeature.h>
 #include <memory>
-#include <vector>
 
 /** \file   Mesh.h
   * \brief  Defines \ref Carna::base::Mesh.
@@ -38,24 +36,12 @@ namespace base
 /** \brief
   * Format-independent abstract \ref Mesh base class. Each mesh consists of a
   * \ref VertexBuffer, an \ref IndexBuffer and a \ref VertexArrays "vertex array".
+  * This class realizes the RAII-idiom w.r.t. the vertex array.
   *
-  * \see
-  * The \ref MeshFactory class contains a few examples.
-  *
-  * The class maintains one \ref VertexBuffer and one \ref IndexBuffer on an
-  * application level. The buffers are created the first time the
-  * \ref MeshBase::VideoResourceAcquisition "mesh's video resources" are acquired.
-  * The buffers are deleted when the last acquisition is released. The buffer
-  * instances are available across all \ref GLContext "OpenGL contexts".
-  *
-  * The class also maintains one so-called OpenGL vertex array, which, contrary to
-  * its name, basically is a conjunction of vertex and index buffer. This is
-  * maintained on a per-context level. This is explained further below.
-  *
-  * \section VertexArrays OpenGL Background on Vertex Arrays
-  *
-  * OpenGL vertex arrays cannot be shared across OpenGL contexts. Hence we need to
-  * create one vertex array per context that it is acquired within.
+  * The class maintains a so-called OpenGL vertex array in RAII-manner, which,
+  * contrary to its name, basically is a conjunction of vertex and index buffer.
+  * Because a vertex array is not \ref GLContext "sharable across OpenGL contexts",
+  * objects from this class are always coupled to a particular context.
   *
   * > Any OpenGL object types which are not containers are sharable, as well as Sync
   * > Objects and GLSL Objects (excluding program pipeline objects). All container
@@ -72,113 +58,58 @@ namespace base
   *  -# https://www.opengl.org/wiki/OpenGL_Object#Container_objects
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 14.3.15
+  * \date   1.9.14 - 24.3.15
   */
-class CARNA_LIB MeshBase : public GeometryFeature
+class CARNA_LIB MeshBase
 {
 
-    NON_COPYABLE
-    
-    struct Details;
-    const std::unique_ptr< Details > pimpl;
-
-protected:
-
-    friend class GeometryFeature;
-
-    /** \brief
-      * Instantiates.
-      */
-    MeshBase( unsigned int primitiveType, const VertexAttributes& va );
-
-    /** \brief
-      * Deletes.
-      */
-    virtual ~MeshBase();
-    
-    /** \brief
-      * Creates OpenGL vertex buffer object and fills it with data.
-      */
-    virtual VertexBufferBase* loadVertexBuffer() = 0;
-    
-    /** \brief
-      * Creates OpenGL index buffer object and fills it with data.
-      */
-    virtual IndexBufferBase* loadIndexBuffer() = 0;
+    const std::unique_ptr< Association< VertexBufferBase > > myVertexBuffer;
+    const std::unique_ptr< Association<  IndexBufferBase > >  myIndexBuffer;
 
 public:
 
-    virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
+    /** Creates new mesh. It is only valid within the
+      * \ref GLContext "current OpenGL context".
+      * \post `&GLContext::current() == &glContext`
+      */
+    MeshBase
+        ( const VertexAttributes& va
+        , Association< VertexBufferBase >* vertexBuffer
+        , Association<  IndexBufferBase >*  indexBuffer );
+
+    /** \brief
+      * Deletes.
+      * \pre `&GLContext::current() == &glContext`
+      */
+    virtual ~MeshBase();
+
+    /** \brief
+      * Holds the ID of the \ref VertexArrays "OpenGL vertex array object".
+      */
+    const unsigned int id;
     
     /** \brief
-      * Holds the primitive type, like `GL_TRIANGLES`, that should be used when
-      * rendering this mesh.
+      * References the OpenGL context this mesh is valid within.
       */
-    const unsigned int primitiveType;
-    
+    const GLContext& glContext;
+
     /** \brief
-      * Holds the vertex format of the vertices contained by the vertex buffer.
+      * Binds the \ref VertexArrays "vertex array object".
+      * \pre `&GLContext::current() == &glContext`
       */
-    const VertexAttributes vertexAttributes;
+    void bind() const;
 
-    // ------------------------------------------------------------------------------
-    // MeshBase :: VideoResourceAcquisition
-    // ------------------------------------------------------------------------------
-    
     /** \brief
-      * Represents an acquisition of video resources from a particular
-      * \ref MeshBase "mesh". This realizes the RAII idiom.
-      *
-      * \author Leonid Kostrykin
-      * \date   22.2.15 - 18.3.15
+      * Renders the mesh.
+      * \pre `&GLContext::current() == &glContext`
       */
-    class CARNA_LIB ManagedInterface : public GeometryFeature::ManagedInterface
-    {
-    
-        unsigned int myId;
-    
-    public:
-    
-        /** \brief
-          * Acquires the video resources from \a mesh.
-          *
-          * \copydetails GeometryFeature::VideoResourceAcquisition::VideoResourceAcquisition(GeometryFeature&)
-          */
-        ManagedInterface( MeshBase& mesh );
-    
-        /** \copydoc GeometryFeature::VideoResourceAcquisition::~VideoResourceAcquisition()
-          */
-        virtual ~ManagedInterface();
-    
-        /** \brief
-          * Tells the ID of the \ref VertexArrays "OpenGL vertex array object".
-          */
-        unsigned int id() const;
+    void render() const;
 
-        /** \brief
-          * Binds the \ref VertexArrays "vertex array object".
-          */
-        void bind() const;
-
-        /** \brief
-          * Renders the mesh.
-          */
-        void render() const;
-
-        const VertexBufferBase& vertexBuffer() const;   ///< References the mesh's vertex buffer.
-        const  IndexBufferBase&  indexBuffer() const;   ///< References the mesh's index buffer.
-        
-        VertexBufferBase& vertexBuffer();   ///< References the mesh's vertex buffer.
-         IndexBufferBase&  indexBuffer();   ///< References the mesh's index buffer.
+    const VertexBufferBase& vertexBuffer() const;   ///< References the mesh's vertex buffer.
+    const  IndexBufferBase&  indexBuffer() const;   ///< References the mesh's  index buffer.
     
-        /** \brief
-          * References the mesh.
-          */
-        MeshBase& mesh;
-    
-    }; // MeshBase :: ManagedInterface
-    
-    virtual ManagedInterface* acquireVideoResource() override;
+    VertexBufferBase& vertexBuffer();   ///< References the mesh's vertex buffer.
+     IndexBufferBase&  indexBuffer();   ///< References the mesh's  index buffer.
 
 }; // MeshBase
 
@@ -198,86 +129,32 @@ public:
   * The \ref MeshFactory class contains a few examples.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 14.3.15
+  * \date   22.2.15 - 24.3.15
   */
 template< typename VertexType, typename IndexType >
 class Mesh : public MeshBase
 {
 
-    const std::vector< VertexType > vertices;
-    const std::vector<  IndexType > indices;
-
-    Mesh( unsigned int primitiveType
-        , const VertexType* vertices
-        , const std::size_t vertexCount
-        , const IndexType* indices
-        , const std::size_t indexCount );
-    
-protected:
-    
-    virtual VertexBufferBase* loadVertexBuffer() override;
-    
-    virtual IndexBufferBase* loadIndexBuffer() override;
-
 public:
+
+    /** Creates new mesh. It is only valid within the
+      * \ref GLContext "current OpenGL context".
+      */
+    Mesh( Association< VertexBufferBase >* vertexBuffer
+        , Association<  IndexBufferBase >* indexBuffer );
 
     typedef VertexType Vertex;  ///< Holds the element type of the vertex buffer.
     typedef  IndexType  Index;  ///< Holds the element type of the  index buffer.
-
-    /** \brief
-      * Instantiates. Call \ref release when you do not need the object any longer.
-      */
-    static Mesh< VertexType, IndexType >& create
-        ( unsigned int primitiveType
-        , const VertexType* vertices
-        , const std::size_t vertexCount
-        , const IndexType* indices
-        , const std::size_t indexCount );
 
 }; // Mesh
 
 
 template< typename VertexType, typename IndexType >
 Mesh< VertexType, IndexType >::Mesh
-        ( unsigned int primitiveType
-        , const VertexType* vertices
-        , const std::size_t vertexCount
-        , const IndexType* indices
-        , const std::size_t indexCount )
-    : MeshBase( primitiveType, Vertex::attributes )
-    , vertices( vertices, vertices + vertexCount )
-    , indices (  indices,  indices +  indexCount )
+        ( Association< VertexBufferBase >* vertexBuffer
+        , Association<  IndexBufferBase >* indexBuffer )
+    : MeshBase( VertexType::attributes, vertexBuffer, indexBuffer )
 {
-}
-
-
-template< typename VertexType, typename IndexType >
-VertexBufferBase* Mesh< VertexType, IndexType >::loadVertexBuffer()
-{
-    VertexBuffer< VertexType >* const vb = new VertexBuffer< VertexType >();
-    vb->copy( &vertices.front(), vertices.size() );
-    return vb;
-}
-
-
-template< typename VertexType, typename IndexType >
-IndexBufferBase* Mesh< VertexType, IndexType >::loadIndexBuffer()
-{
-    IndexBuffer< IndexType >* const ib = new IndexBuffer< IndexType >( primitiveType );
-    ib->copy( &indices.front(), indices.size() );
-    return ib;
-}
-
-
-template< typename VertexType, typename IndexType >
-Mesh< VertexType, IndexType >& Mesh< VertexType, IndexType >::create
-    ( unsigned int primitiveType
-    , const VertexType* vertices
-    , const std::size_t vertexCount
-    , const IndexType* indices
-    , const std::size_t indexCount )
-{
-    return *new Mesh< Vertex, Index >( primitiveType, vertices, vertexCount, indices, indexCount );
 }
 
 

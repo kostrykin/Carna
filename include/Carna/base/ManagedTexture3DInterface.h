@@ -59,21 +59,13 @@ public:
     virtual ~ManagedTexture3DInterface();
 
     /** \brief
-      * References the `%ManagedTexture3D` this interface belongs to.
+      * References the `%ManagedTexture3D` object this interface belongs to.
       */
     ManagedTexture3D& managed;
         
-    /** \brief
-      * Tells the ID of the managed texture.
+    /** Referencs the texture represented by \ref managed.
       */
-    unsigned int id() const;
-
-    /** \brief
-      * Binds the managed texture to \a unit.
-      *
-      * \copydetails Texture3D::bind
-      */
-    void bind( unsigned int unit ) const;
+    const Texture3D& get() const;
 
 }; // ManagedTexture3DInterface
 

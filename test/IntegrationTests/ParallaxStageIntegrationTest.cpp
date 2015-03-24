@@ -67,7 +67,7 @@ void ParallaxStageIntegrationTest::initTestCase()
     /* Create and add opaque objects to scene.
      */
     //! [parallax_scene_setup]
-    base::MeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 40, 40, 40 );
+    base::ManagedMeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 40, 40, 40 );
     base::Material& material = base::Material::create( "unshaded" );
     material.setParameter( "color", base::Color::RED );
     
