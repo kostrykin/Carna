@@ -25,7 +25,7 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 ManagedTexture3D::ManagedTexture3D( Texture3D& manager )
-    : GeometryFeature::VideoResourceAcquisition( manager )
+    : GeometryFeature::ManagedInterface( manager )
     , manager( manager )
 {
     if( manager.videoResourceAcquisitionsCount() == 1 )

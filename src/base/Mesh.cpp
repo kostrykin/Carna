@@ -136,8 +136,8 @@ void MeshBase::Details::release()
 // MeshBase :: VideoResourceAcquisition
 // ----------------------------------------------------------------------------------
 
-MeshBase::VideoResourceAcquisition::VideoResourceAcquisition( MeshBase& mesh )
-    : GeometryFeature::VideoResourceAcquisition( mesh )
+MeshBase::ManagedInterface::ManagedInterface( MeshBase& mesh )
+    : GeometryFeature::ManagedInterface( mesh )
     , mesh( mesh )
 {
     if( mesh.videoResourceAcquisitionsCount() == 1 )
@@ -156,7 +156,7 @@ MeshBase::VideoResourceAcquisition::VideoResourceAcquisition( MeshBase& mesh )
 }
 
 
-MeshBase::VideoResourceAcquisition::~VideoResourceAcquisition()
+MeshBase::ManagedInterface::~ManagedInterface()
 {
     /* Release vertex array within current context.
      */
@@ -174,13 +174,13 @@ MeshBase::VideoResourceAcquisition::~VideoResourceAcquisition()
 }
 
 
-void MeshBase::VideoResourceAcquisition::bind() const
+void MeshBase::ManagedInterface::bind() const
 {
     glBindVertexArray( this->id() );
 }
 
 
-void MeshBase::VideoResourceAcquisition::render() const
+void MeshBase::ManagedInterface::render() const
 {
     CARNA_ASSERT_EX( vertexBuffer().isValid(), "Vertex buffer is invalid." );
     CARNA_ASSERT_EX(  indexBuffer().isValid(),  "Index buffer is invalid." );
@@ -191,31 +191,31 @@ void MeshBase::VideoResourceAcquisition::render() const
 }
 
 
-const VertexBufferBase& MeshBase::VideoResourceAcquisition::vertexBuffer() const
+const VertexBufferBase& MeshBase::ManagedInterface::vertexBuffer() const
 {
     return *mesh.pimpl->vertexBuffer;
 }
 
 
-const IndexBufferBase& MeshBase::VideoResourceAcquisition::indexBuffer() const
+const IndexBufferBase& MeshBase::ManagedInterface::indexBuffer() const
 {
     return *mesh.pimpl->indexBuffer;
 }
 
 
-VertexBufferBase& MeshBase::VideoResourceAcquisition::vertexBuffer()
+VertexBufferBase& MeshBase::ManagedInterface::vertexBuffer()
 {
     return *mesh.pimpl->vertexBuffer;
 }
 
 
-IndexBufferBase& MeshBase::VideoResourceAcquisition::indexBuffer()
+IndexBufferBase& MeshBase::ManagedInterface::indexBuffer()
 {
     return *mesh.pimpl->indexBuffer;
 }
 
 
-unsigned int MeshBase::VideoResourceAcquisition::id() const
+unsigned int MeshBase::ManagedInterface::id() const
 {
     return myId;
 }
@@ -251,9 +251,9 @@ bool MeshBase::controlsSameVideoResource( const GeometryFeature& ) const
 }
 
 
-MeshBase::VideoResourceAcquisition* MeshBase::acquireVideoResource()
+MeshBase::ManagedInterface* MeshBase::acquireVideoResource()
 {
-    return new VideoResourceAcquisition( *this );
+    return new ManagedInterface( *this );
 }
 
 

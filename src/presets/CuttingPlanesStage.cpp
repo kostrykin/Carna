@@ -113,7 +113,7 @@ struct CuttingPlanesStage::VideoResources
 
     VideoResources( const base::ShaderProgram& shader, Details::PlaneMesh& planeMesh );
 
-    Details::PlaneMesh::VideoResourceAcquisition planeMeshVR;
+    Details::PlaneMesh::ManagedInterface planeMeshVR;
     const base::ShaderProgram& shader;
     base::Sampler volumeSampler;
 

@@ -58,7 +58,7 @@ template< typename RenderableCompare >
 class GeometryStage : public RenderStage
 {
 
-    typedef GeometryFeature::VideoResourceAcquisition VideoResource;
+    typedef GeometryFeature::ManagedInterface VideoResource;
 
     Node* root;
     std::size_t passesRendered;
@@ -107,12 +107,12 @@ public:
       * this rendering stage.
       */
     template< typename GeometryFeatureType >
-    typename GeometryFeatureType::VideoResourceAcquisition& videoResource( GeometryFeatureType& geometryFeature ) const;
+    typename GeometryFeatureType::ManagedInterface& videoResource( GeometryFeatureType& geometryFeature ) const;
     
     /** \overload
       */
     template< typename GeometryFeatureType >
-    const typename GeometryFeatureType::VideoResourceAcquisition& videoResource( const GeometryFeatureType& geometryFeature ) const;
+    const typename GeometryFeatureType::ManagedInterface& videoResource( const GeometryFeatureType& geometryFeature ) const;
 
 protected:
 
@@ -296,18 +296,18 @@ bool GeometryStage< RenderableCompare >::isInitialized() const
 
 template< typename RenderableCompare >
 template< typename GeometryFeatureType >
-typename GeometryFeatureType::VideoResourceAcquisition& GeometryStage< RenderableCompare >
+typename GeometryFeatureType::ManagedInterface& GeometryStage< RenderableCompare >
     ::videoResource( GeometryFeatureType& gf ) const
 {
     const auto itr = acquiredFeatures.find( &gf );
     CARNA_ASSERT( itr != acquiredFeatures.end() );
-    return static_cast< typename GeometryFeatureType::VideoResourceAcquisition& >( *itr->second );
+    return static_cast< typename GeometryFeatureType::ManagedInterface& >( *itr->second );
 }
 
 
 template< typename RenderableCompare >
 template< typename GeometryFeatureType >
-const typename GeometryFeatureType::VideoResourceAcquisition& GeometryStage< RenderableCompare >
+const typename GeometryFeatureType::ManagedInterface& GeometryStage< RenderableCompare >
     ::videoResource( const GeometryFeatureType& gf ) const
 {
     return videoResource( const_cast< GeometryFeatureType& >( gf ) );

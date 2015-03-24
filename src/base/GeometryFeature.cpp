@@ -125,17 +125,17 @@ bool GeometryFeature::Details::deleteIfAllowed( GeometryFeature* self )
 
 
 // ----------------------------------------------------------------------------------
-// GeometryFeature :: VideoResourceAcquisition
+// GeometryFeature :: ManagedInterface
 // ----------------------------------------------------------------------------------
 
-GeometryFeature::VideoResourceAcquisition::VideoResourceAcquisition( GeometryFeature& gf )
-    : geometryFeature( gf )
+GeometryFeature::ManagedInterface::ManagedInterface( GeometryFeature& manager )
+    : geometryFeature( manager )
 {
     ++geometryFeature.pimpl->videoResourceAcquisitions;
 }
 
 
-GeometryFeature::VideoResourceAcquisition::~VideoResourceAcquisition()
+GeometryFeature::ManagedInterface::~ManagedInterface()
 {
     CARNA_ASSERT( geometryFeature.pimpl->videoResourceAcquisitions > 0 );
     if( --geometryFeature.pimpl->videoResourceAcquisitions == 0 )

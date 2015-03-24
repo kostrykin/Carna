@@ -178,7 +178,7 @@ struct FrameRenderer::Details
     const std::unique_ptr< Sampler > fullFrameQuadSampler;
 
     MeshBase& fullFrameQuadMesh;
-    std::unique_ptr< MeshBase::VideoResourceAcquisition > fullFrameQuadMeshVR;
+    std::unique_ptr< MeshBase::ManagedInterface > fullFrameQuadMeshVR;
 
     const ShaderProgram& fullFrameQuadShader;
 
@@ -198,7 +198,7 @@ FrameRenderer::Details::Details( GLContext& glContext, unsigned int width, unsig
     , glContext( &glContextMadeCurrent( glContext ) )
     , fullFrameQuadSampler( createFullFrameQuadSampler() )
     , fullFrameQuadMesh( createFullFrameQuadMesh() )
-    , fullFrameQuadMeshVR( new MeshBase::VideoResourceAcquisition( fullFrameQuadMesh ) )
+    , fullFrameQuadMeshVR( new MeshBase::ManagedInterface( fullFrameQuadMesh ) )
     , fullFrameQuadShader( ShaderManager::instance().acquireShader( "full_frame_quad" ) )
     , backgroundColorChanged( true )
     , fpsStatistics( 0, 0 )

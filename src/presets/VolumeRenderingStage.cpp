@@ -65,13 +65,13 @@ struct VolumeRenderingStage::VideoResources
     std::map< unsigned int, base::Sampler* > samplers;
     
     typedef base::Mesh< base::VertexBase, uint16_t > SlicesMesh;
-    SlicesMesh::VideoResourceAcquisition& slicesMesh( unsigned int sampleRate );
+    SlicesMesh::ManagedInterface& slicesMesh( unsigned int sampleRate );
     
 private:
 
     unsigned int mySampleRate;
-    std::unique_ptr< SlicesMesh::VideoResourceAcquisition > mySlicesMesh;
-    static SlicesMesh::VideoResourceAcquisition* createSlicesMesh( unsigned int sampleRate );
+    std::unique_ptr< SlicesMesh::ManagedInterface > mySlicesMesh;
+    static SlicesMesh::ManagedInterface* createSlicesMesh( unsigned int sampleRate );
 };
 
 
@@ -85,7 +85,7 @@ VolumeRenderingStage::VideoResources::VideoResources( const base::ShaderProgram&
 }
 
 
-VolumeRenderingStage::VideoResources::SlicesMesh::VideoResourceAcquisition* VolumeRenderingStage::VideoResources::createSlicesMesh
+VolumeRenderingStage::VideoResources::SlicesMesh::ManagedInterface* VolumeRenderingStage::VideoResources::createSlicesMesh
     ( unsigned int sampleRate )
 {
     /* The mesh is constructed in model space. The box [-0,5; +0.5]^3 defines the
@@ -145,13 +145,13 @@ VolumeRenderingStage::VideoResources::SlicesMesh::VideoResourceAcquisition* Volu
     /* Acquire the video resources and release the mesh s.t. it is deleted when the
      * video resources are released.
      */
-    SlicesMesh::VideoResourceAcquisition* const meshVR = new SlicesMesh::VideoResourceAcquisition( mesh );
+    SlicesMesh::ManagedInterface* const meshVR = new SlicesMesh::ManagedInterface( mesh );
     mesh.release();
     return meshVR;
 }
 
 
-VolumeRenderingStage::VideoResources::SlicesMesh::VideoResourceAcquisition& VolumeRenderingStage::VideoResources::slicesMesh
+VolumeRenderingStage::VideoResources::SlicesMesh::ManagedInterface& VolumeRenderingStage::VideoResources::slicesMesh
     ( unsigned int sampleRate )
 {
     if( mySampleRate != sampleRate )
@@ -284,7 +284,7 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
 
     /* Invoke shader.
      */
-    VideoResources::SlicesMesh::VideoResourceAcquisition& slicesMesh = vr->slicesMesh( pimpl->sampleRate );
+    VideoResources::SlicesMesh::ManagedInterface& slicesMesh = vr->slicesMesh( pimpl->sampleRate );
     slicesMesh.render();
 }
 

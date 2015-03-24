@@ -132,7 +132,7 @@ public:
       * \author Leonid Kostrykin
       * \date   22.2.15 - 18.3.15
       */
-    class CARNA_LIB VideoResourceAcquisition : public GeometryFeature::VideoResourceAcquisition
+    class CARNA_LIB ManagedInterface : public GeometryFeature::ManagedInterface
     {
     
         unsigned int myId;
@@ -144,11 +144,11 @@ public:
           *
           * \copydetails GeometryFeature::VideoResourceAcquisition::VideoResourceAcquisition(GeometryFeature&)
           */
-        VideoResourceAcquisition( MeshBase& mesh );
+        ManagedInterface( MeshBase& mesh );
     
         /** \copydoc GeometryFeature::VideoResourceAcquisition::~VideoResourceAcquisition()
           */
-        virtual ~VideoResourceAcquisition();
+        virtual ~ManagedInterface();
     
         /** \brief
           * Tells the ID of the \ref VertexArrays "OpenGL vertex array object".
@@ -176,9 +176,9 @@ public:
           */
         MeshBase& mesh;
     
-    }; // MeshBase :: VideoResourceAcquisition
+    }; // MeshBase :: ManagedInterface
     
-    virtual VideoResourceAcquisition* acquireVideoResource() override;
+    virtual ManagedInterface* acquireVideoResource() override;
 
 }; // MeshBase
 

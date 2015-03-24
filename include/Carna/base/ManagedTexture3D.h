@@ -39,7 +39,7 @@ namespace base
   * \author Leonid Kostrykin
   * \date   22.2.15 - 24.3.15
   */
-class CARNA_LIB ManagedTexture3D : public GeometryFeature::VideoResourceAcquisition
+class CARNA_LIB ManagedTexture3D : public GeometryFeature::ManagedInterface
 {
 
     NON_COPYABLE
@@ -52,7 +52,7 @@ public:
       * Creates a new interface to the \ref Texture3DObject that is managed by
       * \a manager.
       */
-    ManagedTexture3D( Texture3D& manager );
+    explicit ManagedTexture3D( Texture3D& manager );
 
     /** \brief
       * Releases this interface.

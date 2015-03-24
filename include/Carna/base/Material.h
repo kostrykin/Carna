@@ -249,7 +249,7 @@ public:
       * \author Leonid Kostrykin
       * \date   22.2.15 - 18.3.15
       */
-    class CARNA_LIB VideoResourceAcquisition : public GeometryFeature::VideoResourceAcquisition
+    class CARNA_LIB ManagedInterface : public GeometryFeature::ManagedInterface
     {
     
     public:
@@ -259,11 +259,11 @@ public:
           *
           * \copydetails GeometryFeature::VideoResourceAcquisition::VideoResourceAcquisition(GeometryFeature&)
           */
-        VideoResourceAcquisition( Material& material );
+        ManagedInterface( Material& material );
     
         /** \copydoc GeometryFeature::VideoResourceAcquisition::~VideoResourceAcquisition()
           */
-        virtual ~VideoResourceAcquisition();
+        virtual ~ManagedInterface();
 
         /** \brief
           * Activates \ref material "this material" by setting the
@@ -284,7 +284,7 @@ public:
     
     }; // Material :: VideoResourceAcquisition
     
-    virtual VideoResourceAcquisition* acquireVideoResource() override;
+    virtual ManagedInterface* acquireVideoResource() override;
 
 }; // Material
 

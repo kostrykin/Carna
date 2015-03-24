@@ -40,8 +40,8 @@ struct Material::Details
 // Material :: VideoResourceAcquisition
 // ----------------------------------------------------------------------------------
 
-Material::VideoResourceAcquisition::VideoResourceAcquisition( Material& material )
-    : GeometryFeature::VideoResourceAcquisition( material )
+Material::ManagedInterface::ManagedInterface( Material& material )
+    : GeometryFeature::ManagedInterface( material )
     , material( material )
 {
     if( material.videoResourceAcquisitionsCount() == 1 )
@@ -53,7 +53,7 @@ Material::VideoResourceAcquisition::VideoResourceAcquisition( Material& material
 }
 
 
-Material::VideoResourceAcquisition::~VideoResourceAcquisition()
+Material::ManagedInterface::~ManagedInterface()
 {
     if( material.videoResourceAcquisitionsCount() == 1 )
     {
@@ -65,14 +65,14 @@ Material::VideoResourceAcquisition::~VideoResourceAcquisition()
 }
 
 
-const ShaderProgram& Material::VideoResourceAcquisition::shader() const
+const ShaderProgram& Material::ManagedInterface::shader() const
 {
     CARNA_ASSERT( material.shader != nullptr );
     return *material.shader;
 }
 
 
-void Material::VideoResourceAcquisition::activate( RenderState& rs ) const
+void Material::ManagedInterface::activate( RenderState& rs ) const
 {
     /* Ensure the shader is activated.
      */
@@ -160,9 +160,9 @@ void Material::removeParameter( const std::string& name )
 }
 
 
-Material::VideoResourceAcquisition* Material::acquireVideoResource()
+Material::ManagedInterface* Material::acquireVideoResource()
 {
-    return new VideoResourceAcquisition( *this );
+    return new ManagedInterface( *this );
 }
 
 

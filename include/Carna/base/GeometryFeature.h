@@ -98,17 +98,17 @@ public:
     void removeFrom( Geometry& sceneGraphNode );
 
     // ------------------------------------------------------------------------------
-    // GeometryFeature :: VideoResourceAcquisition
+    // GeometryFeature :: ManagedInterface
     // ------------------------------------------------------------------------------
 
     /** \brief
-      * Represents an acquisition of video resources from a particular
-      * \ref GeometryFeature. This realizes the RAII idiom.
+      * Represents an acquisition of the video resources, that are  managed by a
+      * particular \ref GeometryFeature. This *acquisition* realizes the RAII idiom.
       *
       * \author Leonid Kostrykin
       * \date   22.2.15 - 18.3.15
       */
-    class CARNA_LIB VideoResourceAcquisition
+    class CARNA_LIB ManagedInterface
     {
     
         NON_COPYABLE
@@ -116,39 +116,39 @@ public:
     protected:
     
         /** \brief
-          * Acquires the video resources from \a geometryFeature.
+          * Acquires the video resources managed by \a manager.
           *
-          * The instantiated \ref VideoResourceAcquisition object is only valid
-          * within the \ref GLContext "current OpenGL context". Delete the object in
-          * order to release the acquired resources. Usually the resources are
-          * uploaded to video memory, when they are first acquired, and deleted from
-          * video memory, when the last acquisition is released. This depends on
-          * whether the resources are \ref GLContext "sharable" across OpenGL
-          * contexts.
+          * The instantiated `%ManagedInterface` object is only valid within the
+          * \ref GLContext "current OpenGL context". Delete the object in order to
+          * release the acquired resources. Usually the resources are uploaded to
+          * video memory when they are first acquired, and deleted from video memory
+          * when the last acquisition is released. This depends on whether the
+          * resources are \ref GLContext "sharable" across OpenGL contexts.
           */
-        explicit VideoResourceAcquisition( GeometryFeature& geometryFeature );
+        explicit ManagedInterface( GeometryFeature& manager );
         
     public:
     
         /** \brief
-          * Releases the video resources previously acquired from
+          * Releases the video resources previously acquired from the managing
           * \ref geometryFeature.
           */
-        virtual ~VideoResourceAcquisition();
+        virtual ~ManagedInterface();
         
         /** \brief
-          * References the `%GeometryFeature` that video resources are acquired from.
+          * References the `%GeometryFeature` that manages the video resources that
+          * this object interfaces.
           */
         GeometryFeature& geometryFeature;
         
-    }; // GeometryFeature :: VideoResourceAcquisition
+    }; // GeometryFeature :: ManagedInterface
     
     /** \brief
       * Acquires the video resources from this `%GeometryFeature` by returning new
-      * instance of a class derived from \ref VideoResourceAcquisition, that realizes
-      * the RAII idiom. Refer to its documentation for details.
+      * instance of a class derived from \ref ManagedInterface, that realizes the
+      * RAII idiom. Refer to its documentation for details.
       */
-    virtual VideoResourceAcquisition* acquireVideoResource() = 0;
+    virtual ManagedInterface* acquireVideoResource() = 0;
 
 }; // GeometryFeature
 

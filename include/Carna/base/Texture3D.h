@@ -79,7 +79,7 @@ public:
     /** \brief
       * Defines the type to be used for interfacing the video resource.
       */
-    typedef ManagedTexture3D VideoResourceAcquisition;
+    typedef ManagedTexture3D ManagedInterface;
 
     /** \brief
       * Instantiates and associates with a newly created OpenGL texture object.
