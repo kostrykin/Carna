@@ -116,8 +116,7 @@ public:
       * Instantiates.
       *
       * \param geometryType
-      *     is the \ref QuickStart_FrameRenderer "geometry type" rendered by this
-      *     stage.
+      *     is the \ref GeometryTypes "geometry type" rendered by this stage.
       */
     MeshRenderingStage( unsigned int geometryType );
 

@@ -164,7 +164,7 @@ struct RenderableSort
 {
     static void sort( std::vector< Renderable >& renderables, bool skipIfViewDependent )
     {
-        if( renderables.size() > 2 && ( RenderableCompare::isViewDependent || !skipIfViewDependent ) )
+        if( renderables.size() >= 2 && ( RenderableCompare::isViewDependent || !skipIfViewDependent ) )
         {
             std::sort( renderables.begin(), renderables.end(), RenderableCompare() );
         }

@@ -41,7 +41,7 @@ namespace presets
   *
   * \snippet ModuleTests/MIPStageTest.cpp mip_instantiation
   *
-  * The concept of geometry types is explained \ref QuickStart_FrameRenderer "here".
+  * The concept of geometry types is explained \ref GeometryTypes "here".
   *
   * \note
   * In the \ref RenderingProcess "rendering process" this stage will usually be

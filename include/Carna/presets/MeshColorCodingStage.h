@@ -40,7 +40,7 @@ namespace presets
   *
   * \snippet ModuleTests/MeshColorCodingStageTest.cpp MeshColorCodingStage_Opaque_Setup
   *
-  * The concept of geometry types is explained \ref QuickStart_FrameRenderer "here".
+  * The concept of geometry types is explained \ref GeometryTypes "here".
   *
   * Than we can instantiate the `%MeshColorCodingStage` like this:
   *

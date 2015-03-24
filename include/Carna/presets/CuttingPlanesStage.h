@@ -39,7 +39,7 @@ namespace presets
   *
   * \snippet ModuleTests/CuttingPlanesStageTest.cpp cutting_planes_instantiation
   *
-  * The concept of geometry types is explained \ref QuickStart_FrameRenderer "here".
+  * The concept of geometry types is explained \ref GeometryTypes "here".
   *
   * The following example code attaches three orthogonal planes to a node named
   * `pivot`:

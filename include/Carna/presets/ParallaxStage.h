@@ -45,7 +45,7 @@ namespace presets
   *
   * \snippet IntegrationTests/ParallaxStageIntegrationTest.cpp parallax_instantiation_others
   *
-  * The concept of geometry types is explained \ref QuickStart_FrameRenderer "here".
+  * The concept of geometry types is explained \ref GeometryTypes "here".
   *
   * The last step is to setup the scene, e.g.:
   *
