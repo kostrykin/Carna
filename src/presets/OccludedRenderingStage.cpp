@@ -193,7 +193,7 @@ void OccludedRenderingStage::renderPass
     const unsigned int outputFramebufferId = base::Framebuffer::currentId();
     CARNA_RENDER_TO_FRAMEBUFFER( vr->fbo,
 
-        base::Framebuffer::copy( outputFramebufferId, vr->fbo.id, vp, forkViewport, GL_DEPTH_BUFFER_BIT );
+        base::Framebuffer::copyDepthAttachment( outputFramebufferId, vr->fbo.id, vp, forkViewport );
 
         /* Configure render state.
          */

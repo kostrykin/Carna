@@ -16,6 +16,7 @@
 #include <Carna/base/Viewport.h>
 #include <Carna/base/CarnaException.h>
 #include <Carna/base/Texture.h>
+#include <Carna/base/text.h>
 #include <stdexcept>
 #include <sstream>
 
@@ -306,17 +307,36 @@ unsigned int Framebuffer::currentId()
 }
 
 
-void Framebuffer::copy( unsigned int srcId, unsigned int dstId, const Viewport& src, const Viewport& dst, unsigned int flags )
+void Framebuffer::copyColorAttachment
+    ( unsigned int srcId, unsigned int dstId
+    , const Viewport& src, const Viewport& dst
+    , unsigned int srcColorAttachment, unsigned int dstColorAttachment )
+{
+    copy( srcId, dstId, src, dst, GL_COLOR_BUFFER_BIT, srcColorAttachment, dstColorAttachment );
+}
+
+
+void Framebuffer::copyDepthAttachment( unsigned int srcId, unsigned int dstId, const Viewport& src, const Viewport& dst )
+{
+    copy( srcId, dstId, src, dst, GL_DEPTH_BUFFER_BIT, 0, 0 );
+}
+
+
+void Framebuffer::copy
+    ( unsigned int srcId, unsigned int dstId
+    , const Viewport& src, const Viewport& dst
+    , unsigned int flags
+    , unsigned int srcColorAttachment, unsigned int dstColorAttachment )
 {
     const unsigned int  width = std::min( src.width() , dst.width()  );
     const unsigned int height = std::min( src.height(), dst.height() );
-    copy
-        ( srcId, dstId
+    copy( srcId, dstId
         , src.marginLeft(), src.marginTop()
         , dst.marginLeft(), dst.marginTop()
         , src.width(), src.height()
         , dst.width(), dst.height()
-        , flags );
+        , flags
+        , srcColorAttachment, dstColorAttachment );
 }
 
 
@@ -326,7 +346,8 @@ void Framebuffer::copy
     , unsigned int dstX0, unsigned int dstY0
     , unsigned int srcWidth, unsigned int srcHeight
     , unsigned int dstWidth, unsigned int dstHeight
-    , unsigned int flags )
+    , unsigned int flags
+    , unsigned int srcColorAttachment, unsigned int dstColorAttachment )
 {
     REPORT_GL_ERROR;
 
@@ -334,6 +355,14 @@ void Framebuffer::copy
      */
     glBindFramebufferEXT( GL_READ_FRAMEBUFFER, idFrom );
     glBindFramebufferEXT( GL_DRAW_FRAMEBUFFER, idTo   );
+    
+    /* Setup color attachments to be copied in case 'flags' wants us to do so.
+     */
+    if( flags & GL_COLOR_BUFFER_BIT )
+    {
+        glReadBuffer( GL_COLOR_ATTACHMENT0_EXT + srcColorAttachment );
+        glDrawBuffer( GL_COLOR_ATTACHMENT0_EXT + dstColorAttachment );
+    }
 
     /* Do the copying. The lower bounds of the rectangles passed to
      * 'glBlitFramebuffer' are inclusive, while the upper bounds are exclusive.
@@ -456,31 +485,21 @@ const Framebuffer& Framebuffer::MinimalBinding::framebuffer() const
 }
 
 
-Color Framebuffer::MinimalBinding::readPixel( unsigned int x, unsigned int y, unsigned int color_attachment ) const
+Color Framebuffer::MinimalBinding::readPixel( unsigned int x, unsigned int y, unsigned int location ) const
 {
-    // TODO: store position -> render texture mapping, read whether it's a floating point
-    /*
-    if( floatingPoint )
-    {
-        float data[ 4 ];
-        glReadPixels( x, y, 1, 1, GL_RGBA, GL_FLOAT, data );
-        return CVector( data[ 0 ], data[ 1 ], data[ 2 ], data[ 3 ] );
-    }
-    else
-    {
-    */
-        unsigned char data[ 4 ];
-        glReadBuffer( GL_COLOR_ATTACHMENT0_EXT + color_attachment );
-        glReadPixels( x, y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data );
-        return Color( data[ 0 ], data[ 1 ], data[ 2 ], data[ 3 ] );
-    /*
-    }
-    */
+    CARNA_ASSERT( &BindingStack::top() == this );
+    CARNA_ASSERT( location < MAXIMUM_ALLOWED_COLOR_COMPONENTS );
+    
+    unsigned char data[ 4 ];
+    glReadBuffer( GL_COLOR_ATTACHMENT0_EXT + location );
+    glReadPixels( x, y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data );
+    return Color( data[ 0 ], data[ 1 ], data[ 2 ], data[ 3 ] );
 }
 
 
 void Framebuffer::MinimalBinding::refresh() const
 {
+    CARNA_ASSERT( &BindingStack::top() == this );
     bindFBO();
 }
 
@@ -501,39 +520,28 @@ void Framebuffer::Binding::refresh()
 {
     MinimalBinding::refresh();
 
- // check FBO state for validity
-
+    /* Validate the framebuffer.
+     */
     const GLenum error = glCheckFramebufferStatusEXT( GL_FRAMEBUFFER_EXT );
-
     switch( error )
     {
 
     case GL_FRAMEBUFFER_UNSUPPORTED_EXT:
-        {
-            throw std::runtime_error( "framebuffer object configuration not supported" );
-        }
+        CARNA_FAIL( "Framebuffer configuration not supported!" );
 
     case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT:
-        {
-            throw std::runtime_error( "framebuffer object misses color buffer" );
-        }
+        CARNA_FAIL( "Framebuffer misses color attachment!" );
 
     case GL_FRAMEBUFFER_COMPLETE_EXT:
-        {
-            break;
-        }
+        break;
 
     default:
-        {
-            std::stringstream ss;
-            ss << "framebuffer object error code " << error;
-            throw std::runtime_error( ss.str() );
-        }
+        CARNA_FAIL( "Unknown Framebuffer error! Error code: " + text::lexical_cast< std::string >( error ) );
 
     }
 
- // setup render buffer
-
+    /* Setup for rendering.
+     */
     if( !fbo.boundColorBuffers.empty() )
     {
         std::vector< GLenum > buffers( fbo.boundColorBuffers.size() );
@@ -542,15 +550,14 @@ void Framebuffer::Binding::refresh()
                                                       it != fbo.boundColorBuffers.end();
                                                     ++it, ++index )
         {
-            CARNA_ASSERT_EX( index < buffers.size(), "color buffers are not bound continuously" );
-
+            CARNA_ASSERT_EX( index < buffers.size(), "Color attachments are not bound continuously!" );
             buffers[ index ] = GL_COLOR_ATTACHMENT0_EXT + index;
         }
         glDrawBuffers( buffers.size(), &buffers[ 0 ] );
     }
 
- // query GL error state
-
+    /* Check for errors.
+     */
     REPORT_GL_ERROR;
 }
 

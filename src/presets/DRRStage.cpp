@@ -205,12 +205,11 @@ void DRRStage::renderPass
      */
     const base::Viewport framebufferViewport( *pimpl->accumulationFrameBuffer );
     const unsigned int outputFramebufferId = base::Framebuffer::currentId();
-    base::Framebuffer::copy
+    base::Framebuffer::copyDepthAttachment
         ( outputFramebufferId
         , pimpl->accumulationFrameBuffer->id
         , outputViewport
-        , framebufferViewport
-        , GL_DEPTH_BUFFER_BIT );
+        , framebufferViewport );
 
     /* First, evaluate the integral by rendering to the accumulation buffer.
      */

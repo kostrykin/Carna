@@ -156,12 +156,11 @@ void MIPStage::renderPass
      */
     const base::Viewport framebufferViewport( *pimpl->channelFrameBuffer );
     const unsigned int outputFramebufferId = base::Framebuffer::currentId();
-    base::Framebuffer::copy
+    base::Framebuffer::copyDepthAttachment
         ( outputFramebufferId
         , pimpl->channelFrameBuffer->id
         , outputViewport
-        , framebufferViewport
-        , GL_DEPTH_BUFFER_BIT );
+        , framebufferViewport );
 
     /* For each channel: First render the channel-specific MIP result to the dedicated framebuffer,
      * than render the result to the output framebuffer w.r.t. the channel function.
