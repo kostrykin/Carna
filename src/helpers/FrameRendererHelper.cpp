@@ -15,6 +15,7 @@
 #include <Carna/presets/TransparentRenderingStage.h>
 #include <Carna/presets/CuttingPlanesStage.h>
 #include <Carna/presets/DRRStage.h>
+#include <Carna/presets/DVRStage.h>
 #include <Carna/presets/OccludedRenderingStage.h>
 #include <Carna/presets/MeshColorCodingStage.h>
 #include <Carna/presets/ParallaxStage.h>

@@ -8,6 +8,7 @@
 #include <Carna/base/Log.h>
 #include <Carna/base/GLContext.h>
 #include <Carna/base/FrameRenderer.h>
+#include <Carna/base/Color.h>
 #include <Carna/base/Node.h>
 #include <Carna/base/Camera.h>
 #include <Carna/base/Geometry.h>
@@ -23,11 +24,9 @@
 #include <Carna/presets/OccludedRenderingStage.h>
 #include <Carna/presets/OpaqueRenderingStage.h>
 #include <Carna/presets/MeshColorCodingStage.h>
-#include <Carna/presets/MIPStage.h>
-#include <Carna/presets/MIPChannel.h>
+#include <Carna/presets/DVRStage.h>
 #include <Carna/presets/DRRStage.h>
 #include <Carna/presets/CuttingPlanesStage.h>
-#include <Carna/presets/ParallaxStage.h>
 #include <Carna/helpers/HUVolumeGridHelper.h>
 
 #include <TestApplication.h>
@@ -197,7 +196,7 @@ void Demo::initializeGL()
         , baseVolume->size.x() * baseVolume->size.y() * baseVolume->size.z() * sizeof( base::UInt16HUVolume::Voxel ) / 2 ) );
     gridHelper->loadData( *baseVolume );
     base::Node* const volumeNode = gridHelper->createNode
-        ( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ), presets::MIPStage::ROLE_HU_VOLUME );
+        ( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ), presets::DRRStage::ROLE_HU_VOLUME );
 
     base::ManagedMeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 10, 10, 10 );
     base::Material& boxMaterial = base::Material::create( "unshaded" );
@@ -237,11 +236,6 @@ void Demo::resizeGL( int w, int h )
         mccs = new presets::MeshColorCodingStage();
         mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH );
         renderer->appendStage( mccs );
-        
-        /* Parallax
-         */
-        presets::ParallaxStage* const parallax = new presets::ParallaxStage( presets::ParallaxStage::aside );
-        //renderer->appendStage( parallax );
 
         /* Cutting Planes
          */
@@ -261,13 +255,14 @@ void Demo::resizeGL( int w, int h )
         presets::OpaqueRenderingStage* const opaque = new presets::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
         renderer->appendStage( opaque );
         occluded->enableStage( *opaque );
-#if 0
-        /* MIP
+#if 1
+        /* DVR
          */
-        presets::MIPStage* const mip = new presets::MIPStage( GEOMETRY_TYPE_VOLUMETRIC );
-        mip->appendChannel( new presets::MIPChannel( -1024, 0, base::math::Vector4f( 0, 0, 1, 0.5f ) ) );
-        mip->appendChannel( new presets::MIPChannel( 0, 3071, base::math::Vector4f( 1, 1, 0, 0.5f ) ) );
-        renderer->appendStage( mip );
+        presets::DVRStage* const dvr = new presets::DVRStage( GEOMETRY_TYPE_VOLUMETRIC );
+        dvr->writeColorMap( -1024,   0, base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
+        dvr->writeColorMap(     0, 400, base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
+        dvr->setSampleRate( 500 );
+        renderer->appendStage( dvr );
 #else
         /* DRR
          */

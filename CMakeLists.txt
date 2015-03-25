@@ -282,6 +282,8 @@ set( SHADERS_SRC
 		src/res/full_frame_quad.frag
 		src/res/mip.frag
 		src/res/mip.vert
+		src/res/dvr.frag
+		src/res/dvr.vert
 		src/res/unshaded.vert
 		src/res/unshaded.frag
 	)

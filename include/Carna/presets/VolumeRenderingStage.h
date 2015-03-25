@@ -366,8 +366,11 @@ protected:
       * Loads video resources when rendering is triggered for the first time.
       * Override this method if you need any additional resources to be loaded, but
       * always call the base implementation.
+      *
+      * \return the first texture unit to use for volume textures. The dafault
+      *     implementation returns \ref base::Texture<0>::SETUP_UNIT `+1`.
       */
-    virtual void loadVideoResources();
+    virtual unsigned int loadVideoResources();
 
     virtual void render( const base::Renderable& ) override;
 

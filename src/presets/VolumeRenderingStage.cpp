@@ -42,6 +42,7 @@ struct VolumeRenderingStage::Details
     const base::Viewport* viewPort;
     unsigned int sampleRate;
     bool stepLengthRequired;
+    unsigned int firstVolumeUnit;
 };
 
 
@@ -246,11 +247,18 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
         const float totalLength = base::math::vector3< float, 4 >( worldFirstSlice - worldLastSlice ).norm();
         const float stepLength = totalLength / pimpl->sampleRate;
         pimpl->stepLengthRequired = base::ShaderUniform< float >( "stepLength", stepLength ).upload();
+        
+        /* Write to log that the step length will not be computed any more.
+         */
+        if( !pimpl->stepLengthRequired )
+        {
+            base::Log::instance().record( base::Log::debug, "VolumeRenderingStage: Step length ignored." );
+        }
     }
     
     /* Bind all 'ManagedTexture3D' geometry features.
      */
-    unsigned int lastUnit = base::Texture< 0 >::SETUP_UNIT;
+    unsigned int lastUnit = pimpl->firstVolumeUnit - 1;
     std::vector< unsigned int > roles;
     const base::ManagedTexture3D* anyTexture;
     renderable.geometry().visitFeatures( [&]( base::GeometryFeature& gf, unsigned int role )
@@ -281,7 +289,7 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
     for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {
         const unsigned int role = roles[ samplerOffset ];
-        const unsigned int unit = base::Texture< 0 >::SETUP_UNIT + 1 + samplerOffset;
+        const unsigned int unit = pimpl->firstVolumeUnit + samplerOffset;
         const std::string& uniformName = this->uniformName( role );
         base::ShaderUniform< int >( uniformName, unit ).upload();
     }
@@ -293,7 +301,7 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
 }
 
 
-void VolumeRenderingStage::loadVideoResources()
+unsigned int VolumeRenderingStage::loadVideoResources()
 {
     const base::ShaderProgram& shader = acquireShader();
     vr.reset( new VideoResources( shader, pimpl->sampleRate ) );
@@ -303,6 +311,7 @@ void VolumeRenderingStage::loadVideoResources()
             vr->samplers[ role ] = sampler;
         }
     );
+    return base::Texture< 0 >::SETUP_UNIT + 1;
 }
 
 
@@ -313,7 +322,7 @@ void VolumeRenderingStage::renderPass
 {
     if( vr.get() == nullptr )
     {
-        loadVideoResources();
+        pimpl->firstVolumeUnit = loadVideoResources();
     }
 
     rt.renderer.glContext().setShader( vr->shader );

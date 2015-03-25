@@ -184,10 +184,10 @@ void DRRStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsig
 }
 
 
-void DRRStage::loadVideoResources()
+unsigned int DRRStage::loadVideoResources()
 {
-    VolumeRenderingStage::loadVideoResources();
     pimpl->exponentialShader = &base::ShaderManager::instance().acquireShader( "drr_exponential" );
+    return VolumeRenderingStage::loadVideoResources();
 }
 
 
