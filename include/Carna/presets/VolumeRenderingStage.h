@@ -375,10 +375,10 @@ protected:
     virtual void render( const base::Renderable& ) override;
 
     /** \brief
-      * Creates \ref base::Sampler "texture samplers" and uses \a registerSampler to
-      * assign them to the roles that they should be used with.
+      * Creates \ref base::Sampler "texture samplers" for volume textures and uses
+      * \a registerSampler to assign them to the roles that they should be used with.
       */
-    virtual void createSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler ) = 0;
+    virtual void createVolumeSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler ) = 0;
 
     /** \brief
       * Acquires the shader from the \ref base::ShaderManager, that is to be used for

@@ -201,7 +201,7 @@ void MIPStage::renderPass
 }
 
 
-void MIPStage::createSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler )
+void MIPStage::createVolumeSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler )
 {
     registerSampler( ROLE_HU_VOLUME, new base::Sampler
         ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP

@@ -244,7 +244,7 @@ void DRRStage::renderPass
 }
 
 
-void DRRStage::createSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler )
+void DRRStage::createVolumeSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler )
 {
     registerSampler( ROLE_HU_VOLUME, new base::Sampler
         ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP

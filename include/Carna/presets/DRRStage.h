@@ -227,7 +227,7 @@ protected:
 
     virtual unsigned int loadVideoResources() override;
 
-    virtual void createSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler ) override;
+    virtual void createVolumeSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler ) override;
 
     /** \brief
       * Acquires the `drr_accumulation` shader from the \ref base::ShaderManager.

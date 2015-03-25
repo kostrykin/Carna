@@ -305,7 +305,7 @@ unsigned int VolumeRenderingStage::loadVideoResources()
 {
     const base::ShaderProgram& shader = acquireShader();
     vr.reset( new VideoResources( shader, pimpl->sampleRate ) );
-    createSamplers( [&]( unsigned int role, base::Sampler* sampler )
+    createVolumeSamplers( [&]( unsigned int role, base::Sampler* sampler )
         {
             CARNA_ASSERT( vr->samplers.find( role ) == vr->samplers.end() );
             vr->samplers[ role ] = sampler;

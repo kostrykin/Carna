@@ -108,7 +108,7 @@ public:
 
 protected:
 
-    virtual void createSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler ) override;
+    virtual void createVolumeSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler ) override;
 
     virtual const base::ShaderProgram& acquireShader() override;
 
