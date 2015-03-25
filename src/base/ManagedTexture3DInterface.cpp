@@ -31,12 +31,8 @@ ManagedTexture3DInterface::ManagedTexture3DInterface( ManagedTexture3D& managed 
 {
     if( managed.videoResourceAcquisitionsCount() == 1 )
     {
-        managed.textureObject.reset( new Texture< 3 >
-            ( managed.size
-            , managed.internalFormat
-            , managed.pixelFormat
-            , managed.bufferType
-            , managed.bufferPtr ) );
+        managed.textureObject.reset( new Texture< 3 >( managed.internalFormat, managed.pixelFormat ) );
+        managed.textureObject->copy( managed.size, managed.bufferType, managed.bufferPtr );
     }
 }
 

@@ -128,8 +128,6 @@ class Texture : public Texture< 0 >
 {
 
 public:
-
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     
     /** Holds the resolution type of this texture.
       */
@@ -138,8 +136,7 @@ public:
     /** \brief
       * Creates OpenGL texture object.
       *
-      * \param size
-      *     is the resolution of this texture.
+      * \post `isValid() == false`
       *
       * \param internalFormat
       *     specifies the number of color components in the texture, e.g.
@@ -149,66 +146,70 @@ public:
       *     specifies the format of the pixel data, e.g. `GL_RED`, `GL_RGB` or
       *     `GL_RGBA`.
       *
-      * \param bufferType
-      *     specifies the data type of the pixel data pointed to by \a bufferPtr.
-      *
-      * \param bufferPtr
-      *     points to the pixel data that will be uploaded to the texture.
-      *
       * \see
       * Valid values for the parameters are available here:
       * https://www.opengl.org/sdk/docs/man3/xhtml/glTexImage3D.xml
       */
-    Texture
-        ( const Resolution& size
-        , int internalFormat
-        , int pixelFormat
-        , int bufferType
-        , const void* bufferPtr );
+    Texture( int internalFormat, int pixelFormat );
     
     /** \brief
       * Holds the dimension of this texture.
       */
     const static unsigned int DIMENSION = dimension;
 
-    const Resolution size;    ///< Holds the resolution of this texture.
+    /** \brief
+      * Tells the resolution of this texture.
+      * \pre `isValid() == true`
+      */
+    const Resolution& size() const;
+    
+    /** \brief
+      * Tells whether the texture has been initialized, i.e. it has a \ref size.
+      */
+    bool isValid() const;
+    
     const int internalFormat; ///< Holds the number of color components in the texture, e.g. `GL_RGBA8UI` or `GL_INTENSITY16`.
     const int pixelFormat;    ///< Holds the format of the pixel data, e.g. `GL_RED`, `GL_RGB` or `GL_RGBA`.
 
     /** \brief
-     * Binds this texture to \a unit. Consider using \ref Texture<0>::SETUP_UNIT if
-     * you're binding the texture temporarily.
-     */
+      * Binds this texture to \a unit. Consider using \ref Texture<0>::SETUP_UNIT if
+      * you're binding the texture temporarily.
+      */
     void bind( unsigned int unit ) const;
+    
+    /** Binds this texture to \ref Texture<0>::SETUP_UNIT, updates its \a size and
+      * data.
+      *
+      * \post `isValid() == true`
+      *
+      * \param size
+      *     is the new resolution of this texture.
+      *
+      * \param bufferType
+      *     specifies the data type of the pixel data pointed to by \a bufferPtr.
+      *
+      * \param bufferPtr
+      *     points to the pixel data that will be uploaded to the texture.
+      *
+      * No data is uploaded to the texture if `nullptr` is given for \a bufferPtr.
+      * The value of \a bufferType has no meaning than.
+      */
+    void copy( const Resolution& size, int bufferType, const void* bufferPtr );
+    
+private:
+
+    std::unique_ptr< Resolution > mySize;
 
 }; // Texture
 
 
 template< unsigned int dimension >
-Texture< dimension >::Texture
-        ( const Eigen::Matrix< unsigned int, dimension, 1 >& size
-        , int internalFormat
-        , int pixelFormat
-        , int bufferType
-        , const void* bufferPtr )
-    : size( size )
-    , internalFormat( internalFormat )
+Texture< dimension >::Texture( int internalFormat, int pixelFormat )
+    : internalFormat( internalFormat )
     , pixelFormat( pixelFormat )
 {
     static_assert( dimension >= 1 && dimension <= 3, "Texture dimension must be 1, 2 or 3." );
     CARNA_ASSERT_EX( id != 0, "Texture acquisition failed!" );
-    
-    /* Ensure that texture size is even.
-     */
-    for( unsigned int i = 0; i < dimension; ++i )
-    {
-        CARNA_ASSERT_EX( size( i, 0 ) % 2 == 0, "Texture only supports even sizes!" );
-    }
-    
-    /* Upload data to texture.
-     */
-    this->bind( SETUP_UNIT );
-    uploadGLTextureData( size, internalFormat, pixelFormat, bufferType, bufferPtr );
 }
 
 
@@ -216,6 +217,39 @@ template< unsigned int dimension >
 void Texture< dimension >::bind( unsigned int unit ) const
 {
     bindGLTextureObject< dimension >( unit, id );
+}
+
+
+template< unsigned int dimension >
+bool Texture< dimension >::isValid() const
+{
+    return mySize.get() != nullptr;
+}
+
+
+template< unsigned int dimension >
+const Eigen::Matrix< unsigned int, dimension, 1 >& Texture< dimension >::size() const
+{
+    CARNA_ASSERT( isValid() );
+    return *mySize;
+}
+
+
+template< unsigned int dimension >
+void Texture< dimension >::copy( const Eigen::Matrix< unsigned int, dimension, 1 >& size, int bufferType, const void* bufferPtr )
+{
+    /* Ensure that texture size is even and positive.
+     */
+    for( unsigned int i = 0; i < dimension; ++i )
+    {
+        CARNA_ASSERT_EX( size( i, 0 )     >= 1, "Texture only supports positive sizes!" );
+        CARNA_ASSERT_EX( size( i, 0 ) % 2 == 0, "Texture only supports even sizes!" );
+    }
+    
+    /* Update the OpenGL texure object.
+     */
+    this->bind( SETUP_UNIT );
+    uploadGLTextureData( size, internalFormat, pixelFormat, bufferType, bufferPtr );
 }
 
 
