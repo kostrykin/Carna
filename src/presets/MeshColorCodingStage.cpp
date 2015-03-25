@@ -14,7 +14,6 @@
 #include <Carna/base/ShaderUniform.h>
 #include <Carna/base/GLContext.h>
 #include <Carna/base/RenderTask.h>
-#include <Carna/base/RenderTexture.h>
 #include <Carna/base/Viewport.h>
 #include <Carna/base/Framebuffer.h>
 #include <Carna/base/Log.h>
@@ -106,7 +105,7 @@ struct MeshColorCodingStage::VideoResources
     VideoResources( const base::ShaderProgram& shader, unsigned int w, unsigned int h );
 
     const base::ShaderProgram& shader;
-    base::RenderTexture renderTexture;
+    std::unique_ptr< base::Texture< 2 > > renderTexture;
     base::Framebuffer fbo;
 
 }; // MeshColorCodingStage :: VideoResources
@@ -114,8 +113,8 @@ struct MeshColorCodingStage::VideoResources
 
 MeshColorCodingStage::VideoResources::VideoResources( const base::ShaderProgram& shader, unsigned int w, unsigned int h )
     : shader( shader )
-    , renderTexture( w, h )
-    , fbo( renderTexture )
+    , renderTexture( base::Framebuffer::createRenderTexture() )
+    , fbo( w, h, *renderTexture )
 {
 }
 
@@ -170,14 +169,14 @@ base::Aggregation< const base::Geometry > MeshColorCodingStage::pick( unsigned i
             x = x - pimpl->vpOffsetX;
             y = y - pimpl->vpOffsetY;
 
-            if( x >= vr->renderTexture.width() || y >= vr->renderTexture.height() )
+            if( x >= vr->fbo.width() || y >= vr->fbo.height() )
             {
                 Log::instance().record( Log::debug, "MeshColorCodingStage::pick queried outside viewport." );
                 return Aggregation< const Geometry >::NULL_PTR;
             }
             else
             {
-                y = vr->renderTexture.height() - 1 - y;
+                y = vr->fbo.height() - 1 - y;
                 Framebuffer::MinimalBinding binding( vr->fbo );
                 const Color color = binding.readPixel( x, y );
                 if( color == Details::NULL_GEOMETRY_COLOR )

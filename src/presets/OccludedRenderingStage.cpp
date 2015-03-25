@@ -72,7 +72,7 @@ struct OccludedRenderingStage::VideoResources
     VideoResources( const base::ShaderProgram& shader, unsigned int w, unsigned int h );
 
     const base::ShaderProgram& shader;
-    base::RenderTexture renderTexture;
+    const std::unique_ptr< base::Texture< 2 > > renderTexture;
     base::Framebuffer fbo;
 
 }; // OccludedRenderingStage::VideoResources
@@ -80,8 +80,8 @@ struct OccludedRenderingStage::VideoResources
 
 OccludedRenderingStage::VideoResources::VideoResources( const base::ShaderProgram& shader, unsigned int w, unsigned int h )
     : shader( shader )
-    , renderTexture( w, h )
-    , fbo( renderTexture )
+    , renderTexture( base::Framebuffer::createRenderTexture() )
+    , fbo( w, h, *renderTexture )
 {
 }
 
@@ -215,7 +215,7 @@ void OccludedRenderingStage::renderPass
     rs.setDepthTest( false );
     base::FrameRenderer::RenderTextureParams params( 0 );
     params.alphaFactor = pimpl->occlusionTranslucency;
-    vr->renderTexture.bind( 0 );
+    vr->renderTexture->bind( 0 );
     rt.renderer.renderTexture( params );
 }
 

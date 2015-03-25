@@ -13,9 +13,9 @@
 #include <Carna/base/glError.h>
 #include <Carna/base/GLContext.h>
 #include <Carna/base/Framebuffer.h>
-#include <Carna/base/RenderTexture.h>
 #include <Carna/base/Viewport.h>
 #include <Carna/base/CarnaException.h>
+#include <Carna/base/Texture.h>
 #include <stdexcept>
 #include <sstream>
 
@@ -194,66 +194,102 @@ bool Framebuffer::BindingStack::empty()
 // Framebuffer
 // ----------------------------------------------------------------------------------
 
-Framebuffer::Framebuffer( RenderTexture& color_buffer )
-    : id( createGlFramebuffer() )
+Framebuffer::Framebuffer( unsigned int width, unsigned int height, Texture< 2 >& renderTexture )
+    : size( math::Vector2ui( width + 1, height + 1 ) )
+    , id( createGlFramebuffer() )
     , depthBuffer( createGlDepthbufferObject() )
 {
+    for( unsigned int i = 0; i < MAXIMUM_ALLOWED_COLOR_COMPONENTS; ++i )
+    {
+        renderTextures[ i ] = nullptr;
+    }
 
- // initialize depth buffer
+    /* Initialize the depth buffer.
+     */
+    resize( math::Vector2ui( width, height ) );
 
-    resize( color_buffer.width(), color_buffer.height() );
-
- // bind framebuffer
- 
+    /* Bind the framebuffer.
+     */
     MinimalBinding binding( *this );
 
- // bind depth buffer to framebuffer object
-
+    /* Bind the depth buffer to the framebuffer object.
+     */
     glFramebufferRenderbufferEXT( GL_FRAMEBUFFER_EXT
                                 , GL_DEPTH_ATTACHMENT_EXT
                                 , GL_RENDERBUFFER_EXT
                                 , depthBuffer );
 
- // bind color buffer to framebuffer object
+    /* Bind the 'renderTexture' to the framebuffer object and resize it.
+     */
+    binding.setColorComponent( renderTexture );
 
-    binding.setColorComponent( color_buffer );
-
+    /* Check for errors.
+     */
     REPORT_GL_ERROR;
 }
 
 
 Framebuffer::~Framebuffer()
 {
-
- // release fbo
-
+    /* Delete the framebuffer object.
+     */
     glDeleteFramebuffersEXT( 1, &id );
 
- // release depth buffer
-
+    /* Delete the depth buffer.
+     */
     glDeleteRenderbuffersEXT( 1, &depthBuffer );
+}
 
+
+Texture< 2 >* Framebuffer::createRenderTexture( bool floatingPoint )
+{
+    const unsigned int internalFormat = floatingPoint ? GL_RGBA16F : GL_RGBA8;
+    const unsigned int    pixelFormat = GL_RGBA;
+    return new Texture< 2 >( internalFormat, pixelFormat );
+}
+
+
+void Framebuffer::resize( const math::Vector2ui& size )
+{
+    resize( size.x(), size.y() );
 }
 
 
 void Framebuffer::resize( unsigned int w, unsigned int h )
 {
-    CARNA_ASSERT_EX( w > 0, "framebuffer width must be greater zero" );
-    CARNA_ASSERT_EX( h > 0, "framebuffer height must be greater zero" );
+    CARNA_ASSERT_EX( w > 0, "Framebuffer width must be positive!" );
+    CARNA_ASSERT_EX( h > 0, "Framebuffer height must be positive!" );
 
-    this->w = w;
-    this->h = h;
+    /* Update the size.
+     */
+    if( size.x() != w || size.y() != h )
+    {
+        size.x() = w;
+        size.y() = h;
 
- // bind framebuffer
- 
-    MinimalBinding binding( *this );
+        /* Bind the framebuffer.
+         */
+        MinimalBinding binding( *this );
 
- // update depth buffer
-    
-    glBindRenderbufferEXT( GL_RENDERBUFFER_EXT, depthBuffer );
-    glRenderbufferStorageEXT( GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, w, h );
+        /* Update the depth buffer.
+         */
+        glBindRenderbufferEXT( GL_RENDERBUFFER_EXT, depthBuffer );
+        glRenderbufferStorageEXT( GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, w, h );
 
-    REPORT_GL_ERROR;
+        /* Update the color components.
+         */
+        for( unsigned int i = 0; i < MAXIMUM_ALLOWED_COLOR_COMPONENTS; ++i )
+        {
+            if( renderTextures[ i ] != nullptr )
+            {
+                renderTextures[ i ]->update( size );
+            }
+        }
+
+        /* Check for errors.
+         */
+        REPORT_GL_ERROR;
+    }
 }
 
 
@@ -357,25 +393,60 @@ void Framebuffer::MinimalBinding::bindFBO() const
 }
 
 
-void Framebuffer::MinimalBinding::setColorComponent( RenderTexture& texture, unsigned int position )
+void Framebuffer::MinimalBinding::setColorComponent( Texture< 2 >& renderTexture, unsigned int location )
 {
-    Framebuffer& fbo = BindingStack::top().fbo;
+    CARNA_ASSERT( &BindingStack::top() == this );
+    CARNA_ASSERT( location < MAXIMUM_ALLOWED_COLOR_COMPONENTS );
 
-    CARNA_ASSERT_EX
-        ( texture.width() == fbo.width() && texture.height() == fbo.height()
-        , "render texture size must be same as framebuffer size" );
+    /* Denote that 'renderTexture' is a color attachment now.
+     */
+    fbo.renderTextures[ location ] = &renderTexture;
+    fbo.boundColorBuffers.insert( location );
+    
+    /* Update the size of the new color component.
+     */
+    if( !renderTexture.isValid() || renderTexture.size().x() != fbo.width() || renderTexture.size().y() != fbo.height() )
+    {
+        renderTexture.update( fbo.size );
+    }
 
- // bind texture to framebuffer object
-
+    /* Bind the 'renderTexture' to the framebuffer object.
+     */
     glFramebufferTexture2DEXT( GL_FRAMEBUFFER_EXT
-                             , GL_COLOR_ATTACHMENT0_EXT + position
+                             , GL_COLOR_ATTACHMENT0_EXT + location
                              , GL_TEXTURE_2D
-                             , texture.id
+                             , renderTexture.id
                              , 0 );
 
-    fbo.boundColorBuffers.insert( position );
-
+    /* Check for errors.
+     */
     REPORT_GL_ERROR;
+}
+
+
+void Framebuffer::MinimalBinding::removeColorComponent( unsigned int location )
+{
+    CARNA_ASSERT( &BindingStack::top() == this );
+    const auto itr = fbo.boundColorBuffers.find( location );
+    if( itr != fbo.boundColorBuffers.end() )
+    {
+        /* Unbind the texture from the framebuffer object.
+         */
+        glFramebufferTexture2DEXT( GL_FRAMEBUFFER_EXT
+                                 , GL_COLOR_ATTACHMENT0_EXT + location
+                                 , GL_TEXTURE_2D
+                                 , 0
+                                 , 0 );
+
+        /* Denote that the color component was removed.
+         */
+        fbo.renderTextures[ location ] = nullptr;
+        fbo.boundColorBuffers.erase( itr );
+
+        /* Check for errors.
+         */
+        REPORT_GL_ERROR;
+    }
 }
 
 

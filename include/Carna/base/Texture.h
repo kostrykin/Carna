@@ -194,7 +194,11 @@ public:
       * No data is uploaded to the texture if `nullptr` is given for \a bufferPtr.
       * The value of \a bufferType has no meaning than.
       */
-    void copy( const Resolution& size, int bufferType, const void* bufferPtr );
+    void update( const Resolution& size, int bufferType, const void* bufferPtr );
+
+    /** \overload
+      */    
+    void update( const Resolution& size );
     
 private:
 
@@ -236,20 +240,33 @@ const Eigen::Matrix< unsigned int, dimension, 1 >& Texture< dimension >::size() 
 
 
 template< unsigned int dimension >
-void Texture< dimension >::copy( const Eigen::Matrix< unsigned int, dimension, 1 >& size, int bufferType, const void* bufferPtr )
+void Texture< dimension >::update( const Eigen::Matrix< unsigned int, dimension, 1 >& size, int bufferType, const void* bufferPtr )
 {
-    /* Ensure that texture size is even and positive.
+    /* Ensure that texture size is positive.
      */
     for( unsigned int i = 0; i < dimension; ++i )
     {
         CARNA_ASSERT_EX( size( i, 0 )     >= 1, "Texture only supports positive sizes!" );
-        CARNA_ASSERT_EX( size( i, 0 ) % 2 == 0, "Texture only supports even sizes!" );
+    }
+    
+    /* Ensure that z-component of the texture size is even if this is a 3D texture.
+     */
+    if( dimension == 3 )
+    {
+        CARNA_ASSERT_EX( size( 2, 0 ) % 2 == 0, "Texture only supports even sizes!" );
     }
     
     /* Update the OpenGL texure object.
      */
     this->bind( SETUP_UNIT );
     uploadGLTextureData( size, internalFormat, pixelFormat, bufferType, bufferPtr );
+}
+
+
+template< unsigned int dimension >
+void Texture< dimension >::update( const Eigen::Matrix< unsigned int, dimension, 1 >& size )
+{
+    update( size, 0, nullptr );
 }
 
 

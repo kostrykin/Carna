@@ -11,7 +11,7 @@
 
 #include "TestFramebuffer.h"
 #include <Carna/base/CarnaException.h>
-#include <Carna/base/RenderTexture.h>
+#include <Carna/base/Texture.h>
 #include <Carna/base/math.h>
 #include <QFileInfo>
 #include <regex>
@@ -33,13 +33,13 @@ const double TestFramebuffer::DEFAULT_EPSILON = 0.01;
 
 TestFramebuffer::TestFramebuffer( base::GLContext& glContext, unsigned int width, unsigned int height )
     : frame( new QImage( width, height, QImage::Format_RGB888 ) )
-    , renderTexture( [&]()->base::RenderTexture*
+    , renderTexture( [&]()->base::Texture< 2 >*
             {
                 glContext.makeCurrent();
-                return new base::RenderTexture( width, height );
+                return base::Framebuffer::createRenderTexture();
             }()
         )
-    , fbo( new base::Framebuffer( *renderTexture ) )
+    , fbo( new base::Framebuffer( width, height, *renderTexture ) )
     , fboBinding( new base::Framebuffer::Binding( *fbo ) )
     , myEpsilon( DEFAULT_EPSILON )
     , glContext( glContext )

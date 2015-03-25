@@ -44,8 +44,8 @@ struct DRRStage::Details
     float upperMultiplier;
     bool renderInverse;
 
-    std::unique_ptr< base::RenderTexture > accumulationColorBuffer;
-    std::unique_ptr< base::Framebuffer   > accumulationFrameBuffer;
+    std::unique_ptr< base::Texture< 2 > > accumulationColorBuffer;
+    std::unique_ptr< base::Framebuffer  > accumulationFrameBuffer;
 
     const base::ShaderProgram* exponentialShader;
 
@@ -179,8 +179,8 @@ void DRRStage::setRenderingInverse( bool inverse )
 void DRRStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     base::GeometryStage< base::Renderable::BackToFront >::reshape( fr, width, height );
-    pimpl->accumulationColorBuffer.reset( new base::RenderTexture( width, height, true ) );
-    pimpl->accumulationFrameBuffer.reset( new base::Framebuffer( *pimpl->accumulationColorBuffer ) );
+    pimpl->accumulationColorBuffer.reset( base::Framebuffer::createRenderTexture( true ) );
+    pimpl->accumulationFrameBuffer.reset( new base::Framebuffer( width, height, *pimpl->accumulationColorBuffer ) );
 }
 
 

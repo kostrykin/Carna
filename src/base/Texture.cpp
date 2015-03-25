@@ -66,6 +66,21 @@ void bindGLTextureObject< 3 >( unsigned int unit, unsigned int id )
 
 
 // ----------------------------------------------------------------------------------
+// checkGLTextureDataParameters
+// ----------------------------------------------------------------------------------
+
+static void checkGLTextureDataParameters( int& internalFormat, int& pixelFormat, int& bufferType, const void*& bufferPtr )
+{
+    if( bufferPtr == nullptr )
+    {
+        bufferPtr  = NULL;
+        bufferType = GL_UNSIGNED_BYTE;
+    }
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // Texture
 // ----------------------------------------------------------------------------------
 
@@ -88,6 +103,7 @@ void Texture< 0 >::uploadGLTextureData
     , int bufferType
     , const void* bufferPtr )
 {
+    checkGLTextureDataParameters( internalFormat, pixelFormat, bufferType, bufferPtr );
     glTexImage1D( GL_TEXTURE_1D, 0, internalFormat, size.x()
                 , 0, pixelFormat, bufferType, bufferPtr );
     REPORT_GL_ERROR;
@@ -101,6 +117,7 @@ void Texture< 0 >::uploadGLTextureData
     , int bufferType
     , const void* bufferPtr )
 {
+    checkGLTextureDataParameters( internalFormat, pixelFormat, bufferType, bufferPtr );
     glTexImage2D( GL_TEXTURE_2D, 0, internalFormat, size.x(), size.y(), 0, pixelFormat, bufferType, bufferPtr );
     REPORT_GL_ERROR;
 }
@@ -113,6 +130,7 @@ void Texture< 0 >::uploadGLTextureData
     , int bufferType
     , const void* bufferPtr )
 {
+    checkGLTextureDataParameters( internalFormat, pixelFormat, bufferType, bufferPtr );
     glTexImage3D( GL_TEXTURE_3D, 0, internalFormat, size.x(), size.y(), size.z(), 0, pixelFormat, bufferType, bufferPtr );
     REPORT_GL_ERROR;
 }

@@ -18,6 +18,7 @@
 
 #include <Carna/Carna.h>
 #include <Carna/base/noncopyable.h>
+#include <Carna/base/math.h>
 #include <stack>
 #include <set>
 
@@ -33,31 +34,56 @@ namespace base
 // Framebuffer
 // ----------------------------------------------------------------------------------
 
-/** \brief  Encapsulates framebuffer objects.
+/** \brief
+  * Maintains a framebuffer object that supports up to 8 color components
+  * simultaneously.
   *
-  * \see    RenderTexture
-  * \see    FramebufferBinding
   * \author Leonid Kostrykin
-  * \date   9.3.2011
+  * \date   9.3.2011 - 25.3.15
   */
 class CARNA_LIB Framebuffer
 {
 
     NON_COPYABLE
+    
+    math::Vector2ui size;
 
 public:
 
+    const static unsigned int MAXIMUM_ALLOWED_COLOR_COMPONENTS = 8;
+
     /** \brief
       * Acquires framebuffer object with depth buffer and attaches \a renderTexture
-      * as color attachment.
+      * as the first color attachment. The \a renderTexture is resized automatically
+      * s.t. it matches the \a size of the framebuffer.
       */
-    explicit Framebuffer( RenderTexture& renderTexture );
+    Framebuffer( unsigned int width, unsigned int height, Texture< 2 >& renderTexture );
+    
+    /** \brief
+      * Creates render texture.
+      *
+      * \param floatingPoint
+      *     sets whether `float`-based pixels shall be used instead of unsigned byte.
+      */
+    static Texture< 2 >* createRenderTexture( bool floatingPoint = false );
 
     /** \brief  Releases associated framebuffer object and depth buffer.
       */
     ~Framebuffer();
+    
+    /** \brief
+      * Tells whether a color component exists at \a location.
+      */
+    bool hasRenderTexture( unsigned int location ) const;
+    
+    /** \brief
+      * References the render texture at \a location.
+      * \pre `hasRenderTexture(location) == true`
+      */
+    const Texture< 2 >& renderTexture( unsigned int location ) const;
 
-    /** \brief  Identifies the associated framebuffer object.
+    /** \brief
+      * Identifies the maintained framebuffer object.
       */
     const unsigned int id;
 
@@ -73,22 +99,29 @@ public:
 
     static unsigned int currentId();
 
-    /** \brief  Invalidates the depth buffer's contents and resizes it.
+    /** \brief
+      * Resizes depth buffer and color components to \a size.
       */
-    void resize( unsigned int w, unsigned int h );
+    void resize( const math::Vector2ui& size );
 
-    /** \brief  Returns the texture's width.
+    /** \overload
+      */
+    void resize( unsigned int width, unsigned int height );
+
+    /** \brief
+      * Returns the framebuffer's width.
       */
     inline unsigned int width() const
     {
-        return w;
+        return size.x();
     }
 
-    /** \brief  Returns the texture's height.
+    /** \brief
+      * Returns the framebuffer's height.
       */
     inline unsigned int height() const
     {
-        return h;
+        return size.y();
     }
 
     /** \brief  Binds and unbinds framebuffer objects.
@@ -119,12 +152,19 @@ public:
           */
         virtual ~MinimalBinding();
 
-        /** \brief  Attaches the given texture as the currently bound
-          *         framebuffer's color buffer.
+        /** \brief
+          * Attaches \a renderTexture as the color component at \a location of the
+          * bound framebuffer object.
           *
-          * If there was another attached previously, it is replaced.
+          * If there was another color component bound to \a location previously, it
+          * is replaced.
           */
-        void setColorComponent( RenderTexture&, unsigned int position = 0 );
+        void setColorComponent( Texture< 2 >& renderTexture, unsigned int location = 0 );
+        
+        /** \brief
+          * Removes color component at \a location from bound framebuffer object.
+          */
+        void removeColorComponent( unsigned int location );
 
         /** \brief  Reads and returns a color component's current pixel at the given
           *         location.
@@ -182,26 +222,10 @@ public:
 
 private:
 
-    /** \brief  Keeps track of overwritten framebuffer bindings.
-      */
-    class BindingStack;
-
-    /** \brief  Identifies the associated depth buffer object.
-      */
+    Texture< 2 >* renderTextures[ MAXIMUM_ALLOWED_COLOR_COMPONENTS ];
     const unsigned int depthBuffer;
-
-    /** \property w
-      * \brief  The depth buffer's width.
-      *
-      * \property h
-      * \brief  The depth buffer's height.
-      */
-    unsigned int w, h;
-
-    /** \brief  Holds which color buffer slots from \c GL_COLOR_ATTACHMENT0_EXT to
-      *         \c GL_COLOR_ATTACHMENT15_EXT have been bound.
-      */
     std::set< unsigned int > boundColorBuffers;
+    class BindingStack;
 
 }; // Framebuffer
 

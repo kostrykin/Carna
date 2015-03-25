@@ -33,7 +33,7 @@ class TestFramebuffer
 {
 
     const std::unique_ptr< QImage > frame;
-    const std::unique_ptr< base::RenderTexture > renderTexture;
+    const std::unique_ptr< base::Texture< 2 > > renderTexture;
     const std::unique_ptr< base::Framebuffer > fbo;
     const std::unique_ptr< base::Framebuffer::Binding > fboBinding;
 

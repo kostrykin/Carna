@@ -43,8 +43,8 @@ struct MIPStage::Details
     MIPChannel* currentChannel;
     std::vector< MIPChannel* > channels;
 
-    std::unique_ptr< base::RenderTexture > channelColorBuffer;
-    std::unique_ptr< base::Framebuffer   > channelFrameBuffer;
+    std::unique_ptr< base::Texture< 2 > > channelColorBuffer;
+    std::unique_ptr< base::Framebuffer  > channelFrameBuffer;
 
     static inline float huvToIntensity( base::HUV huv )
     {
@@ -135,8 +135,8 @@ const MIPChannel& MIPStage::channel( std::size_t channelIndex ) const
 void MIPStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     base::GeometryStage< base::Renderable::BackToFront >::reshape( fr, width, height );
-    pimpl->channelColorBuffer.reset( new base::RenderTexture( width, height ) );
-    pimpl->channelFrameBuffer.reset( new base::Framebuffer( *pimpl->channelColorBuffer ) );
+    pimpl->channelColorBuffer.reset( base::Framebuffer::createRenderTexture() );
+    pimpl->channelFrameBuffer.reset( new base::Framebuffer( width, height, *pimpl->channelColorBuffer ) );
 }
 
 

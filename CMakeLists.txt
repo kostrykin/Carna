@@ -120,7 +120,6 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/GLContext.h
 		include/${PROJECT_NAME}/base/MeshRenderingStage.h
 		include/${PROJECT_NAME}/base/Framebuffer.h
-		include/${PROJECT_NAME}/base/RenderTexture.h
 		include/${PROJECT_NAME}/base/Sampler.h
 		include/${PROJECT_NAME}/base/Shader.h
 		include/${PROJECT_NAME}/base/ShaderCompilationError.h
@@ -215,7 +214,6 @@ set( SRC
 		src/base/MeshRenderingStage.cpp
 		src/base/Node.cpp
 		src/base/Framebuffer.cpp
-		src/base/RenderTexture.cpp
 		src/base/Sampler.cpp
 		src/base/Shader.cpp
 		src/base/Material.cpp
