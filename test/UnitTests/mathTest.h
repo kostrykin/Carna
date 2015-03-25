@@ -111,6 +111,11 @@ private slots:
       * Test cases for \ref Carna::base::math::makeEven
       */
     void test_makeEven();
+
+    /** \brief
+      * Test cases for \ref Carna::base::math::mix
+      */
+    void test_mix();
     
     /** \brief
       * Test cases for \ref Carna::base::math::CARNA_FOR_VECTOR3UI

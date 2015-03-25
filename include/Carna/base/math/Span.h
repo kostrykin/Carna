@@ -69,7 +69,6 @@ public:
     {
     }
 
-
     /** \brief
       * Returns whether this span equals \a other.
       */
@@ -88,7 +87,6 @@ public:
     {
         return first != other.first ? first < other.first : last < other.last;
     }
-
 
     /** \brief
       * Holds the \f$a\f$ of \f$\left[a, b\right]\f$.

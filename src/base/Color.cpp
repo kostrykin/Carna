@@ -53,6 +53,15 @@ Color::Color( const math::Vector4f& fp )
 }
 
 
+Color::Color()
+    : r( Color::BLACK_NO_ALPHA.r )
+    , g( Color::BLACK_NO_ALPHA.g )
+    , b( Color::BLACK_NO_ALPHA.b )
+    , a( Color::BLACK_NO_ALPHA.a )
+{
+}
+
+
 Color::operator math::Vector4f() const
 {
     return math::Vector4f( r / 255.f, g / 255.f, b / 255.f, a / 255.f );

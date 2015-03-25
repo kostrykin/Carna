@@ -153,6 +153,7 @@ namespace Carna
         class MIPStage;
         class MIPChannel;
         class DRRStage;
+        class DVRStage;
         class CuttingPlanesStage;
         class TransparentRenderingStage;
         class OccludedRenderingStage;

@@ -233,6 +233,12 @@ void mathTest::test_makeEven()
 }
 
 
+void mathTest::test_mix()
+{
+    QWARN( "not implemented yet" );
+}
+
+
 void mathTest::test_CARNA_FOR_VECTOR3UI()
 {
     //! [example_CARNA_FOR_VECTOR3UI]

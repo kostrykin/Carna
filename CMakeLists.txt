@@ -181,6 +181,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/presets/PerspectiveControl.h
 		include/${PROJECT_NAME}/presets/CompositionStage.h
 		include/${PROJECT_NAME}/presets/ParallaxStage.h
+		include/${PROJECT_NAME}/presets/DVRStage.h
 		include/${PROJECT_NAME}/helpers/HUVolumeGridHelper.h
 		include/${PROJECT_NAME}/helpers/FrameRendererHelper.h
 		include/${PROJECT_NAME}/Carna.h
@@ -257,6 +258,7 @@ set( SRC
 		src/presets/PerspectiveControl.cpp
 		src/presets/CompositionStage.cpp
 		src/presets/ParallaxStage.cpp
+		src/presets/DVRStage.cpp
 		src/helpers/FrameRendererHelper.cpp
 	)
 set( FORMS

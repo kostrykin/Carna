@@ -54,7 +54,7 @@ struct DRRStage::Details
         return ( huv + 1024 ) / 4095.f;
     }
 
-}; // MIPStage :: Details
+}; // DRRStage :: Details
 
 
 DRRStage::Details::Details()

@@ -654,6 +654,15 @@ namespace math
             return std::sqrt( variance );
         }
     };
+    
+    /** \brief
+      * Interpolates between \a and \b by \a t \f$\in\left[0, 1\right]\f$ linearly.
+      */
+    template< typename SupportType, typename ResultType = SupportType >
+    ResultType mix( const SupportType& a, const SupportType& b, float t )
+    {
+        return a * ( 1 - t ) + b * t;
+    }
 
 
 

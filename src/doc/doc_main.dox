@@ -75,6 +75,8 @@ namespace Carna
   *     mapping \ref FrameCoordinates "frame coordinates" to \ref base::Mesh objects.
   *   - The \ref presets::MIPStage implements *maximum intensity projections* of
   *     volume data.
+  *   - The \ref presets::DVRStage renders volume data through application of an HUV
+  *     to color transfer function.
   *   - The \ref presets::ParallaxStage produces stereoscopic renderings.
   *   - The \ref presets::TransparentRenderingStage renders transparent meshes.
   *

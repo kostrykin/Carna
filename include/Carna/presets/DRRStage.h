@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef DRRStage_H_6014714286
-#define DRRStage_H_6014714286
+#ifndef DRRSTAGE_H_6014714286
+#define DRRSTAGE_H_6014714286
 
 #include <Carna/presets/VolumeRenderingStage.h>
 #include <Carna/Carna.h>
@@ -252,4 +252,4 @@ protected:
 
 }  // namespace Carna
 
-#endif // DRRStage_H_6014714286
+#endif // DRRSTAGE_H_6014714286

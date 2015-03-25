@@ -65,6 +65,11 @@ public:
       */
     Color( unsigned char r, unsigned char g, unsigned char b, unsigned char a );
 
+    /** \brief
+      * Instantiates with \ref BLACK_NO_ALPHA.
+      */
+    Color();
+
     unsigned char r;    ///< Holds the   red component.
     unsigned char g;    ///< Holds the green component.
     unsigned char b;    ///< Holds the  blue component.

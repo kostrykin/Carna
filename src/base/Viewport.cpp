@@ -12,6 +12,7 @@
 #include <Carna/base/Viewport.h>
 #include <Carna/base/FrameRenderer.h>
 #include <Carna/base/glew.h>
+#include <Carna/base/math.h>
 #include <stack>
 
 namespace Carna
@@ -19,18 +20,6 @@ namespace Carna
 
 namespace base
 {
-
-
-
-// ----------------------------------------------------------------------------------
-// mix
-// ----------------------------------------------------------------------------------
-
-template< typename T >
-T mix( const T& a, const T& b, float t )
-{
-    return static_cast< T >( a * ( 1 - t ) + b * t + 0.5f );
-}
 
 
 
