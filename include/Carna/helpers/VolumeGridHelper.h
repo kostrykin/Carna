@@ -16,7 +16,7 @@
 #include <Carna/base/math.h>
 #include <Carna/base/VolumeGrid.h>
 #include <Carna/base/VolumeSegment.h>
-#include <Carna/base/BufferedHUVolumeTexture.h>
+#include <Carna/base/BufferedVectorFieldTexture.h>
 #include <Carna/base/Geometry.h>
 #include <Carna/base/BoundingBox.h>
 #include <map>
@@ -361,7 +361,7 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
         {
             /* Upload the texture to video memory.
              */
-            texture = &base::BufferedHUVolumeTexture< SegmentHUVolumeType >::create( segment.huVolume() );
+            texture = &base::BufferedVectorFieldTexture< SegmentHUVolumeType >::create( segment.huVolume() );
             textures[ &segment ] = texture;
         }
         else

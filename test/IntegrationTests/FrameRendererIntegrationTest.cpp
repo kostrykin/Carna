@@ -72,9 +72,9 @@ void FrameRendererIntegrationTest::test_typical()
     /* Load test volume data.
      */
     base::math::Vector3f spacings;
-    const std::unique_ptr< base::UInt16HUVolume >dataPtr
+    const std::unique_ptr< base::HUVolumeUInt16 >dataPtr
         ( HUGZSceneFactory::importVolume( SOURCE_PATH + "/res/pelves_reduced.hugz", spacings ) );
-    const base::UInt16HUVolume& data = *dataPtr;
+    const base::HUVolumeUInt16& data = *dataPtr;
 
     //! [typical_scene_setup]
     base::Node root;
@@ -88,7 +88,7 @@ void FrameRendererIntegrationTest::test_typical()
 
     /* Configure geometry node for volume data.
      */
-    typedef helpers::VolumeGridHelper< base::UInt16HUVolume > UInt16HUGridHelper;
+    typedef helpers::VolumeGridHelper< base::HUVolumeUInt16 > UInt16HUGridHelper;
     UInt16HUGridHelper gridHelper( data.size );
     gridHelper.loadData( data );
     root.attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, UInt16HUGridHelper::Spacing( spacings ), presets::DRRStage::ROLE_HU_VOLUME ) );

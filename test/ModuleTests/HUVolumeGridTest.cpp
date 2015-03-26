@@ -41,7 +41,7 @@ void HUVolumeGridTest::cleanup()
 
 void HUVolumeGridTest::test_instantiation()
 {
-    grid.reset( new base::VolumeGrid< base::UInt16HUVolume, void >
+    grid.reset( new base::VolumeGrid< base::HUVolumeUInt16, void >
         ( base::math::Vector3ui( 10, 10, 10 ), base::math::Vector3ui( 2, 2, 1 ) ) );
 }
 
@@ -67,9 +67,9 @@ void HUVolumeGridTest::test_parenthesisOperator()
     for( segCoord.y() = 0; segCoord.y() < grid->segmentCounts.y(); ++segCoord.y() )
     for( segCoord.x() = 0; segCoord.x() < grid->segmentCounts.x(); ++segCoord.x() )
     {
-        base::VolumeSegment< base::UInt16HUVolume, void >& segment = grid->segmentAt( segCoord.x(), segCoord.y(), segCoord.z() );
-        base::UInt16HUVolume* const volume = new base::UInt16HUVolume( grid->maxSegmentSize );
-        segment.setHUVolume( new base::Composition< base::UInt16HUVolume >( volume ) );
+        base::VolumeSegment< base::HUVolumeUInt16, void >& segment = grid->segmentAt( segCoord.x(), segCoord.y(), segCoord.z() );
+        base::HUVolumeUInt16* const volume = new base::HUVolumeUInt16( grid->maxSegmentSize );
+        segment.setHUVolume( new base::Composition< base::HUVolumeUInt16 >( volume ) );
 
         /* Load segment volume data.
         */

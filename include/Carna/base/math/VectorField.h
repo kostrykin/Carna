@@ -9,12 +9,12 @@
  *
  */
 
-#ifndef SCALARFIELD_H_6014714286
-#define SCALARFIELD_H_6014714286
+#ifndef VECTORFIELD_H_6014714286
+#define VECTORFIELD_H_6014714286
 
-/** \file   ScalarField.h
+/** \file   VectorField.h
   *
-  * \brief  Defines \ref Carna::base::math::ScalarField.
+  * \brief  Defines \ref Carna::base::math::VectorField.
   *
   * \author Leonid Kostrykin
   * \date   21.2.13
@@ -35,38 +35,38 @@ namespace math
 
 
 // ----------------------------------------------------------------------------------
-// ScalarField
+// VectorField
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Abstract definition of an \f$\mathbb Z_0^3 \to \mathrm T \subset \mathbb R\f$
-  * scalar field.
+  * Abstract definition of an \f$\mathbb Z_0^3 \to T\f$ vector field where \f$T\f$ is
+  * \a ValueType.
   *
   * \author Leonid Kostrykin
-  * \date   21.2.13 - 9.3.15
+  * \date   21.2.13 - 26.3.15
   */
-template< typename ScalarType >
-class ScalarField
+template< typename ValueType >
+class VectorField
 {
 
 public:
 
     /** \brief
-      * Holds the co-domain type of the scalar field.
+      * Holds the co-domain type of the vector field.
       */
-    typedef ScalarType Scalar;
+    typedef ValueType Value;
 
     /** \brief
       * Does nothing.
       */
-    virtual ~ScalarField()
+    virtual ~VectorField()
     {
     }
 
     /** \brief
       * Returns value of specified voxel.
       */
-    virtual ScalarType operator()
+    virtual ValueType operator()
         ( unsigned int x
         , unsigned int y
         , unsigned int z ) const = 0;
@@ -74,13 +74,13 @@ public:
     /** \brief
       * Returns value of specified voxel.
       */
-    virtual ScalarType operator()( const Vector3ui& at ) const;
+    virtual ValueType operator()( const Vector3ui& at ) const;
 
-}; // ScalarField
+}; // VectorField
 
 
-template< typename ScalarType >
-ScalarType ScalarField< ScalarType >::operator()( const math::Vector3ui& at ) const
+template< typename ValueType >
+ValueType VectorField< ValueType >::operator()( const math::Vector3ui& at ) const
 {
     return ( *this )( at.x(), at.y(), at.z() );
 }
@@ -93,4 +93,4 @@ ScalarType ScalarField< ScalarType >::operator()( const math::Vector3ui& at ) co
 
 }  // namespace Carna
 
-#endif // SCALARFIELD_H_6014714286
+#endif // VECTORFIELD_H_6014714286

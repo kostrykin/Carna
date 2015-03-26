@@ -33,6 +33,7 @@
 #endif
 
 #include <vector>
+#include <cstdint>
 
 
 
@@ -71,7 +72,6 @@ namespace Carna
         class  Geometry;
         class  GeometryFeature;
         class  GLContext;
-        class  HUVolumeTexture;
         class  IndexBufferBase;
         class  MeshBase;
         class  ManagedMeshBase;
@@ -99,12 +99,16 @@ namespace Carna
         struct VertexAttribute;
         class  VertexBufferBase;
         class  Viewport;
+        class  NormalMap3D;
+        class  NormalMap3DTexture;
 
         template< typename AssociatedObjectType > class Aggregation;
         template< typename AssociatedObjectType > class Association;
+        template< typename BufferedVectorComponentType, typename BufferType = std::vector< BufferedVectorComponentType > >
+            class BufferedNormalMap3D;
         template< typename VoxelType, typename BufferType = std::vector< VoxelType > > class BufferedHUVolume;
-        template< typename BufferedHUVolumeType > struct BufferedHUVolumeFormat;
-        template< typename BufferedHUVolumeType > class BufferedHUVolumeTexture;
+        template< typename BufferedVectorFieldType > struct BufferedVectorFieldFormat;
+        template< typename BufferedVectorFieldType > class BufferedVectorFieldTexture;
         template< typename AssociatedObjectType > class Composition;
         template< typename RenderableCompare > class GeometryStage;
         template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType > class VolumeGrid;
@@ -120,6 +124,16 @@ namespace Carna
         template< typename ValueType > struct ShaderUniformType;
         template< typename InstanceType > class Singleton;
         template< unsigned int dimension > class Texture;
+
+        /** \brief
+          * Defines 16bit unsigned integer \ref HUV "HU" volume data.
+          */
+        typedef BufferedHUVolume< uint16_t > HUVolumeUInt16;
+
+        /** \brief
+          * Defines 8bit signed integer \ref BufferedNormalMap3D.
+          */
+        typedef BufferedNormalMap3D< int8_t > NormalMap3DInt8;
         
         /** \brief
           * Provides set of math-related classes and functions.
@@ -130,7 +144,7 @@ namespace Carna
             class Ray3f;
 
             template< typename VectorType > class Ray;
-            template< typename ScalarType > class ScalarField;
+            template< typename ValueType > class VectorField;
             template< typename T > class Span;
             template< typename VectorType, typename ScalarType = typename VectorType::Scalar > class RayPlaneHitTest;
 

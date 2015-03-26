@@ -130,9 +130,8 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/Texture.h
 		include/${PROJECT_NAME}/base/ManagedTexture3D.h
 		include/${PROJECT_NAME}/base/ManagedTexture3DInterface.h
-		include/${PROJECT_NAME}/base/BufferedHUVolumeFormat.h
-		include/${PROJECT_NAME}/base/BufferedHUVolumeTexture.h
-		include/${PROJECT_NAME}/base/HUVolumeTexture.h
+		include/${PROJECT_NAME}/base/BufferedVectorFieldFormat.h
+		include/${PROJECT_NAME}/base/BufferedVectorFieldTexture.h
 		include/${PROJECT_NAME}/base/GeometryFeature.h
 		include/${PROJECT_NAME}/base/Vertex.h
 		include/${PROJECT_NAME}/base/VertexBuffer.h
@@ -148,8 +147,9 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/VolumeGrid.h
 		include/${PROJECT_NAME}/base/VolumeSegment.h
 		include/${PROJECT_NAME}/base/HUVolume.h
+		include/${PROJECT_NAME}/base/NormalMap3D.h
 		include/${PROJECT_NAME}/base/BufferedHUVolume.h
-		include/${PROJECT_NAME}/base/UInt16HUVolume.h
+		include/${PROJECT_NAME}/base/BufferedNormalMap3D.h
 		include/${PROJECT_NAME}/base/Aggregation.h
 		include/${PROJECT_NAME}/base/Association.h
 		include/${PROJECT_NAME}/base/CarnaException.h
@@ -166,7 +166,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/math/Span.h
 		include/${PROJECT_NAME}/base/math/Ray.h
 		include/${PROJECT_NAME}/base/math/RayPlaneHitTest.h
-		include/${PROJECT_NAME}/base/math/ScalarField.h
+		include/${PROJECT_NAME}/base/math/VectorField.h
 		include/${PROJECT_NAME}/presets/MeshColorCodingStage.h
 		include/${PROJECT_NAME}/presets/VolumeRenderingStage.h
 		include/${PROJECT_NAME}/presets/DRRStage.h
@@ -224,8 +224,7 @@ set( SRC
 		src/base/ManagedTexture3D.cpp
 		src/base/ManagedTexture3DInterface.cpp
 		src/base/Viewport.cpp
-		src/base/BufferedHUVolumeFormat.cpp
-		src/base/HUVolumeTexture.cpp
+		src/base/BufferedVectorFieldFormat.cpp
 		src/base/GeometryFeature.cpp
 		src/base/Stopwatch.cpp
 		src/base/Vertex.cpp
@@ -239,6 +238,7 @@ set( SRC
 		src/base/ShaderManager.cpp
 		src/base/ShaderUniform.cpp
 		src/base/HUVolume.cpp
+		src/base/NormalMap3D.cpp
 		src/base/CarnaException.cpp
 		src/base/text.cpp
 		src/base/Log.cpp

@@ -9,8 +9,7 @@
  *
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/BufferedHUVolumeFormat.h>
+#include <Carna/base/NormalMap3D.h>
 
 namespace Carna
 {
@@ -21,11 +20,18 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// BufferedHUVolumeFormat
+// NormalMap3D
 // ----------------------------------------------------------------------------------
 
-const unsigned int BufferedHUVolumeFormat< UInt16HUVolume >::INTERNAL_FORMAT = GL_INTENSITY16;
-const unsigned int BufferedHUVolumeFormat< UInt16HUVolume >::BUFFER_TYPE     = GL_UNSIGNED_SHORT;
+NormalMap3D::NormalMap3D()
+{
+}
+
+
+NormalMap3D::NormalMap3D( const math::Vector3ui& size )
+    : size( size )
+{
+}
 
 
 

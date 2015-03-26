@@ -9,18 +9,19 @@
  *
  */
 
-#ifndef HUVOLUME_H_6014714286
-#define HUVOLUME_H_6014714286
+#ifndef NORMALMAP3D_H_6014714286
+#define NORMALMAP3D_H_6014714286
 
-/** \file   HUVolume.h
+/** \file   NormalMap3D.h
   *
-  * \brief  Defines \ref Carna::base::HUVolume.
+  * \brief  Defines \ref Carna::base::NormalMap3D.
   *
   * \author Leonid Kostrykin
   * \date   25.7.11
   */
 
 #include <Carna/base/math/VectorField.h>
+#include <Carna/base/math.h>
 #include <Carna/base/noncopyable.h>
 
 namespace Carna
@@ -32,17 +33,17 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// HUVolume
+// NormalMap3D
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Defines interface to \f$\mathbb N_0^3 \to \left[-1024,3071\right]\f$ volumetric
-  * data.
+  * Defines interface to \f$\mathbb N_0^3 \to \left\{\vec v \middle| \left\|\vec v
+  * \in \mathbb R^2\right\|_2 = 1\right\}\f$ mapping.
   *
   * \author Leonid Kostrykin
-  * \date   25.7.11 - 19.3.15
+  * \date   26.3.15
   */
-class CARNA_LIB HUVolume : public math::VectorField< HUV >
+class CARNA_LIB NormalMap3D : public math::VectorField< math::Vector3f >
 {
 
     NON_COPYABLE
@@ -52,31 +53,19 @@ public:
     /** \brief
       * Instantiates.
       */
-    HUVolume();
+    NormalMap3D();
 
     /** \brief
       * Instantiates.
       */
-    explicit HUVolume( const math::Vector3ui& size );
+    explicit NormalMap3D( const math::Vector3ui& size );
     
     /** \brief
       * Holds the resolution.
       */
     math::Vector3ui size;
 
-    /** \brief
-      * Returns HUV of specified voxel.
-      */
-    virtual HUV operator()( unsigned int x
-                          , unsigned int y
-                          , unsigned int z ) const override = 0;
-
-    /** \brief
-      * Returns HUV of specified voxel.
-      */
-    virtual HUV operator()( const math::Vector3ui& at ) const override = 0;
-
-}; // HUVolume
+}; // NormalMap3D
 
 
 
@@ -84,4 +73,4 @@ public:
 
 }  // namespace Carna
 
-#endif // HUVOLUME_H_6014714286
+#endif // NORMALMAP3D_H_6014714286

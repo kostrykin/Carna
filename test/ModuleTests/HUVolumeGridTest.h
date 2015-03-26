@@ -58,7 +58,7 @@ private slots:
 
 private:
 
-    std::unique_ptr< base::VolumeGrid< base::UInt16HUVolume, void > > grid;
+    std::unique_ptr< base::VolumeGrid< base::HUVolumeUInt16, void > > grid;
 
 }; // HUVolumeGridTest
 

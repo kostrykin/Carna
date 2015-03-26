@@ -1,8 +1,8 @@
 #pragma once
 
 #include <HUIO.h>
-#include <Carna/base/UInt16HUVolume.h>
 #include <Carna/base/math.h>
+#include <Carna/base/BufferedHUVolume.h>
 #include <fstream>
 #include <QDebug>
 #include <boost/iostreams/filtering_stream.hpp>
@@ -29,7 +29,7 @@ void stream_read( StreamType& in, ValueType& out )
 }
 
 /** \brief
-  * Creates \ref Carna::base::UInt16HUVolume object from HUGZ-file.
+  * Creates \ref Carna::base::HUVolumeUInt16 object from HUGZ-file.
   *
   * \section HUGZFileFormat HUGZ File Format
   *
@@ -48,11 +48,11 @@ void stream_read( StreamType& in, ValueType& out )
 struct HUGZSceneFactory
 {
     /** \brief
-      * Reads HUGZ file and returns created \ref Carna::base::UInt16HUVolume object.
+      * Reads HUGZ file and returns created \ref Carna::base::HUVolumeUInt16 object.
       *
       * The HUGZ file format is described \ref HUGZFileFormat "here".
       */
-    static Carna::base::UInt16HUVolume* importVolume( const std::string& filename, Carna::base::math::Vector3f& spacing )
+    static Carna::base::HUVolumeUInt16* importVolume( const std::string& filename, Carna::base::math::Vector3f& spacing )
     {
         std::ifstream file( filename, std::ios::in | std::ios::binary );
         CARNA_ASSERT( file.is_open() && !file.fail() );
@@ -65,7 +65,7 @@ struct HUGZSceneFactory
         stream_read( in, size.y() );
         stream_read( in, size.z() );
 
-        Carna::base::UInt16HUVolume* const volume = new Carna::base::UInt16HUVolume( size );
+        Carna::base::HUVolumeUInt16* const volume = new Carna::base::HUVolumeUInt16( size );
 
         stream_read( in, spacing.x() );
         stream_read( in, spacing.y() );

@@ -243,7 +243,7 @@ void mathTest::test_CARNA_FOR_VECTOR3UI()
 {
     //! [example_CARNA_FOR_VECTOR3UI]
     using namespace Carna::base;
-    UInt16HUVolume data( math::Vector3ui( 100, 100, 30 ) );
+    HUVolumeUInt16 data( math::Vector3ui( 100, 100, 30 ) );
   
     /* Initialize all 'data' voxels with '-1024'.
      */
@@ -257,7 +257,7 @@ void mathTest::test_CARNA_FOR_VECTOR3UI()
      */
     for( std::size_t i = 0; i < data.buffer().size(); ++i )
     {
-        QCOMPARE( data.buffer()[ i ], UInt16HUVolume::HUVToBufferValue( expected ) );
+        QCOMPARE( data.buffer()[ i ], HUVolumeUInt16::HUVToBufferValue( expected ) );
     }
     //! [example_CARNA_FOR_VECTOR3UI]
 };

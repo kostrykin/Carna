@@ -13,7 +13,7 @@
 #include <Carna/base/Camera.h>
 #include <Carna/base/Geometry.h>
 #include <Carna/base/GeometryFeature.h>
-#include <Carna/base/BufferedHUVolumeTexture.h>
+#include <Carna/base/BufferedVectorFieldTexture.h>
 #include <Carna/base/Material.h>
 #include <Carna/base/MeshFactory.h>
 #include <Carna/base/Vertex.h>
@@ -62,7 +62,7 @@ class Demo : public QGLWidget
     const static int GEOMETRY_TYPE_OPAQUE        = 1;
     const static int GEOMETRY_TYPE_CUTTING_PLANE = 2;
 
-    typedef Carna::helpers::VolumeGridHelper< Carna::base::UInt16HUVolume > GridHelper;
+    typedef Carna::helpers::VolumeGridHelper< Carna::base::HUVolumeUInt16 > GridHelper;
 
     std::unique_ptr< GridHelper > gridHelper;
     std::unique_ptr< base::GLContext > glContext;
@@ -189,11 +189,11 @@ void Demo::initializeGL()
     root.reset( new base::Node() );
 
     base::math::Vector3f spacing;
-    std::unique_ptr< base::UInt16HUVolume > baseVolume
+    std::unique_ptr< base::HUVolumeUInt16 > baseVolume
         ( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/../res/pelves_reduced.hugz", spacing ) );
     gridHelper.reset( new GridHelper
         ( baseVolume->size
-        , baseVolume->size.x() * baseVolume->size.y() * baseVolume->size.z() * sizeof( base::UInt16HUVolume::Voxel ) / 2 ) );
+        , baseVolume->size.x() * baseVolume->size.y() * baseVolume->size.z() * sizeof( base::HUVolumeUInt16::Voxel ) / 2 ) );
     gridHelper->loadData( *baseVolume );
     base::Node* const volumeNode = gridHelper->createNode
         ( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ), presets::DRRStage::ROLE_HU_VOLUME );

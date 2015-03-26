@@ -68,9 +68,9 @@ private:
 
     base::HUV huvByIndex( unsigned int index ) const;
 
-    base::UInt16HUVolume::Buffer* bufferPtr;
+    base::HUVolumeUInt16::Buffer* bufferPtr;
 
-    std::unique_ptr< base::UInt16HUVolume > volume;
+    std::unique_ptr< base::HUVolumeUInt16 > volume;
 
 }; // BufferedHUVolumeTest
 

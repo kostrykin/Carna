@@ -15,7 +15,7 @@
 #include <Carna/base/math.h>
 #include <Carna/base/Camera.h>
 #include <Carna/base/Geometry.h>
-#include <Carna/base/BufferedHUVolumeTexture.h>
+#include <Carna/base/BufferedVectorFieldTexture.h>
 #include <string>
 
 namespace Carna
@@ -46,8 +46,8 @@ TestScene::TestScene()
 
     /* Configure geometry node for volume data.
      */
-    base::BufferedHUVolumeTexture< base::UInt16HUVolume >& volumeTexture
-        = base::BufferedHUVolumeTexture< base::UInt16HUVolume >::create( *huVolume );
+    base::BufferedVectorFieldTexture< base::HUVolumeUInt16 >& volumeTexture
+        = base::BufferedVectorFieldTexture< base::HUVolumeUInt16 >::create( *huVolume );
     myVolumeGeometry->putFeature( ROLE_HU_VOLUME, volumeTexture );
     myVolumeGeometry->localTransform = base::math::scaling4f( scale );
     root->attachChild( myVolumeGeometry );
