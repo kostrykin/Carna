@@ -145,8 +145,8 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/BaseBuffer.h
 		include/${PROJECT_NAME}/base/ShaderManager.h
 		include/${PROJECT_NAME}/base/ShaderUniform.h
-		include/${PROJECT_NAME}/base/HUVolumeGrid.h
-		include/${PROJECT_NAME}/base/HUVolumeSegment.h
+		include/${PROJECT_NAME}/base/VolumeGrid.h
+		include/${PROJECT_NAME}/base/VolumeSegment.h
 		include/${PROJECT_NAME}/base/HUVolume.h
 		include/${PROJECT_NAME}/base/BufferedHUVolume.h
 		include/${PROJECT_NAME}/base/UInt16HUVolume.h
@@ -182,7 +182,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/presets/CompositionStage.h
 		include/${PROJECT_NAME}/presets/ParallaxStage.h
 		include/${PROJECT_NAME}/presets/DVRStage.h
-		include/${PROJECT_NAME}/helpers/HUVolumeGridHelper.h
+		include/${PROJECT_NAME}/helpers/VolumeGridHelper.h
 		include/${PROJECT_NAME}/helpers/FrameRendererHelper.h
 		include/${PROJECT_NAME}/Carna.h
 		include/${PROJECT_NAME}/Version.h

@@ -9,13 +9,13 @@
  *
  */
 
-#ifndef HUVOLUMEGRIDHELPER_H_6014714286
-#define HUVOLUMEGRIDHELPER_H_6014714286
+#ifndef VOLUMEGRIDHELPER_H_6014714286
+#define VOLUMEGRIDHELPER_H_6014714286
 
 #include <Carna/Carna.h>
 #include <Carna/base/math.h>
-#include <Carna/base/HUVolumeGrid.h>
-#include <Carna/base/HUVolumeSegment.h>
+#include <Carna/base/VolumeGrid.h>
+#include <Carna/base/VolumeSegment.h>
 #include <Carna/base/BufferedHUVolumeTexture.h>
 #include <Carna/base/Geometry.h>
 #include <Carna/base/BoundingBox.h>
@@ -23,8 +23,8 @@
 #include <memory>
 #include <cmath>
 
-/** \file   HUVolumeGridHelper.h
-  * \brief  Defines \ref Carna::helpers::HUVolumeGridHelper.
+/** \file   VolumeGridHelper.h
+  * \brief  Defines \ref Carna::helpers::VolumeGridHelper.
   */
 
 namespace Carna
@@ -36,12 +36,12 @@ namespace helpers
 
 
 // ----------------------------------------------------------------------------------
-// HUVolumeGridHelper
+// VolumeGridHelper
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Initializes, holds and manages an \ref base::HUVolumeGrid object.
-  * Creates representative scene nodes in particular.
+  * Initializes, holds and manages an \ref base::VolumeGrid object. Creates
+  * representative scene nodes in particular.
   *
   * This class needs to distinguish between three kinds of resolutions. The grid's
   * volume textures are \em not disjoint, but must maintain redundant voxels along
@@ -60,8 +60,8 @@ namespace helpers
   * \author Leonid Kostrykin
   * \date   8.3.15 - 10.3.15
   */
-template< typename HUVolumeSegmentVolume >
-class HUVolumeGridHelper
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+class VolumeGridHelper
 {
 
     NON_COPYABLE
@@ -72,14 +72,14 @@ class HUVolumeGridHelper
     const base::math::Vector3ui nativeResolution;
 
     /** \brief
-      * Holds the wrapped \ref base::HUVolumeGrid object.
+      * Holds the wrapped \ref base::VolumeGrid object.
       */
-    std::unique_ptr< base::HUVolumeGrid< HUVolumeSegmentVolume > > myGrid;
+    std::unique_ptr< base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType > > myGrid;
 
     /** \brief
       * Caches volume textures created from \ref myGrid.
       */
-    mutable std::map< const typename base::HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment*, base::ManagedTexture3D* > textures;
+    mutable std::map< const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >*, base::ManagedTexture3D* > textures;
 
 public:
 
@@ -94,9 +94,9 @@ public:
     const static unsigned int DEFAULT_VOLUME_TEXTURE_ROLE = 0;
 
     /** \brief
-      * Creates new \ref base::HUVolumeGrid object. Initializes its' segments s.t.
-      * the totally covered resolution is \a resolution at least. It may be chosen
-      * larger if the buffers' resolution need to be rounded to even numbers.
+      * Creates new \ref base::VolumeGrid object. Initializes its' segments s.t. the
+      * totally covered resolution is \a resolution at least. It may be chosen larger
+      * if the buffers' resolution need to be rounded to even numbers.
       *
       * \param nativeResolution
       *     The resolution the grid is to be prepared for. This is the resolution
@@ -106,7 +106,7 @@ public:
       *     Maximum memory size of a single segment volume. The segments partitioning
       *     is chosen according to this value.
       */
-    HUVolumeGridHelper( const base::math::Vector3ui& nativeResolution, std::size_t maxSegmentBytesize = DEFAULT_MAX_SEGMENT_BYTESIZE );
+    VolumeGridHelper( const base::math::Vector3ui& nativeResolution, std::size_t maxSegmentBytesize = DEFAULT_MAX_SEGMENT_BYTESIZE );
 
     /** \brief
       * Holds the effective resolution, i.e. the resolution covered by the grid.
@@ -154,7 +154,7 @@ public:
     /** \brief
       * References the underlying grid.
       */
-    base::HUVolumeGrid< HUVolumeSegmentVolume >& grid() const;
+    base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >& grid() const;
 
     /** \brief
       * Specifies the spacing between two succeeding voxel centers in millimeters.
@@ -235,15 +235,15 @@ private:
 
     static base::math::Vector3ui computeMaxSegmentSize( const base::math::Vector3ui& resolution, std::size_t maxSegmentBytesize );
 
-}; // HUVolumeGridHelper
+}; // VolumeGridHelper
 
 
-template< typename HUVolumeSegmentVolume >
-base::math::Vector3ui HUVolumeGridHelper< HUVolumeSegmentVolume >::computeMaxSegmentSize
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+base::math::Vector3ui VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::computeMaxSegmentSize
     ( const base::math::Vector3ui& resolution, std::size_t maxSegmentBytesize )
 {
     const float maxSideLengthF = std::pow
-        ( maxSegmentBytesize / static_cast< float >( sizeof( typename HUVolumeSegmentVolume::Voxel ) ), 1.f / 3 );
+        ( maxSegmentBytesize / static_cast< float >( sizeof( typename SegmentHUVolumeType::Voxel ) ), 1.f / 3 );
     const unsigned int maxSideLength = base::math::makeEven( base::math::round_ui( maxSideLengthF ), -1 );
 
     /* We subtract the redundant texels from effective segment size.
@@ -253,8 +253,8 @@ base::math::Vector3ui HUVolumeGridHelper< HUVolumeSegmentVolume >::computeMaxSeg
 }
 
 
-template< typename HUVolumeSegmentVolume >
-HUVolumeGridHelper< HUVolumeSegmentVolume >::HUVolumeGridHelper
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeGridHelper
         ( const base::math::Vector3ui& nativeResolution
         , std::size_t maxSegmentBytesize )
     : nativeResolution( nativeResolution )
@@ -272,7 +272,7 @@ HUVolumeGridHelper< HUVolumeSegmentVolume >::HUVolumeGridHelper
         ( resolution.x() / maxSegmentSize.x() + ( tails.x() > 0 ? 1 : 0 )
         , resolution.y() / maxSegmentSize.y() + ( tails.y() > 0 ? 1 : 0 )
         , resolution.z() / maxSegmentSize.z() + ( tails.z() > 0 ? 1 : 0 ) );
-    myGrid.reset( new base::HUVolumeGrid< HUVolumeSegmentVolume >( maxSegmentSize, segmentCounts ) );
+    myGrid.reset( new base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >( maxSegmentSize, segmentCounts ) );
 
     CARNA_FOR_VECTOR3UI( segmentCoord, myGrid->segmentCounts )
     {
@@ -284,15 +284,15 @@ HUVolumeGridHelper< HUVolumeSegmentVolume >::HUVolumeGridHelper
             , segmentCoord.y() + 1 == myGrid->segmentCounts.y() ? tails.y() : regularSegmentSize.y() + 1
             , segmentCoord.z() + 1 == myGrid->segmentCounts.z() ? tails.z() : regularSegmentSize.z() + 1 );
 
-        HUVolumeSegmentVolume* const volume = new HUVolumeSegmentVolume( volumeSize );
+        SegmentHUVolumeType* const volume = new SegmentHUVolumeType( volumeSize );
         myGrid->segmentAt( segmentCoord.x(), segmentCoord.y(), segmentCoord.z() ).setVolume
-            ( new base::Composition< HUVolumeSegmentVolume >( volume ) );
+            ( new base::Composition< SegmentHUVolumeType >( volume ) );
     }
 }
 
 
-template< typename HUVolumeSegmentVolume >
-void HUVolumeGridHelper< HUVolumeSegmentVolume >::releaseGeometryFeatures()
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+void VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::releaseGeometryFeatures()
 {
     for( auto itr = textures.begin(); itr != textures.end(); ++itr )
     {
@@ -303,9 +303,9 @@ void HUVolumeGridHelper< HUVolumeSegmentVolume >::releaseGeometryFeatures()
 }
 
 
-template< typename HUVolumeSegmentVolume >
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 template< typename UnaryVector3uiToHUVFunction >
-void HUVolumeGridHelper< HUVolumeSegmentVolume >::loadData
+void VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::loadData
     ( const UnaryVector3uiToHUVFunction& data )
 {
     releaseGeometryFeatures();
@@ -321,15 +321,16 @@ void HUVolumeGridHelper< HUVolumeSegmentVolume >::loadData
 }
 
 
-template< typename HUVolumeSegmentVolume >
-base::HUVolumeGrid< HUVolumeSegmentVolume >& HUVolumeGridHelper< HUVolumeSegmentVolume >::grid() const
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >&
+    VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::grid() const
 {
     return *myGrid;
 }
 
 
-template< typename HUVolumeSegmentVolume >
-base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::createNode
     ( unsigned int geometryType
     , const Spacing& spacing
     , const Dimensions& dimensions
@@ -350,7 +351,7 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
      */
     CARNA_FOR_VECTOR3UI( segmentCoord, myGrid->segmentCounts )
     {
-        const typename base::HUVolumeGrid< HUVolumeSegmentVolume >::HUVolumeSegment& segment = myGrid->segmentAt( segmentCoord );
+        const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment = myGrid->segmentAt( segmentCoord );
 
         /* Check whether the texture already is available or needs to be uploaded.
          */
@@ -360,7 +361,7 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
         {
             /* Upload the texture to video memory.
              */
-            texture = &base::BufferedHUVolumeTexture< HUVolumeSegmentVolume >::create( segment.volume() );
+            texture = &base::BufferedHUVolumeTexture< SegmentHUVolumeType >::create( segment.volume() );
             textures[ &segment ] = texture;
         }
         else
@@ -400,8 +401,8 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
 }
 
 
-template< typename HUVolumeSegmentVolume >
-base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::createNode
     ( unsigned int geometryType, const Spacing& spacing, unsigned int volumeTextureRole ) const
 {
     const base::math::Vector3f dimensions
@@ -410,8 +411,8 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
 }
 
 
-template< typename HUVolumeSegmentVolume >
-base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::createNode
     ( unsigned int geometryType, const Dimensions& dimensions, unsigned int volumeTextureRole ) const
 {
     const base::math::Vector3f& mmDimensions = dimensions.millimeters;
@@ -421,15 +422,15 @@ base::Node* HUVolumeGridHelper< HUVolumeSegmentVolume >::createNode
 }
 
 
-template< typename HUVolumeSegmentVolume >
-HUVolumeGridHelper< HUVolumeSegmentVolume >::Spacing::Spacing( const base::math::Vector3f& millimeters )
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::Spacing::Spacing( const base::math::Vector3f& millimeters )
     : millimeters( millimeters )
 {
 }
 
 
-template< typename HUVolumeSegmentVolume >
-HUVolumeGridHelper< HUVolumeSegmentVolume >::Dimensions::Dimensions( const base::math::Vector3f& millimeters )
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::Dimensions::Dimensions( const base::math::Vector3f& millimeters )
     : millimeters( millimeters )
 {
 }
@@ -440,4 +441,4 @@ HUVolumeGridHelper< HUVolumeSegmentVolume >::Dimensions::Dimensions( const base:
 
 }  // namespace Carna
 
-#endif // HUVOLUMEGRIDHELPER_H_6014714286
+#endif // VOLUMEGRIDHELPER_H_6014714286

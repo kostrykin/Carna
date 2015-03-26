@@ -9,19 +9,19 @@
  *
  */
 
-#ifndef HUVOLUMEGRID_H_6014714286
-#define HUVOLUMEGRID_H_6014714286
+#ifndef VOLUMEGRID_H_6014714286
+#define VOLUMEGRID_H_6014714286
 
-/** \file   HUVolumeGrid.h
+/** \file   VolumeGrid.h
   *
-  * \brief  Defines \ref Carna::base::HUVolumeGrid.
+  * \brief  Defines \ref Carna::base::VolumeGrid.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.2015
+  * \date   22.2.15 - 26.3.15
   */
 
 #include <Carna/base/HUVolume.h>
-#include <Carna/base/HUVolumeSegment.h>
+#include <Carna/base/VolumeSegment.h>
 #include <Carna/base/CarnaException.h>
 
 namespace Carna
@@ -33,35 +33,35 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// HUVolumeGrid
+// VolumeGrid
 // ----------------------------------------------------------------------------------
 
-template< typename HUVolumeSegmentVolumeType >
-class HUVolumeGrid : public HUVolume
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+class VolumeGrid : public HUVolume
 {
 
     NON_COPYABLE
 
 public:
 
-    typedef HUVolumeSegmentVolumeType HUVolumeSegmentVolume;
+    typedef SegmentHUVolumeType SegmentHUVolume;
 
-    typedef base::HUVolumeSegment< HUVolumeGrid< HUVolumeSegmentVolumeType >, HUVolumeSegmentVolumeType > HUVolumeSegment;
+    typedef VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType > Segment;
 
-    HUVolumeGrid( const math::Vector3ui& maxSegmentSize, const math::Vector3ui& segmentCounts );
+    VolumeGrid( const math::Vector3ui& maxSegmentSize, const math::Vector3ui& segmentCounts );
 
-    virtual ~HUVolumeGrid();
+    virtual ~VolumeGrid();
 
     const math::Vector3ui maxSegmentSize;
     const math::Vector3ui segmentCounts;
 
-    HUVolumeSegment& segmentAt( const base::math::Vector3ui& );
+    Segment& segmentAt( const base::math::Vector3ui& );
 
-    const HUVolumeSegment& segmentAt( const base::math::Vector3ui& ) const;
+    const Segment& segmentAt( const base::math::Vector3ui& ) const;
 
-    HUVolumeSegment& segmentAt( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ );
+    Segment& segmentAt( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ );
 
-    const HUVolumeSegment& segmentAt( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ ) const;
+    const Segment& segmentAt( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ ) const;
     
     virtual HUV operator()( unsigned int x, unsigned int y, unsigned int z ) const override;
 
@@ -73,15 +73,17 @@ public:
 
 private:
 
-    std::vector< HUVolumeSegment* > segments;
+    std::vector< Segment* > segments;
 
     std::size_t segmentIndex( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ ) const;
 
-}; // HUVolumeGrid
+}; // VolumeGrid
 
 
-template< typename HUVolumeSegmentVolumeType >
-HUVolumeGrid< HUVolumeSegmentVolumeType >::HUVolumeGrid( const math::Vector3ui& maxSegmentSize, const math::Vector3ui& segmentCounts )
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeGrid
+        ( const math::Vector3ui& maxSegmentSize
+        , const math::Vector3ui& segmentCounts )
     : maxSegmentSize( maxSegmentSize )
     , segmentCounts( segmentCounts )
 {
@@ -93,65 +95,76 @@ HUVolumeGrid< HUVolumeSegmentVolumeType >::HUVolumeGrid( const math::Vector3ui& 
     for( unsigned int x = 0; x < segmentCounts.x(); ++x )
     {
         const std::size_t index = segmentIndex( x, y, z );
-        HUVolumeSegment* const segment = new HUVolumeSegment( *this );
+        Segment* const segment = new Segment( *this );
         segment->offset = math::Vector3ui( x * maxSegmentSize.x(), y * maxSegmentSize.y(), z * maxSegmentSize.z() );
         segments[ index ] = segment;
     }
 }
 
 
-template< typename HUVolumeSegmentVolumeType >
-HUVolumeGrid< HUVolumeSegmentVolumeType >::~HUVolumeGrid()
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::~VolumeGrid()
 {
-    std::for_each( segments.begin(), segments.end(), std::default_delete< HUVolumeSegment >() );
+    std::for_each( segments.begin(), segments.end(), std::default_delete< Segment >() );
 }
 
 
-template< typename HUVolumeSegmentVolumeType >
-std::size_t HUVolumeGrid< HUVolumeSegmentVolumeType >::segmentIndex( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ ) const
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+std::size_t VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::segmentIndex
+    ( unsigned int segmentX
+    , unsigned int segmentY
+    , unsigned int segmentZ ) const
 {
     return segmentX + segmentY * segmentCounts.x() + segmentZ * segmentCounts.x() * segmentCounts.y();
 }
 
 
-template< typename HUVolumeSegmentVolumeType >
-typename HUVolumeGrid< HUVolumeSegmentVolumeType >::HUVolumeSegment& HUVolumeGrid< HUVolumeSegmentVolumeType >::segmentAt
-    ( const base::math::Vector3ui& p )
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+typename VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::Segment&
+    VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::segmentAt
+        ( const base::math::Vector3ui& p )
 {
     return segmentAt( p.x(), p.y(), p.z() );
 }
 
 
-template< typename HUVolumeSegmentVolumeType >
-const typename HUVolumeGrid< HUVolumeSegmentVolumeType >::HUVolumeSegment& HUVolumeGrid< HUVolumeSegmentVolumeType >::segmentAt
-    ( const base::math::Vector3ui& p ) const
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+const typename VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::Segment&
+    VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::segmentAt
+        ( const base::math::Vector3ui& p ) const
 {
     return segmentAt( p.x(), p.y(), p.z() );
 }
 
 
-template< typename HUVolumeSegmentVolumeType >
-typename HUVolumeGrid< HUVolumeSegmentVolumeType >::HUVolumeSegment& HUVolumeGrid< HUVolumeSegmentVolumeType >::segmentAt
-    ( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ )
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+typename VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::Segment&
+    VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::segmentAt
+        ( unsigned int segmentX
+        , unsigned int segmentY
+        , unsigned int segmentZ )
 {
     const std::size_t index = segmentIndex( segmentX, segmentY, segmentZ );
-    HUVolumeSegment& segment = *segments[ index ];
+    Segment& segment = *segments[ index ];
     return segment;
 }
 
 
-template< typename HUVolumeSegmentVolumeType >
-const typename HUVolumeGrid< HUVolumeSegmentVolumeType >::HUVolumeSegment& HUVolumeGrid< HUVolumeSegmentVolumeType >::segmentAt
-    ( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ ) const
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+const typename VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::Segment&
+    VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::segmentAt
+        ( unsigned int segmentX
+        , unsigned int segmentY
+        , unsigned int segmentZ ) const
 {
     const std::size_t index = segmentIndex( segmentX, segmentY, segmentZ );
-    const HUVolumeSegment& segment = *segments[ index ];
+    const Segment& segment = *segments[ index ];
     return segment;
 }
 
 
-template< typename HUVolumeSegmentVolumeType >
-HUV HUVolumeGrid< HUVolumeSegmentVolumeType >::operator()( unsigned int x, unsigned int y, unsigned int z ) const
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+HUV VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::operator()( unsigned int x, unsigned int y, unsigned int z ) const
 {
     const unsigned int segmentX = x / maxSegmentSize.x();
     const unsigned int segmentY = y / maxSegmentSize.y();
@@ -161,20 +174,20 @@ HUV HUVolumeGrid< HUVolumeSegmentVolumeType >::operator()( unsigned int x, unsig
     const unsigned int localY = y % maxSegmentSize.y();
     const unsigned int localZ = z % maxSegmentSize.z();
 
-    const HUVolumeSegment& segment = segmentAt( segmentX, segmentY, segmentZ );
+    const Segment& segment = segmentAt( segmentX, segmentY, segmentZ );
     return segment.volume()( localX, localY, localZ );
 }
 
 
-template< typename HUVolumeSegmentVolumeType >
-HUV HUVolumeGrid< HUVolumeSegmentVolumeType >::operator()( const math::Vector3ui& at ) const
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+HUV VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::operator()( const math::Vector3ui& at ) const
 {
     return ( *this )( at.x(), at.y(), at.z() );
 }
 
 
-template< typename HUVolumeSegmentVolumeType >
-void HUVolumeGrid< HUVolumeSegmentVolumeType >::setVoxel( unsigned int x, unsigned int y, unsigned int z, HUV huv )
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+void VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVoxel( unsigned int x, unsigned int y, unsigned int z, HUV huv )
 {
     const unsigned int segmentX = x / maxSegmentSize.x();
     const unsigned int segmentY = y / maxSegmentSize.y();
@@ -184,7 +197,7 @@ void HUVolumeGrid< HUVolumeSegmentVolumeType >::setVoxel( unsigned int x, unsign
     const unsigned int localY = y % maxSegmentSize.y();
     const unsigned int localZ = z % maxSegmentSize.z();
 
-    HUVolumeSegment& segment = segmentAt( segmentX, segmentY, segmentZ );
+    Segment& segment = segmentAt( segmentX, segmentY, segmentZ );
     segment.volume().setVoxel( localX, localY, localZ, huv );
 
     /* Note that segments are not disjoint,
@@ -227,8 +240,8 @@ void HUVolumeGrid< HUVolumeSegmentVolumeType >::setVoxel( unsigned int x, unsign
 }
 
 
-template< typename HUVolumeSegmentVolumeType >
-void HUVolumeGrid< HUVolumeSegmentVolumeType >::setVoxel( const math::Vector3ui& at, HUV huv )
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+void VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVoxel( const math::Vector3ui& at, HUV huv )
 {
     this->setVoxel( at.x(), at.y(), at.z(), huv );
 }
@@ -239,4 +252,4 @@ void HUVolumeGrid< HUVolumeSegmentVolumeType >::setVoxel( const math::Vector3ui&
 
 }  // namespace Carna
 
-#endif // HUVOLUMEGRID_H_6014714286
+#endif // VOLUMEGRID_H_6014714286

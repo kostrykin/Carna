@@ -107,8 +107,8 @@ namespace Carna
         template< typename BufferedHUVolumeType > class BufferedHUVolumeTexture;
         template< typename AssociatedObjectType > class Composition;
         template< typename RenderableCompare > class GeometryStage;
-        template< typename HUVolumeSegmentVolume > class HUVolumeGrid;
-        template< typename HUVolumeGrid, typename HUVolumeSegmentVolume > class HUVolumeSegment;
+        template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType > class VolumeGrid;
+        template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType > class VolumeSegment;
         template< typename IndexType > class IndexBuffer;
         template< typename VertexType, typename IndexType > class Mesh;
         template< typename VertexType, typename IndexType > class ManagedMesh;
@@ -170,7 +170,7 @@ namespace Carna
         class DefaultRenderStageOrder;
 
         template< typename RenderStageOrder = DefaultRenderStageOrder > class FrameRendererHelper;
-        template< typename HUVolumeSegmentVolume > class HUVolumeGridHelper;
+        template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType = void > class VolumeGridHelper;
 
     }
 

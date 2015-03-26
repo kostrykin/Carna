@@ -27,7 +27,7 @@
 #include <Carna/presets/DVRStage.h>
 #include <Carna/presets/DRRStage.h>
 #include <Carna/presets/CuttingPlanesStage.h>
-#include <Carna/helpers/HUVolumeGridHelper.h>
+#include <Carna/helpers/VolumeGridHelper.h>
 
 #include <TestApplication.h>
 #include <HUGZSceneFactory.h>
@@ -62,7 +62,7 @@ class Demo : public QGLWidget
     const static int GEOMETRY_TYPE_OPAQUE        = 1;
     const static int GEOMETRY_TYPE_CUTTING_PLANE = 2;
 
-    typedef Carna::helpers::HUVolumeGridHelper< Carna::base::UInt16HUVolume > GridHelper;
+    typedef Carna::helpers::VolumeGridHelper< Carna::base::UInt16HUVolume > GridHelper;
 
     std::unique_ptr< GridHelper > gridHelper;
     std::unique_ptr< base::GLContext > glContext;
