@@ -10,7 +10,7 @@
  */
 
 #include "HUVolumeGridTest.h"
-#include <Carna/base/HUVolumeGrid.h>
+#include <Carna/base/VolumeGrid.h>
 
 
 
@@ -41,7 +41,8 @@ void HUVolumeGridTest::cleanup()
 
 void HUVolumeGridTest::test_instantiation()
 {
-    grid.reset( new base::HUVolumeGrid< base::UInt16HUVolume >( base::math::Vector3ui( 10, 10, 10 ), base::math::Vector3ui( 2, 2, 1 ) ) );
+    grid.reset( new base::VolumeGrid< base::UInt16HUVolume, void >
+        ( base::math::Vector3ui( 10, 10, 10 ), base::math::Vector3ui( 2, 2, 1 ) ) );
 }
 
 
@@ -66,9 +67,9 @@ void HUVolumeGridTest::test_parenthesisOperator()
     for( segCoord.y() = 0; segCoord.y() < grid->segmentCounts.y(); ++segCoord.y() )
     for( segCoord.x() = 0; segCoord.x() < grid->segmentCounts.x(); ++segCoord.x() )
     {
-        base::HUVolumeGrid< base::UInt16HUVolume >::HUVolumeSegment& segment = grid->segmentAt( segCoord.x(), segCoord.y(), segCoord.z() );
+        base::VolumeSegment< base::UInt16HUVolume, void >& segment = grid->segmentAt( segCoord.x(), segCoord.y(), segCoord.z() );
         base::UInt16HUVolume* const volume = new base::UInt16HUVolume( grid->maxSegmentSize );
-        segment.setVolume( new base::Composition< base::UInt16HUVolume >( volume ) );
+        segment.setHUVolume( new base::Composition< base::UInt16HUVolume >( volume ) );
 
         /* Load segment volume data.
         */

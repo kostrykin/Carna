@@ -13,7 +13,6 @@
 #include <Carna/base/glew.h>
 #include <Carna/base/ShaderManager.h>
 #include <Carna/base/Framebuffer.h>
-#include <Carna/base/RenderTexture.h>
 #include <Carna/base/Viewport.h>
 #include <Carna/base/RenderState.h>
 #include <Carna/base/ShaderUniform.h>
@@ -126,7 +125,7 @@ void DVRStage::writeColorMap( const base::math::Span< base::HUV >& huRange, cons
         for( int huOffset = 0; huOffset < huRangeSize; ++huOffset )
         {
             const float lambda = huOffset / static_cast< float >( huRangeSize - 1 );
-            const base::Color color = base::math::mix( color0, color1, lambda );
+            const base::Color color = base::math::mix< base::math::Vector4f >( color0, color1, lambda );
             pimpl->colorMap[ 1024 + huRange.first + huOffset ] = color;
         }
         pimpl->isColorMapDirty = true;

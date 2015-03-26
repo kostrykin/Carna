@@ -21,8 +21,6 @@
   */
 
 #include <Carna/base/BufferedHUVolume.h>
-#include <Carna/base/HUVolumeGrid.h>
-#include <Carna/base/HUVolumeSegment.h>
 #include <cstdint>
 
 namespace Carna

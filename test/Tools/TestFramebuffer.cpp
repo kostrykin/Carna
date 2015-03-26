@@ -11,6 +11,7 @@
 
 #include "TestFramebuffer.h"
 #include <Carna/base/CarnaException.h>
+#include <Carna/base/Framebuffer.h>
 #include <Carna/base/Texture.h>
 #include <Carna/base/math.h>
 #include <QFileInfo>
@@ -25,7 +26,19 @@ namespace testing
 
 
 // ----------------------------------------------------------------------------------
-// FramebufferTester
+// createRenderTexture
+// ----------------------------------------------------------------------------------
+
+static base::Texture< 2 >* createRenderTexture( base::GLContext& glContext )
+{
+    glContext.makeCurrent();
+    return base::Framebuffer::createRenderTexture();
+}
+
+
+
+// ----------------------------------------------------------------------------------
+// TestFramebuffer
 // ----------------------------------------------------------------------------------
 
 const double TestFramebuffer::DEFAULT_EPSILON = 0.01;
@@ -33,12 +46,7 @@ const double TestFramebuffer::DEFAULT_EPSILON = 0.01;
 
 TestFramebuffer::TestFramebuffer( base::GLContext& glContext, unsigned int width, unsigned int height )
     : frame( new QImage( width, height, QImage::Format_RGB888 ) )
-    , renderTexture( [&]()->base::Texture< 2 >*
-            {
-                glContext.makeCurrent();
-                return base::Framebuffer::createRenderTexture();
-            }()
-        )
+    , renderTexture( createRenderTexture( glContext ) )
     , fbo( new base::Framebuffer( width, height, *renderTexture ) )
     , fboBinding( new base::Framebuffer::Binding( *fbo ) )
     , myEpsilon( DEFAULT_EPSILON )

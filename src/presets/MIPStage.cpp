@@ -15,7 +15,6 @@
 #include <Carna/base/ShaderManager.h>
 #include <Carna/base/ShaderUniform.h>
 #include <Carna/base/Framebuffer.h>
-#include <Carna/base/RenderTexture.h>
 #include <Carna/base/Viewport.h>
 #include <Carna/base/RenderState.h>
 #include <Carna/base/math.h>

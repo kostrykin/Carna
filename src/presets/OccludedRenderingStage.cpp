@@ -14,7 +14,6 @@
 #include <Carna/base/RenderState.h>
 #include <Carna/base/RenderTask.h>
 #include <Carna/base/Framebuffer.h>
-#include <Carna/base/RenderTexture.h>
 #include <Carna/base/Viewport.h>
 #include <set>
 

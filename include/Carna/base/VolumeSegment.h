@@ -133,7 +133,7 @@ private:
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeSegment
-        ( VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::Grid& grid )
+        ( VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >& grid )
     : grid( grid )
 {
 }
