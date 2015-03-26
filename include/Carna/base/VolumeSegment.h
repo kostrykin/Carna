@@ -114,19 +114,19 @@ public:
 
     VolumeSegment( Grid& grid );
 
-    void setVolume( Association< SegmentHUVolumeType >* volume );
+    void setHUVolume( Association< SegmentHUVolumeType >* huVolume );
 
-    SegmentHUVolumeType& volume();
+    SegmentHUVolumeType& huVolume();
 
-    const SegmentHUVolumeType& volume() const;
+    const SegmentHUVolumeType& huVolume() const;
 
-    bool hasVolume() const;
+    bool hasHUVolume() const;
 
     math::Vector3ui offset;
 
 private:
 
-    std::unique_ptr< Association< SegmentHUVolumeType > > myVolume;
+    std::unique_ptr< Association< SegmentHUVolumeType > > myHUVolume;
 
 }; // VolumeSegment
 
@@ -140,32 +140,32 @@ VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeSegment
 
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-void VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVolume( Association< SegmentHUVolumeType >* volume )
+void VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::setHUVolume( Association< SegmentHUVolumeType >* huVolume )
 {
-    myVolume.reset( volume );
+    myHUVolume.reset( huVolume );
 }
 
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-SegmentHUVolumeType& VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::volume()
+SegmentHUVolumeType& VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::huVolume()
 {
-    CARNA_ASSERT( hasVolume() );
-    return **myVolume;
+    CARNA_ASSERT( hasHUVolume() );
+    return **myHUVolume;
 }
 
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-const SegmentHUVolumeType& VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::volume() const
+const SegmentHUVolumeType& VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::huVolume() const
 {
-    CARNA_ASSERT( hasVolume() );
-    return **myVolume;
+    CARNA_ASSERT( hasHUVolume() );
+    return **myHUVolume;
 }
 
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-bool VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::hasVolume() const
+bool VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::hasHUVolume() const
 {
-    return myVolume.get() != nullptr && myVolume->get() != nullptr;
+    return myHUVolume.get() != nullptr && myHUVolume->get() != nullptr;
 }
 
 

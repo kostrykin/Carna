@@ -175,7 +175,7 @@ HUV VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::operator()( uns
     const unsigned int localZ = z % maxSegmentSize.z();
 
     const Segment& segment = segmentAt( segmentX, segmentY, segmentZ );
-    return segment.volume()( localX, localY, localZ );
+    return segment.huVolume()( localX, localY, localZ );
 }
 
 
@@ -198,7 +198,7 @@ void VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVoxel( unsi
     const unsigned int localZ = z % maxSegmentSize.z();
 
     Segment& segment = segmentAt( segmentX, segmentY, segmentZ );
-    segment.volume().setVoxel( localX, localY, localZ, huv );
+    segment.huVolume().setVoxel( localX, localY, localZ, huv );
 
     /* Note that segments are not disjoint,
      * so we might need to update the redundant texels as well.
@@ -209,33 +209,33 @@ void VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVoxel( unsi
 
     if( updateRedundantX )
     {
-        segmentAt( segmentX - 1, segmentY, segmentZ ).volume().setVoxel( maxSegmentSize.x(), localY, localZ, huv );
+        segmentAt( segmentX - 1, segmentY, segmentZ ).huVolume().setVoxel( maxSegmentSize.x(), localY, localZ, huv );
     }
     if( updateRedundantY )
     {
-        segmentAt( segmentX, segmentY - 1, segmentZ ).volume().setVoxel( localX, maxSegmentSize.y(), localZ, huv );
+        segmentAt( segmentX, segmentY - 1, segmentZ ).huVolume().setVoxel( localX, maxSegmentSize.y(), localZ, huv );
     }
     if( updateRedundantZ )
     {
-        segmentAt( segmentX, segmentY, segmentZ - 1 ).volume().setVoxel( localX, localY, maxSegmentSize.z(), huv );
+        segmentAt( segmentX, segmentY, segmentZ - 1 ).huVolume().setVoxel( localX, localY, maxSegmentSize.z(), huv );
     }
 
     if( updateRedundantX && updateRedundantY )
     {
-        segmentAt( segmentX - 1, segmentY - 1, segmentZ ).volume().setVoxel( maxSegmentSize.x(), maxSegmentSize.y(), localZ, huv );
+        segmentAt( segmentX - 1, segmentY - 1, segmentZ ).huVolume().setVoxel( maxSegmentSize.x(), maxSegmentSize.y(), localZ, huv );
     }
     if( updateRedundantX && updateRedundantZ )
     {
-        segmentAt( segmentX - 1, segmentY, segmentZ - 1 ).volume().setVoxel( maxSegmentSize.x(), localY, maxSegmentSize.z(), huv );
+        segmentAt( segmentX - 1, segmentY, segmentZ - 1 ).huVolume().setVoxel( maxSegmentSize.x(), localY, maxSegmentSize.z(), huv );
     }
     if( updateRedundantY && updateRedundantZ )
     {
-        segmentAt( segmentX, segmentY - 1, segmentZ - 1 ).volume().setVoxel( localX, maxSegmentSize.y(), maxSegmentSize.z(), huv );
+        segmentAt( segmentX, segmentY - 1, segmentZ - 1 ).huVolume().setVoxel( localX, maxSegmentSize.y(), maxSegmentSize.z(), huv );
     }
 
     if( updateRedundantX && updateRedundantY && updateRedundantZ )
     {
-        segmentAt( segmentX - 1, segmentY - 1, segmentZ - 1 ).volume().setVoxel( maxSegmentSize, huv );
+        segmentAt( segmentX - 1, segmentY - 1, segmentZ - 1 ).huVolume().setVoxel( maxSegmentSize, huv );
     }
 }
 

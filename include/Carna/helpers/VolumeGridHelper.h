@@ -285,7 +285,7 @@ VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeGridHel
             , segmentCoord.z() + 1 == myGrid->segmentCounts.z() ? tails.z() : regularSegmentSize.z() + 1 );
 
         SegmentHUVolumeType* const volume = new SegmentHUVolumeType( volumeSize );
-        myGrid->segmentAt( segmentCoord.x(), segmentCoord.y(), segmentCoord.z() ).setVolume
+        myGrid->segmentAt( segmentCoord.x(), segmentCoord.y(), segmentCoord.z() ).setHUVolume
             ( new base::Composition< SegmentHUVolumeType >( volume ) );
     }
 }
@@ -361,7 +361,7 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
         {
             /* Upload the texture to video memory.
              */
-            texture = &base::BufferedHUVolumeTexture< SegmentHUVolumeType >::create( segment.volume() );
+            texture = &base::BufferedHUVolumeTexture< SegmentHUVolumeType >::create( segment.huVolume() );
             textures[ &segment ] = texture;
         }
         else
@@ -375,7 +375,7 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
                segmentCoord.x() + 1 == myGrid->segmentCounts.x()
             || segmentCoord.y() + 1 == myGrid->segmentCounts.y()
             || segmentCoord.z() + 1 == myGrid->segmentCounts.z();
-        const base::math::Vector3ui& volumeSize = segment.volume().size;
+        const base::math::Vector3ui& volumeSize = segment.huVolume().size;
         const base::math::Vector3f dimensions = !isTail ? regularSegmentDimensions
             : ( ( volumeSize.cast< int >() - base::math::Vector3i( 1, 1, 1 ) )
                 .cast< float >().cwiseProduct( spacing.millimeters ) );
