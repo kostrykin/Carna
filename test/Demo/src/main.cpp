@@ -195,8 +195,7 @@ void Demo::initializeGL()
         ( baseVolume->size
         , baseVolume->size.x() * baseVolume->size.y() * baseVolume->size.z() * sizeof( base::HUVolumeUInt16::Voxel ) / 2 ) );
     gridHelper->loadData( *baseVolume );
-    base::Node* const volumeNode = gridHelper->createNode
-        ( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ), presets::DRRStage::ROLE_HU_VOLUME );
+    base::Node* const volumeNode = gridHelper->createNode( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ) );
 
     base::ManagedMeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 10, 10, 10 );
     base::Material& boxMaterial = base::Material::create( "unshaded" );

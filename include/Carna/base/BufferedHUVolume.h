@@ -57,7 +57,7 @@ public:
     typedef BufferType Buffer;
 
     /** \brief
-      * Holds the used voxel type.
+      * Holds the type used to store the value of a single voxel.
       */
     typedef VoxelType Voxel;
 
