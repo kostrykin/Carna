@@ -12,14 +12,13 @@
 #ifndef VOLUMEGRIDHELPER_H_6014714286
 #define VOLUMEGRIDHELPER_H_6014714286
 
+#include <Carna/helpers/VolumeGridHelperDetails.h>
 #include <Carna/Carna.h>
 #include <Carna/base/math.h>
 #include <Carna/base/VolumeGrid.h>
 #include <Carna/base/VolumeSegment.h>
-#include <Carna/base/BufferedVectorFieldTexture.h>
 #include <Carna/base/Geometry.h>
 #include <Carna/base/BoundingBox.h>
-#include <map>
 #include <memory>
 #include <cmath>
 
@@ -62,9 +61,14 @@ namespace helpers
   */
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 class VolumeGridHelper
+    : public details::VolumeGridHelper::HUComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >
+    , public details::VolumeGridHelper::NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >
 {
 
     NON_COPYABLE
+
+    typedef details::VolumeGridHelper::HUComponent< SegmentHUVolumeType, SegmentNormalsVolumeType > HUComponent;
+    typedef details::VolumeGridHelper::NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType > NormalsComponent;
 
     /** \brief
       * Holds the original resolution of the loaded data.
@@ -76,11 +80,6 @@ class VolumeGridHelper
       */
     std::unique_ptr< base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType > > myGrid;
 
-    /** \brief
-      * Caches volume textures created from \ref myGrid.
-      */
-    mutable std::map< const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >*, base::ManagedTexture3D* > textures;
-
 public:
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -90,8 +89,6 @@ public:
       * approximately. This determines the segments partitioning.
       */
     const static std::size_t DEFAULT_MAX_SEGMENT_BYTESIZE = 2 * 300 * 300 * 300;
-
-    const static unsigned int DEFAULT_VOLUME_TEXTURE_ROLE = 0;
 
     /** \brief
       * Creates new \ref base::VolumeGrid object. Initializes its' segments s.t. the
@@ -191,15 +188,8 @@ public:
       * \param spacing
       *     Specifies the spacing between two succeeding voxel centers in
       *     millimeters.
-      *
-      * \param volumeTextureRole
-      *     Will be used to \ref base::Geometry::putFeature
-      *     "put the volume textures on the Geometry objects".
       */
-    base::Node* createNode
-        ( unsigned int geometryType
-        , const Spacing& spacing
-        , unsigned int volumeTextureRole = DEFAULT_VOLUME_TEXTURE_ROLE ) const;
+    base::Node* createNode( unsigned int geometryType, const Spacing& spacing ) const;
     
     /** \brief
       * Creates renderable representation of the underlying grid, that can be put
@@ -215,23 +205,15 @@ public:
       *
       * \param dimensions
       *     Specifies the dimensions of the whole dataset in millimeters.
-      *
-      * \param volumeTextureRole
-      *     Will be used to \ref base::Geometry::putFeature
-      *     "put the volume textures on the Geometry objects".
       */
-    base::Node* createNode
-        ( unsigned int geometryType
-        , const Dimensions& dimensions
-        , unsigned int volumeTextureRole = DEFAULT_VOLUME_TEXTURE_ROLE ) const;
+    base::Node* createNode( unsigned int geometryType, const Dimensions& dimensions ) const;
 
 private:
 
     base::Node* createNode
         ( unsigned int geometryType
         , const Spacing& spacing
-        , const Dimensions& dimensions
-        , unsigned int volumeTextureRole ) const;
+        , const Dimensions& dimensions ) const;
 
     static base::math::Vector3ui computeMaxSegmentSize( const base::math::Vector3ui& resolution, std::size_t maxSegmentBytesize );
 
@@ -294,12 +276,8 @@ VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeGridHel
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 void VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::releaseGeometryFeatures()
 {
-    for( auto itr = textures.begin(); itr != textures.end(); ++itr )
-    {
-        base::ManagedTexture3D& texture = *itr->second;
-        texture.release();
-    }
-    textures.clear();
+    HUComponent::releaseGeometryFeatures();
+    NormalsComponent::releaseGeometryFeatures();
 }
 
 
@@ -311,13 +289,14 @@ void VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::loadData
     releaseGeometryFeatures();
     CARNA_FOR_VECTOR3UI( coord, resolution )
     {
-        const bool outOfOriginalBounds
+        const bool outOfNativeBounds
             =  coord.x() >= nativeResolution.x()
             || coord.y() >= nativeResolution.y()
             || coord.z() >= nativeResolution.z();
-        const base::HUV huv = outOfOriginalBounds ? -1024 : data( coord );
+        const base::HUV huv = outOfNativeBounds ? -1024 : data( coord );
         myGrid->setVoxel( coord, huv );
     }
+    computeNormals();
 }
 
 
@@ -331,10 +310,7 @@ base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >&
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::createNode
-    ( unsigned int geometryType
-    , const Spacing& spacing
-    , const Dimensions& dimensions
-    , unsigned int volumeTextureRole ) const
+    ( unsigned int geometryType, const Spacing& spacing, const Dimensions& dimensions ) const
 {
     /* Compute dimensions of a regular grid segment,
      * taking the redundant texels into account.
@@ -353,22 +329,6 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
     {
         const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment = myGrid->segmentAt( segmentCoord );
 
-        /* Check whether the texture already is available or needs to be uploaded.
-         */
-        auto textureItr = textures.find( &segment );
-        base::ManagedTexture3D* texture;
-        if( textureItr == textures.end() )
-        {
-            /* Upload the texture to video memory.
-             */
-            texture = &base::BufferedVectorFieldTexture< SegmentHUVolumeType >::create( segment.huVolume() );
-            textures[ &segment ] = texture;
-        }
-        else
-        {
-            texture = textureItr->second;
-        }
-
         /* Compute dimensions of particular grid segment.
          */
         const bool isTail =
@@ -384,7 +344,8 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
          */
         base::Geometry* const geom = new base::Geometry( geometryType );
         pivot->attachChild( geom );
-        geom->putFeature( volumeTextureRole, *texture );
+        HUComponent::attachTexture( *geom, segment );
+        NormalsComponent::attachTexture( *geom, segment );
         geom->setMovable( false );
         geom->setBoundingVolume( new base::BoundingBox( 1, 1, 1 ) );
         geom->localTransform
@@ -403,22 +364,22 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::createNode
-    ( unsigned int geometryType, const Spacing& spacing, unsigned int volumeTextureRole ) const
+    ( unsigned int geometryType, const Spacing& spacing ) const
 {
     const base::math::Vector3f dimensions
         = ( resolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >().cwiseProduct( spacing.millimeters );
-    return createNode( geometryType, spacing, Dimensions( dimensions ), volumeTextureRole );
+    return createNode( geometryType, spacing, Dimensions( dimensions ) );
 }
 
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::createNode
-    ( unsigned int geometryType, const Dimensions& dimensions, unsigned int volumeTextureRole ) const
+    ( unsigned int geometryType, const Dimensions& dimensions ) const
 {
     const base::math::Vector3f& mmDimensions = dimensions.millimeters;
     const base::math::Vector3f spacing
         = mmDimensions.cast< float >().cwiseQuotient( ( resolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ) );
-    return createNode( geometryType, Spacing( spacing ), dimensions, volumeTextureRole );
+    return createNode( geometryType, Spacing( spacing ), dimensions );
 }
 
 

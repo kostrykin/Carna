@@ -183,6 +183,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/presets/ParallaxStage.h
 		include/${PROJECT_NAME}/presets/DVRStage.h
 		include/${PROJECT_NAME}/helpers/VolumeGridHelper.h
+		include/${PROJECT_NAME}/helpers/VolumeGridHelperDetails.h
 		include/${PROJECT_NAME}/helpers/FrameRendererHelper.h
 		include/${PROJECT_NAME}/Carna.h
 		include/${PROJECT_NAME}/Version.h

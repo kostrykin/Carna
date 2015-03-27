@@ -33,16 +33,20 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// VolumeSegmentNormalsComponent
+// VolumeSegmentNormalsComponent< SegmentNormalsVolumeType >
 // ----------------------------------------------------------------------------------
 
 template< typename SegmentNormalsVolumeType >
 class VolumeSegmentNormalsComponent
 {
 
+    NON_COPYABLE
+
     std::unique_ptr< Association< SegmentNormalsVolumeType > > myNormals;
 
 public:
+
+    virtual ~VolumeSegmentNormalsComponent();
 
     void setNormals( Association< SegmentNormalsVolumeType >* volume );
 
@@ -55,10 +59,10 @@ public:
 }; // VolumeSegmentNormalsComponent
 
 
-template< >
-class VolumeSegmentNormalsComponent< void >
+template< typename SegmentNormalsVolumeType >
+VolumeSegmentNormalsComponent< SegmentNormalsVolumeType >::~VolumeSegmentNormalsComponent()
 {
-};
+}
 
 
 template< typename SegmentNormalsVolumeType >
@@ -93,11 +97,32 @@ bool VolumeSegmentNormalsComponent< SegmentNormalsVolumeType >::hasNormals() con
 
 
 // ----------------------------------------------------------------------------------
+// VolumeSegmentNormalsComponent< void >
+// ----------------------------------------------------------------------------------
+
+template< >
+class VolumeSegmentNormalsComponent< void >
+{
+
+public:
+
+    virtual ~VolumeSegmentNormalsComponent();
+
+}; // VolumeSegmentNormalsComponent
+
+
+VolumeSegmentNormalsComponent< void >::~VolumeSegmentNormalsComponent()
+{
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // VolumeSegment
 // ----------------------------------------------------------------------------------
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-class VolumeSegment
+class VolumeSegment : public VolumeSegmentNormalsComponent< SegmentNormalsVolumeType >
 {
 
     NON_COPYABLE
