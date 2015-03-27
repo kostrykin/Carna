@@ -255,6 +255,7 @@ VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeGridHel
         , resolution.y() / maxSegmentSize.y() + ( tails.y() > 0 ? 1 : 0 )
         , resolution.z() / maxSegmentSize.z() + ( tails.z() > 0 ? 1 : 0 ) );
     myGrid.reset( new base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >( maxSegmentSize, segmentCounts ) );
+    NormalsComponent::setGrid( *myGrid );
 
     CARNA_FOR_VECTOR3UI( segmentCoord, myGrid->segmentCounts )
     {

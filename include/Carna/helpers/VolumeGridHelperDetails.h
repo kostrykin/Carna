@@ -297,7 +297,7 @@ public:
 
 protected:
 
-    void setNormalsComponentGrid( base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >& grid );
+    void setGrid( base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >& grid );
 
     void attachTexture
         ( base::Geometry& geometry
@@ -329,7 +329,7 @@ unsigned int NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >
-    ::setNormalsComponentGrid( base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >& grid )
+    ::setGrid( base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >& grid )
 {
     this->grid = &grid;
 }
@@ -377,7 +377,7 @@ protected:
     /** \brief
       * Does nothing.
       */
-    void setNormalsComponentGrid( base::VolumeGrid< SegmentHUVolumeType, void >& grid );
+    void setGrid( base::VolumeGrid< SegmentHUVolumeType, void >& grid );
     
     /** \brief
       * Does nothing.
@@ -402,7 +402,7 @@ void NormalsComponent< SegmentHUVolumeType, void >::computeNormals()
 
 
 template< typename SegmentHUVolumeType >
-void NormalsComponent< SegmentHUVolumeType, void >::setNormalsComponentGrid
+void NormalsComponent< SegmentHUVolumeType, void >::setGrid
     ( base::VolumeGrid< SegmentHUVolumeType, void >& grid )
 {
 }
