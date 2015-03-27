@@ -61,13 +61,13 @@ namespace helpers
   */
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 class VolumeGridHelper
-    : public details::VolumeGridHelper::HUComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >
+    : public details::VolumeGridHelper::HUComponent     < SegmentHUVolumeType, SegmentNormalsVolumeType >
     , public details::VolumeGridHelper::NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >
 {
 
     NON_COPYABLE
 
-    typedef details::VolumeGridHelper::HUComponent< SegmentHUVolumeType, SegmentNormalsVolumeType > HUComponent;
+    typedef details::VolumeGridHelper::HUComponent     < SegmentHUVolumeType, SegmentNormalsVolumeType > HUComponent;
     typedef details::VolumeGridHelper::NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType > NormalsComponent;
 
     /** \brief
@@ -262,14 +262,13 @@ VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeGridHel
         /* Here we add the redundant texels to the buffer size considerations. This
          * is fine because 'regularSegmentSize' contains the effective segment size.
          */
-        const base::math::Vector3ui volumeSize
+        const base::math::Vector3ui segmentSize
             ( segmentCoord.x() + 1 == myGrid->segmentCounts.x() ? tails.x() : regularSegmentSize.x() + 1
             , segmentCoord.y() + 1 == myGrid->segmentCounts.y() ? tails.y() : regularSegmentSize.y() + 1
             , segmentCoord.z() + 1 == myGrid->segmentCounts.z() ? tails.z() : regularSegmentSize.z() + 1 );
 
-        SegmentHUVolumeType* const volume = new SegmentHUVolumeType( volumeSize );
-        myGrid->segmentAt( segmentCoord.x(), segmentCoord.y(), segmentCoord.z() ).setHUVolume
-            ( new base::Composition< SegmentHUVolumeType >( volume ) );
+        HUComponent     ::initializeSegment( myGrid->segmentAt( segmentCoord ), segmentSize );
+        NormalsComponent::initializeSegment( myGrid->segmentAt( segmentCoord ), segmentSize );
     }
 }
 
@@ -277,7 +276,7 @@ VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeGridHel
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 void VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::releaseGeometryFeatures()
 {
-    HUComponent::releaseGeometryFeatures();
+    HUComponent     ::releaseGeometryFeatures();
     NormalsComponent::releaseGeometryFeatures();
 }
 
@@ -295,7 +294,7 @@ void VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::loadData
             || coord.y() >= nativeResolution.y()
             || coord.z() >= nativeResolution.z();
         const base::HUV huv = outOfNativeBounds ? -1024 : data( coord );
-        myGrid->setVoxel( coord, huv );
+        myGrid->setVoxel< base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::HUVSelector >( coord, huv );
     }
     computeNormals();
 }
@@ -345,7 +344,7 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
          */
         base::Geometry* const geom = new base::Geometry( geometryType );
         pivot->attachChild( geom );
-        HUComponent::attachTexture( *geom, segment );
+        HUComponent     ::attachTexture( *geom, segment );
         NormalsComponent::attachTexture( *geom, segment );
         geom->setMovable( false );
         geom->setBoundingVolume( new base::BoundingBox( 1, 1, 1 ) );

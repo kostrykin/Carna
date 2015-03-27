@@ -33,11 +33,11 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// VolumeGrid
+// VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >
 // ----------------------------------------------------------------------------------
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-class VolumeGrid : public HUVolume
+class VolumeGrid
 {
 
     NON_COPYABLE
@@ -62,14 +62,32 @@ public:
     Segment& segmentAt( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ );
 
     const Segment& segmentAt( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ ) const;
-    
-    virtual HUV operator()( unsigned int x, unsigned int y, unsigned int z ) const override;
 
-    virtual HUV operator()( const math::Vector3ui& at ) const override;
+    struct HUVSelector
+    {
+        typedef typename SegmentHUVolumeType::Value VoxelType;
+        static SegmentHUVolumeType& volume( Segment& segment );
+        static const SegmentHUVolumeType& volume( const Segment& segment );
+    };
 
-    void setVoxel( const math::Vector3ui& at, HUV );
+    struct NormalSelector
+    {
+        typedef typename SegmentNormalsVolumeType::Value VoxelType;
+        static SegmentNormalsVolumeType& volume( Segment& segment );
+        static const SegmentNormalsVolumeType& volume( const Segment& segment );
+    };
 
-    void setVoxel( unsigned int x, unsigned int y, unsigned int z, HUV );
+    template< typename Selector >
+    typename Selector::VoxelType getVoxel( unsigned int x, unsigned int y, unsigned int z );
+
+    template< typename Selector >
+    typename Selector::VoxelType getVoxel( const math::Vector3ui& at );
+
+    template< typename Selector >
+    void setVoxel( unsigned int x, unsigned int y, unsigned int z, const typename Selector::VoxelType& voxel );
+
+    template< typename Selector >
+    void setVoxel( const math::Vector3ui& at, const typename Selector::VoxelType& voxel );
 
 private:
 
@@ -164,7 +182,9 @@ const typename VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::Segm
 
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-HUV VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::operator()( unsigned int x, unsigned int y, unsigned int z ) const
+template< typename Selector >
+typename Selector::VoxelType VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::getVoxel
+    ( unsigned int x, unsigned int y, unsigned int z )
 {
     const unsigned int segmentX = x / maxSegmentSize.x();
     const unsigned int segmentY = y / maxSegmentSize.y();
@@ -175,19 +195,23 @@ HUV VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::operator()( uns
     const unsigned int localZ = z % maxSegmentSize.z();
 
     const Segment& segment = segmentAt( segmentX, segmentY, segmentZ );
-    return segment.huVolume()( localX, localY, localZ );
+    return Selector::volume( segment )( localX, localY, localZ );
 }
 
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-HUV VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::operator()( const math::Vector3ui& at ) const
+template< typename Selector >
+typename Selector::VoxelType VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::getVoxel
+    ( const math::Vector3ui& at )
 {
-    return ( *this )( at.x(), at.y(), at.z() );
+    return getVoxel< Selector >( at.x(), at.y(), at.z() );
 }
 
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-void VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVoxel( unsigned int x, unsigned int y, unsigned int z, HUV huv )
+template< typename Selector >
+void VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVoxel
+    ( unsigned int x, unsigned int y, unsigned int z, const typename Selector::VoxelType& voxel )
 {
     const unsigned int segmentX = x / maxSegmentSize.x();
     const unsigned int segmentY = y / maxSegmentSize.y();
@@ -198,7 +222,7 @@ void VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVoxel( unsi
     const unsigned int localZ = z % maxSegmentSize.z();
 
     Segment& segment = segmentAt( segmentX, segmentY, segmentZ );
-    segment.huVolume().setVoxel( localX, localY, localZ, huv );
+    Selector::volume( segment ).setVoxel( localX, localY, localZ, voxel );
 
     /* Note that segments are not disjoint,
      * so we might need to update the redundant texels as well.
@@ -209,41 +233,92 @@ void VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVoxel( unsi
 
     if( updateRedundantX )
     {
-        segmentAt( segmentX - 1, segmentY, segmentZ ).huVolume().setVoxel( maxSegmentSize.x(), localY, localZ, huv );
+        Selector::volume( segmentAt( segmentX - 1, segmentY, segmentZ ) )
+            .setVoxel( maxSegmentSize.x(), localY, localZ, voxel );
     }
     if( updateRedundantY )
     {
-        segmentAt( segmentX, segmentY - 1, segmentZ ).huVolume().setVoxel( localX, maxSegmentSize.y(), localZ, huv );
+        Selector::volume( segmentAt( segmentX, segmentY - 1, segmentZ ) )
+            .setVoxel( localX, maxSegmentSize.y(), localZ, voxel );
     }
     if( updateRedundantZ )
     {
-        segmentAt( segmentX, segmentY, segmentZ - 1 ).huVolume().setVoxel( localX, localY, maxSegmentSize.z(), huv );
+        Selector::volume( segmentAt( segmentX, segmentY, segmentZ - 1 ) )
+            .setVoxel( localX, localY, maxSegmentSize.z(), voxel );
     }
 
     if( updateRedundantX && updateRedundantY )
     {
-        segmentAt( segmentX - 1, segmentY - 1, segmentZ ).huVolume().setVoxel( maxSegmentSize.x(), maxSegmentSize.y(), localZ, huv );
+        Selector::volume( segmentAt( segmentX - 1, segmentY - 1, segmentZ ) )
+            .setVoxel( maxSegmentSize.x(), maxSegmentSize.y(), localZ, voxel );
     }
     if( updateRedundantX && updateRedundantZ )
     {
-        segmentAt( segmentX - 1, segmentY, segmentZ - 1 ).huVolume().setVoxel( maxSegmentSize.x(), localY, maxSegmentSize.z(), huv );
+        Selector::volume( segmentAt( segmentX - 1, segmentY, segmentZ - 1 ) )
+            .setVoxel( maxSegmentSize.x(), localY, maxSegmentSize.z(), voxel );
     }
     if( updateRedundantY && updateRedundantZ )
     {
-        segmentAt( segmentX, segmentY - 1, segmentZ - 1 ).huVolume().setVoxel( localX, maxSegmentSize.y(), maxSegmentSize.z(), huv );
+        Selector::volume( segmentAt( segmentX, segmentY - 1, segmentZ - 1 ) )
+            .setVoxel( localX, maxSegmentSize.y(), maxSegmentSize.z(), voxel );
     }
 
     if( updateRedundantX && updateRedundantY && updateRedundantZ )
     {
-        segmentAt( segmentX - 1, segmentY - 1, segmentZ - 1 ).huVolume().setVoxel( maxSegmentSize, huv );
+        Selector::volume( segmentAt( segmentX - 1, segmentY - 1, segmentZ - 1 ) )
+            .setVoxel( maxSegmentSize, voxel );
     }
 }
 
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-void VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVoxel( const math::Vector3ui& at, HUV huv )
+template< typename Selector >
+void VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVoxel
+    ( const math::Vector3ui& at, const typename Selector::VoxelType& voxel )
 {
-    this->setVoxel( at.x(), at.y(), at.z(), huv );
+    setVoxel< Selector >( at.x(), at.y(), at.z(), voxel );
+}
+
+
+
+// ----------------------------------------------------------------------------------
+// VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType > :: HUVSelector
+// ----------------------------------------------------------------------------------
+
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+SegmentHUVolumeType& VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::HUVSelector::volume
+    ( VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment )
+{
+    return segment.huVolume();
+}
+
+
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+const SegmentHUVolumeType& VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::HUVSelector::volume
+    ( const VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment )
+{
+    return segment.huVolume();
+}
+
+
+
+// ----------------------------------------------------------------------------------
+// VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType > :: NormalSelector
+// ----------------------------------------------------------------------------------
+
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+SegmentNormalsVolumeType& VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::NormalSelector::volume
+    ( VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment )
+{
+    return segment.normals();
+}
+
+
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+const SegmentNormalsVolumeType& VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::NormalSelector::volume
+    ( const VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment )
+{
+    return segment.normals();
 }
 
 

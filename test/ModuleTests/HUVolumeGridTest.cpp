@@ -92,7 +92,7 @@ void HUVolumeGridTest::test_parenthesisOperator()
     for( totalCoord.x() = 0; totalCoord.x() < totalSize.x(); ++totalCoord.x() )
     {
         const base::HUV expected = coord2HUV( totalCoord );
-        const base::HUV actual   = ( *grid )( totalCoord );
+        const base::HUV actual   = grid->getVoxel< base::VolumeGrid< base::HUVolumeUInt16, void >::HUVSelector >( totalCoord );
         QCOMPARE( actual, expected );
     }
 }

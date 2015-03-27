@@ -237,6 +237,10 @@ protected:
         ( base::Geometry& geometry
         , const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment ) const;
 
+    void initializeSegment
+        ( base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment
+        , const base::math::Vector3ui& size ) const;
+
 }; // HUComponent
 
 
@@ -271,6 +275,16 @@ void HUComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::attachTexture
 }
 
 
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+void HUComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::initializeSegment
+    ( base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment
+    , const base::math::Vector3ui& size ) const
+{
+    SegmentHUVolumeType* const huVolume = new SegmentHUVolumeType( size );
+    segment.setHUVolume( new base::Composition< SegmentHUVolumeType >( huVolume ) );
+}
+
+
 
 // ----------------------------------------------------------------------------------
 // NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >
@@ -302,6 +316,10 @@ protected:
     void attachTexture
         ( base::Geometry& geometry
         , const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment ) const;
+
+    void initializeSegment
+        ( base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment
+        , const base::math::Vector3ui& size ) const;
 
 }; // NormalsComponent
 
@@ -345,6 +363,16 @@ void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::attachTe
 }
 
 
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::initializeSegment
+    ( base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment
+    , const base::math::Vector3ui& size ) const
+{
+    SegmentNormalsVolumeType* const normals = new SegmentNormalsVolumeType( size );
+    segment.setNormals( new base::Composition< SegmentNormalsVolumeType >( normals ) );
+}
+
+
 
 // ----------------------------------------------------------------------------------
 // NormalsComponent< SegmentHUVolumeType, void >
@@ -385,6 +413,13 @@ protected:
     void attachTexture
         ( base::Geometry& geometry
         , const base::VolumeSegment< SegmentHUVolumeType, void >& segment ) const;
+    
+    /** \brief
+      * Does nothing.
+      */
+    void initializeSegment
+        ( base::VolumeSegment< SegmentHUVolumeType, void >& segment
+        , const base::math::Vector3ui& size ) const;
 
 }; // NormalsComponent
 
@@ -412,6 +447,14 @@ template< typename SegmentHUVolumeType >
 void NormalsComponent< SegmentHUVolumeType, void >::attachTexture
     ( base::Geometry& geometry
     , const base::VolumeSegment< SegmentHUVolumeType, void >& segment ) const
+{
+}
+
+
+template< typename SegmentHUVolumeType >
+void NormalsComponent< SegmentHUVolumeType, void >::initializeSegment
+    ( base::VolumeSegment< SegmentHUVolumeType, void >& segment
+    , const base::math::Vector3ui& size ) const
 {
 }
 
