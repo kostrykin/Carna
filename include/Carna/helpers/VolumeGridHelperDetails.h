@@ -420,7 +420,6 @@ void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::computeN
         {
             normal = Vector3f( 0, 0, 0 );
         }
-        normal = Vector3f( 0, 0, -1 ); //< debugging
         grid->template setVoxel< NormalSelector >( coord, normal );
     }
     

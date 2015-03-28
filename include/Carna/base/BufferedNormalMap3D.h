@@ -97,11 +97,11 @@ public:
       */
     static float bufferComponentToNormalComponent( BufferedVectorComponentType bufferedVectorComponent )
     {
-        const signed long range = static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::max() )
-            - static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::min() );
+        const float range = static_cast< float >( static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::max() )
+            - static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::min() ) );
         const signed long x = bufferedVectorComponent;
         const float fraction = ( x - static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::min() ) ) / range;
-        return fraction;
+        return ( fraction - 0.5f ) * 2;
     }
 
     /** \brief
@@ -116,9 +116,9 @@ public:
         
         const signed long range = static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::max() )
             - static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::min() );
-        const signed long result = static_cast< signed long >( normalVectorComponent * range )
+        const signed long result = static_cast< signed long >( ( ( normalVectorComponent + 1 ) * range ) / 2 )
             + static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::min() );
-        return result;
+        return static_cast< BufferedVectorComponentType >( result );
     }
 
     math::Vector3f operator()
