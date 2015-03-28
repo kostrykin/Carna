@@ -224,7 +224,15 @@ void DVRStage::renderPass
 
 void DVRStage::createVolumeSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler )
 {
+    /* Create sampler for the HU volume texture.
+     */
     registerSampler( ROLE_HU_VOLUME, new base::Sampler
+        ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
+        , base::Sampler::FILTER_LINEAR, base::Sampler::FILTER_LINEAR ) );
+    
+    /* Create sampler for the normals texture.
+     */
+    registerSampler( ROLE_NORMALS, new base::Sampler
         ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
         , base::Sampler::FILTER_LINEAR, base::Sampler::FILTER_LINEAR ) );
 }
@@ -239,14 +247,18 @@ const base::ShaderProgram& DVRStage::acquireShader()
 const std::string& DVRStage::uniformName( unsigned int role ) const
 {
     const static std::string ROLE_HU_VOLUME_NAME = "huVolume";
+    const static std::string ROLE_NORMALS_NAME = "normalMap";
     switch( role )
     {
 
     case ROLE_HU_VOLUME:
         return ROLE_HU_VOLUME_NAME;
 
+    case ROLE_NORMALS:
+        return ROLE_NORMALS_NAME;
+
     default:
-        CARNA_FAIL( "unknown role" );
+        CARNA_FAIL( "Unknown role: " + base::text::lexical_cast< std::string >( role ) );
 
     }
 }
@@ -261,6 +273,35 @@ void DVRStage::configureShader()
      */
     pimpl->colorMapTexture->bind( Details::COLORMAP_TEXTURE_UNIT );
     pimpl->colorMapSampler->bind( Details::COLORMAP_TEXTURE_UNIT );
+}
+
+
+void DVRStage::configureShader( const base::Renderable& renderable )
+{
+    if( renderable.geometry().hasFeature( ROLE_NORMALS ) )
+    {
+        /* Compute the matrix that transforms the normals to view space.
+         */
+        base::ManagedTexture3D& normalMap = static_cast< base::ManagedTexture3D& >( renderable.geometry().feature( ROLE_NORMALS ) );
+        base::math::Matrix3f normalsToModel = base::math::zeros< base::math::Matrix3f >();
+        normalsToModel( 0, 0 ) = 1.f / ( normalMap.size.x() - 1 );
+        normalsToModel( 1, 1 ) = 1.f / ( normalMap.size.y() - 1 );
+        normalsToModel( 2, 2 ) = 1.f / ( normalMap.size.z() - 1 );
+
+        const base::math::Matrix3f modelView = renderable.modelViewTransform().block< 3, 3 >( 0, 0 );
+        const base::math::Matrix3f normalsView = ( modelView * normalsToModel ).inverse().transpose();
+        
+        /* Upload the normals transformation matrix and enable lighting.
+         */
+        base::ShaderUniform< base::math::Matrix3f >( "normalsView", normalsView ).upload();
+        base::ShaderUniform< int >( "lightingEnabled", 1 ).upload();
+    }
+    else
+    {
+        /* Disable lighting.
+         */
+        base::ShaderUniform< int >( "lightingEnabled", 0 ).upload();
+    }
 }
 
 

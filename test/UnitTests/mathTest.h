@@ -73,9 +73,9 @@ private slots:
     void test_identity4f();
 
     /** \brief
-      * Test cases for \ref Carna::base::math::zeros4f
+      * Test cases for \ref Carna::base::math::zeros
       */
-    void test_zeros4f();
+    void test_zeros();
 
     /** \brief
       * Test cases for \ref Carna::base::math::basis4f

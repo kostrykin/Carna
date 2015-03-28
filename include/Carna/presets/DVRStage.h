@@ -51,6 +51,8 @@ public:
       * when attached to \ref base::Geometry nodes.
       */
     const static unsigned int ROLE_HU_VOLUME = 0;
+
+    const static unsigned int ROLE_NORMALS = 1;
     
     const static float DEFAULT_TRANSLUCENCE;
     
@@ -101,6 +103,11 @@ protected:
     virtual const std::string& uniformName( unsigned int role ) const override;
 
     virtual void configureShader() override;
+    
+    /** \brief
+      * Computes and uploads the normals transformation matrix.
+      */
+    virtual void configureShader( const base::Renderable& ) override;
 
 }; // DVRStage
 

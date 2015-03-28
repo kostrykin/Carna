@@ -277,15 +277,15 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
     /* We assume here that the texture coordinates correction is same for all
      * textures, i.e. all textures have same resolution.
      */
-    const base::math::Matrix4f modelTexture =
+    const Matrix4f modelTexture =
         ( anyTexture == nullptr ? base::math::identity4f() : anyTexture->textureCoordinatesCorrection )
         * base::math::translation4f( 0.5f, 0.5f, 0.5f );
         
     /* Upload matrices to the shader and set the texture samplers properly.
      */
-    base::ShaderUniform< base::math::Matrix4f >( "modelViewProjection", pimpl->renderTask->projection * modelView ).upload();
-    base::ShaderUniform< base::math::Matrix4f >( "modelTexture", modelTexture ).upload();
-    base::ShaderUniform< base::math::Matrix4f >( "tangentModel", tangentModel ).upload();
+    base::ShaderUniform< Matrix4f >( "modelViewProjection", pimpl->renderTask->projection * modelView ).upload();
+    base::ShaderUniform< Matrix4f >( "modelTexture", modelTexture ).upload();
+    base::ShaderUniform< Matrix4f >( "tangentModel", tangentModel ).upload();
     for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {
         const unsigned int role = roles[ samplerOffset ];
@@ -293,6 +293,10 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
         const std::string& uniformName = this->uniformName( role );
         base::ShaderUniform< int >( uniformName, unit ).upload();
     }
+
+    /* Apply custom shader setup.
+     */
+    configureShader( renderable );
 
     /* Invoke shader.
      */

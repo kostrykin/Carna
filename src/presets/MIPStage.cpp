@@ -241,6 +241,11 @@ void MIPStage::configureShader()
 }
 
 
+void MIPStage::configureShader( const base::Renderable& )
+{
+}
+
+
 
 }  // namespace Carna :: VolumeRenderings
 

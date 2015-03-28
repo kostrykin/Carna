@@ -106,11 +106,11 @@ void mathTest::test_identity4f()
 }
 
 
-void mathTest::test_zeros4f()
+void mathTest::test_zeros()
 {
     using namespace Carna::base;
 
-    const math::Matrix4f m( math::zeros4f() );
+    const math::Matrix4f m( math::zeros< math::Matrix4f >() );
     for( int i = 0; i < m.rows(); ++i )
     for( int j = 0; j < m.cols(); ++j )
     {

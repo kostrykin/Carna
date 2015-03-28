@@ -99,6 +99,12 @@ void uploadUniform( int location, const math::Vector4f& value )
 }
 
 
+void uploadUniform( int location, const math::Matrix3f& value )
+{
+    glUniformMatrix3fv( location, 1, false, value.data() );
+}
+
+
 void uploadUniform( int location, const math::Matrix4f& value )
 {
     glUniformMatrix4fv( location, 1, false, value.data() );

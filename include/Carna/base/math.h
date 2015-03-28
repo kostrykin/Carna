@@ -191,6 +191,7 @@ namespace math
     }
 
     typedef Eigen::Matrix< float, 4, 4, Eigen::ColMajor > Matrix4f; ///< Defines \f$\mathbb R^{4 \times 4}\f$ matrix.
+    typedef Eigen::Matrix< float, 3, 3, Eigen::ColMajor > Matrix3f; ///< Defines \f$\mathbb R^{3 \times 3}\f$ matrix.
     typedef Eigen::Matrix< float, 4, 1 > Vector4f;                  ///< Defines \f$\mathbb R^{4 \times 1}\f$ vector.
     typedef Eigen::Matrix< float, 3, 1 > Vector3f;                  ///< Defines \f$\mathbb R^{3 \times 1}\f$ vector.
     typedef Eigen::Matrix< float, 2, 1 > Vector2f;                  ///< Defines \f$\mathbb R^{2 \times 1}\f$ vector.
@@ -209,11 +210,12 @@ namespace math
     }
     
     /** \brief
-      * Returns \f$0_{4 \times 4}\f$ matrix.
+      * Returns matrix with zeros in all components.
       */
-    inline Matrix4f zeros4f()
+    template< typename MatrixType >
+    MatrixType zeros()
     {
-        Matrix4f result;
+        MatrixType result;
         result.setZero();
         return result;
     }
@@ -667,16 +669,26 @@ namespace math
 
 
 /** \brief
+  * Loops \a vecName over all
+  * \f$\vec x \in \mathbb Z^3_{\geq 0} : x_i < n_i \wedge x_i \geq s_i \forall i\f$
+  * where \f$\vec n\f$ is \a vecLimit and \f$\vec s\f$ is \a vecStart.
+  */
+#define CARNA_FOR_VECTOR3UI_EX( vecName, vecLimit, vecStart ) \
+    Carna::base::math::Vector3ui vecName; \
+    for( vecName.z() = vecStart.x(); vecName.z() < vecLimit.z(); ++vecName.z() ) \
+    for( vecName.y() = vecStart.y(); vecName.y() < vecLimit.y(); ++vecName.y() ) \
+    for( vecName.x() = vecStart.z(); vecName.x() < vecLimit.x(); ++vecName.x() )
+
+
+
+/** \brief
   * Loops \a vecName over all \f$\vec x \in \mathbb Z^3_{\geq 0} : x_i < n_i \forall i\f$
   * where \f$\vec n\f$ is \a vecLimit.
   *
   * Example: \snippet UnitTests/mathTest.cpp example_CARNA_FOR_VECTOR3UI
   */
 #define CARNA_FOR_VECTOR3UI( vecName, vecLimit ) \
-    Carna::base::math::Vector3ui vecName; \
-    for( vecName.z() = 0; vecName.z() < vecLimit.z(); ++vecName.z() ) \
-    for( vecName.y() = 0; vecName.y() < vecLimit.y(); ++vecName.y() ) \
-    for( vecName.x() = 0; vecName.x() < vecLimit.x(); ++vecName.x() )
+    CARNA_FOR_VECTOR3UI_EX( vecName, vecLimit, Carna::base::math::Vector3ui( 0, 0, 0 ) )
 
 
 

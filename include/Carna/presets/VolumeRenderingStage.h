@@ -393,9 +393,14 @@ protected:
     virtual const std::string& uniformName( unsigned int role ) const = 0;
 
     /** \brief
-      * Performs custom shader configuration that goes beyond the default setup.
+      * Performs custom shader configuration on a per-pass level.
       */
     virtual void configureShader() = 0;
+    
+    /** \brief
+      * Performs custom shader configuration on a per-volume level.
+      */
+    virtual void configureShader( const base::Renderable& ) = 0;
 
 }; // VolumeRenderingStage
 

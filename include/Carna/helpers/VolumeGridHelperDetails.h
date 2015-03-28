@@ -346,6 +346,69 @@ unsigned int NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::
 
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::computeNormals()
+{
+    typedef typename VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::   HUVSelector    HUVSelector;
+    typedef typename VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::NormalSelector NormalSelector;
+
+    using base::math::Vector3ui;
+    using base::math::Vector3f;
+
+    /* Lets start with the normals for the edge faces of the volume, that do require
+     * an ad-hoc processing.
+     */
+    for( unsigned int dim0 = 0; dim0 < 3; ++dim0 )
+    {
+        for( signed int sign = -1; sign <= +1; sign += 2 )
+        {
+            /* Construct the normal vector along dimension 'dim0' signed with 'sign'.
+             */
+            Vector3f normal( 0, 0, 0 );
+            normal( dim0 ) = sign;
+
+            /* Write the normal vector to the whole face.
+             */
+            const unsigned int dim1 = ( dim0 + 1 ) % 3;
+            const unsigned int dim2 = ( dim0 + 2 ) % 3;
+
+            Vector3ui coord;
+            coord( dim0 ) = sign < 0 ? 0 : grid->resolution( dim0 ) - 1;
+
+            for( coord( dim1 ) = 0; p1 < grid->resolution( dim1 ); ++coord( dim1 ) )
+            for( coord( dim2 ) = 0; p2 < grid->resolution( dim2 ); ++coord( dim2 ) )
+            {
+                grid->setVoxel< NormalSelector >( coord, normal );
+            }
+        }
+    }
+
+    /* Now we can process all the inner voxels regularly.
+    */
+    const Vector3ui coordLowerBound = Vector3ui( 1, 1, 1 );
+    const Vector3ui coordUpperBound = ( grid->resolution.cast< int >() - Vector3i( 1, 1, 1 ) ).cast< unsigned int >();
+    CARNA_FOR_VECTOR3UI_EX( coord, coordUpperBound, coordLowerBound )
+    {
+        /* Sample the neighboring voxels.
+         */
+        const base::HUV huv_0yz = grid->getVoxel< HUVSelector >( offset + Vector3ui( coord.x() - 1, coord.y(), coord.z() ) );
+        const base::HUV huv_1yz = grid->getVoxel< HUVSelector >( offset + Vector3ui( coord.x() + 1, coord.y(), coord.z() ) );
+        const base::HUV huv_x0z = grid->getVoxel< HUVSelector >( offset + Vector3ui( coord.x(), coord.y() - 1, coord.z() ) );
+        const base::HUV huv_x1z = grid->getVoxel< HUVSelector >( offset + Vector3ui( coord.x(), coord.y() + 1, coord.z() ) );
+        const base::HUV huv_xy0 = grid->getVoxel< HUVSelector >( offset + Vector3ui( coord.x(), coord.y(), coord.z() - 1 ) );
+        const base::HUV huv_xy1 = grid->getVoxel< HUVSelector >( offset + Vector3ui( coord.x(), coord.y(), coord.z() + 1 ) );
+
+        /* Compute the normal vector and write the result. We do not need to
+         * normalize the vector here because it is going to be scaled anyway when
+         * rendered. Note that the normal vector points to the *inverse* direction of
+         * the gradient, i.e. away from the steepest ascent.
+         */
+        Vector3f normal( huv_0yz - huv_1yz, huv_x0z - huv_x1z, huv_xy0, huv_xy1 );
+        grid->setVoxel< NormalSelector >( coord, normal );
+    }
+}
+
+
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >
     ::setGrid( base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >& grid )
 {

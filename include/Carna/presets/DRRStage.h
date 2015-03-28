@@ -244,6 +244,11 @@ protected:
       */
     virtual void configureShader() override;
 
+    /** \brief
+      * Does nothing.
+      */
+    virtual void configureShader( const base::Renderable& ) override;
+
 }; // DRRStage
 
 

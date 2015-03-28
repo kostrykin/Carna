@@ -282,6 +282,11 @@ void DRRStage::configureShader()
 }
 
 
+void DRRStage::configureShader( const base::Renderable& )
+{
+}
+
+
 
 }  // namespace Carna :: presets
 

@@ -128,6 +128,8 @@ void CARNA_LIB uploadUniform( int location, const math::Vector3f& value );
 
 void CARNA_LIB uploadUniform( int location, const math::Vector4f& value );
 
+void CARNA_LIB uploadUniform( int location, const math::Matrix3f& value );
+
 void CARNA_LIB uploadUniform( int location, const math::Matrix4f& value );
 
 /** <-- Excluded from Doxygen

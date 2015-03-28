@@ -280,7 +280,7 @@ void CuttingPlanesStage::render( const base::Renderable& volume )
         base::math::Matrix4f planeWorldTransform3x3( plane.geometry().worldTransform() );
         planeWorldTransform3x3.col( 3 ) = base::math::Vector4f( 0, 0, 0, 1 );
 
-        base::math::Matrix4f planeTangentModel( base::math::zeros4f() );
+        base::math::Matrix4f planeTangentModel( base::math::zeros< base::math::Matrix4f >() );
         planeTangentModel.col( 3 ) = worldToVolumeModel * planeWorldLocation;
         planeTangentModel += scaledWorldToVolumeModel3x3 * planeWorldTransform3x3;
         planeTangentModel( 3, 3 ) = 1;
