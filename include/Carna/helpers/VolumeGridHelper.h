@@ -294,9 +294,9 @@ void VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::loadData
             || coord.y() >= nativeResolution.y()
             || coord.z() >= nativeResolution.z();
         const base::HUV huv = outOfNativeBounds ? -1024 : data( coord );
-        myGrid->setVoxel< base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::HUVSelector >( coord, huv );
+        myGrid->template setVoxel< typename base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::HUVSelector >( coord, huv );
     }
-    computeNormals();
+    NormalsComponent::computeNormals();
 }
 
 
