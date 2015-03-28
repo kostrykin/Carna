@@ -135,18 +135,18 @@ public:
         return ( *this )( at.x(), at.y(), at.z() );
     }
 
-    void setVector( unsigned int x, unsigned int y, unsigned int z, const math::Vector3f& value )
+    void setVoxel( unsigned int x, unsigned int y, unsigned int z, const math::Vector3f& normal )
     {
         CARNA_ASSERT( x < size.x() && y < size.y() && z < size.z() );
         const std::size_t index = 3 * ( x + size.x() * y + size.y() * size.x() * z );
-        myBuffer->get()->at( index + 0 ) = normalComponentToBufferComponent( value.x() );
-        myBuffer->get()->at( index + 1 ) = normalComponentToBufferComponent( value.y() );
-        myBuffer->get()->at( index + 2 ) = normalComponentToBufferComponent( value.z() );
+        myBuffer->get()->at( index + 0 ) = normalComponentToBufferComponent( normal.x() );
+        myBuffer->get()->at( index + 1 ) = normalComponentToBufferComponent( normal.y() );
+        myBuffer->get()->at( index + 2 ) = normalComponentToBufferComponent( normal.z() );
     }
 
-    void setVoxel( const math::Vector3ui& at, HUV huv )
+    void setVoxel( const math::Vector3ui& at, const math::Vector3f& normal )
     {
-        this->setVoxel( at.x(), at.y(), at.z(), huv );
+        this->setVoxel( at.x(), at.y(), at.z(), normal );
     }
 
     /** \brief

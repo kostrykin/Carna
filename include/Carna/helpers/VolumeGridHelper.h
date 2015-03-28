@@ -207,6 +207,10 @@ public:
       *     Specifies the dimensions of the whole dataset in millimeters.
       */
     base::Node* createNode( unsigned int geometryType, const Dimensions& dimensions ) const;
+    
+protected:
+
+    virtual base::math::Vector3ui gridResolution() const override;
 
 private:
 
@@ -380,6 +384,13 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
     const base::math::Vector3f spacing
         = mmDimensions.cast< float >().cwiseQuotient( ( resolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ) );
     return createNode( geometryType, Spacing( spacing ), dimensions );
+}
+
+
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+base::math::Vector3ui VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::gridResolution() const
+{
+    return resolution;
 }
 
 
