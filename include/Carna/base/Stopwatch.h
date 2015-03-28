@@ -57,9 +57,9 @@ public:
     void restart();
     
     /** \brief
-      * Tells result in milliseconds from current time measurement.
+      * Tells result in seconds from current time measurement.
       */
-    double result();
+    double result() const;
 
 }; // Stopwatch
 

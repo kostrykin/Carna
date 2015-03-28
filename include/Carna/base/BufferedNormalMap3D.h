@@ -19,6 +19,7 @@
 #include <Carna/base/NormalMap3D.h>
 #include <Carna/base/Composition.h>
 #include <Carna/base/CarnaException.h>
+#include <Carna/base/text.h>
 #include <vector>
 #include <memory>
 #include <type_traits>
@@ -109,7 +110,10 @@ public:
       */
     static BufferedVectorComponentType normalComponentToBufferComponent( float normalVectorComponent )
     {
-        CARNA_ASSERT( std::abs( normalVectorComponent ) <= 1 );
+        CARNA_ASSERT_EX
+            ( std::abs( normalVectorComponent ) <= 1
+            , "Unnormalized vector! Component: " + text::lexical_cast< std::string >( normalVectorComponent ) );
+        
         const signed long range = static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::max() )
             - static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::min() );
         const signed long result = static_cast< signed long >( normalVectorComponent * range )

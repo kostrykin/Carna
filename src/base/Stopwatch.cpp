@@ -37,7 +37,7 @@ void Stopwatch::restart()
 }
 
 
-double Stopwatch::result()
+double Stopwatch::result() const
 {
     const double time1 = omp_get_wtime();
     const double t = time1 - time0;

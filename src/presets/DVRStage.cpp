@@ -281,6 +281,7 @@ void DVRStage::configureShader( const base::Renderable& renderable )
     if( renderable.geometry().hasFeature( ROLE_NORMALS ) )
     {
         /* Compute the matrix that transforms the normals to view space.
+         * See: http://www.lighthouse3d.com/tutorials/glsl-tutorial/the-normal-matrix
          */
         base::ManagedTexture3D& normalMap = static_cast< base::ManagedTexture3D& >( renderable.geometry().feature( ROLE_NORMALS ) );
         base::math::Matrix3f normalsToModel = base::math::zeros< base::math::Matrix3f >();

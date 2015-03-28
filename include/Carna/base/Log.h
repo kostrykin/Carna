@@ -76,7 +76,8 @@ public:
         fatal,   ///< Indicates errors that might lead to misbehaving program logic.
         error,   ///< Indicates errors like memory leaks.
         warning, ///< Indicates warnings.
-        debug    ///< Indicates messages that do not deserve much attention usually.
+        debug,   ///< Indicates messages that might be of interest when searching bugs.
+        verbose  ///< Indicates statistics and suchlike.
     };
 
     // ------------------------------------------------------------------------------

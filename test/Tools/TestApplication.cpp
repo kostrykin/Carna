@@ -67,6 +67,10 @@ void QDebugLogWriter::writeLine( base::Log::Severity severity, const std::string
         qDebug( "%s", msg.c_str() );
         break;
 
+    case base::Log::verbose:
+        qDebug( "%s", msg.c_str() );
+        break;
+
     }
 }
 

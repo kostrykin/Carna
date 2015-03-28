@@ -130,11 +130,11 @@ void Log::TextWriter::write( Severity severity, const std::string& message ) con
     {
 
     case fatal:
-        linePrefix << "[! FATAL !]";
+        linePrefix << "!! FATAL !!";
         break;
 
     case error:
-        linePrefix << "[* ERROR *]";
+        linePrefix << "[! ERROR !]";
         break;
 
     case warning:
@@ -143,6 +143,10 @@ void Log::TextWriter::write( Severity severity, const std::string& message ) con
 
     case debug:
         linePrefix << "[  debug  ]";
+        break;
+
+    case verbose:
+        linePrefix << "| verbose |";
         break;
 
     }

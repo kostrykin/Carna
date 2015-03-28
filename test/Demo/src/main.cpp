@@ -62,7 +62,7 @@ class Demo : public QGLWidget
     const static int GEOMETRY_TYPE_OPAQUE        = 1;
     const static int GEOMETRY_TYPE_CUTTING_PLANE = 2;
 
-    typedef Carna::helpers::VolumeGridHelper< Carna::base::HUVolumeUInt16 > GridHelper;
+    typedef Carna::helpers::VolumeGridHelper< Carna::base::HUVolumeUInt16, Carna::base::NormalMap3DInt8 > GridHelper;
 
     std::unique_ptr< GridHelper > gridHelper;
     std::unique_ptr< base::GLContext > glContext;
@@ -258,9 +258,10 @@ void Demo::resizeGL( int w, int h )
         /* DVR
          */
         presets::DVRStage* const dvr = new presets::DVRStage( GEOMETRY_TYPE_VOLUMETRIC );
-        dvr->writeColorMap( -1024,   0, base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
-        dvr->writeColorMap(     0, 400, base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
+        dvr->writeColorMap( -400,   0, base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
+        dvr->writeColorMap(    0, 400, base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
         dvr->setSampleRate( 500 );
+        dvr->setTranslucence( 2 );
         renderer->appendStage( dvr );
 #else
         /* DRR

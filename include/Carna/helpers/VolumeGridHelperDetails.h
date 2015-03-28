@@ -18,6 +18,9 @@
 #include <Carna/base/BufferedVectorFieldTexture.h>
 #include <Carna/base/BufferedNormalMap3D.h>
 #include <Carna/base/Geometry.h>
+#include <Carna/base/Log.h>
+#include <Carna/base/Stopwatch.h>
+#include <Carna/base/text.h>
 #include <map>
 
 /** \file   VolumeGridHelperDetails.h
@@ -358,6 +361,7 @@ void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::computeN
     using base::math::Vector3i;
     using base::math::Vector3f;
     
+    const base::Stopwatch stopwatch;
     const Vector3ui resolution = gridResolution();
 
     /* Lets start with the normals for the edge faces of the volume, that do require
@@ -408,9 +412,25 @@ void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::computeN
          * the steepest ascent.
          */
         Vector3f normal = Vector3f( huv_0yz - huv_1yz, huv_x0z - huv_x1z, huv_xy0 - huv_xy1 ) / 2;
-        normal.normalize();
+        if( !base::math::isEqual< float >( normal.squaredNorm(), 0 ) )
+        {
+            normal.normalize();
+        }
+        else
+        {
+            normal = Vector3f( 0, 0, 0 );
+        }
+        normal = Vector3f( 0, 0, -1 ); //< debugging
         grid->template setVoxel< NormalSelector >( coord, normal );
     }
+    
+    /* Log how long it took to compute the normals.
+     */
+    const unsigned int seconds = base::math::round_ui( stopwatch.result() );
+    base::Log::instance().record( base::Log::verbose
+        , "VolumeGridHelper finished normals computation in "
+        + base::text::lexical_cast< std::string >( seconds )
+        + " seconds." );
 }
 
 

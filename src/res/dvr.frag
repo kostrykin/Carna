@@ -15,6 +15,7 @@ uniform sampler3D huVolume;
 uniform sampler3D normalMap;
 uniform sampler1D colorMap;
 uniform mat4      modelTexture;
+uniform mat3      normalsView;
 uniform float     stepLength;
 uniform float     translucence;
 uniform int       lightingEnabled;
@@ -35,16 +36,16 @@ vec4 sampleAt( vec3 p )
 
     if( lightingEnabled == 1 )
     {
-        vec3 normalDirection = texture( normalMap, p );
-        if( normalDirection.dot( normalDirection ) < 1e-4 )
+        vec3 normalDirection = texture( normalMap, p ).rgb;
+        if( dot( normalDirection, normalDirection ) < 1e-4 )
         {
             return vec4( 0, 0, 0, color.a );
         }
         else
         {
-            vec3 normal = normalize( normalDirection );
-            vec3 lightDirection = vec3( -1, 0, 0 );
-            float diffuseLightAmount = max( 0, -normal.dot( lightDirection ) );
+            vec3 normal = normalize( normalsView * normalDirection );
+            vec3 lightDirection = vec3( 0, 0, -1 );
+            float diffuseLightAmount = max( 0, -dot( normal, lightDirection ) );
             return vec4( color.rgb * diffuseLightAmount, color.a );
         }
     }
