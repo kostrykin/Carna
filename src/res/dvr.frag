@@ -49,6 +49,10 @@ vec4 sampleAt( vec3 p )
             return vec4( color.rgb * diffuseLightAmount, color.a );
         }
     }
+    else
+    {
+        return color;
+    }
 }
 
 

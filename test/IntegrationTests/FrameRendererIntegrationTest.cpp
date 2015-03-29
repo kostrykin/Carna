@@ -72,7 +72,7 @@ void FrameRendererIntegrationTest::test_typical()
     /* Load test volume data.
      */
     base::math::Vector3f spacings;
-    const std::unique_ptr< base::HUVolumeUInt16 >dataPtr
+    const std::unique_ptr< base::HUVolumeUInt16 > dataPtr
         ( HUGZSceneFactory::importVolume( SOURCE_PATH + "/res/pelves_reduced.hugz", spacings ) );
     const base::HUVolumeUInt16& data = *dataPtr;
 

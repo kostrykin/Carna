@@ -172,7 +172,7 @@ public:
         explicit MinimalBinding( Framebuffer& fbo );
 
         /** \brief
-          * Revokes this binding and restores the previous one.
+          * Retracts this binding and restores the previous one.
           */
         virtual ~MinimalBinding();
 

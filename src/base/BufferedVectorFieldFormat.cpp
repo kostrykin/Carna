@@ -28,8 +28,8 @@ const unsigned int BufferedVectorFieldFormat< HUVolumeUInt16 >::INTERNAL_FORMAT 
 const unsigned int BufferedVectorFieldFormat< HUVolumeUInt16 >::PIXEL_FORMAT    = GL_RED;
 const unsigned int BufferedVectorFieldFormat< HUVolumeUInt16 >::BUFFER_TYPE     = GL_UNSIGNED_SHORT;
 
-const unsigned int BufferedVectorFieldFormat< NormalMap3DInt8 >::INTERNAL_FORMAT = GL_RGB8_SNORM;
-const unsigned int BufferedVectorFieldFormat< NormalMap3DInt8 >::PIXEL_FORMAT    = GL_RGB;
+const unsigned int BufferedVectorFieldFormat< NormalMap3DInt8 >::INTERNAL_FORMAT = GL_RGBA8_SNORM;
+const unsigned int BufferedVectorFieldFormat< NormalMap3DInt8 >::PIXEL_FORMAT    = GL_RGBA;
 const unsigned int BufferedVectorFieldFormat< NormalMap3DInt8 >::BUFFER_TYPE     = GL_BYTE;
 
 

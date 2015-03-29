@@ -46,7 +46,7 @@ namespace base
   * \param BufferType is the data type used as container for the normal vectors.
   *
   * \author Leonid Kostrykin
-  * \date   26.3.15
+  * \date   26.3.15 - 29.3.15
   */
 template< typename BufferedVectorComponentType, typename BufferType >
 class BufferedNormalMap3D : public NormalMap3D
@@ -72,7 +72,7 @@ public:
       * Instantiates.
       *
       * \pre `buffer != nullptr && buffer->get() != nullptr`
-      * \pre `(**buffer).size() >= 3 * sizeof(BufferedVectorComponentType) * size.x * size.y * size.z`
+      * \pre `(**buffer).size() >= 4 * sizeof(BufferedVectorComponentType) * size.x * size.y * size.z`
       */
     BufferedNormalMap3D( const math::Vector3ui& size, Association< BufferType >* buffer )
         : NormalMap3D( size )
@@ -86,7 +86,7 @@ public:
     explicit BufferedNormalMap3D( const math::Vector3ui& size )
         : NormalMap3D( size )
         , myBuffer( new Composition< BufferType >
-            ( new BufferType( 3 * sizeof( BufferedVectorComponentType ) * size.x() * size.y() * size.z() ) ) )
+            ( new BufferType( 4 * sizeof( BufferedVectorComponentType ) * size.x() * size.y() * size.z() ) ) )
     {
         checkBuffer();
     }
@@ -127,7 +127,7 @@ public:
         , unsigned int z ) const
     {
         math::Vector3f result;
-        const std::size_t index = 3 * ( x + size.x() * y + size.y() * size.x() * z );
+        const std::size_t index = 4 * ( x + size.x() * y + size.y() * size.x() * z );
         result.x() = bufferComponentToNormalComponent( myBuffer->get()->at( index + 0 ) );
         result.y() = bufferComponentToNormalComponent( myBuffer->get()->at( index + 1 ) );
         result.z() = bufferComponentToNormalComponent( myBuffer->get()->at( index + 2 ) );
@@ -142,7 +142,7 @@ public:
     void setVoxel( unsigned int x, unsigned int y, unsigned int z, const math::Vector3f& normal )
     {
         CARNA_ASSERT( x < size.x() && y < size.y() && z < size.z() );
-        const std::size_t index = 3 * ( x + size.x() * y + size.y() * size.x() * z );
+        const std::size_t index = 4 * ( x + size.x() * y + size.y() * size.x() * z );
         myBuffer->get()->at( index + 0 ) = normalComponentToBufferComponent( normal.x() );
         myBuffer->get()->at( index + 1 ) = normalComponentToBufferComponent( normal.y() );
         myBuffer->get()->at( index + 2 ) = normalComponentToBufferComponent( normal.z() );
@@ -186,7 +186,7 @@ private:
             , "Supplied volume data buffer is of size "
                 << myBuffer->get()->size()
                 << " bytes but must be at least "
-                << 3 * sizeof( BufferedVectorComponentType ) * size.x() * size.y() * size.z()
+                << 4 * sizeof( BufferedVectorComponentType ) * size.x() * size.y() * size.z()
                 << " bytes!" );
     }
 

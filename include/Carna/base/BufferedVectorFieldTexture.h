@@ -57,13 +57,13 @@ public:
 
 
 template< typename BufferedVectorFieldType >
-BufferedVectorFieldTexture< BufferedVectorFieldType >::BufferedVectorFieldTexture( const BufferedVectorFieldType& volume )
+BufferedVectorFieldTexture< BufferedVectorFieldType >::BufferedVectorFieldTexture( const BufferedVectorFieldType& field )
     : ManagedTexture3D
-        ( volume.size
+        ( field.size
         , BufferedVectorFieldFormat< BufferedVectorFieldType >::INTERNAL_FORMAT
         , BufferedVectorFieldFormat< BufferedVectorFieldType >::PIXEL_FORMAT
         , BufferedVectorFieldFormat< BufferedVectorFieldType >::BUFFER_TYPE
-        , &volume.buffer().front() )
+        , &field.buffer().front() )
     , field( field )
 {
 }

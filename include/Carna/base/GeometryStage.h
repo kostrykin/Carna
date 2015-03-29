@@ -245,7 +245,7 @@ void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewT
         {
             renderable.geometry().visitFeatures( [&]( GeometryFeature& gf, unsigned int role )
                 {
-                    /* Denote that the geometry definition was used.
+                    /* Denote that the geometry feature was used.
                      */
                     usedFeatures.insert( &gf );
 

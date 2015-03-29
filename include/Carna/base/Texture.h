@@ -246,17 +246,17 @@ void Texture< dimension >::update( const Eigen::Matrix< unsigned int, dimension,
      */
     for( unsigned int i = 0; i < dimension; ++i )
     {
-        CARNA_ASSERT_EX( size( i, 0 )     >= 1, "Texture only supports positive sizes!" );
+        CARNA_ASSERT_EX( size( i, 0 ) >= 1, "Texture only supports positive sizes!" );
     }
     
     /* Ensure that z-component of the texture size is even if this is a 3D texture.
      */
     if( dimension == 3 )
     {
-        CARNA_ASSERT_EX( size( 2, 0 ) % 2 == 0, "Texture only supports even sizes!" );
+        CARNA_ASSERT_EX( size( 2, 0 ) % 2 == 0, "3D textures must have even depth!" );
     }
     
-    /* Update the OpenGL texure object.
+    /* Update the OpenGL texture object.
      */
     this->bind( SETUP_UNIT );
     uploadGLTextureData( size, internalFormat, pixelFormat, bufferType, bufferPtr );
