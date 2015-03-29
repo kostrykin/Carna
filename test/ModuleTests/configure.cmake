@@ -9,6 +9,7 @@ list( APPEND TESTS
 		MIPStageTest
 		OpaqueRenderingStageTest
 		TransparentRenderingStageTest
+		DVRStageTest
 	)
 
 list( APPEND TESTS_QOBJECT_HEADERS
@@ -20,6 +21,7 @@ list( APPEND TESTS_QOBJECT_HEADERS
 		ModuleTests/MIPStageTest.h
 		ModuleTests/OpaqueRenderingStageTest.h
 		ModuleTests/TransparentRenderingStageTest.h
+		ModuleTests/DVRStageTest.h
 	)
 
 list( APPEND TESTS_HEADERS
@@ -35,4 +37,5 @@ list( APPEND TESTS_SOURCES
 		ModuleTests/MIPStageTest.cpp
 		ModuleTests/OpaqueRenderingStageTest.cpp
 		ModuleTests/TransparentRenderingStageTest.cpp
+		ModuleTests/DVRStageTest.cpp
 	)

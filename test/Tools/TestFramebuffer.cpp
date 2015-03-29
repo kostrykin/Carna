@@ -61,6 +61,18 @@ TestFramebuffer::~TestFramebuffer()
 }
 
 
+unsigned int TestFramebuffer::width() const
+{
+    return frame->width();
+}
+
+
+unsigned int TestFramebuffer::height() const
+{
+    return frame->height();
+}
+
+
 void TestFramebuffer::grabFrame() const
 {
     glContext.makeCurrent();

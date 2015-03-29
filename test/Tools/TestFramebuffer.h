@@ -50,6 +50,10 @@ public:
     TestFramebuffer( base::GLContext& glContext, unsigned int width, unsigned int height );
 
     ~TestFramebuffer();
+
+    unsigned int width() const;
+
+    unsigned int height() const;
     
     void setEpsilon( double epsilon );
     
