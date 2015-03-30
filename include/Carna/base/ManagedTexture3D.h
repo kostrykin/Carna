@@ -128,10 +128,9 @@ public:
       * along each axis, hence the texels' centers are located at \f$\frac{1}{8}\f$,
       * \f$\frac{3}{8}\f$, \f$\frac{5}{8}\f$ and \f$\frac{7}{8}\f$ along those axis.
       *
-      * The matrix returned by this method transforms texture coordinates s.t.
+      * This matrix transforms texture coordinates s.t.
       * \f$ 0 \mapsto \frac{1}{8}\f$ and \f$ 1 \mapsto \frac{7}{8}\f$ following the
-      * considerations from above. The matrix is computed the first time the method
-      * is invoked. It is reused until the \ref upload "texture resolution changes".
+      * considerations from above.
       */
     const base::math::Matrix4f textureCoordinatesCorrection;
     

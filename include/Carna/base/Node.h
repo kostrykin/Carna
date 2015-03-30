@@ -51,14 +51,16 @@ public:
     virtual ~Node();
 
     /** \brief
-      * Attaches \a child to this node and takes it's possession.
+      * Attaches \a child to this node in \f$\mathcal O\left(\log n\right)\f$ and
+      * takes it's possession.
       *
       * If \a child already has another parent, it is first detached from that one.
       */
     void attachChild( Spatial* child );
     
     /** \brief
-      * Detaches \a child from this node. The caller takes possession of the child.
+      * Detaches \a child from this node in \f$\mathcal O\left(\log n\right)\f$. The
+      * caller takes possession of the child.
       *
       * \returns
       * Possessing pointer to the child if it has successfully been detached or \c nullptr
@@ -66,13 +68,25 @@ public:
       */
     Spatial* detachChild( Spatial& child );
 
+    /** \brief
+      * Tells whether \a child is among the children of this node in
+      * \f$\mathcal O\left(\log n\right)\f$.
+      */
     bool hasChild( const Spatial& child ) const;
     
+    /** \brief
+      * Deletes all children of this node.
+      */
     void deleteAllChildren();
     
-    void visitChildren( bool recursively, const MutableVisitor& );
+    /** \brief
+      * Invokes \a visit once on each child of this node \a recursively.
+      */
+    void visitChildren( bool recursively, const MutableVisitor& visit );
     
-    void visitChildren( bool recursively, const ImmutableVisitor& ) const;
+    /** \overload
+      */
+    void visitChildren( bool recursively, const ImmutableVisitor& visit ) const;
     
     /** \brief
       * Computes the transformation to world space for this node just

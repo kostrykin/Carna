@@ -160,7 +160,7 @@ public:
 
     /** \brief
       * Enables or disables alpha blending. Alpha blending is configured through
-      * \ref setBlendFunction and \ref glBlendEquation.
+      * \ref setBlendFunction and \ref setBlendEquation.
       */
     void setBlend( bool b );
 

@@ -138,7 +138,7 @@ namespace base
   *
   * Line 1 declares the GLSL version, just like it was did for vertex shaders. Vertex
   * and fragment shaders, that are going to be used together as a single
-  * \ref VertexProgram "shader program" must also use the same GLSL version. Line 2
+  * \ref ShaderProgram "shader program" must also use the same GLSL version. Line 2
   * declares a variable, whose value will be set
   * \ref setParameter "when the shader is triggered". Note that the keyword `uniform`
   * reflects the same intuitive meaning as it did in the vertex shader example above.

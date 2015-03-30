@@ -107,8 +107,24 @@ namespace base
   */
 struct CARNA_LIB VertexBase
 {
+    /** \brief
+      * Holds the declaration of the \ref CustomVertexFormats "vertex format".
+      */
     static const VertexAttributes attributes;
 
+    /** \property x
+      * \brief Holds the positional x-component of this vertex.
+      *
+      * \property y
+      * \brief Holds the positional y-component of this vertex.
+      *
+      * \property z
+      * \brief Holds the positional z-component of this vertex.
+      *
+      * \property w
+      * \brief Holds the positional w-component of this vertex.
+      *        This will be `1` usually.
+      */
     float x, y, z, w;
 
     /** \brief
@@ -132,6 +148,19 @@ struct CARNA_LIB VertexBase
   */
 struct VertexNormal
 {
+    /** \property nx
+      * \brief Holds the normal vector x-component of this vertex.
+      *
+      * \property ny
+      * \brief Holds the normal vector y-component of this vertex.
+      *
+      * \property nz
+      * \brief Holds the normal vector z-component of this vertex.
+      *
+      * \property nw
+      * \brief Holds the normal vector w-component of this vertex.
+      *        This will be `0` usually.
+      */
     float nx, ny, nz, nw;
 };
 
@@ -150,6 +179,12 @@ struct VertexNormal
   */
 struct VertexTexCoord2
 {
+    /** \property u
+      * \brief Holds the 2D texture coordinates x-component of this vertex.
+      *
+      * \property v
+      * \brief Holds the 2D texture coordinates y-component of this vertex.
+      */
     float u, v;
 };
 

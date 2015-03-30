@@ -40,16 +40,24 @@ namespace base
 template< typename ValueType >
 struct ShaderUniformType
 {
+    /** \brief
+      * Maps \ref ShaderUniform::Value "ShaderUniform value types" to itself.
+      */
     typedef ValueType UniformType;
 };
 
 
 /** \brief
-  * Maps the \ref ShaderUniform value type \ref Color to uploaded type \ref math::Vector4f.
+  * Maps the \ref ShaderUniform value type \ref Color to uploaded type
+  * \ref math::Vector4f.
   */
 template< >
 struct ShaderUniformType< Color >
 {
+    /** \brief
+      * Maps the \ref ShaderUniform value type \ref Color to uploaded type
+      * \ref math::Vector4f.
+      */
     typedef math::Vector4f UniformType;
 };
 

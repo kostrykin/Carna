@@ -68,11 +68,21 @@ class CARNA_LIB MIPStage : public VolumeRenderingStage
     const std::unique_ptr< Details > pimpl;
 
 public:
-
+    
+    /** \brief
+      * Holds the \ref GeometryFeatures "role" that HU volume data is expected to
+      * take when attached to \ref base::Geometry nodes.
+      */
     const static unsigned int ROLE_HU_VOLUME = 0;
 
+    /** \brief
+      * Instantiates.
+      */
     MIPStage( unsigned int geometryType );
 
+    /** \brief
+      * Deletes.
+      */
     virtual ~MIPStage();
 
     virtual void reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height ) override;
@@ -83,27 +93,38 @@ public:
         , const base::Viewport& vp ) override;
     
     /** \brief
-      * Swaps positions of \a channel with it's successor in the \ref MIP_Channels "channels list".
+      * Swaps positions of \a channel with it's successor in the \ref MIPStageChannels "channels list".
       */
     void ascendChannel( const MIPChannel& channel );
     
     /** \brief
-      * Appends \a channel to the \ref MIP_Channels "channels list" and takes it's ownership.
+      * Appends \a channel to the \ref MIPStageChannels "channels list" and takes it's ownership.
       */
     void appendChannel( MIPChannel* channel );
     
     /** \brief
-      * Removes \a channel from the \ref MIP_Channels "channels list".
+      * Removes \a channel from the \ref MIPStageChannels "channels list".
       * The ownership is transferred to the caller.
       */
     MIPChannel* removeChannel( const MIPChannel& channel );
 
+    /** \brief
+      * Tells number of \ref MIPStageChannels "channels".
+      */
     std::size_t channelsCount() const;
 
+    /** \brief
+      * References the \ref MIPStageChannels "channel" with \a channelIndex.
+      */
     MIPChannel& channel( std::size_t channelIndex );
 
+    /** \overload
+      */
     const MIPChannel& channel( std::size_t channelIndex ) const;
 
+    /** \brief
+      * Clears the \ref MIPStageChannels "channels list".
+      */
     void clearChannels();
 
 protected:

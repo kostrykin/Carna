@@ -88,8 +88,8 @@ public:
     void overrideViewTransform( const math::Matrix4f& );
     
     /** \brief
-      * Invokes \ref RenderStage::render an all associated scene processors remained.
-      * Disabled stages are skipped.
+      * Invokes \ref renderStage an all associated render stages remained. Disabled
+      * stages are skipped.
       */
     void render( const Viewport& vp, unsigned int clearBuffersMask = 0 );
     
@@ -101,7 +101,7 @@ public:
 protected:
 
     /** \brief
-      * Renders \a rs with \a viewport.
+      * Renders \a rs with \a viewport through \ref RenderStage::renderPass.
       */
     virtual void renderStage( RenderStage& rs, const Viewport& viewport );
 

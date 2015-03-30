@@ -49,7 +49,7 @@ public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /** \brief
-      * Creates a new interface to the \ref Texture3D that \a managed represents.
+      * Creates a new interface to the \ref Texture<3> that \a managed represents.
       */
     explicit ManagedTexture3DInterface( ManagedTexture3D& managed );
 

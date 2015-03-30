@@ -109,7 +109,16 @@ public:
     template< int order >
     struct DepthOrder
     {
+        /** \brief
+          * Indicates that this partial order depends on the
+          * \ref ViewSpace "view transform".
+          */
         const static bool isViewDependent = true;
+
+        /** \brief
+          * Tells whether \a l is further away than \a r for `order>0` or closer for
+          * `order<0` respectively.
+          */
         bool operator()( const Renderable& l, const Renderable& r ) const;
     };
 
@@ -134,7 +143,16 @@ public:
     template< unsigned int role >
     struct VideoResourcesOrder
     {
+        /** \brief
+          * Indicates that this partial order does not depend on the
+          * \ref ViewSpace "view transform".
+          */
         const static bool isViewDependent = false;
+
+        /** \brief
+          * Returns the result of \ref GeometryFeature::controlsSameVideoResource for
+          * the geometry features with `role` of \a l and \a r.
+          */
         bool operator()( const Renderable& l, const Renderable& r ) const;
     };
 

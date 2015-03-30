@@ -78,7 +78,7 @@ public:
     /** \brief
       * Holds the mask that this queue uses for matching geometry nodes.
       */
-    const unsigned int geometrTypeMask;
+    const unsigned int geometryTypeMask;
 
     /** \brief
       * Holds the mask that makes this queue only accept such geometry nodes whose
@@ -192,7 +192,7 @@ void RenderQueue< RenderableCompare >::build( const Node& root, const math::Matr
     root.visitChildren( true, [&]( const Spatial& spatial )
         {
             const Geometry* const geom = dynamic_cast< const Geometry* >( &spatial );
-            if( geom != nullptr && ( geom->geometryType & geometrTypeMask ) == geometryType )
+            if( geom != nullptr && ( geom->geometryType & geometryTypeMask ) == geometryType )
             {
                 const math::Matrix4f modelViewTransform = viewTransform * geom->worldTransform();
                 renderables.push_back( Renderable( *geom, modelViewTransform ) );
