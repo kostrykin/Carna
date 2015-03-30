@@ -219,6 +219,13 @@ base::ManagedTexture3D& TextureManager< TextureFactory >::getTexture
 // HUComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Defines the \ref helpers::VolumeGridHelper component that maintains HU volume
+  * data.
+  *
+  * \author Leonid Kostrykin
+  * \date   27.3.15 - 29.3.15
+  */
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 class HUComponent : public TextureManager< HUTextureFactory< SegmentHUVolumeType, SegmentNormalsVolumeType > >
 {
@@ -291,11 +298,52 @@ void HUComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::initializeSeg
 
 
 // ----------------------------------------------------------------------------------
+// NormalsComponentBase
+// ----------------------------------------------------------------------------------
+
+/** \brief
+  * Defines the \ref NormalsComponent base class that is independent of type
+  * arguments.
+  *
+  * \author Leonid Kostrykin
+  * \date   27.3.15 - 30.3.15
+  */
+class CARNA_LIB NormalsComponentBase
+{
+
+public:
+
+    /** \brief
+      * Deletes.
+      */
+    virtual ~NormalsComponentBase();
+
+protected:
+
+    /** \brief
+      * Tells the \ref VolumeGridHelperResolutions "effective grid resolution".
+      */
+    virtual base::math::Vector3ui gridResolution() const = 0;
+
+}; // NormalsComponentBase
+
+
+
+// ----------------------------------------------------------------------------------
 // NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Defines the \ref helpers::VolumeGridHelper component that computes and maintains
+  * normal maps.
+  *
+  * \author Leonid Kostrykin
+  * \date   27.3.15 - 29.3.15
+  */
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-class NormalsComponent : public TextureManager< NormalsTextureFactory< SegmentHUVolumeType, SegmentNormalsVolumeType > >
+class NormalsComponent
+    : public TextureManager< NormalsTextureFactory< SegmentHUVolumeType, SegmentNormalsVolumeType > >
+    , public NormalsComponentBase
 {
 
     unsigned int role;
@@ -327,8 +375,6 @@ protected:
     void initializeSegment
         ( base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment
         , const base::math::Vector3ui& size ) const;
-        
-    virtual base::math::Vector3ui gridResolution() const = 0;
 
 }; // NormalsComponent
 
@@ -476,7 +522,7 @@ void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::initiali
   * \date   27.3.15
   */
 template< typename SegmentHUVolumeType >
-class NormalsComponent< SegmentHUVolumeType, void >
+class NormalsComponent< SegmentHUVolumeType, void > : public NormalsComponentBase
 {
 
 public:
@@ -511,8 +557,6 @@ protected:
     void initializeSegment
         ( base::VolumeSegment< SegmentHUVolumeType, void >& segment
         , const base::math::Vector3ui& size ) const;
-        
-    virtual base::math::Vector3ui gridResolution() const = 0;
 
 }; // NormalsComponent
 

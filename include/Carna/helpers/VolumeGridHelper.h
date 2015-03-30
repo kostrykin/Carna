@@ -39,17 +39,9 @@ namespace helpers
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Initializes, holds and manages an \ref base::VolumeGrid object. Creates
-  * representative scene nodes.
-  *
-  * \section VolumePartitioning Volume Partitioning
-  *
-  * Rendering volume data requires us to upload this data to the GPU. Instead of
-  * creating a single, occasionally huge 3D texture, it is a better idea to partition
-  * the data into smaller volumes. This reduces the probability of out-of-memory
-  * exceptions due to memory fragmentation. Such partitioning induces a grid-like
-  * structure, that is represented by the \ref base::VolumeGrid class. Objects from
-  * \ref base::VolumeSegment class represent the cells of such grids.
+  * Computes the \ref VolumePartitioning "partitioning of volumetric data" and the
+  * corresponding normal map. Also creates \ref SceneGraph "scene nodes" that insert
+  * the volumetric data into a scene.
   *
   * \param SegmentHUVolumeType is the \ref base::BufferedHUVolume compatible type to
   *     use for storing the HU volume of a single partition.

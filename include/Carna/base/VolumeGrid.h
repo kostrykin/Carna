@@ -36,6 +36,28 @@ namespace base
 // VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Represents a particular partitioning of volumetric data.
+  *
+  * \param SegmentHUVolumeType is the \ref base::BufferedHUVolume compatible type to
+  *     use for storing the HU volume of a single partition.
+  *
+  * \param SegmentNormalsVolumeType is the \ref base::BufferedNormalMap3D compatible
+  *     type to use for storing the normal map of a single partition. Set to `void`
+  *     if the normal map is not required.
+  *
+  * \section VolumePartitioning Volume Partitioning
+  *
+  * Rendering volume data requires us to upload this data to the GPU. Instead of
+  * creating a single, occasionally huge 3D texture, it is a better idea to partition
+  * the data into smaller volumes. This reduces the probability of out-of-memory
+  * exceptions due to memory fragmentation. Such partitioning induces a grid-like
+  * structure, that this class represents. Objects from \ref base::VolumeSegment
+  * class represent the cells of such grids.
+  *
+  * \author Leonid Kostrykin
+  * \date   8.3.15 - 29.3.15
+  */
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 class VolumeGrid
 {
@@ -44,50 +66,128 @@ class VolumeGrid
 
 public:
 
+    /** \brief
+      * Reflects the type to use for storing the HU volume of a single partition.
+      */
     typedef SegmentHUVolumeType SegmentHUVolume;
 
+    /** \brief
+      * Reflects the type to use for storing the normal map of a single partition.
+      */
+    typedef SegmentNormalsVolumeType SegmentNormalsVolume;
+
+    /** \brief
+      * Reflects the data type that represents a single partition.
+      */
     typedef VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType > Segment;
 
+    /** \brief
+      * Instantiates.
+      *
+      * \param maxSegmentSize is the maximum resolution of a single partition.
+      * \param segmentCounts is the number of partitions along each dimension.
+      */
     VolumeGrid( const math::Vector3ui& maxSegmentSize, const math::Vector3ui& segmentCounts );
 
+    /** \brief
+      * Deletes this and all partitions.
+      */
     virtual ~VolumeGrid();
 
-    const math::Vector3ui maxSegmentSize;
-    const math::Vector3ui segmentCounts;
+    const math::Vector3ui maxSegmentSize; ///< Holds the maximum resolution of a single partition.
+    const math::Vector3ui segmentCounts;  ///< Holds the number of partitions along each dimension.
 
-    Segment& segmentAt( const base::math::Vector3ui& );
+    /** \brief
+      * References the partition at \a location.
+      * \pre `location.x() < segmentCounts.x() && location.y() < segmentCounts.y() && location.z() < segmentCounts.z()`
+      */
+    Segment& segmentAt( const base::math::Vector3ui& location );
 
+    /** \overload
+      */
     const Segment& segmentAt( const base::math::Vector3ui& ) const;
-
+    
+    /** \overload
+      */
     Segment& segmentAt( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ );
-
+    
+    /** \overload
+      */
     const Segment& segmentAt( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ ) const;
 
+    // ------------------------------------------------------------------------------
+    // VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType > :: HUVSelector
+    // ------------------------------------------------------------------------------
+
+    /** \brief
+      * References the HU volume of a given \ref VolumePartitioning "partition".
+      */
     struct HUVSelector
     {
+        /** \brief
+          * Reflects the voxel type of the volume this selector references.
+          */
         typedef typename SegmentHUVolumeType::Value VoxelType;
+
+        /** \brief
+          * References the HU volume of a given \ref VolumePartitioning "partition".
+          */
         static SegmentHUVolumeType& volume( Segment& segment );
+
+        /** \overload
+          */
         static const SegmentHUVolumeType& volume( const Segment& segment );
     };
+    
+    // ------------------------------------------------------------------------------
+    // VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType > :: NormalSelector
+    // ------------------------------------------------------------------------------
 
+    /** \brief
+      * References the normal map of a given \ref VolumePartitioning "partition".
+      */
     struct NormalSelector
     {
+        /** \brief
+          * Reflects the voxel type of the volume this selector references.
+          */
         typedef typename SegmentNormalsVolumeType::Value VoxelType;
+
+        /** \brief
+          * References the normal map of a given \ref VolumePartitioning "partition".
+          */
         static SegmentNormalsVolumeType& volume( Segment& segment );
+
+        /** \overload
+          */
         static const SegmentNormalsVolumeType& volume( const Segment& segment );
     };
 
+    // ------------------------------------------------------------------------------
+
+    /** \brief
+      * Reads the voxel of the volume that the \a Selector selects from the
+      * \ref segmentAt "partition at" \a location.
+      */
+    template< typename Selector >
+    typename Selector::VoxelType getVoxel( const math::Vector3ui& location );
+
+    /** \overload
+      */
     template< typename Selector >
     typename Selector::VoxelType getVoxel( unsigned int x, unsigned int y, unsigned int z );
-
+    
+    /** \brief
+      * Writes the \a voxel of the volume that the \a Selector selects from the
+      * \ref segmentAt "partition at" \a location.
+      */
     template< typename Selector >
-    typename Selector::VoxelType getVoxel( const math::Vector3ui& at );
-
+    void setVoxel( const math::Vector3ui& location, const typename Selector::VoxelType& voxel );
+    
+    /** \overload
+      */
     template< typename Selector >
     void setVoxel( unsigned int x, unsigned int y, unsigned int z, const typename Selector::VoxelType& voxel );
-
-    template< typename Selector >
-    void setVoxel( const math::Vector3ui& at, const typename Selector::VoxelType& voxel );
 
 private:
 

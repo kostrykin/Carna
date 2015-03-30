@@ -36,6 +36,12 @@ namespace base
 // VolumeSegmentNormalsComponent< SegmentNormalsVolumeType >
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Represents the normal map component of an \ref VolumeSegment object.
+  *
+  * \author Leonid Kostrykin
+  * \date   8.3.15 - 29.3.15
+  */
 template< typename SegmentNormalsVolumeType >
 class VolumeSegmentNormalsComponent
 {
@@ -45,15 +51,30 @@ class VolumeSegmentNormalsComponent
     std::unique_ptr< Association< SegmentNormalsVolumeType > > myNormals;
 
 public:
-
+    
+    /** \brief
+      * Deletes.
+      */
     virtual ~VolumeSegmentNormalsComponent();
-
+    
+    /** \brief
+      * Sets the normal map of this partition.
+      */
     void setNormals( Association< SegmentNormalsVolumeType >* volume );
 
+    /** \brief
+      * References the normal map of this partition.
+      * \pre `hasNormals() == true`
+      */
     SegmentNormalsVolumeType& normals();
 
+    /** \overload
+      */
     const SegmentNormalsVolumeType& normals() const;
-
+    
+    /** \brief
+      * Tells whether this partition has a normal map associated.
+      */
     bool hasNormals() const;
 
 }; // VolumeSegmentNormalsComponent
@@ -100,12 +121,21 @@ bool VolumeSegmentNormalsComponent< SegmentNormalsVolumeType >::hasNormals() con
 // VolumeSegmentNormalsComponent< void >
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Specializes \ref VolumeSegmentNormalsComponent when no normal maps are desired.
+  *
+  * \author Leonid Kostrykin
+  * \date   8.3.15 - 29.3.15
+  */
 template< >
 class VolumeSegmentNormalsComponent< void >
 {
 
 public:
 
+    /** \brief
+      * Deletes.
+      */
     virtual ~VolumeSegmentNormalsComponent();
 
 }; // VolumeSegmentNormalsComponent
@@ -121,6 +151,12 @@ VolumeSegmentNormalsComponent< void >::~VolumeSegmentNormalsComponent()
 // VolumeSegment
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Represents a single \ref VolumePartitioning "volumetric data partition".
+  *
+  * \author Leonid Kostrykin
+  * \date   8.3.15 - 29.3.15
+  */
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 class VolumeSegment : public VolumeSegmentNormalsComponent< SegmentNormalsVolumeType >
 {
@@ -128,25 +164,62 @@ class VolumeSegment : public VolumeSegmentNormalsComponent< SegmentNormalsVolume
     NON_COPYABLE
 
 public:
-
+    
+    /** \brief
+      * Reflects the type to use for representation of the whole volumetric data
+      * partitioning.
+      */
     typedef VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType > Grid;
-
+    
+    /** \brief
+      * Reflects the type to use for storing the HU volume of a single partition.
+      */
     typedef SegmentHUVolumeType HUVolume;
     
+    /** \brief
+      * Reflects the type to use for storing the normal map of a single partition.
+      */
     typedef SegmentNormalsVolumeType NormalsVolume;
 
+    /** \brief
+      * References the \ref VolumePartitioning "volumetric data partitioning" this
+      * partition belongs to.
+      */
     Grid& grid;
 
+    /** \brief
+      * Instantiates.
+      *
+      * \param grid references the
+      *     \ref VolumePartitioning "volumetric data partitioning" this partition
+      *     belongs to.
+      */
     VolumeSegment( Grid& grid );
 
+    /** \brief
+      * Sets the HU volume data of this partition.
+      */
     void setHUVolume( Association< SegmentHUVolumeType >* huVolume );
 
+    /** \brief
+      * References the HU volume data of this partition.
+      * \pre `hasHUVolume() == true`
+      */
     SegmentHUVolumeType& huVolume();
 
+    /** \overload
+      */
     const SegmentHUVolumeType& huVolume() const;
 
+    /** \brief
+      * Tells whether this partition has HU volume data associated.
+      */
     bool hasHUVolume() const;
 
+    /** \brief
+      * Holds the coordinate offset this partition within the \ref grid "whole"
+      * volumetric data partitioning.
+      */
     math::Vector3ui offset;
 
 private:
