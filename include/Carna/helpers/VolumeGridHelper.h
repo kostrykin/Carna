@@ -40,7 +40,32 @@ namespace helpers
 
 /** \brief
   * Initializes, holds and manages an \ref base::VolumeGrid object. Creates
-  * representative scene nodes in particular.
+  * representative scene nodes.
+  *
+  * \section VolumePartitioning Volume Partitioning
+  *
+  * Rendering volume data requires us to upload this data to the GPU. Instead of
+  * creating a single, occasionally huge 3D texture, it is a better idea to partition
+  * the data into smaller volumes. This reduces the probability of out-of-memory
+  * exceptions due to memory fragmentation. Such partitioning induces a grid-like
+  * structure, that is represented by the \ref base::VolumeGrid class. Objects from
+  * \ref base::VolumeSegment class represent the cells of such grids.
+  *
+  * \param SegmentHUVolumeType is the \ref base::BufferedHUVolume compatible type to
+  *     use for storing the HU volume of a single partition.
+  *
+  * \param SegmentNormalsVolumeType is the \ref base::BufferedNormalMap3D compatible
+  *     type to use for storing the normal map of a single partition. Set to `void`
+  *     if the normal map is not required.
+  *
+  * \section VolumeGridHelperNormals Normal Map Computation
+  *
+  * The \ref loadData kicks off the computation of the normals automatically. If you
+  * alter the volume data differently, it is within your responsibility to do this by
+  * calling `computeNormals` on this object. Note that the `computeNormals` method is
+  * only available if \a SegmentNormalsVolumeType is not `void`.
+  *
+  * \section VolumeGridHelperResolutions Resolutions
   *
   * This class needs to distinguish between three kinds of resolutions. The grid's
   * volume textures are \em not disjoint, but must maintain redundant voxels along
@@ -57,7 +82,7 @@ namespace helpers
   * attention to this circumstance.
   *
   * \author Leonid Kostrykin
-  * \date   8.3.15 - 10.3.15
+  * \date   8.3.15 - 29.3.15
   */
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 class VolumeGridHelper
@@ -132,6 +157,8 @@ public:
       * \param data
       *     Unary function that maps \ref base::math::Vector3ui to \ref base::HUV. It
       *     will be queried for all values up to \ref nativeResolution.
+      *
+      * The normal map is re-computed if `SegmentNormalsVolumeType` is not `void`.
       */
     template< typename UnaryVector3uiToHUVFunction >
     void loadData( const UnaryVector3uiToHUVFunction& data );
