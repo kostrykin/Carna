@@ -81,11 +81,12 @@ public:
     bool hasParent() const;
 
     /** \brief
-      * Detaches this spatial from it's parent node.
-      * The caller takes possession of this spatial.
+      * Detaches this spatial from it's parent node in
+      * \f$\mathcal O\left(\log n\right)\f$ where \f$n\f$ is the number of parent's
+      * children. The caller takes possession of this spatial.
       *
-      * \pre
-      * <code>hasParent() == true</code>
+      * \pre  `hasParent() == true`
+      * \post `hasParent() == false`
       *
       * \returns
       * Possessing pointer to this spatial if it has successfully been detached from
@@ -94,26 +95,18 @@ public:
     Spatial* detachFromParent();
 
     /** \brief
-      * Fixes tree consistency by updating parent of this spatial.
-      *
-      * \note
-      * This method is for internal usage only.
+      * Fixes tree consistency by updating parent of this spatial. This method is for
+      * internal usage only.
       */
     void updateParent( Node& parent );
     
     /** \brief
       * References the parent node.
-      *
-      * \pre
-      * <code>hasParent() == true</code>
+      * \pre `hasParent() == true`
       */
     Node& parent();
     
-    /** \brief
-      * References the parent node.
-      *
-      * \pre
-      * <code>hasParent() == true</code>
+    /** \overload
       */
     const Node& parent() const;
 
