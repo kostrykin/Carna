@@ -67,14 +67,29 @@ class CARNA_LIB ParallaxStage : public CompositionStage
 
 public:
 
+    /** \brief
+      * Holds the default double distance that the camera is offset to left/right.
+      */
     const static float DEFAULT_EYE_DISTANCE;
 
+    /** \brief
+      * Sets the \ref setEyeDistance "eye distance" to \ref DEFAULT_EYE_DISTANCE.
+      */
     ParallaxStage( CompositionMode compositionMode );
 
+    /** \brief
+      * Deletes.
+      */
     virtual ~ParallaxStage();
     
+    /** \brief
+      * Sets the double of the distance that the camera is offset to left/right.
+      */
     void setEyeDistance( float );
     
+    /** \brief
+      * Tells the double of the distance that the camera is offset to left/right.
+      */
     float eyeDistance() const;
         
 protected:

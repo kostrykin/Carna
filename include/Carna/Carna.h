@@ -186,9 +186,17 @@ namespace Carna
 
         template< typename RenderStageOrder = DefaultRenderStageOrder > class FrameRendererHelper;
         template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType = void > class VolumeGridHelper;
+        
+        /** \brief
+          * Holds implementation details.
+          */
+        namespace details
+        {
+        }
 
     }
 
 }  // namespace Carna
 
 #endif // CARNA_GLOBAL_H_6014714286
+

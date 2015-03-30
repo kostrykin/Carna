@@ -142,13 +142,13 @@ struct IndexBufferTypeMapper
 
 
 /** \brief
-  * Maps `uint8_t` to `IndexBufferBase::TYPE_UINT_8`.
+  * Maps `uint8_t` to \ref IndexBufferBase::TYPE_UINT_8.
   */
 template< >
 struct IndexBufferTypeMapper< uint8_t >
 {
     /** \brief
-      * Maps `uint8_t` to `IndexBufferBase::TYPE_UINT_8`. 
+      * Maps `uint8_t` to \ref IndexBufferBase::TYPE_UINT_8. 
       */
     operator unsigned int()
     {
@@ -158,13 +158,13 @@ struct IndexBufferTypeMapper< uint8_t >
 
 
 /** \brief
-  * Maps `uint16_t` to `IndexBufferBase::TYPE_UINT_16`.
+  * Maps `uint16_t` to \ref IndexBufferBase::TYPE_UINT_16.
   */
 template< >
 struct IndexBufferTypeMapper< uint16_t >
 {
     /** \brief
-      * Maps `uint16_t` to `IndexBufferBase::TYPE_UINT_16`.
+      * Maps `uint16_t` to \ref IndexBufferBase::TYPE_UINT_16.
       */
     operator unsigned int()
     {
@@ -174,13 +174,13 @@ struct IndexBufferTypeMapper< uint16_t >
 
 
 /** \brief
-  * Maps `uint32_t` to `IndexBufferBase::TYPE_UINT_32`.
+  * Maps `uint32_t` to \ref IndexBufferBase::TYPE_UINT_32.
   */
 template< >
 struct IndexBufferTypeMapper< uint32_t >
 {
     /** \brief
-      * Maps `uint32_t` to `IndexBufferBase::TYPE_UINT_32`.
+      * Maps `uint32_t` to \ref IndexBufferBase::TYPE_UINT_32.
       */
     operator unsigned int()
     {

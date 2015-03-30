@@ -33,9 +33,6 @@ namespace Carna
 namespace helpers
 {
 
-/** \brief
-  * Holds class templates that contain implementation details.
-  */
 namespace details
 {
 
@@ -61,9 +58,20 @@ namespace VolumeGridHelper
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 struct HUTextureFactory
 {
+    /** \brief
+      * Reflects the type to use for storing the HU volume of a single partition.
+      */
     typedef SegmentHUVolumeType SegmentHUVolume;
+
+    /** \brief
+      * Reflects the type to use for storing the normal map of a single partition.
+      */
     typedef SegmentNormalsVolumeType SegmentNormalsVolume;
 
+    /** \brief
+      * Creates \ref base::ManagedTexture3D "texture" that represents the
+      * \ref base::VolumeSegment::huVolume of \a segment in video memory.
+      */
     static base::ManagedTexture3D& createTexture
         ( const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment );
 };
@@ -92,9 +100,21 @@ base::ManagedTexture3D& HUTextureFactory< SegmentHUVolumeType, SegmentNormalsVol
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 struct NormalsTextureFactory
 {
+    /** \brief
+      * Reflects the type to use for storing the HU volume of a single partition.
+      */
     typedef SegmentHUVolumeType SegmentHUVolume;
-    typedef SegmentNormalsVolumeType SegmentNormalsVolume;
 
+    /** \brief
+      * Reflects the type to use for storing the normal map of a single partition.
+      */
+    typedef SegmentNormalsVolumeType SegmentNormalsVolume;
+    
+    /** \brief
+      * Creates \ref base::ManagedTexture3D "texture" that represents the
+      * \ref base::VolumeSegmentNormalsComponent::normals of \a segment in video
+      * memory.
+      */
     static base::ManagedTexture3D& createTexture
         ( const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment );
 };
@@ -135,12 +155,22 @@ class TextureManager
 
 public:
 
+    /** \brief
+      * \ref releaseGeometryFeatures "Releases all textures" and deletes.
+      */
     virtual ~TextureManager();
 
+    /** \brief
+      * \ref base::GeometryFeature::release "Releases" all textures.
+      */
     void releaseGeometryFeatures();
 
 protected:
 
+    /** \brief
+      * Attaches the texture that `TextureFactory` creates from \a segment to
+      * \a geometry using \a role.
+      */
     void attachTexture
         ( base::Geometry& geometry
         , unsigned int role
@@ -234,20 +264,45 @@ class HUComponent : public TextureManager< HUTextureFactory< SegmentHUVolumeType
 
 public:
 
+    /** \brief
+      * Holds the default \ref GeometryTypes "role" to use for
+      * \ref attachTexture "attaching textures" to \ref base::Geometry nodes.
+      */
     const static unsigned int DEFAULT_ROLE_HU_VOLUME = 0;
 
+    /** \brief
+      * Sets the \ref GeometryTypes "role" to use for
+      * \ref attachTexture "attaching textures" to \ref base::Geometry nodes to
+      * \ref DEFAULT_ROLE_HU_VOLUME.
+      */
     HUComponent();
 
+    /** \brief
+      * Sets the \ref GeometryTypes "role" to use for
+      * \ref attachTexture "attaching textures" to \ref base::Geometry nodes.
+      */
     void setHUVolumeRole( unsigned int role );
-
+    
+    /** \brief
+      * Tels the \ref GeometryTypes "role" used for
+      * \ref attachTexture "attaching textures" to \ref base::Geometry nodes.
+      */
     unsigned int huVolumeRole() const;
 
 protected:
 
+    /** \brief
+      * Attaches the \ref base::ManagedTexture3D "texture" that represents the
+      * \ref base::VolumeSegment::huVolume of \a segment to \a geometry using the
+      * \ref setHUVolumeRole "previously configured role".
+      */
     void attachTexture
         ( base::Geometry& geometry
         , const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment ) const;
 
+    /** \brief
+      * Initializes \ref base::VolumeSegment::setHUVolume "HU volume" of \a segment.
+      */
     void initializeSegment
         ( base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment
         , const base::math::Vector3ui& size ) const;
@@ -350,28 +405,57 @@ class NormalsComponent
     base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >* grid;
 
 public:
-
+    
+    /** \brief
+      * Holds the default \ref GeometryTypes "role" to use for
+      * \ref attachTexture "attaching textures" to \ref base::Geometry nodes.
+      */
     const static unsigned int DEFAULT_ROLE_NORMALS = 1;
-
+    
+    /** \brief
+      * Sets the \ref GeometryTypes "role" to use for
+      * \ref attachTexture "attaching textures" to \ref base::Geometry nodes to
+      * \ref DEFAULT_ROLE_NORMALS.
+      */
     NormalsComponent();
-
+    
+    /** \brief
+      * Sets the \ref GeometryTypes "role" to use for
+      * \ref attachTexture "attaching textures" to \ref base::Geometry nodes.
+      */
     void setNormalsRole( unsigned int role );
-
+    
+    /** \brief
+      * Tels the \ref GeometryTypes "role" used for
+      * \ref attachTexture "attaching textures" to \ref base::Geometry nodes.
+      */
     unsigned int normalsRole() const;
 
     /** \brief
-      * Computes the normal vectors.
+      * Computes the normal map on the \ref setGrid "previously set grid".
       */
     void computeNormals();
 
 protected:
 
+    /** \brief
+      * Sets the grid that \ref computeNormals operates on.
+      */
     void setGrid( base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >& grid );
-
+    
+    /** \brief
+      * Attaches the \ref base::ManagedTexture3D "texture" that represents the
+      * \ref base::VolumeSegmentNormalsComponent::normals of \a segment to
+      * \a geometry using the \ref setNormalsRole "previously configured role".
+      */
     void attachTexture
         ( base::Geometry& geometry
         , const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment ) const;
-
+    
+    /** \brief
+      * Initializes \ref base::VolumeSegmentNormalsComponent::setNormals "normal map"
+      * of \a segment.
+      */
     void initializeSegment
         ( base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment
         , const base::math::Vector3ui& size ) const;

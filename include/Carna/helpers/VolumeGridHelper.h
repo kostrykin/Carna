@@ -88,11 +88,6 @@ class VolumeGridHelper
     typedef details::VolumeGridHelper::NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType > NormalsComponent;
 
     /** \brief
-      * Holds the original resolution of the loaded data.
-      */
-    const base::math::Vector3ui nativeResolution;
-
-    /** \brief
       * Holds the wrapped \ref base::VolumeGrid object.
       */
     std::unique_ptr< base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType > > myGrid;
@@ -121,6 +116,11 @@ public:
       *     is chosen according to this value.
       */
     VolumeGridHelper( const base::math::Vector3ui& nativeResolution, std::size_t maxSegmentBytesize = DEFAULT_MAX_SEGMENT_BYTESIZE );
+
+    /** \brief
+      * Holds the original resolution of the loaded data.
+      */
+    const base::math::Vector3ui nativeResolution;
 
     /** \brief
       * Holds the effective resolution, i.e. the resolution covered by the grid.
@@ -177,8 +177,14 @@ public:
       */
     struct Spacing
     {
+        /** \brief
+          * Instantiates.
+          */
         explicit Spacing( const base::math::Vector3f& millimeters );
 
+        /** \brief
+          * Holds the spacing between two succeeding voxel centers in millimeters.
+          */
         base::math::Vector3f millimeters;
     };
     
@@ -187,8 +193,14 @@ public:
       */
     struct Dimensions
     {
+        /** \brief
+          * Instantiates.
+          */
         explicit Dimensions( const base::math::Vector3f& millimeters );
 
+        /** \brief
+          * Holds the dimensions of the whole dataset in millimeters.
+          */
         base::math::Vector3f millimeters;
     };
 

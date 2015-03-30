@@ -15,7 +15,7 @@ namespace Carna
   *  1. \ref QuickStart_FrameRenderer "The Frame Renderer":
   *     \ref RenderStages and \ref GeometryTypes
   *  2. \ref SceneGraph "The Scene Graph":
-  *     \ref SceneGraph_SpecialSpatialClasses and \ref QuickStart_HUVolumeGridHelper
+  *     \ref SceneGraph_SpecialSpatialClasses and \ref QuickStart_VolumeGridHelper
   *  3. \ref GeometryFeatures "Geometry Features":
   *     \ref GeometryFeatureLifecycle and \ref QuickStart_Materials
   *
@@ -130,14 +130,14 @@ namespace Carna
   * The \ref base::SpatialMovement class makes the implementation of drag-&-drop like
   * behaviour for `%Geometry` objects very easy.
   *
-  * \subsubsection QuickStart_HUVolumeGridHelper Positioning CT Data
+  * \subsubsection QuickStart_VolumeGridHelper Positioning CT Data
   *
-  * The `HUVolumeGridHelper` class takes care of two things. First, it partitions the
+  * The `VolumeGridHelper` class takes care of two things. First, it partitions the
   * volumetric `data` into multiple smaller, box-shaped volumes. This partitioning is
   * done according to an upper limit of each volume's memory size. In the example no
   * specific limit is set, hence the
-  * \ref helpers::HUVolumeGridHelper::DEFAULT_MAX_SEGMENT_BYTESIZE "default" is used.
-  * Second, the `HUVolumeGridHelper` class creates a scene `Node` that represents the
+  * \ref helpers::VolumeGridHelper::DEFAULT_MAX_SEGMENT_BYTESIZE "default" is used.
+  * Second, the `VolumeGridHelper` class creates a scene `Node` that represents the
   * partitioned `data` within the scene. This `Node` has one `Geometry` child per
   * volume partition.
   *
@@ -158,7 +158,7 @@ namespace Carna
   * Because of their shared-use nature, the lifecycle of geometry features is very
   * important. They have neither a public constructor, nor a public destructor:
   *
-  *   - %Geometry features are acquired using their static `::create` function. Each
+  *   - %Geometry features are acquired using their static `::%create` function. Each
   *     feature possess *itself*, hence a reference is returned.
   *   - If you invoke `release` on the feature right after its creation, it will be
   *     deleted immediately because its unused.

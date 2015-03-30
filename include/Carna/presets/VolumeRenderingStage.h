@@ -148,7 +148,7 @@ namespace presets
   *
   * Usually volume data is partitioned into smaller textures. This reduces the
   * probability of out-of-memory exceptions due to memory fragmentation. The
-  * \ref helpers::HUVolumeGridHelper class performs such a partitioning. This means
+  * \ref helpers::VolumeGridHelper class performs such a partitioning. This means
   * that we will often render not only single volumes but *grids* where each cell is
   * made up by a volume that needs to be rendered. The algorithm presented here suits
   * this use-case without compromises. However, additional measures need to be taken
@@ -199,9 +199,9 @@ namespace presets
   * The solution is to use a different distance measuring. Instead of computing the
   * distances to the cell centers, we compute the *actual* distances to the cells.
   * The \ref base::Renderable::DepthOrder "depth-sorting implementation" does this if
-  * an appropriate \ref \ref base::BoundingBox "bounding box" is set upon the
-  * geometry node. The \ref helpers::HUVolumeGridHelper class configures such
-  * bounding boxes for you.
+  * an appropriate \ref base::BoundingBox "bounding box" is set upon the geometry
+  * node. The \ref helpers::VolumeGridHelper class configures such bounding boxes for
+  * you.
   *
   * \section VolumeRenderingHowToImplementat How to Implement
   *
@@ -222,8 +222,8 @@ namespace presets
   *     \ref VolumeRenderingAlgorithm "rendering the slices".
   *   - \ref uniformName maps the volume texture roles to uniform variable names.
   *   - \ref configureShader performs arbitrary setup of the shader.
-  *   - \ref createSamplers creates \ref base::Sampler "texture samplers" and assigns
-  *     them to the roles that they should be used with.
+  *   - \ref createVolumeSamplers creates \ref base::Sampler "texture samplers" and
+  *     assigns them to the roles that they should be used with.
   *
   * Furthermore, you might want to override \ref renderPass. The default
   * implementation invokes the volume rendering algorithm, as it is described above.

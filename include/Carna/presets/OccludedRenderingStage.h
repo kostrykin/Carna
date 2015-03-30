@@ -64,22 +64,56 @@ class CARNA_LIB OccludedRenderingStage : public base::RenderStage
 
 public:
 
+    /** \brief
+      * Holds the default translucency of the occluding geometry.
+      */
     const static float DEFAULT_OCCLUSION_TRANSLUCENCY;
 
+    /** \brief
+      * Sets \ref setOcclusionTranslucency "translucency of occluding geometry" to
+      * \ref DEFAULT_OCCLUSION_TRANSLUCENCY.
+      */
     OccludedRenderingStage();
 
+    /** \brief
+      * Deletes.
+      */
     virtual ~OccludedRenderingStage();
 
+    /** \brief
+      * Disables all stages.
+      */
     void disableAllStages();
 
-    void enableStage( const base::RenderStage& );
+    /** \brief
+      * Enables \a rs in \f$\mathcal O\left(\log n\right)\f$.
+      */
+    void enableStage( const base::RenderStage& rs );
+    
+    /** \brief
+      * Disables \a rs in \f$\mathcal O\left(\log n\right)\f$.
+      */
+    void disableStage( const base::RenderStage& rs );
+    
+    /** \brief
+      * Tells whether \a rs is enabled in \f$\mathcal O\left(\log n\right)\f$.
+      */
+    bool isStageEnabled( const base::RenderStage& rs ) const;
 
-    void disableStage( const base::RenderStage& );
-
-    bool isStageEnabled( const base::RenderStage& ) const;
-
-    void setOcclusionTranslucency( float );
-
+    /** \brief
+      * Sets the translucency of the occluding geometry.
+      *
+      * For `translucency == 1` it looks as if the occluding geometry was completely
+      * translucent.
+      */
+    void setOcclusionTranslucency( float translucency );
+    
+    /** \brief
+      * Tells the translucency of the occluding geometry.
+      *
+      * For `translucency == 1` it looks as if the occluding geometry was completely
+      * translucent.
+      */
     float occlusionTranslucency() const;
 
     virtual void reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height ) override;

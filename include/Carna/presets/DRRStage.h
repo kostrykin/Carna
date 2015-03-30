@@ -65,12 +65,12 @@ namespace presets
   *
   * The integral
   * \f$y = \int_{-\infty}^{\infty} g\left(x\right) \mu\left(x\right) \,\mathrm dx\f$
-  * is computed through \ref \ref VolumeRenderingStage::renderPass. For each pixel,
-  * the result is written to a texture. Afterwards this texture is drawn back to the
+  * is computed through \ref \VolumeRenderingStage::renderPass. For each pixel, the
+  * result is written to a texture. Afterwards this texture is drawn back to the
   * output buffer, using a shader the computes \f$I = I_0 \exp\left(-y\right)\f$.
   * The resulting colors are defined as
   * \f$I \mapsto \left(1, 1, 1, 1 - I\right)^\mathrm T\f$ if
-  * \ref setRenderInverse "inverse rendering" is disabled, or
+  * \ref setRenderingInverse "inverse rendering" is disabled, or
   * \f$I \mapsto \left(0, 0, 0, 1 - I\right)^\mathrm T\f$ otherwise. The fourth
   * component of the color vector is the opacity.
   *

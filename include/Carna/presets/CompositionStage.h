@@ -31,8 +31,9 @@ namespace presets
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Defines \ref base::RenderStage "rendering stage" combines two other renderings
-  * either by putting them next to each other or through row-wise interleaving.
+  * Defines \ref base::RenderStage "rendering stage" that combines two other
+  * renderings either by putting them next to each other or through row-wise
+  * interleaving.
   *
   * \todo
   * Finish this.
@@ -57,16 +58,42 @@ public:
         aside       ///< Combines renderings by putting them next to each other.
     };
 
+    /** \brief
+      * Instantiates.
+      */
     CompositionStage( CompositionMode compositionMode );
 
+    /** \brief
+      * Deletes.
+      */
     virtual ~CompositionStage();
     
+    /** \brief
+      * Sets how the two renderings obtained through
+      * \ref renderPass(const base::math::Matrix4f&,base::RenderTask&,const base::Viewport&,bool,bool)
+      * shall be combined.
+      */
     void setCompositionMode( CompositionMode compositionMode );
     
+    /** \brief
+      * Tells how the two renderings obtained through
+      * \ref renderPass(const base::math::Matrix4f&,base::RenderTask&,const base::Viewport&,bool,bool)
+      * are combined.
+      */
     CompositionMode compositionMode() const;
     
+    /** \brief
+      * Swaps the two renderings obtained through
+      * \ref renderPass(const base::math::Matrix4f&,base::RenderTask&,const base::Viewport&,bool,bool)
+      * when combining.
+      */
     void setCompositionSwap( bool );
     
+    /** \brief
+      * Tells whether the two renderings obtained through
+      * \ref renderPass(const base::math::Matrix4f&,base::RenderTask&,const base::Viewport&,bool,bool)
+      * are swapped when combined.
+      */
     bool isCompositionSwapped() const;
 
     virtual void reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height ) override;
@@ -75,6 +102,11 @@ public:
     
     virtual void prepareFrame( base::Node& root ) override;
 
+    /** \brief
+      * Invokes
+      * \ref renderPass(const base::math::Matrix4f&,base::RenderTask&,const base::Viewport&,bool,bool)
+      * twice and combines the results \ref setCompositionMode "like specified".
+      */
     virtual void renderPass
         ( const base::math::Matrix4f& viewTransform
         , base::RenderTask& rt
@@ -82,6 +114,25 @@ public:
         
 protected:
 
+    /** \brief
+      * Renders one of the two renderings that are to be combined per invocation.
+      *
+      * \param viewTransform transforms \ref ViewSpace "world space to view space".
+      *
+      * \param rt references the \ref RenderingProcess "rendering task".
+      *
+      * \param vp references the \ref FrameCoordinates "viewport".
+      *
+      * \param isFirstInvocation indicates whether this is the first rendering
+      *     invocation of the current \ref renderPass "rendering pass".
+      *
+      * \param isFirstSource indicates whether this rendering should be done using
+      *     the "first" method/source/algorithm.
+      *
+      * Note that `isFirstInvocation == isFirstSource` is true when
+      * \ref setCompositionSwap "swapping" was disabled and
+      * `isFirstInvocation != isFirstSource` is true if it was enabled.
+      */
     virtual void renderPass
         ( const base::math::Matrix4f& viewTransform
         , base::RenderTask& rt

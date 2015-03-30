@@ -36,6 +36,9 @@ namespace presets
 
 /** \brief  Defines an HUV range and the way it's visualized within a \ref MIPStage.
   *
+  * \todo
+  * Rename to MIPLayer.
+  *
   * \author Leonid Kostrykin
   * \date   26.7.11 - 26.2.15
   */

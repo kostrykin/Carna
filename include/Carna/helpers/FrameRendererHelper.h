@@ -82,16 +82,35 @@ class FrameRendererHelper
 
 public:
 
+    /** \brief
+      * Instantiates helper for \a renderer.
+      */
     explicit FrameRendererHelper( base::FrameRenderer& renderer );
 
+    /** \brief
+      * Deletes.
+      */
     ~FrameRendererHelper();
     
-    FrameRendererHelper< RenderStageOrder >& operator<<( base::RenderStage* );
+    /** \brief
+      * Takes possession of \a rs and adds it to the \ref renderer when \ref commit
+      * is invoked.
+      */
+    FrameRendererHelper< RenderStageOrder >& operator<<( base::RenderStage* rs );
 
+    /** \brief
+      * References the configured %renderer.
+      */
     base::FrameRenderer& renderer;
 
+    /** \brief
+      * Resets changes that have been made since the last invocation of \ref commit.
+      */
     void reset();
 
+    /** \brief
+      * Commits recorded changes to the associated \ref renderer.
+      */
     void commit();
 
 }; // FrameRendererHelper
