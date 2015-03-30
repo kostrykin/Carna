@@ -14,6 +14,7 @@ set( TESTS_HEADERS
 	)
 	
 set( TESTS_SOURCES
+		Tools/HUGZSceneFactory.cpp
 		Tools/QGLContextHolder.cpp
 		Tools/TestApplication.cpp
 		Tools/TestFramebuffer.cpp

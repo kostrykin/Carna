@@ -16,17 +16,9 @@ namespace testing
 
 
 
-/** \brief
-  * Reads value of type \a ValueType from stream of type \a StreamType.
-  *
-  * \relates
-  * HUGZSceneFactory
-  */
-template< typename StreamType, typename ValueType >
-void stream_read( StreamType& in, ValueType& out )
-{
-    in.read( reinterpret_cast< char* >( &out ), sizeof( out ) );
-}
+// ----------------------------------------------------------------------------------
+// HUGZSceneFactory
+// ----------------------------------------------------------------------------------
 
 /** \brief
   * Creates \ref Carna::base::HUVolumeUInt16 object from HUGZ-file.
@@ -52,36 +44,7 @@ struct HUGZSceneFactory
       *
       * The HUGZ file format is described \ref HUGZFileFormat "here".
       */
-    static Carna::base::HUVolumeUInt16* importVolume( const std::string& filename, Carna::base::math::Vector3f& spacing )
-    {
-        std::ifstream file( filename, std::ios::in | std::ios::binary );
-        CARNA_ASSERT( file.is_open() && !file.fail() );
-        boost::iostreams::filtering_istream in;
-        in.push( boost::iostreams::gzip_decompressor() );
-        in.push( file );
-
-        Carna::base::math::Vector3ui size;
-        stream_read( in, size.x() );
-        stream_read( in, size.y() );
-        stream_read( in, size.z() );
-
-        Carna::base::HUVolumeUInt16* const volume = new Carna::base::HUVolumeUInt16( size );
-
-        stream_read( in, spacing.x() );
-        stream_read( in, spacing.y() );
-        stream_read( in, spacing.z() );
-
-        HUIO::Reader reader( in );
-        for( unsigned int z = 0; z < size.z(); ++z )
-        for( unsigned int y = 0; y < size.y(); ++y )
-        for( unsigned int x = 0; x < size.x(); ++x )
-        {
-            const signed short huv = reader.read();
-            volume->setVoxel( x, y, z, huv );
-        }
-
-        return volume;
-    }
+    static Carna::base::HUVolumeUInt16* importVolume( const std::string& filename, Carna::base::math::Vector3f& spacing );
 };
 
 

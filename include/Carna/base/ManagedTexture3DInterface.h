@@ -34,7 +34,7 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Interfaces the \ref Texture3D that a \ref ManagedTexture3D represents.
+  * Interfaces the \ref Texture<3> that a \ref ManagedTexture3D represents.
   *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 24.3.15

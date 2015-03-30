@@ -204,7 +204,7 @@ public:
 
     /** \brief
       * Records \a uniform as shader parameter. This will be uploaded to the shader
-      * when the material is \ref VideoResourceAcquisition::activate "activated".
+      * when the material is \ref ManagedInterface::activate "activated".
       *
       * Any previously set parameters with the same
       * \ref ShaderUniformBase::name "name" are overriden.
@@ -239,7 +239,7 @@ public:
     virtual bool controlsSameVideoResource( const GeometryFeature& other ) const override;
 
     // ------------------------------------------------------------------------------
-    // Material :: VideoResourceAcquisition
+    // Material :: ManagedInterface
     // ------------------------------------------------------------------------------
     
     /** \brief
@@ -257,11 +257,11 @@ public:
         /** \brief
           * Acquires the video resources from \a material.
           *
-          * \copydetails GeometryFeature::VideoResourceAcquisition::VideoResourceAcquisition(GeometryFeature&)
+          * \copydetails GeometryFeature::ManagedInterface::ManagedInterface(GeometryFeature&)
           */
         ManagedInterface( Material& material );
     
-        /** \copydoc GeometryFeature::VideoResourceAcquisition::~VideoResourceAcquisition()
+        /** \copydoc GeometryFeature::ManagedInterface::~ManagedInterface()
           */
         virtual ~ManagedInterface();
 
@@ -282,7 +282,9 @@ public:
           */
         Material& material;
     
-    }; // Material :: VideoResourceAcquisition
+    }; // Material :: ManagedInterface
+
+    // ------------------------------------------------------------------------------
     
     virtual ManagedInterface* acquireVideoResource() override;
 

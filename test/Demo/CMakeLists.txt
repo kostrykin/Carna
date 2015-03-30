@@ -66,6 +66,7 @@ set( QOBJECT_HEADERS
 		""
 	)
 set( SRC
+		../Tools/HUGZSceneFactory.cpp
         ../Tools/TestApplication.cpp
 		src/main.cpp
 	)

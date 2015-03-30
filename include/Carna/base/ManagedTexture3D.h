@@ -117,8 +117,8 @@ public:
     const math::Vector3ui size;  ///< \copydoc Texture::size
     const int internalFormat;    ///< \copydoc Texture::internalFormat
     const int pixelFormat;       ///< \copydoc Texture::pixelFormat
-    const int bufferType;        ///< \copydoc Texture::bufferType
-    const void* const bufferPtr; ///< \copydoc Texture::bufferPtr
+    const int bufferType;        ///< Specifies the data type of the pixel data pointed to by \ref bufferPtr.
+    const void* const bufferPtr; ///< Points to the pixel data that will be uploaded to the texture.
 
     /** \brief
       * Stretches texture coordinates s.t. the centers of the texels, that are

@@ -37,7 +37,7 @@ struct Material::Details
 
 
 // ----------------------------------------------------------------------------------
-// Material :: VideoResourceAcquisition
+// Material :: ManagedInterface
 // ----------------------------------------------------------------------------------
 
 Material::ManagedInterface::ManagedInterface( Material& material )

@@ -53,17 +53,16 @@ void CARNA_LIB bindGLTextureObject< 3 >( unsigned int unit, unsigned int id );
 
 
 // ----------------------------------------------------------------------------------
-// Texture
+// TextureBase
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Specialization with dimension-independent definitions.
+  * \ref Texture base class with dimension-independent definitions.
   *
   * \author Leonid Kostrykin
-  * \date   24.3.15
+  * \date   24.3.15 - 30.3.15
   */
-template< >
-class CARNA_LIB Texture< 0 >
+class CARNA_LIB TextureBase
 {
 
     NON_COPYABLE
@@ -78,7 +77,7 @@ public:
     /** \brief
       * Deletes the maintained OpenGL texture object.
       */
-    virtual ~Texture();
+    virtual ~TextureBase();
 
     /** \brief
       * Texture unit that is fine to be used for temporal bindings, i.e. for setting
@@ -91,7 +90,7 @@ protected:
     /** \brief
       * Creates OpenGL texture object.
       */
-    Texture();
+    TextureBase();
 
     void uploadGLTextureData
         ( const Eigen::Matrix< unsigned int, 1, 1 >& size
@@ -114,8 +113,13 @@ protected:
         , int bufferType
         , const void* bufferPtr );
     
-}; // Texture< 0 >
+}; // TextureBase
 
+
+
+// ----------------------------------------------------------------------------------
+// Texture
+// ----------------------------------------------------------------------------------
 
 /** \brief
   * Represents an OpenGL texture object. This class realizes the RAII-idiom.
@@ -124,7 +128,7 @@ protected:
   * \date   22.2.15 - 24.3.15
   */
 template< unsigned int dimension >
-class Texture : public Texture< 0 >
+class Texture : public TextureBase
 {
 
 public:
@@ -172,12 +176,12 @@ public:
     const int pixelFormat;    ///< Holds the format of the pixel data, e.g. `GL_RED`, `GL_RGB` or `GL_RGBA`.
 
     /** \brief
-      * Binds this texture to \a unit. Consider using \ref Texture<0>::SETUP_UNIT if
+      * Binds this texture to \a unit. Consider using \ref TextureBase::SETUP_UNIT if
       * you're binding the texture temporarily.
       */
     void bind( unsigned int unit ) const;
     
-    /** Binds this texture to \ref Texture<0>::SETUP_UNIT, updates its \a size and
+    /** Binds this texture to \ref TextureBase::SETUP_UNIT, updates its \a size and
       * data.
       *
       * \post `isValid() == true`

@@ -81,22 +81,22 @@ static void checkGLTextureDataParameters( int& internalFormat, int& pixelFormat,
 
 
 // ----------------------------------------------------------------------------------
-// Texture
+// TextureBase
 // ----------------------------------------------------------------------------------
 
-Texture< 0 >::Texture()
+TextureBase::TextureBase()
     : id( createGLTextureObject() )
 {
 }
 
 
-Texture< 0 >::~Texture()
+TextureBase::~TextureBase()
 {
     glDeleteTextures( 1, &id );
 }
 
 
-void Texture< 0 >::uploadGLTextureData
+void TextureBase::uploadGLTextureData
     ( const Eigen::Matrix< unsigned int, 1, 1 >& size
     , int internalFormat
     , int pixelFormat
@@ -110,7 +110,7 @@ void Texture< 0 >::uploadGLTextureData
 }
 
 
-void Texture< 0 >::uploadGLTextureData
+void TextureBase::uploadGLTextureData
     ( const math::Vector2ui& size
     , int internalFormat
     , int pixelFormat
@@ -123,7 +123,7 @@ void Texture< 0 >::uploadGLTextureData
 }
 
 
-void Texture< 0 >::uploadGLTextureData
+void TextureBase::uploadGLTextureData
     ( const math::Vector3ui& size
     , int internalFormat
     , int pixelFormat

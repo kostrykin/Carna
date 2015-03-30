@@ -86,8 +86,11 @@ public:
     const math::Matrix4f& viewModelTransform() const;
 
     /** \brief
-      * Returns the squared distance of \ref geometry to the eye. This is computed
-      * through \ref Geometry::computeDistance2.
+      * Returns the squared distance of \ref geometry to the eye. If it has an
+      * \ref Geometry::hasBoundingVolume "associated boundary volume", than the
+      * distance is computed w.r.t. to
+      * \ref BoundingVolume::computeClosemostPoint "its closemost point". Otherwise
+      * it is computed w.r.t. its center.
       */
     float eyeDistance2() const;
 

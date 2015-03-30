@@ -35,8 +35,8 @@ namespace base
 
 /** \brief
   * Format-independent abstract \ref Mesh base class. Each mesh consists of a
-  * \ref VertexBuffer, an \ref IndexBuffer and a \ref VertexArrays "vertex array".
-  * This class realizes the RAII-idiom w.r.t. the vertex array.
+  * \ref VertexBuffer, an \ref IndexBuffer and a *vertex array*. This class realizes
+  * the RAII-idiom w.r.t. the vertex array.
   *
   * The class maintains a so-called OpenGL vertex array in RAII-manner, which,
   * contrary to its name, basically is a conjunction of vertex and index buffer.
@@ -84,7 +84,7 @@ public:
     virtual ~MeshBase();
 
     /** \brief
-      * Holds the ID of the \ref VertexArrays "OpenGL vertex array object".
+      * Holds the ID of the OpenGL vertex array object.
       */
     const unsigned int id;
     
@@ -94,7 +94,7 @@ public:
     const GLContext& glContext;
 
     /** \brief
-      * Binds the \ref VertexArrays "vertex array object".
+      * Binds the vertex array object.
       * \pre `&GLContext::current() == &glContext`
       */
     void bind() const;

@@ -54,15 +54,14 @@ protected:
     GeometryFeature();
 
     /** \brief
-      * Deletes and \ref Log "logs" error if video resources are leaked.
+      * Deletes and \ref Log "logs" an error if video resources are leaked.
       */
     virtual ~GeometryFeature();
 
 public:
 
     /** \brief
-      * Tells current number of
-      * \ref VideoResourceAcquisition "video resource acquisitions".
+      * Tells current number of \ref ManagedInterface "video resource acquisitions".
       */
     unsigned int videoResourceAcquisitionsCount() const;
 
