@@ -152,9 +152,9 @@ const unsigned int RenderQueue< RenderableCompare >::EXACT_MATCH_GEOMETRY_TYPE_M
 
 
 template< typename RenderableCompare >
-RenderQueue< RenderableCompare >::RenderQueue( unsigned int geometryType, unsigned int geometrTypeMask )
+RenderQueue< RenderableCompare >::RenderQueue( unsigned int geometryType, unsigned int geometryTypeMask )
     : geometryType( geometryType )
-    , geometrTypeMask( geometrTypeMask )
+    , geometryTypeMask( geometryTypeMask )
 {
 }
 
