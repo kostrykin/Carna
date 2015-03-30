@@ -102,7 +102,7 @@ public:
     typedef ManagedTexture3DInterface ManagedInterface;
 
     /** \brief
-      * Instantiates and associates with a newly created OpenGL texture object.
+      * Instantiates.
       * Invoke \ref release when it isn't needed any longer.
       *
       * \copydetails ManagedTexture3D::ManagedTexture3D(const math::Vector3ui&, int, int, int, const void*)

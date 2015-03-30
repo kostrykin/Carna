@@ -124,7 +124,7 @@ void DVRStage::writeColorMap( const base::math::Span< base::HUV >& huRange, cons
         CARNA_ASSERT( huRange.last  <=  3071 );
         for( int huOffset = 0; huOffset < huRangeSize; ++huOffset )
         {
-            const float lambda = huOffset / static_cast< float >( huRangeSize - 1 );
+            const float lambda = huRangeSize == 1 ? 0.5f : huOffset / static_cast< float >( huRangeSize - 1 );
             const base::Color color = base::math::mix< base::math::Vector4f >( color0, color1, lambda );
             pimpl->colorMap[ 1024 + huRange.first + huOffset ] = color;
         }

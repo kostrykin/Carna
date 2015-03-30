@@ -32,26 +32,48 @@ namespace base
 // BufferedVectorFieldTexture
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Specializes the \ref ManagedTexture3D class s.t. the texture's data is
+  * initialized from a \ref math::VectorField that supports a `buffer` method, like
+  * \ref BufferedHUVolume and \ref BufferedNormalMap3D do.
+  *
+  * \author Leonid Kostrykin
+  * \date   26.3.15 - 30.3.15
+  */
 template< typename BufferedVectorFieldType >
 class BufferedVectorFieldTexture : public ManagedTexture3D
 {
 
 protected:
 
+    /** \brief
+      * Instantiates.
+      *
+      * \param field
+      *     references the \ref math::VectorField to be uploaded to the texture.
+      */
     BufferedVectorFieldTexture( const BufferedVectorFieldType& field );
 
 public:
 
+    /** \brief
+      * References the \ref math::VectorField to be uploaded to the texture.
+      */
     const BufferedVectorFieldType& field;
 
     /** \brief
-      * 
-      * \todo Write brief.
+      * Instantiates.
       * Invoke \ref release when it isn't needed any longer.
+      *
+      * \copydetails BufferedVectorFieldTexture::BufferedVectorFieldTexture(const BufferedVectorFieldType&)
       */
     static BufferedVectorFieldTexture< BufferedVectorFieldType >& create( const BufferedVectorFieldType& field );
-
-    virtual bool controlsSameVideoResource( const GeometryFeature& ) const override;
+    
+    /** \brief
+      * Tells `true` if \a other is of same type and references the same \ref field.
+      * Tells `false` otherwise.
+      */
+    virtual bool controlsSameVideoResource( const GeometryFeature& other ) const override;
 
 }; // BufferedVectorFieldTexture
 

@@ -311,6 +311,9 @@ public:
 
     unsigned int normalsRole() const;
 
+    /** \brief
+      * Computes the normal vectors.
+      */
     void computeNormals();
 
 protected:
