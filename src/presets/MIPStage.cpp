@@ -10,7 +10,7 @@
  */
 
 #include <Carna/presets/MIPStage.h>
-#include <Carna/presets/MIPChannel.h>
+#include <Carna/presets/MIPLayer.h>
 #include <Carna/base/glew.h>
 #include <Carna/base/ShaderManager.h>
 #include <Carna/base/ShaderUniform.h>
@@ -39,11 +39,11 @@ struct MIPStage::Details
 
     Details();
 
-    MIPChannel* currentChannel;
-    std::vector< MIPChannel* > channels;
+    MIPLayer* currentLayer;
+    std::vector< MIPLayer* > layers;
 
-    std::unique_ptr< base::Texture< 2 > > channelColorBuffer;
-    std::unique_ptr< base::Framebuffer  > channelFrameBuffer;
+    std::unique_ptr< base::Texture< 2 > > layerColorBuffer;
+    std::unique_ptr< base::Framebuffer  > layerFrameBuffer;
 
     static inline float huvToIntensity( base::HUV huv )
     {
@@ -54,7 +54,7 @@ struct MIPStage::Details
 
 
 MIPStage::Details::Details()
-    : currentChannel( nullptr )
+    : currentLayer( nullptr )
 {
 }
 
@@ -73,69 +73,69 @@ MIPStage::MIPStage( unsigned int geometryType )
 
 MIPStage::~MIPStage()
 {
-    clearChannels();
+    clearLayers();
 }
 
 
-void MIPStage::appendChannel( MIPChannel* channel )
+void MIPStage::appendLayer( MIPLayer* layer )
 {
-    CARNA_ASSERT( std::find( pimpl->channels.begin(), pimpl->channels.end(), channel ) == pimpl->channels.end() );
-    pimpl->channels.push_back( channel );
+    CARNA_ASSERT( std::find( pimpl->layers.begin(), pimpl->layers.end(), layer ) == pimpl->layers.end() );
+    pimpl->layers.push_back( layer );
 }
 
 
-MIPChannel* MIPStage::removeChannel( const MIPChannel& channel )
+MIPLayer* MIPStage::removeLayer( const MIPLayer& layer )
 {
-    const auto channelItr = std::find( pimpl->channels.begin(), pimpl->channels.end(), const_cast< MIPChannel* >( &channel ) );
-    CARNA_ASSERT( channelItr != pimpl->channels.end() );
-    pimpl->channels.erase( channelItr );
-    return *channelItr;
+    const auto layerItr = std::find( pimpl->layers.begin(), pimpl->layers.end(), const_cast< MIPLayer* >( &layer ) );
+    CARNA_ASSERT( layerItr != pimpl->layers.end() );
+    pimpl->layers.erase( layerItr );
+    return *layerItr;
 }
 
 
-void MIPStage::ascendChannel( const MIPChannel& channel )
+void MIPStage::ascendLayer( const MIPLayer& layer )
 {
-    const auto channelItr = std::find( pimpl->channels.begin(), pimpl->channels.end(), const_cast< MIPChannel* >( &channel ) );
-    CARNA_ASSERT( channelItr != pimpl->channels.end() );
-    if( channelItr != pimpl->channels.begin() )
+    const auto layerItr = std::find( pimpl->layers.begin(), pimpl->layers.end(), const_cast< MIPLayer* >( &layer ) );
+    CARNA_ASSERT( layerItr != pimpl->layers.end() );
+    if( layerItr != pimpl->layers.begin() )
     {
-        std::swap( *channelItr, *( channelItr - 1 ) );
+        std::swap( *layerItr, *( layerItr - 1 ) );
     }
 }
 
 
-void MIPStage::clearChannels()
+void MIPStage::clearLayers()
 {
-    std::for_each( pimpl->channels.begin(), pimpl->channels.end(), std::default_delete< MIPChannel >() );
-    pimpl->channels.clear();
+    std::for_each( pimpl->layers.begin(), pimpl->layers.end(), std::default_delete< MIPLayer >() );
+    pimpl->layers.clear();
 }
 
 
-std::size_t MIPStage::channelsCount() const
+std::size_t MIPStage::layersCount() const
 {
-    return pimpl->channels.size();
+    return pimpl->layers.size();
 }
 
 
-MIPChannel& MIPStage::channel( std::size_t channelIndex )
+MIPLayer& MIPStage::layer( std::size_t layerIndex )
 {
-    CARNA_ASSERT( channelIndex < channelsCount() );
-    return *pimpl->channels[ channelIndex ];
+    CARNA_ASSERT( layerIndex < layersCount() );
+    return *pimpl->layers[ layerIndex ];
 }
 
 
-const MIPChannel& MIPStage::channel( std::size_t channelIndex ) const
+const MIPLayer& MIPStage::layer( std::size_t layerIndex ) const
 {
-    CARNA_ASSERT( channelIndex < channelsCount() );
-    return *pimpl->channels[ channelIndex ];
+    CARNA_ASSERT( layerIndex < layersCount() );
+    return *pimpl->layers[ layerIndex ];
 }
 
 
 void MIPStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     base::GeometryStage< base::Renderable::BackToFront >::reshape( fr, width, height );
-    pimpl->channelColorBuffer.reset( base::Framebuffer::createRenderTexture() );
-    pimpl->channelFrameBuffer.reset( new base::Framebuffer( width, height, *pimpl->channelColorBuffer ) );
+    pimpl->layerColorBuffer.reset( base::Framebuffer::createRenderTexture() );
+    pimpl->layerFrameBuffer.reset( new base::Framebuffer( width, height, *pimpl->layerColorBuffer ) );
 }
 
 
@@ -153,24 +153,24 @@ void MIPStage::renderPass
 
     /* Copy depth buffer from output to dedicated frame buffer.
      */
-    const base::Viewport framebufferViewport( *pimpl->channelFrameBuffer );
+    const base::Viewport framebufferViewport( *pimpl->layerFrameBuffer );
     const unsigned int outputFramebufferId = base::Framebuffer::currentId();
     base::Framebuffer::copyDepthAttachment
         ( outputFramebufferId
-        , pimpl->channelFrameBuffer->id
+        , pimpl->layerFrameBuffer->id
         , outputViewport
         , framebufferViewport );
 
-    /* For each channel: First render the channel-specific MIP result to the dedicated framebuffer,
-     * than render the result to the output framebuffer w.r.t. the channel function.
+    /* For each layer: First render the layer-specific MIP result to the dedicated framebuffer,
+     * than render the result to the output framebuffer w.r.t. the layer function.
      */
-    for( auto channelItr = pimpl->channels.begin(); channelItr != pimpl->channels.end(); ++channelItr )
+    for( auto layerItr = pimpl->layers.begin(); layerItr != pimpl->layers.end(); ++layerItr )
     {
-        pimpl->currentChannel = *channelItr;
+        pimpl->currentLayer = *layerItr;
 
         /* Render to dedicated framebuffer.
          */
-        CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->channelFrameBuffer,
+        CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->layerFrameBuffer,
 
             base::RenderState rs;
             rs.setBlendEquation( GL_MAX );
@@ -188,15 +188,15 @@ void MIPStage::renderPass
         /* Render result to output framebuffer.
          */
         base::RenderState rs;
-        rs.setBlendFunction( pimpl->currentChannel->function() );
+        rs.setBlendFunction( pimpl->currentLayer->function() );
 
-        pimpl->channelColorBuffer->bind( 0 );
+        pimpl->layerColorBuffer->bind( 0 );
         rt.renderer.renderTexture( base::FrameRenderer::RenderTextureParams( 0 ) );
     }
 
     /* Denote that we're finished with rendering.
      */
-    pimpl->currentChannel = nullptr;
+    pimpl->currentLayer = nullptr;
 }
 
 
@@ -232,8 +232,8 @@ const std::string& MIPStage::uniformName( unsigned int role ) const
 
 void MIPStage::configureShader()
 {
-    CARNA_ASSERT( pimpl->currentChannel != nullptr );
-    const MIPChannel& ch = *pimpl->currentChannel;
+    CARNA_ASSERT( pimpl->currentLayer != nullptr );
+    const MIPLayer& ch = *pimpl->currentLayer;
 
     base::ShaderUniform< float >( "minIntensity", Details::huvToIntensity( ch.huRange.first ) ).upload();
     base::ShaderUniform< float >( "maxIntensity", Details::huvToIntensity( ch.huRange.last  ) ).upload();

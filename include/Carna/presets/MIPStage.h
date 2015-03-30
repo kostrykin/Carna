@@ -48,13 +48,13 @@ namespace presets
   * inserted \em after such stages that render opaque geometry, like
   * \ref CuttingPlanesStage and \ref OpaqueRenderingStage.
   *
-  * \image html MIPStageTest/channelReplace.png "exemplary rendering with two channels from the code above"
+  * \image html MIPStageTest/layerReplace.png "exemplary rendering with two layers from the code above"
   *
-  * \section MIPStageChannels Channels
+  * \section MIPStageLayers Layers
   *
-  * \todo Add documentation on channel functions.
+  * \todo Add documentation on layers.
   *
-  * The next code snippet turns the second channel to *additive*-mode:
+  * The next code snippet turns the second layer to *additive*-mode:
   *
   * \snippet ModuleTests/MIPStageTest.cpp mip_setup_additive
   *
@@ -93,39 +93,39 @@ public:
         , const base::Viewport& vp ) override;
     
     /** \brief
-      * Swaps positions of \a channel with it's successor in the \ref MIPStageChannels "channels list".
+      * Swaps positions of \a layer with it's successor in the \ref MIPStageLayers "layers list".
       */
-    void ascendChannel( const MIPChannel& channel );
+    void ascendLayer( const MIPLayer& layer );
     
     /** \brief
-      * Appends \a channel to the \ref MIPStageChannels "channels list" and takes it's ownership.
+      * Appends \a layer to the \ref MIPStageLayers "layers list" and takes it's ownership.
       */
-    void appendChannel( MIPChannel* channel );
+    void appendLayer( MIPLayer* layer );
     
     /** \brief
-      * Removes \a channel from the \ref MIPStageChannels "channels list".
+      * Removes \a layer from the \ref MIPStageLayers "layers list".
       * The ownership is transferred to the caller.
       */
-    MIPChannel* removeChannel( const MIPChannel& channel );
+    MIPLayer* removeLayer( const MIPLayer& layer );
 
     /** \brief
-      * Tells number of \ref MIPStageChannels "channels".
+      * Tells number of \ref MIPStageLayers "layers".
       */
-    std::size_t channelsCount() const;
+    std::size_t layersCount() const;
 
     /** \brief
-      * References the \ref MIPStageChannels "channel" with \a channelIndex.
+      * References the \ref MIPStageLayers "layer" with \a layerIndex.
       */
-    MIPChannel& channel( std::size_t channelIndex );
+    MIPLayer& layer( std::size_t layerIndex );
 
     /** \overload
       */
-    const MIPChannel& channel( std::size_t channelIndex ) const;
+    const MIPLayer& layer( std::size_t layerIndex ) const;
 
     /** \brief
-      * Clears the \ref MIPStageChannels "channels list".
+      * Clears the \ref MIPStageLayers "layers list".
       */
-    void clearChannels();
+    void clearLayers();
 
 protected:
 

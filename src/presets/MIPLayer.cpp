@@ -10,7 +10,7 @@
  */
 
 #include <Carna/base/glew.h>
-#include <Carna/presets/MIPChannel.h>
+#include <Carna/presets/MIPLayer.h>
 
 namespace Carna
 {
@@ -21,14 +21,14 @@ namespace presets
 
 
 // ----------------------------------------------------------------------------------
-// MIP :: MIPChannel
+// MIP :: MIPLayer
 // ----------------------------------------------------------------------------------
 
-const base::BlendFunction MIPChannel::CHANNEL_FUNCTION_REPLACE( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-const base::BlendFunction MIPChannel::CHANNEL_FUNCTION_ADD    ( GL_SRC_ALPHA, GL_ONE );
+const base::BlendFunction MIPLayer::LAYER_FUNCTION_REPLACE( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+const base::BlendFunction MIPLayer::LAYER_FUNCTION_ADD    ( GL_SRC_ALPHA, GL_ONE );
 
 
-MIPChannel::MIPChannel
+MIPLayer::MIPLayer
     ( const base::math::Span< base::HUV >& huRange
     , const base::math::Vector4f& color
     , const base::BlendFunction& function )
@@ -40,7 +40,7 @@ MIPChannel::MIPChannel
 }
 
 
-MIPChannel::MIPChannel
+MIPLayer::MIPLayer
     ( base::HUV firstHuv, base::HUV lastHuv
     , const base::math::Vector4f& color
     , const base::BlendFunction& function )
@@ -52,13 +52,13 @@ MIPChannel::MIPChannel
 }
 
 
-void MIPChannel::setFunction( const base::BlendFunction& channelFunction )
+void MIPLayer::setFunction( const base::BlendFunction& layerFunction )
 {
-    myFunction = &channelFunction;
+    myFunction = &layerFunction;
 }
 
 
-const base::BlendFunction& MIPChannel::function() const
+const base::BlendFunction& MIPLayer::function() const
 {
     return *myFunction;
 }

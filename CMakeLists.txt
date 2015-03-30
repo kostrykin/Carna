@@ -171,7 +171,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/presets/VolumeRenderingStage.h
 		include/${PROJECT_NAME}/presets/DRRStage.h
 		include/${PROJECT_NAME}/presets/MIPStage.h
-		include/${PROJECT_NAME}/presets/MIPChannel.h
+		include/${PROJECT_NAME}/presets/MIPLayer.h
 		include/${PROJECT_NAME}/presets/CuttingPlanesStage.h
 		include/${PROJECT_NAME}/presets/OccludedRenderingStage.h
 		include/${PROJECT_NAME}/presets/OpaqueRenderingStage.h
@@ -250,7 +250,7 @@ set( SRC
 		src/presets/VolumeRenderingStage.cpp
 		src/presets/DRRStage.cpp
 		src/presets/MIPStage.cpp
-		src/presets/MIPChannel.cpp
+		src/presets/MIPLayer.cpp
 		src/presets/CuttingPlanesStage.cpp
 		src/presets/OccludedRenderingStage.cpp
 		src/presets/TransparentRenderingStage.cpp

@@ -50,9 +50,9 @@ private slots:
 
  // ---------------------------------------------------------------------------------
 
-    void test_channelReplace();
+    void test_layerReplace();
 
-    void test_channelAdditive();
+    void test_layerAdditive();
 
  // ---------------------------------------------------------------------------------
 
