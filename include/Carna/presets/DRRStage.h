@@ -118,8 +118,8 @@ public:
     const static bool       DEFAULT_RENDER_INVERSE;     ///< Holds default value for \ref isRenderingInverse "inverse rendering".
 
     /** \brief
-      * Holds the \ref GeometryFeatures "role" that volume data is expected to take
-      * when attached to \ref base::Geometry nodes.
+      * Holds the \ref GeometryFeatures "role" that HU volume data is expected to
+      * take when attached to \ref base::Geometry nodes.
       */
     const static unsigned int ROLE_HU_VOLUME = 0;
     

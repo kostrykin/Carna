@@ -64,12 +64,23 @@ class CARNA_LIB CuttingPlanesStage : public base::GeometryStage< void >
 
 public:
 
-    const static unsigned int DEFAULT_WINDOWING_WIDTH;
-    const static    base::HUV DEFAULT_WINDOWING_LEVEL;
+    const static unsigned int DEFAULT_WINDOWING_WIDTH; ///< Holds the default value for \ref setWindowingWidth.
+    const static    base::HUV DEFAULT_WINDOWING_LEVEL; ///< Holds the default value for \ref setWindowingLevel.
+    
+    /** \brief
+      * Holds the \ref GeometryFeatures "role" that HU volume data is expected to
+      * take when attached to \ref base::Geometry nodes.
+      */
     const static unsigned int ROLE_HU_VOLUME;
 
+    /** \brief
+      * Instantiates.
+      */
     CuttingPlanesStage( unsigned int volumeGeometryType, unsigned int planeGeometryType );
 
+    /** \brief
+      * Deletes.
+      */
     virtual ~CuttingPlanesStage();
 
     virtual void renderPass
@@ -77,20 +88,44 @@ public:
         , base::RenderTask& rt
         , const base::Viewport& vp ) override;
 
+    /** \brief
+      * Sets windowing level to \a windowingLevel.
+      */
     void setWindowingLevel( base::HUV windowingLevel );
-
+    
+    /** \brief
+      * Sets windowing level to \a windowingWidth.
+      */
     void setWindowingWidth( unsigned int windowingWidth );
 
+    /** \brief
+      * Sets whether brightness shall be \a inverse proportional to HUV.
+      */
     void setRenderingInverse( bool inverse );
 
+    /** \brief
+      * Tells the windowing level.
+      */
     base::HUV windowingLevel() const;
-
+    
+    /** \brief
+      * Tells the windowing width.
+      */
     unsigned int windowingWidth() const;
 
+    /** \brief
+      * Tells the lowest HUV that is mapped to gray, but not to black or white.
+      */
     base::HUV minimumHUV() const;
-
+    
+    /** \brief
+      * Tells the highest HUV that is mapped to gray, but not to black or white.
+      */
     base::HUV maximumHUV() const;
-
+    
+    /** \brief
+      * Tells whether brightness is \a inverse proportional to HUV.
+      */
     bool isRenderingInverse() const;
 
 protected:
