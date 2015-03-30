@@ -52,8 +52,8 @@ namespace VolumeGridHelper
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Creates \ref base::ManagedTexture "textures" that represents
-  * \ref VolumeSegment::huVolume in video memory.
+  * Creates \ref base::ManagedTexture3D "textures" that represents
+  * \ref base::VolumeSegment::huVolume in video memory.
   *
   * \author Leonid Kostrykin
   * \date   26.3.15 - 27.3.15
@@ -83,8 +83,8 @@ base::ManagedTexture3D& HUTextureFactory< SegmentHUVolumeType, SegmentNormalsVol
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Creates \ref base::ManagedTexture "textures" that represents
-  * \ref VolumeSegmentNormalsComponent::normals in video memory.
+  * Creates \ref base::ManagedTexture3D "textures" that represents
+  * \ref base::VolumeSegmentNormalsComponent::normals in video memory.
   *
   * \author Leonid Kostrykin
   * \date   26.3.15 - 27.3.15

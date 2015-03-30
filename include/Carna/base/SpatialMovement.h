@@ -17,8 +17,8 @@
 #include <Carna/base/math.h>
 #include <memory>
 
-/** \file   Ray.h
-  * \brief  Defines \ref Carna::base::Ray.
+/** \file   SpatialMovement.h
+  * \brief  Defines \ref Carna::base::SpatialMovement.
   */
 
 namespace Carna

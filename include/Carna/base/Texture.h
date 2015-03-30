@@ -32,6 +32,12 @@ namespace base
 // bindGLTextureObject
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Binds OpenGL texture object \a id to texture \a unit. For internal usage only,
+  * use \ref Texture::bind instead.
+  *
+  * \relates TextureBase
+  */
 template< unsigned int dimension >
 void bindGLTextureObject( unsigned int unit, unsigned int id )
 {
@@ -39,14 +45,20 @@ void bindGLTextureObject( unsigned int unit, unsigned int id )
 }
 
 
+/** \overload
+  */
 template< >
 void CARNA_LIB bindGLTextureObject< 1 >( unsigned int unit, unsigned int id );
 
 
+/** \overload
+  */
 template< >
 void CARNA_LIB bindGLTextureObject< 2 >( unsigned int unit, unsigned int id );
 
 
+/** \overload
+  */
 template< >
 void CARNA_LIB bindGLTextureObject< 3 >( unsigned int unit, unsigned int id );
 
@@ -92,20 +104,29 @@ protected:
       */
     TextureBase();
 
+    /** \brief
+      * Wraps `glTexImage1d`.
+      */
     void uploadGLTextureData
         ( const Eigen::Matrix< unsigned int, 1, 1 >& size
         , int internalFormat
         , int pixelFormat
         , int bufferType
         , const void* bufferPtr );
-
+    
+    /** \brief
+      * Wraps `glTexImage2d`.
+      */
     void uploadGLTextureData
         ( const math::Vector2ui& size
         , int internalFormat
         , int pixelFormat
         , int bufferType
         , const void* bufferPtr );
-
+    
+    /** \brief
+      * Wraps `glTexImage3d`.
+      */
     void uploadGLTextureData
         ( const math::Vector3ui& size
         , int internalFormat

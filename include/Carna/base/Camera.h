@@ -48,7 +48,7 @@ public:
     /** \brief
       * Sets the matrix that is to be used for mapping \ref ViewSpace "view space" to
       * \ref ClippingCoordinates "clipping coordinates". Perspective projections can
-      * be obtained via \ref math::frustum.
+      * be obtained via \ref math::frustum4f.
       */
     void setProjection( const math::Matrix4f& );
 

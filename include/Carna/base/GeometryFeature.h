@@ -85,14 +85,14 @@ public:
     /** \brief
       * Puts this geometry feature on the \a sceneGraphNode.
       *
-      * This is equivalent to \ref Geometry::setDefinition.
+      * This is equivalent to \ref Geometry::putFeature.
       */
     void addTo( Geometry& sceneGraphNode, unsigned int role );
 
     /** \brief
     * Removes this geometry feature from the \a sceneGraphNode.
     *
-    * This is equivalent to \ref Geometry::removeDefinition.
+    * This is equivalent to \ref Geometry::removeFeature.
       */
     void removeFrom( Geometry& sceneGraphNode );
 

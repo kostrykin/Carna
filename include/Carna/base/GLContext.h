@@ -68,35 +68,75 @@ class CARNA_LIB GLContext
 
 protected:
 
+    /** \brief
+      * Instantiates.
+      */
     explicit GLContext( bool isDoubleBuffered );
 
     friend class RenderState;
     
-    void pushRenderState( const RenderState& );
+    /** \brief
+      * Makes \a rs the \ref currentRenderState "current render state".
+      */
+    void pushRenderState( const RenderState& rs );
     
+    /** \brief
+      * Restores previous render state.
+      */
     void popRenderState();
     
+    /** \brief
+      * References the \ref pushRenderState "latest render state".
+      */
     const RenderState& currentRenderState() const;
 
 public:
 
-    const static unsigned int DEPTH_BUFFER_BIT;
-    const static unsigned int COLOR_BUFFER_BIT;
+    const static unsigned int DEPTH_BUFFER_BIT; ///< Wraps `GL_DEPTH_BUFFER_BIT`.
+    const static unsigned int COLOR_BUFFER_BIT; ///< Wraps `GL_COLOR_BUFFER_BIT`
 
+    /** \brief
+      * Deletes.
+      */
     virtual ~GLContext();
 
+    /** \brief
+      * Tells whether the represented OpenGL context uses double buffering.
+      */
     const bool isDoubleBuffered;
 
+    /** \brief
+      * References the current OpenGL context wrapper.
+      */
     static GLContext& current();
 
+    /** \brief
+      * Makes the OpenGL context represented by this object the current one.
+      */
     virtual void makeCurrent() const = 0;
 
+    /** \brief
+      * Tells whether the OpenGL context represented by this object is the current
+      * one.
+      */
     bool isCurrent() const;
 
-    void setShader( const ShaderProgram& );
+    /** \brief
+      * Makes \a shader the current shader of the represented OpenGL context.
+      * \pre `isCurrent() == true`
+      */
+    void setShader( const ShaderProgram& shader );
 
+    /** \brief
+      * References the \ref setShader "shader set last".
+      * \pre \ref setShader has been called previously.
+      */
     const ShaderProgram& shader() const;
 
+    /** \brief
+      * Wraps `glClear`. Automatically enables on `glDepthMask` temporarily if the
+      * \ref DEPTH_BUFFER_BIT is supplied.
+      */
     void clearBuffers( unsigned int flags );
 
 }; // GLContext
@@ -130,8 +170,14 @@ class QGLContextAdapter : public GLContext
 
 public:
 
+    /** \brief
+      * Creates \ref GLContext wrapper for the current `QGLContext` object.
+      */
     QGLContextAdapter();
     
+    /** \brief
+      * Holds the recommended format that shall be used to create a `QGLContext`.
+      */
     static QGLFormat desiredFormat();
 
     virtual void makeCurrent() const override;

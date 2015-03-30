@@ -35,17 +35,17 @@ namespace base
 /** \brief
   * Defines \ref SceneGraph "scene graph" leafs. Instances of this class represent
   * visible geometry that can be rendered. The way of rendering is defined by the
-  * \ref GeometryStage "geometry rendering stage" with matching \c %geometryType.
+  * \ref GeometryStage "geometry rendering stage" with matching `%geometryType`.
   *
-  * Usually the corresponding rendering stage will query particular \em features from
+  * Usually the corresponding rendering stage will query particular *features* from
   * this geometry object: Features are like components that make up the geometry
-  * object in it's entirety, but the geometry object \em aggregates them, i.e. does
+  * object in it's entirety, but the geometry object *aggregates* them, i.e. does
   * not take their possession. Rendering stages identify features through the
-  * \em roles they take when associated with a geometry object.
+  * *roles* they take when associated with a geometry object.
   *
   * \note
-  * Conventionally, the default role for \ref HUVolumeTexture "3D textures" that
-  * represent HU data, such as \ref presets::DRRStage::ROLE_HU_VOLUME or
+  * Conventionally, the default role for 3D textures that represent HU data, such as
+  * \ref presets::DRRStage::ROLE_HU_VOLUME or
   * \ref presets::CuttingPlanesStage::ROLE_HU_VOLUME, is 0.
   * 
   * What features a geometry object aggregates depends on the \c %geometryType and

@@ -16,7 +16,7 @@
 #include <Carna/base/ProjectionControl.h>
 
 /** \file   PerspectiveControl.h
-  * \brief  Defines \ref Carna::helpers::PerspectiveControl.
+  * \brief  Defines \ref Carna::presets::PerspectiveControl.
   */
 
 namespace Carna
