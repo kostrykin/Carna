@@ -41,9 +41,16 @@ namespace base
   * Implements \ref NormalMap3D generically for a particular \a VoxelType.
   *
   * \param BufferedVectorComponentType is the data type used to store the components
-  *     of a single normal.
+  *     of a single normal. Only integral data types are allowed.
   *
   * \param BufferType is the data type used as container for the normal vectors.
+  *
+  * \note
+  * Although three channels would be sufficient to store the three components of a
+  * normal vector, we use four channels here. The reasons for this is that
+  * `glTexImage3d` caused read access errors on Windows when used with three channel
+  * textures, whereas it worked nicely on Linux. This class ignores the values stored
+  * within the fourth channel.
   *
   * \author Leonid Kostrykin
   * \date   26.3.15 - 29.3.15
@@ -92,35 +99,54 @@ public:
     }
 
     /** \brief
-      * Returns the normal vector component corresponding to
-      * \a bufferedVectorComponent.
+      * Returns the actual normal vector component corresponding to
+      * \a encodedVectorComponent.
+      *
+      * This function maps \a encodedVectorComponent to \f$\left[-1, 1\right]\f$,
+      * whereby the minimum of `BufferedVectorComponentType` is mapped to \f$-1\f$
+      * and its maximum to \f$+1\f$.
       */
-    static float bufferComponentToNormalComponent( BufferedVectorComponentType bufferedVectorComponent )
+    static float decodeComponent( BufferedVectorComponentType encodedVectorComponent )
     {
         const float range = static_cast< float >( static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::max() )
             - static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::min() ) );
-        const signed long x = bufferedVectorComponent;
+        const signed long x = encodedVectorComponent;
         const float fraction = ( x - static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::min() ) ) / range;
         return ( fraction - 0.5f ) * 2;
     }
 
     /** \brief
       * Returns the buffered vector component corresponding to
-      * \a normalVectorComponent.
+      * \a actualVectorComponent.
+      *
+      * This function maps \a actualVectorComponent to values from the minimum of
+      * `BufferedVectorComponentType` to its maximum linearly.
+      *
+      * \pre `std::abs(actualVectorComponent) <= 1`
       */
-    static BufferedVectorComponentType normalComponentToBufferComponent( float normalVectorComponent )
+    static BufferedVectorComponentType encodeComponent( float actualVectorComponent )
     {
         CARNA_ASSERT_EX
-            ( std::abs( normalVectorComponent ) <= 1
-            , "Unnormalized vector! Component: " + text::lexical_cast< std::string >( normalVectorComponent ) );
+            ( std::abs( actualVectorComponent ) <= 1
+            , "Unnormalized vector! Component: " + text::lexical_cast< std::string >( actualVectorComponent ) );
         
         const signed long range = static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::max() )
             - static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::min() );
-        const signed long result = static_cast< signed long >( ( ( normalVectorComponent + 1 ) * range ) / 2 )
+        const signed long result = static_cast< signed long >( ( ( actualVectorComponent + 1 ) * range ) / 2 )
             + static_cast< signed long >( std::numeric_limits< BufferedVectorComponentType >::min() );
         return static_cast< BufferedVectorComponentType >( result );
     }
 
+    /** \brief
+      * Decodes and tells the vector stored at \a location.
+      */
+    math::Vector3f operator()( const math::Vector3ui& location ) const
+    {
+        return ( *this )( location.x(), location.y(), location.z() );
+    }
+
+    /** \overload
+      */
     math::Vector3f operator()
         ( unsigned int x
         , unsigned int y
@@ -128,29 +154,29 @@ public:
     {
         math::Vector3f result;
         const std::size_t index = 4 * ( x + size.x() * y + size.y() * size.x() * z );
-        result.x() = bufferComponentToNormalComponent( myBuffer->get()->at( index + 0 ) );
-        result.y() = bufferComponentToNormalComponent( myBuffer->get()->at( index + 1 ) );
-        result.z() = bufferComponentToNormalComponent( myBuffer->get()->at( index + 2 ) );
+        result.x() = decodeComponent( myBuffer->get()->at( index + 0 ) );
+        result.y() = decodeComponent( myBuffer->get()->at( index + 1 ) );
+        result.z() = decodeComponent( myBuffer->get()->at( index + 2 ) );
         return result;
     }
 
-    math::Vector3f operator()( const math::Vector3ui& at ) const
+    /** \brief
+      * Encodes \a normal and stores it at \a location.
+      */
+    void setVoxel( const math::Vector3ui& location, const math::Vector3f& normal )
     {
-        return ( *this )( at.x(), at.y(), at.z() );
+        this->setVoxel( location.x(), location.y(), location.z(), normal );
     }
 
+    /** \overload
+      */
     void setVoxel( unsigned int x, unsigned int y, unsigned int z, const math::Vector3f& normal )
     {
         CARNA_ASSERT( x < size.x() && y < size.y() && z < size.z() );
         const std::size_t index = 4 * ( x + size.x() * y + size.y() * size.x() * z );
-        myBuffer->get()->at( index + 0 ) = normalComponentToBufferComponent( normal.x() );
-        myBuffer->get()->at( index + 1 ) = normalComponentToBufferComponent( normal.y() );
-        myBuffer->get()->at( index + 2 ) = normalComponentToBufferComponent( normal.z() );
-    }
-
-    void setVoxel( const math::Vector3ui& at, const math::Vector3f& normal )
-    {
-        this->setVoxel( at.x(), at.y(), at.z(), normal );
+        myBuffer->get()->at( index + 0 ) = encodeComponent( normal.x() );
+        myBuffer->get()->at( index + 1 ) = encodeComponent( normal.y() );
+        myBuffer->get()->at( index + 2 ) = encodeComponent( normal.z() );
     }
 
     /** \brief
@@ -171,6 +197,9 @@ public:
 
 protected:
 
+    /** \brief
+      * Holds the buffer.
+      */
     const std::unique_ptr< Association< BufferType > > myBuffer;
 
 private:

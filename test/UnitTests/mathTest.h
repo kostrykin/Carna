@@ -11,6 +11,12 @@
 
 #pragma once
 
+namespace Carna
+{
+
+namespace testing
+{
+
 
 
 // ----------------------------------------------------------------------------------
@@ -123,3 +129,9 @@ private slots:
     void test_CARNA_FOR_VECTOR3UI();
     
 }; // mathTest
+
+
+
+}  // namespace Carna :: testing
+
+}  // namespace Carna

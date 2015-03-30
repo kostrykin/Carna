@@ -50,17 +50,17 @@ void BufferedNormalMap3DTest::test_instantiation()
 
 void BufferedNormalMap3DTest::test_bufferComponentToNormalComponent()
 {
-    QVERIFY( base::NormalMap3DInt8::bufferComponentToNormalComponent( -1 ) < 0 );
-    QVERIFY( base::NormalMap3DInt8::bufferComponentToNormalComponent(  0 ) > 0 );
+    QVERIFY( base::NormalMap3DInt8::decodeComponent( -1 ) < 0 );
+    QVERIFY( base::NormalMap3DInt8::decodeComponent(  0 ) > 0 );
     
-    QCOMPARE( base::NormalMap3DInt8::bufferComponentToNormalComponent( -128 ), -1.f );
-    QCOMPARE( base::NormalMap3DInt8::bufferComponentToNormalComponent( +127 ), +1.f );
+    QCOMPARE( base::NormalMap3DInt8::decodeComponent( -128 ), -1.f );
+    QCOMPARE( base::NormalMap3DInt8::decodeComponent( +127 ), +1.f );
 }
 
 
 void BufferedNormalMap3DTest::test_normalComponentToBufferComponent()
 {
-    QCOMPARE( static_cast< int >( base::NormalMap3DInt8::normalComponentToBufferComponent(  0 ) ),   -1 );
-    QCOMPARE( static_cast< int >( base::NormalMap3DInt8::normalComponentToBufferComponent( -1 ) ), -128 );
-    QCOMPARE( static_cast< int >( base::NormalMap3DInt8::normalComponentToBufferComponent( +1 ) ), +127 );
+    QCOMPARE( static_cast< int >( base::NormalMap3DInt8::encodeComponent(  0 ) ),   -1 );
+    QCOMPARE( static_cast< int >( base::NormalMap3DInt8::encodeComponent( -1 ) ), -128 );
+    QCOMPARE( static_cast< int >( base::NormalMap3DInt8::encodeComponent( +1 ) ), +127 );
 }

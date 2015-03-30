@@ -38,7 +38,7 @@ namespace base
 
 /** \brief
   * Defines interface to \f$\mathbb N_0^3 \to \left\{\vec v \middle| \left\|\vec v
-  * \in \mathbb R^2\right\|_2 = 1\right\}\f$ mapping.
+  * \in \mathbb R^3\right\|_2 \leq 1\right\}\f$ mapping.
   *
   * \author Leonid Kostrykin
   * \date   26.3.15

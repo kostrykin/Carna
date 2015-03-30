@@ -12,6 +12,13 @@
 #include "mathTest.h"
 #include <Carna/base/math.h>
 
+namespace Carna
+{
+
+namespace testing
+{
+
+
 
 // ----------------------------------------------------------------------------------
 // mathTest
@@ -261,3 +268,9 @@ void mathTest::test_CARNA_FOR_VECTOR3UI()
     }
     //! [example_CARNA_FOR_VECTOR3UI]
 };
+
+
+
+}  // namespace Carna :: testing
+
+}  // namespace Carna
