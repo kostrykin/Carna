@@ -79,8 +79,8 @@ public:
       * dimensions.
       *
       * \param fr references the frame renderer this stage belongs to.
-      * \param width is the width of the \ref Viewport "root viewport".
-      * \param height is the height of the \ref Viewport "root viewport".
+      * \param width is the \ref Carna::base::Viewport "root viewport" width.
+      * \param height is the \ref Carna::base::Viewport "root viewport" height.
       */
     virtual void reshape( const FrameRenderer& fr, unsigned int width, unsigned int height ) = 0;
     
@@ -102,12 +102,14 @@ public:
     /** \brief
       * Called once per pass.
       *
-      * If this rendering stage maintains one or more \ref RenderQueue objects, than
-      * this is the right place to \ref RenderQueue::build "build" them. Note that
-      * the queues need to be rebuilt only *once per frame* and not *per pass*,
-      * unless \ref isViewTransformFixed is `false`. If it is `true` and this is not
-      * the first invocation of this method since the last time \ref prepareFrame was
-      * called, \ref RenderQueue::rewind "rewinding" the queue will be sufficient.
+      * If this rendering stage maintains one or more \ref Carna::base::RenderQueue
+      * objects, than this is the right place to
+      * \ref Carna::base::RenderQueue::build "build" them. Note that the queues need
+      * to be rebuilt only *once per frame* and not *per pass*, unless
+      * \ref isViewTransformFixed is `false`. If it is `true` and this is not the
+      * first invocation of this method since the last time \ref prepareFrame was
+      * called, \ref Carna::base::RenderQueue::rewind "rewinding" the queue will be
+      * sufficient.
       */
     virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) = 0;
     

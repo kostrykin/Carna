@@ -161,7 +161,7 @@ public:
     virtual ~TextureManager();
 
     /** \brief
-      * \ref base::GeometryFeature::release "Releases" all textures.
+      * \ref Carna::base::GeometryFeature::release "Releases" all textures.
       */
     void releaseGeometryFeatures();
 

@@ -76,8 +76,9 @@ public:
 
     /** \brief
       * Instantiates s.t. the \ref rq "predefined rendering queue" enqueues such
-      * \ref Geometry scene graph nodes, whose geometry type *AND*-linked with
-      * \a geometryTypeMask equals the \a geometryType specified here.
+      * \ref Carna::base::Geometry scene graph nodes, whose geometry type
+      * *AND*-linked with \a geometryTypeMask equals the \a geometryType specified
+      * here.
       */
     GeometryStage
         ( unsigned int geometryType
@@ -87,11 +88,17 @@ public:
       * Releases acquired video resources.
       */
     virtual ~GeometryStage();
-
+    
+    /** \copydoc Carna::base::RenderStage::reshape
+      */
     virtual void reshape( const FrameRenderer& fr, unsigned int width, unsigned int height ) override;
-
+    
+    /** \copydoc Carna::base::RenderStage::isInitialized
+      */
     virtual bool isInitialized() const override;
 
+    /** \copydoc Carna::base::RenderStage::prepareFrame
+      */
     virtual void prepareFrame( Node& root ) override;
 
     virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) override;
@@ -117,8 +124,8 @@ public:
 protected:
 
     /** \brief
-      * Ensures that the \ref GLContext "OpenGL context" of the hosting
-      * \ref FrameRenderer is the current one.
+      * Ensures that the \ref Carna::base::GLContext "OpenGL context" of the hosting
+      * \ref Carna::base::FrameRenderer is the current one.
       */
     void activateGLContext() const;
     

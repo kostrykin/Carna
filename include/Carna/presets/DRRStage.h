@@ -65,7 +65,7 @@ namespace presets
   *
   * The integral
   * \f$y = \int_{-\infty}^{\infty} g\left(x\right) \mu\left(x\right) \,\mathrm dx\f$
-  * is computed through \ref \VolumeRenderingStage::renderPass. For each pixel, the
+  * is computed through \ref VolumeRenderingStage::renderPass. For each pixel, the
   * result is written to a texture. Afterwards this texture is drawn back to the
   * output buffer, using a shader the computes \f$I = I_0 \exp\left(-y\right)\f$.
   * The resulting colors are defined as

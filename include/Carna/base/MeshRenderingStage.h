@@ -124,6 +124,8 @@ public:
 
 protected:
 
+    /** \copydoc Carna::base::GeometryStage::render
+      */
     virtual void render( const Renderable& renderable ) override;
 
 }; // MeshRenderingStage

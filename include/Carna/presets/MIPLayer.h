@@ -50,8 +50,8 @@ public:
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    const static base::BlendFunction LAYER_FUNCTION_ADD;
-    const static base::BlendFunction LAYER_FUNCTION_REPLACE;
+    const static base::BlendFunction LAYER_FUNCTION_ADD;     ///< Defines the additive blending function.
+    const static base::BlendFunction LAYER_FUNCTION_REPLACE; ///< Defines "replacing" blending function.
 
     /** \brief  Instantiates.
       */
@@ -67,12 +67,27 @@ public:
         , const base::math::Vector4f& color
         , const base::BlendFunction& function = LAYER_FUNCTION_REPLACE );
 
+    /** \brief
+      * Holds the HUV range that this layer covers as described
+      * \ref MIPStageLayers "here".
+      */
     base::math::Span< base::HUV > huRange;
-
+    
+    /** \brief
+      * Holds the color of this layer as described \ref MIPStageLayers "here".
+      */
     base::math::Vector4f color;
 
+    /** \brief
+      * Sets the blending function to be used to combine this layer with the previous
+      * layers.
+      */
     void setFunction( const base::BlendFunction& layerFunction );
-
+    
+    /** \brief
+      * References the blending function to be used to combine this layer with the
+      * previous layers.
+      */
     const base::BlendFunction& function() const;
 
 }; // presets :: MIPLayer
