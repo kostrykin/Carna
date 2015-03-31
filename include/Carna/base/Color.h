@@ -82,9 +82,19 @@ public:
     operator math::Vector4f() const;
 
     /** \brief
-      * Assigns values from \a other.
+      * Compares to \a other.
       */
     bool operator==( const Color& other ) const;
+    
+    /** \brief
+      * Compares to \a other.
+      */
+    bool operator<( const Color& other ) const;
+
+    /** \brief
+      * Assigns values from \a other.
+      */
+    Color& operator=( const Color& other );
 
 }; // Color
 

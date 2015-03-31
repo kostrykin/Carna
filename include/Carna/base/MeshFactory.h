@@ -63,6 +63,11 @@ public:
       */
     static ManagedMesh< VertexType, uint8_t >& createBox( const math::Vector3f& size );
 
+    /** \brief
+      * Creates mesh that consists of a single point.
+      */
+    static ManagedMesh< VertexType, uint8_t >& createPoint();
+
 }; // MeshFactory
 
 
@@ -135,6 +140,20 @@ ManagedMesh< VertexType, uint8_t >& MeshFactory< VertexType >::createBox( float 
         ( IndexBufferBase::PRIMITIVE_TYPE_TRIANGLES
         , vertices, verticesCount
         ,  indices,  indicesCount );
+}
+
+
+template< typename VertexType >
+ManagedMesh< VertexType, uint8_t >& MeshFactory< VertexType >::createPoint()
+{
+    typedef ManagedMesh< VertexType, uint8_t > MeshInstance;
+    typedef typename MeshInstance::Vertex Vertex;
+    typedef typename MeshInstance:: Index  Index;
+
+    Vertex vertex;
+    Index index = 0;
+
+    return MeshInstance::create( IndexBufferBase::PRIMITIVE_TYPE_POINTS, &vertex, 1, &index, 1 );
 }
 
 

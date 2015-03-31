@@ -43,6 +43,21 @@ VertexBase::VertexBase()
 
 
 
+// ----------------------------------------------------------------------------------
+// ColoredVertex
+// ----------------------------------------------------------------------------------
+
+const VertexAttributes ColoredVertex::attributes = []()->VertexAttributes
+{
+    using Carna::base::VertexAttribute;
+    std::vector< VertexAttribute > attributes;
+    attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
+    attributes.push_back( VertexAttribute( 4, 8, VertexAttribute::TYPE_FLOAT ) );
+    return attributes;
+}();
+
+
+
 }  // namespace Carna :: base
 
 }  // namespace Carna

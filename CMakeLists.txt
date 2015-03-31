@@ -163,6 +163,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/ProjectionControl.h
 		include/${PROJECT_NAME}/base/glew.h
 		include/${PROJECT_NAME}/base/math.h
+		include/${PROJECT_NAME}/base/RotatingColor.h
 		include/${PROJECT_NAME}/base/math/Span.h
 		include/${PROJECT_NAME}/base/math/Ray.h
 		include/${PROJECT_NAME}/base/math/RayPlaneHitTest.h
@@ -185,6 +186,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/helpers/VolumeGridHelper.h
 		include/${PROJECT_NAME}/helpers/VolumeGridHelperDetails.h
 		include/${PROJECT_NAME}/helpers/FrameRendererHelper.h
+		include/${PROJECT_NAME}/helpers/PointMarkerHelper.h
 		include/${PROJECT_NAME}/Carna.h
 		include/${PROJECT_NAME}/Version.h
 	)
@@ -245,6 +247,7 @@ set( SRC
 		src/base/Log.cpp
 		src/base/CameraControl.cpp
 		src/base/ProjectionControl.cpp
+		src/base/RotatingColor.cpp
 		src/base/math/Ray.cpp
 		src/presets/MeshColorCodingStage.cpp
 		src/presets/VolumeRenderingStage.cpp
@@ -262,6 +265,7 @@ set( SRC
 		src/presets/DVRStage.cpp
 		src/helpers/FrameRendererHelper.cpp
 		src/helpers/VolumeGridHelperDetails.cpp
+		src/helpers/PointMarkerHelper.cpp
 	)
 set( FORMS
 		""
@@ -290,6 +294,9 @@ set( SHADERS_SRC
 		src/res/unshaded.frag
 		src/res/interleave.vert
 		src/res/interleave.frag
+		src/res/pointmarker.vert
+		src/res/pointmarker.geom
+		src/res/pointmarker.frag
 	)
 set( RESOURCES
 		${SHADERS_SRC}

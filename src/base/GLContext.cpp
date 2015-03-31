@@ -93,6 +93,10 @@ GLContext::GLContext( bool isDoubleBuffered )
     /* Set default render state.
      */
     defaultRenderState.commit();
+
+    /* Enable support for 'gl_PointSize' in shader.
+     */
+    glEnable( GL_PROGRAM_POINT_SIZE );
 }
 
 

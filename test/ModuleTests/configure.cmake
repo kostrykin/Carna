@@ -10,6 +10,7 @@ list( APPEND TESTS
 		OpaqueRenderingStageTest
 		TransparentRenderingStageTest
 		DVRStageTest
+		PointMarkerHelperTest
 	)
 
 list( APPEND TESTS_QOBJECT_HEADERS
@@ -22,6 +23,7 @@ list( APPEND TESTS_QOBJECT_HEADERS
 		ModuleTests/OpaqueRenderingStageTest.h
 		ModuleTests/TransparentRenderingStageTest.h
 		ModuleTests/DVRStageTest.h
+		ModuleTests/PointMarkerHelperTest.h
 	)
 
 list( APPEND TESTS_HEADERS
@@ -38,4 +40,5 @@ list( APPEND TESTS_SOURCES
 		ModuleTests/OpaqueRenderingStageTest.cpp
 		ModuleTests/TransparentRenderingStageTest.cpp
 		ModuleTests/DVRStageTest.cpp
+		ModuleTests/PointMarkerHelperTest.cpp
 	)

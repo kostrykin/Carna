@@ -1,0 +1,84 @@
+/*
+ *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *
+ *  Chair of Medical Engineering (mediTEC)
+ *  RWTH Aachen University
+ *  Pauwelsstr. 20
+ *  52074 Aachen
+ *  Germany
+ *
+ */
+
+#include "PointMarkerHelperTest.h"
+#include <Carna/base/Node.h>
+#include <Carna/base/FrameRenderer.h>
+#include <Carna/helpers/PointMarkerHelper.h>
+
+
+
+// ----------------------------------------------------------------------------------
+// PointMarkerHelperTest
+// ----------------------------------------------------------------------------------
+
+void PointMarkerHelperTest::initTestCase()
+{
+    const unsigned int width  = 640;
+    const unsigned int height = 480;
+
+    qglContextHolder.reset( new QGLContextHolder() );
+    testFramebuffer.reset( new TestFramebuffer( qglContextHolder->glContext(), width, height ) );
+    renderer.reset( new base::FrameRenderer( qglContextHolder->glContext(), width, height, true ) );
+    
+    /* Configure opaque rendering stage.
+     */
+    opaque = new presets::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
+    renderer->appendStage( opaque );
+
+    /* Configure camera.
+     */
+    cam = new base::Camera();
+    cam->localTransform = base::math::translation4f( 0, 0, 350 );
+    cam->setProjection( base::math::frustum4f( base::math::deg2rad( 45 ), 1, 10, 2000 ) );
+}
+
+
+void PointMarkerHelperTest::cleanupTestCase()
+{
+    renderer.reset();
+    testFramebuffer.reset();
+    qglContextHolder.reset();
+}
+
+
+void PointMarkerHelperTest::init()
+{
+    root.reset( new base::Node() );
+    root->attachChild( cam );
+}
+
+
+void PointMarkerHelperTest::cleanup()
+{
+    root.reset();
+}
+
+
+void PointMarkerHelperTest::test_multiple()
+{
+    helpers::PointMarkerHelper markers( GEOMETRY_TYPE_OPAQUE );
+
+    const float maxOffset = 300;
+    const unsigned int markersCount = 10;
+    for( unsigned int i = 0; i < markersCount; ++i )
+    {
+        const float x = -maxOffset + i * 2 * maxOffset / ( markersCount - 1 );
+        base::Geometry* const marker = markers.createPointMarker();
+        marker->localTransform = base::math::translation4f( x, 0, 0 );
+        root->attachChild( marker );
+    }
+
+    /* Render and verify.
+     */
+    renderer->render( *cam, *root );
+    VERIFY_FRAMEBUFFER( *testFramebuffer );
+}

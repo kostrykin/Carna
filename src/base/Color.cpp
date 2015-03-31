@@ -76,6 +76,40 @@ bool Color::operator==( const Color& c2 ) const
 }
 
 
+bool Color::operator<( const Color& c2 ) const
+{
+    const Color& c1 = *this;
+    if( c1.r != c2.r )
+    {
+        return c1.r < c2.r;
+    }
+    else
+    if( c1.g != c2.g )
+    {
+        return c1.g < c2.g;
+    }
+    else
+    if( c1.b != c2.b )
+    {
+        return c1.b < c2.b;
+    }
+    else
+    {
+        return c1.a < c2.a;
+    }
+}
+
+
+Color& Color::operator=( const Color& other )
+{
+    r = other.r;
+    g = other.g;
+    b = other.b;
+    a = other.a;
+    return *this;
+}
+
+
 
 }  // namespace Carna :: base
 

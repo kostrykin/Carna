@@ -36,33 +36,33 @@ namespace base
   *
   * \section CustomVertexFormats Custom Vertex Formats
   *
-  * It is easy to define custom vertex formats. The paradigm is best explained with
+  * It is easy to define custom vertex formats. The procedure is best explained with
   * an example. Lets assume you want to define a vertex that has additional
-  * properties for normal vectors and colors.
+  * properties for normal vectors and 2D texture coordinates.
   *
   * The first step is to define the missing vertex components. The \ref VertexNormal
   * type already provides a vertex component for normal vectors, so lets define a
-  * component for colors:
+  * component for 2D texture coordinates:
   *
   *     \code
-  *     struct VertexColor
+  *     struct VertexTexCoord2
   *     {
-  *         float r, g, b, a;
+  *         float u, v;
   *     };
   *     \endcode
   *
-  * It is very important that a vertex component is implemented as a POD, i.e. *plain
-  * old data type*. Virtual methods would mess up the memory layout. However, you
+  * It is necessary that a vertex component is implemented as a POD, i.e. *plain old
+  * data type*. Virtual methods would mess up the memory layout. However, you
   * might define a constructor that initializes default values, if you wanted.
   *
   * The next step is to compose the vertex format:
   *
   *     \code
   *     using namespace Carna::base;
-  *     struct LightedVertex
+  *     struct LightedTexturedVertex
   *         : public VertexBase
   *         , public VertexNormal
-  *         , public VertexColor
+  *         , public VertexTexCoord2
   *     {
   *         static const VertexAttributes attributes;
   *     };
@@ -74,13 +74,13 @@ namespace base
   *     \code
   *     #include <vector>
   *     using namespace Carna::base;
-  *     const VertexAttributes LightedVertex::attributes = []()->VertexAttributes
+  *     const VertexAttributes LightedTexturedVertex::attributes = []()->VertexAttributes
   *     {
   *         using Carna::base::VertexAttribute;  // msvc++ requires us to repeat this
   *         std::vector< VertexAttribute > attributes;
   *         attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
   *         attributes.push_back( VertexAttribute( 4, 4, VertexAttribute::TYPE_FLOAT ) );
-  *         attributes.push_back( VertexAttribute( 8, 4, VertexAttribute::TYPE_FLOAT ) );
+  *         attributes.push_back( VertexAttribute( 8, 2, VertexAttribute::TYPE_FLOAT ) );
   *         return attributes;
   *     }();
   *     \endcode
@@ -91,15 +91,15 @@ namespace base
   *     positional \c x, \c y, \c z, \c w.
   *   - Attribute 2 starts at offset 4 and has 4 components, namely the
   *     \c nx, \c ny, \c nz, \c nw of the normal vector.
-  *   - Attribute 3 starts at offset 8 and has 4 components, namely the
-  *     \c r, \c g, \c b, \c a of the color vector.
+  *   - Attribute 3 starts at offset 8 and has 2 components, namely the
+  *     \c u, \c v of the texture coordinates vector.
   *
   * When writing your shader, you must declare the vertex format consistently:
   *
   *     \code
   *     layout( location = 0 ) in vec4 inPosition;
   *     layout( location = 1 ) in vec4 inNormal;
-  *     layout( location = 2 ) in vec4 inColor;
+  *     layout( location = 2 ) in vec2 inTexCoord;
   *     \endcode
   *
   * \author Leonid Kostrykin
@@ -167,25 +167,53 @@ struct VertexNormal
 
 
 // ----------------------------------------------------------------------------------
-// VertexTexCoord2
+// VertexColor
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Defines vertex component for 2D texture coordinates.
+  * Defines vertex component for colors.
   * Usage is explained \ref CustomVertexFormats "here".
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 10.3.15
+  * \date   1.9.14 - 31.3.15
   */
-struct VertexTexCoord2
+struct VertexColor
 {
-    /** \property u
-      * \brief Holds the 2D texture coordinates x-component of this vertex.
+    /** \property r
+      * \brief Holds the red color component of this vertex.
       *
-      * \property v
-      * \brief Holds the 2D texture coordinates y-component of this vertex.
+      * \property g
+      * \brief Holds the green color component of this vertex.
+      *
+      * \property b
+      * \brief Holds the blue color component of this vertex.
+      *
+      * \property a
+      * \brief Holds the alpha color component of this vertex.
       */
-    float u, v;
+    float r, g, b, a;
+};
+
+
+
+// ----------------------------------------------------------------------------------
+// ColoredVertex
+// ----------------------------------------------------------------------------------
+
+/** \brief
+  * Defines vertex that consists of the two attributes position and color.
+  *
+  * \author Leonid Kostrykin
+  * \date   1.9.14 - 31.3.15
+  */
+struct ColoredVertex
+    : public VertexBase
+    , public VertexColor
+{
+    /** \brief
+      * Holds the declaration of the \ref CustomVertexFormats "vertex format".
+      */
+    static const VertexAttributes attributes;
 };
 
 

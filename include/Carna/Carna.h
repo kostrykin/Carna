@@ -84,6 +84,7 @@ namespace Carna
         class  RenderStage;
         class  RenderState;
         class  RenderTask;
+        class  RotatingColor;
         class  Sampler;
         class  Shader;
         class  ShaderCompilationError;
@@ -96,6 +97,9 @@ namespace Carna
         class  ManagedTexture3D;
         class  ManagedTexture3DInterface;
         struct VertexBase;
+        struct VertexNormal;
+        struct VertexColor;
+        struct ColoredVertex;
         struct VertexAttribute;
         class  VertexBufferBase;
         class  Viewport;
@@ -182,6 +186,7 @@ namespace Carna
     namespace helpers
     {
 
+        class PointMarkerHelper;
         class DefaultRenderStageOrder;
 
         template< typename RenderStageOrder = DefaultRenderStageOrder > class FrameRendererHelper;
