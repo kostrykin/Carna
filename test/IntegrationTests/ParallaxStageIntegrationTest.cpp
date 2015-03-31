@@ -34,8 +34,37 @@ void ParallaxStageIntegrationTest::initTestCase()
     qglContextHolder.reset( new QGLContextHolder() );
     testFramebuffer.reset( new TestFramebuffer( qglContextHolder->glContext(), width, height ) );
     scene.reset( new TestScene() );
-    renderer.reset( new base::FrameRenderer( qglContextHolder->glContext(), width, height, true ) );
     scene->cam().localTransform *= base::math::translation4f( 0, 0, -200 );
+
+    /* Create and add opaque objects to scene.
+     */
+    //! [parallax_scene_setup]
+    base::ManagedMeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 40, 40, 40 );
+    base::Material& material = base::Material::create( "unshaded" );
+    material.setParameter( "color", base::Color::RED );
+    
+    base::Geometry* const box = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
+    box->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
+    box->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, material );
+    scene->root->attachChild( box );
+
+    boxMesh.release();
+    material.release();
+    //! [parallax_scene_setup]
+}
+
+
+void ParallaxStageIntegrationTest::cleanupTestCase()
+{
+    scene.reset();
+    testFramebuffer.reset();
+    qglContextHolder.reset();
+}
+
+
+void ParallaxStageIntegrationTest::init()
+{
+    renderer.reset( new base::FrameRenderer( qglContextHolder->glContext(), testFramebuffer->width(), testFramebuffer->height(), true ) );
     
     //! [parallax_instantiation]
     /* Create parallax rendering stage.
@@ -63,46 +92,18 @@ void ParallaxStageIntegrationTest::initTestCase()
     drr->setUpperThreshold( +400 );
     drr->setUpperMultiplier( 1.5f );
     //! [parallax_instantiation_others]
-
-    /* Create and add opaque objects to scene.
-     */
-    //! [parallax_scene_setup]
-    base::ManagedMeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 40, 40, 40 );
-    base::Material& material = base::Material::create( "unshaded" );
-    material.setParameter( "color", base::Color::RED );
-    
-    base::Geometry* const box = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
-    box->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
-    box->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, material );
-    scene->root->attachChild( box );
-
-    boxMesh.release();
-    material.release();
-    //! [parallax_scene_setup]
-}
-
-
-void ParallaxStageIntegrationTest::cleanupTestCase()
-{
-    renderer.reset();
-    scene.reset();
-    testFramebuffer.reset();
-    qglContextHolder.reset();
-}
-
-
-void ParallaxStageIntegrationTest::init()
-{
 }
 
 
 void ParallaxStageIntegrationTest::cleanup()
 {
+    renderer.reset();
 }
 
 
 void ParallaxStageIntegrationTest::test_aside()
 {
+    parallax->setCompositionMode( presets::CompositionStage::aside );
     renderer->render( scene->cam(), *scene->root );
     VERIFY_FRAMEBUFFER( *testFramebuffer );
 }
@@ -110,5 +111,8 @@ void ParallaxStageIntegrationTest::test_aside()
 
 void ParallaxStageIntegrationTest::test_interleaved()
 {
-    QWARN( "not implemented yet" );
+    parallax->setEyeDistance( presets::ParallaxStage::DEFAULT_EYE_DISTANCE / 2 );
+    parallax->setCompositionMode( presets::CompositionStage::interleave );
+    renderer->render( scene->cam(), *scene->root );
+    VERIFY_FRAMEBUFFER( *testFramebuffer );
 }

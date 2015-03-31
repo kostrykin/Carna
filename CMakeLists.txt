@@ -288,6 +288,8 @@ set( SHADERS_SRC
 		src/res/dvr.vert
 		src/res/unshaded.vert
 		src/res/unshaded.frag
+		src/res/interleave.vert
+		src/res/interleave.frag
 	)
 set( RESOURCES
 		${SHADERS_SRC}

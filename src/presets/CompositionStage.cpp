@@ -12,6 +12,12 @@
 #include <Carna/base/glew.h>
 #include <Carna/presets/CompositionStage.h>
 #include <Carna/base/FrameRenderer.h>
+#include <Carna/base/Framebuffer.h>
+#include <Carna/base/Texture.h>
+#include <Carna/base/ShaderManager.h>
+#include <Carna/base/ShaderUniform.h>
+#include <Carna/base/Viewport.h>
+#include <Carna/base/RenderState.h>
 
 namespace Carna
 {
@@ -31,12 +37,24 @@ struct CompositionStage::Details
     CompositionMode compositionMode;
     base::GLContext* glc;
     bool swap;
+
+    std::unique_ptr< base::Texture< 2 > > intermediateRenderTexture;
+    std::unique_ptr< base::Framebuffer  > intermediateBuffer;
+    const base::ShaderProgram* interleaveShader;
     
     void renderInterleaved
         ( CompositionStage* self
         , const base::math::Matrix4f& viewTransform
         , base::RenderTask& rt
         , const base::Viewport& vp );
+
+    void renderInterleavedPass
+        ( CompositionStage* self
+        , const base::math::Matrix4f& viewTransform
+        , base::RenderTask& rt
+        , const base::Viewport& vp
+        , bool isFirstInvocation
+        , bool isFirstSource );
     
     void renderAside
         ( CompositionStage* self
@@ -49,6 +67,7 @@ struct CompositionStage::Details
 CompositionStage::Details::Details()
     : glc( nullptr )
     , swap( false )
+    , interleaveShader( nullptr )
 {
 }
 
@@ -59,7 +78,44 @@ void CompositionStage::Details::renderInterleaved
     , base::RenderTask& rt
     , const base::Viewport& vp )
 {
-    CARNA_FAIL( "Interleaved composition mode not implemented yet!" );
+    renderInterleavedPass( self, viewTransform, rt, vp,  true, false ^ swap );
+    renderInterleavedPass( self, viewTransform, rt, vp, false,  true ^ swap );
+}
+
+
+void CompositionStage::Details::renderInterleavedPass
+    ( CompositionStage* self
+    , const base::math::Matrix4f& viewTransform
+    , base::RenderTask& rt
+    , const base::Viewport& vp
+    , bool isFirstInvocation
+    , bool isFirstSource )
+{
+    CARNA_ASSERT( glc != nullptr && interleaveShader != nullptr );
+    
+    /* Render to intermediate buffer.
+     */
+    const base::Viewport framebufferViewport( *intermediateBuffer );
+    CARNA_RENDER_TO_FRAMEBUFFER( *intermediateBuffer,
+        
+        glClearColor( 0, 0, 0, 0 );
+        rt.renderer.glContext().clearBuffers( base::GLContext::COLOR_BUFFER_BIT | base::GLContext::DEPTH_BUFFER_BIT );
+        self->renderPass( viewTransform, rt, framebufferViewport, isFirstInvocation, isFirstSource )
+        
+    );
+
+    /* Draw back to output buffer.
+     */
+    base::RenderState rs;
+    rs.setDepthTest( false );
+    rs.setDepthWrite( false );
+    const static unsigned int UNIT = base::TextureBase::SETUP_UNIT + 1;
+    intermediateRenderTexture->bind( UNIT );
+    glc->setShader( *interleaveShader );
+    base::ShaderUniform< int >( "mod2result", isFirstInvocation ? 0 : 1 ).upload();
+    base::FrameRenderer::RenderTextureParams params( UNIT );
+    params.useDefaultShader = false;
+    rt.renderer.renderTexture( params );
 }
 
 
@@ -69,8 +125,13 @@ void CompositionStage::Details::renderAside
     , base::RenderTask& rt
     , const base::Viewport& vp )
 {
+    /* Render the left screen.
+     */
     base::Viewport vp2( vp, vp.marginLeft() / 2, vp.marginTop() / 2, vp.width() / 2, vp.height() );
     self->renderPass( vt, rt, vp2, true, false ^ swap );
+
+    /* Render the right screen.
+     */
     vp2.setMarginLeft( vp2.marginLeft() + vp.parentWidth() / 2 );
     self->renderPass( vt, rt, vp2, false, true ^ swap );
 }
@@ -90,6 +151,11 @@ CompositionStage::CompositionStage( CompositionMode compositionMode )
 
 CompositionStage::~CompositionStage()
 {
+    if( pimpl->glc != nullptr && pimpl->interleaveShader != nullptr )
+    {
+        pimpl->glc->makeCurrent();
+        base::ShaderManager::instance().releaseShader( *pimpl->interleaveShader );
+    }
 }
 
 
@@ -120,6 +186,24 @@ void CompositionStage::setCompositionMode( CompositionMode compositionMode )
 void CompositionStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     pimpl->glc = &fr.glContext();
+
+    if( pimpl->intermediateBuffer.get() == nullptr )
+    {
+        /* Initialize buffers.
+         */
+        pimpl->intermediateRenderTexture.reset( base::Framebuffer::createRenderTexture() );
+        pimpl->intermediateBuffer.reset( new base::Framebuffer( width, height, *pimpl->intermediateRenderTexture ) );
+
+        /* Acquire other resources.
+         */
+        pimpl->interleaveShader = &base::ShaderManager::instance().acquireShader( "interleave" );
+    }
+    else
+    {
+        /* Reshape buffers.
+         */
+        pimpl->intermediateBuffer->resize( width, height );
+    }
 }
 
 
