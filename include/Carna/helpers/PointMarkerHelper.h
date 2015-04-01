@@ -35,7 +35,7 @@ namespace helpers
   * Simplifies the creation and maintenance of point markers.
   *
   * This provides two methods for the creation of point markers. A point marker is
-  * considered a 2D shape of fixed pixel size that is still positioned in 3D space.
+  * considered a 2D shape of fixed pixel size that is yet positioned in 3D space.
   * Each instance of this class creates point markers of a particular pixel size.
   *
   * The first method takes no arguments and creates point markers from a predefined
@@ -43,6 +43,12 @@ namespace helpers
   * materials once they have been instantiated for a particular color. The second
   * method takes the color as an argument and repeats the instantiation of a material
   * every time it is used.
+  *
+  * The following example creates a sequence of marker points in rotating colors:
+  *
+  * \snippet ModuleTests/PointMarkerHelperTest.cpp multiple
+  *
+  * \image html PointMarkerHelperTest/multiple.png "exemplary rendering from code above"
   *
   * \author Leonid Kostrykin
   * \date   31.3.15
@@ -109,7 +115,7 @@ public:
 
     /** \brief
       * Resets the color that the next invocation to the argument-less version of
-      * \ref createPointParker uses.
+      * \ref createPointMarker uses.
       */
     static void resetDefaultColor();
 

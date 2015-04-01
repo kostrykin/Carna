@@ -67,6 +67,7 @@ void PointMarkerHelperTest::cleanup()
 
 void PointMarkerHelperTest::test_multiple()
 {
+    //! [multiple]
     helpers::PointMarkerHelper markers( GEOMETRY_TYPE_OPAQUE );
 
     const float maxOffset = 300;
@@ -78,6 +79,7 @@ void PointMarkerHelperTest::test_multiple()
         marker->localTransform = base::math::translation4f( x, 0, 0 );
         root->attachChild( marker );
     }
+    //! [multiple]
 
     /* Render and verify.
      */
