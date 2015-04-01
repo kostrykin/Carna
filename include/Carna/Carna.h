@@ -181,7 +181,8 @@ namespace Carna
     }
 
     /** \brief
-      * Contains components that simplify the handling of more complex interfaces.
+      * Contains components that simplify the handling of more complex interfaces
+      * from both, \ref base and \ref presets.
       */
     namespace helpers
     {

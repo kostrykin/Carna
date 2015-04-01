@@ -32,7 +32,7 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Implements a rotating color.
+  * Supplies colors from a predefined, distinctive palette.
   *
   * \author Leonid Kostrykin
   * \date   28.7.11 - 31.3.15
@@ -47,14 +47,14 @@ public:
       */
     enum ColorIdentifier
     {
-        blue  = ( 1 << 0 ),
-        green = ( 1 << 1 ),
-        red   = ( 1 << 2 ),
+        blue  = ( 1 << 0 ), ///< Identifies blue.
+        green = ( 1 << 1 ), ///< Identifies green.
+        red   = ( 1 << 2 ), ///< Identifies red.
 
-        orange = red | green,
-        teal   = green | blue,
-        violet = red | blue,
-        white  = red | green | blue
+        orange = red | green,       ///< Identifies orange.
+        teal   = green | blue,      ///< Identifies teal.
+        violet = red | blue,        ///< Identifies violet.
+        white  = red | green | blue ///< Identifies white.
     };
 
     /** \brief

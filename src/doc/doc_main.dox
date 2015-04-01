@@ -45,12 +45,12 @@ namespace Carna
   * The `%FrameRenderer` consists of multiple components, each of which defines a
   * particular aspect of the rendering logic. Those components are called *rendering
   * stages* because their rendering logic is executed sequentially. The rendering
-  * results depends heavily on the stages order. The correct order always depends on
-  * what type of image one actually wants to produce. The `%FrameRendererHelper`
-  * class assumes a \ref helpers::DefaultRenderStageOrder "default order" that
-  * presumably in almost all cases leads to the desired results. Of course one could
-  * also leave out this helper and add the stages to the renderer in any desired
-  * order manually.
+  * results depends heavily on the stages order. There is no generally "correct"
+  * order, because this always depends on what one actually expects. The
+  * `%FrameRendererHelper` class assumes a
+  * \ref helpers::DefaultRenderStageOrder "default order" that will lead to the
+  * desired results in presumably almost all cases. Of course one could also leave
+  * out this helper and add the stages to the renderer in any desired order manually.
   *
   * \see
   * The rendering process is explained \ref RenderingProcess "here" in detail.
@@ -63,7 +63,7 @@ namespace Carna
   *     planes through volume data.
   *   - The \ref presets::OpaqueRenderingStage renders opaque meshes, i.e. polygonal
   *     geometry.
-  *   - The \ref presets::DRRStage produces a digital radiograph reconstruct of the
+  *   - The \ref presets::DRRStage produces a *digital radiograph reconstruct* of the
   *     volume data.
   *   - The \ref presets::OccludedRenderingStage ensures that meshes, that are
   *     actually occluded by other geometry that is closer to the viewer, shine
