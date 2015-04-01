@@ -34,15 +34,18 @@ namespace helpers
 /** \brief
   * Simplifies the creation and maintenance of point markers.
   *
-  * This provides two methods for the creation of point markers. A point marker is
-  * considered a 2D shape of fixed pixel size that is yet positioned in 3D space.
-  * Each instance of this class creates point markers of a particular pixel size.
+  * A point marker is considered a 2D shape of fixed pixel size that is yet
+  * positioned in 3D space. Point markers are rendered as
+  * \ref base::IndexBufferBase::PRIMITIVE_TYPE_POINTS "point-primitives" and using
+  * the `pointmarker` material shader. That material shader produces the white edge
+  * around the markers.
   *
-  * The first method takes no arguments and creates point markers from a predefined
-  * color palette. This method is a little faster in theory because it recycles
-  * materials once they have been instantiated for a particular color. The second
-  * method takes the color as an argument and repeats the instantiation of a material
-  * every time it is used.
+  * Each instance of this class creates point markers of a particular pixel size. It
+  * provides two methods for the creation of point markers. The first method takes no
+  * arguments and creates point markers from a predefined color palette. This method
+  * is a little faster in theory because it recycles materials once they have been
+  * instantiated for a particular color. The second method takes the color as an
+  * argument and repeats the instantiation of a material every time it is used.
   *
   * The following example creates a sequence of marker points in rotating colors:
   *
@@ -105,11 +108,15 @@ public:
     /** \brief
       * Creates new point marker colored differently than the last point marker
       * created by any `%PointMarkerHelper` instance.
+      *
+      * This method cycles through a predefined palette of colors. It recycles the
+      * materials instantiates once per color.
       */
     base::Geometry* createPointMarker() const;
 
     /** \brief
-      * Creates new point marker with \a color.
+      * Creates new point marker with \a color. This method creates a new material
+      * each time it is used.
       */
     base::Geometry* createPointMarker( const base::Color& color ) const;
 

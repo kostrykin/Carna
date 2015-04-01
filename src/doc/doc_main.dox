@@ -134,8 +134,9 @@ namespace Carna
   *
   * The `VolumeGridHelper` class takes care of two things. First, it partitions the
   * volumetric `data` into multiple smaller, box-shaped volumes. This partitioning is
-  * done according to an upper limit of each volume's memory size. In the example no
-  * specific limit is set, hence the
+  * done according to an upper limit of each volume's memory size. It reduces the
+  * probability of out-of-memory exceptions due to memory fragmentation. In the
+  * example no specific limit is set, thus the
   * \ref helpers::VolumeGridHelper::DEFAULT_MAX_SEGMENT_BYTESIZE "default" is used.
   * Second, the `VolumeGridHelper` class creates a scene `Node` that represents the
   * partitioned `data` within the scene. This `Node` has one `Geometry` child per
@@ -155,8 +156,9 @@ namespace Carna
   *
   * \subsubsection GeometryFeatureLifecycle The Lifecycle of Geometry Features
   *
-  * Because of their shared-use nature, the lifecycle of geometry features is very
-  * important. They have neither a public constructor, nor a public destructor:
+  * Because of their shared-use nature, the lifecycle of geometry features is worth
+  * taking a look at. They have neither a public constructor, nor a public
+  * destructor:
   *
   *   - %Geometry features are acquired using their static `::%create` function. Each
   *     feature possess *itself*, hence a reference is returned.
@@ -173,11 +175,19 @@ namespace Carna
   *
   * \subsubsection QuickStart_Materials Materials
   *
-  * Materials determine how polygonal geometries are rendered. Each material consists
-  * of at least a \ref base::ShaderProgram "shader". It can also have a set of
-  * parameters that will be uploaded to the shader. Furthermore it could enforce a
-  * particular \ref base::RenderState "OpenGL render state". The `unshaded` shader is
-  * provided out-of-the-box: It colors the rendered mesh in a single color uniformly.
+  * Materials determine how polygonal geometries are rendered. The core part of each
+  * material is a \ref base::ShaderProgram "shader". Besides that, it can also have a
+  * set of parameters that will be uploaded to the shader when the material is
+  * applied, and it could enforce a particular
+  * \ref base::RenderState "OpenGL render state".
+  *
+  * There are a few material shaders available out-of-the-box:
+  *
+  *   - The `unshaded` material shader colors the rendered mesh in a single color
+  *     uniformly.
+  *   - The \ref helpers::PointMarkerHelper class uses the `pointparker` material
+  *     shader to create simple markers in 3D space.
+  *
   * The creation of custom materials is explained \ref CustomMaterials "here".
   */
 
