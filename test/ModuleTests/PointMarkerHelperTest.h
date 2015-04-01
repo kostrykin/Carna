@@ -53,6 +53,8 @@ private slots:
 
     void test_multiple();
 
+    void test_fixed_color();
+
  // ---------------------------------------------------------------------------------
 
 private:
@@ -61,11 +63,11 @@ private:
 
     std::unique_ptr< QGLContextHolder > qglContextHolder;
     std::unique_ptr< TestFramebuffer > testFramebuffer;
-    std::unique_ptr< base::Node > root;
     std::unique_ptr< base::FrameRenderer > renderer;
-    
     presets::OpaqueRenderingStage* opaque;
-    base::Camera* cam;
+
+    std::unique_ptr< base::Node > root;
+    std::unique_ptr< base::Camera > cam;
 
 }; // PointMarkerHelperTest
 

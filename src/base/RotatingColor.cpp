@@ -24,8 +24,15 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 RotatingColor::RotatingColor( ColorIdentifier initialColor )
+    : initialColor( initialColor )
 {
     color.a = 255;
+    reset();
+}
+
+
+void RotatingColor::reset()
+{
     for( nextColor = 1; nextColor <= static_cast< unsigned int >( initialColor ); ++( *this ) );
 }
 

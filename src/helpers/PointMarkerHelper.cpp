@@ -34,11 +34,14 @@ struct PointMarkerHelper::Details
     Details();
 
     base::ManagedMeshBase& mesh;
-    base::RotatingColor nextColor;
+    static base::RotatingColor nextColor;
 
     std::map< base::Color, base::Material* > materials;
     base::Material& nextMaterial( unsigned int pointSize );
 };
+
+
+base::RotatingColor PointMarkerHelper::Details::nextColor;
 
 
 PointMarkerHelper::Details::Details()
@@ -98,6 +101,12 @@ PointMarkerHelper::PointMarkerHelper
 PointMarkerHelper::~PointMarkerHelper()
 {
     releaseGeometryFeatures();
+}
+
+
+void PointMarkerHelper::resetDefaultColor()
+{
+    Details::nextColor.reset();
 }
 
 

@@ -63,6 +63,11 @@ public:
     RotatingColor( ColorIdentifier initialColor = blue );
 
     /** \brief
+      * Holds the initial color.
+      */
+    const ColorIdentifier initialColor;
+
+    /** \brief
       * Pre-increments the color.
       */
     RotatingColor& operator++();
@@ -84,6 +89,11 @@ public:
     {
         return color;
     }
+
+    /** \brief
+      * Resets s.t. the current color becomes the initial again.
+      */
+    void reset();
 
 private:
 

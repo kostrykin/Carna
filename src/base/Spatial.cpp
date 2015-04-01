@@ -41,6 +41,7 @@ Spatial::~Spatial()
 
 void Spatial::updateParent( Node& parent )
 {
+    CARNA_ASSERT( &parent != this );
     CARNA_ASSERT( parent.hasChild( *this ) );
     myParent = &parent;
 }

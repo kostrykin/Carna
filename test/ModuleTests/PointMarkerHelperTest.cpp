@@ -36,7 +36,7 @@ void PointMarkerHelperTest::initTestCase()
 
     /* Configure camera.
      */
-    cam = new base::Camera();
+    cam.reset( new base::Camera() );
     cam->localTransform = base::math::translation4f( 0, 0, 350 );
     cam->setProjection( base::math::frustum4f( base::math::deg2rad( 45 ), 1, 10, 2000 ) );
 }
@@ -53,12 +53,14 @@ void PointMarkerHelperTest::cleanupTestCase()
 void PointMarkerHelperTest::init()
 {
     root.reset( new base::Node() );
-    root->attachChild( cam );
+    root->attachChild( cam.get() );
+    helpers::PointMarkerHelper::resetDefaultColor();
 }
 
 
 void PointMarkerHelperTest::cleanup()
 {
+    cam->detachFromParent();
     root.reset();
 }
 
@@ -73,6 +75,37 @@ void PointMarkerHelperTest::test_multiple()
     {
         const float x = -maxOffset + i * 2 * maxOffset / ( markersCount - 1 );
         base::Geometry* const marker = markers.createPointMarker();
+        marker->localTransform = base::math::translation4f( x, 0, 0 );
+        root->attachChild( marker );
+    }
+
+    /* Render and verify.
+     */
+    renderer->render( *cam, *root );
+    VERIFY_FRAMEBUFFER( *testFramebuffer );
+}
+
+
+void PointMarkerHelperTest::test_fixed_color()
+{
+    helpers::PointMarkerHelper markers( GEOMETRY_TYPE_OPAQUE );
+
+    const float maxOffset = 300;
+    const unsigned int markersCount = 10;
+    for( unsigned int i = 0; i < markersCount; ++i )
+    {
+        const float x = -maxOffset + i * 2 * maxOffset / ( markersCount - 1 );
+        base::Geometry* marker;
+        if( i <= markersCount / 2 )
+        {
+            const unsigned int j = ( 255 * i / ( markersCount / 2 ) );
+            const base::Color fixedColor( 255 - j, 0, j, 255 );
+            marker = markers.createPointMarker( fixedColor );
+        }
+        else
+        {
+            marker = markers.createPointMarker();;
+        }
         marker->localTransform = base::math::translation4f( x, 0, 0 );
         root->attachChild( marker );
     }

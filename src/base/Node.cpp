@@ -39,6 +39,7 @@ bool Node::hasChild( const Spatial& child ) const
 void Node::attachChild( Spatial* child )
 {
     CARNA_ASSERT( child != nullptr );
+    CARNA_ASSERT( child != this );
     if( !child->hasParent() || &child->parent() != this )
     {
         if( child->hasParent() )
