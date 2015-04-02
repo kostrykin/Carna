@@ -13,7 +13,7 @@
 #define FRAMERENDERERHELPER_H_6014714286
 
 #include <Carna/Carna.h>
-#include <Carna/base/FrameRenderer.h>
+#include <Carna/base/RenderStageSequence.h>
 #include <Carna/base/RenderStage.h>
 #include <Carna/base/GLContext.h>
 #include <Carna/base/MeshRenderingStage.h>
@@ -85,7 +85,7 @@ public:
     /** \brief
       * Instantiates helper for \a renderer.
       */
-    explicit FrameRendererHelper( base::FrameRenderer& renderer );
+    explicit FrameRendererHelper( base::RenderStageSequence& renderer );
 
     /** \brief
       * Deletes.
@@ -101,7 +101,7 @@ public:
     /** \brief
       * References the configured %renderer.
       */
-    base::FrameRenderer& renderer;
+    base::RenderStageSequence& renderer;
 
     /** \brief
       * Resets changes that have been made since the last invocation of \ref commit.
@@ -117,7 +117,7 @@ public:
 
 
 template< typename RenderStageOrder >
-FrameRendererHelper< RenderStageOrder >::FrameRendererHelper( base::FrameRenderer& renderer )
+FrameRendererHelper< RenderStageOrder >::FrameRendererHelper( base::RenderStageSequence& renderer )
     : renderer( renderer )
 {
 }

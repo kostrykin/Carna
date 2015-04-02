@@ -164,6 +164,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/glew.h
 		include/${PROJECT_NAME}/base/math.h
 		include/${PROJECT_NAME}/base/RotatingColor.h
+		include/${PROJECT_NAME}/base/RenderStageSequence.h
 		include/${PROJECT_NAME}/base/math/Span.h
 		include/${PROJECT_NAME}/base/math/Ray.h
 		include/${PROJECT_NAME}/base/math/RayPlaneHitTest.h
@@ -209,6 +210,7 @@ set( SRC
 		src/base/Geometry.cpp
 		src/base/GLContext.cpp
 		src/base/Renderable.cpp
+		src/base/RenderStageSequence.cpp
 		src/base/FrameRenderer.cpp
 		src/base/RenderTask.cpp
 		src/base/RenderStage.cpp

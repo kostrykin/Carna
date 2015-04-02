@@ -182,8 +182,6 @@ struct FrameRenderer::Details
 {
     Details( GLContext& glContext, unsigned int width, unsigned int height );
 
-    std::vector< RenderStage* > stages;
-
     unsigned int width, height;
     bool fitSquare;
     mutable bool reshaped;
@@ -277,30 +275,11 @@ GLContext& FrameRenderer::glContext() const
     return *pimpl->glContext;
 }
 
-
-std::size_t FrameRenderer::stages() const
-{
-    return pimpl->stages.size();
-}
-
-
-void FrameRenderer::appendStage( RenderStage* rs )
-{
-    pimpl->stages.push_back( rs );
-}
-
     
 void FrameRenderer::clearStages()
 {
     pimpl->glContext->makeCurrent();
-    std::for_each( pimpl->stages.begin(), pimpl->stages.end(), std::default_delete< RenderStage >() );
-    pimpl->stages.clear();
-}
-
-
-RenderStage& FrameRenderer::stageAt( std::size_t position ) const
-{
-    return *pimpl->stages[ position ];
+    RenderStageSequence::clearStages();
 }
 
 
@@ -369,9 +348,9 @@ void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
 
     /* Reshape render stages' buffers.
      */
-    for( auto rsItr = pimpl->stages.begin(); rsItr != pimpl->stages.end(); ++rsItr )
+    for( std::size_t rsIdx = 0; rsIdx < stages(); ++rsIdx )
     {
-        RenderStage& rs = **rsItr;
+        RenderStage& rs = stageAt( rsIdx );
         
         /* Ensure buffers are properly sized.
          */

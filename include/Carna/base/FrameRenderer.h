@@ -13,10 +13,10 @@
 #define FRAMERENDERER_H_6014714286
 
 #include <Carna/Carna.h>
+#include <Carna/base/RenderStageSequence.h>
 #include <Carna/base/Aggregation.h>
 #include <Carna/base/noncopyable.h>
 #include <Carna/base/math.h>
-#include <memory>
 #include <string>
 
 /** \file   FrameRenderer.h
@@ -66,7 +66,7 @@ namespace base
   * \author Leonid Kostrykin
   * \date   21.2.15 - 6.3.15
   */
-class CARNA_LIB FrameRenderer
+class CARNA_LIB FrameRenderer : public RenderStageSequence
 {
 
     NON_COPYABLE
@@ -102,40 +102,18 @@ public:
     /** \brief
       * Deletes all stages contained by this renderer.
       */
-    ~FrameRenderer();
+    virtual ~FrameRenderer();
 
     /** \brief
       * Represents the OpenGL context that this renderer is associated with.
       */
     GLContext& glContext() const;
-
-    /** \brief
-      * Tells number of stages contained by this renderer.
-      */
-    std::size_t stages() const;
     
     /** \brief
-      * Appends \a stage to the rendering stages sequence.
+      * Activaites \ref glContext and deletes all stages from the rendering stages
+      * sequence.
       */
-    void appendStage( RenderStage* stage );
-    
-    /** \brief
-      * Deletes all stages from the rendering stages sequence.
-      */
-    void clearStages();
-    
-    /** \brief
-      * References the stage at \a position withing the rendering stages sequence.
-      */
-    RenderStage& stageAt( std::size_t position ) const;
-
-    /** \brief
-      * References the first \a RenderStage within the rendering stages sequence.
-      * This method performs a linear search. Returns \ref Aggregation::NULL_PTR if
-      * \a RenderStage is not found withing hte rendering stages sequence.
-      */
-    template< typename RenderStage >
-    Aggregation< RenderStage > findStage() const;
+    virtual void clearStages() override;
     
     /** \brief
       * Tells the current frame width. Value is changed through \ref reshape.
@@ -272,21 +250,6 @@ private:
     void render( Camera& cam, Node& root, const Viewport& vp ) const;
 
 }; // FrameRenderer
-
-
-template< typename RenderStage >
-Aggregation< RenderStage > FrameRenderer::findStage() const
-{
-    for( std::size_t index = 0; index < stages(); ++index )
-    {
-        RenderStage* const rs = dynamic_cast< RenderStage* >( &stageAt( index ) );
-        if( rs != nullptr )
-        {
-            return Aggregation< RenderStage >( *rs );
-        }
-    }
-    return Aggregation< RenderStage >::NULL_PTR;
-}
 
 
 
