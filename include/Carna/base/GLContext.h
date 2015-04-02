@@ -15,6 +15,7 @@
 #include <Carna/Carna.h>
 #include <Carna/base/CarnaException.h>
 #include <Carna/base/noncopyable.h>
+#include <Carna/base/Log.h>
 #include <memory>
 
 /** \file   GLContext.h
