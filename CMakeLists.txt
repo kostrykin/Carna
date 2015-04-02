@@ -165,6 +165,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/math.h
 		include/${PROJECT_NAME}/base/RotatingColor.h
 		include/${PROJECT_NAME}/base/RenderStageSequence.h
+		include/${PROJECT_NAME}/base/RenderStageListener.h
 		include/${PROJECT_NAME}/base/math/Span.h
 		include/${PROJECT_NAME}/base/math/Ray.h
 		include/${PROJECT_NAME}/base/math/RayPlaneHitTest.h
@@ -250,6 +251,7 @@ set( SRC
 		src/base/CameraControl.cpp
 		src/base/ProjectionControl.cpp
 		src/base/RotatingColor.cpp
+		src/base/RenderStageListener.cpp
 		src/base/math/Ray.cpp
 		src/presets/MeshColorCodingStage.cpp
 		src/presets/VolumeRenderingStage.cpp

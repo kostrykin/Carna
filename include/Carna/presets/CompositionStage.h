@@ -100,7 +100,7 @@ public:
       */
     bool isCompositionSwapped() const;
 
-    virtual void reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height ) override;
+    virtual void reshape( base::FrameRenderer& fr, unsigned int width, unsigned int height ) override;
     
     virtual void prepareFrame( base::Node& root ) override;
 

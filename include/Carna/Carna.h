@@ -107,6 +107,7 @@ namespace Carna
         class  NormalMap3DTexture;
         class  TextureBase;
         class  RenderStageSequence;
+        class  RenderStageListener;
 
         template< typename AssociatedObjectType > class Aggregation;
         template< typename AssociatedObjectType > class Association;

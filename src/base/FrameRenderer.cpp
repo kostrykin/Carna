@@ -356,7 +356,13 @@ void FrameRenderer::render( Camera& cam, Node& root, const Viewport& vp ) const
          */
         if( pimpl->reshaped || !rs.isInitialized() )
         {
-            rs.reshape( *this, pimpl->viewport->width(), pimpl->viewport->height() );
+            /* This 'const_cast' is okay, because 'RenderStage' objects are clearly
+             * stated to be components of a 'FrameRenderer', thus "it runs in the
+             * family" as long as an immutable 'RenderStage' reference not induces a
+             * mutable 'FrameRenderer' reference.
+             */
+            FrameRenderer& fr = const_cast< FrameRenderer& >( *this );
+            rs.reshape( fr, pimpl->viewport->width(), pimpl->viewport->height() );
         }
 
         /* Notify stages of beginning frame.

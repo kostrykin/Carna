@@ -280,7 +280,7 @@ void MeshColorCodingStage::render( const base::Renderable& renderable )
 }
 
 
-void MeshColorCodingStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
+void MeshColorCodingStage::reshape( base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     base::RenderStage::reshape( fr, width, height );
     if( vr.get() != nullptr )

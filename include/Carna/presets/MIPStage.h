@@ -85,7 +85,7 @@ public:
       */
     virtual ~MIPStage();
 
-    virtual void reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height ) override;
+    virtual void reshape( base::FrameRenderer& fr, unsigned int width, unsigned int height ) override;
 
     virtual void renderPass
         ( const base::math::Matrix4f& viewTransform

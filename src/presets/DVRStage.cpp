@@ -152,7 +152,7 @@ float DVRStage::translucence() const
 }
 
 
-void DVRStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
+void DVRStage::reshape( base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     base::RenderStage::reshape( fr, width, height );
     pimpl->accumulationColorBuffer.reset( base::Framebuffer::createRenderTexture( true ) );

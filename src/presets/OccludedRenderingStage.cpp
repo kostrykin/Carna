@@ -214,7 +214,7 @@ void OccludedRenderingStage::prepareFrame( base::Node& root )
 }
 
 
-void OccludedRenderingStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
+void OccludedRenderingStage::reshape( base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     RenderStage::reshape( fr, width, height );
     if( vr.get() != nullptr )

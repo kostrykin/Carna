@@ -181,7 +181,7 @@ void CompositionStage::setCompositionMode( CompositionMode compositionMode )
 }
 
 
-void CompositionStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
+void CompositionStage::reshape( base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     base::RenderStage::reshape( fr, width, height );
     if( pimpl->intermediateBuffer.get() == nullptr )

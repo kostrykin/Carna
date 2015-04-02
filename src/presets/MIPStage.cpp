@@ -131,7 +131,7 @@ const MIPLayer& MIPStage::layer( std::size_t layerIndex ) const
 }
 
 
-void MIPStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
+void MIPStage::reshape( base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     base::RenderStage::reshape( fr, width, height );
     pimpl->layerColorBuffer.reset( base::Framebuffer::createRenderTexture() );

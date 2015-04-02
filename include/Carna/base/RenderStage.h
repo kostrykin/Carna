@@ -44,9 +44,8 @@ class CARNA_LIB RenderStage
 
     NON_COPYABLE
 
-    bool viewTransformFixed;
-    bool enabled;
-    const FrameRenderer* fr;
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
 
 public:
 
@@ -86,7 +85,7 @@ public:
       * \param width is the \ref Carna::base::Viewport "root viewport" width.
       * \param height is the \ref Carna::base::Viewport "root viewport" height.
       */
-    virtual void reshape( const FrameRenderer& fr, unsigned int width, unsigned int height );
+    virtual void reshape( FrameRenderer& fr, unsigned int width, unsigned int height );
     
     /** \brief
       * Tells whether this stage is ready for rendering.
@@ -133,7 +132,23 @@ public:
       * References the renderer this stage belongs to.
       * \pre `isInitialized() == true`
       */
+    base::FrameRenderer& renderer();
+    
+    /** \overload
+      */
     const base::FrameRenderer& renderer() const;
+    
+    /** \brief
+      * Adds \a listener to the set of listeners this instance notifies in
+      * \f$\mathcal O\left(\log n\right)\f$.
+      */
+    void addRenderStageListener( RenderStageListener& listener );
+    
+    /** \brief
+      * Removes \a listener from the set of listeners this instance notifies in
+      * \f$\mathcal O\left(\log n\right)\f$.
+      */
+    void removeRenderStageListener( RenderStageListener& listener );
 
 }; // RenderStage
 
