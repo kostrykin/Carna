@@ -64,7 +64,6 @@ class GeometryStage : public RenderStage
     Node* root;
     std::size_t passesRendered;
     std::map< GeometryFeature*, VideoResource* > acquiredFeatures;
-    GLContext* myContext;
 
 protected:
 
@@ -89,14 +88,6 @@ public:
       * Releases acquired video resources.
       */
     virtual ~GeometryStage();
-    
-    /** \copydoc Carna::base::RenderStage::reshape
-      */
-    virtual void reshape( const FrameRenderer& fr, unsigned int width, unsigned int height ) override;
-    
-    /** \copydoc Carna::base::RenderStage::isInitialized
-      */
-    virtual bool isInitialized() const override;
 
     /** \copydoc Carna::base::RenderStage::prepareFrame
       */
@@ -158,7 +149,6 @@ template< typename RenderableCompare >
 GeometryStage< RenderableCompare >::GeometryStage( unsigned int geometryType, unsigned int geometryTypeMask )
     : root( nullptr )
     , passesRendered( 0 )
-    , myContext( nullptr )
     , rq( geometryType, geometryTypeMask )
 {
 }
@@ -180,9 +170,9 @@ GeometryStage< RenderableCompare >::~GeometryStage()
 template< typename RenderableCompare >
 void GeometryStage< RenderableCompare >::activateGLContext() const
 {
-    if( myContext != nullptr )
+    if( isInitialized() )
     {
-        myContext->makeCurrent();
+        renderer().glContext().makeCurrent();
     }
 }
 
@@ -227,7 +217,6 @@ void GeometryStage< RenderableCompare >::updateRenderQueues( const math::Matrix4
 template< typename RenderableCompare >
 void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp )
 {
-    CARNA_ASSERT( myContext != nullptr );
     const bool isFirstPass = passesRendered == 0;
     
     /* Maintain the render queues.
@@ -285,20 +274,6 @@ void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewT
             }
         }
     }
-}
-
-
-template< typename RenderableCompare >
-void GeometryStage< RenderableCompare >::reshape( const FrameRenderer& fr, unsigned int width, unsigned int height )
-{
-    this->myContext = &fr.glContext();
-}
-
-
-template< typename RenderableCompare >
-bool GeometryStage< RenderableCompare >::isInitialized() const
-{
-    return this->myContext != nullptr;
 }
 
 

@@ -282,7 +282,7 @@ void MeshColorCodingStage::render( const base::Renderable& renderable )
 
 void MeshColorCodingStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
-    base::GeometryStage< void >::reshape( fr, width, height );
+    base::RenderStage::reshape( fr, width, height );
     if( vr.get() != nullptr )
     {
         vr.reset( new VideoResources( vr->shader, width, height ) );

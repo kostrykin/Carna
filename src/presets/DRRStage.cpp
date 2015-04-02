@@ -177,7 +177,7 @@ void DRRStage::setRenderingInverse( bool inverse )
 
 void DRRStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
-    base::GeometryStage< base::Renderable::BackToFront >::reshape( fr, width, height );
+    base::RenderStage::reshape( fr, width, height );
     pimpl->accumulationColorBuffer.reset( base::Framebuffer::createRenderTexture( true ) );
     pimpl->accumulationFrameBuffer.reset( new base::Framebuffer( width, height, *pimpl->accumulationColorBuffer ) );
 }

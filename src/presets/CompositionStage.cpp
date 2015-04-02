@@ -35,7 +35,6 @@ struct CompositionStage::Details
 {
     Details();
     CompositionMode compositionMode;
-    base::GLContext* glc;
     bool swap;
 
     std::unique_ptr< base::Texture< 2 > > intermediateRenderTexture;
@@ -65,8 +64,7 @@ struct CompositionStage::Details
 
 
 CompositionStage::Details::Details()
-    : glc( nullptr )
-    , swap( false )
+    : swap( false )
     , interleaveShader( nullptr )
 {
 }
@@ -91,7 +89,7 @@ void CompositionStage::Details::renderInterleavedPass
     , bool isFirstInvocation
     , bool isFirstSource )
 {
-    CARNA_ASSERT( glc != nullptr && interleaveShader != nullptr );
+    CARNA_ASSERT( interleaveShader != nullptr );
     
     /* Render to intermediate buffer.
      */
@@ -111,7 +109,7 @@ void CompositionStage::Details::renderInterleavedPass
     rs.setDepthWrite( false );
     const static unsigned int UNIT = base::TextureBase::SETUP_UNIT + 1;
     intermediateRenderTexture->bind( UNIT );
-    glc->setShader( *interleaveShader );
+    rt.renderer.glContext().setShader( *interleaveShader );
     base::ShaderUniform< int >( "mod2result", isFirstInvocation ? 0 : 1 ).upload();
     base::FrameRenderer::RenderTextureParams params( UNIT );
     params.useDefaultShader = false;
@@ -151,9 +149,9 @@ CompositionStage::CompositionStage( CompositionMode compositionMode )
 
 CompositionStage::~CompositionStage()
 {
-    if( pimpl->glc != nullptr && pimpl->interleaveShader != nullptr )
+    if( isInitialized() && pimpl->interleaveShader != nullptr )
     {
-        pimpl->glc->makeCurrent();
+        renderer().glContext().makeCurrent();
         base::ShaderManager::instance().releaseShader( *pimpl->interleaveShader );
     }
 }
@@ -185,8 +183,7 @@ void CompositionStage::setCompositionMode( CompositionMode compositionMode )
 
 void CompositionStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
-    pimpl->glc = &fr.glContext();
-
+    base::RenderStage::reshape( fr, width, height );
     if( pimpl->intermediateBuffer.get() == nullptr )
     {
         /* Initialize buffers.
@@ -204,12 +201,6 @@ void CompositionStage::reshape( const base::FrameRenderer& fr, unsigned int widt
          */
         pimpl->intermediateBuffer->resize( width, height );
     }
-}
-
-
-bool CompositionStage::isInitialized() const
-{
-    return pimpl->glc != nullptr;
 }
 
 

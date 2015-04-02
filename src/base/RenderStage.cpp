@@ -26,12 +26,32 @@ namespace base
 RenderStage::RenderStage()
     : viewTransformFixed( true )
     , enabled( true )
+    , fr( nullptr )
 {
 }
 
 
 RenderStage::~RenderStage()
 {
+}
+
+    
+bool RenderStage::isInitialized() const
+{
+    return fr != nullptr;
+}
+
+
+const base::FrameRenderer& RenderStage::renderer() const
+{
+    CARNA_ASSERT( isInitialized() );
+    return *fr;
+}
+
+
+void RenderStage::reshape( const FrameRenderer& fr, unsigned int width, unsigned int height )
+{
+    this->fr = &fr;
 }
 
 

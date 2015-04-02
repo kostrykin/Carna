@@ -34,10 +34,6 @@ struct OccludedRenderingStage::Details
 
     Details();
 
-    base::GLContext* context;
-
-    void activateGLContext() const;
-
     std::set< const base::RenderStage* > enabledStages;
 
     float occlusionTranslucency;
@@ -48,15 +44,6 @@ struct OccludedRenderingStage::Details
 OccludedRenderingStage::Details::Details()
     : occlusionTranslucency( DEFAULT_OCCLUSION_TRANSLUCENCY )
 {
-}
-
-
-void OccludedRenderingStage::Details::activateGLContext() const
-{
-    if( context != nullptr )
-    {
-        context->makeCurrent();
-    }
 }
 
 
@@ -140,7 +127,10 @@ OccludedRenderingStage::~OccludedRenderingStage()
 {
     if( vr.get() != nullptr )
     {
-        pimpl->activateGLContext();
+        if( isInitialized() )
+        {
+            renderer().glContext().makeCurrent();
+        }
         base::ShaderManager::instance().releaseShader( vr->shader );
     }
 }
@@ -219,12 +209,6 @@ void OccludedRenderingStage::renderPass
 }
 
 
-bool OccludedRenderingStage::isInitialized() const
-{
-    return pimpl->context != nullptr;
-}
-
-
 void OccludedRenderingStage::prepareFrame( base::Node& root )
 {
 }
@@ -232,7 +216,7 @@ void OccludedRenderingStage::prepareFrame( base::Node& root )
 
 void OccludedRenderingStage::reshape( const base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
-    pimpl->context = &fr.glContext();
+    RenderStage::reshape( fr, width, height );
     if( vr.get() != nullptr )
     {
         vr.reset( new VideoResources( vr->shader, width, height ) );

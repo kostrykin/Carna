@@ -46,6 +46,7 @@ class CARNA_LIB RenderStage
 
     bool viewTransformFixed;
     bool enabled;
+    const FrameRenderer* fr;
 
 public:
 
@@ -78,11 +79,14 @@ public:
       * Orders this stage to reshape its buffers according to the specified
       * dimensions.
       *
+      * \attention
+      * Always call the base implementaion!
+      *
       * \param fr references the frame renderer this stage belongs to.
       * \param width is the \ref Carna::base::Viewport "root viewport" width.
       * \param height is the \ref Carna::base::Viewport "root viewport" height.
       */
-    virtual void reshape( const FrameRenderer& fr, unsigned int width, unsigned int height ) = 0;
+    virtual void reshape( const FrameRenderer& fr, unsigned int width, unsigned int height );
     
     /** \brief
       * Tells whether this stage is ready for rendering.
@@ -92,7 +96,7 @@ public:
       * In contrary, i.e. if this method returns `false`, \ref reshape will be called
       * before every frame.
       */
-    virtual bool isInitialized() const = 0;
+    bool isInitialized() const;
     
     /** \brief
       * Called once before each frame.
@@ -124,6 +128,12 @@ public:
       * \ref RenderTask "render tasks".
       */
     void setEnabled( bool );
+    
+    /** \brief
+      * References the renderer this stage belongs to.
+      * \pre `isInitialized() == true`
+      */
+    const base::FrameRenderer& renderer() const;
 
 }; // RenderStage
 
