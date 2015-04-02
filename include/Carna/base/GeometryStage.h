@@ -12,6 +12,7 @@
 #ifndef GEOMETRYSTAGE_H_6014714286
 #define GEOMETRYSTAGE_H_6014714286
 
+#include <Carna/base/FrameRenderer.h>
 #include <Carna/base/RenderStage.h>
 #include <Carna/base/RenderQueue.h>
 #include <Carna/base/GeometryFeature.h>
