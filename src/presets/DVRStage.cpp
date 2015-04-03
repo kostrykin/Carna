@@ -48,6 +48,7 @@ struct DVRStage::Details
     void updateColorMap();
     
     float translucence;
+    float diffuseLight;
 
     static inline float huvToIntensity( base::HUV huv )
     {
@@ -59,6 +60,7 @@ struct DVRStage::Details
 DVRStage::Details::Details()
     : isColorMapDirty( true )
     , translucence( DEFAULT_TRANSLUCENCE )
+    , diffuseLight( DEFAULT_DIFFUSE_LIGHT )
 {
 }
 
@@ -91,6 +93,7 @@ void DVRStage::Details::updateColorMap()
 // ----------------------------------------------------------------------------------
 
 const float DVRStage::DEFAULT_TRANSLUCENCE = 50;
+const float DVRStage::DEFAULT_DIFFUSE_LIGHT = 1;
 
 
 DVRStage::DVRStage( unsigned int geometryType )
@@ -149,6 +152,19 @@ void DVRStage::setTranslucence( float translucence )
 float DVRStage::translucence() const
 {
     return pimpl->translucence;
+}
+
+
+void DVRStage::setDiffuseLight( float diffuseLight )
+{
+    CARNA_ASSERT( diffuseLight >= 0 && diffuseLight <= 1 );
+    pimpl->diffuseLight = diffuseLight;
+}
+
+
+float DVRStage::diffuseLight() const
+{
+    return pimpl->diffuseLight;
 }
 
 
@@ -268,6 +284,7 @@ void DVRStage::configureShader()
 {
     base::ShaderUniform<   int >( "colorMap", Details::COLORMAP_TEXTURE_UNIT ).upload();
     base::ShaderUniform< float >( "translucence", pimpl->translucence ).upload();
+    base::ShaderUniform< float >( "diffuseLight", pimpl->diffuseLight ).upload();
         
     /* Bind the color map.
      */

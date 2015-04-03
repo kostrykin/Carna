@@ -124,6 +124,12 @@ public:
     const static float DEFAULT_TRANSLUCENCE;
     
     /** \brief
+      * Holds the default diffuse light amount. The ambient light amount is always
+      * one minus the diffuse light amount.
+      */
+    const static float DEFAULT_DIFFUSE_LIGHT;
+    
+    /** \brief
       * Instantiates. The created stage will render such \ref base::Geometry scene
       * graph nodes, whose \ref GeometryTypes "geometry types" equal \a geometryType.
       */
@@ -158,6 +164,10 @@ public:
       */
     void writeColorMap( const base::math::Span< base::HUV >& huRange, const base::math::Span< base::Color > colorRange );
     
+    /** \overload
+      */
+    void writeColorMap( base::HUV huFirst, base::HUV huLast, const base::Color& colorFirst, const base::Color& colorLast );
+    
     /** \brief
       * Sets the \ref DVRStageTranslucence "translucence" property.
       */
@@ -168,9 +178,22 @@ public:
       */
     float translucence() const;
     
-    /** \overload
+    /** \brief
+      * Sets the diffuse light amount to \a diffuseLight and the ambient light amount
+      * to one minus \a diffuseLight.
+      *
+      * \pre `diffuseLight >= 0 && diffuseLight <= 1`
+      *
+      * This only has an effect if lighting is enabled. If lighting is enabled,
+      * setting this to \f$0\f$ virtually disables the lighting.
       */
-    void writeColorMap( base::HUV huFirst, base::HUV huLast, const base::Color& colorFirst, const base::Color& colorLast );
+    void setDiffuseLight( float diffuseLight );
+    
+    /** \brief
+      * Tells the diffuse light amount. The ambient light amount is one minus the
+      * diffuse light amount.
+      */
+    float diffuseLight() const;
 
 protected:
 

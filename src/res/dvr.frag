@@ -18,6 +18,7 @@ uniform mat4      modelTexture;
 uniform mat3      normalsView;
 uniform float     stepLength;
 uniform float     translucence;
+uniform float     diffuseLight;
 uniform int       lightingEnabled;
 
 in vec4 modelSpaceCoordinates;
@@ -37,17 +38,19 @@ vec4 sampleAt( vec3 p )
     if( lightingEnabled == 1 )
     {
         vec3 normalDirection = texture( normalMap, p ).rgb;
+        vec3 diffuseColor;
         if( dot( normalDirection, normalDirection ) < 1e-4 )
         {
-            return vec4( 0, 0, 0, color.a );
+            diffuseColor = vec3( 0, 0, 0 );
         }
         else
         {
             vec3 normal = normalize( normalsView * normalDirection );
             vec3 lightDirection = vec3( 0, 0, -1 );
             float diffuseLightAmount = max( 0, -dot( normal, lightDirection ) );
-            return vec4( color.rgb * diffuseLightAmount, color.a );
+            diffuseColor = color.rgb * diffuseLightAmount;
         }
+        return vec4( mix( color.rgb, diffuseColor, diffuseLight ), color.a );
     }
     else
     {
