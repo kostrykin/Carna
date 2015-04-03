@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 - 2014 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2015 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
@@ -27,6 +27,12 @@ BlendFunction::BlendFunction( int sourceFactor, int destinationFactor )
     : sourceFactor( sourceFactor )
     , destinationFactor( destinationFactor )
 {
+}
+
+
+bool BlendFunction::operator==( const BlendFunction& other ) const
+{
+    return sourceFactor == other.sourceFactor && destinationFactor == other.destinationFactor;
 }
 
 

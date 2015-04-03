@@ -59,6 +59,11 @@ public:
       * Holds the destination factor.
       */
     int destinationFactor;
+    
+    /** \brief
+      * Tells whether this function equals \a other.
+      */
+    bool operator==( const BlendFunction& other ) const;
 
 }; // BlendFunction
 
