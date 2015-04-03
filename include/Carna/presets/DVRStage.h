@@ -194,6 +194,12 @@ public:
       * diffuse light amount.
       */
     float diffuseLight() const;
+    
+    /** \brief
+      * Tells whether lighting was used during the last rendering. The return value
+      * is undefined if nothing was rendered yet.
+      */
+    bool isLightingUsed() const;
 
 protected:
 

@@ -49,6 +49,7 @@ struct DVRStage::Details
     
     float translucence;
     float diffuseLight;
+    bool isLightingUsed;
 
     static inline float huvToIntensity( base::HUV huv )
     {
@@ -168,6 +169,12 @@ float DVRStage::diffuseLight() const
 }
 
 
+bool DVRStage::isLightingUsed() const
+{
+    return pimpl->isLightingUsed;
+}
+
+
 void DVRStage::reshape( base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     base::RenderStage::reshape( fr, width, height );
@@ -192,6 +199,10 @@ void DVRStage::renderPass
     , const base::Viewport& outputViewport )
 {
     pimpl->updateColorMap();
+        
+    /* Reset whether lighting was used for rendering.
+     */
+    pimpl->isLightingUsed = false;
     
     /* Configure OpenGL state that is common to both following passes.
      */
@@ -313,6 +324,10 @@ void DVRStage::configureShader( const base::Renderable& renderable )
          */
         base::ShaderUniform< base::math::Matrix3f >( "normalsView", normalsView ).upload();
         base::ShaderUniform< int >( "lightingEnabled", 1 ).upload();
+        
+        /* Denote that lighting was used for rendering.
+         */
+        pimpl->isLightingUsed = true;
     }
     else
     {
