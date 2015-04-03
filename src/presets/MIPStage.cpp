@@ -88,8 +88,9 @@ MIPLayer* MIPStage::removeLayer( const MIPLayer& layer )
 {
     const auto layerItr = std::find( pimpl->layers.begin(), pimpl->layers.end(), const_cast< MIPLayer* >( &layer ) );
     CARNA_ASSERT( layerItr != pimpl->layers.end() );
+    MIPLayer* const ownedLayer = *layerItr;
     pimpl->layers.erase( layerItr );
-    return *layerItr;
+    return ownedLayer;
 }
 
 
