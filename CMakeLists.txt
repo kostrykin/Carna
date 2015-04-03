@@ -162,6 +162,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/CameraControl.h
 		include/${PROJECT_NAME}/base/ProjectionControl.h
 		include/${PROJECT_NAME}/base/glew.h
+		include/${PROJECT_NAME}/base/NodeListener.h
 		include/${PROJECT_NAME}/base/math.h
 		include/${PROJECT_NAME}/base/RotatingColor.h
 		include/${PROJECT_NAME}/base/RenderStageSequence.h
@@ -251,6 +252,7 @@ set( SRC
 		src/base/RotatingColor.cpp
 		src/base/RenderStageListener.cpp
 		src/base/math/Ray.cpp
+		src/base/NodeListener.cpp
 		src/presets/MeshColorCodingStage.cpp
 		src/presets/VolumeRenderingStage.cpp
 		src/presets/DRRStage.cpp
