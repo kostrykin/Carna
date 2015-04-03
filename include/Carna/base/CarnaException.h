@@ -22,6 +22,7 @@
 #include <string>
 #include <sstream>
 #include <stdexcept>
+#include <csignal>
 
 namespace Carna
 {
@@ -154,7 +155,7 @@ public:
   * \author Leonid Kostrykin
   * \date   5.3.13
   */
-#ifdef _DEBUG
+#ifndef NDEBUG
     #ifdef _MSC_VER
         #define CARNA_BREAK_FOR_DEBUG \
             if( ::Carna::base::BreakForDebug::isEnabled() ) \
@@ -165,7 +166,7 @@ public:
         #define CARNA_BREAK_FOR_DEBUG \
             if( ::Carna::base::BreakForDebug::isEnabled() ) \
             { \
-                raise( SIGTRAP ); \
+                std::raise( SIGINT ); \
             }
     #endif
 #else
