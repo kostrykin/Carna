@@ -25,6 +25,12 @@ namespace base
 // Node
 // ----------------------------------------------------------------------------------
 
+Node::Node()
+    : invalidated( false )
+{
+}
+
+
 Node::~Node()
 {
     deleteAllChildren();
@@ -75,19 +81,39 @@ void Node::removeNodeListener( NodeListener& listener )
 
 void Node::invalidate()
 {
-    /* Create copy of 'listeners' s.t. each listener is free to remove itself from
-     * the list.
-     */
-    const std::set< NodeListener* > listeners( this->listeners.begin(), this->listeners.end() );
-    for( auto itr = listeners.begin(); itr != listeners.end(); ++itr )
+    if( !invalidated )
     {
-        NodeListener& listener = **itr;
-        listener.onTreeInvalidated( *this );
+        /* Denote that we have started invalidating s.t. we do not invalidate the
+         * same node multiple times recursively.
+         */
+        invalidated = true;
+        
+        /* Create copy of 'listeners' s.t. each listener is free to remove itself from
+         * the list.
+         */
+        const std::set< NodeListener* > listeners( this->listeners.begin(), this->listeners.end() );
+        for( auto itr = listeners.begin(); itr != listeners.end(); ++itr )
+        {
+            NodeListener& listener = **itr;
+            listener.onTreeInvalidated( *this );
+        }
+        
+        /* Invalidate all subtrees.
+         */
+        for( auto itr = children.begin(); itr != children.end(); ++itr )
+        {
+            Spatial& child = **itr;
+            child.invalidate();
+        }
+        
+        /* Also invalidate all parent subtrees.
+         */
+        Spatial::invalidate();
+        
+        /* Finish invalidating.
+         */
+        invalidated = false;
     }
-    
-    /* Also invalidate all parent subtrees.
-     */
-    Spatial::invalidate();
 }
 
 

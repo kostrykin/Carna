@@ -46,9 +46,16 @@ class CARNA_LIB Node : public Spatial
 
     std::set< Spatial* > children;
     std::set< NodeListener* > listeners;
+    
+    bool invalidated;
     void notifyTreeChanges();
 
 public:
+
+    /** \brief
+      * Instantiates.
+      */
+    Node();
 
     /** \brief
       * Deletes.
@@ -70,7 +77,7 @@ public:
     /** \brief
       * Notifies \ref addNodeListener "all its listeners" that this subtree has
       * changed. This may include changes of the tree structure as well as updated
-      * materials and suchlike. Also invalidates all its parent subtrees.
+      * materials and suchlike. Also invalidates all its own and its parent subtrees.
       */
     void invalidate() override;
 
