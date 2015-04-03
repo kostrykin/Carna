@@ -195,6 +195,13 @@ public:
       * Each spatial is movable by default.
       */
     bool isMovable() const;
+    
+    /** \brief
+      * Notifies \ref Node::addNodeListener "all listeners" of its parent nodes that
+      * their subtrees have changed. This may include changes of the tree structure
+      * as well as updated materials and suchlike.
+      */
+    virtual void invalidate();
 
 }; // Spatial
 

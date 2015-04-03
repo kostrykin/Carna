@@ -109,6 +109,7 @@ namespace Carna
         class  RenderStageSequence;
         class  RenderStageListener;
         class  VolumeGridHelperBase;
+        class  NodeListener;
 
         template< typename AssociatedObjectType > class Aggregation;
         template< typename AssociatedObjectType > class Association;

@@ -114,6 +114,8 @@ public:
       * Updates the moved spatial object's location. Returns \c true if and only if
       * the object's location changed.
       *
+      * Invalidates the subtrees the moved spatial is within.
+      *
       * \param frameX
       *     is the \ref FrameCoordinates "first frame coordinate", where the spatial
       *     object is to be moved to.

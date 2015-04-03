@@ -160,10 +160,26 @@ bool SpatialMovement::update( unsigned int frameX, unsigned int frameY )
         const math::Matrix4f translation = pimpl->movedSpatialParentInverseWorldTransform * math::translation4f( displacement );
         pimpl->movedSpatial->localTransform = translation * pimpl->movedSpatial->localTransform;
 
+        /* Invalidate the subtree.
+         */
+        Node* subtree = dynamic_cast< Node* >( pimpl->movedSpatial );
+        if( subtree == nullptr && pimpl->movedSpatial->hasParent() )
+        {
+            subtree = &pimpl->movedSpatial->parent();
+        }
+        if( subtree != nullptr )
+        {
+            subtree->invalidate();
+        }
+        
+        /* Denote that something has been moved.
+         */
         return true;
     }
     else
     {
+        /* Denote that nothing was moved.
+         */
         return false;
     }
 }

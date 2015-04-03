@@ -150,6 +150,15 @@ bool Spatial::isMovable() const
 }
 
 
+void Spatial::invalidate()
+{
+    if( hasParent() )
+    {
+        parent().invalidate();
+    }
+}
+
+
 
 }  // namespace Carna :: base
 

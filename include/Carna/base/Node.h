@@ -45,10 +45,34 @@ class CARNA_LIB Node : public Spatial
 {
 
     std::set< Spatial* > children;
+    std::set< NodeListener* > listeners;
+    void notifyTreeChanges();
 
 public:
 
+    /** \brief
+      * Deletes.
+      */
     virtual ~Node();
+    
+    /** \brief
+      * Notifies \a listener of changes related to this node in
+      * \f$\mathcal O\left(\log n\right)\f$.
+      */
+    void addNodeListener( NodeListener& listener );
+    
+    /** \brief
+      * Removes \a listener from being notified of changes related to this node in
+      * \f$\mathcal O\left(\log n\right)\f$.
+      */
+    void removeNodeListener( NodeListener& listener );
+    
+    /** \brief
+      * Notifies \ref addNodeListener "all its listeners" that this subtree has
+      * changed. This may include changes of the tree structure as well as updated
+      * materials and suchlike. Also invalidates all its parent subtrees.
+      */
+    void invalidate() override;
 
     /** \brief
       * Attaches \a child to this node in \f$\mathcal O\left(\log n\right)\f$ and

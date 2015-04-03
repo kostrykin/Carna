@@ -94,6 +94,8 @@ public:
       * If \a feature was already added to this node, than its \a role is updated.
       * If \a role is already taken by another feature, then the older one is
       * overridden.
+      *
+      * \ref Spatial::invalidate "Invalidates" all parent subtrees.
       */
     void putFeature( unsigned int role, GeometryFeature& feature );
 
@@ -103,6 +105,7 @@ public:
       * roles is explained \ref GeometryFeatures "here".
       *
       * Nothing happens if \a feature was not added to this geometry node previously.
+      * \ref Spatial::invalidate "Invalidates" all parent subtrees otherwise.
       */
     void removeFeature( GeometryFeature& feature );
 
@@ -111,11 +114,15 @@ public:
       * associated with \a role in \f$\mathcal O\left(\log n\right)\f$.
       *
       * Nothing happens if no feature is associated with \a role at the moment.
+      * \ref Spatial::invalidate "Invalidates" all parent subtrees otherwise.
       */
     void removeFeature( unsigned int role );
 
     /** \brief
       * Removes all \ref GeometryFeatures "geometry feature" from this node.
+      *
+      * \ref Spatial::invalidate "Invalidates" all parent subtrees if the features
+      * were not an empty set.
       */
     void clearFeatures();
 

@@ -13,6 +13,7 @@
 #include <Carna/base/GeometryFeature.h>
 #include <Carna/base/CarnaException.h>
 #include <Carna/base/Association.h>
+#include <Carna/base/Node.h>
 #include <vector>
 #include <map>
 
@@ -33,7 +34,27 @@ struct Geometry::Details
     std::map< unsigned int, GeometryFeature* > featureByRole;
     std::map< GeometryFeature*, unsigned int > roleByFeature;
     std::unique_ptr< BoundingVolume > boundingVolume;
+    
+    void clearFeatures( Geometry& self );
 };
+
+
+void Geometry::Details::clearFeatures( Geometry& self )
+{
+    std::vector< GeometryFeature* > features( featureByRole.size() );
+    unsigned int featureIdx = 0;
+    for( auto featureItr = featureByRole.begin(); featureItr != featureByRole.end(); ++featureItr )
+    {
+        features[ featureIdx++ ] = featureItr->second;
+    }
+    featureByRole.clear();
+    roleByFeature.clear();
+    for( auto featureItr = features.begin(); featureItr != features.end(); ++featureItr )
+    {
+        GeometryFeature* const ga = *featureItr;
+        ga->removeFrom( self );
+    }
+}
 
 
 
@@ -50,24 +71,16 @@ Geometry::Geometry( unsigned int geometryType )
 
 Geometry::~Geometry()
 {
-    clearFeatures();
+    pimpl->clearFeatures( *this );
 }
 
 
 void Geometry::clearFeatures()
 {
-    std::vector< GeometryFeature* > features( pimpl->featureByRole.size() );
-    unsigned int featureIdx = 0;
-    for( auto featureItr = pimpl->featureByRole.begin(); featureItr != pimpl->featureByRole.end(); ++featureItr )
+    if( !pimpl->featureByRole.empty() )
     {
-        features[ featureIdx++ ] = featureItr->second;
-    }
-    pimpl->featureByRole.clear();
-    pimpl->roleByFeature.clear();
-    for( auto featureItr = features.begin(); featureItr != features.end(); ++featureItr )
-    {
-        GeometryFeature* const ga = *featureItr;
-        ga->removeFrom( *this );
+        pimpl->clearFeatures( *this );
+        invalidate();
     }
 }
 
@@ -104,6 +117,7 @@ void Geometry::putFeature( unsigned int role, GeometryFeature& gf )
     {
         gf.addTo( *this, role );
     }
+    invalidate();
 }
 
 
@@ -116,6 +130,7 @@ void Geometry::removeFeature( GeometryFeature& gf )
         pimpl->roleByFeature.erase( featureItr );
         pimpl->featureByRole.erase( role );
         gf.removeFrom( *this );
+        invalidate();
     }
 }
 
@@ -129,6 +144,7 @@ void Geometry::removeFeature( unsigned int role )
         pimpl->roleByFeature.erase( gf );
         pimpl->featureByRole.erase( featureItr );
         gf->removeFrom( *this );
+        invalidate();
     }
 }
 
