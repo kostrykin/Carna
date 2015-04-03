@@ -52,9 +52,10 @@ public:
     virtual void onNodeDelete( const Node& node ) = 0;
     
     /** \brief
-      * Indicates that the tree structure of the \a subtree has changed.
+      * Indicates that the scene's tree structure has changed. The tree structure of
+      * \a node only has changed if \a inThisSubtree is `true`.
       */
-    virtual void onTreeChange( Node& subtree ) = 0;
+    virtual void onTreeChange( Node& node, bool inThisSubtree ) = 0;
     
     /** \brief
       * Indicates that \a subtree has been invalidated. This may include changes of
