@@ -198,8 +198,6 @@ set( PRIVATE_QOBJECT_HEADERS
 )
 set( PRIVATE_HEADERS
 		${PRIVATE_QOBJECT_HEADERS}
-		src/include/Carna/base/gl.h
-		src/include/Carna/base/glu.h
 	)
 set( SRC
 		src/base/BoundingBox.cpp
