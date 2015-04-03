@@ -108,6 +108,7 @@ namespace Carna
         class  TextureBase;
         class  RenderStageSequence;
         class  RenderStageListener;
+        class  VolumeGridHelperBase;
 
         template< typename AssociatedObjectType > class Aggregation;
         template< typename AssociatedObjectType > class Association;

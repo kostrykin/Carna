@@ -268,6 +268,7 @@ set( SRC
 		src/presets/ParallaxStage.cpp
 		src/presets/DVRStage.cpp
 		src/helpers/FrameRendererHelper.cpp
+		src/helpers/VolumeGridHelper.cpp
 		src/helpers/VolumeGridHelperDetails.cpp
 		src/helpers/PointMarkerHelper.cpp
 	)

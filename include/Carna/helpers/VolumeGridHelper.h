@@ -14,6 +14,7 @@
 
 #include <Carna/helpers/VolumeGridHelperDetails.h>
 #include <Carna/Carna.h>
+#include <Carna/base/Node.h>
 #include <Carna/base/math.h>
 #include <Carna/base/VolumeGrid.h>
 #include <Carna/base/VolumeSegment.h>
@@ -31,6 +32,110 @@ namespace Carna
 
 namespace helpers
 {
+
+
+
+// ----------------------------------------------------------------------------------
+// VolumeGridHelperBase
+// ----------------------------------------------------------------------------------
+
+/** \brief
+  * Defines type-parameters-independent \ref VolumeGridHelper base interface.
+  *
+  * \author Leonid Kostrykin
+  * \date   3.4.15
+  */
+class CARNA_LIB VolumeGridHelperBase
+{
+
+public:
+
+    /** \brief
+      * Does nothing.
+      */
+    virtual ~VolumeGridHelperBase();
+
+    /** \brief
+     * Releases all previously acquired textures. Invoke this method when the volume
+     * data changes.
+     *
+     * \copydetails VolumeGridHelper::releaseGeometryFeatures
+     */
+    virtual void releaseGeometryFeatures() = 0;
+
+    /** \brief
+      * Specifies the spacing between two succeeding voxel centers in millimeters.
+      */
+    struct CARNA_LIB Spacing
+    {
+        /** \brief
+          * Instantiates.
+          */
+        explicit Spacing( const base::math::Vector3f& millimeters );
+
+        /** \brief
+          * Holds the spacing between two succeeding voxel centers in millimeters.
+          */
+        base::math::Vector3f millimeters;
+    };
+    
+    /** \brief
+      * Specifies the dimensions of the whole dataset in millimeters.
+      */
+    struct CARNA_LIB Dimensions
+    {
+        /** \brief
+          * Instantiates.
+          */
+        explicit Dimensions( const base::math::Vector3f& millimeters );
+
+        /** \brief
+          * Holds the dimensions of the whole dataset in millimeters.
+          */
+        base::math::Vector3f millimeters;
+    };
+
+    /** \brief
+      * Creates renderable representation of the underlying grid, that can be put
+      * anywhere in the scene graph. The volume is centered in the node.
+      *
+      * \warning
+      *     Only change the returned node's \ref base::Spatial::localTransform
+      *     "localTransform" attribute when you know what you're doing! Put it into
+      *     another node otherwise.
+      *
+      * \param geometryType
+      *     Will be used for \ref base::Geometry instantiation.
+      *
+      * \param spacing
+      *     Specifies the spacing between two succeeding voxel centers in
+      *     millimeters.
+      */
+    virtual base::Node* createNode( unsigned int geometryType, const Spacing& spacing ) const = 0;
+    
+    /** \brief
+      * Creates renderable representation of the underlying grid, that can be put
+      * anywhere in the scene graph. The volume is centered in the node.
+      *
+      * \warning
+      *     Only change the returned node's \ref base::Spatial::localTransform
+      *     "localTransform" attribute when you know what you're doing! Put it into
+      *     another node otherwise.
+      *
+      * \param geometryType
+      *     Will be used for \ref base::Geometry instantiation.
+      *
+      * \param dimensions
+      *     Specifies the dimensions of the whole dataset in millimeters.
+      */
+    virtual base::Node* createNode( unsigned int geometryType, const Dimensions& dimensions ) const = 0;
+    
+    /** \brief
+      * Alters the volume data.
+      */
+    virtual void loadData( const std::function< base::HUV( const base::math::Vector3ui& ) >& data ) = 0;
+
+}; // VolumeGridHelperBase
 
 
 
@@ -78,7 +183,8 @@ namespace helpers
   */
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 class VolumeGridHelper
-    : public details::VolumeGridHelper::HUComponent     < SegmentHUVolumeType, SegmentNormalsVolumeType >
+    : public VolumeGridHelperBase
+    , public details::VolumeGridHelper::HUComponent     < SegmentHUVolumeType, SegmentNormalsVolumeType >
     , public details::VolumeGridHelper::NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >
 {
 
@@ -155,6 +261,10 @@ public:
     template< typename UnaryVector3uiToHUVFunction >
     void loadData( const UnaryVector3uiToHUVFunction& data );
     
+    /** \overload
+      */
+    virtual void loadData( const std::function< base::HUV( const base::math::Vector3ui& ) >& data ) override;
+    
     /** \brief
     * Releases all previously acquired textures. Invoke this method when the volume
     * data changes, \ref loadData already does takes care of that.
@@ -165,79 +275,16 @@ public:
     * volume data been altered, same textures will get uploaded twice to video
     * memory, i.e. video resources will be wasted.
       */
-    void releaseGeometryFeatures();
+    virtual void releaseGeometryFeatures() override;
 
     /** \brief
       * References the underlying grid.
       */
     base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >& grid() const;
 
-    /** \brief
-      * Specifies the spacing between two succeeding voxel centers in millimeters.
-      */
-    struct Spacing
-    {
-        /** \brief
-          * Instantiates.
-          */
-        explicit Spacing( const base::math::Vector3f& millimeters );
-
-        /** \brief
-          * Holds the spacing between two succeeding voxel centers in millimeters.
-          */
-        base::math::Vector3f millimeters;
-    };
+    virtual base::Node* createNode( unsigned int geometryType, const Spacing& spacing ) const override;
     
-    /** \brief
-      * Specifies the dimensions of the whole dataset in millimeters.
-      */
-    struct Dimensions
-    {
-        /** \brief
-          * Instantiates.
-          */
-        explicit Dimensions( const base::math::Vector3f& millimeters );
-
-        /** \brief
-          * Holds the dimensions of the whole dataset in millimeters.
-          */
-        base::math::Vector3f millimeters;
-    };
-
-    /** \brief
-      * Creates renderable representation of the underlying grid, that can be put
-      * anywhere in the scene graph. The volume is centered in the node.
-      *
-      * \warning
-      *     Only change the returned node's \ref base::Spatial::localTransform
-      *     "localTransform" attribute when you know what you're doing! Put it into
-      *     another node otherwise.
-      *
-      * \param geometryType
-      *     Will be used for \ref base::Geometry instantiation.
-      *
-      * \param spacing
-      *     Specifies the spacing between two succeeding voxel centers in
-      *     millimeters.
-      */
-    base::Node* createNode( unsigned int geometryType, const Spacing& spacing ) const;
-    
-    /** \brief
-      * Creates renderable representation of the underlying grid, that can be put
-      * anywhere in the scene graph. The volume is centered in the node.
-      *
-      * \warning
-      *     Only change the returned node's \ref base::Spatial::localTransform
-      *     "localTransform" attribute when you know what you're doing! Put it into
-      *     another node otherwise.
-      *
-      * \param geometryType
-      *     Will be used for \ref base::Geometry instantiation.
-      *
-      * \param dimensions
-      *     Specifies the dimensions of the whole dataset in millimeters.
-      */
-    base::Node* createNode( unsigned int geometryType, const Dimensions& dimensions ) const;
+    virtual base::Node* createNode( unsigned int geometryType, const Dimensions& dimensions ) const override;
     
 protected:
 
@@ -336,6 +383,14 @@ void VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::loadData
 
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+void VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::loadData
+    ( const std::function< base::HUV( const base::math::Vector3ui& ) >& data )
+{
+    loadData< std::function< base::HUV( const base::math::Vector3ui& ) > >( data );
+}
+
+
+template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >&
     VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::grid() const
 {
@@ -413,7 +468,7 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
 {
     const base::math::Vector3f& mmDimensions = dimensions.millimeters;
     const base::math::Vector3f spacing
-        = mmDimensions.cast< float >().cwiseQuotient( ( resolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ) );
+        = mmDimensions.cast< float >().cwiseQuotient( ( resolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >() );
     return createNode( geometryType, Spacing( spacing ), dimensions );
 }
 
@@ -422,20 +477,6 @@ template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 base::math::Vector3ui VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::gridResolution() const
 {
     return resolution;
-}
-
-
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::Spacing::Spacing( const base::math::Vector3f& millimeters )
-    : millimeters( millimeters )
-{
-}
-
-
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::Dimensions::Dimensions( const base::math::Vector3f& millimeters )
-    : millimeters( millimeters )
-{
 }
 
 
