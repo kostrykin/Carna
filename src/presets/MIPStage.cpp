@@ -98,9 +98,10 @@ void MIPStage::ascendLayer( const MIPLayer& layer )
 {
     const auto layerItr = std::find( pimpl->layers.begin(), pimpl->layers.end(), const_cast< MIPLayer* >( &layer ) );
     CARNA_ASSERT( layerItr != pimpl->layers.end() );
-    if( layerItr != pimpl->layers.begin() )
+    const auto nextLayerItr = layerItr + 1;
+    if( nextLayerItr != pimpl->layers.end() )
     {
-        std::swap( *layerItr, *( layerItr - 1 ) );
+        std::swap( *layerItr, *nextLayerItr );
     }
 }
 
