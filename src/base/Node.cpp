@@ -206,8 +206,8 @@ void Node::deleteAllChildren()
         pimpl->isDeletingChildren = true;
         std::for_each( pimpl->children.begin(), pimpl->children.end(), std::default_delete< Spatial >() );
         pimpl->children.clear();
-        pimpl->notifyTreeChanges( true );
         pimpl->isDeletingChildren = false;
+        pimpl->notifyTreeChanges( true );
     }
 }
 
