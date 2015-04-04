@@ -50,6 +50,7 @@ class CARNA_LIB Spatial
     math::Matrix4f myWorldTransform;
     const void* myUserData;
     bool movable;
+    std::string myTag;
 
 public:
 
@@ -57,8 +58,10 @@ public:
 
     /** \brief
       * Instantiates.
+      *
+      * \param tag is an arbitrary string that may be used to identify this node.
       */
-    Spatial();
+    explicit Spatial( const std::string& tag = "" );
     
     /** \brief
       * Does nothing.
@@ -202,6 +205,16 @@ public:
       * as well as updated materials and suchlike.
       */
     virtual void invalidate();
+    
+    /** \brief
+      * Sets an arbitrary tag that may be used to identify this object.
+      */
+    void setTag( const std::string& tag );
+    
+    /** \brief
+      * Tells the \ref setTag "tag set previously".
+      */
+    const std::string& tag() const;
 
 }; // Spatial
 

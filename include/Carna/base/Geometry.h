@@ -74,8 +74,10 @@ public:
       *
       * \param geometryType sets the \ref GeometryTypes "geometry type" of this
       *     geometry node.
+      *
+      * \param tag is an arbitrary string that may be used to identify this node.
       */
-    Geometry( int unsigned geometryType );
+    explicit Geometry( unsigned int geometryType, const std::string& tag = "" );
 
     /** \brief
       * Deletes.

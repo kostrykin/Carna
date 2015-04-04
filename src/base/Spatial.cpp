@@ -25,11 +25,12 @@ namespace base
 // Spatial
 // ----------------------------------------------------------------------------------
 
-Spatial::Spatial()
+Spatial::Spatial( const std::string& tag )
     : myParent( nullptr )
     , localTransform( math::identity4f() )
     , myUserData( nullptr )
     , movable( true )
+    , myTag( tag )
 {
 }
 
@@ -156,6 +157,18 @@ void Spatial::invalidate()
     {
         parent().invalidate();
     }
+}
+
+
+void Spatial::setTag( const std::string& tag )
+{
+    myTag = tag;
+}
+
+
+const std::string& Spatial::tag() const
+{
+    return myTag;
 }
 
 

@@ -106,8 +106,9 @@ void Node::Details::notifyTreeChanges( bool inThisSubtree )
 // Node
 // ----------------------------------------------------------------------------------
 
-Node::Node()
-    : pimpl( new Details( *this ) )
+Node::Node( const std::string& tag )
+    : Spatial( tag )
+    , pimpl( new Details( *this ) )
 {
 }
 

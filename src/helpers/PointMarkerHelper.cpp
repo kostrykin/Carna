@@ -35,6 +35,9 @@ struct PointMarkerHelper::Details
 
     base::ManagedMeshBase& mesh;
     static base::RotatingColor nextColor;
+    
+    static unsigned int lastNumber;
+    base::Geometry* createGeometry( unsigned int geometryType );
 
     std::map< base::Color, base::Material* > materials;
     base::Material& nextMaterial( unsigned int pointSize );
@@ -42,6 +45,7 @@ struct PointMarkerHelper::Details
 
 
 base::RotatingColor PointMarkerHelper::Details::nextColor;
+unsigned int PointMarkerHelper::Details::lastNumber = 0;
 
 
 PointMarkerHelper::Details::Details()
@@ -66,6 +70,14 @@ base::Material& PointMarkerHelper::Details::nextMaterial( unsigned int pointSize
     {
         return *materialItr->second;
     }
+}
+
+
+base::Geometry* PointMarkerHelper::Details::createGeometry( unsigned int geometryType )
+{
+    std::stringstream tag;
+    tag << "Point Marker " << ( ++lastNumber );
+    return new base::Geometry( geometryType, tag.str() );
 }
 
 
@@ -123,7 +135,7 @@ void PointMarkerHelper::releaseGeometryFeatures()
 
 base::Geometry* PointMarkerHelper::createPointMarker() const
 {
-    base::Geometry* const point = new base::Geometry( geometryType );
+    base::Geometry* const point = pimpl->createGeometry( geometryType );
     point->putFeature( meshRole, pimpl->mesh );
     point->putFeature( materialRole, pimpl->nextMaterial( pointSize ) );
     return point;
@@ -136,7 +148,7 @@ base::Geometry* PointMarkerHelper::createPointMarker( const base::Color& color )
     material.setParameter(     "color", color );
     material.setParameter( "pointSize", static_cast< float >( pointSize ) );
 
-    base::Geometry* const point = new base::Geometry( geometryType );
+    base::Geometry* const point = pimpl->createGeometry( geometryType );
     point->putFeature( meshRole, pimpl->mesh );
     point->putFeature( materialRole, material );
 

@@ -62,8 +62,9 @@ void Geometry::Details::clearFeatures( Geometry& self )
 // Geometry
 // ----------------------------------------------------------------------------------
 
-Geometry::Geometry( unsigned int geometryType )
-    : pimpl( new Details() )
+Geometry::Geometry( unsigned int geometryType, const std::string& tag )
+    : Spatial( tag )
+    , pimpl( new Details() )
     , geometryType( geometryType )
 {
 }

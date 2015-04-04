@@ -51,8 +51,10 @@ public:
 
     /** \brief
       * Instantiates.
+      *
+      * \param tag is an arbitrary string that may be used to identify this node.
       */
-    Node();
+    explicit Node( const std::string& tag = "" );
 
     /** \brief
       * Deletes.
