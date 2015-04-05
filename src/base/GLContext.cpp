@@ -68,10 +68,7 @@ GLContext::GLContext( bool isDoubleBuffered )
 
     CARNA_GLEW_INIT;
     glContextInstances.insert( this );
-    if( currentGLContext == nullptr )
-    {
-        currentGLContext = this;
-    }
+    currentGLContext = this;
 
     /* Setup depth-write, depth-test and depth compare function.
      */
@@ -152,6 +149,13 @@ GLContext& GLContext::current()
 bool GLContext::isCurrent() const
 {
     return currentGLContext == this;
+}
+
+
+void GLContext::makeCurrent() const
+{
+    currentGLContext = const_cast< GLContext* >( this );
+    this->activate();
 }
 
 

@@ -70,7 +70,7 @@ class CARNA_LIB GLContext
 protected:
 
     /** \brief
-      * Instantiates.
+      * Instantiates `%GLContext` that represents the *current* OpenGL context.
       */
     explicit GLContext( bool isDoubleBuffered );
 
@@ -114,7 +114,7 @@ public:
     /** \brief
       * Makes the OpenGL context represented by this object the current one.
       */
-    virtual void makeCurrent() const = 0;
+    void makeCurrent() const;
 
     /** \brief
       * Tells whether the OpenGL context represented by this object is the current
@@ -139,6 +139,13 @@ public:
       * \ref DEPTH_BUFFER_BIT is supplied.
       */
     void clearBuffers( unsigned int flags );
+    
+protected:
+
+    /** \brief
+      * Activates the OpenGL context represented by this object.
+      */
+    virtual void activate() const = 0;
 
 }; // GLContext
 
@@ -180,8 +187,10 @@ public:
       * Holds the recommended format that shall be used to create a `QGLContext`.
       */
     static QGLFormat desiredFormat();
+    
+protected:
 
-    virtual void makeCurrent() const override;
+    virtual void activate() const override;
 
 }; // QGLContextAdapter
 
@@ -220,7 +229,7 @@ QGLFormat QGLContextAdapter< QGLContext, QGLFormat >::desiredFormat()
 
 
 template< typename QGLContext, typename QGLFormat >
-void QGLContextAdapter< QGLContext, QGLFormat >::makeCurrent() const
+void QGLContextAdapter< QGLContext, QGLFormat >::activate() const
 {
     qglcontext.makeCurrent();
 }
