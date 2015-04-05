@@ -139,7 +139,8 @@ void OrthogonalControl::rotateVertically( float radians )
 
 void OrthogonalControl::moveLaterally( float unitsX, float unitsY )
 {
-    pimpl->cc->moveLaterally( unitsX, unitsY );
+    const float zoomFactor = pimpl->zoomFactor();
+    pimpl->cc->moveLaterally( zoomFactor * unitsX, zoomFactor * unitsY );
 }
 
 
