@@ -47,7 +47,8 @@ public:
     virtual ~NodeListener();
     
     /** \brief
-      * Indicates that \a node is about to be deleted.
+      * Indicates that \a node is about to be deleted. Dying nodes never notify
+      * \ref onTreeChange.
       */
     virtual void onNodeDelete( const Node& node ) = 0;
     

@@ -34,6 +34,7 @@ struct Node::Details
     std::set< Spatial* > children;
     std::set< NodeListener* > listeners;
     
+    bool isDying;
     bool isTreeChangeNotified;
     bool isDeletingChildren;
     void notifyTreeChanges( bool inThisSubtree );
@@ -42,6 +43,7 @@ struct Node::Details
 
 Node::Details::Details( Node& self )
     : self( self )
+    , isDying( false )
     , isTreeChangeNotified( false )
     , isDeletingChildren( false )
 {
@@ -51,9 +53,10 @@ Node::Details::Details( Node& self )
 void Node::Details::notifyTreeChanges( bool inThisSubtree )
 {
     /* Do not propagate notifications as long as this node is deleting children
-     * itself. It will fire a notifications when it is done anyway.
+     * itself. It will fire a notifications when it is done anyway. Also do not
+     * propagate notifications if this node is being deleted.
      */
-    if( isDeletingChildren )
+    if( isDeletingChildren || isDying )
     {
         return;
     }
@@ -115,6 +118,8 @@ Node::Node( const std::string& tag )
 
 Node::~Node()
 {
+    pimpl->isDying = true;
+
     /* We can iterate over 'listeners' directly, because we pass ourselves an an
      * immutable reference to the listener, s.t. it cannot alter that list anyway.
      */
