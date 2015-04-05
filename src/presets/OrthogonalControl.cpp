@@ -32,6 +32,8 @@ struct OrthogonalControl::Details
     float weightedAxialPosition;
     float zoomStrength;
     float zoomFactor() const;
+    
+    bool isRotationEnabled;
 };
 
 
@@ -39,6 +41,7 @@ OrthogonalControl::Details::Details( base::CameraControl* cc )
     : cc( cc )
     , weightedAxialPosition( 0 )
     , zoomStrength( DEFAULT_ZOOM_STRENGTH )
+    , isRotationEnabled( true )
 {
 }
 
@@ -127,13 +130,19 @@ void OrthogonalControl::setCamera( base::Spatial& cam )
 
 void OrthogonalControl::rotateHorizontally( float radians )
 {
-    pimpl->cc->rotateHorizontally( radians );
+    if( pimpl->isRotationEnabled )
+    {
+        pimpl->cc->rotateHorizontally( radians );
+    }
 }
 
 
 void OrthogonalControl::rotateVertically( float radians )
 {
-    pimpl->cc->rotateVertically( radians );
+    if( pimpl->isRotationEnabled )
+    {
+        pimpl->cc->rotateVertically( radians );
+    }
 }
 
 
@@ -141,6 +150,18 @@ void OrthogonalControl::moveLaterally( float unitsX, float unitsY )
 {
     const float zoomFactor = pimpl->zoomFactor();
     pimpl->cc->moveLaterally( zoomFactor * unitsX, zoomFactor * unitsY );
+}
+
+
+void OrthogonalControl::setRotationEnabled( bool isRotationEnabled )
+{
+    pimpl->isRotationEnabled = isRotationEnabled;
+}
+
+
+bool OrthogonalControl::isRotationEnabled() const
+{
+    return pimpl->isRotationEnabled;
 }
 
 

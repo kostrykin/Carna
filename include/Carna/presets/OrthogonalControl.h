@@ -81,6 +81,16 @@ public:
     float zoomStrength() const;
     
     /** \brief
+      * Enables and disables \ref rotateHorizontally and \ref rotateVertically.
+      */
+    void setRotationEnabled( bool isRotationEnabled );
+    
+    /** \brief
+      * Tells whether \ref rotateHorizontally and \ref rotateVertically are enabled.
+      */
+    bool isRotationEnabled() const;
+    
+    /** \brief
       * Creates \a orthogonalProjection matrix using \ref base::math::ortho4f.
       */
     virtual void updateProjection( base::math::Matrix4f& orthogonalProjection ) const override;
