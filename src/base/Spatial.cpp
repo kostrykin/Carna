@@ -56,10 +56,16 @@ bool Spatial::hasParent() const
 
 Spatial* Spatial::detachFromParent()
 {
-    CARNA_ASSERT( hasParent() );
-    Spatial* const result = myParent->detachChild( *this );
-    myParent = nullptr;
-    return result;
+    if( hasParent() )
+    {
+        Spatial* const result = myParent->detachChild( *this );
+        myParent = nullptr;
+        return result;
+    }
+    else
+    {
+        return nullptr;
+    }
 }
 
     
