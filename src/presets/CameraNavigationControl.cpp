@@ -12,6 +12,7 @@
 #include <Carna/presets/CameraNavigationControl.h>
 #include <Carna/base/Camera.h>
 #include <Carna/base/math.h>
+#include <Carna/base/Log.h>
 
 namespace Carna
 {
@@ -88,6 +89,13 @@ void CameraNavigationControl::moveAxially( float units )
 {
     CARNA_ASSERT( pimpl->cam != nullptr );
     pimpl->cam->localTransform = pimpl->cam->localTransform * base::math::translation4f( 0, 0, units );
+}
+
+
+void CameraNavigationControl::moveLaterally( float unitsX, float unitsY )
+{
+    CARNA_ASSERT( pimpl->cam != nullptr );
+    pimpl->cam->localTransform = pimpl->cam->localTransform * base::math::translation4f( unitsX, unitsY, 0 );
 }
 
 

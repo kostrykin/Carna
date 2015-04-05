@@ -150,6 +150,12 @@ void CameraShowcaseControl::moveAxially( float units )
 }
 
 
+void CameraShowcaseControl::moveLaterally( float unitsX, float unitsY )
+{
+    base::Log::instance().record( base::Log::warning, "CameraShowcaseControl::moveLaterally not implemented yet." );
+}
+
+
 
 }  // namespace Carna :: presets
 

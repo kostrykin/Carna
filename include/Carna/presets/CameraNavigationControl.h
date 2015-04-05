@@ -37,7 +37,7 @@ namespace presets
   * completely free camera movement.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 17.3.15
+  * \date   22.2.15 - 5.4.15
   */
 class CARNA_LIB CameraNavigationControl : public base::CameraControl
 {
@@ -78,6 +78,8 @@ public:
       * by \a units.
       */
     virtual void moveAxially( float units ) override;
+    
+    virtual void moveLaterally( float unitsX, float unitsY ) override;
 
 }; // CameraNavigationControl
 

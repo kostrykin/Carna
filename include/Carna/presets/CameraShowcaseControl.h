@@ -37,6 +37,8 @@ namespace presets
   * The camera movement is bounded to the rail from its parent to its current
   * location.
   *
+  * \todo Implement `CameraShowcaseControl::%moveLaterally`.
+  *
   * \author Leonid Kostrykin
   * \date   22.2.15 - 17.3.15
   */
@@ -121,6 +123,8 @@ public:
       * \ref minDistance and \ref maxDistance.
       */
     virtual void moveAxially( float units ) override;
+    
+    virtual void moveLaterally( float unitsX, float unitsY ) override;
 
 }; // CameraShowcaseControl
 

@@ -36,9 +36,9 @@ namespace presets
   * Controls orthogonal projection matrices, that induce box-shaped visible volume,
   * and \ref base::Camera objects that use such projections.
   *
-  * The \ref base::CameraControl interface delegates rotations to an arbitrary
-  * implementation that is supplied to the constructor, but overrides the
-  * \ref moveAxially "axial movement" s.t. it is realized as zooming through
+  * The \ref base::CameraControl interface delegates rotations and lateral movement
+  * to an arbitrary implementation that is supplied to the constructor, but overrides
+  * the \ref moveAxially "axial movement" s.t. it is realized as zooming through
   * adjustment of the projection matrix. 
   *
   * \author Leonid Kostrykin
@@ -103,6 +103,8 @@ public:
       * Updates the result \ref updateProjection produces.
       */
     virtual void moveAxially( float units ) override;
+    
+    virtual void moveLaterally( float unitsX, float unitsY ) override;
 
 }; // OrthogonalControl
 

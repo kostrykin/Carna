@@ -137,6 +137,12 @@ void OrthogonalControl::rotateVertically( float radians )
 }
 
 
+void OrthogonalControl::moveLaterally( float unitsX, float unitsY )
+{
+    pimpl->cc->moveLaterally( unitsX, unitsY );
+}
+
+
 
 }  // namespace Carna :: presets
 

@@ -70,6 +70,12 @@ public:
       * the implementation.
       */
     virtual void moveAxially( float distance ) = 0;
+    
+    /** \brief
+      * Moves the camera along its x-/y-axis. The parameters of this movement depend
+      * on the implementation.
+      */
+    virtual void moveLaterally( float distanceX, float distanceY ) = 0;
 
 }; // CameraControl
 
