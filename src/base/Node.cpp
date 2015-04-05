@@ -115,8 +115,6 @@ Node::Node( const std::string& tag )
 
 Node::~Node()
 {
-    deleteAllChildren();
-    
     /* We can iterate over 'listeners' directly, because we pass ourselves an an
      * immutable reference to the listener, s.t. it cannot alter that list anyway.
      */
@@ -125,6 +123,11 @@ Node::~Node()
         NodeListener& listener = **itr;
         listener.onNodeDelete( *this );
     }
+    
+    /* We delete the children after notifying the listeners s.t. each listener has a
+     * chance to 'save' particular children if it desires to.
+     */
+    deleteAllChildren();
 }
 
 
