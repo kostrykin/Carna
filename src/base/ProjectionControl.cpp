@@ -100,7 +100,7 @@ unsigned int ProjectionControl::viewportHeight() const
 }
 
 
-void ProjectionControl::setMinimumVisibileDistance( float minimumVisibleDistance )
+void ProjectionControl::setMinimumVisibleDistance( float minimumVisibleDistance )
 {
     CARNA_ASSERT( minimumVisibleDistance >= 0 );
     if( !math::isEqual( pimpl->minimumVisibleDistance, minimumVisibleDistance ) )
@@ -111,7 +111,7 @@ void ProjectionControl::setMinimumVisibileDistance( float minimumVisibleDistance
 }
 
 
-void ProjectionControl::setMaximumVisibileDistance( float maximumVisibleDistance )
+void ProjectionControl::setMaximumVisibleDistance( float maximumVisibleDistance )
 {
     CARNA_ASSERT( maximumVisibleDistance > 0 );
     if( !math::isEqual( pimpl->maximumVisibleDistance, maximumVisibleDistance ) )

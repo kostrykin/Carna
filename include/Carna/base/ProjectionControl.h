@@ -104,7 +104,7 @@ public:
       *
       * \pre `minimumVisibleDistance >= 0`
       */
-    void setMinimumVisibileDistance( float minimumVisibleDistance );
+    void setMinimumVisibleDistance( float minimumVisibleDistance );
     
     /** \brief
       * Sets far clipping plane distance that should be used by
@@ -112,7 +112,7 @@ public:
       *
       * \pre `maximumVisibleDistance > 0`
       */
-    void setMaximumVisibileDistance( float maximumVisibleDistance );
+    void setMaximumVisibleDistance( float maximumVisibleDistance );
     
     /** \brief
       * Tells near clipping plane distance that is used by \ref updateProjection.
