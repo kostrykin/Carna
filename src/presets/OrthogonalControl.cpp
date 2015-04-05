@@ -51,7 +51,7 @@ float OrthogonalControl::Details::zoomFactor() const
     }
     else
     {
-        return -1 / ( 1 + weightedAxialPosition );
+        return 1 / ( 1 - weightedAxialPosition );
     }
 }
 
