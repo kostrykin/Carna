@@ -499,10 +499,10 @@ namespace math
         Matrix4f result;
         result.setZero();
 
-        result( 0, 0 ) = 2 * zNear / ( right - left );
-        result( 1, 1 ) = 2 * zNear / ( top - bottom );
-        result( 0, 2 ) = ( right + left ) / ( right - left );
-        result( 1, 2 ) = ( top + bottom ) / ( top - bottom );
+        result( 0, 0 ) = +2 * zNear / ( right - left );
+        result( 1, 1 ) = +2 * zNear / ( top - bottom );
+        result( 0, 2 ) =  ( right + left ) / ( right - left );
+        result( 1, 2 ) =  ( top + bottom ) / ( top - bottom );
         result( 2, 2 ) = -( zFar + zNear ) / ( zFar - zNear );
         result( 3, 2 ) = -1;
         result( 2, 3 ) = -2 * zFar * zNear / ( zFar - zNear );
@@ -530,6 +530,25 @@ namespace math
         const float halfProjPlaneWidth  = zNear * std::tan( fovRadiansHorizontal );
         const float halfProjPlaneHeight = halfProjPlaneWidth * heightOverWidth;
         return frustum4f( -halfProjPlaneWidth, +halfProjPlaneWidth, -halfProjPlaneHeight, +halfProjPlaneHeight, zNear, zFar );
+    }
+    
+    /** \brief
+      * Returns the projection matrix that is described by the specified box.
+      */
+    inline Matrix4f ortho4f( float left, float right, float bottom, float top, float zNear, float zFar )
+    {
+        Matrix4f result;
+        result.setZero();
+
+        result( 0, 0 ) =  2 / ( right - left );
+        result( 1, 1 ) =  2 / ( top - bottom );
+        result( 2, 2 ) = -2 / ( zFar - zNear );
+        result( 0, 3 ) = -( right + left ) / ( right - left );
+        result( 1, 3 ) = -( top + bottom ) / ( bottom - top );
+        result( 2, 3 ) = -( zFar + zNear ) / ( zFar - zNear );
+        result( 3, 3 ) = +1;
+
+        return result;
     }
 
     /** \brief
