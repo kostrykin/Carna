@@ -250,6 +250,12 @@ void Node::visitChildren( bool recursively, const ImmutableVisitor& visit ) cons
 }
 
 
+std::size_t Node::children() const
+{
+    return pimpl->children.size();
+}
+
+
 void Node::updateWorldTransform()
 {
     Spatial::updateWorldTransform();

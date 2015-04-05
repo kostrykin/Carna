@@ -145,7 +145,8 @@ public:
     /** \brief
       * Acquires the video resources from this `%GeometryFeature` by returning new
       * instance of a class derived from \ref ManagedInterface, that realizes the
-      * RAII idiom. Refer to its documentation for details.
+      * RAII idiom. Refer to its documentation for details. May return `nullptr` if
+      * this `%GeometryFeature` does not provide any video resources.
       */
     virtual ManagedInterface* acquireVideoResource() = 0;
 

@@ -161,7 +161,10 @@ GeometryStage< RenderableCompare >::~GeometryStage()
     std::for_each( acquiredFeatures.begin(), acquiredFeatures.end(),
         [&]( const std::pair< GeometryFeature*, VideoResource* >& entry )
         {
-            delete entry.second;
+            if( entry.second != nullptr )
+            {
+                delete entry.second;
+            }
         }
     );
 }
@@ -266,6 +269,10 @@ void GeometryStage< RenderableCompare >::renderPass( const math::Matrix4f& viewT
         {
             if( usedFeatures.find( itr->first ) == usedFeatures.end() )
             {
+                if( itr->second != nullptr )
+                {
+                    delete itr->second;
+                }
                 acquiredFeatures.erase( itr++ );
             }
             else

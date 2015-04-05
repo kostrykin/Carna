@@ -110,6 +110,11 @@ public:
     void deleteAllChildren();
     
     /** \brief
+      * Tells number of children.
+      */
+    std::size_t children() const;
+    
+    /** \brief
       * Invokes \a visit once on each child of this node \a recursively.
       */
     void visitChildren( bool recursively, const MutableVisitor& visit );
