@@ -341,6 +341,15 @@ namespace math
     }
 
     /** \brief
+      * Creates \ref rotation4f "rotation matrix for homogeneous coordinates", but
+      * returns only the upper left \f$3 \times 3\f$ sub-matrix.
+      */
+    inline Matrix3f rotation3f( float x, float y, float z, float radians )
+    {
+        return rotation4f( x, y, z, radians ).block< 3, 3 >( 0, 0 );
+    }
+
+    /** \brief
       * Constructs \f$\mathbb R^3\f$ vector that is orthogonal to \a in. The result
       * is undefined if the \ref length2 "squared length" of \a in
       * \ref isEqual "equals" zero.
