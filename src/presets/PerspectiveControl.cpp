@@ -59,7 +59,12 @@ PerspectiveControl::~PerspectiveControl()
 
 void PerspectiveControl::setFovHorizontal( float radians )
 {
-    pimpl->fovHorizontal = radians;
+    CARNA_ASSERT( radians > 0 );
+    if( !base::math::isEqual( pimpl->fovHorizontal, radians ) )
+    {
+        pimpl->fovHorizontal = radians;
+        invalidateProjection();
+    }
 }
 
 
@@ -71,10 +76,15 @@ float PerspectiveControl::fovHorizontal() const
 
 void PerspectiveControl::updateProjection( base::math::Matrix4f& projection ) const
 {
+    CARNA_ASSERT_EX
+        ( minimumVisibleDistance() > 0
+        , "PerspectiveControl does not support 'minimumVisibleDistance' set to 0!" );
+    
     const float aspect = viewportHeight() / static_cast< float >( viewportWidth() );
     const float zNear  = minimumVisibleDistance();
     const float zFar   = maximumVisibleDistance();
     projection = base::math::frustum4f( pimpl->fovHorizontal, aspect, zNear, zFar );
+    setProjectionValidated();
 }
 
 

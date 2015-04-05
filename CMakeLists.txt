@@ -183,6 +183,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/presets/CameraNavigationControl.h
 		include/${PROJECT_NAME}/presets/CameraShowcaseControl.h
 		include/${PROJECT_NAME}/presets/PerspectiveControl.h
+		include/${PROJECT_NAME}/presets/OrthogonalControl.h
 		include/${PROJECT_NAME}/presets/CompositionStage.h
 		include/${PROJECT_NAME}/presets/ParallaxStage.h
 		include/${PROJECT_NAME}/presets/DVRStage.h
@@ -264,6 +265,7 @@ set( SRC
 		src/presets/CameraNavigationControl.cpp
 		src/presets/CameraShowcaseControl.cpp
 		src/presets/PerspectiveControl.cpp
+		src/presets/OrthogonalControl.cpp
 		src/presets/CompositionStage.cpp
 		src/presets/ParallaxStage.cpp
 		src/presets/DVRStage.cpp

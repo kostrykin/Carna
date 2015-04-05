@@ -69,6 +69,7 @@ public:
     
     /** \brief
       * Sets the *half* angle between the left and the right frustum planes.
+      * \pre `radians > 0`
       */
     void setFovHorizontal( float radians );
     

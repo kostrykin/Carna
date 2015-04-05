@@ -33,12 +33,15 @@ struct ProjectionControl::Details
     
     float minimumVisibleDistance;
     float maximumVisibleDistance;
+    
+    bool isUpdateAvailable;
 };
 
 
 ProjectionControl::Details::Details()
     : minimumVisibleDistance( DEFAULT_MINIMUM_VISIBLE_DISTANCE )
     , maximumVisibleDistance( DEFAULT_MAXIMUM_VISIBLE_DISTANCE )
+    , isUpdateAvailable( true )
 {
 }
 
@@ -66,14 +69,22 @@ ProjectionControl::~ProjectionControl()
 void ProjectionControl::setViewportWidth( unsigned int width )
 {
     CARNA_ASSERT( width > 0 );
-    pimpl->viewportWidth = width;
+    if( pimpl->viewportWidth != width )
+    {
+        pimpl->viewportWidth = width;
+        invalidateProjection();
+    }
 }
 
 
 void ProjectionControl::setViewportHeight( unsigned int height )
 {
     CARNA_ASSERT( height > 0 );
-    pimpl->viewportHeight = height;
+    if( pimpl->viewportHeight != height )
+    {
+        pimpl->viewportHeight = height;
+        invalidateProjection();
+    }
 }
 
 
@@ -91,15 +102,23 @@ unsigned int ProjectionControl::viewportHeight() const
 
 void ProjectionControl::setMinimumVisibileDistance( float minimumVisibleDistance )
 {
-    CARNA_ASSERT( minimumVisibleDistance > 0 );
-    pimpl->minimumVisibleDistance = minimumVisibleDistance;
+    CARNA_ASSERT( minimumVisibleDistance >= 0 );
+    if( !math::isEqual( pimpl->minimumVisibleDistance, minimumVisibleDistance ) )
+    {
+        pimpl->minimumVisibleDistance = minimumVisibleDistance;
+        invalidateProjection();
+    }
 }
 
 
 void ProjectionControl::setMaximumVisibileDistance( float maximumVisibleDistance )
 {
     CARNA_ASSERT( maximumVisibleDistance > 0 );
-    pimpl->maximumVisibleDistance = maximumVisibleDistance;
+    if( !math::isEqual( pimpl->maximumVisibleDistance, maximumVisibleDistance ) )
+    {
+        pimpl->maximumVisibleDistance = maximumVisibleDistance;
+        invalidateProjection();
+    }
 }
 
 
@@ -112,6 +131,24 @@ float ProjectionControl::minimumVisibleDistance() const
 float ProjectionControl::maximumVisibleDistance() const
 {
     return pimpl->maximumVisibleDistance;
+}
+
+
+bool ProjectionControl::isUpdateAvailable() const
+{
+    return pimpl->isUpdateAvailable;
+}
+
+
+void ProjectionControl::invalidateProjection()
+{
+    pimpl->isUpdateAvailable = true;
+}
+
+
+void ProjectionControl::setProjectionValidated() const
+{
+    pimpl->isUpdateAvailable = false;
 }
 
 

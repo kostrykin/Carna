@@ -102,7 +102,7 @@ public:
       * Sets near clipping plane distance that should be used by
       * \ref updateProjection.
       *
-      * \pre `minimumVisibleDistance > 0`
+      * \pre `minimumVisibleDistance >= 0`
       */
     void setMinimumVisibileDistance( float minimumVisibleDistance );
     
@@ -128,6 +128,25 @@ public:
       * Creates \a projectionMatrix based on previously set parameters.
       */
     virtual void updateProjection( math::Matrix4f& projectionMatrix ) const = 0;
+    
+    /** \brief
+      * Tells `true` when probably a new \ref updateProjection "projection matrix" is
+      * available and `false` when \ref updateProjection is likely to return the same
+      * result as the last time.
+      */
+    bool isUpdateAvailable() const;
+    
+protected:
+
+    /** \brief
+      * Denotes that \ref isUpdateAvailable "an update is available".
+      */
+    void invalidateProjection();
+    
+    /** \brief
+      * Denotes that \ref isUpdateAvailable "no update is available".
+      */
+    void setProjectionValidated() const;
 
 }; // ProjectionControl
 

@@ -171,6 +171,7 @@ namespace Carna
         class CameraNavigationControl;
         class CameraShowcaseControl;
         class PerspectiveControl;
+        class OrthogonalControl;
         class MeshColorCodingStage;
         class VolumeRenderingStage;
         class MIPStage;
