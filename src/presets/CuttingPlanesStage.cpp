@@ -41,7 +41,7 @@ struct CuttingPlanesStage::Details
 
     base::HUV windowingLevel;
     unsigned int windowingWidth;
-    bool renderingIvnerse;
+    bool renderingInverse;
 
     static inline float huvToIntensity( base::HUV huv )
     {
@@ -56,7 +56,7 @@ CuttingPlanesStage::Details::Details( unsigned int planeGeometryType )
     , viewPort( nullptr )
     , windowingLevel( DEFAULT_WINDOWING_LEVEL )
     , windowingWidth( DEFAULT_WINDOWING_WIDTH )
-    , renderingIvnerse( false )
+    , renderingInverse( false )
 {
 }
 
@@ -174,7 +174,7 @@ void CuttingPlanesStage::setWindowingWidth( unsigned int windowingWidth )
 
 void CuttingPlanesStage::setRenderingInverse( bool inverse )
 {
-    pimpl->renderingIvnerse = inverse;
+    pimpl->renderingInverse = inverse;
 }
 
 
@@ -204,7 +204,7 @@ base::HUV CuttingPlanesStage::maximumHUV() const
 
 bool CuttingPlanesStage::isRenderingInverse() const
 {
-    return pimpl->renderingIvnerse;
+    return pimpl->renderingInverse;
 }
 
     
@@ -320,7 +320,7 @@ void CuttingPlanesStage::renderPass
      */
     base::ShaderUniform< float >( "minIntensity", Details::huvToIntensity( minimumHUV() ) ).upload();
     base::ShaderUniform< float >( "maxIntensity", Details::huvToIntensity( maximumHUV() ) ).upload();
-    base::ShaderUniform<   int >(       "invert", pimpl->renderingIvnerse ? 1 : 0 ).upload();
+    base::ShaderUniform<   int >(       "invert", pimpl->renderingInverse ? 1 : 0 ).upload();
     
     /* Set shader and do the rendering.
      */
