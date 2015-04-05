@@ -45,7 +45,7 @@ OrthogonalControl::Details::Details( base::CameraControl* cc )
 
 float OrthogonalControl::Details::zoomFactor() const
 {
-    if( weightedAxialPosition > 0 )
+    if( weightedAxialPosition >= 0 )
     {
         return 1 + weightedAxialPosition;
     }
@@ -98,10 +98,10 @@ void OrthogonalControl::updateProjection( base::math::Matrix4f& projection ) con
     const float shortSideLength = std::min( viewportWidth(), viewportHeight() );
     const float halfZoomFactor = pimpl->zoomFactor() / 2;
 
-    const float left   = -viewportWidth () * halfZoomFactor;
-    const float right  = +viewportWidth () * halfZoomFactor;
-    const float bottom = -viewportHeight() * halfZoomFactor;
-    const float top    = +viewportHeight() * halfZoomFactor;
+    const float left   = viewportWidth () * ( -halfZoomFactor );
+    const float right  = viewportWidth () * ( +halfZoomFactor );
+    const float bottom = viewportHeight() * ( -halfZoomFactor );
+    const float top    = viewportHeight() * ( +halfZoomFactor );
     const float zMin = minimumVisibleDistance();
     const float zMax = maximumVisibleDistance();
     projection = base::math::ortho4f( left, right, bottom, top, zMin, zMax );
