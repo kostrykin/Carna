@@ -111,9 +111,10 @@ public:
     void reset();
 
     /** \brief
-      * Commits recorded changes to the associated \ref renderer.
+      * Commits recorded changes to the associated \ref renderer. Removes all
+      * previosly committed stages if \a clear is `true`.
       */
-    void commit();
+    void commit( bool clear = true );
 
 }; // FrameRendererHelper
 
@@ -141,9 +142,12 @@ void FrameRendererHelper< RenderStageOrder >::reset()
 
 
 template< typename RenderStageOrder >
-void FrameRendererHelper< RenderStageOrder >::commit()
+void FrameRendererHelper< RenderStageOrder >::commit( bool clear )
 {
-    renderer.clearStages();
+    if( clear )
+    {
+        renderer.clearStages();
+    }
     presets::MeshColorCodingStage* mccs = nullptr;
     presets::OccludedRenderingStage* occluded = nullptr;
     unsigned int registeredMeshColorCodingStages = 0;
