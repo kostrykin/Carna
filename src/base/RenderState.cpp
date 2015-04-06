@@ -46,6 +46,7 @@ struct RenderState::Details
     int      blendEquation;
     CullFace cullFace;
     bool     frontFaceCCW;
+    float    pointSize;
 
 }; // RenderState :: Details
 
@@ -104,6 +105,7 @@ RenderState::RenderState()
     pimpl->blendEquation                  = parent.pimpl->blendEquation;
     pimpl->cullFace                       = parent.pimpl->cullFace;
     pimpl->frontFaceCCW                   = parent.pimpl->frontFaceCCW;
+    pimpl->pointSize                      = parent.pimpl->pointSize;
 }
 
 
@@ -121,6 +123,7 @@ RenderState::~RenderState()
         setBlendEquation( parent.blendEquation );
         setCullFace( parent.cullFace );
         setFrontFace( parent.frontFaceCCW );
+        setPointSize( parent.pointSize );
 
         pimpl->glc->popRenderState();
     }
@@ -137,6 +140,7 @@ void RenderState::commit() const
     commitBlendEquation();
     commitCullFace();
     commitFrontFace();
+    commitPointSize();
 }
 
 
@@ -229,6 +233,17 @@ void RenderState::setFrontFace( bool ccw )
 }
 
 
+void RenderState::setPointSize( float pointSize )
+{
+    Details::assertCurrent( this );
+    if( !( pointSize < 0 && pimpl->pointSize < 0 ) && !base::math::isEqual( pointSize, pimpl->pointSize ) )
+    {
+        pimpl->pointSize = pointSize;
+        commitPointSize();
+    }
+}
+
+
 void RenderState::commitDepthTest() const
 {
     if( pimpl->depthTest )
@@ -305,6 +320,20 @@ void RenderState::commitCullFace() const
 void RenderState::commitFrontFace() const
 {
     glFrontFace( pimpl->frontFaceCCW ? GL_CCW : GL_CW );
+}
+
+
+void RenderState::commitPointSize() const
+{
+    if( pimpl->pointSize < 0 )
+    {
+        glEnable( GL_PROGRAM_POINT_SIZE );
+    }
+    else
+    {
+        glDisable( GL_PROGRAM_POINT_SIZE );
+        glPointSize( pimpl->pointSize );
+    }
 }
 
 

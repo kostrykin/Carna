@@ -87,13 +87,13 @@ GLContext::GLContext( bool isDoubleBuffered )
     defaultRenderState.setCullFace( RenderState::cullBack );
     defaultRenderState.setFrontFace( true );
 
+    /* Enable support for 'gl_PointSize' in shader.
+     */
+    defaultRenderState.setPointSize( -1 );
+
     /* Set default render state.
      */
     defaultRenderState.commit();
-
-    /* Enable support for 'gl_PointSize' in shader.
-     */
-    glEnable( GL_PROGRAM_POINT_SIZE );
 }
 
 

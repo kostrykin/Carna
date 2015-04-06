@@ -187,6 +187,13 @@ public:
       * \ref setCullFace.
       */
     void setFrontFace( bool ccw );
+    
+    /** \brief
+      * Sets `glPointSize` to \a pointSize if \a point size is non-negative. Enables
+      * `GL_PROGRAM_POINT_SIZE` and leaves `glPointSize` unchanged otherwise. This
+      * enables support for `gl_PointSize` in shaders.
+      */
+    void setPointSize( float pointSize );
 
 private:
 
@@ -205,6 +212,8 @@ private:
     void commitCullFace() const;
 
     void commitFrontFace() const;
+    
+    void commitPointSize() const;
 
 }; // RenderState
 

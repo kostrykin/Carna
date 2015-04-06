@@ -160,6 +160,21 @@ void Material::removeParameter( const std::string& name )
 }
 
 
+bool Material::hasParameter( const std::string& name ) const
+{
+    const auto uniformItr = pimpl->uniforms.find( name );
+    return uniformItr != pimpl->uniforms.end();
+}
+
+
+const ShaderUniformBase& Material::parameter( const std::string& name ) const
+{
+    const auto uniformItr = pimpl->uniforms.find( name );
+    CARNA_ASSERT( uniformItr != pimpl->uniforms.end() );
+    return *uniformItr->second;
+}
+
+
 Material::ManagedInterface* Material::acquireVideoResource()
 {
     return new ManagedInterface( *this );

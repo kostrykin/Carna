@@ -47,7 +47,8 @@ struct MeshColorCodingStage::Details
 
     unsigned int myActivationPassIndex;
 
-    std::map< unsigned int, unsigned int > rolesByGeometryType;
+    std::map< unsigned int, unsigned int > meshRolesByGeometryType;
+    std::map< unsigned int, unsigned int > materialRolesByGeometryType;
     std::vector< const base::Geometry* > geometryById;
     unsigned int nextColorCodingId;
 
@@ -257,9 +258,32 @@ void MeshColorCodingStage::render( const base::Renderable& renderable )
 {
     using namespace base;
     const unsigned int geometryType = renderable.geometry().geometryType;
-    const auto roleItr = pimpl->rolesByGeometryType.find( geometryType );
-    if( roleItr != pimpl->rolesByGeometryType.end() )
+    const auto meshRoleItr = pimpl->meshRolesByGeometryType.find( geometryType );
+    if( meshRoleItr != pimpl->meshRolesByGeometryType.end() )
     {
+        /* Lookup whether materials are enabled for this geometry type.
+         */
+        const auto materialRoleItr = pimpl->materialRolesByGeometryType.find( geometryType );
+        const bool materialEnabled = materialRoleItr != pimpl->materialRolesByGeometryType.end();
+        
+        /* Check whether the mesh is 'GL_POINTS' typed and setup 'glPointSize' than.
+         */
+        RenderState rs;
+        const ManagedMeshBase& mesh = static_cast< const ManagedMeshBase& >( renderable.geometry().feature( meshRoleItr->second ) );
+        if( materialEnabled && mesh.primitiveType == IndexBufferBase::PRIMITIVE_TYPE_POINTS
+            && renderable.geometry().hasFeature( materialRoleItr->second ) )
+        {
+            const static std::string PARAMETER_POINT_SIZE = "pointSize";
+            const Material& material = static_cast< const Material& >( renderable.geometry().feature( materialRoleItr->second ) );
+            if( material.hasParameter( PARAMETER_POINT_SIZE ) )
+            {
+                const ShaderUniformBase& uniformBase = material.parameter( PARAMETER_POINT_SIZE );
+                const ShaderUniform< float > uniform = static_cast< const ShaderUniform< float >& >( uniformBase );
+                const float pointSize = uniform.value;
+                rs.setPointSize( pointSize );
+            }
+        }
+    
         /* Setup the shader.
          */
         ShaderUniform< math::Vector4f >( "color", Details::idToColor( pimpl->nextColorCodingId ) ).upload();
@@ -269,7 +293,6 @@ void MeshColorCodingStage::render( const base::Renderable& renderable )
 
         /* Do the rendering.
          */
-        const ManagedMeshBase& mesh = static_cast< const ManagedMeshBase& >( renderable.geometry().feature( roleItr->second ) );
         this->videoResource( mesh ).get().render();
 
         /* Update rendering state.
@@ -298,22 +321,30 @@ void MeshColorCodingStage::reshape( base::FrameRenderer& fr, unsigned int width,
 }
 
 
-void MeshColorCodingStage::putGeometryType( unsigned int geometryType, unsigned int role )
+void MeshColorCodingStage::putGeometryType( unsigned int geometryType, unsigned int meshRole )
 {
     removeGeometryType( geometryType );
-    pimpl->rolesByGeometryType[ geometryType ] = role;
+    pimpl->meshRolesByGeometryType[ geometryType ] = meshRole;
+}
+
+
+void MeshColorCodingStage::enableMaterials( unsigned int geometryType, unsigned int materialRole )
+{
+    pimpl->materialRolesByGeometryType[ geometryType ] = materialRole;
 }
 
 
 void MeshColorCodingStage::removeGeometryType( unsigned int geometryType )
 {
-    pimpl->rolesByGeometryType.erase( geometryType );
+    pimpl->meshRolesByGeometryType.erase( geometryType );
+    pimpl->materialRolesByGeometryType.erase( geometryType );
 }
 
 
 void MeshColorCodingStage::clearGeometryTypes()
 {
-    pimpl->rolesByGeometryType.clear();
+    pimpl->meshRolesByGeometryType.clear();
+    pimpl->materialRolesByGeometryType.clear();
 }
 
 

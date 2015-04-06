@@ -225,6 +225,17 @@ public:
       * Removes the parameter named \a name if it exists.
       */
     void removeParameter( const std::string& name );
+    
+    /** \brief
+      * Tells whether a paramter named \a name exists.
+      */
+    bool hasParameter( const std::string& name ) const;
+    
+    /** \brief
+      * References the paramter named \a name.
+      * \pre `hasParameter(name) == true`
+      */
+    const ShaderUniformBase& parameter( const std::string& name ) const;
 
     /** \brief
       * Instantiates. Call \ref release when you do not need the object any longer.

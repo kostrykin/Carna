@@ -170,6 +170,7 @@ void FrameRendererHelper< RenderStageOrder >::commit( bool clear )
         if( meshRenderer != nullptr && mccs != nullptr )
         {
             mccs->putGeometryType( meshRenderer->geometryType, meshRenderer->ROLE_DEFAULT_MESH );
+            mccs->enableMaterials( meshRenderer->geometryType, meshRenderer->ROLE_DEFAULT_MATERIAL );
             ++registeredMeshColorCodingStages;
         }
         if( meshRenderer != nullptr && occluded != nullptr )

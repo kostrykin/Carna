@@ -110,9 +110,22 @@ public:
       * old \a meshRole is overridden by the new one.
       */
     void putGeometryType( unsigned int geometryType, unsigned int meshRole );
+    
+    /** \brief
+      * Enables support for materials if \a geometryType has been
+      * \ref putGeometryType "activated" or will be activated later. Otherwise this
+      * method has no effect.
+      *
+      * The behaviour that this enables is the following at the moment and may be
+      * extended in the future. If the stage encounters a mesh with
+      * \ref base::ManagedMeshBase::primitiveType set to
+      * \ref base::IndexBufferBase::PRIMITIVE_TYPE_POINTS, it queries its material
+      * for a `pointSize` parameter that it than takes account of.
+      */
+    void enableMaterials( unsigned int geometryType, unsigned int materialRole );
 
     /** \brief
-      * Deactivates \a geometryType.
+      * Deactivates \a geometryType. Also disables the occasionally enabled material.
       */
     void removeGeometryType( unsigned int geometryType );
 
