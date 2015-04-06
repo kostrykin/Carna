@@ -16,6 +16,7 @@
 #include <Carna/base/VertexBuffer.h>
 #include <Carna/base/IndexBuffer.h>
 #include <Carna/base/ManagedMesh.h>
+#include <Carna/base/Vertex.h>
 #include <Carna/base/math.h>
 
 /** \file   MeshFactory.h
