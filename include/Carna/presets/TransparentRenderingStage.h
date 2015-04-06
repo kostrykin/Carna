@@ -52,7 +52,7 @@ namespace presets
   * The concept of materials, meshes and other geometry feature is explained
   * \ref GeometryFeatures "here".
   *
-  * \image html TransparentRenderingStageTest/fromFront.png "exemplary rendering of two box meshes from code above"
+  * \image html TransparentRenderingStageTest/transparentFromFront.png "exemplary rendering of two box meshes from code above"
   *
   * \author Leonid Kostrykin
   * \date   21.2.15 - 6.3.15

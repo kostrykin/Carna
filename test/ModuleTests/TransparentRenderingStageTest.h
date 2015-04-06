@@ -51,9 +51,9 @@ private slots:
 
  // ---------------------------------------------------------------------------------
 
-    void test_fromFront();
+    void test_transparentFromFront();
 
-    void test_fromBack();
+    void test_transparentFromBack();
 
  // ---------------------------------------------------------------------------------
 

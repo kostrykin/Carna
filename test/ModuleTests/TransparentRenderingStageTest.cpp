@@ -89,7 +89,7 @@ void TransparentRenderingStageTest::cleanup()
 }
 
 
-void TransparentRenderingStageTest::test_fromFront()
+void TransparentRenderingStageTest::test_transparentFromFront()
 {
     scene->resetCamTransform();
     renderer->render( scene->cam(), *scene->root );
@@ -97,7 +97,7 @@ void TransparentRenderingStageTest::test_fromFront()
 }
 
 
-void TransparentRenderingStageTest::test_fromBack()
+void TransparentRenderingStageTest::test_transparentFromBack()
 {
     scene->cam().localTransform = base::math::rotation4f( 0, 1, 0, base::math::deg2rad( 180 ) ) * scene->cam().localTransform;
     renderer->render( scene->cam(), *scene->root );
