@@ -40,7 +40,7 @@ namespace base
   * \ref Log::Writer interface. The default writer is an instance from
   * \ref Log::StdWriter class.
   *
-  * \date   22.2.15 - 18.3.15
+  * \date   22.2.15 - 6.4.15
   * \author Leonid Kostrykin
   */
 class CARNA_LIB Log : public Singleton< Log >
@@ -50,6 +50,10 @@ class CARNA_LIB Log : public Singleton< Log >
     const std::unique_ptr< Details > pimpl;
 
     NON_COPYABLE
+    
+    void pushTag( const std::string& tag );
+    
+    void popTag();
 
 protected:
 
@@ -67,6 +71,11 @@ public:
       * haven't been notified yet.
       */
     virtual ~Log();
+    
+    /** \brief
+      * Tells current log tag.
+      */
+    const std::string& tag() const;
 
     /** \brief
       * Describes the severity of a log entry.
@@ -78,6 +87,38 @@ public:
         warning, ///< Indicates warnings.
         debug,   ///< Indicates messages that might be of interest when searching bugs.
         verbose  ///< Indicates statistics and suchlike.
+    };
+    
+    // ------------------------------------------------------------------------------
+    // Log :: TagScope
+    // ------------------------------------------------------------------------------
+
+    /** \brief
+      * Enforces the log to use a specific tag for the duration of the existence of
+      * the object from this class. The \ref CARNA_LOG_TAG_SCOPE macro is provided
+      * for convenience.
+      *
+      * \date   6.4.15
+      * \author Leonid Kostrykin
+      */
+    struct CARNA_LIB TagScope
+    {
+        /** \brief
+          * Enforces the log to use \a tag for the duration of the existence of the
+          * created object.
+          */
+        explicit TagScope( const std::string& tag );
+        
+        /** \brief
+          * Removes the tag from the log.
+          */
+        ~TagScope();
+        
+    private:
+    
+        const bool valid;
+        static void* operator new( std::size_t );   ///< Prevents heap-allocation of scalar objects.
+        static void* operator new[]( std::size_t ); ///< Prevents heap-allocation of array of objects.
     };
 
     // ------------------------------------------------------------------------------
@@ -215,6 +256,18 @@ public:
     void shutdown();
 
 }; // Log
+
+
+
+// ----------------------------------------------------------------------------------
+// CARNA_LOG_TAG_SCOPE
+// ----------------------------------------------------------------------------------
+
+/** \brief
+  * Enforces the \ref Log to use a particular tag within the local scope.
+  */
+#define CARNA_LOG_TAG_SCOPE( tag ) \
+    const ::Carna::base::Log::TagScope _tagScope##__COUNTER__( tag )
 
 
 

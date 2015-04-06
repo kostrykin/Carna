@@ -13,6 +13,8 @@
 #define FRAMERENDERERHELPER_H_6014714286
 
 #include <Carna/Carna.h>
+#include <Carna/base/Log.h>
+#include <Carna/base/text.h>
 #include <Carna/base/RenderStageSequence.h>
 #include <Carna/base/RenderStage.h>
 #include <Carna/base/GLContext.h>
@@ -144,6 +146,8 @@ void FrameRendererHelper< RenderStageOrder >::commit()
     renderer.clearStages();
     presets::MeshColorCodingStage* mccs = nullptr;
     presets::OccludedRenderingStage* occluded = nullptr;
+    unsigned int registeredMeshColorCodingStages = 0;
+    unsigned int enabledOccludedStages = 0;
     for( auto stageItr = stages.begin(); stageItr != stages.end(); ++stageItr )
     {
         base::RenderStage* const rs = *stageItr;
@@ -162,12 +166,22 @@ void FrameRendererHelper< RenderStageOrder >::commit()
         if( meshRenderer != nullptr && mccs != nullptr )
         {
             mccs->putGeometryType( meshRenderer->geometryType, meshRenderer->ROLE_DEFAULT_MESH );
+            ++registeredMeshColorCodingStages;
         }
         if( meshRenderer != nullptr && occluded != nullptr )
         {
             occluded->enableStage( *rs );
+            ++enabledOccludedStages;
         }
     }
+    base::Log::instance().record( base::Log::debug
+        , "FrameRendererHelper registered "
+        + base::text::lexical_cast< std::string >( registeredMeshColorCodingStages )
+        + " stage(s) for color coding." );
+    base::Log::instance().record( base::Log::debug
+        , "FrameRendererHelper enabled "
+        + base::text::lexical_cast< std::string >( enabledOccludedStages )
+        + " stage(s) for occluded rendering." );
     stages.clear();
 }
 
