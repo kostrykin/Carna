@@ -63,6 +63,8 @@ public:
       * Returns same `%RenderStage` implementation with same configuration.
       *
       * The listeners and the rendering state are not copied.
+      *
+      * \deprecated Do not use this method. It will be removed shortly.
       */
     virtual RenderStage* clone() const = 0;
     

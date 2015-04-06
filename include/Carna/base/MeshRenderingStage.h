@@ -120,6 +120,8 @@ public:
       */
     MeshRenderingStage( unsigned int geometryType );
     
+    /** \copydoc Carna::base::RenderStage::clone
+      */
     MeshRenderingStage* clone() const override;
 
     virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) override;

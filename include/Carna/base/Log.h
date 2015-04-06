@@ -264,7 +264,7 @@ public:
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Enforces the \ref Log to use a particular tag within the local scope.
+  * Enforces the \ref Carna::base::Log to use particular tag within the local scope.
   */
 #define CARNA_LOG_TAG_SCOPE( tag ) \
     const ::Carna::base::Log::TagScope _tagScope##__COUNTER__( tag )
