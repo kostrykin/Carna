@@ -110,7 +110,7 @@ public:
     GLContext& glContext() const;
     
     /** \brief
-      * Activaites \ref glContext and deletes all stages from the rendering stages
+      * Activates \ref glContext and deletes all stages from the rendering stages
       * sequence.
       */
     virtual void clearStages() override;
