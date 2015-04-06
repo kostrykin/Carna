@@ -96,6 +96,12 @@ float OrthogonalControl::zoomStrength() const
 }
 
 
+float OrthogonalControl::zoomFactor() const
+{
+    return pimpl->zoomFactor();
+}
+
+
 void OrthogonalControl::updateProjection( base::math::Matrix4f& projection ) const
 {
     const float shortSideLength = std::min( viewportWidth(), viewportHeight() );

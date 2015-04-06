@@ -91,6 +91,11 @@ public:
     bool isRotationEnabled() const;
     
     /** \brief
+      * Tells current zoom factor.
+      */
+    float zoomFactor() const;
+    
+    /** \brief
       * Creates \a orthogonalProjection matrix using \ref base::math::ortho4f.
       */
     virtual void updateProjection( base::math::Matrix4f& orthogonalProjection ) const override;
