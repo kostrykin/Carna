@@ -195,7 +195,7 @@ void OccludedRenderingStage::renderPass
         /* Configure render state.
          */
         base::RenderState rs;
-        rs.setDepthTestFunction( GL_GREATER );
+        rs.setDepthTestFunction( GL_GEQUAL );
 
         /* Do the rendering.
          */
