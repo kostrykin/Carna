@@ -23,6 +23,12 @@ namespace base
 // Camera
 // ----------------------------------------------------------------------------------
 
+Camera::Camera()
+    : orthogonalProjectionHint( false )
+{
+}
+
+
 void Camera::updateWorldTransform()
 {
     Spatial::updateWorldTransform();
@@ -45,6 +51,18 @@ void Camera::setProjection( const math::Matrix4f& projection )
 const math::Matrix4f& Camera::projection() const
 {
     return myProjection;
+}
+
+
+void Camera::setOrthogonalProjectionHint( bool isOrthogonalProjection )
+{
+    this->orthogonalProjectionHint = isOrthogonalProjection;
+}
+
+
+bool Camera::isOrthogonalProjectionHintSet() const
+{
+    return orthogonalProjectionHint;
 }
 
 

@@ -131,6 +131,11 @@ void OrthogonalControl::moveAxially( float units )
 void OrthogonalControl::setCamera( base::Spatial& cam )
 {
     pimpl->cc->setCamera( cam );
+    base::Camera* const camera = dynamic_cast< base::Camera* >( &cam );
+    if( camera != nullptr )
+    {
+        camera->setOrthogonalProjectionHint( true );
+    }
 }
 
 

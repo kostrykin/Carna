@@ -100,7 +100,12 @@ public:
       */
     virtual void updateProjection( base::math::Matrix4f& orthogonalProjection ) const override;
 
-    virtual void setCamera( base::Spatial& ) override;
+    /** \brief
+      * Sets the \a camera that this object should control. Also sets the
+      * \ref base::Camera::setOrthogonalProjectionHint "orthogonal projection hint"
+      * if \a camera is from \ref base::Camera class.
+      */
+    virtual void setCamera( base::Spatial& camera ) override;
     
     /** \brief
       * Delegates to the \ref base::CameraControl implementation that was supplied to

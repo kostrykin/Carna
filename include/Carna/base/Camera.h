@@ -42,8 +42,15 @@ class CARNA_LIB Camera : public Spatial
     math::Matrix4f myViewTransform;
 
     math::Matrix4f myProjection;
+    
+    bool orthogonalProjectionHint;
 
 public:
+
+    /** \brief
+      * Instantiates with \ref setOrthogonalProjectionHint set to `false`.
+      */
+    Camera();
 
     /** \brief
       * Sets the matrix that is to be used for mapping \ref ViewSpace "view space" to
@@ -58,6 +65,16 @@ public:
       * \ref ClippingCoordinates "clipping coordinates".
       */
     const math::Matrix4f& projection() const;
+    
+    /** \brief
+      * Sets hint whether \ref projection is orthogonal or perspectival.
+      */
+    void setOrthogonalProjectionHint( bool isOrthogonalProjection );
+    
+    /** \brief
+      * Tells whether \ref projection is likely to be orthogonal or perspectival.
+      */
+    bool isOrthogonalProjectionHintSet() const;
 
     /** \brief
       * References the \ref ViewSpace "view matrix", that is the inverse

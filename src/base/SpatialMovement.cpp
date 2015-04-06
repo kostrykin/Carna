@@ -32,7 +32,8 @@ struct SpatialMovement::Details
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    Details( Spatial& movedSpatial, unsigned int frameX, unsigned int frameY );
+    Details( Spatial& movedSpatial, unsigned int frameX, unsigned int frameY, bool perspectival );
+    const bool perspectival;
 
     Spatial* const movedSpatial;
 
@@ -52,8 +53,9 @@ struct SpatialMovement::Details
 }; // SpatialMovement :: Details
 
 
-SpatialMovement::Details::Details( Spatial& movedSpatialRef, unsigned int frameX, unsigned int frameY )
-    : movedSpatial( findMovableSpatial( movedSpatialRef ) )
+SpatialMovement::Details::Details( Spatial& movedSpatialRef, unsigned int frameX, unsigned int frameY, bool perspectival )
+    : perspectival( perspectival )
+    , movedSpatial( findMovableSpatial( movedSpatialRef ) )
     , movedSpatialParentInverseWorldTransform( computeInverseWorldTransform( movedSpatial ) )
     , frameXprev( frameX )
     , frameYprev( frameY )
@@ -130,14 +132,17 @@ SpatialMovement::SpatialMovement
     , const Viewport& vp
     , const Camera& cam )
 
-    : pimpl( new Details( movedSpatial, frameX, frameY ) )
+    : pimpl( new Details( movedSpatial, frameX, frameY, !cam.isOrthogonalProjectionHintSet() ) )
     , viewport( vp )
     , cam( cam )
     , inverseProjection( cam.projection().inverse() )
 {
-    /* Compute initial hit location.
-     */
-    pimpl->movementReferencePoint = pimpl->computeMovementPlaneHitLocation( *this, frameX, frameY );
+    if( pimpl->perspectival )
+    {
+        /* Compute initial hit location.
+         */
+        pimpl->movementReferencePoint = pimpl->computeMovementPlaneHitLocation( *this, frameX, frameY );
+    }
 }
 
 
@@ -150,15 +155,40 @@ bool SpatialMovement::update( unsigned int frameX, unsigned int frameY )
 {
     if( hasMovedSpatial() && frameX >= 0 && frameY >= 0 && ( frameX != pimpl->frameXprev || frameY != pimpl->frameYprev ) )
     {
-        pimpl->frameXprev = frameX;
-        pimpl->frameYprev = frameY;
+        math::Vector3f displacement;
+        if( pimpl->perspectival )
+        {
+            const math::Vector3f movementPlaneHitLocation = pimpl->computeMovementPlaneHitLocation( *this, frameX, frameY );
+            displacement = movementPlaneHitLocation - pimpl->movementReferencePoint;
+            pimpl->movementReferencePoint = movementPlaneHitLocation;
+        }
+        else
+        {
+            const int frameDeltaX = static_cast< int >( frameX ) - static_cast< int >( pimpl->frameXprev );
+            const int frameDeltaY = static_cast< int >( frameY ) - static_cast< int >( pimpl->frameYprev );
+            
+            /* Transform directional vector from frame to clipping coordinates.
+             */
+            base::math::Vector4f clippingDelta;
+            clippingDelta.x() = (  2 * frameDeltaX ) / static_cast< float >( viewport. width() );
+            clippingDelta.y() = ( -2 * frameDeltaY ) / static_cast< float >( viewport.height() );
+            clippingDelta.z() = clippingDelta.w() = 0;
+            
+            /* Transform clipping coordinates to world space.
+             */
+            const base::math::Matrix4f& inverseView = cam.worldTransform();
+            displacement = base::math::vector3< float, 4 >( inverseView * inverseProjection * clippingDelta );
+        }
 
-        const math::Vector3f movementPlaneHitLocation = pimpl->computeMovementPlaneHitLocation( *this, frameX, frameY );
-        const math::Vector3f displacement = movementPlaneHitLocation - pimpl->movementReferencePoint;
-        pimpl->movementReferencePoint = movementPlaneHitLocation;
-
+        /* Move the object.
+         */
         const math::Matrix4f translation = pimpl->movedSpatialParentInverseWorldTransform * math::translation4f( displacement );
         pimpl->movedSpatial->localTransform = translation * pimpl->movedSpatial->localTransform;
+        
+        /* Update 'previous' frame coordinates.
+         */
+        pimpl->frameXprev = frameX;
+        pimpl->frameYprev = frameY;
 
         /* Invalidate the subtree.
          */
