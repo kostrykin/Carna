@@ -119,6 +119,8 @@ public:
       *     is the \ref GeometryTypes "geometry type" rendered by this stage.
       */
     MeshRenderingStage( unsigned int geometryType );
+    
+    MeshRenderingStage* clone() const override;
 
     virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) override;
 
@@ -136,6 +138,16 @@ MeshRenderingStage< RenderableCompare >::MeshRenderingStage( unsigned int geomet
     : GeometryStage< RenderableCompare >( geometryType )
     , MeshRenderingStageBase( geometryType )
 {
+}
+
+
+template< typename RenderableCompare >
+MeshRenderingStage< RenderableCompare >* MeshRenderingStage< RenderableCompare >::clone() const
+{
+    typedef MeshRenderingStage< RenderableCompare > MyType;
+    MyType* const result = new MyType( MeshRenderingStageBase::geometryType );
+    result->setEnabled( this->isEnabled() );
+    return result;
 }
 
 

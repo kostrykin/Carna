@@ -81,6 +81,8 @@ public:
       * Deletes.
       */
     virtual ~MeshColorCodingStage();
+    
+    MeshColorCodingStage* clone() const override;
 
     /** \brief
       * Sets on which pass this stage should do its work.

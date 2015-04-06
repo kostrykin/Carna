@@ -110,6 +110,14 @@ DVRStage::~DVRStage()
 }
 
 
+DVRStage* DVRStage::clone() const
+{
+    DVRStage* const result = new DVRStage( geometryType );
+    result->setEnabled( isEnabled() );
+    return result;
+}
+
+
 void DVRStage::clearColorMap()
 {
     std::fill_n( pimpl->colorMap, Details::COLORMAP_SIZE, base::Color::BLACK_NO_ALPHA );

@@ -84,6 +84,8 @@ public:
       * Deletes.
       */
     virtual ~MIPStage();
+    
+    MIPStage* clone() const override;
 
     virtual void reshape( base::FrameRenderer& fr, unsigned int width, unsigned int height ) override;
 

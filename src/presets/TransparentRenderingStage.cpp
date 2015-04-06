@@ -30,6 +30,14 @@ TransparentRenderingStage::TransparentRenderingStage( unsigned int geometryType 
 }
 
 
+TransparentRenderingStage* TransparentRenderingStage::clone() const
+{
+    TransparentRenderingStage* const result = new TransparentRenderingStage( MeshRenderingStageBase::geometryType );
+    result->setEnabled( isEnabled() );
+    return result;
+}
+
+
 void TransparentRenderingStage::renderPass
     ( const base::math::Matrix4f& viewTransform
     , base::RenderTask& rt

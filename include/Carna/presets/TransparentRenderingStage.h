@@ -69,6 +69,8 @@ public:
       *     is the \ref GeometryTypes "geometry type" rendered by this stage.
       */
     TransparentRenderingStage( unsigned int geometryType );
+    
+    TransparentRenderingStage* clone() const override;
 
     /** \brief
       * Renders transparent geometries with enabled

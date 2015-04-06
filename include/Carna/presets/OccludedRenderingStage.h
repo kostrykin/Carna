@@ -74,6 +74,8 @@ public:
       * \ref DEFAULT_OCCLUSION_TRANSLUCENCY.
       */
     OccludedRenderingStage();
+    
+    OccludedRenderingStage* clone() const override;
 
     /** \brief
       * Deletes.

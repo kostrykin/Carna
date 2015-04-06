@@ -76,6 +76,8 @@ public:
       * Sets the \ref setEyeDistance "eye distance" to \ref DEFAULT_EYE_DISTANCE.
       */
     ParallaxStage( CompositionMode compositionMode );
+    
+    ParallaxStage* clone() const override;
 
     /** \brief
       * Deletes.

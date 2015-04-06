@@ -77,6 +77,14 @@ MIPStage::~MIPStage()
 }
 
 
+MIPStage* MIPStage::clone() const
+{
+    MIPStage* const result = new MIPStage( geometryType );
+    result->setEnabled( isEnabled() );
+    return result;
+}
+
+
 void MIPStage::appendLayer( MIPLayer* layer )
 {
     CARNA_ASSERT( std::find( pimpl->layers.begin(), pimpl->layers.end(), layer ) == pimpl->layers.end() );

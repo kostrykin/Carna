@@ -83,6 +83,9 @@ public:
     GeometryStage
         ( unsigned int geometryType
         , unsigned int geometryTypeMask = RenderQueue< RenderableCompare >::EXACT_MATCH_GEOMETRY_TYPE_MASK );
+        
+    const unsigned int geometryType;     ///< Renders such geometries whose type *AND*-linked with \ref geometryTypeMask equals this.
+    const unsigned int geometryTypeMask; ///< Renders such geometries whose type *AND*-linked with this equals \ref geometryType.
 
     /** \brief
       * Releases acquired video resources.
@@ -150,6 +153,8 @@ GeometryStage< RenderableCompare >::GeometryStage( unsigned int geometryType, un
     : root( nullptr )
     , passesRendered( 0 )
     , rq( geometryType, geometryTypeMask )
+    , geometryType( geometryType )
+    , geometryTypeMask( geometryTypeMask )
 {
 }
 

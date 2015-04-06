@@ -136,6 +136,14 @@ OccludedRenderingStage::~OccludedRenderingStage()
 }
 
 
+OccludedRenderingStage* OccludedRenderingStage::clone() const
+{
+    OccludedRenderingStage* const result = new OccludedRenderingStage();
+    result->setEnabled( isEnabled() );
+    return result;
+}
+
+
 void OccludedRenderingStage::disableAllStages()
 {
     pimpl->enabledStages.clear();
