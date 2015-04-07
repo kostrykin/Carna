@@ -208,6 +208,16 @@ namespace math
         result.setIdentity();
         return result;
     }
+
+    /** \brief
+      * Returns \f$\mathbb R^{3 \times 3}\f$ identity matrix.
+      */
+    inline Matrix3f identity3f()
+    {
+        Matrix3f result;
+        result.setIdentity();
+        return result;
+    }
     
     /** \brief
       * Returns matrix with zeros in all components.
