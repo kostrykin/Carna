@@ -104,7 +104,7 @@ float OrthogonalControl::zoomFactor() const
 
 void OrthogonalControl::updateProjection( base::math::Matrix4f& projection ) const
 {
-    const float shortSideLength = std::min( viewportWidth(), viewportHeight() );
+    const float shortSideLength = static_cast< float >( std::min( viewportWidth(), viewportHeight() ) );
     const float halfZoomFactor = pimpl->zoomFactor() / 2;
 
     const float left   = viewportWidth () * ( -halfZoomFactor );
