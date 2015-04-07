@@ -26,6 +26,12 @@ namespace testing
 // TransparentRenderingStageTest
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Module-tests of the \ref Carna::presets::TransparentRenderingStage class.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.14 - 4.4.15
+  */
 class TransparentRenderingStageTest : public QObject
 {
 

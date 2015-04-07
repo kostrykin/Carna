@@ -26,6 +26,12 @@ namespace testing
 // OpaqueRenderingStageTest
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Module-tests of the \ref Carna::presets::OpaqueRenderingStage class.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.14 - 4.4.15
+  */
 class OpaqueRenderingStageTest : public QObject
 {
 

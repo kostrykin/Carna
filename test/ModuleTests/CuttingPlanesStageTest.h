@@ -25,6 +25,12 @@ namespace testing
 // CuttingPlanesStageTest
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Module-tests of the \ref Carna::presets::CuttingPlanesStage class.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.14 - 4.4.15
+  */
 class CuttingPlanesStageTest : public QObject
 {
 

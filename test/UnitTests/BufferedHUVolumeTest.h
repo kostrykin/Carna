@@ -25,6 +25,12 @@ namespace testing
 // BufferedHUVolumeTest
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Unit-tests of the \ref Carna::base::BufferedHUVolume class.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.14 - 4.4.15
+  */
 class BufferedHUVolumeTest : public QObject
 {
 

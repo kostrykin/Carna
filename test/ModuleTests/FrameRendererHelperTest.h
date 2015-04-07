@@ -25,6 +25,12 @@ namespace testing
 // FrameRendererHelperTest
 // ----------------------------------------------------------------------------------
 
+/** \brief
+  * Module-tests of the \ref Carna::helpers::FrameRendererHelper class.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.14 - 4.4.15
+  */
 class FrameRendererHelperTest : public QObject
 {
 

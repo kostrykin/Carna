@@ -22,10 +22,16 @@ namespace testing
 
 
 // ----------------------------------------------------------------------------------
-// HUVolumeGridTest
+// VolumeGridTest
 // ----------------------------------------------------------------------------------
 
-class HUVolumeGridTest : public QObject
+/** \brief
+  * Module-tests of the \ref Carna::base::VolumeGrid class.
+  *
+  * \author Leonid Kostrykin
+  * \date   22.2.14 - 4.4.15
+  */
+class VolumeGridTest : public QObject
 {
 
     Q_OBJECT
@@ -60,7 +66,7 @@ private:
 
     std::unique_ptr< base::VolumeGrid< base::HUVolumeUInt16, void > > grid;
 
-}; // HUVolumeGridTest
+}; // VolumeGridTest
 
 
 

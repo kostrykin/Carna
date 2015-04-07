@@ -9,44 +9,44 @@
  *
  */
 
-#include "HUVolumeGridTest.h"
+#include "VolumeGridTest.h"
 #include <Carna/base/VolumeGrid.h>
 
 
 
 // ----------------------------------------------------------------------------------
-// HUVolumeGridTest
+// VolumeGridTest
 // ----------------------------------------------------------------------------------
 
-void HUVolumeGridTest::initTestCase()
+void VolumeGridTest::initTestCase()
 {
 }
 
 
-void HUVolumeGridTest::cleanupTestCase()
+void VolumeGridTest::cleanupTestCase()
 {
 }
 
 
-void HUVolumeGridTest::init()
+void VolumeGridTest::init()
 {
 }
 
 
-void HUVolumeGridTest::cleanup()
+void VolumeGridTest::cleanup()
 {
     grid.reset();
 }
 
 
-void HUVolumeGridTest::test_instantiation()
+void VolumeGridTest::test_instantiation()
 {
     grid.reset( new base::VolumeGrid< base::HUVolumeUInt16, void >
         ( base::math::Vector3ui( 10, 10, 10 ), base::math::Vector3ui( 2, 2, 1 ) ) );
 }
 
 
-void HUVolumeGridTest::test_parenthesisOperator()
+void VolumeGridTest::test_parenthesisOperator()
 {
     test_instantiation();
 
