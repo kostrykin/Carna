@@ -142,7 +142,7 @@ base::Geometry* PointMarkerHelper::createPointMarker() const
 }
 
 
-base::Geometry* PointMarkerHelper::createPointMarker( const base::Color& color ) const
+base::Geometry* PointMarkerHelper::createPointMarker( const base::Color& color, unsigned int pointSize ) const
 {
     base::Material& material = base::Material::create( "pointmarker" );
     material.setParameter(     "color", color );
@@ -154,6 +154,18 @@ base::Geometry* PointMarkerHelper::createPointMarker( const base::Color& color )
 
     material.release();
     return point;
+}
+
+
+base::Geometry* PointMarkerHelper::createPointMarker( const base::Color& color ) const
+{
+    return createPointMarker( color, pointSize );
+}
+
+
+base::Geometry* PointMarkerHelper::createPointMarker( unsigned int pointSize ) const
+{
+    return createPointMarker( pimpl->nextColor++, pointSize );
 }
 
 

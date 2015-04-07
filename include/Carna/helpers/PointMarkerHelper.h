@@ -40,12 +40,13 @@ namespace helpers
   * the `pointmarker` material shader. That material shader produces the white edge
   * around the markers.
   *
-  * Each instance of this class creates point markers of a particular pixel size. It
-  * provides two methods for the creation of point markers. The first method takes no
-  * arguments and creates point markers from a predefined color palette. This method
-  * is a little faster in theory because it recycles materials once they have been
-  * instantiated for a particular color. The second method takes the color as an
-  * argument and repeats the instantiation of a material every time it is used.
+  * Each instance of this class creates point markers of a preferred pixel size. It
+  * provides basically two methods for the creation of point markers. The first type
+  * takes no arguments and creates point markers from a predefined color palette and
+  * using the preferred pixel size. This method is a little faster in theory because
+  * it recycles materials once they have been instantiated for a particular color.
+  * The other methods take the color, the pixel size, or both as arguments and repeat
+  * the instantiation of a material every time they are used.
   *
   * The following example creates a sequence of marker points in rotating colors:
   *
@@ -94,7 +95,7 @@ public:
     const unsigned int geometryType; ///< Holds the markers' \ref GeometryTypes "geometry type".
     const unsigned int meshRole;     ///< Holds the \ref GeometryTypes "role" used to attach the mesh to the markers.
     const unsigned int materialRole; ///< Holds the \ref GeometryTypes "role" used to attach the material to the markers.
-    const unsigned int pointSize;    ///< Holds the pixel size of the markers.
+    const unsigned int pointSize;    ///< Holds the preferred pixel size of the markers.
     
     /** \brief
       * Releases all previously acquired materials. Invoke this method when it is sure
@@ -106,8 +107,8 @@ public:
     void releaseGeometryFeatures();
 
     /** \brief
-      * Creates new point marker colored differently than the last point marker
-      * created by any `%PointMarkerHelper` instance.
+      * Creates new point marker of preferred pixel size, colored differently than
+      * the last point marker created by any `%PointMarkerHelper` instance.
       *
       * This method cycles through a predefined palette of colors. It recycles the
       * materials instantiates once per color.
@@ -115,10 +116,23 @@ public:
     base::Geometry* createPointMarker() const;
 
     /** \brief
-      * Creates new point marker with \a color. This method creates a new material
-      * each time it is used.
+      * Creates new point marker of \a pointSize colored differently than the last
+      * point marker created by any `%PointMarkerHelper` instance. This method
+      * creates a new material each time it is used.
+      */
+    base::Geometry* createPointMarker( unsigned int pointSize ) const;
+
+    /** \brief
+      * Creates new point marker of preferred pixel size with \a color. This method
+      * creates a new material each time it is used.
       */
     base::Geometry* createPointMarker( const base::Color& color ) const;
+
+    /** \brief
+      * Creates new point marker of \a pointSize with \a color. This method creates
+      * a new material each time it is used.
+      */
+    base::Geometry* createPointMarker( const base::Color& color, unsigned int pointSize ) const;
 
     /** \brief
       * Resets the color that the next invocation to the argument-less version of
