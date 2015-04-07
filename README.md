@@ -1,12 +1,11 @@
 Carna
 ========
 
-Carna is a lightweight library for simple and fast visualization of CT data.
+Carna provides classes for simple and fast visualization of CT data.
 It is named after the greek god of organs (yup, they really did have even one for organs).
+It is based on OpenGL 3.3 and Eigen 3.
 
 Go to: [Library Documentation](https://rwthmeditec.github.io/Carna/)
-
-<img src="https://rwthmeditec.github.io/Carna/XRay01.png">
 
 ---
 ## Contents
@@ -47,6 +46,7 @@ This section explains three ways of building Carna:
 1. Creating Visual Studio project files and building it from the IDE
 2. Building Carna directly through CMake from command line
 3. If you are a colleague from MediTEC, you can use the batch script.
+4. On Linux you can run the `linux_build.sh` script.
 
 Regardless which build method you pick,
 first thing you need to do is to fetch the latest stable version.
@@ -80,7 +80,7 @@ Then initialize the Visual Studio environment:
 call "%VS100COMNTOOLS%\vsvars32.bat"
 ```
     
-And finnaly invoke CMake like this:
+And finally invoke CMake like this:
 
 ```bat
 cmake -G"Visual Studio 10" -DCMAKE_INSTALL_PREFIX="C:\Libs" ..\..
@@ -113,7 +113,7 @@ mkdir build\debug
 mkdir build\release
 ```
 
-Then initialize the building enviroment.
+Then initialize the building environment.
 Use the command below if you are going to use Visual Studio for compilation:
 
 ```bat
@@ -160,6 +160,7 @@ by passing particular parameters to `cmake`:
 * `INSTALL_CMAKE_DIR` specifies where the `FindCarna.cmake` file goes to.
 * `INSTALL_LIBRARY_DIR` specifies where the built binary files go to.
 * `INSTALL_HEADERS_DIR` specifies where the headers are going to installed to.
+* `INSTALL_DOC_DIR` specifies where the HTML documentation is going to be installed.
 
 If you use relative paths for these parameters,
 they will be resolved relatively to `CMAKE_INSTALL_PREFIX`.
@@ -189,20 +190,15 @@ find_package( Carna REQUIRED )
 include_directories( ${CARNA_INCLUDE_DIR} )
 ```
 
-If you need to put a constraint on the version, use `find_package(Carna 2.5.0 REQUIRED)`
-to pick a package with a version *compatible* to 2.5.0,
-or use `find_package(Carna 2.5.0 EXACT REQUIRED)` to pick a package by the exact version.
+If you need to put a constraint on the version, use `find_package(Carna 3.0.0 REQUIRED)`
+to pick a package with a version *compatible* to 3.0.0,
+or use `find_package(Carna 3.0.0 EXACT REQUIRED)` to pick a package by the exact version.
 
-You also need to add the headers (usually *only* the headers) from TRTK and Eigen:
+You also need to add the headers (usually *only* the headers) from Eigen:
 
 ```CMake
-# Eigen
 find_package( Eigen3 3.0.5 REQUIRED )
 include_directories( ${EIGEN3_INCLUDE_DIR} )
-
-# TRTK
-find_package( TRTK 0.13.1 REQUIRED )
-include_directories( ${TRTK_INCLUDE_DIR} )
 ```
 
 Finally add Carna to the linking stage:
@@ -213,9 +209,9 @@ target_link_libraries( ${TARGET_NAME} ${SOME_OTHER_LIBRARIES} ${CARNA_LIBRARIES}
 
 This method relies on CMake being able to locate the proper `FindCarna.cmake` file.
 If you've built Carna from source,
-than you have determined it's location either through `CMAKE_INSTALL_PREFIX`
+than you have determined its location either through `CMAKE_INSTALL_PREFIX`
 or `INSTALL_CMAKE_DIR` as described in ["installation notes"](#23-installation-notes).
-You can specify the paths CMake searches for `FindCarna.cmake` by adjustung the
+You can specify the paths CMake searches for `FindCarna.cmake` by adjusting the
 `CMAKE_MODULE_PATH` variable, e.g.:
 
 ```CMake
@@ -228,7 +224,7 @@ If you are a colleague from MediTEC, you must also add the following line of cod
 *before* `find_package`, otherwise CMake will not find Carna:
 
 ```CMake
-list(APPEND CMAKE_MODULE_PATH "${MEDITEC_LIBS}/Carna/2.5")
+list(APPEND CMAKE_MODULE_PATH "${MEDITEC_LIBS}/Carna/3.0")
 ```
 
 ### 3.3. Manually
@@ -241,12 +237,12 @@ to your project's include directories.
 
 Then find the appropriate library file.
 It's name depends on your platform and Carna version,
-e.g. `Carna-2.5.0.lib` for the release and `Carna-2.5.0d.lib`
-for the debug version respectively of Carna 2.5.0 on Windows.
-Add both of these files to your project's linker stage.
+e.g. `Carna-3.0.0.lib` for the release and `Carna-3.0.0d.lib`
+for the debug version respectively of Carna 3.0.0 on Windows.
+Add both of these files to your project's linking stage.
 
 ---
 ## 4. See also
 
-The additional [Carna-DICOM module](https://github.com/RWTHmediTEC/Carna-DICOM)
-provides classes for loading DICOM data sets.
+The additional [CarnaQt module](https://github.com/RWTHmediTEC/CarnaQt)
+provides auxiliary classes for using Carna ≥3.0.0 with Qt ≥4.8.
