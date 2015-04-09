@@ -51,6 +51,14 @@ class CARNA_LIB VolumeGridHelperBase
 public:
 
     /** \brief
+      * Default maximum memory size of a single segment volume, 50 megabytes
+      * approximately. This determines the segments partitioning.
+      *
+      * \since \ref v_3_0_1
+      */
+    const static std::size_t DEFAULT_MAX_SEGMENT_BYTESIZE = 2 * 300 * 300 * 300;
+
+    /** \brief
       * Does nothing.
       */
     virtual ~VolumeGridHelperBase();
@@ -201,12 +209,6 @@ class VolumeGridHelper
 public:
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
-    /** \brief
-      * Default maximum memory size of a single segment volume, 50 megabytes
-      * approximately. This determines the segments partitioning.
-      */
-    const static std::size_t DEFAULT_MAX_SEGMENT_BYTESIZE = 2 * 300 * 300 * 300;
 
     /** \brief
       * Creates new \ref base::VolumeGrid object. Initializes its' segments s.t. the

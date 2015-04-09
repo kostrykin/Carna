@@ -19,9 +19,10 @@ namespace Carna
   *
   * \section ChangeLog Change Log
   *
-  * \subsection v_3_0_0 API Version 3.0.0
+  * \subsection v_3_0_1 API Version 3.0.1
   *
-  * First version of 3.x.x series.
+  * Moved `%helpers::VolumeGridHelper::DEFAULT_MAX_SEGMENT_BYTESIZE` to
+  * `%helpers::VolumeGridHelperBase::DEFAULT_MAX_SEGMENT_BYTESIZE`.
   */
   
 }  // namespace Carna
