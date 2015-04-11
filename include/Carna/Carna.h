@@ -108,7 +108,6 @@ namespace Carna
         class  TextureBase;
         class  RenderStageSequence;
         class  RenderStageListener;
-        class  VolumeGridHelperBase;
         class  NodeListener;
 
         template< typename AssociatedObjectType > class Aggregation;
@@ -194,6 +193,7 @@ namespace Carna
 
         class PointMarkerHelper;
         class DefaultRenderStageOrder;
+        class VolumeGridHelperBase;
 
         template< typename RenderStageOrder = DefaultRenderStageOrder > class FrameRendererHelper;
         template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType = void > class VolumeGridHelper;
