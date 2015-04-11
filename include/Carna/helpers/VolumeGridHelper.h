@@ -59,6 +59,20 @@ public:
     const static std::size_t DEFAULT_MAX_SEGMENT_BYTESIZE = 2 * 300 * 300 * 300;
 
     /** \brief
+      * Instantiates.
+      *
+      * \param nativeResolution is the resolution the grid is to be prepared for.
+      *
+      * \since \ref v_3_0_1
+      */
+    VolumeGridHelperBase( const base::math::Vector3ui& nativeResolution );
+
+    /** \brief
+      * Holds the original resolution of the loaded data.
+      */
+    const base::math::Vector3ui nativeResolution;
+
+    /** \brief
       * Does nothing.
       */
     virtual ~VolumeGridHelperBase();
@@ -226,11 +240,6 @@ public:
     VolumeGridHelper( const base::math::Vector3ui& nativeResolution, std::size_t maxSegmentBytesize = DEFAULT_MAX_SEGMENT_BYTESIZE );
 
     /** \brief
-      * Holds the original resolution of the loaded data.
-      */
-    const base::math::Vector3ui nativeResolution;
-
-    /** \brief
       * Holds the effective resolution, i.e. the resolution covered by the grid.
       */
     const base::math::Vector3ui resolution;
@@ -323,7 +332,7 @@ template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeGridHelper
         ( const base::math::Vector3ui& nativeResolution
         , std::size_t maxSegmentBytesize )
-    : nativeResolution( nativeResolution )
+    : VolumeGridHelperBase( nativeResolution )
     , resolution( base::math::makeEven( nativeResolution, +1 ) )
     , maxSegmentBytesize( maxSegmentBytesize )
     , maxSegmentSize( computeMaxSegmentSize( resolution, maxSegmentBytesize ) )

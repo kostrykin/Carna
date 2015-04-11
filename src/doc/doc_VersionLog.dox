@@ -21,8 +21,10 @@ namespace Carna
   *
   * \subsection v_3_0_1 API Version 3.0.1
   *
-  * Moved `%helpers::VolumeGridHelper::DEFAULT_MAX_SEGMENT_BYTESIZE` to
-  * `%helpers::VolumeGridHelperBase::DEFAULT_MAX_SEGMENT_BYTESIZE`.
+  *   - Moved `%helpers::VolumeGridHelper::DEFAULT_MAX_SEGMENT_BYTESIZE` to
+  *     `%helpers::VolumeGridHelperBase::DEFAULT_MAX_SEGMENT_BYTESIZE`.
+  *   - Moved `%helpers::VolumeGridHelper::nativeResolution` to
+  *     `%helpers::VolumeGridHelperBase::nativeResolution`.
   */
   
 }  // namespace Carna

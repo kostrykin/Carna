@@ -23,6 +23,12 @@ namespace helpers
 // VolumeGridHelperBase
 // ----------------------------------------------------------------------------------
 
+VolumeGridHelperBase::VolumeGridHelperBase( const base::math::Vector3ui& nativeResolution )
+    : nativeResolution( nativeResolution )
+{
+}
+
+
 VolumeGridHelperBase::~VolumeGridHelperBase()
 {
 }
