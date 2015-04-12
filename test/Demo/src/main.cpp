@@ -254,7 +254,7 @@ void Demo::resizeGL( int w, int h )
         presets::OpaqueRenderingStage* const opaque = new presets::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
         renderer->appendStage( opaque );
         occluded->enableStage( *opaque );
-#if 1
+#if 0
         /* DVR
          */
         presets::DVRStage* const dvr = new presets::DVRStage( GEOMETRY_TYPE_VOLUMETRIC );

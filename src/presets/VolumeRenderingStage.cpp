@@ -256,7 +256,7 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
         }
     }
     
-    /* Bind all 'ManagedTexture3D' geometry features.
+    /* Bind all 'ManagedTexture3D' geometry features that have a sampler.
      */
     unsigned int lastUnit = pimpl->firstVolumeUnit - 1;
     std::vector< unsigned int > roles;
@@ -265,11 +265,15 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
         {
             if( dynamic_cast< base::ManagedTexture3D* >( &gf ) != nullptr )
             {
-                const base::ManagedTexture3D& texture = static_cast< const base::ManagedTexture3D& >( gf );
-                anyTexture = &texture;
-                videoResource( texture ).get().bind( ++lastUnit );
-                vr->samplers[ role ]->bind( lastUnit );
-                roles.push_back( role );
+                const auto samplerItr = vr->samplers.find( role );
+                if( samplerItr != vr->samplers.end() )
+                {
+                    const base::ManagedTexture3D& texture = static_cast< const base::ManagedTexture3D& >( gf );
+                    anyTexture = &texture;
+                    videoResource( texture ).get().bind( ++lastUnit );
+                    samplerItr->second->bind( lastUnit );
+                    roles.push_back( role );
+                }
             }
         }
     );
