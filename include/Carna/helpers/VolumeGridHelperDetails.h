@@ -681,6 +681,68 @@ void NormalsComponent< SegmentHUVolumeType, void >::initializeSegment
 
 
 
+// ----------------------------------------------------------------------------------
+// Partionining
+// ----------------------------------------------------------------------------------
+
+/** \brief
+  * Computes the partitioning that \ref VolumeGridHelper uses along one dimension.
+  *
+  * \author Leonid Kostrykin
+  * \date   13.4.15
+  */
+struct Partionining
+{
+    /** \brief
+      * Computes the partitioning.
+      *
+      * \param nativeSize is the resolution of the actual payload data.
+      * \param regularPartitionSize is the effective resolution of a single regular
+      *     partition. It must be odd.
+      */
+    Partionining( std::size_t nativeSize, std::size_t regularPartitionSize )
+        : regularPartitionSize( regularPartitionSize )
+        , regularPartitionsCount( nativeSize / regularPartitionSize )
+        , tailSize( base::math::makeEven( nativeSize % regularPartitionSize, +1 ) )
+    {
+        CARNA_ASSERT_EX( regularPartitionSize % 2 == 1, "Effective regular partition size must be odd!" );
+    }
+
+    /** \brief
+      * Holds the always odd, effective resolution of a single regular partition.
+      */
+    std::size_t regularPartitionSize;
+
+    /** \brief
+      * Holds the number of regular partitions, i.e. such of the size held by
+      * \ref regularPartitionSize.
+      */
+    std::size_t regularPartitionsCount;
+
+    /** \brief
+      * Holds the resolution of the last partition that may also be `0`.
+      */
+    std::size_t tailSize;
+
+    /** \brief
+      * Computes the effective total resolution.
+      */
+    std::size_t totalSize() const
+    {
+        return tailSize + regularPartitionsCount * regularPartitionSize;
+    }
+
+    /** \brief
+      * Tells the total partitions number.
+      */
+    std::size_t partitionsCount() const
+    {
+        return regularPartitionsCount + ( tailSize > 0 ? 1 : 0 );
+    }
+};
+
+
+
 }  // namespace VolumeGridHelper
 
 }  // namespace details

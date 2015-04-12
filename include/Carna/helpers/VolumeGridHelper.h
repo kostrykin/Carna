@@ -240,11 +240,6 @@ public:
     VolumeGridHelper( const base::math::Vector3ui& nativeResolution, std::size_t maxSegmentBytesize = DEFAULT_MAX_SEGMENT_BYTESIZE );
 
     /** \brief
-      * Holds the effective resolution, i.e. the resolution covered by the grid.
-      */
-    const base::math::Vector3ui resolution;
-
-    /** \brief
       * Maximum memory size of a single segment volume.
       */
     const std::size_t maxSegmentBytesize;
@@ -255,10 +250,24 @@ public:
     const base::math::Vector3ui maxSegmentSize;
 
     /** \brief
-      * The effective resolution of each grid segment that is not the last along an
-      * arbitrary axis.
+      * Describes the partitioning along the x-axis.
       */
-    const base::math::Vector3ui regularSegmentSize;
+    const details::VolumeGridHelper::Partionining partitioningX;
+    
+    /** \brief
+      * Describes the partitioning along the y-axis.
+      */
+    const details::VolumeGridHelper::Partionining partitioningY;
+    
+    /** \brief
+      * Describes the partitioning along the z-axis.
+      */
+    const details::VolumeGridHelper::Partionining partitioningZ;
+
+    /** \brief
+      * Holds the effective resolution, i.e. the resolution covered by the grid.
+      */
+    const base::math::Vector3ui resolution;
 
     /** \brief
       * Alters the volume data.
@@ -308,14 +317,14 @@ private:
         , const Spacing& spacing
         , const Dimensions& dimensions ) const;
 
-    static base::math::Vector3ui computeMaxSegmentSize( const base::math::Vector3ui& resolution, std::size_t maxSegmentBytesize );
+    static base::math::Vector3ui computeMaxSegmentSize( const base::math::Vector3ui& nativeResolution, std::size_t maxSegmentBytesize );
 
 }; // VolumeGridHelper
 
 
 template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
 base::math::Vector3ui VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::computeMaxSegmentSize
-    ( const base::math::Vector3ui& resolution, std::size_t maxSegmentBytesize )
+    ( const base::math::Vector3ui& nativeResolution, std::size_t maxSegmentBytesize )
 {
     const float maxSideLengthF = std::pow
         ( maxSegmentBytesize / static_cast< float >( sizeof( typename SegmentHUVolumeType::Voxel ) ), 1.f / 3 );
@@ -333,32 +342,28 @@ VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeGridHel
         ( const base::math::Vector3ui& nativeResolution
         , std::size_t maxSegmentBytesize )
     : VolumeGridHelperBase( nativeResolution )
-    , resolution( base::math::makeEven( nativeResolution, +1 ) )
     , maxSegmentBytesize( maxSegmentBytesize )
-    , maxSegmentSize( computeMaxSegmentSize( resolution, maxSegmentBytesize ) )
-    , regularSegmentSize( maxSegmentSize.cwiseMin( resolution ) )
+    , maxSegmentSize( computeMaxSegmentSize( nativeResolution, maxSegmentBytesize ) )
+    , partitioningX( nativeResolution.x(), maxSegmentSize.x() )
+    , partitioningY( nativeResolution.y(), maxSegmentSize.y() )
+    , partitioningZ( nativeResolution.z(), maxSegmentSize.z() )
+    , resolution( partitioningX.totalSize(), partitioningY.totalSize(), partitioningZ.totalSize() )
 {
-    const base::math::Vector3ui tails
-        ( resolution.x() % maxSegmentSize.x()
-        , resolution.y() % maxSegmentSize.y()
-        , resolution.z() % maxSegmentSize.z() );
-
     const base::math::Vector3ui segmentCounts
-        ( resolution.x() / maxSegmentSize.x() + ( tails.x() > 0 ? 1 : 0 )
-        , resolution.y() / maxSegmentSize.y() + ( tails.y() > 0 ? 1 : 0 )
-        , resolution.z() / maxSegmentSize.z() + ( tails.z() > 0 ? 1 : 0 ) );
+        ( partitioningX.partitionsCount()
+        , partitioningY.partitionsCount()
+        , partitioningZ.partitionsCount() );
     myGrid.reset( new base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >( maxSegmentSize, segmentCounts ) );
     NormalsComponent::setGrid( *myGrid );
 
     CARNA_FOR_VECTOR3UI( segmentCoord, myGrid->segmentCounts )
     {
-        /* Here we add the redundant texels to the buffer size considerations. This
-         * is fine because 'regularSegmentSize' contains the effective segment size.
+        /* Here we add the redundant texels to the buffer size considerations.
          */
         const base::math::Vector3ui segmentSize
-            ( segmentCoord.x() + 1 == myGrid->segmentCounts.x() ? tails.x() : regularSegmentSize.x() + 1
-            , segmentCoord.y() + 1 == myGrid->segmentCounts.y() ? tails.y() : regularSegmentSize.y() + 1
-            , segmentCoord.z() + 1 == myGrid->segmentCounts.z() ? tails.z() : regularSegmentSize.z() + 1 );
+            ( segmentCoord.x() + 1 == myGrid->segmentCounts.x() ? partitioningX.tailSize : partitioningX.regularPartitionSize + 1
+            , segmentCoord.y() + 1 == myGrid->segmentCounts.y() ? partitioningY.tailSize : partitioningY.regularPartitionSize + 1
+            , segmentCoord.z() + 1 == myGrid->segmentCounts.z() ? partitioningZ.tailSize : partitioningZ.regularPartitionSize + 1 );
 
         HUComponent     ::initializeSegment( myGrid->segmentAt( segmentCoord ), segmentSize );
         NormalsComponent::initializeSegment( myGrid->segmentAt( segmentCoord ), segmentSize );
@@ -416,7 +421,10 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
     /* Compute dimensions of a regular grid segment,
      * taking the redundant texels into account.
      */
-    const base::math::Vector3f regularSegmentDimensions = spacing.millimeters.cwiseProduct( regularSegmentSize.cast< float >() );
+    const base::math::Vector3f regularSegmentDimensions
+        ( spacing.millimeters.x() * partitioningX.regularPartitionSize
+        , spacing.millimeters.y() * partitioningY.regularPartitionSize
+        , spacing.millimeters.z() * partitioningZ.regularPartitionSize);
     
     /* Create pivot node that shifts it's children to a corner.
      */
