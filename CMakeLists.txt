@@ -385,7 +385,7 @@ SOURCE_GROUP( "Miscellaneous\\Documentation"
 	REGULAR_EXPRESSION .*\\.\(\(css\)|\(dox\)\) )
 
 SOURCE_GROUP( "Miscellaneous\\Shaders"
-	REGULAR_EXPRESSION .*\\.\(\(frag\)|\(vert\)\) )
+	REGULAR_EXPRESSION .*\\.\(\(frag\)|\(geom\)|\(vert\)\) )
 
 SOURCE_GROUP( "Miscellaneous\\Generated Files"
 	REGULAR_EXPRESSION build/\(\(.*\\.\(\(cxx\)|\(cpp\)\)\)|\(.*/res/.*\)\) )
