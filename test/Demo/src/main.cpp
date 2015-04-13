@@ -193,7 +193,7 @@ void Demo::initializeGL()
         ( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/../res/pelves_reduced.hugz", spacing ) );
     gridHelper.reset( new GridHelper
         ( baseVolume->size
-        , baseVolume->size.x() * baseVolume->size.y() * baseVolume->size.z() * sizeof( base::HUVolumeUInt16::Voxel ) / 2 ) );
+        , baseVolume->size.x() * baseVolume->size.y() * baseVolume->size.z() * sizeof( base::HUVolumeUInt16::Voxel ) / 50 ) );
     gridHelper->loadData( *baseVolume );
     base::Node* const volumeNode = gridHelper->createNode( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ) );
 
