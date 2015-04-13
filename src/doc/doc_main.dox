@@ -160,8 +160,10 @@ namespace Carna
   * taking a look at. They have neither a public constructor, nor a public
   * destructor:
   *
-  *   - %Geometry features are acquired using their static `::%create` function. Each
-  *     feature possess *itself*, hence a reference is returned.
+  *   - %Geometry features are acquired using their static `::%create` function.
+  *     Conventionally, %Carna uses pointers in method interfaces when the object
+  *     possession is transferred and C++ references when it is not. Each feature
+  *     possess *itself*, hence that functions return references.
   *   - If you invoke `release` on the feature right after its creation, it will be
   *     deleted immediately because its unused.
   *   - By putting the feature on a `%Geometry` object, the feature notices that it
@@ -185,7 +187,7 @@ namespace Carna
   *
   *   - The `unshaded` material shader colors the rendered mesh in a single color
   *     uniformly.
-  *   - The \ref helpers::PointMarkerHelper class uses the `pointparker` material
+  *   - The \ref helpers::PointMarkerHelper class uses the `pointmarker` material
   *     shader to create simple markers in 3D space.
   *
   * The creation of custom materials is explained \ref CustomMaterials "here".
