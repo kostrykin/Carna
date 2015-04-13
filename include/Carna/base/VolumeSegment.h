@@ -20,9 +20,11 @@
   * \date   22.2.15 - 26.3.15
   */
 
+#include <Carna/Carna.h>
 #include <Carna/base/Association.h>
 #include <Carna/base/CarnaException.h>
 #include <Carna/base/VolumeGrid.h>
+#include <memory>
 
 namespace Carna
 {

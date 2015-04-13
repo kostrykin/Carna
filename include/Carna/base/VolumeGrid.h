@@ -20,6 +20,7 @@
   * \date   22.2.15 - 26.3.15
   */
 
+#include <Carna/Carna.h>
 #include <Carna/base/HUVolume.h>
 #include <Carna/base/VolumeSegment.h>
 #include <Carna/base/CarnaException.h>
