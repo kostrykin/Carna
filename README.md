@@ -245,4 +245,4 @@ Add both of these files to your project's linking stage.
 ## 4. See also
 
 * The additional [CarnaQt module](https://github.com/RWTHmediTEC/CarnaQt) provides auxiliary classes for using Carna ≥3.0.0 with Qt ≥4.8.
-* The additional [CarnaDICOM module](https://github.com/RWTHmediTEC/CarnaDICOM) provides classes for loading DICOM datasets with Carna ≥3.0.1.
+* The [CarnaDICOM module](https://github.com/RWTHmediTEC/CarnaDICOM) provides classes for loading DICOM datasets with Carna ≥3.0.1.
