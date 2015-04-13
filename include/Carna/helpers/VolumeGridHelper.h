@@ -421,10 +421,10 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
     /* Compute dimensions of a regular grid segment,
      * taking the redundant texels into account.
      */
-    const base::math::Vector3f regularSegmentDimensions
+    const base::math::Vector3f regularSegmentDimensions = dimensions.millimeters.cwiseMin( base::math::Vector3f
         ( spacing.millimeters.x() * partitioningX.regularPartitionSize
         , spacing.millimeters.y() * partitioningY.regularPartitionSize
-        , spacing.millimeters.z() * partitioningZ.regularPartitionSize);
+        , spacing.millimeters.z() * partitioningZ.regularPartitionSize ) );
     
     /* Create pivot node that shifts it's children to a corner.
      */
