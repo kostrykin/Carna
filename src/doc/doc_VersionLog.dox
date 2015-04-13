@@ -26,8 +26,10 @@ namespace Carna
   *     `%helpers::VolumeGridHelperBase::DEFAULT_MAX_SEGMENT_BYTESIZE`.
   *   - Moved `%helpers::VolumeGridHelper::nativeResolution` to
   *     `%helpers::VolumeGridHelperBase::nativeResolution`.
-  *   - Fixed partitioning bug in `%helpers::VolumeGridHelper` that caused odd
+  *   - Fixed partitioning bug in \ref helpers::VolumeGridHelper that caused odd
   *     texture sizes in some cases.
+  *   - Fixed bug in \ref helpers::VolumeGridHelper::createNode that caused wrong
+  *     locations for tail segments.
   *   - Fixed bug in \ref presets::VolumeRenderingStage that caused crashes when
   *     textures had no corresponding samplers, i.e. they were unused.
   *   - \ref presets::VolumeRenderingStage now suppresses artifacts that appear when

@@ -460,8 +460,8 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
         geom->localTransform
             = base::math::translation4f( segmentCoord.cast< float >().cwiseProduct( regularSegmentDimensions )
                 - ( !isTail
-                    ? base::math::Vector3i( 0, 0, 0 )
-                    : regularSegmentDimensions.cast< int >() - dimensions.cast< int >() ).cast< float >() / 2 )
+                    ? base::math::Vector3f( 0, 0, 0 )
+                    : ( regularSegmentDimensions - dimensions ) / 2 ) )
             * base::math::scaling4f( dimensions );
     }
 
