@@ -236,6 +236,7 @@ void Demo::resizeGL( int w, int h )
         mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH );
         renderer->appendStage( mccs );
 
+#if 0
         /* Cutting Planes
          */
         presets::CuttingPlanesStage* const cuttingPlanes
@@ -254,7 +255,7 @@ void Demo::resizeGL( int w, int h )
         presets::OpaqueRenderingStage* const opaque = new presets::OpaqueRenderingStage( GEOMETRY_TYPE_OPAQUE );
         renderer->appendStage( opaque );
         occluded->enableStage( *opaque );
-#if 0
+
         /* DVR
          */
         presets::DVRStage* const dvr = new presets::DVRStage( GEOMETRY_TYPE_VOLUMETRIC );
@@ -268,6 +269,7 @@ void Demo::resizeGL( int w, int h )
          */
         presets::DRRStage* const drr = new presets::DRRStage( GEOMETRY_TYPE_VOLUMETRIC );
         renderer->appendStage( drr );
+        //drr->setSampleRate( 5 );
 #endif
     }
     else

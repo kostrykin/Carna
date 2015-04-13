@@ -98,7 +98,17 @@ VolumeRenderingStage::VideoResources::SlicesMesh* VolumeRenderingStage::VideoRes
      * artifacts under particular view angles.
      */
     const float correctionTerm = 1e-2f;
-    const float radius = ( 1 + correctionTerm ) * std::sqrt( 3.f ) / 2;
+    const float idealRadius = ( 1 + correctionTerm ) * std::sqrt( 3.f ) / 2;
+
+    /* We use even the double of the radius described above because this suppresses
+     * some other artifacts that only appear in grids with many cells like 8x8. The
+     * reason for these artifacts have not been found yet.
+     *
+     * ** NOTE: **  We also use the double sample rate here to achieve rendering
+     *              results that look the same at the cost of a lower frame rate.
+     */
+    const float radius = idealRadius * 2;
+    sampleRate = 2 * sampleRate;
     
     /* Create slices.
      */

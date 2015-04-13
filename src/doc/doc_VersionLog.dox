@@ -30,6 +30,8 @@ namespace Carna
   *     texture sizes in some cases.
   *   - Fixed bug in \ref presets::VolumeRenderingStage that caused crashes when
   *     textures had no corresponding samplers, i.e. they were unused.
+  *   - \ref presets::VolumeRenderingStage now suppresses artifacts that appear when
+  *     rendering grids with many segments, e.g. \f$8 \times 8 \times 1\f$ and more.
   */
   
 }  // namespace Carna
