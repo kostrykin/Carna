@@ -143,7 +143,7 @@ public:
 }; // VolumeSegmentNormalsComponent
 
 
-VolumeSegmentNormalsComponent< void >::~VolumeSegmentNormalsComponent()
+inline VolumeSegmentNormalsComponent< void >::~VolumeSegmentNormalsComponent()
 {
 }
 
