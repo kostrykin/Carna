@@ -200,9 +200,9 @@ ManagedMesh< VertexType, uint32_t >& MeshFactory< VertexType >::createFromSTL( s
 
 	std::size_t indicesCount = amountTriangles * 3;
 	std::unique_ptr<Index[]>  indices (new Index  [indicesCount]);
-	std::unique_ptr<Vertex[]> vertices(new Vertex [indicesCount]);	//indicesCount equals the maximum possible verticesCount
+	std::unique_ptr<Vertex[]> vertices(new Vertex [indicesCount]);
 	
-	std::function<std::size_t(const VertexIndexPair&)> vertexHash = //try auto instead
+	std::function<std::size_t(const VertexIndexPair&)> vertexHash =
 	[](const VertexIndexPair& vertAndIndex) -> std::size_t
 	{
 		//creates combined hash value of the 3 public members "x","y","z" of a Vertex object; ignores the second member of pair
@@ -210,11 +210,10 @@ ManagedMesh< VertexType, uint32_t >& MeshFactory< VertexType >::createFromSTL( s
 		std::size_t hashVal = std::hash<decltype(vertAndIndex.first.x)>()(vertAndIndex.first.x);
 		hashVal ^= std::hash<decltype(vertAndIndex.first.y)>()(vertAndIndex.first.y) + 0x9e3779b9 + (hashVal << 6) + (hashVal >> 2);
 		hashVal ^= std::hash<decltype(vertAndIndex.first.z)> ()(vertAndIndex.first.z) + 0x9e3779b9 + (hashVal << 6) + (hashVal >> 2);
-		//is this suited for systems with size_t defined as integer values with more than 32 bits? (cause 0x9e3779b9 has 32 bits)... what about less?
 		return hashVal;
 	};
 
-	std::function<std::size_t(const VertexIndexPair&, const VertexIndexPair&)> vertexComp = //try auto instead
+	std::function<std::size_t(const VertexIndexPair&, const VertexIndexPair&)> vertexComp =
 	[](const VertexIndexPair& vertAndIndex1, const VertexIndexPair& vertAndIndex2) -> bool
 	{
 		//checks wether the members "x", "y", "z" of two Vertex objects are equal
@@ -242,12 +241,11 @@ ManagedMesh< VertexType, uint32_t >& MeshFactory< VertexType >::createFromSTL( s
 			stlStream.read(reinterpret_cast<char*>(&y), 4);
 			stlStream.read(reinterpret_cast<char*>(&z), 4);
 
-			//std::pair< std::unordered_set< Vertex, decltype(vertWithIndicesHash) >::iterator, bool> emplRes = vertsWithArrIndices.emplace(std::piecewise_construct, std::forward_as_tuple(x, y, z), std::forward_as_tuple(VertCnt++));
 			Vertex vert;
 			vert.x = x;
 			vert.y = y;
 			vert.z = z;
-																				//!!vert is invalidated after here!!!
+			//vert gets invalidated here
 			auto emplRes = vertsWithArrIndices.emplace(std::piecewise_construct, std::forward_as_tuple(std::move(vert)), std::forward_as_tuple(verticesItCount));
 
 			if (emplRes.second)
@@ -260,12 +258,6 @@ ManagedMesh< VertexType, uint32_t >& MeshFactory< VertexType >::createFromSTL( s
 
 		//discard 2 bytes
 		stlStream.seekg(2, std::ios_base::cur);
-
-		//if (stlStream.good() == false)
-		//{
-		//	//error handling here
-		//	//probably handle eof especially -> better error messages
-		//}
 	}
 
 	stlStream.exceptions(origExceptMask);
