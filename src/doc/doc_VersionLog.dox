@@ -34,6 +34,11 @@ namespace Carna
   *     textures had no corresponding samplers, i.e. they were unused.
   *   - \ref presets::VolumeRenderingStage now suppresses artifacts that appear when
   *     rendering grids with many segments, e.g. \f$8 \times 8 \times 1\f$ and more.
+  *
+  * \subsection v_3_0_2 API Version 3.0.2
+  *
+  * - Added \ref base::MeshFactory::createFromSTL.
+  * - Added support for Qt5 to testing and demo.
   */
   
 }  // namespace Carna
