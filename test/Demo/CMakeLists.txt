@@ -28,10 +28,10 @@ set( TARGET_NAME	${PROJECT_NAME}-${FULL_VERSION} )
 ############################################
 
 # Qt
-find_package( Qt5Core )
-find_package( Qt5Widgets )
-find_package( Qt5Gui )
-find_package( Qt5OpenGL )
+find_package( Qt5Core QUIET )
+find_package( Qt5Widgets QUIET )
+find_package( Qt5Gui QUIET )
+find_package( Qt5OpenGL QUIET )
 if(Qt5Core_FOUND AND Qt5Widgets_FOUND AND Qt5Gui_FOUND AND Qt5OpenGL_FOUND)
     set(Qt5_FOUND TRUE)
     set(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Gui Qt5::OpenGL)
@@ -74,8 +74,8 @@ include_directories( ${EIGEN3_INCLUDE_DIR} )
 include_directories(${CMAKE_PROJECT_DIR}src)
 include_directories(${CMAKE_PROJECT_DIR}../Tools)
 set( HEADERS
-        ./Tools/HUGZSceneFactory.h
-        ./Tools/HUIO.h
+        ../Tools/HUGZSceneFactory.h
+        ../Tools/HUIO.h
     )
 set( QOBJECT_HEADERS
         ""
