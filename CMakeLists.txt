@@ -87,8 +87,9 @@ find_package( GLEW 1.7.0 REQUIRED )
 include_directories( ${GLEW_INCLUDE_DIRS} )
 
 # Eigen
-find_package( Eigen3 REQUIRED )
-include_directories( ${EIGEN3_INCLUDE_DIR} )
+include( $ENV{MEDITEC_LIBS}/Eigen/3.2.8/configure.cmake ) 
+#find_package( Eigen3 REQUIRED )
+#include_directories( ${EIGEN3_INCLUDE_DIR} )
 
 ############################################
 # Project
