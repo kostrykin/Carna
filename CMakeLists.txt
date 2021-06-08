@@ -53,12 +53,6 @@ endmacro()
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/misc/CMake-Modules)
 
 ############################################
-# Run MediTEC compatiblity script
-############################################
-
-add_subdirectory(misc/MediTEC)
-
-############################################
 # Define default paths for the installation
 ############################################
 
@@ -518,9 +512,6 @@ endif( WIN32 )
 # install CMake Find<Module> file
 install(	FILES ${CMAKE_CURRENT_BINARY_DIR}/misc/Find${PROJECT_NAME}.cmake
 			DESTINATION ${INSTALL_CMAKE_DIR})
-
-# install MediTEC-specific files			
-add_meditec_install_routines()
 
 ############################################
 # Build interactive demo
