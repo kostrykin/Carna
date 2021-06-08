@@ -1,0 +1,17 @@
+<map id="include/Carna/base/Singleton.h" name="include/Carna/base/Singleton.h">
+<area shape="rect" id="node2" href="$Log_8h.html" title="Defines Carna::base::Log. " alt="" coords="373,184,507,225"/>
+<area shape="rect" id="node8" href="$ShaderManager_8h.html" title="Defines Carna::base::ShaderManager. " alt="" coords="518,95,653,136"/>
+<area shape="rect" id="node3" href="$GLContext_8h.html" title="Defines Carna::base::GLContext. " alt="" coords="373,273,507,315"/>
+<area shape="rect" id="node4" href="$FrameRendererHelper_8h.html" title="Defines Carna::helpers::FrameRendererHelper. " alt="" coords="387,363,552,404"/>
+<area shape="rect" id="node5" href="$glew_8h_source.html" title="include/Carna/base\l/glew.h" alt="" coords="214,273,349,315"/>
+<area shape="rect" id="node6" href="$VolumeGridHelperDetails_8h.html" title="Defines Carna::helpers::details::VolumeGridHelper. " alt="" coords="5,273,189,315"/>
+<area shape="rect" id="node7" href="$VolumeGridHelper_8h.html" title="Defines Carna::helpers::VolumeGridHelper. " alt="" coords="23,363,171,404"/>
+<area shape="rect" id="node9" href="$Material_8h.html" title="Defines Carna::base::Material. " alt="" coords="563,184,698,225"/>
+<area shape="rect" id="node10" href="$MeshRenderingStage_8h.html" title="Defines Carna::base::MeshRenderingStage. " alt="" coords="583,273,745,315"/>
+<area shape="rect" id="node11" href="$OpaqueRenderingStage_8h.html" title="Defines Carna::presets::OpaqueRenderingStage. " alt="" coords="577,363,751,404"/>
+<area shape="rect" id="node15" href="$TransparentRenderingStage_8h.html" title="Defines Carna::presets::TransparentRenderingStage. " alt="" coords="887,363,1086,404"/>
+<area shape="rect" id="node12" href="$MeshColorCodingStageTest_8h_source.html" title="test/ModuleTests/MeshColor\lCodingStageTest.h" alt="" coords="731,452,922,493"/>
+<area shape="rect" id="node13" href="$OpaqueRenderingStageTest_8h_source.html" title="test/ModuleTests/OpaqueRendering\lStageTest.h" alt="" coords="254,452,485,493"/>
+<area shape="rect" id="node14" href="$PointMarkerHelperTest_8h_source.html" title="test/ModuleTests/PointMarker\lHelperTest.h" alt="" coords="509,452,707,493"/>
+<area shape="rect" id="node16" href="$TransparentRenderingStageTest_8h_source.html" title="test/ModuleTests/Transparent\lRenderingStageTest.h" alt="" coords="946,452,1142,493"/>
+</map>

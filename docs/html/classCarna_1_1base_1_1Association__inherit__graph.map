@@ -1,0 +1,4 @@
+<map id="Carna::base::Association&lt; AssociatedObjectType &gt;" name="Carna::base::Association&lt; AssociatedObjectType &gt;">
+<area shape="rect" id="node2" href="$classCarna_1_1base_1_1Aggregation.html" title="Represents an aggregation, i.e. a weak reference. " alt="" coords="232,5,411,47"/>
+<area shape="rect" id="node3" href="$classCarna_1_1base_1_1Composition.html" title="Represents a composition, i.e. a strong reference. This basically is a std::unique_ptr that supports ..." alt="" coords="232,71,411,112"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classCarna_1_1base_1_1Spatial.html" title="Represents a spatial scene element. It&#39;s location is determined relatively to another spatial that is..." alt="" coords="5,56,147,83"/>
+<area shape="rect" id="node2" href="$classCarna_1_1base_1_1Camera.html" title="Represents the point&#45;of&#45;view and defines the 3D to 2D projection. " alt="" coords="201,5,347,32"/>
+<area shape="rect" id="node3" href="$classCarna_1_1base_1_1Geometry.html" title="Defines scene graph leafs. Instances of this class represent visible geometry that can be rendered..." alt="" coords="195,56,353,83"/>
+<area shape="rect" id="node4" href="$classCarna_1_1base_1_1Node.html" title="Defines the inner node of a scene graph. Implements a spatial scene element that is allowed to have c..." alt="" coords="208,107,340,133"/>
+</map>

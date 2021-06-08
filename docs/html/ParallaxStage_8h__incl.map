@@ -1,0 +1,8 @@
+<map id="include/Carna/presets/ParallaxStage.h" name="include/Carna/presets/ParallaxStage.h">
+<area shape="rect" id="node2" href="$CompositionStage_8h.html" title="Defines Carna::presets::CompositionStage. " alt="" coords="132,95,313,136"/>
+<area shape="rect" id="node3" href="$RenderStage_8h.html" title="Defines Carna::base::RenderStage. " alt="" coords="133,184,313,211"/>
+<area shape="rect" id="node4" href="$Carna_8h_source.html" title="Carna/Carna.h" alt="" coords="23,408,129,435"/>
+<area shape="rect" id="node7" href="$noncopyable_8h.html" title="Carna/base/noncopyable.h" alt="" coords="134,259,311,285"/>
+<area shape="rect" id="node8" href="$math_8h.html" title="Defines Carna::base::math namespace and CARNA_FOR_VECTOR3UI. " alt="" coords="356,259,489,285"/>
+<area shape="rect" id="node9" href="$CarnaException_8h.html" title="Defines Carna::base::CarnaException, Carna::base::AssertionFailure. " alt="" coords="164,333,361,360"/>
+</map>

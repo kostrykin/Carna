@@ -1,0 +1,4 @@
+<map id="Carna::base::VertexBufferBase" name="Carna::base::VertexBufferBase">
+<area shape="rect" id="node3" href="$classCarna_1_1base_1_1VertexBuffer.html" title="Specializes VertexBufferBase for particular VertexType. " alt="" coords="20,155,195,196"/>
+<area shape="rect" id="node2" href="$classCarna_1_1base_1_1BaseBuffer.html" title="Implements OpenGL buffer objects maintenance RAII base class. " alt="" coords="24,5,191,32"/>
+</map>

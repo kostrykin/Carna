@@ -1,0 +1,4 @@
+<map id="Carna::base::VertexBuffer&lt; VertexType &gt;" name="Carna::base::VertexBuffer&lt; VertexType &gt;">
+<area shape="rect" id="node2" href="$classCarna_1_1base_1_1VertexBufferBase.html" title="Maintains GL_ARRAY_BUFFER object that holds vertices. This class realizes the RAII&#45;idiom. " alt="" coords="5,80,209,107"/>
+<area shape="rect" id="node3" href="$classCarna_1_1base_1_1BaseBuffer.html" title="Implements OpenGL buffer objects maintenance RAII base class. " alt="" coords="24,5,191,32"/>
+</map>

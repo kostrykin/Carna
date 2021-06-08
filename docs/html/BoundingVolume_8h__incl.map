@@ -1,0 +1,6 @@
+<map id="include/Carna/base/BoundingVolume.h" name="include/Carna/base/BoundingVolume.h">
+<area shape="rect" id="node2" href="$Carna_8h_source.html" title="Carna/Carna.h" alt="" coords="23,244,129,271"/>
+<area shape="rect" id="node5" href="$noncopyable_8h.html" title="Carna/base/noncopyable.h" alt="" coords="134,95,311,121"/>
+<area shape="rect" id="node6" href="$math_8h.html" title="Defines Carna::base::math namespace and CARNA_FOR_VECTOR3UI. " alt="" coords="356,95,489,121"/>
+<area shape="rect" id="node7" href="$CarnaException_8h.html" title="Defines Carna::base::CarnaException, Carna::base::AssertionFailure. " alt="" coords="164,169,361,196"/>
+</map>

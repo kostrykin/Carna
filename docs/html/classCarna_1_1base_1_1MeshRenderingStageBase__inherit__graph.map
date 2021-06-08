@@ -1,0 +1,5 @@
+<map id="Carna::base::MeshRenderingStageBase" name="Carna::base::MeshRenderingStageBase">
+<area shape="rect" id="node2" href="$classCarna_1_1base_1_1MeshRenderingStage.html" title="Implements a geometry rendering stage that renders meshes. " alt="" coords="245,5,444,47"/>
+<area shape="rect" id="node3" href="$classCarna_1_1base_1_1MeshRenderingStage.html" title="Carna::base::MeshRendering\lStage\&lt; base::Renderable\l::BackToFront \&gt;" alt="" coords="249,71,441,127"/>
+<area shape="rect" id="node4" href="$classCarna_1_1presets_1_1TransparentRenderingStage.html" title="Implements rendering stage that renders transparent meshes. " alt="" coords="492,79,677,120"/>
+</map>

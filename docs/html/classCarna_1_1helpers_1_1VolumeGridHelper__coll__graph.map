@@ -1,0 +1,9 @@
+<map id="Carna::helpers::VolumeGridHelper&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;" name="Carna::helpers::VolumeGridHelper&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;">
+<area shape="rect" id="node2" href="$classCarna_1_1helpers_1_1VolumeGridHelperBase.html" title="Defines type&#45;parameters&#45;independent VolumeGridHelper base interface. " alt="" coords="453,5,635,47"/>
+<area shape="rect" id="node3" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1HUComponent.html" title="Defines the helpers::VolumeGridHelper component that maintains HU volume data. " alt="" coords="400,71,688,141"/>
+<area shape="rect" id="node4" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1TextureManager.html" title="Carna::helpers::details\l::VolumeGridHelper::TextureManager\l\&lt; HUTextureFactory\&lt; SegmentHUVolumeType,\l SegmentNormalsVolumeType \&gt; \&gt;" alt="" coords="5,64,308,135"/>
+<area shape="rect" id="node5" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html" title="Defines the helpers::VolumeGridHelper component that computes and maintains normal maps..." alt="" coords="357,166,731,222"/>
+<area shape="rect" id="node6" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1TextureManager.html" title="Carna::helpers::details\l::VolumeGridHelper::TextureManager\l\&lt; NormalsTextureFactory\&lt; SegmentHUVolume\lType, SegmentNormalsVolumeType \&gt; \&gt;" alt="" coords="7,159,306,229"/>
+<area shape="rect" id="node7" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponentBase.html" title="Defines the NormalsComponent base class that is independent of type arguments. " alt="" coords="11,253,302,295"/>
+<area shape="rect" id="node8" href="$structCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1Partionining.html" title="Computes the partitioning that VolumeGridHelper uses along one dimension. " alt="" coords="438,247,650,288"/>
+</map>

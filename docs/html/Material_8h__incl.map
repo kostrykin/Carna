@@ -1,0 +1,10 @@
+<map id="include/Carna/base/Material.h" name="include/Carna/base/Material.h">
+<area shape="rect" id="node2" href="$Carna_8h_source.html" title="Carna/Carna.h" alt="" coords="203,319,309,345"/>
+<area shape="rect" id="node5" href="$GeometryFeature_8h.html" title="Defines Carna::base::GeometryFeature. " alt="" coords="909,95,1115,121"/>
+<area shape="rect" id="node6" href="$noncopyable_8h.html" title="Carna/base/noncopyable.h" alt="" coords="822,244,999,271"/>
+<area shape="rect" id="node8" href="$ShaderManager_8h.html" title="Defines Carna::base::ShaderManager. " alt="" coords="640,95,835,121"/>
+<area shape="rect" id="node15" href="$ShaderUniform_8h_source.html" title="Carna/base/ShaderUniform.h" alt="" coords="198,95,389,121"/>
+<area shape="rect" id="node9" href="$Singleton_8h.html" title="Defines Carna::base::Singleton. " alt="" coords="587,169,746,196"/>
+<area shape="rect" id="node10" href="$CarnaException_8h.html" title="Defines Carna::base::CarnaException, Carna::base::AssertionFailure. " alt="" coords="549,244,747,271"/>
+<area shape="rect" id="node16" href="$math_8h.html" title="Defines Carna::base::math namespace and CARNA_FOR_VECTOR3UI. " alt="" coords="227,169,360,196"/>
+</map>

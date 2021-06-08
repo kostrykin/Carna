@@ -1,0 +1,5 @@
+<map id="Carna::base::Spatial" name="Carna::base::Spatial">
+<area shape="rect" id="node2" href="$classCarna_1_1base_1_1Camera.html" title="Represents the point&#45;of&#45;view and defines the 3D to 2D projection. " alt="" coords="5,80,152,107"/>
+<area shape="rect" id="node3" href="$classCarna_1_1base_1_1Geometry.html" title="Defines scene graph leafs. Instances of this class represent visible geometry that can be rendered..." alt="" coords="177,80,335,107"/>
+<area shape="rect" id="node4" href="$classCarna_1_1base_1_1Node.html" title="Defines the inner node of a scene graph. Implements a spatial scene element that is allowed to have c..." alt="" coords="359,80,491,107"/>
+</map>

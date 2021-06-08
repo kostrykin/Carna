@@ -1,0 +1,4 @@
+<map id="Carna::base::NormalMap3D" name="Carna::base::NormalMap3D">
+<area shape="rect" id="node3" href="$classCarna_1_1base_1_1BufferedNormalMap3D.html" title="Implements NormalMap3D generically for a particular VoxelType. " alt="" coords="5,169,268,225"/>
+<area shape="rect" id="node2" href="$classCarna_1_1base_1_1math_1_1VectorField.html" title="Carna::base::math::\lVectorField\&lt; math::Vector3f \&gt;" alt="" coords="37,5,236,47"/>
+</map>

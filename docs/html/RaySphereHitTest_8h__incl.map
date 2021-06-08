@@ -1,0 +1,6 @@
+<map id="include/Carna/base/math/RaySphereHitTest.h" name="include/Carna/base/math/RaySphereHitTest.h">
+<area shape="rect" id="node2" href="$Carna_8h_source.html" title="Carna/Carna.h" alt="" coords="23,319,129,345"/>
+<area shape="rect" id="node5" href="$math_8h.html" title="Defines Carna::base::math namespace and CARNA_FOR_VECTOR3UI. " alt="" coords="204,169,337,196"/>
+<area shape="rect" id="node6" href="$CarnaException_8h.html" title="Defines Carna::base::CarnaException, Carna::base::AssertionFailure. " alt="" coords="549,244,747,271"/>
+<area shape="rect" id="node15" href="$Ray_8h.html" title="Defines Carna::base::math::Ray. " alt="" coords="71,95,233,121"/>
+</map>

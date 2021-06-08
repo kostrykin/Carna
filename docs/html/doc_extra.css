@@ -1,0 +1,6 @@
+div.image img {
+    max-width: 22cm;
+}
+div.image img[src="typical.png"] {
+    width: 10cm; 
+}

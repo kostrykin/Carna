@@ -1,0 +1,4 @@
+<map id="Carna::base::Mesh&lt; VertexType, IndexType &gt;" name="Carna::base::Mesh&lt; VertexType, IndexType &gt;">
+<area shape="rect" id="node2" href="$classCarna_1_1base_1_1MeshBase.html" title="Format&#45;independent abstract Mesh base class. Each mesh consists of a VertexBuffer, an IndexBuffer and a vertex array. This class realizes the RAII&#45;idiom w.r.t. the vertex array. " alt="" coords="11,95,174,121"/>
+<area shape="rect" id="node3" href="$classCarna_1_1base_1_1GLContext.html" title="Wraps and represents an OpenGL context. " alt="" coords="11,5,175,32"/>
+</map>
