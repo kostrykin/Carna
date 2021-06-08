@@ -8,7 +8,7 @@ if( DOXYGEN_FOUND )
 						${DOXYGEN_EXECUTABLE} src/doc/Doxyfile
 						WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../..
 						COMMENT "Generating API documentation with Doxygen" VERBATIM )
-	install(	DIRECTORY	${CMAKE_CURRENT_SOURCE_DIR}/../../doc/html
+	install(	DIRECTORY	${CMAKE_CURRENT_SOURCE_DIR}/../../docs/html
 				DESTINATION	${INSTALL_DOC_DIR} )
 endif( DOXYGEN_FOUND )
 
