@@ -26,7 +26,7 @@
 #   include <windows.h>
 #endif
 
-#include <GL/glew.h>
+#include <Carna/base/GL/glew.h>
 
 
 
@@ -41,8 +41,15 @@
 #define CARNA_GLEW_INIT \
     { \
         const GLenum glew_state = glewInit(); \
-        CARNA_ASSERT( glew_state == GLEW_OK ); \
-        Carna::base::Log::instance().record( Carna::base::Log::debug, "GLEW initialized successfully." ); \
+        const auto glew_ok = ( glew_state == GLEW_OK ); \
+        if( glew_ok ) \
+        { \
+            Carna::base::Log::instance().record( Carna::base::Log::debug, "GLEW initialized successfully." ); \
+        } \
+        else \
+        { \
+            CARNA_FAIL( "GLEW initialization failed (" << glewGetErrorString( glew_state ) << ", Code: " << glew_state << ")" ); \
+        } \
     }
 
 

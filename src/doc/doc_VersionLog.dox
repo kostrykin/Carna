@@ -11,9 +11,9 @@ namespace Carna
   *     on wide-ranged API changes. There is absolutely no downward compatibility
   *     guaranteed: The compatibility of the API is usually broken when this version
   *     number is incremented.
-  *   - The *minor version number* tells the *"local"* API version. It is incremeted
-  *     on API changes that do break downward compatibility, but only locally, s.t.
-  *     only a few tweaks are neccessary - if any - in order to upgrade.
+  *   - The *minor version number* is incremeted on API changes that might break
+  *     downward compatibility, but only locally, s.t. only a few tweaks are
+  *     neccessary - if any - in order to upgrade.
   *   - The *patch version number* is incremeted on such changes that neither of the
   *     two prior rules apply to: Full downward compatibility is guaranteed, thus one
   *     should always try to use the most recent patch version.
@@ -39,6 +39,11 @@ namespace Carna
   *
   * - Added \ref base::MeshFactory::createFromSTL.
   * - Added support for Qt5 to testing and demo.
+  *
+  * \subsection v_3_1_0 API Version 3.1.0
+  *
+  * - Linked GLEW statically into the project by included the corresponding source files, since <a href="http://glew.sourceforge.net/install.html">this is the recommended method</a>.
+  * - Added the <tt>BUILD_EGL</tt> build switch to build GLEW with EGL support (defaults to <tt>OFF</tt>).
   */
   
 }  // namespace Carna

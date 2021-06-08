@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.0.2)
 project(Carna)
 
 set(MAJOR_VERSION	3)
-set(MINOR_VERSION	0)
-set(PATCH_VERSION	2)
+set(MINOR_VERSION	1)
+set(PATCH_VERSION	0)
 
 ############################################
 
@@ -21,6 +21,18 @@ string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_CAPS)
 option(BUILD_DOC	"Build and install the API documentation" OFF)
 option(BUILD_TEST	"Build the unit tests" OFF)
 option(BUILD_DEMO	"Build interactive demo" OFF)
+option(BUILD_EGL	"Build GLEW with EGL support" OFF)
+
+############################################
+# Switch EGL support for GLEW on/off
+############################################
+
+if( BUILD_EGL )
+    add_definitions( -DGLEW_EGL )
+    set( EGL_LIBRARIES "EGL" )
+else()
+    set( EGL_LIBRARIES "" )
+endif()
 
 ############################################
 # Macro that sets variable to default value
@@ -82,14 +94,9 @@ configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/misc/Find${PROJECT_NAME}.cmake.in
 # Find required dependencies
 ############################################
 
-# GLEW
-find_package( GLEW 1.7.0 REQUIRED )
-include_directories( ${GLEW_INCLUDE_DIRS} )
-
 # Eigen
-include( $ENV{MEDITEC_LIBS}/Eigen/3.2.8/configure.cmake ) 
-#find_package( Eigen3 REQUIRED )
-#include_directories( ${EIGEN3_INCLUDE_DIR} )
+find_package( Eigen3 REQUIRED )
+include_directories( ${EIGEN3_INCLUDE_DIR} )
 
 ############################################
 # Project
@@ -162,6 +169,10 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/Stopwatch.h
 		include/${PROJECT_NAME}/base/CameraControl.h
 		include/${PROJECT_NAME}/base/ProjectionControl.h
+		include/${PROJECT_NAME}/base/GL/wglew.h
+		include/${PROJECT_NAME}/base/GL/glxew.h
+		include/${PROJECT_NAME}/base/GL/glew.h
+		include/${PROJECT_NAME}/base/GL/eglew.h
 		include/${PROJECT_NAME}/base/glew.h
 		include/${PROJECT_NAME}/base/NodeListener.h
 		include/${PROJECT_NAME}/base/math.h
@@ -222,6 +233,7 @@ set( SRC
 		src/base/MeshRenderingStage.cpp
 		src/base/Node.cpp
 		src/base/Framebuffer.cpp
+		src/base/GL/glew.c
 		src/base/Sampler.cpp
 		src/base/Shader.cpp
 		src/base/Material.cpp
@@ -476,7 +488,7 @@ include( "misc/compiler_specific.cmake" )
 
 target_link_libraries( ${TARGET_NAME}
 			${OPENGL_LIBRARIES}
-			${GLEW_LIBRARIES}
+            ${EGL_LIBRARIES}
 			${GOMP_LIBRARIES}
 		)
 

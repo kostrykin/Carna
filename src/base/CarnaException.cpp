@@ -10,12 +10,25 @@
  */
 
 #include <Carna/base/CarnaException.h>
+#include <iostream>
 
 namespace Carna
 {
 
 namespace base
 {
+
+
+
+// ----------------------------------------------------------------------------------
+// reportException
+// ----------------------------------------------------------------------------------
+
+static void reportException( const CarnaException* ex )
+{
+    std::cout << std::endl << ex->type << ": " << ex->message << std::endl;
+    std::cout << ex->details << std::endl << std::endl;
+}
 
 
 
@@ -32,6 +45,7 @@ CarnaException::CarnaException
     , message( message )
     , details( details )
 {
+    reportException( this );
 }
 
 
@@ -43,6 +57,7 @@ CarnaException::CarnaException
     , message( error.what() )
     , details( details )
 {
+    reportException( this );
 }
 
 
@@ -54,6 +69,7 @@ CarnaException::CarnaException
     , message( error.what() )
     , details( details )
 {
+    reportException( this );
 }
 
 
