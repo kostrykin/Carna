@@ -48,7 +48,7 @@ or use `find_package(Carna 3.1.0 EXACT REQUIRED)` to pick a package by the exact
 You also need to add the headers (usually *only* the headers) from Eigen:
 
 ```CMake
-find_package( Eigen3 3.1.0 REQUIRED )
+find_package( Eigen3 REQUIRED )
 include_directories( ${EIGEN3_INCLUDE_DIR} )
 ```
 
