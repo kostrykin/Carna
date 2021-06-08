@@ -44,6 +44,7 @@ namespace Carna
   *
   * - Linked GLEW statically into the project by included the corresponding source files, since <a href="http://glew.sourceforge.net/install.html">this is the recommended method</a>.
   * - Added the <tt>BUILD_EGL</tt> build switch to build GLEW with EGL support (defaults to <tt>OFF</tt>).
+  * - Added \ref base::MeshFactory::createBall.
   */
   
 }  // namespace Carna
