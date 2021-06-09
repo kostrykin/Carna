@@ -43,15 +43,27 @@ include( IntegrationTests/configure.cmake )
 # Find dependencies and add them to the linker
 ############################################
 
-# Qt
-set(QT_FOUND OFF)
-find_package( Qt4 4.8.0 COMPONENTS QtTest QtOpenGL QtCore QtGui )
-if(Qt4_FOUND)
-	include( ${QT_USE_FILE} )
-	add_definitions( ${QT_DEFINITIONS} )
-	set(QT_FOUND ON)
+find_package( Qt5Core QUIET )
+find_package( Qt5Widgets QUIET )
+find_package( Qt5Gui QUIET )
+find_package( Qt5OpenGL QUIET )
+find_package( Qt5Test QUIET )
+if(Qt5Core_FOUND AND Qt5Widgets_FOUND AND Qt5Gui_FOUND AND Qt5OpenGL_FOUND AND Qt5Test_FOUND)
+    set(Qt5_FOUND TRUE)
+    set(QT_FOUND TRUE)
+    set(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Gui Qt5::OpenGL Qt5::Test)
+    include_directories(
+            ${Qt5Core_INCLUDE_DIRS}
+            ${Qt5Widgets_INCLUDE_DIRS}
+            ${Qt5Gui_INCLUDE_DIRS}
+            ${Qt5OpenGL_INCLUDE_DIRS}
+            ${Qt5Test_INCLUDE_DIRS}
+        )
 else()
-	message(WARNING "\nQt5 lookup not implemented yet.\n")
+    find_package( Qt4 4.8.0 COMPONENTS QtCore QtGui QtOpenGL QtTest REQUIRED )
+    include( ${QT_USE_FILE} )
+    add_definitions( ${QT_DEFINITIONS} )
+	set(QT_FOUND ON)
 endif()
 
 # Boost
@@ -61,10 +73,6 @@ find_package(Boost 1.48.0 COMPONENTS iostreams)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
 endif()
-
-# GLEW
-find_package( GLEW 1.7.0 REQUIRED )
-include_directories( ${GLEW_INCLUDE_DIRS} )
 
 # Carna
 include_directories( ${CMAKE_SOURCE_DIR}/include )
@@ -84,8 +92,13 @@ if(Boost_FOUND AND QT_FOUND)
 	# Compose test suite
 	############################################
 
-	QT4_WRAP_CPP( TESTS_QOBJECT_HEADERS_MOC ${TESTS_QOBJECT_HEADERS} )
-	QT4_ADD_RESOURCES( TESTS_RESOURCES_RCC ${TESTS_RESOURCES} )
+    if(Qt5_FOUND)
+	    QT5_WRAP_CPP( TESTS_QOBJECT_HEADERS_MOC ${TESTS_QOBJECT_HEADERS} )
+	    QT5_ADD_RESOURCES( TESTS_RESOURCES_RCC ${TESTS_RESOURCES} )
+    else(Qt5_FOUND)
+	    QT4_WRAP_CPP( TESTS_QOBJECT_HEADERS_MOC ${TESTS_QOBJECT_HEADERS} )
+	    QT4_ADD_RESOURCES( TESTS_RESOURCES_RCC ${TESTS_RESOURCES} )
+    endif(Qt5_FOUND)
 
 	set( TEST_SUITE_SRC_FILE	${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}-testsuite.cpp )
 
@@ -172,7 +185,6 @@ if(Boost_FOUND AND QT_FOUND)
 			
 	target_link_libraries( ${TARGET_NAME}-testsuite
 			${OPENGL_LIBRARIES}
-			${GLEW_LIBRARIES}
 			${QT_LIBRARIES}
 			${Boost_LIBRARIES}
 			optimized	${TARGET_NAME}

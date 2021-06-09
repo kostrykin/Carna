@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
 project(Carna)
 
 set(MAJOR_VERSION	3)
-set(MINOR_VERSION	1)
+set(MINOR_VERSION	2)
 set(PATCH_VERSION	0)
 
 ############################################
@@ -304,6 +304,8 @@ set( SHADERS_SRC
 		src/res/mip.vert
 		src/res/dvr.frag
 		src/res/dvr.vert
+		src/res/solid.vert
+		src/res/solid.frag
 		src/res/unshaded.vert
 		src/res/unshaded.frag
 		src/res/interleave.vert
@@ -525,6 +527,7 @@ endif()
 # Process unit tests
 ############################################
 
+message("BUILD_TEST: ${BUILD_TEST}")
 if( BUILD_TEST )
 	add_subdirectory(test)
 endif()

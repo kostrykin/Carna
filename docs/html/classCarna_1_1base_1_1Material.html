@@ -29,7 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Carna
-   &#160;<span id="projectnumber">Version 3.1.0</span>
+   &#160;<span id="projectnumber">Version 3.2.0</span>
    </div>
   </td>
  </tr>
@@ -220,7 +220,7 @@ Custom Materials</h1>
 <h2><a class="anchor" id="GLSL_Vert"></a>
 Vertex Shaders</h2>
 <p>A typical vertex shader looks like this:</p>
-<div class="fragment"><div class="line">#version 330</div><div class="line">uniform mat4 modelViewProjection;</div><div class="line">layout( location = 0 ) in vec4 inPosition;</div><div class="line">void main()</div><div class="line">{</div><div class="line">    vec4 clippingCoordinates = modelViewProjection * inPosition;</div><div class="line">    gl_Position = clippingCoordinates;</div><div class="line">}</div></div><!-- fragment --><p>Line 1 specifies the GLSL version that the compiler should use to build the code. Line 2 declares a variable, whose value will be set from code that runs on the CPU. The keyword <code>uniform</code> reflects the fact the value will be the same for each processed vertex. Line 3 declares the <a class="el" href="structCarna_1_1base_1_1VertexBase.html#CustomVertexFormats">vertex format</a>. The <code>main</code> function is invoked for each processed vertex. The example code above assumes that the vertices are stored in <a class="el" href="CoordinateSystems.html#CoordinateTransformations">model space</a> within the vertex buffer and transforms them to <a class="el" href="CoordinateSystems.html#ClippingCoordinates">clipping coordinates</a>.</p>
+<div class="fragment"><div class="line">#version 330</div><div class="line">uniform mat4 modelViewProjection;</div><div class="line">layout( location = 0 ) in vec4 inPosition;</div><div class="line">void main()</div><div class="line">{</div><div class="line">    vec4 clippingCoordinates = modelViewProjection * inPosition;</div><div class="line">    gl_Position = clippingCoordinates;</div><div class="line">}</div></div><!-- fragment --><p>Line 1 specifies the GLSL version that the compiler should use to build the code. Line 2 declares a variable, whose value will be set from code that runs on the CPU. The keyword <code>uniform</code> reflects the fact the value will be the same for each processed vertex. Line 3 declares the <a class="el" href="structCarna_1_1base_1_1PVertex.html#CustomVertexFormats">vertex format</a>. The <code>main</code> function is invoked for each processed vertex. The example code above assumes that the vertices are stored in <a class="el" href="CoordinateSystems.html#CoordinateTransformations">model space</a> within the vertex buffer and transforms them to <a class="el" href="CoordinateSystems.html#ClippingCoordinates">clipping coordinates</a>.</p>
 <p>Following uniform variables will be set by the <code>Material</code> class automatically, if declared:</p>
 <ul>
 <li><code>modelView</code> takes the model-view transform. This is the concatenation of the <a class="el" href="classCarna_1_1base_1_1Camera.html#abd57dba12e7142ceaf55cadc0c3d0069">view transform</a> and the <a class="el" href="classCarna_1_1base_1_1Spatial.html#aff4479a9de66ca9d622c2f992d2b8ed9">world transform</a>. It maps from model space to view space.</li>

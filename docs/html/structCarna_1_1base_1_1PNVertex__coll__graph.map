@@ -1,0 +1,4 @@
+<map id="Carna::base::PNVertex" name="Carna::base::PNVertex">
+<area shape="rect" id="node2" href="$structCarna_1_1base_1_1VertexPosition.html" title="Defines vertex component for position vectors. Usage is explained here. " alt="" coords="5,5,192,32"/>
+<area shape="rect" id="node3" href="$structCarna_1_1base_1_1VertexNormal.html" title="Defines vertex component for normal vectors. Usage is explained here. " alt="" coords="216,5,397,32"/>
+</map>

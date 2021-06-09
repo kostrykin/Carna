@@ -12,12 +12,14 @@ var searchData=
   ['partitioningy',['partitioningY',['../classCarna_1_1helpers_1_1VolumeGridHelper.html#a08e6e993443ccb54c0e4ec016a4dcc06',1,'Carna::helpers::VolumeGridHelper']]],
   ['partitioningz',['partitioningZ',['../classCarna_1_1helpers_1_1VolumeGridHelper.html#a40b7cf97265c7dbf5dd4a0f5f285c554',1,'Carna::helpers::VolumeGridHelper']]],
   ['partitionscount',['partitionsCount',['../structCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1Partionining.html#a2efbadb94b2cb241d3e25f999de8c566',1,'Carna::helpers::details::VolumeGridHelper::Partionining']]],
+  ['pcvertex',['PCVertex',['../structCarna_1_1base_1_1PCVertex.html',1,'Carna::base']]],
   ['perspectivecontrol',['PerspectiveControl',['../classCarna_1_1presets_1_1PerspectiveControl.html',1,'Carna::presets::PerspectiveControl'],['../classCarna_1_1presets_1_1PerspectiveControl.html#a2e616bb73a3d35ac05a80c7e38805aea',1,'Carna::presets::PerspectiveControl::PerspectiveControl()']]],
   ['perspectivecontrol_2eh',['PerspectiveControl.h',['../PerspectiveControl_8h.html',1,'']]],
   ['pick',['pick',['../classCarna_1_1presets_1_1MeshColorCodingStage.html#aacf4bfc8cc333003cf91ac2a0528f3d4',1,'Carna::presets::MeshColorCodingStage::pick(unsigned int x, unsigned int y) const'],['../classCarna_1_1presets_1_1MeshColorCodingStage.html#afc65217725969aa5090eb3c0fb654191',1,'Carna::presets::MeshColorCodingStage::pick(const base::math::Vector2ui &amp;) const']]],
   ['pixel_5fformat',['PIXEL_FORMAT',['../structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01HUVolumeUInt16_01_4.html#a828fd8721d4ee9de112990e77d25d4b3',1,'Carna::base::BufferedVectorFieldFormat&lt; HUVolumeUInt16 &gt;::PIXEL_FORMAT()'],['../structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01NormalMap3DInt8_01_4.html#a1ad27e2276601f4753b38193688fce44',1,'Carna::base::BufferedVectorFieldFormat&lt; NormalMap3DInt8 &gt;::PIXEL_FORMAT()']]],
   ['pixelformat',['pixelFormat',['../classCarna_1_1base_1_1ManagedTexture3D.html#a69ee9c4ff99c28e4249ef8bd608db5a5',1,'Carna::base::ManagedTexture3D::pixelFormat()'],['../classCarna_1_1base_1_1Texture.html#ae47217b5c33a1d3fb9fe27b8fdb8a0c4',1,'Carna::base::Texture::pixelFormat()']]],
   ['plane4f',['plane4f',['../namespaceCarna_1_1base_1_1math.html#a68b06e0e39f2b71b96ab966aef5976ff',1,'Carna::base::math::plane4f(const Vector3f &amp;normal, float distance)'],['../namespaceCarna_1_1base_1_1math.html#a48f99883ae0854e18d8fd99cb01ca182',1,'Carna::base::math::plane4f(const Vector3f &amp;normal, const Vector3f &amp;support)']]],
+  ['pnvertex',['PNVertex',['../structCarna_1_1base_1_1PNVertex.html',1,'Carna::base']]],
   ['pointmarkerhelper',['PointMarkerHelper',['../classCarna_1_1helpers_1_1PointMarkerHelper.html',1,'Carna::helpers::PointMarkerHelper'],['../classCarna_1_1helpers_1_1PointMarkerHelper.html#a5fc97261ddb81fd3ad8c5c607dff86d7',1,'Carna::helpers::PointMarkerHelper::PointMarkerHelper(unsigned int geometryType, unsigned int pointSize=DEFAULT_POINT_SIZE)'],['../classCarna_1_1helpers_1_1PointMarkerHelper.html#aa4402aba8a6a380699afb632c23e68ba',1,'Carna::helpers::PointMarkerHelper::PointMarkerHelper(unsigned int geometryType, unsigned int meshRole, unsigned int materialRole, unsigned int pointSize=DEFAULT_POINT_SIZE)']]],
   ['pointmarkerhelper_2eh',['PointMarkerHelper.h',['../PointMarkerHelper_8h.html',1,'']]],
   ['pointmarkerhelpertest',['PointMarkerHelperTest',['../classCarna_1_1testing_1_1PointMarkerHelperTest.html',1,'Carna::testing']]],
@@ -39,5 +41,6 @@ var searchData=
   ['projectioncontrol_2eh',['ProjectionControl.h',['../ProjectionControl_8h.html',1,'']]],
   ['pushrenderstate',['pushRenderState',['../classCarna_1_1base_1_1GLContext.html#a6bf17df59cdb3d385f908bba34b5b254',1,'Carna::base::GLContext']]],
   ['putfeature',['putFeature',['../classCarna_1_1base_1_1Geometry.html#a3b88b4d59f97bf4b80c380e912bba8e9',1,'Carna::base::Geometry']]],
-  ['putgeometrytype',['putGeometryType',['../classCarna_1_1presets_1_1MeshColorCodingStage.html#a868d51fc6a01ba241f629e4427126e75',1,'Carna::presets::MeshColorCodingStage']]]
+  ['putgeometrytype',['putGeometryType',['../classCarna_1_1presets_1_1MeshColorCodingStage.html#a868d51fc6a01ba241f629e4427126e75',1,'Carna::presets::MeshColorCodingStage']]],
+  ['pvertex',['PVertex',['../structCarna_1_1base_1_1PVertex.html',1,'Carna::base']]]
 ];

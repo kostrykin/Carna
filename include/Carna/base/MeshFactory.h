@@ -57,7 +57,7 @@ class MeshFactory
 {
 
     template< typename VectorType >
-    static VertexType vertex( const VectorType& );
+    static VertexType vertex( const VectorType& position, const VectorType& normal = VectorType(), const VectorType& color = VectorType() );
 
 public:
 
@@ -78,7 +78,7 @@ public:
       * \date   June 2021
       * \since  \ref v_3_1_0
       */
-    static ManagedMesh< VertexType, uint16_t >& createBall( float radius, unsigned int degree );
+    static ManagedMesh< VertexType, uint16_t >& createBall( float radius, unsigned int degree = 3 );
 
     /** \brief
       * Creates mesh that consists of a single point.
@@ -103,12 +103,14 @@ public:
 
 template< typename VertexType >
 template< typename VectorType >
-VertexType MeshFactory< VertexType >::vertex( const VectorType& v )
+VertexType MeshFactory< VertexType >::vertex( const VectorType& position, const VectorType& normal, const VectorType& color )
 {
     VertexType vertex;
-    vertex.x = v.x();
-    vertex.y = v.y();
-    vertex.z = v.z();
+    vertex.x = position.x();
+    vertex.y = position.y();
+    vertex.z = position.z();
+    vertex.setNormal( normal );
+    vertex.setColor ( color  );
     return vertex;
 }
 
@@ -151,11 +153,14 @@ ManagedMesh< VertexType, uint8_t >& MeshFactory< VertexType >::createBox( float 
      */
     for( unsigned int faceIndex = 0; faceIndex < 6; ++faceIndex )
     {
-        const math::Matrix4f transform = baseTransform * transforms[ faceIndex ];
-        vertices[ ++lastVertex ] = vertex( transform * math::Vector4f( -1, -1, 1, 1 ) );
-        vertices[ ++lastVertex ] = vertex( transform * math::Vector4f( +1, -1, 1, 1 ) );
-        vertices[ ++lastVertex ] = vertex( transform * math::Vector4f( +1, +1, 1, 1 ) );
-        vertices[ ++lastVertex ] = vertex( transform * math::Vector4f( -1, +1, 1, 1 ) );
+        const auto positionTransform = baseTransform * transforms[ faceIndex ];
+        const auto   normalTransform = positionTransform.inverse().transpose();
+        const auto normalVector = ( normalTransform * math::Vector4f( 0, 0, 1, 0 ) ).normalized();
+
+        vertices[ ++lastVertex ] = vertex< math::Vector4f >( positionTransform * math::Vector4f( -1, -1, 1, 1 ), normalVector );
+        vertices[ ++lastVertex ] = vertex< math::Vector4f >( positionTransform * math::Vector4f( +1, -1, 1, 1 ), normalVector );
+        vertices[ ++lastVertex ] = vertex< math::Vector4f >( positionTransform * math::Vector4f( +1, +1, 1, 1 ), normalVector );
+        vertices[ ++lastVertex ] = vertex< math::Vector4f >( positionTransform * math::Vector4f( -1, +1, 1, 1 ), normalVector );
 
         indices[ ++lastIndex ] = lastVertex - 3;
         indices[ ++lastIndex ] = lastVertex - 2;
@@ -209,7 +214,8 @@ ManagedMesh< VertexType, uint16_t >& MeshFactory< VertexType >::createBall( floa
      */
     for( unsigned int sideIndex = 0; sideIndex < 6; ++sideIndex )
     {
-        const math::Matrix4f transform = baseTransform * transforms[ sideIndex ];
+        const auto positionTransform = baseTransform * transforms[ sideIndex ];
+        const auto   normalTransform = positionTransform.inverse().transpose();
 
         for( unsigned int y = 0; y < verticesPerEdge; ++y )
         for( unsigned int x = 0; x < verticesPerEdge; ++x )
@@ -217,7 +223,10 @@ ManagedMesh< VertexType, uint16_t >& MeshFactory< VertexType >::createBall( floa
             const float fx = 2 * x / float( verticesPerEdge - 1 );
             const float fy = 2 * y / float( verticesPerEdge - 1 );
             const auto position = math::Vector3f( -1 + fx, -1 + fy, 1 ).normalized();
-            vertices[ ++lastVertex ] = vertex( transform * math::Vector4f( position.x(), position.y(), position.z(), 1 ) );
+            vertices[ ++lastVertex ] = vertex< math::Vector4f >
+                ( positionTransform * math::Vector4f( position.x(), position.y(), position.z(), 1 )
+                ,   normalTransform * math::Vector4f( position.x(), position.y(), position.z(), 0 )
+            );
         }
 
         for( unsigned int y = 0; y < verticesPerEdge - 1; ++y )

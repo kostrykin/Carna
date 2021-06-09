@@ -65,6 +65,7 @@ static unsigned int createGLVertexArray( const VertexAttributes& va, const Verte
             , static_cast< float* >( nullptr ) + offset );
         offset += itr->componentsCount;
     }
+    REPORT_GL_ERROR;
     glBindVertexArray( 0 );
     return id;
 }

@@ -70,7 +70,7 @@ struct CuttingPlanesStage::VideoResources
 {
     VideoResources( const base::ShaderProgram& shader );
 
-    typedef base::Mesh< base::VertexBase, uint8_t > PlaneMesh;
+    typedef base::Mesh< base::PVertex, uint8_t > PlaneMesh;
     const std::unique_ptr< PlaneMesh > planeMesh;
     static PlaneMesh* createPlaneMesh();
     
@@ -92,7 +92,7 @@ CuttingPlanesStage::VideoResources::VideoResources( const base::ShaderProgram& s
 CuttingPlanesStage::VideoResources::PlaneMesh* CuttingPlanesStage::VideoResources::createPlaneMesh()
 {
     const float radius = std::sqrt( 3.f ) / 2;
-    base::VertexBase vertices[ 4 ];
+    base::PVertex vertices[ 4 ];
     uint8_t indices[ 4 ];
 
     vertices[ 0 ].x = -radius;

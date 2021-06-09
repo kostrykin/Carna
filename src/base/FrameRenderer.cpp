@@ -67,8 +67,8 @@ static GLContext& glContextMadeCurrent( GLContext& glc )
 
 static MeshBase* createFullFrameQuadMesh()
 {
-    typedef VertexBase VertexType;
-    typedef    uint8_t  IndexType;
+    typedef PVertex VertexType;
+    typedef uint8_t IndexType;
     
     /* Lets create clipping coordinates directly,
      * s.t. we won't need to pass any matrices to the shader.

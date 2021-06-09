@@ -49,7 +49,7 @@ unsigned int PointMarkerHelper::Details::lastNumber = 0;
 
 
 PointMarkerHelper::Details::Details()
-    : mesh( base::MeshFactory< base::VertexBase >::createPoint() )
+    : mesh( base::MeshFactory< base::PVertex >::createPoint() )
 {
 }
 

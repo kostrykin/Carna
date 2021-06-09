@@ -172,6 +172,7 @@ void MeshRenderingStage< RenderableCompare >::render( const Renderable& renderab
     ShaderUniform< math::Matrix4f >( "modelView", renderable.modelViewTransform() ).upload();
     ShaderUniform< math::Matrix4f >( "projection", renderTask->projection ).upload();
     ShaderUniform< math::Matrix4f >( "modelViewProjection", renderTask->projection * renderable.modelViewTransform() ).upload();
+    ShaderUniform< math::Matrix4f >( "normalsView", renderable.viewModelTransform().transpose() ).upload();
 
     const ManagedMeshBase& mesh = static_cast< ManagedMeshBase& >( renderable.geometry().feature( ROLE_DEFAULT_MESH ) );
     this->videoResource( mesh ).get().render();

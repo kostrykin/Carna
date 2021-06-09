@@ -185,8 +185,11 @@ namespace Carna
   *
   * There are a few material shaders available out-of-the-box:
   *
+  *   - The `solid` material shader colors the rendered mesh in a single color
+  *     and performs phong lighting.
   *   - The `unshaded` material shader colors the rendered mesh in a single color
-  *     uniformly.
+  *     uniformly. In the future this material shader will be replaced by `solid` in
+  *     conjunction with *emission* color.
   *   - The \ref helpers::PointMarkerHelper class uses the `pointmarker` material
   *     shader to create simple markers in 3D space.
   *

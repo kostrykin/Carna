@@ -29,7 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Carna
-   &#160;<span id="projectnumber">Version 3.1.0</span>
+   &#160;<span id="projectnumber">Version 3.2.0</span>
    </div>
   </td>
  </tr>
@@ -151,9 +151,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1Color.html">Color</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a color. Objects from this class are copyable and assignable.  <a href="classCarna_1_1base_1_1Color.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1ColoredVertex.html">ColoredVertex</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex that consists of the two attributes position and color.  <a href="structCarna_1_1base_1_1ColoredVertex.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1Composition.html">Composition</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a composition, i.e. a strong reference. This basically is a <code>std::unique_ptr</code> that supports the <a class="el" href="classCarna_1_1base_1_1Association.html">Association</a> interface.  <a href="classCarna_1_1base_1_1Composition.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -244,8 +241,17 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1NormalMap3D.html">NormalMap3D</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines interface to \(\mathbb N_0^3 \to \left\{\vec v \middle| \left\|\vec v \in \mathbb R^3\right\|_2 \leq 1\right\}\) mapping.  <a href="classCarna_1_1base_1_1NormalMap3D.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1PCVertex.html">PCVertex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex that consists of the two attributes position and color.  <a href="structCarna_1_1base_1_1PCVertex.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1PNVertex.html">PNVertex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex that consists of the two attributes position and normal vector.  <a href="structCarna_1_1base_1_1PNVertex.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1ProjectionControl.html">ProjectionControl</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls projection matrices.  <a href="classCarna_1_1base_1_1ProjectionControl.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1PVertex.html">PVertex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines simple-most vertex that only consists of a positional attribute.  <a href="structCarna_1_1base_1_1PVertex.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1QGLContextAdapter.html">QGLContextAdapter</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">If you're using Qt, this class template implements the abstract <a class="el" href="classCarna_1_1base_1_1GLContext.html">GLContext</a> class as an adapter to the <code>QGLContext</code> class from Qt.  <a href="classCarna_1_1base_1_1QGLContextAdapter.html#details">More...</a><br /></td></tr>
@@ -322,9 +328,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1VertexAttribute.html">VertexAttribute</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declares a vertex attribute.  <a href="structCarna_1_1base_1_1VertexAttribute.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1VertexBase.html">VertexBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines simple-most vertex that only consists of a positional attribute.  <a href="structCarna_1_1base_1_1VertexBase.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1VertexBuffer.html">VertexBuffer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specializes <a class="el" href="classCarna_1_1base_1_1VertexBufferBase.html">VertexBufferBase</a> for particular <em>VertexType</em>.  <a href="classCarna_1_1base_1_1VertexBuffer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -332,10 +335,13 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maintains <code>GL_ARRAY_BUFFER</code> object that holds vertices. This class realizes the RAII-idiom.  <a href="classCarna_1_1base_1_1VertexBufferBase.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1VertexColor.html">VertexColor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex component for colors. Usage is explained <a class="el" href="structCarna_1_1base_1_1VertexBase.html#CustomVertexFormats">here</a>.  <a href="structCarna_1_1base_1_1VertexColor.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex component for colors. Usage is explained <a class="el" href="structCarna_1_1base_1_1PVertex.html#CustomVertexFormats">here</a>.  <a href="structCarna_1_1base_1_1VertexColor.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1VertexNormal.html">VertexNormal</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex component for normal vectors. Usage is explained <a class="el" href="structCarna_1_1base_1_1VertexBase.html#CustomVertexFormats">here</a>.  <a href="structCarna_1_1base_1_1VertexNormal.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex component for normal vectors. Usage is explained <a class="el" href="structCarna_1_1base_1_1PVertex.html#CustomVertexFormats">here</a>.  <a href="structCarna_1_1base_1_1VertexNormal.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1VertexPosition.html">VertexPosition</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex component for position vectors. Usage is explained <a class="el" href="structCarna_1_1base_1_1PVertex.html#CustomVertexFormats">here</a>.  <a href="structCarna_1_1base_1_1VertexPosition.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1Viewport.html">Viewport</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines a <a class="el" href="CoordinateSystems.html#WindowCoordinates">rendering viewport</a>. The viewport is a property of the <a class="el" href="classCarna_1_1base_1_1GLContext.html">current OpenGL context</a>.  <a href="classCarna_1_1base_1_1Viewport.html#details">More...</a><br /></td></tr>

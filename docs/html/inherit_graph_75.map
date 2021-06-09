@@ -1,5 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structCarna_1_1base_1_1VertexBase.html" title="Defines simple&#45;most vertex that only consists of a positional attribute. " alt="" coords="6,5,175,32"/>
-<area shape="rect" id="node2" href="$structCarna_1_1base_1_1ColoredVertex.html" title="Defines vertex that consists of the two attributes position and color. " alt="" coords="224,31,408,57"/>
-<area shape="rect" id="node3" href="$structCarna_1_1base_1_1VertexColor.html" title="Defines vertex component for colors. Usage is explained here. " alt="" coords="5,56,176,83"/>
+<area shape="rect" id="node1" href="$structCarna_1_1base_1_1VertexColor.html" title="Defines vertex component for colors. Usage is explained here. " alt="" coords="13,5,184,32"/>
+<area shape="rect" id="node2" href="$structCarna_1_1base_1_1PCVertex.html" title="Defines vertex that consists of the two attributes position and color. " alt="" coords="240,5,399,32"/>
+<area shape="rect" id="node3" href="$structCarna_1_1base_1_1VertexNormal.html" title="Defines vertex component for normal vectors. Usage is explained here. " alt="" coords="8,107,189,133"/>
+<area shape="rect" id="node4" href="$structCarna_1_1base_1_1PNVertex.html" title="Defines vertex that consists of the two attributes position and normal vector. " alt="" coords="240,107,399,133"/>
+<area shape="rect" id="node5" href="$structCarna_1_1base_1_1VertexPosition.html" title="Defines vertex component for position vectors. Usage is explained here. " alt="" coords="5,56,192,83"/>
+<area shape="rect" id="node6" href="$structCarna_1_1base_1_1PVertex.html" title="Defines simple&#45;most vertex that only consists of a positional attribute. " alt="" coords="245,56,393,83"/>
 </map>

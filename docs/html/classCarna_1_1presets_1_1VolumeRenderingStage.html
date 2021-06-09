@@ -29,7 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Carna
-   &#160;<span id="projectnumber">Version 3.1.0</span>
+   &#160;<span id="projectnumber">Version 3.2.0</span>
    </div>
   </td>
  </tr>
@@ -348,7 +348,7 @@ Writing the Shader</h2>
 <p>Below are a few hints on how to implement the shader. Refer to the <a class="el" href="classCarna_1_1base_1_1Material.html#ShaderMaterialIntegration">Integration into Materials</a> section for hints on how to actually load the shader.</p>
 <h3><a class="anchor" id="VolumeRenderingVertexShader"></a>
 Vertex Shader</h3>
-<p>The vertex shader must declare the following GLSL version, uniform variables and <a class="el" href="structCarna_1_1base_1_1VertexBase.html#CustomVertexFormats">vertex formats</a>:</p>
+<p>The vertex shader must declare the following GLSL version, uniform variables and <a class="el" href="structCarna_1_1base_1_1PVertex.html#CustomVertexFormats">vertex formats</a>:</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#version 330</span></div><div class="line">uniform mat4 tangentModel;</div><div class="line">uniform mat4 modelViewProjection;</div><div class="line"></div><div class="line">layout( location = 0 ) in vec4 inPosition;</div></div><!-- fragment --><p>Furthermore, it must pass the model-space coordinates to the fragment shader, although the name of the variable used for this is arbitrary:</p>
 <div class="fragment"><div class="line">out vec4 modelSpaceCoordinates;</div></div><!-- fragment --><p>Most of the time you should be able to stick to this implementation:</p>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> main()</div><div class="line">{</div><div class="line">    modelSpaceCoordinates = tangentModel * inPosition;</div><div class="line">    vec4 clippingCoordinates = modelViewProjection * modelSpaceCoordinates;</div><div class="line">    gl_Position = clippingCoordinates;</div><div class="line">}</div></div><!-- fragment --><h3><a class="anchor" id="VolumeRenderingFragmentShader"></a>

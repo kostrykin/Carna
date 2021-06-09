@@ -4,7 +4,7 @@
 <area shape="rect" id="node10" href="$IndexBuffer_8h.html" title="Defines Carna::base::IndexBuffer. " alt="" coords="517,244,688,271"/>
 <area shape="rect" id="node11" href="$ManagedMesh_8h.html" title="Defines Carna::base::ManagedMesh. " alt="" coords="652,95,841,121"/>
 <area shape="rect" id="node18" href="$math_8h.html" title="Defines Carna::base::math namespace and CARNA_FOR_VECTOR3UI. " alt="" coords="1157,244,1291,271"/>
-<area shape="rect" id="node28" href="$Vertex_8h.html" title="Defines Carna::base::VertexBase. " alt="" coords="121,169,263,196"/>
+<area shape="rect" id="node28" href="$Vertex_8h.html" title="Defines Carna::base::PVertex, Carna::base::PNVertex, Carna::base::VertexPosition, Carna::base::Vertex..." alt="" coords="121,169,263,196"/>
 <area shape="rect" id="node3" href="$Carna_8h_source.html" title="Carna/Carna.h" alt="" coords="520,393,627,420"/>
 <area shape="rect" id="node7" href="$BaseBuffer_8h.html" title="Defines Carna::base::BaseBuffer. " alt="" coords="406,319,575,345"/>
 <area shape="rect" id="node12" href="$Mesh_8h.html" title="Defines Carna::base::Mesh. " alt="" coords="441,169,577,196"/>

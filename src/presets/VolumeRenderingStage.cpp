@@ -67,7 +67,7 @@ struct VolumeRenderingStage::VideoResources
     const base::ShaderProgram& shader;
     std::map< unsigned int, base::Sampler* > samplers;
     
-    typedef base::Mesh< base::VertexBase, uint16_t > SlicesMesh;
+    typedef base::Mesh< base::PVertex, uint16_t > SlicesMesh;
     SlicesMesh& slicesMesh( unsigned int sampleRate );
     
 private:

@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['w',['w',['../structCarna_1_1base_1_1VertexBase.html#a348e235026f823533a43249ef3883fbb',1,'Carna::base::VertexBase']]],
+  ['w',['w',['../structCarna_1_1base_1_1VertexPosition.html#a87eaf25d2609631fd905de2501cf58d8',1,'Carna::base::VertexPosition']]],
   ['warning',['warning',['../classCarna_1_1base_1_1Log.html#a80ada39f636acf2cdb409c5256467937ac3765221773c683da8b901e844e93032',1,'Carna::base::Log']]],
   ['waterattenuation',['waterAttenuation',['../classCarna_1_1presets_1_1DRRStage.html#a8ced365a1e5a18d6a8455d0d3f863f52',1,'Carna::presets::DRRStage']]],
-  ['white',['white',['../classCarna_1_1base_1_1RotatingColor.html#ab6ed7cd547d006d8b6d00c4e4e31ff2ba1d09c8fd39af81eef87abfbe5a4417fb',1,'Carna::base::RotatingColor::white()'],['../classCarna_1_1base_1_1Color.html#ad9cbfafbf758c2c139259ac8050225dc',1,'Carna::base::Color::WHITE()']]],
+  ['white',['WHITE',['../classCarna_1_1base_1_1Color.html#ad9cbfafbf758c2c139259ac8050225dc',1,'Carna::base::Color::WHITE()'],['../classCarna_1_1base_1_1RotatingColor.html#ab6ed7cd547d006d8b6d00c4e4e31ff2ba1d09c8fd39af81eef87abfbe5a4417fb',1,'Carna::base::RotatingColor::white()']]],
   ['white_5fno_5falpha',['WHITE_NO_ALPHA',['../classCarna_1_1base_1_1Color.html#a6612fc7554d76caa3a528539b52fa7fa',1,'Carna::base::Color']]],
   ['width',['width',['../classCarna_1_1base_1_1Framebuffer.html#a214eb24f7c0ed6cdbde0aff2ddfa836c',1,'Carna::base::Framebuffer::width()'],['../classCarna_1_1base_1_1FrameRenderer.html#a6cc6aae491b245d44f41b2e27510395b',1,'Carna::base::FrameRenderer::width()'],['../classCarna_1_1base_1_1Viewport.html#aaaa2fc4670f46f5aec35cf960cc98a36',1,'Carna::base::Viewport::width()']]],
   ['windowinglevel',['windowingLevel',['../classCarna_1_1presets_1_1CuttingPlanesStage.html#a2e3017fc7c7fce5e7e0ca015c595d210',1,'Carna::presets::CuttingPlanesStage']]],

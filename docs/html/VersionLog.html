@@ -29,7 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Carna
-   &#160;<span id="projectnumber">Version 3.1.0</span>
+   &#160;<span id="projectnumber">Version 3.2.0</span>
    </div>
   </td>
  </tr>
@@ -72,7 +72,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p>This page gives you an overview over the recent API changes.</p>
 <h1><a class="anchor" id="VersioningPolicies"></a>
-Versioning Policies</h1>
+Versioning Policy</h1>
 <ul>
 <li>The <em>major version number</em> names the overall API version. It is incremented on wide-ranged API changes. There is absolutely no downward compatibility guaranteed: The compatibility of the API is usually broken when this version number is incremented.</li>
 <li>The <em>minor version number</em> is incremeted on API changes that might break downward compatibility, but only locally, s.t. only a few tweaks are neccessary - if any - in order to upgrade.</li>
@@ -101,7 +101,14 @@ API Version 3.1.0</h2>
 <ul>
 <li>Linked GLEW statically into the project by included the corresponding source files, since <a href="http://glew.sourceforge.net/install.html">this is the recommended method</a>.</li>
 <li>Added the <code>BUILD_EGL</code> build switch to build GLEW with EGL support (defaults to <code>OFF</code>).</li>
-<li>Added <a class="el" href="classCarna_1_1base_1_1MeshFactory.html#a0d9934acdf7c557da98c4ca8dc7f3c00">base::MeshFactory::createBall</a>. </li>
+<li>Added <a class="el" href="classCarna_1_1base_1_1MeshFactory.html#a3f973244e83837c839a7a8b327c42b98">base::MeshFactory::createBall</a>.</li>
+</ul>
+<h2><a class="anchor" id="v_3_2_0"></a>
+API Version 3.2.0</h2>
+<ul>
+<li>Refactored <a class="el" href="Vertex_8h.html">Carna/base/Vertex.h</a> and renamed <code>base::VertexBase</code> to <a class="el" href="structCarna_1_1base_1_1PVertex.html">base::PVertex</a>.</li>
+<li>Added <a class="el" href="structCarna_1_1base_1_1VertexPosition.html">base::VertexPosition</a> and <a class="el" href="structCarna_1_1base_1_1PNVertex.html">base::PNVertex</a>.</li>
+<li>Added the <code>solid</code> material shader. </li>
 </ul>
 </div></div><!-- contents -->
 <hr class="footer"/>

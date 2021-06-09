@@ -197,7 +197,7 @@ void Demo::initializeGL()
     gridHelper->loadData( *baseVolume );
     base::Node* const volumeNode = gridHelper->createNode( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ) );
 
-    base::ManagedMeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 10, 10, 10 );
+    base::ManagedMeshBase& boxMesh = base::MeshFactory< base::PVertex >::createBox( 10, 10, 10 );
     base::Material& boxMaterial = base::Material::create( "unshaded" );
     boxMaterial.setParameter( "color", base::math::Vector4f( 1, 0, 0, 1 ) );
     base::Geometry* const boxGeometry = new base::Geometry( GEOMETRY_TYPE_OPAQUE );

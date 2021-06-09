@@ -29,7 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Carna
-   &#160;<span id="projectnumber">Version 3.1.0</span>
+   &#160;<span id="projectnumber">Version 3.2.0</span>
    </div>
   </td>
  </tr>
@@ -91,9 +91,9 @@ static <a class="el" href="classCarna_1_1base_1_1ManagedMesh.html">ManagedMesh</
 <tr class="separator:acac7c62e90744138576e18dd7496f6aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7bb51a25b6bd2a72b5d22a0cca5b08e1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classCarna_1_1base_1_1ManagedMesh.html">ManagedMesh</a>&lt; VertexType, uint8_t &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1MeshFactory.html#a7bb51a25b6bd2a72b5d22a0cca5b08e1">createBox</a> (const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a5514f9471eeafc285ab52b33f1c79cec">math::Vector3f</a> &amp;size)</td></tr>
 <tr class="separator:a7bb51a25b6bd2a72b5d22a0cca5b08e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d9934acdf7c557da98c4ca8dc7f3c00"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classCarna_1_1base_1_1ManagedMesh.html">ManagedMesh</a>&lt; VertexType, uint16_t &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1MeshFactory.html#a0d9934acdf7c557da98c4ca8dc7f3c00">createBall</a> (float radius, unsigned int degree)</td></tr>
-<tr class="memdesc:a0d9934acdf7c557da98c4ca8dc7f3c00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates sphere with <em>radius</em> and a vertices number determined by <em>degree</em>. The ball is centered in \(\left(0, 0, 0\right)^\mathrm T\).  <a href="#a0d9934acdf7c557da98c4ca8dc7f3c00">More...</a><br /></td></tr>
-<tr class="separator:a0d9934acdf7c557da98c4ca8dc7f3c00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f973244e83837c839a7a8b327c42b98"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classCarna_1_1base_1_1ManagedMesh.html">ManagedMesh</a>&lt; VertexType, uint16_t &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1MeshFactory.html#a3f973244e83837c839a7a8b327c42b98">createBall</a> (float radius, unsigned int degree=3)</td></tr>
+<tr class="memdesc:a3f973244e83837c839a7a8b327c42b98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates sphere with <em>radius</em> and a vertices number determined by <em>degree</em>. The ball is centered in \(\left(0, 0, 0\right)^\mathrm T\).  <a href="#a3f973244e83837c839a7a8b327c42b98">More...</a><br /></td></tr>
+<tr class="separator:a3f973244e83837c839a7a8b327c42b98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a071136782c95030052bceea73ba1b8f7"><td class="memItemLeft" align="right" valign="top"><a id="a071136782c95030052bceea73ba1b8f7"></a>
 static <a class="el" href="classCarna_1_1base_1_1ManagedMesh.html">ManagedMesh</a>&lt; VertexType, uint8_t &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1MeshFactory.html#a071136782c95030052bceea73ba1b8f7">createPoint</a> ()</td></tr>
 <tr class="memdesc:a071136782c95030052bceea73ba1b8f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates mesh that consists of a single point. <br /></td></tr>
@@ -120,8 +120,8 @@ class Carna::base::MeshFactory&lt; VertexType &gt;</h3>
 
 <p class="definition">Definition at line <a class="el" href="MeshFactory_8h_source.html#l00056">56</a> of file <a class="el" href="MeshFactory_8h_source.html">MeshFactory.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0d9934acdf7c557da98c4ca8dc7f3c00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d9934acdf7c557da98c4ca8dc7f3c00">&#9670;&nbsp;</a></span>createBall()</h2>
+<a id="a3f973244e83837c839a7a8b327c42b98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f973244e83837c839a7a8b327c42b98">&#9670;&nbsp;</a></span>createBall()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,7 +141,7 @@ template&lt;typename VertexType &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>degree</em>&#160;</td>
+          <td class="paramname"><em>degree</em> = <code>3</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -160,7 +160,7 @@ template&lt;typename VertexType &gt; </div>
 <dl class="section date"><dt>Date</dt><dd>June 2021 </dd></dl>
 <dl class="section since"><dt>Since</dt><dd><a class="el" href="VersionLog.html#v_3_1_0">API Version 3.1.0</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="MeshFactory_8h_source.html#l00177">177</a> of file <a class="el" href="MeshFactory_8h_source.html">MeshFactory.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MeshFactory_8h_source.html#l00182">182</a> of file <a class="el" href="MeshFactory_8h_source.html">MeshFactory.h</a>.</p>
 
 </div>
 </div>
@@ -191,7 +191,7 @@ template&lt;typename VertexType &gt; </div>
 </div><div class="memdoc">
 <p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
 
-<p class="definition">Definition at line <a class="el" href="MeshFactory_8h_source.html#l00117">117</a> of file <a class="el" href="MeshFactory_8h_source.html">MeshFactory.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MeshFactory_8h_source.html#l00119">119</a> of file <a class="el" href="MeshFactory_8h_source.html">MeshFactory.h</a>.</p>
 
 </div>
 </div>
@@ -226,7 +226,7 @@ template&lt;typename VertexType &gt; </div>
 <dl class="section date"><dt>Date</dt><dd>July 2015 </dd></dl>
 <dl class="section since"><dt>Since</dt><dd><a class="el" href="VersionLog.html#v_3_0_2">API Version 3.0.2</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="MeshFactory_8h_source.html#l00262">262</a> of file <a class="el" href="MeshFactory_8h_source.html">MeshFactory.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MeshFactory_8h_source.html#l00271">271</a> of file <a class="el" href="MeshFactory_8h_source.html">MeshFactory.h</a>.</p>
 
 </div>
 </div>
@@ -257,7 +257,7 @@ template&lt;typename VertexType &gt; </div>
 </div><div class="memdoc">
 <p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
 
-<p class="definition">Definition at line <a class="el" href="MeshFactory_8h_source.html#l00268">268</a> of file <a class="el" href="MeshFactory_8h_source.html">MeshFactory.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MeshFactory_8h_source.html#l00277">277</a> of file <a class="el" href="MeshFactory_8h_source.html">MeshFactory.h</a>.</p>
 
 </div>
 </div>

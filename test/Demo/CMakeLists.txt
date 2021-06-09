@@ -55,10 +55,6 @@ if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
 endif()
 
-# GLEW
-find_package( GLEW 1.7.0 REQUIRED )
-include_directories( ${GLEW_INCLUDE_DIRS} )
-
 # Carna
 include_directories( ${CMAKE_SOURCE_DIR}/include )
 link_directories( ${CMAKE_BINARY_DIR}/bin )
@@ -132,7 +128,6 @@ if(Boost_FOUND)
     
     target_link_libraries( ${TARGET_NAME}
             ${OPENGL_LIBRARIES}
-            ${GLEW_LIBRARIES}
             ${QT_LIBRARIES}
             ${Boost_LIBRARIES}
             optimized   Carna-${FULL_VERSION}

@@ -1,11 +1,5 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
- *
- *  Chair of Medical Engineering (mediTEC)
- *  RWTH Aachen University
- *  Pauwelsstr. 20
- *  52074 Aachen
- *  Germany
+ *  Copyright (C) 2021 Leonid Kostrykin
  *
  */
 
@@ -16,7 +10,10 @@
 #include <Carna/base/VertexAttributes.h>
 
 /** \file   Vertex.h
-  * \brief  Defines \ref Carna::base::VertexBase.
+  * \brief  Defines \ref Carna::base::PVertex,
+  *                 \ref Carna::base::PNVertex,
+  *                 \ref Carna::base::VertexPosition,
+  *                 \ref Carna::base::VertexNormal.
   */
 
 namespace Carna
@@ -28,90 +25,19 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// VertexBase
+// VertexPosition
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Defines simple-most vertex that only consists of a positional attribute.
-  *
-  * \section CustomVertexFormats Custom Vertex Formats
-  *
-  * It is easy to define custom vertex formats. The procedure is best explained with
-  * an example. Lets assume you want to define a vertex that has additional
-  * properties for normal vectors and 2D texture coordinates.
-  *
-  * The first step is to define the missing vertex components. The \ref VertexNormal
-  * type already provides a vertex component for normal vectors, so lets define a
-  * component for 2D texture coordinates:
-  *
-  *     \code
-  *     struct VertexTexCoord2
-  *     {
-  *         float u, v;
-  *     };
-  *     \endcode
-  *
-  * It is necessary that a vertex component is implemented as a POD, i.e. *plain old
-  * data type*. Virtual methods would mess up the memory layout. However, you
-  * might define a constructor that initializes default values, if you wanted.
-  *
-  * The next step is to compose the vertex format:
-  *
-  *     \code
-  *     using namespace Carna::base;
-  *     struct LightedTexturedVertex
-  *         : public VertexBase
-  *         , public VertexNormal
-  *         , public VertexTexCoord2
-  *     {
-  *         static const VertexAttributes attributes;
-  *     };
-  *     \endcode
-  *
-  * The order of the base classes is arbitrary, but it must be consistent with what
-  * comes next, namely the specification of the vertex format.
-  *
-  *     \code
-  *     #include <vector>
-  *     using namespace Carna::base;
-  *     const VertexAttributes LightedTexturedVertex::attributes = []()->VertexAttributes
-  *     {
-  *         using Carna::base::VertexAttribute;  // msvc++ requires us to repeat this
-  *         std::vector< VertexAttribute > attributes;
-  *         attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
-  *         attributes.push_back( VertexAttribute( 4, 4, VertexAttribute::TYPE_FLOAT ) );
-  *         attributes.push_back( VertexAttribute( 8, 2, VertexAttribute::TYPE_FLOAT ) );
-  *         return attributes;
-  *     }();
-  *     \endcode
-  *
-  * You should read the above like:
-  *
-  *   - Attribute 1 starts at offset 0 and has 4 components, namely the
-  *     positional \c x, \c y, \c z, \c w.
-  *   - Attribute 2 starts at offset 4 and has 4 components, namely the
-  *     \c nx, \c ny, \c nz, \c nw of the normal vector.
-  *   - Attribute 3 starts at offset 8 and has 2 components, namely the
-  *     \c u, \c v of the texture coordinates vector.
-  *
-  * When writing your shader, you must declare the vertex format consistently:
-  *
-  *     \code
-  *     layout( location = 0 ) in vec4 inPosition;
-  *     layout( location = 1 ) in vec4 inNormal;
-  *     layout( location = 2 ) in vec2 inTexCoord;
-  *     \endcode
+  * Defines vertex component for position vectors.
+  * Usage is explained \ref CustomVertexFormats "here".
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 10.3.15
+  * \date   9.6.21
+  * \since  \ref v_3_2_0
   */
-struct CARNA_LIB VertexBase
+struct VertexPosition
 {
-    /** \brief
-      * Holds the declaration of the \ref CustomVertexFormats "vertex format".
-      */
-    static const VertexAttributes attributes;
-
     /** \property x
       * \brief Holds the positional x-component of this vertex.
       *
@@ -127,11 +53,24 @@ struct CARNA_LIB VertexBase
       */
     float x, y, z, w;
 
-    /** \brief
-      * Initializes position to \f$\left(0, 0, 0, 1\right)\f$.
+    /** Initializes to \f$ \left( 0, 0, 0, 1 \right) \f$.
       */
-    VertexBase();
+    VertexPosition();
+
+    /** Sets the position vector.
+      */
+    template< typename VectorType >
+    void setPosition( const VectorType& position );
 };
+
+
+template< typename VectorType >
+void VertexPosition::setPosition( const VectorType& position )
+{
+    x = position.x();
+    y = position.y();
+    z = position.z();
+}
 
 
 
@@ -162,7 +101,27 @@ struct VertexNormal
       *        This will be `0` usually.
       */
     float nx, ny, nz, nw;
+
+    /** Initializes to \f$ \left( 0, 0, 0, 0 \right) \f$.
+      */
+    VertexNormal();
+
+    /** Sets the normal vector.
+      * 
+      * \since \ref v_3_2_0
+      */
+    template< typename VectorType >
+    void setNormal( const VectorType& normal );
 };
+
+
+template< typename VectorType >
+void VertexNormal::setNormal( const VectorType& normal )
+{
+    nx = normal.x();
+    ny = normal.y();
+    nz = normal.z();
+}
 
 
 
@@ -192,12 +151,182 @@ struct VertexColor
       * \brief Holds the alpha color component of this vertex.
       */
     float r, g, b, a;
+
+    /** Initializes to \f$ \left( 1, 1, 1, 1 \right) \f$.
+      */
+    VertexColor();
+
+    /** Sets the color vector.
+      * 
+      * \since \ref v_3_2_0
+      */
+    template< typename VectorType >
+    void setColor( const VectorType& color );
+};
+
+
+template< typename VectorType >
+void VertexColor::setColor( const VectorType& color )
+{
+    r = color.x();
+    g = color.y();
+    b = color.z();
+    a = color.w();
+}
+
+
+
+// ----------------------------------------------------------------------------------
+// VERTEX_NULL_COMPONENT
+// ----------------------------------------------------------------------------------
+
+/** \brief
+  * Adds null implementation for setter corresponding the the given vertex component.
+  *
+  * \author Leonid Kostrykin
+  * \date   9.6.21
+  * \since  \ref v_3_2_0
+  */
+#define VERTEX_NULL_COMPONENT( name ) \
+    template< typename VectorType > \
+    void set ## name( const VectorType& ) \
+    { \
+    }
+
+
+
+// ----------------------------------------------------------------------------------
+// PVertex
+// ----------------------------------------------------------------------------------
+
+/** \brief
+  * Defines simple-most vertex that only consists of a positional attribute.
+  *
+  * \section CustomVertexFormats Custom Vertex Formats
+  *
+  * It is easy to define custom vertex formats. The procedure is best explained with
+  * an example. Lets assume you want to define a vertex that has additional
+  * properties for normal vectors and 2D texture coordinates.
+  *
+  * The first step is to define the missing vertex components. The \ref VertexNormal
+  * type already provides a vertex component for normal vectors, so lets define a
+  * component for 2D texture coordinates:
+  *
+  *     \code
+  *     struct VertexTexCoord2
+  *     {
+  *         float u, v;
+  *     };
+  *     \endcode
+  *
+  * It is necessary that a vertex component is implemented as a POD, i.e. *plain old
+  * data type*. Virtual methods would mess up the memory layout. However, you might
+  * define a constructor that initializes default values, if you wanted.
+  *
+  * The next step is to compose the vertex format:
+  *
+  *     \code
+  *     using namespace Carna::base;
+  *     struct PNT2Vertex // P for Position, N for Normal, T2 for TexCoord2
+  *         : public VertexPosition
+  *         , public VertexNormal
+  *         , public VertexTexCoord2
+  *     {
+  *         static const VertexAttributes attributes;
+  *     };
+  *     \endcode
+  *
+  * The order of the base classes is arbitrary, but it must be consistent with what
+  * comes next, namely the specification of the vertex format.
+  *
+  *     \code
+  *     #include <vector>
+  *     using namespace Carna::base;
+  *     const VertexAttributes PNT2Vertex::attributes = []()->VertexAttributes
+  *     {
+  *         using Carna::base::VertexAttribute;  // msvc++ requires us to repeat this
+  *         std::vector< VertexAttribute > attributes;
+  *         attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
+  *         attributes.push_back( VertexAttribute( 4, 4, VertexAttribute::TYPE_FLOAT ) );
+  *         attributes.push_back( VertexAttribute( 8, 2, VertexAttribute::TYPE_FLOAT ) );
+  *         return attributes;
+  *     }();
+  *     \endcode
+  *
+  * You should read the above like:
+  *
+  *   - Attribute 1 starts at offset 0 and has 4 components, namely the
+  *     positional \c x, \c y, \c z, \c w.
+  *   - Attribute 2 starts at offset 4 and has 4 components, namely the
+  *     \c nx, \c ny, \c nz, \c nw of the normal vector.
+  *   - Attribute 3 starts at offset 8 and has 2 components, namely the
+  *     \c u, \c v of the texture coordinates vector.
+  *
+  * When writing your shader, you must declare the vertex format consistently:
+  *
+  *     \code
+  *     layout( location = 0 ) in vec4 inPosition;
+  *     layout( location = 1 ) in vec4 inNormal;
+  *     layout( location = 2 ) in vec2 inTexCoord;
+  *     \endcode
+  *
+  * \author Leonid Kostrykin
+  * \date   1.9.14 - 10.3.15
+  */
+struct CARNA_LIB PVertex
+    : public VertexPosition
+{
+    /** \brief
+      * Holds the declaration of the \ref CustomVertexFormats "vertex format".
+      */
+    static const VertexAttributes attributes;
+
+    /** Declares missing component.
+      * 
+      * \since \ref v_3_2_0
+      */
+    VERTEX_NULL_COMPONENT( Normal );
+
+    /** Declares missing component.
+      * 
+      * \since \ref v_3_2_0
+      */
+    VERTEX_NULL_COMPONENT( Color  );
 };
 
 
 
 // ----------------------------------------------------------------------------------
-// ColoredVertex
+// PNVertex
+// ----------------------------------------------------------------------------------
+
+/** \brief
+  * Defines vertex that consists of the two attributes position and normal vector.
+  *
+  * \author Leonid Kostrykin
+  * \date   9.6.21
+  * \since  \ref v_3_2_0
+  */
+struct CARNA_LIB PNVertex
+    : public VertexPosition
+    , public VertexNormal
+{
+    /** \brief
+      * Holds the declaration of the \ref CustomVertexFormats "vertex format".
+      */
+    static const VertexAttributes attributes;
+
+    /** Declares missing component.
+      * 
+      * \since \ref v_3_2_0
+      */
+    VERTEX_NULL_COMPONENT( Color );
+};
+
+
+
+// ----------------------------------------------------------------------------------
+// PCVertex
 // ----------------------------------------------------------------------------------
 
 /** \brief
@@ -206,14 +335,20 @@ struct VertexColor
   * \author Leonid Kostrykin
   * \date   1.9.14 - 31.3.15
   */
-struct ColoredVertex
-    : public VertexBase
+struct CARNA_LIB PCVertex
+    : public VertexPosition
     , public VertexColor
 {
     /** \brief
       * Holds the declaration of the \ref CustomVertexFormats "vertex format".
       */
     static const VertexAttributes attributes;
+
+    /** Declares missing component.
+      * 
+      * \since \ref v_3_2_0
+      */
+    VERTEX_NULL_COMPONENT( Normal );
 };
 
 

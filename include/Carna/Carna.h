@@ -96,9 +96,12 @@ namespace Carna
         class  SpatialMovement;
         class  ManagedTexture3D;
         class  ManagedTexture3DInterface;
-        struct VertexBase;
-        struct VertexNormal;
+        struct PVertex;
+        struct PNVertex;
+        struct PCVertex;
         struct VertexColor;
+        struct VertexNormal;
+        struct VertexPosition;
         struct ColoredVertex;
         struct VertexAttribute;
         class  VertexBufferBase;

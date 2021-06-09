@@ -29,7 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Carna
-   &#160;<span id="projectnumber">Version 3.1.0</span>
+   &#160;<span id="projectnumber">Version 3.2.0</span>
    </div>
   </td>
  </tr>
@@ -72,13 +72,14 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">Vertex.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Defines <a class="el" href="structCarna_1_1base_1_1VertexBase.html">Carna::base::VertexBase</a>.  
+<p>Defines <a class="el" href="structCarna_1_1base_1_1PVertex.html">Carna::base::PVertex</a>, <a class="el" href="structCarna_1_1base_1_1PNVertex.html">Carna::base::PNVertex</a>, <a class="el" href="structCarna_1_1base_1_1VertexPosition.html">Carna::base::VertexPosition</a>, <a class="el" href="structCarna_1_1base_1_1VertexNormal.html">Carna::base::VertexNormal</a>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;Carna/Carna.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="VertexAttributes_8h_source.html">Carna/base/VertexAttributes.h</a>&gt;</code><br />
@@ -108,17 +109,23 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1VertexBase.html">Carna::base::VertexBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines simple-most vertex that only consists of a positional attribute.  <a href="structCarna_1_1base_1_1VertexBase.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1VertexPosition.html">Carna::base::VertexPosition</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex component for position vectors. Usage is explained <a class="el" href="structCarna_1_1base_1_1PVertex.html#CustomVertexFormats">here</a>.  <a href="structCarna_1_1base_1_1VertexPosition.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1VertexNormal.html">Carna::base::VertexNormal</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex component for normal vectors. Usage is explained <a class="el" href="structCarna_1_1base_1_1VertexBase.html#CustomVertexFormats">here</a>.  <a href="structCarna_1_1base_1_1VertexNormal.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex component for normal vectors. Usage is explained <a class="el" href="structCarna_1_1base_1_1PVertex.html#CustomVertexFormats">here</a>.  <a href="structCarna_1_1base_1_1VertexNormal.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1VertexColor.html">Carna::base::VertexColor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex component for colors. Usage is explained <a class="el" href="structCarna_1_1base_1_1VertexBase.html#CustomVertexFormats">here</a>.  <a href="structCarna_1_1base_1_1VertexColor.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex component for colors. Usage is explained <a class="el" href="structCarna_1_1base_1_1PVertex.html#CustomVertexFormats">here</a>.  <a href="structCarna_1_1base_1_1VertexColor.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1ColoredVertex.html">Carna::base::ColoredVertex</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex that consists of the two attributes position and color.  <a href="structCarna_1_1base_1_1ColoredVertex.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1PVertex.html">Carna::base::PVertex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines simple-most vertex that only consists of a positional attribute.  <a href="structCarna_1_1base_1_1PVertex.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1PNVertex.html">Carna::base::PNVertex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex that consists of the two attributes position and normal vector.  <a href="structCarna_1_1base_1_1PNVertex.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1PCVertex.html">Carna::base::PCVertex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines vertex that consists of the two attributes position and color.  <a href="structCarna_1_1base_1_1PCVertex.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -126,12 +133,44 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceCarna_1_1base"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceCarna_1_1base.html">Carna::base</a></td></tr>
 <tr class="memdesc:namespaceCarna_1_1base"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the core framework components. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aad4917b5a0702e527401e7808c23faab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Vertex_8h.html#aad4917b5a0702e527401e7808c23faab">VERTEX_NULL_COMPONENT</a>(name)</td></tr>
+<tr class="memdesc:aad4917b5a0702e527401e7808c23faab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds null implementation for setter corresponding the the given vertex component.  <a href="#aad4917b5a0702e527401e7808c23faab">More...</a><br /></td></tr>
+<tr class="separator:aad4917b5a0702e527401e7808c23faab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Defines <a class="el" href="structCarna_1_1base_1_1VertexBase.html">Carna::base::VertexBase</a>. </p>
+<div class="textblock"><p>Defines <a class="el" href="structCarna_1_1base_1_1PVertex.html">Carna::base::PVertex</a>, <a class="el" href="structCarna_1_1base_1_1PNVertex.html">Carna::base::PNVertex</a>, <a class="el" href="structCarna_1_1base_1_1VertexPosition.html">Carna::base::VertexPosition</a>, <a class="el" href="structCarna_1_1base_1_1VertexNormal.html">Carna::base::VertexNormal</a>. </p>
 
 <p class="definition">Definition in file <a class="el" href="Vertex_8h_source.html">Vertex.h</a>.</p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="aad4917b5a0702e527401e7808c23faab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad4917b5a0702e527401e7808c23faab">&#9670;&nbsp;</a></span>VERTEX_NULL_COMPONENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VERTEX_NULL_COMPONENT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">template</span>&lt; <span class="keyword">typename</span> VectorType &gt; \</div><div class="line">    void <span class="keyword">set</span> ## name( <span class="keyword">const</span> VectorType&amp; ) \</div><div class="line">    { \</div><div class="line">    }</div></div><!-- fragment -->
+<p>Adds null implementation for setter corresponding the the given vertex component. </p>
+<dl class="section author"><dt>Author</dt><dd>Leonid Kostrykin </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>9.6.21 </dd></dl>
+<dl class="section since"><dt>Since</dt><dd><a class="el" href="VersionLog.html#v_3_2_0">API Version 3.2.0</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Vertex_8h_source.html#l00190">190</a> of file <a class="el" href="Vertex_8h_source.html">Vertex.h</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <hr class="footer"/>
     <address class="footer">
         <small>

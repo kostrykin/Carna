@@ -50,7 +50,7 @@ void MeshColorCodingStageTest::initTestCase()
 
     /* Create and add objects to scene.
      */
-    base::ManagedMeshBase& boxMesh = base::MeshFactory< base::VertexBase >::createBox( 40, 40, 40 );
+    base::ManagedMeshBase& boxMesh = base::MeshFactory< base::PVertex >::createBox( 40, 40, 40 );
     base::Material& redMaterial   = base::Material::create( "unshaded" );
     base::Material& greenMaterial = base::Material::create( "unshaded" );
     redMaterial  .setParameter( "color", base::math::Vector4f( 1, 0, 0, 1 ) );
