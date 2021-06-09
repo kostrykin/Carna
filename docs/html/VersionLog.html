@@ -86,7 +86,7 @@ API Version 3.0.1</h2>
 <li>Moved <code>helpers::VolumeGridHelper::DEFAULT_MAX_SEGMENT_BYTESIZE</code> to <code>helpers::VolumeGridHelperBase::DEFAULT_MAX_SEGMENT_BYTESIZE</code>.</li>
 <li>Moved <code>helpers::VolumeGridHelper::nativeResolution</code> to <code>helpers::VolumeGridHelperBase::nativeResolution</code>.</li>
 <li>Fixed partitioning bug in <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html">helpers::VolumeGridHelper</a> that caused odd texture sizes in some cases.</li>
-<li>Fixed bug in <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a12e8c26e01a93e8a4eb1976bd560a254">helpers::VolumeGridHelper::createNode</a> that caused wrong locations for tail segments.</li>
+<li>Fixed bug in <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#ab03947088a1de662b7a468516e4b5e24">helpers::VolumeGridHelper::createNode</a> that caused wrong locations for tail segments.</li>
 <li>Fixed bug in <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html">presets::VolumeRenderingStage</a> that caused crashes when textures had no corresponding samplers, i.e. they were unused.</li>
 <li><a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html">presets::VolumeRenderingStage</a> now suppresses artifacts that appear when rendering grids with many segments, e.g. \(8 \times 8 \times 1\) and more.</li>
 </ul>
@@ -108,7 +108,9 @@ API Version 3.2.0</h2>
 <ul>
 <li>Refactored <a class="el" href="Vertex_8h.html">Carna/base/Vertex.h</a> and renamed <code>base::VertexBase</code> to <a class="el" href="structCarna_1_1base_1_1PVertex.html">base::PVertex</a>.</li>
 <li>Added <a class="el" href="structCarna_1_1base_1_1VertexPosition.html">base::VertexPosition</a> and <a class="el" href="structCarna_1_1base_1_1PNVertex.html">base::PNVertex</a>.</li>
-<li>Added the <code>solid</code> material shader. </li>
+<li>Added the <code>solid</code> material shader.</li>
+<li>Added IntensityVolumeUInt16, BufferedIntensityVolume.</li>
+<li>Marked HUVolumeUInt16 as deprecated. </li>
 </ul>
 </div></div><!-- contents -->
 <hr class="footer"/>

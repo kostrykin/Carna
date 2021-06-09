@@ -21,7 +21,7 @@
   */
 
 #include <Carna/Carna.h>
-#include <Carna/base/HUVolume.h>
+#include <Carna/base/IntensityVolume.h>
 #include <Carna/base/VolumeSegment.h>
 #include <Carna/base/CarnaException.h>
 
@@ -34,14 +34,14 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >
+// VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >
 // ----------------------------------------------------------------------------------
 
 /** \brief
   * Represents a particular partitioning of volumetric data.
   *
-  * \param SegmentHUVolumeType is the \ref base::BufferedHUVolume compatible type to
-  *     use for storing the HU volume of a single partition.
+  * \param SegmentIntensityVolumeType is the \ref base::BufferedIntensityVolume
+  *     compatible type to use for storing the Intensity volume of a single partition.
   *
   * \param SegmentNormalsVolumeType is the \ref base::BufferedNormalMap3D compatible
   *     type to use for storing the normal map of a single partition. Set to `void`
@@ -59,7 +59,7 @@ namespace base
   * \author Leonid Kostrykin
   * \date   8.3.15 - 29.3.15
   */
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 class VolumeGrid
 {
 
@@ -68,9 +68,9 @@ class VolumeGrid
 public:
 
     /** \brief
-      * Reflects the type to use for storing the HU volume of a single partition.
+      * Reflects the type to use for storing the intensity volume of a single partition.
       */
-    typedef SegmentHUVolumeType SegmentHUVolume;
+    typedef SegmentIntensityVolumeType SegmentIntensityVolume;
 
     /** \brief
       * Reflects the type to use for storing the normal map of a single partition.
@@ -80,7 +80,7 @@ public:
     /** \brief
       * Reflects the data type that represents a single partition.
       */
-    typedef VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType > Segment;
+    typedef VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType > Segment;
 
     /** \brief
       * Instantiates.
@@ -117,31 +117,31 @@ public:
     const Segment& segmentAt( unsigned int segmentX, unsigned int segmentY, unsigned int segmentZ ) const;
 
     // ------------------------------------------------------------------------------
-    // VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType > :: HUVSelector
+    // VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType > :: IntensitySelector
     // ------------------------------------------------------------------------------
 
     /** \brief
-      * References the HU volume of a given \ref VolumePartitioning "partition".
+      * References the intensity volume of a given \ref VolumePartitioning "partition".
       */
-    struct HUVSelector
+    struct IntensitySelector
     {
         /** \brief
           * Reflects the voxel type of the volume this selector references.
           */
-        typedef typename SegmentHUVolumeType::Value VoxelType;
+        typedef typename SegmentIntensityVolumeType::Value VoxelType;
 
         /** \brief
-          * References the HU volume of a given \ref VolumePartitioning "partition".
+          * References the intensity volume of a given \ref VolumePartitioning "partition".
           */
-        static SegmentHUVolumeType& volume( Segment& segment );
+        static SegmentIntensityVolumeType& volume( Segment& segment );
 
         /** \overload
           */
-        static const SegmentHUVolumeType& volume( const Segment& segment );
+        static const SegmentIntensityVolumeType& volume( const Segment& segment );
     };
     
     // ------------------------------------------------------------------------------
-    // VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType > :: NormalSelector
+    // VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType > :: NormalSelector
     // ------------------------------------------------------------------------------
 
     /** \brief
@@ -199,8 +199,8 @@ private:
 }; // VolumeGrid
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeGrid
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::VolumeGrid
         ( const math::Vector3ui& maxSegmentSize
         , const math::Vector3ui& segmentCounts )
     : maxSegmentSize( maxSegmentSize )
@@ -221,15 +221,15 @@ VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeGrid
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::~VolumeGrid()
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::~VolumeGrid()
 {
     std::for_each( segments.begin(), segments.end(), std::default_delete< Segment >() );
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-std::size_t VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::segmentIndex
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+std::size_t VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::segmentIndex
     ( unsigned int segmentX
     , unsigned int segmentY
     , unsigned int segmentZ ) const
@@ -238,27 +238,27 @@ std::size_t VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::segment
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-typename VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::Segment&
-    VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::segmentAt
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+typename VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::Segment&
+    VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::segmentAt
         ( const base::math::Vector3ui& p )
 {
     return segmentAt( p.x(), p.y(), p.z() );
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-const typename VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::Segment&
-    VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::segmentAt
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+const typename VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::Segment&
+    VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::segmentAt
         ( const base::math::Vector3ui& p ) const
 {
     return segmentAt( p.x(), p.y(), p.z() );
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-typename VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::Segment&
-    VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::segmentAt
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+typename VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::Segment&
+    VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::segmentAt
         ( unsigned int segmentX
         , unsigned int segmentY
         , unsigned int segmentZ )
@@ -269,9 +269,9 @@ typename VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::Segment&
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-const typename VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::Segment&
-    VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::segmentAt
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+const typename VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::Segment&
+    VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::segmentAt
         ( unsigned int segmentX
         , unsigned int segmentY
         , unsigned int segmentZ ) const
@@ -282,9 +282,9 @@ const typename VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::Segm
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 template< typename Selector >
-typename Selector::VoxelType VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::getVoxel
+typename Selector::VoxelType VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::getVoxel
     ( unsigned int x, unsigned int y, unsigned int z )
 {
     const unsigned int segmentX = x / maxSegmentSize.x();
@@ -300,18 +300,18 @@ typename Selector::VoxelType VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolu
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 template< typename Selector >
-typename Selector::VoxelType VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::getVoxel
+typename Selector::VoxelType VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::getVoxel
     ( const math::Vector3ui& at )
 {
     return getVoxel< Selector >( at.x(), at.y(), at.z() );
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 template< typename Selector >
-void VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVoxel
+void VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::setVoxel
     ( unsigned int x, unsigned int y, unsigned int z, const typename Selector::VoxelType& voxel )
 {
     const unsigned int segmentX = x / maxSegmentSize.x();
@@ -372,9 +372,9 @@ void VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVoxel
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 template< typename Selector >
-void VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVoxel
+void VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::setVoxel
     ( const math::Vector3ui& at, const typename Selector::VoxelType& voxel )
 {
     setVoxel< Selector >( at.x(), at.y(), at.z(), voxel );
@@ -383,41 +383,41 @@ void VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::setVoxel
 
 
 // ----------------------------------------------------------------------------------
-// VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType > :: HUVSelector
+// VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType > :: IntensitySelector
 // ----------------------------------------------------------------------------------
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-SegmentHUVolumeType& VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::HUVSelector::volume
-    ( VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment )
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+SegmentIntensityVolumeType& VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::IntensitySelector::volume
+    ( VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment )
 {
-    return segment.huVolume();
+    return segment.intensityVolume();
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-const SegmentHUVolumeType& VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::HUVSelector::volume
-    ( const VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment )
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+const SegmentIntensityVolumeType& VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::IntensitySelector::volume
+    ( const VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment )
 {
-    return segment.huVolume();
+    return segment.intensityVolume();
 }
 
 
 
 // ----------------------------------------------------------------------------------
-// VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType > :: NormalSelector
+// VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType > :: NormalSelector
 // ----------------------------------------------------------------------------------
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-SegmentNormalsVolumeType& VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::NormalSelector::volume
-    ( VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment )
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+SegmentNormalsVolumeType& VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::NormalSelector::volume
+    ( VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment )
 {
     return segment.normals();
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-const SegmentNormalsVolumeType& VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::NormalSelector::volume
-    ( const VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment )
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+const SegmentNormalsVolumeType& VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::NormalSelector::volume
+    ( const VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment )
 {
     return segment.normals();
 }

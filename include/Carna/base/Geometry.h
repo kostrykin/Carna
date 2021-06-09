@@ -45,8 +45,8 @@ namespace base
   *
   * \note
   * Conventionally, the default role for 3D textures that represent HU data, such as
-  * \ref presets::DRRStage::ROLE_HU_VOLUME or
-  * \ref presets::CuttingPlanesStage::ROLE_HU_VOLUME, is 0.
+  * \ref presets::DRRStage::ROLE_INTENSITY_VOLUME or
+  * \ref presets::CuttingPlanesStage::ROLE_INTENSITY_VOLUME, is 0.
   * 
   * What features a geometry object aggregates depends on the \c %geometryType and
   * what the corresponding rendering stage expects. Typical examples are

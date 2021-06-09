@@ -153,11 +153,58 @@ public:
     virtual base::Node* createNode( unsigned int geometryType, const Dimensions& dimensions ) const = 0;
     
     /** \brief
-      * Alters the volume data.
+      * Updates the data of the volume grid.
+      *
+      * The \a intensityData must be scaled to \f$\left[0, 1\right]\f$.
       */
-    virtual void loadData( const std::function< base::HUV( const base::math::Vector3ui& ) >& data ) = 0;
+    virtual void loadIntensities( const std::function< float( const base::math::Vector3ui& ) >& intensityData ) = 0;
+
+    /** \overload
+      */
+    template< typename LoadIntensitiesFunction >
+    void loadIntensities( const LoadIntensitiesFunction& intensityData );
+
+    /** \brief
+      * Updates the data of the volume grid.
+      *
+      * The \a huData must be scaled to \f$\left[-1024, 3071\right]\f$.
+      */
+    void loadHUData( const std::function< base::HUV( const base::math::Vector3ui& ) >& huData );
+
+    /** \overload
+      */
+    template< typename LoadHUDataFunction >
+    void loadHUData( const LoadHUDataFunction& huData );
 
 }; // VolumeGridHelperBase
+
+
+template< typename LoadIntensitiesFunction >
+void VolumeGridHelperBase::loadIntensities( const LoadIntensitiesFunction& intensityData )
+{
+    loadIntensities( static_cast< const std::function< float( const base::math::Vector3ui& ) >& >
+        (
+            [&intensityData]( const base::math::Vector3ui& loc ) -> float
+            {
+                return intensityData( loc );
+            }
+        )
+    );
+}
+
+
+template< typename LoadHUDataFunction >
+void VolumeGridHelperBase::loadHUData( const LoadHUDataFunction& huData )
+{
+    loadHUData( static_cast< const std::function< base::HUV( const base::math::Vector3ui& ) >& >
+        (
+            [&huData]( const base::math::Vector3ui& loc ) -> base::HUV
+            {
+                return huData( loc );
+            }
+        )
+    );
+}
 
 
 
@@ -170,8 +217,8 @@ public:
   * corresponding normal map. Also creates \ref SceneGraph "scene nodes" that insert
   * the volumetric data into a scene.
   *
-  * \param SegmentHUVolumeType is the \ref base::BufferedHUVolume compatible type to
-  *     use for storing the HU volume of a single partition.
+  * \param SegmentIntensityVolumeType is the \ref base::BufferedIntensityVolume
+  *     compatible type to use for storing the intensity volume of a single partition.
   *
   * \param SegmentNormalsVolumeType is the \ref base::BufferedNormalMap3D compatible
   *     type to use for storing the normal map of a single partition. Set to `void`
@@ -179,10 +226,10 @@ public:
   *
   * \section VolumeGridHelperNormals Normal Map Computation
   *
-  * The \ref loadData kicks off the computation of the normals automatically. If you
-  * alter the volume data differently, it is within your responsibility to do this by
-  * calling `computeNormals` on this object. Note that the `computeNormals` method is
-  * only available if \a SegmentNormalsVolumeType is not `void`.
+  * The \ref loadIntensities kicks off the computation of the normals automatically.
+  * If you alter the volume data differently, it is within your responsibility to do
+  * this by calling `computeNormals` on this object. Note that the `computeNormals`
+  * method is only available if \a SegmentNormalsVolumeType is not `void`.
   *
   * \section VolumeGridHelperResolutions Resolutions
   *
@@ -190,8 +237,8 @@ public:
   * volume textures are \em not disjoint, but must maintain redundant voxels along
   * common segment faces. Hence, the resolution of the data uploaded to GPU from all
   * segments, that we will call the \em total resolution therefore, will usually be
-  * greater than the resolution of the actually \ref loadData "loaded data". We will
-  * refer to the latter as the \em native resolution.
+  * greater than the resolution of the actually \ref loadIntensities "loaded data".
+  * We will refer to the latter as the \em native resolution.
   *
   * Furthermore, the \em effective resolution, that is the one covered by the grid
   * and available for payload, might still be greater than the native resolution,
@@ -203,22 +250,22 @@ public:
   * \author Leonid Kostrykin
   * \date   8.3.15 - 29.3.15
   */
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 class VolumeGridHelper
     : public VolumeGridHelperBase
-    , public details::VolumeGridHelper::HUComponent     < SegmentHUVolumeType, SegmentNormalsVolumeType >
-    , public details::VolumeGridHelper::NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >
+    , public details::VolumeGridHelper::IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >
+    , public details::VolumeGridHelper::  NormalsComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >
 {
 
     NON_COPYABLE
 
-    typedef details::VolumeGridHelper::HUComponent     < SegmentHUVolumeType, SegmentNormalsVolumeType > HUComponent;
-    typedef details::VolumeGridHelper::NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType > NormalsComponent;
+    typedef details::VolumeGridHelper::IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType > IntensityComponent;
+    typedef details::VolumeGridHelper::  NormalsComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >   NormalsComponent;
 
     /** \brief
       * Holds the wrapped \ref base::VolumeGrid object.
       */
-    std::unique_ptr< base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType > > myGrid;
+    std::unique_ptr< base::VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType > > myGrid;
 
 public:
 
@@ -231,7 +278,7 @@ public:
       *
       * \param nativeResolution
       *     The resolution the grid is to be prepared for. This is the resolution
-      *     that will be expected from the \ref loadData "data source".
+      *     that will be expected from the \ref loadIntensities "data source".
       *
       * \param maxSegmentBytesize
       *     Maximum memory size of a single segment volume. The segments partitioning
@@ -270,24 +317,21 @@ public:
     const base::math::Vector3ui resolution;
 
     /** \brief
-      * Alters the volume data.
+      * Updates the data of the volume grid.
       *
-      * \param data
-      *     Unary function that maps \ref base::math::Vector3ui to \ref base::HUV. It
-      *     will be queried for all values up to \ref nativeResolution.
+      * The \a intensityData must be scaled to \f$\left[0, 1\right]\f$.
+      *
+      * \param intensityData
+      *     Unary function that maps \ref base::math::Vector3ui to an intensity
+      *     value. It will be queried for all values up to \ref nativeResolution.
       *
       * The normal map is re-computed if `SegmentNormalsVolumeType` is not `void`.
       */
-    template< typename UnaryVector3uiToHUVFunction >
-    void loadData( const UnaryVector3uiToHUVFunction& data );
-    
-    /** \overload
-      */
-    virtual void loadData( const std::function< base::HUV( const base::math::Vector3ui& ) >& data ) override;
+    virtual void loadIntensities( const std::function< float( const base::math::Vector3ui& ) >& intensityData ) override;
     
     /** \brief
     * Releases all previously acquired textures. Invoke this method when the volume
-    * data changes, \ref loadData already does takes care of that.
+    * data changes, \ref loadIntensities already does takes care of that.
     *
     * If this method is not invoked after an update of the volume data, succeeding
     * calls to \ref createNode will not reflect the new data. Note however, that if
@@ -300,7 +344,7 @@ public:
     /** \brief
       * References the underlying grid.
       */
-    base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >& grid() const;
+    base::VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& grid() const;
 
     virtual base::Node* createNode( unsigned int geometryType, const Spacing& spacing ) const override;
     
@@ -322,12 +366,12 @@ private:
 }; // VolumeGridHelper
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-base::math::Vector3ui VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::computeMaxSegmentSize
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+base::math::Vector3ui VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::computeMaxSegmentSize
     ( const base::math::Vector3ui& nativeResolution, std::size_t maxSegmentBytesize )
 {
     const float maxSideLengthF = std::pow
-        ( maxSegmentBytesize / static_cast< float >( sizeof( typename SegmentHUVolumeType::Voxel ) ), 1.f / 3 );
+        ( maxSegmentBytesize / static_cast< float >( sizeof( typename SegmentIntensityVolumeType::Voxel ) ), 1.f / 3 );
     const unsigned int maxSideLength = base::math::makeEven( base::math::round_ui( maxSideLengthF ), -1 );
 
     /* We subtract the redundant texels from effective segment size.
@@ -337,8 +381,8 @@ base::math::Vector3ui VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolum
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeGridHelper
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::VolumeGridHelper
         ( const base::math::Vector3ui& nativeResolution
         , std::size_t maxSegmentBytesize )
     : VolumeGridHelperBase( nativeResolution )
@@ -353,7 +397,7 @@ VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeGridHel
         ( partitioningX.partitionsCount()
         , partitioningY.partitionsCount()
         , partitioningZ.partitionsCount() );
-    myGrid.reset( new base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >( maxSegmentSize, segmentCounts ) );
+    myGrid.reset( new base::VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >( maxSegmentSize, segmentCounts ) );
     NormalsComponent::setGrid( *myGrid );
 
     CARNA_FOR_VECTOR3UI( segmentCoord, myGrid->segmentCounts )
@@ -365,24 +409,23 @@ VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeGridHel
             , segmentCoord.y() + 1 == myGrid->segmentCounts.y() ? partitioningY.tailSize : partitioningY.regularPartitionSize + 1
             , segmentCoord.z() + 1 == myGrid->segmentCounts.z() ? partitioningZ.tailSize : partitioningZ.regularPartitionSize + 1 );
 
-        HUComponent     ::initializeSegment( myGrid->segmentAt( segmentCoord ), segmentSize );
-        NormalsComponent::initializeSegment( myGrid->segmentAt( segmentCoord ), segmentSize );
+        IntensityComponent::initializeSegment( myGrid->segmentAt( segmentCoord ), segmentSize );
+        NormalsComponent  ::initializeSegment( myGrid->segmentAt( segmentCoord ), segmentSize );
     }
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-void VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::releaseGeometryFeatures()
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+void VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::releaseGeometryFeatures()
 {
-    HUComponent     ::releaseGeometryFeatures();
-    NormalsComponent::releaseGeometryFeatures();
+    IntensityComponent::releaseGeometryFeatures();
+    NormalsComponent  ::releaseGeometryFeatures();
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-template< typename UnaryVector3uiToHUVFunction >
-void VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::loadData
-    ( const UnaryVector3uiToHUVFunction& data )
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+void VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::loadIntensities
+      ( const std::function< float( const base::math::Vector3ui& ) >& data )
 {
     releaseGeometryFeatures();
     CARNA_FOR_VECTOR3UI( coord, resolution )
@@ -391,31 +434,23 @@ void VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::loadData
             =  coord.x() >= nativeResolution.x()
             || coord.y() >= nativeResolution.y()
             || coord.z() >= nativeResolution.z();
-        const base::HUV huv = outOfNativeBounds ? -1024 : data( coord );
-        myGrid->template setVoxel< typename base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::HUVSelector >( coord, huv );
+        const float intensity = outOfNativeBounds ? 0 : data( coord );
+        myGrid->template setVoxel< typename base::VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::IntensitySelector >( coord, intensity );
     }
     NormalsComponent::computeNormals();
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-void VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::loadData
-    ( const std::function< base::HUV( const base::math::Vector3ui& ) >& data )
-{
-    loadData< std::function< base::HUV( const base::math::Vector3ui& ) > >( data );
-}
-
-
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >&
-    VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::grid() const
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+base::VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >&
+    VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::grid() const
 {
     return *myGrid;
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::createNode
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::createNode
     ( unsigned int geometryType, const Spacing& spacing, const Dimensions& dimensions ) const
 {
     /* Compute dimensions of a regular grid segment,
@@ -436,7 +471,7 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
      */
     CARNA_FOR_VECTOR3UI( segmentCoord, myGrid->segmentCounts )
     {
-        const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment = myGrid->segmentAt( segmentCoord );
+        const base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment = myGrid->segmentAt( segmentCoord );
 
         /* Compute dimensions of particular grid segment.
          */
@@ -444,7 +479,7 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
                segmentCoord.x() + 1 == myGrid->segmentCounts.x()
             || segmentCoord.y() + 1 == myGrid->segmentCounts.y()
             || segmentCoord.z() + 1 == myGrid->segmentCounts.z();
-        const base::math::Vector3ui& volumeSize = segment.huVolume().size;
+        const base::math::Vector3ui& volumeSize = segment.intensityVolume().size;
         const base::math::Vector3f dimensions = !isTail ? regularSegmentDimensions
             : ( ( volumeSize.cast< int >() - base::math::Vector3i( 1, 1, 1 ) )
                 .cast< float >().cwiseProduct( spacing.millimeters ) );
@@ -453,8 +488,8 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
          */
         base::Geometry* const geom = new base::Geometry( geometryType );
         pivot->attachChild( geom );
-        HUComponent     ::attachTexture( *geom, segment );
-        NormalsComponent::attachTexture( *geom, segment );
+        IntensityComponent::attachTexture( *geom, segment );
+        NormalsComponent  ::attachTexture( *geom, segment );
         geom->setMovable( false );
         geom->setBoundingVolume( new base::BoundingBox( 1, 1, 1 ) );
         geom->localTransform
@@ -471,8 +506,8 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::createNode
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::createNode
     ( unsigned int geometryType, const Spacing& spacing ) const
 {
     const base::math::Vector3f dimensions
@@ -481,8 +516,8 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::createNode
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::createNode
     ( unsigned int geometryType, const Dimensions& dimensions ) const
 {
     const base::math::Vector3f& mmDimensions = dimensions.millimeters;
@@ -492,8 +527,8 @@ base::Node* VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::c
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-base::math::Vector3ui VolumeGridHelper< SegmentHUVolumeType, SegmentNormalsVolumeType >::gridResolution() const
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+base::math::Vector3ui VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::gridResolution() const
 {
     return resolution;
 }

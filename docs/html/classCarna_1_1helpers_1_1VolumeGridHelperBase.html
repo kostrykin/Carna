@@ -92,7 +92,7 @@ $(function() {
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="classCarna_1_1helpers_1_1VolumeGridHelperBase__inherit__graph.png" border="0" usemap="#Carna_1_1helpers_1_1VolumeGridHelperBase_inherit__map" alt="Inheritance graph"/></div>
 <map name="Carna_1_1helpers_1_1VolumeGridHelperBase_inherit__map" id="Carna_1_1helpers_1_1VolumeGridHelperBase_inherit__map">
-<area shape="rect" id="node2" href="classCarna_1_1helpers_1_1VolumeGridHelper.html" title="Computes the partitioning of volumetric data and the corresponding normal map. Also creates scene nod..." alt="" coords="236,5,457,61"/>
+<area shape="rect" id="node2" href="classCarna_1_1helpers_1_1VolumeGridHelper.html" title="Computes the partitioning of volumetric data and the corresponding normal map. Also creates scene nod..." alt="" coords="236,5,481,61"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -123,10 +123,18 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a344fbc231c9a420673c1caccea984c60"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classCarna_1_1base_1_1Node.html">base::Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#a344fbc231c9a420673c1caccea984c60">createNode</a> (unsigned int geometryType, const <a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Dimensions.html">Dimensions</a> &amp;dimensions) const =0</td></tr>
 <tr class="memdesc:a344fbc231c9a420673c1caccea984c60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates renderable representation of the underlying grid, that can be put anywhere in the scene graph. The volume is centered in the node.  <a href="#a344fbc231c9a420673c1caccea984c60">More...</a><br /></td></tr>
 <tr class="separator:a344fbc231c9a420673c1caccea984c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9b3e6a406d8821363484115506ea727"><td class="memItemLeft" align="right" valign="top"><a id="ac9b3e6a406d8821363484115506ea727"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#ac9b3e6a406d8821363484115506ea727">loadData</a> (const std::function&lt; <a class="el" href="namespaceCarna_1_1base.html#a61ae65c0c70cc744db5be165ade8f4e7">base::HUV</a>(const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a94e29f81f3a6cc27615a00fa4c143c1a">base::math::Vector3ui</a> &amp;) &gt; &amp;data)=0</td></tr>
-<tr class="memdesc:ac9b3e6a406d8821363484115506ea727"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alters the volume data. <br /></td></tr>
-<tr class="separator:ac9b3e6a406d8821363484115506ea727"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad223260819271ff3adfc9c45159eaea2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#ad223260819271ff3adfc9c45159eaea2">loadIntensities</a> (const std::function&lt; float(const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a94e29f81f3a6cc27615a00fa4c143c1a">base::math::Vector3ui</a> &amp;) &gt; &amp;intensityData)=0</td></tr>
+<tr class="memdesc:ad223260819271ff3adfc9c45159eaea2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the data of the volume grid.  <a href="#ad223260819271ff3adfc9c45159eaea2">More...</a><br /></td></tr>
+<tr class="separator:ad223260819271ff3adfc9c45159eaea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e8aa3244b47b933f9b200ac44a3e475"><td class="memTemplParams" colspan="2">template&lt;typename LoadIntensitiesFunction &gt; </td></tr>
+<tr class="memitem:a0e8aa3244b47b933f9b200ac44a3e475"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#a0e8aa3244b47b933f9b200ac44a3e475">loadIntensities</a> (const LoadIntensitiesFunction &amp;intensityData)</td></tr>
+<tr class="separator:a0e8aa3244b47b933f9b200ac44a3e475"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa512b07755c12fb4df17a6b22d6ed0b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#aa512b07755c12fb4df17a6b22d6ed0b5">loadHUData</a> (const std::function&lt; <a class="el" href="namespaceCarna_1_1base.html#a61ae65c0c70cc744db5be165ade8f4e7">base::HUV</a>(const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a94e29f81f3a6cc27615a00fa4c143c1a">base::math::Vector3ui</a> &amp;) &gt; &amp;huData)</td></tr>
+<tr class="memdesc:aa512b07755c12fb4df17a6b22d6ed0b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the data of the volume grid.  <a href="#aa512b07755c12fb4df17a6b22d6ed0b5">More...</a><br /></td></tr>
+<tr class="separator:aa512b07755c12fb4df17a6b22d6ed0b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad61140913b326319851533437a204fd8"><td class="memTemplParams" colspan="2">template&lt;typename LoadHUDataFunction &gt; </td></tr>
+<tr class="memitem:ad61140913b326319851533437a204fd8"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#ad61140913b326319851533437a204fd8">loadHUData</a> (const LoadHUDataFunction &amp;huData)</td></tr>
+<tr class="separator:ad61140913b326319851533437a204fd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -220,7 +228,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a12e8c26e01a93e8a4eb1976bd560a254">Carna::helpers::VolumeGridHelper&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#ab03947088a1de662b7a468516e4b5e24">Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>.</p>
 
 </div>
 </div>
@@ -268,7 +276,105 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#ab2167daca1fce759de33c027fa98008b">Carna::helpers::VolumeGridHelper&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a1d1033e5c50070a619807fa775e3480e">Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>.</p>
+
+</div>
+</div>
+<a id="aa512b07755c12fb4df17a6b22d6ed0b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa512b07755c12fb4df17a6b22d6ed0b5">&#9670;&nbsp;</a></span>loadHUData() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Carna::helpers::VolumeGridHelperBase::loadHUData </td>
+          <td>(</td>
+          <td class="paramtype">const std::function&lt; <a class="el" href="namespaceCarna_1_1base.html#a61ae65c0c70cc744db5be165ade8f4e7">base::HUV</a>(const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a94e29f81f3a6cc27615a00fa4c143c1a">base::math::Vector3ui</a> &amp;) &gt; &amp;&#160;</td>
+          <td class="paramname"><em>huData</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the data of the volume grid. </p>
+<p>The <em>huData</em> must be scaled to \(\left[-1024, 3071\right]\). </p>
+
+</div>
+</div>
+<a id="ad61140913b326319851533437a204fd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad61140913b326319851533437a204fd8">&#9670;&nbsp;</a></span>loadHUData() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename LoadHUDataFunction &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void Carna::helpers::VolumeGridHelperBase::loadHUData </td>
+          <td>(</td>
+          <td class="paramtype">const LoadHUDataFunction &amp;&#160;</td>
+          <td class="paramname"><em>huData</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
+
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00197">197</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+
+</div>
+</div>
+<a id="ad223260819271ff3adfc9c45159eaea2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad223260819271ff3adfc9c45159eaea2">&#9670;&nbsp;</a></span>loadIntensities() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Carna::helpers::VolumeGridHelperBase::loadIntensities </td>
+          <td>(</td>
+          <td class="paramtype">const std::function&lt; float(const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a94e29f81f3a6cc27615a00fa4c143c1a">base::math::Vector3ui</a> &amp;) &gt; &amp;&#160;</td>
+          <td class="paramname"><em>intensityData</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates the data of the volume grid. </p>
+<p>The <em>intensityData</em> must be scaled to \(\left[0, 1\right]\). </p>
+
+<p>Implemented in <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a6eda1ac9a01f44a51616d65b2cb3973a">Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a0e8aa3244b47b933f9b200ac44a3e475"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e8aa3244b47b933f9b200ac44a3e475">&#9670;&nbsp;</a></span>loadIntensities() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename LoadIntensitiesFunction &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void Carna::helpers::VolumeGridHelperBase::loadIntensities </td>
+          <td>(</td>
+          <td class="paramtype">const LoadIntensitiesFunction &amp;&#160;</td>
+          <td class="paramname"><em>intensityData</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
+
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00183">183</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
@@ -298,7 +404,7 @@ Static Public Attributes</h2></td></tr>
 <p>Releases all previously acquired textures. Invoke this method when the volume data changes. </p>
 <p>If this method is not invoked after an update of the volume data, succeeding calls to <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#a7a8bcb4668d5134eb12ba797938f388c">createNode</a> will not reflect the new data. Note however, that if you call this method between two invocations of <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#a7a8bcb4668d5134eb12ba797938f388c">createNode</a> without the volume data been altered, same textures will get uploaded twice to video memory, i.e. video resources will be wasted. </p>
 
-<p>Implemented in <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a15d73049d53430ef2e2290d3c589e735">Carna::helpers::VolumeGridHelper&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a8d574a9725ec413820e60c47aa9a2a7d">Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>.</p>
 
 </div>
 </div>

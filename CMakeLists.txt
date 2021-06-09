@@ -149,7 +149,9 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/VolumeGrid.h
 		include/${PROJECT_NAME}/base/VolumeSegment.h
 		include/${PROJECT_NAME}/base/HUVolume.h
+		include/${PROJECT_NAME}/base/IntensityVolume.h
 		include/${PROJECT_NAME}/base/NormalMap3D.h
+		include/${PROJECT_NAME}/base/BufferedIntensityVolume.h
 		include/${PROJECT_NAME}/base/BufferedHUVolume.h
 		include/${PROJECT_NAME}/base/BufferedNormalMap3D.h
 		include/${PROJECT_NAME}/base/Aggregation.h
@@ -251,6 +253,7 @@ set( SRC
 		src/base/ShaderManager.cpp
 		src/base/ShaderUniform.cpp
 		src/base/HUVolume.cpp
+		src/base/IntensityVolume.cpp
 		src/base/NormalMap3D.cpp
 		src/base/CarnaException.cpp
 		src/base/text.cpp
@@ -527,7 +530,6 @@ endif()
 # Process unit tests
 ############################################
 
-message("BUILD_TEST: ${BUILD_TEST}")
 if( BUILD_TEST )
 	add_subdirectory(test)
 endif()

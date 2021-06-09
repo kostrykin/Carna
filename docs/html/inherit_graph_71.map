@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classCarna_1_1base_1_1SpatialMovement.html" title="Handles the displacement of a Spatial object in a drag&#45;&amp;&#45;drop like manner. " alt="" coords="5,5,208,32"/>
+<area shape="rect" id="node1" href="$classCarna_1_1base_1_1Singleton.html" title="Carna::base::Singleton\l\&lt; ShaderManager \&gt;" alt="" coords="5,5,160,47"/>
+<area shape="rect" id="node2" href="$classCarna_1_1base_1_1ShaderManager.html" title="Ensures that each shader is built just once and not each time someone requests it. " alt="" coords="208,13,400,39"/>
 </map>

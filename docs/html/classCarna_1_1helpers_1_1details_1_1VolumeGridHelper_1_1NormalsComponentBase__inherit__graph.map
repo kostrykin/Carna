@@ -1,5 +1,4 @@
 <map id="Carna::helpers::details::VolumeGridHelper::NormalsComponentBase" name="Carna::helpers::details::VolumeGridHelper::NormalsComponentBase">
-<area shape="rect" id="node2" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html" title="Defines the helpers::VolumeGridHelper component that computes and maintains normal maps..." alt="" coords="344,5,717,61"/>
-<area shape="rect" id="node4" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent_3_01SegmentHUVolumeType_00_01void_01_4.html" title="Specializes NormalsComponent when no normals are desired. " alt="" coords="401,85,661,141"/>
-<area shape="rect" id="node3" href="$classCarna_1_1helpers_1_1VolumeGridHelper.html" title="Computes the partitioning of volumetric data and the corresponding normal map. Also creates scene nod..." alt="" coords="765,5,987,61"/>
+<area shape="rect" id="node2" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html" title="Defines the helpers::VolumeGridHelper component that computes and maintains normal maps..." alt="" coords="344,5,604,76"/>
+<area shape="rect" id="node3" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent_3_01SegmentIntensityVolumeType_00_01void_01_4.html" title="Specializes NormalsComponent when no normals are required. " alt="" coords="344,101,604,157"/>
 </map>

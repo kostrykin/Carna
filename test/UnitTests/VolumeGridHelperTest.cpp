@@ -10,6 +10,7 @@
  */
 
 #include "VolumeGridHelperTest.h"
+#include <Carna/base/BufferedIntensityVolume.h>
 #include <Carna/helpers/VolumeGridHelper.h>
 
 
@@ -23,7 +24,7 @@ void verifyPartitioning( const TestedHelperType& helper )
 {
     CARNA_FOR_VECTOR3UI( coord, helper.grid().segmentCounts )
     {
-        const Carna::base::math::Vector3ui& size = helper.grid().segmentAt( coord ).huVolume().size;
+        const Carna::base::math::Vector3ui& size = helper.grid().segmentAt( coord ).intensityVolume().size;
         QCOMPARE( size.x() % 2, 0u );
         QCOMPARE( size.y() % 2, 0u );
         QCOMPARE( size.z() % 2, 0u );
@@ -59,7 +60,7 @@ void VolumeGridHelperTest::cleanup()
 void VolumeGridHelperTest::test_512x512x71()
 {
     const static std::size_t TESTED_MAX_SEGMENT_BYTESIZE = 2 * 300 * 300 * 300;
-    typedef helpers::VolumeGridHelper< base::HUVolumeUInt16 > TestedHelperType;
+    typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16 > TestedHelperType;
     TestedHelperType instance( base::math::Vector3ui( 512, 512, 71 ), TESTED_MAX_SEGMENT_BYTESIZE );
     verifyPartitioning( instance );
 }
@@ -68,7 +69,7 @@ void VolumeGridHelperTest::test_512x512x71()
 void VolumeGridHelperTest::test_173x511x16()
 {
     const static std::size_t TESTED_MAX_SEGMENT_BYTESIZE = 2 * 300 * 300 * 300;
-    typedef helpers::VolumeGridHelper< base::HUVolumeUInt16 > TestedHelperType;
+    typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16 > TestedHelperType;
     TestedHelperType instance( base::math::Vector3ui( 173, 511, 16 ), TESTED_MAX_SEGMENT_BYTESIZE );
     verifyPartitioning( instance );
 }

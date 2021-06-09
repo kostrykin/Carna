@@ -1,6 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classCarna_1_1base_1_1GeometryFeature_1_1ManagedInterface.html" title="Represents an acquisition of the video resources from a particular GeometryFeature. This acquisition realizes the RAII idiom. " alt="" coords="5,71,208,112"/>
-<area shape="rect" id="node2" href="$classCarna_1_1base_1_1ManagedMeshInterface.html" title="Interfaces the MeshBase that a ManagedMeshBase represents. " alt="" coords="265,5,452,47"/>
-<area shape="rect" id="node3" href="$classCarna_1_1base_1_1ManagedTexture3DInterface.html" title="Interfaces the Texture&lt;3&gt; that a ManagedTexture3D represents. " alt="" coords="256,71,461,112"/>
-<area shape="rect" id="node4" href="$classCarna_1_1base_1_1Material_1_1ManagedInterface.html" title="Represents an acquisition of video resources from a particular Material. This realizes the RAII idiom..." alt="" coords="285,136,432,177"/>
+<area shape="rect" id="node1" href="$classCarna_1_1base_1_1GeometryFeature.html" title="Represents &quot;components&quot; that are aggregated by Geometry objects. Closer description is given here..." alt="" coords="5,81,208,107"/>
+<area shape="rect" id="node2" href="$classCarna_1_1base_1_1ManagedMeshBase.html" title="Represents MeshBase object whose lifetime is managed by instances of this class. This is a format&#45;ind..." alt="" coords="256,19,472,46"/>
+<area shape="rect" id="node4" href="$classCarna_1_1base_1_1ManagedTexture3D.html" title="Represents 3D OpenGL texture object whose lifetime is managed by instances of this class..." alt="" coords="257,81,471,107"/>
+<area shape="rect" id="node6" href="$classCarna_1_1base_1_1Material.html" title="Specifies the shader and it&#39;s configuration that are to be used for rendering a Geometry node with a ..." alt="" coords="291,131,437,158"/>
+<area shape="rect" id="node3" href="$classCarna_1_1base_1_1ManagedMesh.html" title="Implements MeshBase class for particular VertexType and IndexType. " alt="" coords="537,5,724,47"/>
+<area shape="rect" id="node5" href="$classCarna_1_1base_1_1BufferedVectorFieldTexture.html" title="Specializes the ManagedTexture3D class s.t. the texture&#39;s data is initialized from a math::VectorFiel..." alt="" coords="520,71,741,127"/>
 </map>

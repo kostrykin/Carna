@@ -10,6 +10,6 @@ var searchData=
   ['vector4f',['Vector4f',['../namespaceCarna_1_1base_1_1math.html#a2c446c28656b7531c186624451c06134',1,'Carna::base::math']]],
   ['vertex',['Vertex',['../classCarna_1_1base_1_1ManagedMesh.html#a9e15715af1fed15aa9927bb51874dc4a',1,'Carna::base::ManagedMesh::Vertex()'],['../classCarna_1_1base_1_1Mesh.html#adeb2da9f9b45a5d9cf79723112e5d191',1,'Carna::base::Mesh::Vertex()'],['../classCarna_1_1base_1_1VertexBuffer.html#aa36d96f60de488e244bc0531b7659a3e',1,'Carna::base::VertexBuffer::Vertex()']]],
   ['vertexattributes',['VertexAttributes',['../namespaceCarna_1_1base.html#a516ebda9b3ac3f73ab847400d4901737',1,'Carna::base']]],
-  ['voxel',['Voxel',['../classCarna_1_1base_1_1BufferedHUVolume.html#a9e86cbbd93cf7a7fd78fa3c19a703aec',1,'Carna::base::BufferedHUVolume']]],
-  ['voxeltype',['VoxelType',['../structCarna_1_1base_1_1VolumeGrid_1_1HUVSelector.html#ae2d73f3c1547153b8222869f22539631',1,'Carna::base::VolumeGrid::HUVSelector::VoxelType()'],['../structCarna_1_1base_1_1VolumeGrid_1_1NormalSelector.html#a7aaea89057c6d7dfa0da0b15937cf0b5',1,'Carna::base::VolumeGrid::NormalSelector::VoxelType()']]]
+  ['voxel',['Voxel',['../classCarna_1_1base_1_1BufferedHUVolume.html#a9e86cbbd93cf7a7fd78fa3c19a703aec',1,'Carna::base::BufferedHUVolume::Voxel()'],['../classCarna_1_1base_1_1BufferedIntensityVolume.html#acbd834943347ab78e1d1b868bb263db2',1,'Carna::base::BufferedIntensityVolume::Voxel()']]],
+  ['voxeltype',['VoxelType',['../structCarna_1_1base_1_1VolumeGrid_1_1IntensitySelector.html#a55b54797b0d84da419b3c4b9593c7213',1,'Carna::base::VolumeGrid::IntensitySelector::VoxelType()'],['../structCarna_1_1base_1_1VolumeGrid_1_1NormalSelector.html#af6835dbbe05f786c8644ba4d7837ee9a',1,'Carna::base::VolumeGrid::NormalSelector::VoxelType()']]]
 ];

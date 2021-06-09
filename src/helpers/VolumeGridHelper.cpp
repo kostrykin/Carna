@@ -46,6 +46,19 @@ VolumeGridHelperBase::Dimensions::Dimensions( const base::math::Vector3f& millim
 }
 
 
+void VolumeGridHelperBase::loadHUData( const std::function< base::HUV( const base::math::Vector3ui& ) >& huData )
+{
+    loadIntensities( [&huData]( const base::math::Vector3ui& loc )
+        {
+            auto intensity = ( huData( loc ) + 1024 ) / 4095.f;
+            if( intensity < 0 ) intensity = 0;
+            if( intensity > 1 ) intensity = 1;
+            return intensity;
+        }
+    );
+}
+
+
 
 }  // namespace Carna :: helpers
 

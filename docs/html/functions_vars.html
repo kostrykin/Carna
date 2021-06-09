@@ -103,6 +103,7 @@ $(function() {
 </li>
 <li>BUFFER_TYPE
 : <a class="el" href="structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01HUVolumeUInt16_01_4.html#aa749457bbef2e557a085ccc0983469c7">Carna::base::BufferedVectorFieldFormat&lt; HUVolumeUInt16 &gt;</a>
+, <a class="el" href="structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01IntensityVolumeUInt16_01_4.html#a5f707a3aaf539a425bcd98d1789ae5cc">Carna::base::BufferedVectorFieldFormat&lt; IntensityVolumeUInt16 &gt;</a>
 , <a class="el" href="structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01NormalMap3DInt8_01_4.html#a6747ad29e91342ccc42155e5648c1693">Carna::base::BufferedVectorFieldFormat&lt; NormalMap3DInt8 &gt;</a>
 </li>
 <li>bufferPtr
@@ -170,11 +171,11 @@ $(function() {
 <li>DEFAULT_RENDER_INVERSE
 : <a class="el" href="classCarna_1_1presets_1_1DRRStage.html#a4fd43836093eacc1aed46a08a9aab5a2">Carna::presets::DRRStage</a>
 </li>
-<li>DEFAULT_ROLE_HU_VOLUME
-: <a class="el" href="classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1HUComponent.html#ac904ddf86fe434eccd10f580b1b152eb">Carna::helpers::details::VolumeGridHelper::HUComponent&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+<li>DEFAULT_ROLE_INTENSITY_VOLUME
+: <a class="el" href="classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1IntensityComponent.html#a660bc541fb6fb5125dfc94bd76bfdea2">Carna::helpers::details::VolumeGridHelper::IntensityComponent&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>DEFAULT_ROLE_NORMALS
-: <a class="el" href="classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html#a4f93255a52f76428981a613122ba1b7d">Carna::helpers::details::VolumeGridHelper::NormalsComponent&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+: <a class="el" href="classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html#ac4088b85394e78b333ca41358b2b8ac3">Carna::helpers::details::VolumeGridHelper::NormalsComponent&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>DEFAULT_SAMPLE_RATE
 : <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#a9f7a5cbbdb68dcaac5ce451bf9a0a1cc">Carna::presets::VolumeRenderingStage</a>
@@ -273,7 +274,7 @@ $(function() {
 : <a class="el" href="classCarna_1_1base_1_1Color.html#a1a5bab6305609743f339da348b9859e8">Carna::base::Color</a>
 </li>
 <li>grid
-: <a class="el" href="classCarna_1_1base_1_1VolumeSegment.html#a09b6bc3ee5446f9ea5bdf35511cb5f3e">Carna::base::VolumeSegment&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+: <a class="el" href="classCarna_1_1base_1_1VolumeSegment.html#a01b4bcc77a7d7d6a154e9ee272996b1e">Carna::base::VolumeSegment&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 </ul>
 
@@ -300,6 +301,7 @@ $(function() {
 </li>
 <li>INTERNAL_FORMAT
 : <a class="el" href="structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01HUVolumeUInt16_01_4.html#ac985e17f51d589e1cdfb9586f6b56567">Carna::base::BufferedVectorFieldFormat&lt; HUVolumeUInt16 &gt;</a>
+, <a class="el" href="structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01IntensityVolumeUInt16_01_4.html#a3d13fda5ec1b5c020970edbcde80a619">Carna::base::BufferedVectorFieldFormat&lt; IntensityVolumeUInt16 &gt;</a>
 , <a class="el" href="structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01NormalMap3DInt8_01_4.html#a231af9cb321d2f6e2b9a51de8895a4c4">Carna::base::BufferedVectorFieldFormat&lt; NormalMap3DInt8 &gt;</a>
 </li>
 <li>internalFormat
@@ -350,11 +352,11 @@ $(function() {
 : <a class="el" href="classCarna_1_1base_1_1Framebuffer.html#a5dcdc1bd369ebf9b140738fe3f52805a">Carna::base::Framebuffer</a>
 </li>
 <li>maxSegmentBytesize
-: <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#ab9b6e1add4420a418bcaeaef0846f640">Carna::helpers::VolumeGridHelper&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+: <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#ab416cff030b59159ba0d44cbedb22219">Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>maxSegmentSize
-: <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html#a3c32d00ed95c34704823e74ae5d054e3">Carna::base::VolumeGrid&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
-, <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a7fcda38a2ed3328c74594683cf2f35a8">Carna::helpers::VolumeGridHelper&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+: <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html#a91488661f536d7ee3708d88ff6ddc685">Carna::base::VolumeGrid&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
+, <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a7ad6821d64c9750908ce55dbf915704c">Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>mean
 : <a class="el" href="structCarna_1_1base_1_1math_1_1Statistics.html#a637e6b8ebc1fb40d9b4327bf6772f000">Carna::base::math::Statistics&lt; T &gt;</a>
@@ -371,6 +373,7 @@ $(function() {
 </li>
 <li>myBuffer
 : <a class="el" href="classCarna_1_1base_1_1BufferedHUVolume.html#a2f286b2b5591ae64bf25051cb6e053e2">Carna::base::BufferedHUVolume&lt; VoxelType, BufferType &gt;</a>
+, <a class="el" href="classCarna_1_1base_1_1BufferedIntensityVolume.html#ae19ad5971c5573167d0dc0e4652ecf22">Carna::base::BufferedIntensityVolume&lt; VoxelType, BufferType &gt;</a>
 , <a class="el" href="classCarna_1_1base_1_1BufferedNormalMap3D.html#a944869e928afe35cb8523f3df3ae9362">Carna::base::BufferedNormalMap3D&lt; BufferedVectorComponentType, BufferType &gt;</a>
 </li>
 </ul>
@@ -403,7 +406,7 @@ $(function() {
 
 <h3><a id="index_o"></a>- o -</h3><ul>
 <li>offset
-: <a class="el" href="classCarna_1_1base_1_1VolumeSegment.html#a44f491be68c1fe7f763ad57e88d07512">Carna::base::VolumeSegment&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+: <a class="el" href="classCarna_1_1base_1_1VolumeSegment.html#a96ef74307084c983573af0292e7ca209">Carna::base::VolumeSegment&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>origin
 : <a class="el" href="classCarna_1_1base_1_1math_1_1Ray.html#a740f0681c99a8c6c9e56078691862c10">Carna::base::math::Ray&lt; VectorType &gt;</a>
@@ -413,16 +416,17 @@ $(function() {
 
 <h3><a id="index_p"></a>- p -</h3><ul>
 <li>partitioningX
-: <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a00ec50ccb539495a2a6325653c297bae">Carna::helpers::VolumeGridHelper&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+: <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#ac08baeaf6c27f43748dff98245e282f9">Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>partitioningY
-: <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a08e6e993443ccb54c0e4ec016a4dcc06">Carna::helpers::VolumeGridHelper&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+: <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#ad1a3ead7b3329d05db4b91daa5a1269a">Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>partitioningZ
-: <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a40b7cf97265c7dbf5dd4a0f5f285c554">Carna::helpers::VolumeGridHelper&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+: <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#aa55b688a646312afb45d9598563c3e83">Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>PIXEL_FORMAT
 : <a class="el" href="structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01HUVolumeUInt16_01_4.html#a828fd8721d4ee9de112990e77d25d4b3">Carna::base::BufferedVectorFieldFormat&lt; HUVolumeUInt16 &gt;</a>
+, <a class="el" href="structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01IntensityVolumeUInt16_01_4.html#a7964d907241ca75274410fb76e9f1fa8">Carna::base::BufferedVectorFieldFormat&lt; IntensityVolumeUInt16 &gt;</a>
 , <a class="el" href="structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01NormalMap3DInt8_01_4.html#a1ad27e2276601f4753b38193688fce44">Carna::base::BufferedVectorFieldFormat&lt; NormalMap3DInt8 &gt;</a>
 </li>
 <li>pixelFormat
@@ -488,7 +492,7 @@ $(function() {
 , <a class="el" href="classCarna_1_1helpers_1_1FrameRendererHelper.html#a807ed17811f84757059906681bdfee06">Carna::helpers::FrameRendererHelper&lt; RenderStageOrder &gt;</a>
 </li>
 <li>resolution
-: <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#aacaf92e1094fdbaa9a445a3b5d9a957d">Carna::helpers::VolumeGridHelper&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+: <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a1990e09db10de96c43e06839f4454564">Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>ROLE_DEFAULT_MATERIAL
 : <a class="el" href="classCarna_1_1base_1_1MeshRenderingStageBase.html#af2f3f389e4757501a3be3c8751131a79">Carna::base::MeshRenderingStageBase</a>
@@ -496,11 +500,11 @@ $(function() {
 <li>ROLE_DEFAULT_MESH
 : <a class="el" href="classCarna_1_1base_1_1MeshRenderingStageBase.html#a5358a537a3fe04ff0d2a38e9c0da1ebf">Carna::base::MeshRenderingStageBase</a>
 </li>
-<li>ROLE_HU_VOLUME
-: <a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html#acbc0ee7e50fde66e16fc413a31251bcf">Carna::presets::CuttingPlanesStage</a>
-, <a class="el" href="classCarna_1_1presets_1_1DRRStage.html#a6a5c37644e439c4388ed5dafdfe63a85">Carna::presets::DRRStage</a>
-, <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a48b167c21cfed977519d19ec7562d447">Carna::presets::DVRStage</a>
-, <a class="el" href="classCarna_1_1presets_1_1MIPStage.html#a79ab78909415d9fd1c0dd56b952a2d98">Carna::presets::MIPStage</a>
+<li>ROLE_INTENSITY_VOLUME
+: <a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html#ae2ce7da25cb71d49b4d1b22fecc2f74d">Carna::presets::CuttingPlanesStage</a>
+, <a class="el" href="classCarna_1_1presets_1_1DRRStage.html#a338d0fa4488f044de1fb8e036df77aeb">Carna::presets::DRRStage</a>
+, <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a9c2cc25cf8da7a7494e32beccc6cf4ec">Carna::presets::DVRStage</a>
+, <a class="el" href="classCarna_1_1presets_1_1MIPStage.html#a4fc455d6f08270b4863f965bf2a4eb1e">Carna::presets::MIPStage</a>
 </li>
 <li>ROLE_NORMALS
 : <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#af20fadb7f7d95b911e26d298273f4792">Carna::presets::DVRStage</a>
@@ -513,7 +517,7 @@ $(function() {
 
 <h3><a id="index_s"></a>- s -</h3><ul>
 <li>segmentCounts
-: <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html#ac6dac9b2af282e44c9d8d3a370822f3f">Carna::base::VolumeGrid&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+: <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html#af512288529134790647068036f3f822f">Carna::base::VolumeGrid&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>SETUP_UNIT
 : <a class="el" href="classCarna_1_1base_1_1TextureBase.html#a9383ef7089043f4e7c624068a468a21e">Carna::base::TextureBase</a>
@@ -523,6 +527,7 @@ $(function() {
 </li>
 <li>size
 : <a class="el" href="classCarna_1_1base_1_1HUVolume.html#a7cdf1177175c7fa348e86b928aee66b6">Carna::base::HUVolume</a>
+, <a class="el" href="classCarna_1_1base_1_1IntensityVolume.html#ae1dfe80c9ba9d55122d148b16917d3d2">Carna::base::IntensityVolume</a>
 , <a class="el" href="classCarna_1_1base_1_1ManagedTexture3D.html#af01015e4bca9761f27a5c2f69cfd854e">Carna::base::ManagedTexture3D</a>
 , <a class="el" href="classCarna_1_1base_1_1NormalMap3D.html#a7371bdb4a5ca28b5e6bda4468ae1e499">Carna::base::NormalMap3D</a>
 </li>

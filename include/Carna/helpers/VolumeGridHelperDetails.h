@@ -45,23 +45,23 @@ namespace VolumeGridHelper
 
 
 // ----------------------------------------------------------------------------------
-// HUTextureFactory< SegmentHUVolumeType, SegmentNormalsVolumeType >
+// IntensityTextureFactory< SegmentIntensityVolumeType, SegmentNormalsVolumeType >
 // ----------------------------------------------------------------------------------
 
 /** \brief
   * Creates \ref base::ManagedTexture3D "textures" that represents
-  * \ref base::VolumeSegment::huVolume in video memory.
+  * \ref base::VolumeSegment::intensityVolume in video memory.
   *
   * \author Leonid Kostrykin
   * \date   26.3.15 - 27.3.15
   */
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-struct HUTextureFactory
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+struct IntensityTextureFactory
 {
     /** \brief
-      * Reflects the type to use for storing the HU volume of a single partition.
+      * Reflects the type to use for storing the intensity volume of a single partition.
       */
-    typedef SegmentHUVolumeType SegmentHUVolume;
+    typedef SegmentIntensityVolumeType SegmentIntensityVolume;
 
     /** \brief
       * Reflects the type to use for storing the normal map of a single partition.
@@ -70,24 +70,24 @@ struct HUTextureFactory
 
     /** \brief
       * Creates \ref base::ManagedTexture3D "texture" that represents the
-      * \ref base::VolumeSegment::huVolume of \a segment in video memory.
+      * \ref base::VolumeSegment::intensityVolume of \a segment in video memory.
       */
     static base::ManagedTexture3D& createTexture
-        ( const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment );
+        ( const base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment );
 };
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-base::ManagedTexture3D& HUTextureFactory< SegmentHUVolumeType, SegmentNormalsVolumeType >::createTexture
-    ( const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment )
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+base::ManagedTexture3D& IntensityTextureFactory< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::createTexture
+    ( const base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment )
 {
-    return base::BufferedVectorFieldTexture< SegmentHUVolumeType >::create( segment.huVolume() );
+    return base::BufferedVectorFieldTexture< SegmentIntensityVolumeType >::create( segment.intensityVolume() );
 }
 
 
 
 // ----------------------------------------------------------------------------------
-// NormalsTextureFactory< SegmentHUVolumeType, SegmentNormalsVolumeType >
+// NormalsTextureFactory< SegmentIntensityVolumeType, SegmentNormalsVolumeType >
 // ----------------------------------------------------------------------------------
 
 /** \brief
@@ -97,13 +97,13 @@ base::ManagedTexture3D& HUTextureFactory< SegmentHUVolumeType, SegmentNormalsVol
   * \author Leonid Kostrykin
   * \date   26.3.15 - 27.3.15
   */
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 struct NormalsTextureFactory
 {
     /** \brief
-      * Reflects the type to use for storing the HU volume of a single partition.
+      * Reflects the type to use for storing the intensity volume of a single partition.
       */
-    typedef SegmentHUVolumeType SegmentHUVolume;
+    typedef SegmentIntensityVolumeType SegmentIntensityVolume;
 
     /** \brief
       * Reflects the type to use for storing the normal map of a single partition.
@@ -116,13 +116,13 @@ struct NormalsTextureFactory
       * memory.
       */
     static base::ManagedTexture3D& createTexture
-        ( const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment );
+        ( const base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment );
 };
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-base::ManagedTexture3D& NormalsTextureFactory< SegmentHUVolumeType, SegmentNormalsVolumeType >::createTexture
-    ( const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment )
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+base::ManagedTexture3D& NormalsTextureFactory< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::createTexture
+    ( const base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment )
 {
     return base::BufferedVectorFieldTexture< SegmentNormalsVolumeType >::create( segment.normals() );
 }
@@ -149,7 +149,7 @@ class TextureManager
 
     mutable std::map
         < const base::VolumeSegment
-            < typename TextureFactory::SegmentHUVolume
+            < typename TextureFactory::SegmentIntensityVolume
             , typename TextureFactory::SegmentNormalsVolume >*
         , base::ManagedTexture3D* > textures;
 
@@ -175,14 +175,14 @@ protected:
         ( base::Geometry& geometry
         , unsigned int role
         , const base::VolumeSegment
-            < typename TextureFactory::SegmentHUVolume
+            < typename TextureFactory::SegmentIntensityVolume
             , typename TextureFactory::SegmentNormalsVolume >& segment ) const;
 
 private:
 
     base::ManagedTexture3D& getTexture
         ( const base::VolumeSegment
-            < typename TextureFactory::SegmentHUVolume
+            < typename TextureFactory::SegmentIntensityVolume
             , typename TextureFactory::SegmentNormalsVolume >& segment ) const;
 
 }; // TextureManager
@@ -212,7 +212,7 @@ void TextureManager< TextureFactory >::attachTexture
     ( base::Geometry& geometry
     , unsigned int role
     , const base::VolumeSegment
-        < typename TextureFactory::SegmentHUVolume
+        < typename TextureFactory::SegmentIntensityVolume
         , typename TextureFactory::SegmentNormalsVolume >& segment ) const
 {
     base::ManagedTexture3D& texture = getTexture( segment );
@@ -223,7 +223,7 @@ void TextureManager< TextureFactory >::attachTexture
 template< typename TextureFactory >
 base::ManagedTexture3D& TextureManager< TextureFactory >::getTexture
     ( const base::VolumeSegment
-        < typename TextureFactory::SegmentHUVolume
+        < typename TextureFactory::SegmentIntensityVolume
         , typename TextureFactory::SegmentNormalsVolume >& segment ) const
 {
     auto textureItr = textures.find( &segment );
@@ -246,18 +246,18 @@ base::ManagedTexture3D& TextureManager< TextureFactory >::getTexture
 
 
 // ----------------------------------------------------------------------------------
-// HUComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >
+// IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Defines the \ref helpers::VolumeGridHelper component that maintains HU volume
-  * data.
+  * Defines the \ref helpers::VolumeGridHelper component that maintains intensity
+  * volume data.
   *
   * \author Leonid Kostrykin
   * \date   27.3.15 - 29.3.15
   */
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-class HUComponent : public TextureManager< HUTextureFactory< SegmentHUVolumeType, SegmentNormalsVolumeType > >
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+class IntensityComponent : public TextureManager< IntensityTextureFactory< SegmentIntensityVolumeType, SegmentNormalsVolumeType > >
 {
 
     unsigned int role;
@@ -268,86 +268,86 @@ public:
       * Holds the default \ref GeometryTypes "role" to use for
       * \ref attachTexture "attaching textures" to \ref base::Geometry nodes.
       */
-    const static unsigned int DEFAULT_ROLE_HU_VOLUME = 0;
+    const static unsigned int DEFAULT_ROLE_INTENSITY_VOLUME = 0;
 
     /** \brief
       * Sets the \ref GeometryTypes "role" to use for
       * \ref attachTexture "attaching textures" to \ref base::Geometry nodes to
-      * \ref DEFAULT_ROLE_HU_VOLUME.
+      * \ref DEFAULT_ROLE_INTENSITY_VOLUME.
       */
-    HUComponent();
+    IntensityComponent();
 
     /** \brief
       * Sets the \ref GeometryTypes "role" to use for
       * \ref attachTexture "attaching textures" to \ref base::Geometry nodes.
       */
-    void setHUVolumeRole( unsigned int role );
+    void setIntensityVolumeRole( unsigned int role );
     
     /** \brief
       * Tels the \ref GeometryTypes "role" used for
       * \ref attachTexture "attaching textures" to \ref base::Geometry nodes.
       */
-    unsigned int huVolumeRole() const;
+    unsigned int intensityVolumeRole() const;
 
 protected:
 
     /** \brief
       * Attaches the \ref base::ManagedTexture3D "texture" that represents the
-      * \ref base::VolumeSegment::huVolume of \a segment to \a geometry using the
-      * \ref setHUVolumeRole "previously configured role".
+      * \ref base::VolumeSegment::intensityVolume of \a segment to \a geometry
+      * using the \ref setIntensityVolumeRole "previously configured role".
       */
     void attachTexture
         ( base::Geometry& geometry
-        , const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment ) const;
+        , const base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment ) const;
 
     /** \brief
-      * Initializes \ref base::VolumeSegment::setHUVolume "HU volume" of \a segment.
+      * Initializes \ref base::VolumeSegment::setIntensityVolume "intensity volume" of \a segment.
       */
     void initializeSegment
-        ( base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment
+        ( base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment
         , const base::math::Vector3ui& size ) const;
 
-}; // HUComponent
+}; // IntensityComponent
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-HUComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::HUComponent()
-    : role( DEFAULT_ROLE_HU_VOLUME )
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::IntensityComponent()
+    : role( DEFAULT_ROLE_INTENSITY_VOLUME )
 {
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-void HUComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::setHUVolumeRole( unsigned int role )
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+void IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::setIntensityVolumeRole( unsigned int role )
 {
     this->role = role;
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-unsigned int HUComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::huVolumeRole() const
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+unsigned int IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::intensityVolumeRole() const
 {
     return role;
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-void HUComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::attachTexture
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+void IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::attachTexture
     ( base::Geometry& geometry
-    , const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment ) const
+    , const base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment ) const
 {
-    TextureManager< HUTextureFactory< SegmentHUVolumeType, SegmentNormalsVolumeType > >
+    TextureManager< IntensityTextureFactory< SegmentIntensityVolumeType, SegmentNormalsVolumeType > >
         ::attachTexture( geometry, role, segment );
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-void HUComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::initializeSegment
-    ( base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+void IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::initializeSegment
+    ( base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment
     , const base::math::Vector3ui& size ) const
 {
-    SegmentHUVolumeType* const huVolume = new SegmentHUVolumeType( size );
-    segment.setHUVolume( new base::Composition< SegmentHUVolumeType >( huVolume ) );
+    SegmentIntensityVolumeType* const intensityVolume = new SegmentIntensityVolumeType( size );
+    segment.setIntensityVolume( new base::Composition< SegmentIntensityVolumeType >( intensityVolume ) );
 }
 
 
@@ -385,7 +385,7 @@ protected:
 
 
 // ----------------------------------------------------------------------------------
-// NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >
+// NormalsComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >
 // ----------------------------------------------------------------------------------
 
 /** \brief
@@ -395,14 +395,14 @@ protected:
   * \author Leonid Kostrykin
   * \date   27.3.15 - 29.3.15
   */
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 class NormalsComponent
-    : public TextureManager< NormalsTextureFactory< SegmentHUVolumeType, SegmentNormalsVolumeType > >
+    : public TextureManager< NormalsTextureFactory< SegmentIntensityVolumeType, SegmentNormalsVolumeType > >
     , public NormalsComponentBase
 {
 
     unsigned int role;
-    base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >* grid;
+    base::VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >* grid;
 
 public:
     
@@ -441,7 +441,7 @@ protected:
     /** \brief
       * Sets the grid that \ref computeNormals operates on.
       */
-    void setGrid( base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >& grid );
+    void setGrid( base::VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& grid );
     
     /** \brief
       * Attaches the \ref base::ManagedTexture3D "texture" that represents the
@@ -450,45 +450,45 @@ protected:
       */
     void attachTexture
         ( base::Geometry& geometry
-        , const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment ) const;
+        , const base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment ) const;
     
     /** \brief
       * Initializes \ref base::VolumeSegmentNormalsComponent::setNormals "normal map"
       * of \a segment.
       */
     void initializeSegment
-        ( base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment
+        ( base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment
         , const base::math::Vector3ui& size ) const;
 
 }; // NormalsComponent
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::NormalsComponent()
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+NormalsComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::NormalsComponent()
     : role( DEFAULT_ROLE_NORMALS )
 {
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::setNormalsRole( unsigned int role )
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+void NormalsComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::setNormalsRole( unsigned int role )
 {
     this->role = role;
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-unsigned int NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::normalsRole() const
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+unsigned int NormalsComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::normalsRole() const
 {
     return role;
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::computeNormals()
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+void NormalsComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::computeNormals()
 {
-    typedef typename base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::NormalSelector NormalSelector;
-    typedef typename base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >::   HUVSelector    HUVSelector;
+    typedef typename base::VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::   NormalSelector    NormalSelector;
+    typedef typename base::VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::IntensitySelector IntensitySelector;
 
     using base::math::Vector3ui;
     using base::math::Vector3i;
@@ -533,19 +533,19 @@ void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::computeN
     {
         /* Sample the neighboring voxels.
          */
-        const base::HUV huv_0yz = grid->template getVoxel< HUVSelector >( Vector3ui( coord.x() - 1, coord.y(), coord.z() ) );
-        const base::HUV huv_1yz = grid->template getVoxel< HUVSelector >( Vector3ui( coord.x() + 1, coord.y(), coord.z() ) );
-        const base::HUV huv_x0z = grid->template getVoxel< HUVSelector >( Vector3ui( coord.x(), coord.y() - 1, coord.z() ) );
-        const base::HUV huv_x1z = grid->template getVoxel< HUVSelector >( Vector3ui( coord.x(), coord.y() + 1, coord.z() ) );
-        const base::HUV huv_xy0 = grid->template getVoxel< HUVSelector >( Vector3ui( coord.x(), coord.y(), coord.z() - 1 ) );
-        const base::HUV huv_xy1 = grid->template getVoxel< HUVSelector >( Vector3ui( coord.x(), coord.y(), coord.z() + 1 ) );
+        const float val_0yz = grid->template getVoxel< IntensitySelector >( Vector3ui( coord.x() - 1, coord.y(), coord.z() ) );
+        const float val_1yz = grid->template getVoxel< IntensitySelector >( Vector3ui( coord.x() + 1, coord.y(), coord.z() ) );
+        const float val_x0z = grid->template getVoxel< IntensitySelector >( Vector3ui( coord.x(), coord.y() - 1, coord.z() ) );
+        const float val_x1z = grid->template getVoxel< IntensitySelector >( Vector3ui( coord.x(), coord.y() + 1, coord.z() ) );
+        const float val_xy0 = grid->template getVoxel< IntensitySelector >( Vector3ui( coord.x(), coord.y(), coord.z() - 1 ) );
+        const float val_xy1 = grid->template getVoxel< IntensitySelector >( Vector3ui( coord.x(), coord.y(), coord.z() + 1 ) );
 
         /* Compute the normal vector and write the result. Note that the normal
-         * vector points to the *inverse* direction of the gradient, i.e. away from
+         * vector points to the *reverse* direction of the gradient, i.e. away from
          * the steepest ascent.
          */
-        Vector3f normal = Vector3f( huv_0yz - huv_1yz, huv_x0z - huv_x1z, huv_xy0 - huv_xy1 ) / 2;
-        if( !base::math::isEqual< float >( normal.squaredNorm(), 0 ) )
+        Vector3f normal = Vector3f( val_0yz - val_1yz, val_x0z - val_x1z, val_xy0 - val_xy1 ) / 2;
+        if( normal.squaredNorm() > 1e-12 )
         {
             normal.normalize();
         }
@@ -566,27 +566,27 @@ void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::computeN
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >
-    ::setGrid( base::VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >& grid )
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+void NormalsComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >
+    ::setGrid( base::VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& grid )
 {
     this->grid = &grid;
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::attachTexture
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+void NormalsComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::attachTexture
     ( base::Geometry& geometry
-    , const base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment ) const
+    , const base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment ) const
 {
-    TextureManager< NormalsTextureFactory< SegmentHUVolumeType, SegmentNormalsVolumeType > >
+    TextureManager< NormalsTextureFactory< SegmentIntensityVolumeType, SegmentNormalsVolumeType > >
         ::attachTexture( geometry, role, segment );
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::initializeSegment
-    ( base::VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >& segment
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+void NormalsComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::initializeSegment
+    ( base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment
     , const base::math::Vector3ui& size ) const
 {
     SegmentNormalsVolumeType* const normals = new SegmentNormalsVolumeType( size );
@@ -596,17 +596,17 @@ void NormalsComponent< SegmentHUVolumeType, SegmentNormalsVolumeType >::initiali
 
 
 // ----------------------------------------------------------------------------------
-// NormalsComponent< SegmentHUVolumeType, void >
+// NormalsComponent< SegmentIntensityVolumeType, void >
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Specializes \ref NormalsComponent when no normals are desired.
+  * Specializes \ref NormalsComponent when no normals are required.
   *
   * \author Leonid Kostrykin
   * \date   27.3.15
   */
-template< typename SegmentHUVolumeType >
-class NormalsComponent< SegmentHUVolumeType, void > : public NormalsComponentBase
+template< typename SegmentIntensityVolumeType >
+class NormalsComponent< SegmentIntensityVolumeType, void > : public NormalsComponentBase
 {
 
 public:
@@ -626,55 +626,55 @@ protected:
     /** \brief
       * Does nothing.
       */
-    void setGrid( base::VolumeGrid< SegmentHUVolumeType, void >& grid );
+    void setGrid( base::VolumeGrid< SegmentIntensityVolumeType, void >& grid );
     
     /** \brief
       * Does nothing.
       */
     void attachTexture
         ( base::Geometry& geometry
-        , const base::VolumeSegment< SegmentHUVolumeType, void >& segment ) const;
+        , const base::VolumeSegment< SegmentIntensityVolumeType, void >& segment ) const;
     
     /** \brief
       * Does nothing.
       */
     void initializeSegment
-        ( base::VolumeSegment< SegmentHUVolumeType, void >& segment
+        ( base::VolumeSegment< SegmentIntensityVolumeType, void >& segment
         , const base::math::Vector3ui& size ) const;
 
 }; // NormalsComponent
 
 
-template< typename SegmentHUVolumeType >
-void NormalsComponent< SegmentHUVolumeType, void >::releaseGeometryFeatures()
+template< typename SegmentIntensityVolumeType >
+void NormalsComponent< SegmentIntensityVolumeType, void >::releaseGeometryFeatures()
 {
 }
 
 
-template< typename SegmentHUVolumeType >
-void NormalsComponent< SegmentHUVolumeType, void >::computeNormals()
+template< typename SegmentIntensityVolumeType >
+void NormalsComponent< SegmentIntensityVolumeType, void >::computeNormals()
 {
 }
 
 
-template< typename SegmentHUVolumeType >
-void NormalsComponent< SegmentHUVolumeType, void >::setGrid
-    ( base::VolumeGrid< SegmentHUVolumeType, void >& grid )
+template< typename SegmentIntensityVolumeType >
+void NormalsComponent< SegmentIntensityVolumeType, void >::setGrid
+    ( base::VolumeGrid< SegmentIntensityVolumeType, void >& grid )
 {
 }
 
 
-template< typename SegmentHUVolumeType >
-void NormalsComponent< SegmentHUVolumeType, void >::attachTexture
+template< typename SegmentIntensityVolumeType >
+void NormalsComponent< SegmentIntensityVolumeType, void >::attachTexture
     ( base::Geometry& geometry
-    , const base::VolumeSegment< SegmentHUVolumeType, void >& segment ) const
+    , const base::VolumeSegment< SegmentIntensityVolumeType, void >& segment ) const
 {
 }
 
 
-template< typename SegmentHUVolumeType >
-void NormalsComponent< SegmentHUVolumeType, void >::initializeSegment
-    ( base::VolumeSegment< SegmentHUVolumeType, void >& segment
+template< typename SegmentIntensityVolumeType >
+void NormalsComponent< SegmentIntensityVolumeType, void >::initializeSegment
+    ( base::VolumeSegment< SegmentIntensityVolumeType, void >& segment
     , const base::math::Vector3ui& size ) const
 {
 }

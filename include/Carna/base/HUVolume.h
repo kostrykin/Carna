@@ -71,8 +71,7 @@ public:
                           , unsigned int y
                           , unsigned int z ) const override = 0;
 
-    /** \brief
-      * Returns HUV of specified voxel.
+    /** \overload
       */
     virtual HUV operator()( const math::Vector3ui& at ) const override = 0;
 

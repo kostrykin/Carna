@@ -88,9 +88,9 @@ void FrameRendererIntegrationTest::test_typical()
 
     /* Configure geometry node for volume data.
      */
-    typedef helpers::VolumeGridHelper< base::HUVolumeUInt16 > UInt16HUGridHelper;
+    typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16, base::NormalMap3DInt8 > UInt16HUGridHelper;
     UInt16HUGridHelper gridHelper( data.size );
-    gridHelper.loadData( data );
+    gridHelper.loadHUData( data );
     root.attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, UInt16HUGridHelper::Spacing( spacings ) ) );
 
     /* Configure cutting planes.

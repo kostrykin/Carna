@@ -117,13 +117,14 @@ namespace Carna
         template< typename AssociatedObjectType > class Association;
         template< typename BufferedVectorComponentType, typename BufferType = std::vector< BufferedVectorComponentType > >
             class BufferedNormalMap3D;
+        template< typename VoxelType, typename BufferType = std::vector< VoxelType > > class BufferedIntensityVolume;
         template< typename VoxelType, typename BufferType = std::vector< VoxelType > > class BufferedHUVolume;
         template< typename BufferedVectorFieldType > struct BufferedVectorFieldFormat;
         template< typename BufferedVectorFieldType > class BufferedVectorFieldTexture;
         template< typename AssociatedObjectType > class Composition;
         template< typename RenderableCompare > class GeometryStage;
-        template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType > class VolumeGrid;
-        template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType > class VolumeSegment;
+        template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType > class VolumeGrid;
+        template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType > class VolumeSegment;
         template< typename IndexType > class IndexBuffer;
         template< typename VertexType, typename IndexType > class Mesh;
         template< typename VertexType, typename IndexType > class ManagedMesh;
@@ -137,7 +138,16 @@ namespace Carna
         template< unsigned int dimension > class Texture;
 
         /** \brief
+          * Defines 16bit intensity volume.
+          *
+          * \since  \ref v_3_2_0
+          */
+        typedef BufferedIntensityVolume< uint16_t > IntensityVolumeUInt16;
+
+        /** \brief
           * Defines 16bit unsigned integer \ref HUV "HU" volume data.
+          *
+          * \deprecated Use \ref IntensityVolumeUInt16 instead.
           */
         typedef BufferedHUVolume< uint16_t > HUVolumeUInt16;
 
@@ -199,7 +209,7 @@ namespace Carna
         class VolumeGridHelperBase;
 
         template< typename RenderStageOrder = DefaultRenderStageOrder > class FrameRendererHelper;
-        template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType = void > class VolumeGridHelper;
+        template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType = void > class VolumeGridHelper;
         
         /** \brief
           * Holds implementation details.

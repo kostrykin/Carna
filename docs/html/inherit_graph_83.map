@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classCarna_1_1helpers_1_1DefaultRenderStageOrder.html" title="Defines default rendering stages order used by FrameRendererHelper. " alt="" coords="5,5,204,47"/>
+<area shape="rect" id="node1" href="$classCarna_1_1base_1_1VolumeSegmentNormalsComponent.html" title="Represents the normal map component of an VolumeSegment object. " alt="" coords="5,184,256,240"/>
+<area shape="rect" id="node2" href="$classCarna_1_1base_1_1VolumeSegment.html" title="Represents a single volumetric data partition. " alt="" coords="405,5,618,61"/>
+<area shape="rect" id="node3" href="$classCarna_1_1base_1_1VolumeSegment.html" title="Carna::base::VolumeSegment\l\&lt; typename IntensityTextureFactory\l\&lt; SegmentIntensityVolumeType,\l SegmentNormalsVolumeType \&gt; ::SegmentIntensity\lVolume, typename IntensityTextureFactory\l\&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType\l \&gt; ::SegmentNormalsVolume \&gt;" alt="" coords="316,85,707,200"/>
+<area shape="rect" id="node4" href="$classCarna_1_1base_1_1VolumeSegment.html" title="Carna::base::VolumeSegment\l\&lt; typename NormalsTextureFactory\l\&lt; SegmentIntensityVolumeType,\l SegmentNormalsVolumeType \&gt; ::\lSegmentIntensityVolume, typename\l NormalsTextureFactory\&lt; SegmentIntensityVolume\lType, SegmentNormalsVolumeType \&gt; ::SegmentNormalsVolume \&gt;" alt="" coords="304,224,719,339"/>
+<area shape="rect" id="node5" href="$classCarna_1_1base_1_1VolumeSegment.html" title="Carna::base::VolumeSegment\l\&lt; typename TextureFactory\l::SegmentIntensityVolume,\l typename TextureFactory::SegmentNormals\lVolume \&gt;" alt="" coords="369,363,653,448"/>
 </map>

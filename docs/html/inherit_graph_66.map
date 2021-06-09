@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structCarna_1_1base_1_1ShaderUniformType.html" title="Maps ShaderUniform value types to actually uploaded data types. This general case maps T to T..." alt="" coords="5,5,193,47"/>
+<area shape="rect" id="node1" href="$classCarna_1_1base_1_1ShaderUniformBase.html" title="Type&#45;independent abstract ShaderUniform base class. " alt="" coords="5,13,224,39"/>
+<area shape="rect" id="node2" href="$classCarna_1_1base_1_1ShaderUniform.html" title="Implements ShaderUniformBase class for particular ValueType. " alt="" coords="272,5,460,47"/>
 </map>

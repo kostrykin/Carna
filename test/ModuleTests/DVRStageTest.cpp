@@ -12,6 +12,7 @@
 #include "DVRStageTest.h"
 #include <Carna/base/Node.h>
 #include <Carna/base/FrameRenderer.h>
+#include <Carna/base/BufferedIntensityVolume.h>
 #include <Carna/helpers/VolumeGridHelper.h>
 #include <Carna/presets/DVRStage.h>
 
@@ -72,9 +73,9 @@ void DVRStageTest::test_withLighting()
 {
     /* Add volume data to scene.
      */
-    typedef helpers::VolumeGridHelper< base::HUVolumeUInt16, base::NormalMap3DInt8 > GridHelper;
+    typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16, base::NormalMap3DInt8 > GridHelper;
     GridHelper gridHelper( data->size );
-    gridHelper.loadData( *data );
+    gridHelper.loadHUData( *data );
     root->attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( dataSpacings ) ) );
 
     /* Configure DVR stage.
@@ -97,9 +98,9 @@ void DVRStageTest::test_withoutLighting()
 {
     /* Add volume data to scene.
      */
-    typedef helpers::VolumeGridHelper< base::HUVolumeUInt16 > GridHelper;
+    typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16 > GridHelper;
     GridHelper gridHelper( data->size );
-    gridHelper.loadData( *data );
+    gridHelper.loadHUData( *data );
     root->attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( dataSpacings ) ) );
 
     /* Configure DVR stage.
@@ -107,6 +108,7 @@ void DVRStageTest::test_withoutLighting()
     //! [dvr_setup_without_lighting]
     dvr->writeColorMap( -400,   0, base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
     dvr->writeColorMap(    0, 400, base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
+    dvr->setDiffuseLight( 0 );
     //! [dvr_setup_without_lighting]
 
     /* Render and verify.

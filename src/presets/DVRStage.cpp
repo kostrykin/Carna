@@ -261,7 +261,7 @@ void DVRStage::createVolumeSamplers( const std::function< void( unsigned int, ba
 {
     /* Create sampler for the HU volume texture.
      */
-    registerSampler( ROLE_HU_VOLUME, new base::Sampler
+    registerSampler( ROLE_INTENSITY_VOLUME, new base::Sampler
         ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
         , base::Sampler::FILTER_LINEAR, base::Sampler::FILTER_LINEAR ) );
     
@@ -281,13 +281,13 @@ const base::ShaderProgram& DVRStage::acquireShader()
 
 const std::string& DVRStage::uniformName( unsigned int role ) const
 {
-    const static std::string ROLE_HU_VOLUME_NAME = "huVolume";
+    const static std::string ROLE_INTENSITY_VOLUME_NAME = "huVolume";
     const static std::string ROLE_NORMALS_NAME = "normalMap";
     switch( role )
     {
 
-    case ROLE_HU_VOLUME:
-        return ROLE_HU_VOLUME_NAME;
+    case ROLE_INTENSITY_VOLUME:
+        return ROLE_INTENSITY_VOLUME_NAME;
 
     case ROLE_NORMALS:
         return ROLE_NORMALS_NAME;

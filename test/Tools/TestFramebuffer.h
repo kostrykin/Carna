@@ -79,8 +79,11 @@ private:
 // VERIFY_FRAMEBUFFER
 // ----------------------------------------------------------------------------------
 
-#define VERIFY_FRAMEBUFFER( testFramebuffer ) \
+#define VERIFY_FRAMEBUFFER_EX( testFramebuffer, name ) \
     ( testFramebuffer ).verifyFramebuffer( BOOST_CURRENT_FUNCTION );
+
+#define VERIFY_FRAMEBUFFER( testFramebuffer ) \
+    VERIFY_FRAMEBUFFER_EX( testFramebuffer, BOOST_CURRENT_FUNCTION );
 
 
 

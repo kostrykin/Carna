@@ -76,7 +76,7 @@ $(function() {
 : <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#a2e10a2e04334272c8ef7e4e415c6264e">Carna::presets::VolumeRenderingStage</a>
 </li>
 <li>segmentAt()
-: <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html#aed338dd4e67efa9fa260507fc0f9b54a">Carna::base::VolumeGrid&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+: <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html#ad6d9cedfc29090c952e5fc49a8b90cec">Carna::base::VolumeGrid&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>setActivationPassIndex()
 : <a class="el" href="classCarna_1_1presets_1_1MeshColorCodingStage.html#a0d48bb4dadc30827396f68a706d1b0d8">Carna::presets::MeshColorCodingStage</a>
@@ -154,17 +154,17 @@ $(function() {
 : <a class="el" href="classCarna_1_1base_1_1ShaderProgram_1_1Factory.html#a6b198d6c469f32aad4a31755988de2e3">Carna::base::ShaderProgram::Factory</a>
 </li>
 <li>setGrid()
-: <a class="el" href="classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html#ab434eb5363513939d56dffbe64fa5b44">Carna::helpers::details::VolumeGridHelper::NormalsComponent&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
-, <a class="el" href="classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent_3_01SegmentHUVolumeType_00_01void_01_4.html#a4745ab4344a1280f95ecbf1140c442f1">Carna::helpers::details::VolumeGridHelper::NormalsComponent&lt; SegmentHUVolumeType, void &gt;</a>
+: <a class="el" href="classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html#a8731a01f5ff50a0a731d83d193d420cd">Carna::helpers::details::VolumeGridHelper::NormalsComponent&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
+, <a class="el" href="classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent_3_01SegmentIntensityVolumeType_00_01void_01_4.html#a282d1eb79e571f33de8923a519399fec">Carna::helpers::details::VolumeGridHelper::NormalsComponent&lt; SegmentIntensityVolumeType, void &gt;</a>
 </li>
 <li>setHeight()
 : <a class="el" href="classCarna_1_1base_1_1Viewport.html#a0fda2628f1ca14062e6cabf6d708091a">Carna::base::Viewport</a>
 </li>
-<li>setHUVolume()
-: <a class="el" href="classCarna_1_1base_1_1VolumeSegment.html#acca936f0d95a94a466a5fc351292387e">Carna::base::VolumeSegment&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+<li>setIntensityVolume()
+: <a class="el" href="classCarna_1_1base_1_1VolumeSegment.html#a79c122507f2d1eb223467ced147ee9d5">Carna::base::VolumeSegment&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
-<li>setHUVolumeRole()
-: <a class="el" href="classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1HUComponent.html#a049452fdc483f558067b40564cec25ac">Carna::helpers::details::VolumeGridHelper::HUComponent&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+<li>setIntensityVolumeRole()
+: <a class="el" href="classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1IntensityComponent.html#a57d96ca6c21fcba32fba4d0c570e3f77">Carna::helpers::details::VolumeGridHelper::IntensityComponent&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>setLowerThreshold()
 : <a class="el" href="classCarna_1_1presets_1_1DRRStage.html#aa8056d9f881ba257295cad4b6585a88d">Carna::presets::DRRStage</a>
@@ -206,7 +206,7 @@ $(function() {
 : <a class="el" href="classCarna_1_1base_1_1VolumeSegmentNormalsComponent.html#a5623b9b4fa0fbabb40a7df9f2ebfe012">Carna::base::VolumeSegmentNormalsComponent&lt; SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>setNormalsRole()
-: <a class="el" href="classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html#af72d064bd5d48fdb2b7d770b6e778f8b">Carna::helpers::details::VolumeGridHelper::NormalsComponent&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+: <a class="el" href="classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html#a278d247293629bf1abcbd7898eff2076">Carna::helpers::details::VolumeGridHelper::NormalsComponent&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>setOcclusionTranslucency()
 : <a class="el" href="classCarna_1_1presets_1_1OccludedRenderingStage.html#a5ed4acebb695066da778f660ca5466d7">Carna::presets::OccludedRenderingStage</a>
@@ -284,8 +284,9 @@ $(function() {
 </li>
 <li>setVoxel()
 : <a class="el" href="classCarna_1_1base_1_1BufferedHUVolume.html#a9f294aa1f7d6f301b841dbc22267f186">Carna::base::BufferedHUVolume&lt; VoxelType, BufferType &gt;</a>
+, <a class="el" href="classCarna_1_1base_1_1BufferedIntensityVolume.html#abb79c8cb545bc65895226f2fd35d79cf">Carna::base::BufferedIntensityVolume&lt; VoxelType, BufferType &gt;</a>
 , <a class="el" href="classCarna_1_1base_1_1BufferedNormalMap3D.html#aeff6d70d995adc4be74510ee52d6852e">Carna::base::BufferedNormalMap3D&lt; BufferedVectorComponentType, BufferType &gt;</a>
-, <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html#a0edfa4ea31b416ef30cf092123f46fa8">Carna::base::VolumeGrid&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a>
+, <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html#a58017c7e50bb4aac96ec83714541d7a7">Carna::base::VolumeGrid&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>
 </li>
 <li>setWaterAttenuation()
 : <a class="el" href="classCarna_1_1presets_1_1DRRStage.html#a224eb1b4087ec041a455e4c48861a890">Carna::presets::DRRStage</a>
@@ -348,7 +349,7 @@ $(function() {
 : <a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Spacing.html#a6807f0951fe1a877bf6dfaf659df47eb">Carna::helpers::VolumeGridHelperBase::Spacing</a>
 </li>
 <li>Span()
-: <a class="el" href="classCarna_1_1base_1_1math_1_1Span.html#a4f8517f374513d61e30e4be0ca12936c">Carna::base::math::Span&lt; T &gt;</a>
+: <a class="el" href="classCarna_1_1base_1_1math_1_1Span.html#ad1c9341713465b37b13d0e33f10b869d">Carna::base::math::Span&lt; T &gt;</a>
 </li>
 <li>Spatial()
 : <a class="el" href="classCarna_1_1base_1_1Spatial.html#aa6a0b481ec2d47a609ace0b18ec5480e">Carna::base::Spatial</a>
@@ -366,7 +367,7 @@ $(function() {
 : <a class="el" href="structCarna_1_1base_1_1math_1_1Statistics.html#a39eeef474bad906cf036009af1e20d7d">Carna::base::math::Statistics&lt; T &gt;</a>
 </li>
 <li>Statistics()
-: <a class="el" href="structCarna_1_1base_1_1math_1_1Statistics.html#a2d094d08f9d4f34bc8671ff806c4fc01">Carna::base::math::Statistics&lt; T &gt;</a>
+: <a class="el" href="structCarna_1_1base_1_1math_1_1Statistics.html#a8feffa64976bf7f324405036bb502241">Carna::base::math::Statistics&lt; T &gt;</a>
 </li>
 <li>Stopwatch()
 : <a class="el" href="classCarna_1_1base_1_1Stopwatch.html#a2b8564c8e53bcbfdb5a8c7e6f649c437">Carna::base::Stopwatch</a>

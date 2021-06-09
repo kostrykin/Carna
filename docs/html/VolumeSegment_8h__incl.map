@@ -2,9 +2,9 @@
 <area shape="rect" id="node2" href="$Carna_8h_source.html" title="Carna/Carna.h" alt="" coords="238,468,345,495"/>
 <area shape="rect" id="node5" href="$Association_8h.html" title="Defines Carna::base::Association. " alt="" coords="5,169,177,196"/>
 <area shape="rect" id="node7" href="$CarnaException_8h.html" title="Defines Carna::base::CarnaException, Carna::base::AssertionFailure. " alt="" coords="815,393,1013,420"/>
-<area shape="rect" id="node12" href="$VolumeGrid_8h.html" title="Defines Carna::base::VolumeGrid. " alt="" coords="413,95,585,121"/>
+<area shape="rect" id="node12" href="$VolumeGrid_8h.html" title="Defines Carna::base::VolumeGrid. " alt="" coords="419,95,591,121"/>
 <area shape="rect" id="node6" href="$noncopyable_8h.html" title="Carna/base/noncopyable.h" alt="" coords="304,244,481,271"/>
-<area shape="rect" id="node13" href="$HUVolume_8h.html" title="Defines Carna::base::HUVolume. " alt="" coords="415,169,583,196"/>
+<area shape="rect" id="node13" href="$IntensityVolume_8h.html" title="Defines Carna::base::IntensityVolume. " alt="" coords="405,169,604,196"/>
 <area shape="rect" id="node14" href="$VectorField_8h.html" title="Defines Carna::base::math::VectorField. " alt="" coords="506,244,709,271"/>
 <area shape="rect" id="node15" href="$math_8h.html" title="Defines Carna::base::math namespace and CARNA_FOR_VECTOR3UI. " alt="" coords="541,319,674,345"/>
 </map>

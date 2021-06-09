@@ -71,8 +71,7 @@ public:
         , unsigned int y
         , unsigned int z ) const = 0;
 
-    /** \brief
-      * Returns value of specified voxel.
+    /** \overload
       */
     virtual ValueType operator()( const Vector3ui& at ) const;
 

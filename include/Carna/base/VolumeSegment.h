@@ -159,7 +159,7 @@ inline VolumeSegmentNormalsComponent< void >::~VolumeSegmentNormalsComponent()
   * \author Leonid Kostrykin
   * \date   8.3.15 - 29.3.15
   */
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 class VolumeSegment : public VolumeSegmentNormalsComponent< SegmentNormalsVolumeType >
 {
 
@@ -171,12 +171,12 @@ public:
       * Reflects the type to use for representation of the whole volumetric data
       * partitioning.
       */
-    typedef VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType > Grid;
+    typedef VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType > Grid;
     
     /** \brief
-      * Reflects the type to use for storing the HU volume of a single partition.
+      * Reflects the type to use for storing the intensity volume of a single partition.
       */
-    typedef SegmentHUVolumeType HUVolume;
+    typedef SegmentIntensityVolumeType IntensityVolume;
     
     /** \brief
       * Reflects the type to use for storing the normal map of a single partition.
@@ -199,24 +199,24 @@ public:
     VolumeSegment( Grid& grid );
 
     /** \brief
-      * Sets the HU volume data of this partition.
+      * Sets the intensity volume data of this partition.
       */
-    void setHUVolume( Association< SegmentHUVolumeType >* huVolume );
+    void setIntensityVolume( Association< SegmentIntensityVolumeType >* intensityVolume );
 
     /** \brief
-      * References the HU volume data of this partition.
-      * \pre `hasHUVolume() == true`
+      * References the intensity volume data of this partition.
+      * \pre `hasIntensityVolume() == true`
       */
-    SegmentHUVolumeType& huVolume();
+    SegmentIntensityVolumeType& intensityVolume();
 
     /** \overload
       */
-    const SegmentHUVolumeType& huVolume() const;
+    const SegmentIntensityVolumeType& intensityVolume() const;
 
     /** \brief
-      * Tells whether this partition has HU volume data associated.
+      * Tells whether this partition has intensity volume data associated.
       */
-    bool hasHUVolume() const;
+    bool hasIntensityVolume() const;
 
     /** \brief
       * Holds the coordinate offset this partition within the \ref grid "whole"
@@ -226,46 +226,46 @@ public:
 
 private:
 
-    std::unique_ptr< Association< SegmentHUVolumeType > > myHUVolume;
+    std::unique_ptr< Association< SegmentIntensityVolumeType > > myIntensityVolume;
 
 }; // VolumeSegment
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::VolumeSegment
-        ( VolumeGrid< SegmentHUVolumeType, SegmentNormalsVolumeType >& grid )
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::VolumeSegment
+        ( VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& grid )
     : grid( grid )
 {
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-void VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::setHUVolume( Association< SegmentHUVolumeType >* huVolume )
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+void VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::setIntensityVolume( Association< SegmentIntensityVolumeType >* intensityVolume )
 {
-    myHUVolume.reset( huVolume );
+    myIntensityVolume.reset( intensityVolume );
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-SegmentHUVolumeType& VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::huVolume()
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+SegmentIntensityVolumeType& VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::intensityVolume()
 {
-    CARNA_ASSERT( hasHUVolume() );
-    return **myHUVolume;
+    CARNA_ASSERT( hasIntensityVolume() );
+    return **myIntensityVolume;
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-const SegmentHUVolumeType& VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::huVolume() const
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+const SegmentIntensityVolumeType& VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::intensityVolume() const
 {
-    CARNA_ASSERT( hasHUVolume() );
-    return **myHUVolume;
+    CARNA_ASSERT( hasIntensityVolume() );
+    return **myIntensityVolume;
 }
 
 
-template< typename SegmentHUVolumeType, typename SegmentNormalsVolumeType >
-bool VolumeSegment< SegmentHUVolumeType, SegmentNormalsVolumeType >::hasHUVolume() const
+template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
+bool VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::hasIntensityVolume() const
 {
-    return myHUVolume.get() != nullptr && myHUVolume->get() != nullptr;
+    return myIntensityVolume.get() != nullptr && myIntensityVolume->get() != nullptr;
 }
 
 

@@ -81,7 +81,7 @@ $(function() {
 <p>Defines <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html">Carna::base::VolumeGrid</a>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;Carna/Carna.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="HUVolume_8h_source.html">Carna/base/HUVolume.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="IntensityVolume_8h_source.html">Carna/base/IntensityVolume.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="VolumeSegment_8h_source.html">Carna/base/VolumeSegment.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="CarnaException_8h_source.html">Carna/base/CarnaException.h</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -92,7 +92,7 @@ $(function() {
 <div class="center"><img src="VolumeGrid_8h__incl.png" border="0" usemap="#include_2Carna_2base_2VolumeGrid_8h" alt=""/></div>
 <map name="include_2Carna_2base_2VolumeGrid_8h" id="include_2Carna_2base_2VolumeGrid_8h">
 <area shape="rect" id="node2" href="Carna_8h_source.html" title="Carna/Carna.h" alt="" coords="281,393,388,420"/>
-<area shape="rect" id="node5" href="HUVolume_8h.html" title="Defines Carna::base::HUVolume. " alt="" coords="287,95,455,121"/>
+<area shape="rect" id="node5" href="IntensityVolume_8h.html" title="Defines Carna::base::IntensityVolume. " alt="" coords="271,95,470,121"/>
 <area shape="rect" id="node8" href="CarnaException_8h.html" title="Defines Carna::base::CarnaException, Carna::base::AssertionFailure. " alt="" coords="656,319,853,345"/>
 <area shape="rect" id="node18" href="VolumeSegment_8h.html" title="Defines Carna::base::VolumeSegment. " alt="" coords="519,95,719,121"/>
 <area shape="rect" id="node6" href="VectorField_8h.html" title="Defines Carna::base::math::VectorField. " alt="" coords="131,169,333,196"/>
@@ -118,13 +118,13 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1VolumeGrid.html">Carna::base::VolumeGrid&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1VolumeGrid.html">Carna::base::VolumeGrid&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a particular partitioning of volumetric data.  <a href="classCarna_1_1base_1_1VolumeGrid.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1VolumeGrid_1_1HUVSelector.html">Carna::base::VolumeGrid&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;::HUVSelector</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">References the HU volume of a given <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html#VolumePartitioning">partition</a>.  <a href="structCarna_1_1base_1_1VolumeGrid_1_1HUVSelector.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1VolumeGrid_1_1IntensitySelector.html">Carna::base::VolumeGrid&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;::IntensitySelector</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">References the intensity volume of a given <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html#VolumePartitioning">partition</a>.  <a href="structCarna_1_1base_1_1VolumeGrid_1_1IntensitySelector.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1VolumeGrid_1_1NormalSelector.html">Carna::base::VolumeGrid&lt; SegmentHUVolumeType, SegmentNormalsVolumeType &gt;::NormalSelector</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1base_1_1VolumeGrid_1_1NormalSelector.html">Carna::base::VolumeGrid&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;::NormalSelector</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">References the normal map of a given <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html#VolumePartitioning">partition</a>.  <a href="structCarna_1_1base_1_1VolumeGrid_1_1NormalSelector.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">

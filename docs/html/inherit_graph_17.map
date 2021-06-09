@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classCarna_1_1base_1_1Color.html" title="Represents a color. Objects from this class are copyable and assignable. " alt="" coords="5,5,137,32"/>
+<area shape="rect" id="node1" href="$classCarna_1_1base_1_1CarnaException.html" title="Base exception class that provides distinct attributes for the type (category) of the exception..." alt="" coords="5,35,200,61"/>
+<area shape="rect" id="node2" href="$classCarna_1_1base_1_1AssertionFailure.html" title="Carna exception that indicates a failed assertion. " alt="" coords="256,5,451,32"/>
+<area shape="rect" id="node3" href="$classCarna_1_1base_1_1ShaderCompilationError.html" title="Thrown when shader compilation fails. " alt="" coords="248,57,459,98"/>
 </map>

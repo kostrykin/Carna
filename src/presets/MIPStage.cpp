@@ -212,7 +212,7 @@ void MIPStage::renderPass
 
 void MIPStage::createVolumeSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler )
 {
-    registerSampler( ROLE_HU_VOLUME, new base::Sampler
+    registerSampler( ROLE_INTENSITY_VOLUME, new base::Sampler
         ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
         , base::Sampler::FILTER_LINEAR, base::Sampler::FILTER_LINEAR ) );
 }
@@ -226,12 +226,12 @@ const base::ShaderProgram& MIPStage::acquireShader()
 
 const std::string& MIPStage::uniformName( unsigned int role ) const
 {
-    const static std::string ROLE_HU_VOLUME_NAME = "huVolume";
+    const static std::string ROLE_INTENSITY_VOLUME_NAME = "huVolume";
     switch( role )
     {
 
-    case ROLE_HU_VOLUME:
-        return ROLE_HU_VOLUME_NAME;
+    case ROLE_INTENSITY_VOLUME:
+        return ROLE_INTENSITY_VOLUME_NAME;
 
     default:
         CARNA_FAIL( "unknown role" );

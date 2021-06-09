@@ -138,7 +138,7 @@ CuttingPlanesStage::VideoResources::PlaneMesh* CuttingPlanesStage::VideoResource
 
 const unsigned int CuttingPlanesStage::DEFAULT_WINDOWING_WIDTH = 4096;
 const    base::HUV CuttingPlanesStage::DEFAULT_WINDOWING_LEVEL = static_cast< base::HUV >( CuttingPlanesStage::DEFAULT_WINDOWING_WIDTH / 2 ) - 1024;
-const unsigned int CuttingPlanesStage::ROLE_HU_VOLUME = 0;
+const unsigned int CuttingPlanesStage::ROLE_INTENSITY_VOLUME = 0;
 
 
 CuttingPlanesStage::CuttingPlanesStage( unsigned int volumeGeometryType, unsigned int planeGeometryType )
@@ -242,7 +242,7 @@ void CuttingPlanesStage::render( const base::Renderable& volume )
     /* Bind texture and volumeSampler to free texture unit.
      */
     const static unsigned int TEXTURE_UNIT = base::Texture< 0 >::SETUP_UNIT + 1;
-    const base::ManagedTexture3D& texture = static_cast< const base::ManagedTexture3D& >( volume.geometry().feature( ROLE_HU_VOLUME ) );
+    const base::ManagedTexture3D& texture = static_cast< const base::ManagedTexture3D& >( volume.geometry().feature( ROLE_INTENSITY_VOLUME ) );
     this->videoResource( texture ).get().bind( TEXTURE_UNIT );
     vr->volumeSampler.bind( TEXTURE_UNIT );
     

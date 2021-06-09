@@ -121,7 +121,7 @@ public:
       * Holds the \ref GeometryFeatures "role" that HU volume data is expected to
       * take when attached to \ref base::Geometry nodes.
       */
-    const static unsigned int ROLE_HU_VOLUME = 0;
+    const static unsigned int ROLE_INTENSITY_VOLUME = 0;
     
     /** \brief
       * Instantiates. The created stage will render such \ref base::Geometry scene
@@ -237,7 +237,7 @@ protected:
     virtual const base::ShaderProgram& acquireShader() override;
 
     /** \brief
-      * Maps \ref ROLE_HU_VOLUME to `huVolume`.
+      * Maps \ref ROLE_INTENSITY_VOLUME to `huVolume`.
       */
     virtual const std::string& uniformName( unsigned int role ) const override;
 

@@ -41,7 +41,7 @@ void VolumeGridTest::cleanup()
 
 void VolumeGridTest::test_instantiation()
 {
-    grid.reset( new base::VolumeGrid< base::HUVolumeUInt16, void >
+    grid.reset( new base::VolumeGrid< base::IntensityVolumeUInt16, void >
         ( base::math::Vector3ui( 10, 10, 10 ), base::math::Vector3ui( 2, 2, 1 ) ) );
 }
 
@@ -50,14 +50,15 @@ void VolumeGridTest::test_parenthesisOperator()
 {
     test_instantiation();
 
-    /* Define mapping from coordinate to HU value.
+    /* Define mapping from coordinate to intensity value.
      */
     const base::math::Vector3ui totalSize = grid->maxSegmentSize.cwiseProduct( grid->segmentCounts );
-    const auto coord2HUV = [&totalSize]( const base::math::Vector3ui& totalCoord )->base::HUV
+    const auto coord2float = [&totalSize]( const base::math::Vector3ui& totalCoord )->float
     {
         const unsigned int index = totalCoord.x() + totalCoord.y() * totalSize.x() + totalCoord.z() * totalSize.x() * totalSize.y();
-        const base::HUV huv = static_cast< base::HUV >( index % 4096 - 1024 );
-        return huv;
+        const unsigned int maxIndex = ( 1 << 16 ) - 1;
+        const float value = ( index % maxIndex ) / float( maxIndex );
+        return value;
     };
 
     /* Initialize segments with data.
@@ -67,9 +68,9 @@ void VolumeGridTest::test_parenthesisOperator()
     for( segCoord.y() = 0; segCoord.y() < grid->segmentCounts.y(); ++segCoord.y() )
     for( segCoord.x() = 0; segCoord.x() < grid->segmentCounts.x(); ++segCoord.x() )
     {
-        base::VolumeSegment< base::HUVolumeUInt16, void >& segment = grid->segmentAt( segCoord.x(), segCoord.y(), segCoord.z() );
-        base::HUVolumeUInt16* const volume = new base::HUVolumeUInt16( grid->maxSegmentSize );
-        segment.setHUVolume( new base::Composition< base::HUVolumeUInt16 >( volume ) );
+        base::VolumeSegment< base::IntensityVolumeUInt16, void >& segment = grid->segmentAt( segCoord.x(), segCoord.y(), segCoord.z() );
+        base::IntensityVolumeUInt16* const volume = new base::IntensityVolumeUInt16( grid->maxSegmentSize );
+        segment.setIntensityVolume( new base::Composition< base::IntensityVolumeUInt16 >( volume ) );
 
         /* Load segment volume data.
         */
@@ -79,8 +80,8 @@ void VolumeGridTest::test_parenthesisOperator()
         for( localCoord.x() = 0; localCoord.x() < volume->size.x(); ++localCoord.x() )
         {
             const base::math::Vector3ui totalCoord = localCoord + segCoord.cwiseProduct( grid->maxSegmentSize );
-            const base::HUV huv = coord2HUV( totalCoord );
-            volume->setVoxel( localCoord, huv );
+            const float value = coord2float( totalCoord );
+            volume->setVoxel( localCoord, value );
         }
     }
 
@@ -91,8 +92,8 @@ void VolumeGridTest::test_parenthesisOperator()
     for( totalCoord.y() = 0; totalCoord.y() < totalSize.y(); ++totalCoord.y() )
     for( totalCoord.x() = 0; totalCoord.x() < totalSize.x(); ++totalCoord.x() )
     {
-        const base::HUV expected = coord2HUV( totalCoord );
-        const base::HUV actual   = grid->getVoxel< base::VolumeGrid< base::HUVolumeUInt16, void >::HUVSelector >( totalCoord );
+        const float expected = coord2float( totalCoord );
+        const float actual   = grid->getVoxel< base::VolumeGrid< base::IntensityVolumeUInt16, void >::IntensitySelector >( totalCoord );
         QCOMPARE( actual, expected );
     }
 }

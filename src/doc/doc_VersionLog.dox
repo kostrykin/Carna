@@ -51,6 +51,8 @@ namespace Carna
   * - Refactored \ref Carna/base/Vertex.h and renamed <tt>base::VertexBase</tt> to \ref base::PVertex.
   * - Added \ref base::VertexPosition and \ref base::PNVertex.
   * - Added the <tt>solid</tt> material shader.
+  * - Added \ref IntensityVolumeUInt16, \ref BufferedIntensityVolume.
+  * - Marked \ref HUVolumeUInt16 as deprecated.
   */
   
 }  // namespace Carna

@@ -61,7 +61,7 @@ var searchData=
   ['_7etexturemanager',['~TextureManager',['../classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1TextureManager.html#a7f24f1a2799d1ef2bf8debb1a3151fc6',1,'Carna::helpers::details::VolumeGridHelper::TextureManager']]],
   ['_7evectorfield',['~VectorField',['../classCarna_1_1base_1_1math_1_1VectorField.html#a4e2b7267ebd01af093ef7a72766a4834',1,'Carna::base::math::VectorField']]],
   ['_7eviewport',['~Viewport',['../classCarna_1_1base_1_1Viewport.html#ae0403ac82a1e037456f027214092c17b',1,'Carna::base::Viewport']]],
-  ['_7evolumegrid',['~VolumeGrid',['../classCarna_1_1base_1_1VolumeGrid.html#a1d010b64a58af4721a55e4df9e295011',1,'Carna::base::VolumeGrid']]],
+  ['_7evolumegrid',['~VolumeGrid',['../classCarna_1_1base_1_1VolumeGrid.html#a4ad93701a8130d72927dfc2424359ebc',1,'Carna::base::VolumeGrid']]],
   ['_7evolumegridhelperbase',['~VolumeGridHelperBase',['../classCarna_1_1helpers_1_1VolumeGridHelperBase.html#aa652e9d7a280b4d0d508fd7b66bf7bf1',1,'Carna::helpers::VolumeGridHelperBase']]],
   ['_7evolumerenderingstage',['~VolumeRenderingStage',['../classCarna_1_1presets_1_1VolumeRenderingStage.html#a11c49b97e8da62b8d8de9a7103c5d910',1,'Carna::presets::VolumeRenderingStage']]],
   ['_7evolumesegmentnormalscomponent',['~VolumeSegmentNormalsComponent',['../classCarna_1_1base_1_1VolumeSegmentNormalsComponent.html#a8e3bcc14fd6395f15f1d5ac7d19d53c2',1,'Carna::base::VolumeSegmentNormalsComponent::~VolumeSegmentNormalsComponent()'],['../classCarna_1_1base_1_1VolumeSegmentNormalsComponent_3_01void_01_4.html#a0aa2f4f845c6d4b2c7be7caea9454e84',1,'Carna::base::VolumeSegmentNormalsComponent&lt; void &gt;::~VolumeSegmentNormalsComponent()']]],
