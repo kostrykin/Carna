@@ -1,4 +1,4 @@
 <map id="Carna::presets::MIPLayer" name="Carna::presets::MIPLayer">
 <area shape="rect" id="node2" href="$classCarna_1_1base_1_1BlendFunction.html" title="Defines how alpha blending is to be performed. " alt="" coords="5,13,189,39"/>
-<area shape="rect" id="node3" href="$classCarna_1_1base_1_1math_1_1Span.html" title="Carna::base::math::\lSpan\&lt; base::HUV \&gt;" alt="" coords="249,5,391,47"/>
+<area shape="rect" id="node3" href="$classCarna_1_1base_1_1math_1_1Span.html" title="Carna::base::math::\lSpan\&lt; float \&gt;" alt="" coords="251,5,389,47"/>
 </map>

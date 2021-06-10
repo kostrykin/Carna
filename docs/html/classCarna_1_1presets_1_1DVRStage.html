@@ -112,10 +112,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab26aebe50a6e551f7b2a2a938961a794"><td class="memItemLeft" align="right" valign="top"><a id="ab26aebe50a6e551f7b2a2a938961a794"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#ab26aebe50a6e551f7b2a2a938961a794">DVRStage</a> (unsigned int <a class="el" href="classCarna_1_1base_1_1GeometryStage.html#a05fa7ad09a3e539f005b6d9ecde78846">geometryType</a>)</td></tr>
-<tr class="memdesc:ab26aebe50a6e551f7b2a2a938961a794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates. The created stage will render such <a class="el" href="classCarna_1_1base_1_1Geometry.html">base::Geometry</a> scene graph nodes, whose <a class="el" href="index.html#GeometryTypes">geometry types</a> equal <em>geometryType</em>. <br /></td></tr>
-<tr class="separator:ab26aebe50a6e551f7b2a2a938961a794"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af14257670eeb5b02b62e17eac4d6de75"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#af14257670eeb5b02b62e17eac4d6de75">DVRStage</a> (unsigned int <a class="el" href="classCarna_1_1base_1_1GeometryStage.html#a05fa7ad09a3e539f005b6d9ecde78846">geometryType</a>, unsigned int colorMapResolution=(1&lt;&lt; 12))</td></tr>
+<tr class="memdesc:af14257670eeb5b02b62e17eac4d6de75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates. The created stage will render such <a class="el" href="classCarna_1_1base_1_1Geometry.html">base::Geometry</a> scene graph nodes, whose <a class="el" href="index.html#GeometryTypes">geometry types</a> equal <em>geometryType</em>.  <a href="#af14257670eeb5b02b62e17eac4d6de75">More...</a><br /></td></tr>
+<tr class="separator:af14257670eeb5b02b62e17eac4d6de75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d7f5918033f1031760ee62a41f8ed86"><td class="memItemLeft" align="right" valign="top"><a id="a1d7f5918033f1031760ee62a41f8ed86"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a1d7f5918033f1031760ee62a41f8ed86">~DVRStage</a> ()</td></tr>
 <tr class="memdesc:a1d7f5918033f1031760ee62a41f8ed86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes. <br /></td></tr>
@@ -132,13 +131,13 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="separator:a9c280203065923a724b55b326e2c69ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a081e27abc73b2e1e4776010418a70d"><td class="memItemLeft" align="right" valign="top"><a id="a9a081e27abc73b2e1e4776010418a70d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a9a081e27abc73b2e1e4776010418a70d">clearColorMap</a> ()</td></tr>
-<tr class="memdesc:a9a081e27abc73b2e1e4776010418a70d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the color map. All HU values are mapped to <a class="el" href="classCarna_1_1base_1_1Color.html#a497aa9b49f1922bbba692acbcf4a4560">base::Color::BLACK_NO_ALPHA</a> after calling this method. <br /></td></tr>
+<tr class="memdesc:a9a081e27abc73b2e1e4776010418a70d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the color map. All intensity values are mapped to <a class="el" href="classCarna_1_1base_1_1Color.html#a497aa9b49f1922bbba692acbcf4a4560">base::Color::BLACK_NO_ALPHA</a> after calling this method. <br /></td></tr>
 <tr class="separator:a9a081e27abc73b2e1e4776010418a70d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a24eb00a498bcf9cd77553dbd83a6e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a5a24eb00a498bcf9cd77553dbd83a6e7">writeColorMap</a> (const <a class="el" href="classCarna_1_1base_1_1math_1_1Span.html">base::math::Span</a>&lt; <a class="el" href="namespaceCarna_1_1base.html#a61ae65c0c70cc744db5be165ade8f4e7">base::HUV</a> &gt; &amp;huRange, const <a class="el" href="classCarna_1_1base_1_1math_1_1Span.html">base::math::Span</a>&lt; <a class="el" href="classCarna_1_1base_1_1Color.html">base::Color</a> &gt; colorRange)</td></tr>
-<tr class="memdesc:a5a24eb00a498bcf9cd77553dbd83a6e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps all HU values from <em>huRange</em> to <em>colorRange</em>. The first/last HU value from <em>huRange</em> is mapped to the first/last value of <em>colorRange</em>, respectively. The values are interpolated linearly in between.  <a href="#a5a24eb00a498bcf9cd77553dbd83a6e7">More...</a><br /></td></tr>
-<tr class="separator:a5a24eb00a498bcf9cd77553dbd83a6e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26b4183ff681da97c15f8ebc8739ff3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a26b4183ff681da97c15f8ebc8739ff3e">writeColorMap</a> (<a class="el" href="namespaceCarna_1_1base.html#a61ae65c0c70cc744db5be165ade8f4e7">base::HUV</a> huFirst, <a class="el" href="namespaceCarna_1_1base.html#a61ae65c0c70cc744db5be165ade8f4e7">base::HUV</a> huLast, const <a class="el" href="classCarna_1_1base_1_1Color.html">base::Color</a> &amp;colorFirst, const <a class="el" href="classCarna_1_1base_1_1Color.html">base::Color</a> &amp;colorLast)</td></tr>
-<tr class="separator:a26b4183ff681da97c15f8ebc8739ff3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a030c14e0a6f08bf2c262fa02532e7201"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a030c14e0a6f08bf2c262fa02532e7201">writeColorMap</a> (const <a class="el" href="classCarna_1_1base_1_1math_1_1Span.html">base::math::Span</a>&lt; float &gt; &amp;intensityRange, const <a class="el" href="classCarna_1_1base_1_1math_1_1Span.html">base::math::Span</a>&lt; <a class="el" href="classCarna_1_1base_1_1Color.html">base::Color</a> &gt; colorRange)</td></tr>
+<tr class="memdesc:a030c14e0a6f08bf2c262fa02532e7201"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps all intensity values from <em>intensityRange</em> to <em>colorRange</em>.  <a href="#a030c14e0a6f08bf2c262fa02532e7201">More...</a><br /></td></tr>
+<tr class="separator:a030c14e0a6f08bf2c262fa02532e7201"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bbbae96d736976b20d2a31fcd8a31e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a5bbbae96d736976b20d2a31fcd8a31e8">writeColorMap</a> (float intensityFirst, float intensityLast, const <a class="el" href="classCarna_1_1base_1_1Color.html">base::Color</a> &amp;colorFirst, const <a class="el" href="classCarna_1_1base_1_1Color.html">base::Color</a> &amp;colorLast)</td></tr>
+<tr class="separator:a5bbbae96d736976b20d2a31fcd8a31e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab84d3764414feef26c7893460b3008b6"><td class="memItemLeft" align="right" valign="top"><a id="ab84d3764414feef26c7893460b3008b6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#ab84d3764414feef26c7893460b3008b6">setTranslucence</a> (float <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a0590e3a55c1a3f25012183d08fea4a26">translucence</a>)</td></tr>
 <tr class="memdesc:ab84d3764414feef26c7893460b3008b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#DVRStageTranslucence">translucence</a> property. <br /></td></tr>
@@ -240,7 +239,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a9c2cc25cf8da7a7494e32beccc6cf4ec"><td class="memItemLeft" align="right" valign="top"><a id="a9c2cc25cf8da7a7494e32beccc6cf4ec"></a>
 static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a9c2cc25cf8da7a7494e32beccc6cf4ec">ROLE_INTENSITY_VOLUME</a> = 0</td></tr>
-<tr class="memdesc:a9c2cc25cf8da7a7494e32beccc6cf4ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the <a class="el" href="index.html#GeometryFeatures">role</a> that HU volume data is expected to take when attached to <a class="el" href="classCarna_1_1base_1_1Geometry.html">base::Geometry</a> nodes. <br /></td></tr>
+<tr class="memdesc:a9c2cc25cf8da7a7494e32beccc6cf4ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the <a class="el" href="index.html#GeometryFeatures">role</a> that intensity volume data is expected to take when attached to <a class="el" href="classCarna_1_1base_1_1Geometry.html">base::Geometry</a> nodes. <br /></td></tr>
 <tr class="separator:a9c2cc25cf8da7a7494e32beccc6cf4ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af20fadb7f7d95b911e26d298273f4792"><td class="memItemLeft" align="right" valign="top"><a id="af20fadb7f7d95b911e26d298273f4792"></a>
 static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#af20fadb7f7d95b911e26d298273f4792">ROLE_NORMALS</a> = 1</td></tr>
@@ -332,13 +331,13 @@ Usage</h1>
 <p>The <code>DVRStage</code> constructor takes a geometry type parameter:</p>
 <div class="fragment"><div class="line">    dvr = <span class="keyword">new</span> presets::DVRStage( GEOMETRY_TYPE_VOLUMETRIC );</div><div class="line">    <a class="code" href="classCarna_1_1base_1_1RenderStage.html#aa6bb1002b162542d1495981098322f1d">renderer</a>-&gt;<a class="code" href="classCarna_1_1base_1_1RenderStageSequence.html#a0195f8a5a8d1a92d5ebdb475b37b9309">appendStage</a>( dvr );</div></div><!-- fragment --><p> The concept of geometry types is explained <a class="el" href="index.html#GeometryTypes">here</a>.</p>
 <dl class="section note"><dt>Note</dt><dd>In the <a class="el" href="classCarna_1_1base_1_1FrameRenderer.html#RenderingProcess">rendering process</a> this stage will usually be inserted <em>after</em> such stages that render opaque geometry, like <a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html">CuttingPlanesStage</a> and <a class="el" href="namespaceCarna_1_1presets.html#a544f1850fe5eb21b67d35bec55e6a9dd">OpaqueRenderingStage</a>.</dd></dl>
-<p>The <code>DVRStage</code> supports two types of rendering modes: Rendering with lighting enabled and rendering without lighting. In general, lighting produces more sculptural results, but it comes at the cost of additional requirements: Not only the HU volume must be uploaded to the GPU, but also another 3D texture that maps <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#VolumeRenderingModelTexture">texture space coordinates</a> to the normal vectors of the surface at a particular location. Depending on the resolution of the data, this might cause noteworthy memory consumption.</p>
+<p>The <code>DVRStage</code> supports two types of rendering modes: Rendering with lighting enabled and rendering without lighting. In general, lighting produces more sculptural results, but it comes at the cost of additional requirements: Not only the intensity volume must be uploaded to the GPU, but also another 3D texture that maps <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#VolumeRenderingModelTexture">texture space coordinates</a> to the normal vectors of the surface at a particular location. Depending on the resolution of the data, this might cause noteworthy memory consumption.</p>
 <p>Luckily the <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html">helpers::VolumeGridHelper</a> class does everything that is needed in order to compute the normal vectors and upload them to the GPU, if it is instructed to do so: Its second type argument is optional and set to <code>void</code> by default. This disables its normal vectors support. Setting it to anything different, like <a class="el" href="namespaceCarna_1_1base.html#a003f31060d6741eee6f4c1fd6b2226a3">base::NormalMap3DInt8</a> for example, makes it compute the normal vectors when helpers::VolumeGridHelper::loadData or its <code>computeNormals</code> method are called.</p>
 <p>The <code>DVRStage</code> decides which mode to use depending on whether the normal vectors are provided or not.</p>
 <h2><a class="anchor" id="DVRStageWithoutLighting"></a>
 Without Lighting</h2>
 <p>The following example code configures the <code>DVRStage</code> s.t. it produces the rendering presented further below:</p>
-<div class="fragment"><div class="line">    dvr-&gt;writeColorMap( -400,   0, <a class="code" href="classCarna_1_1base_1_1Color.html#a1bd03dc1046c892458601ba476753ad2">base::Color:: BLUE_NO_ALPHA</a>, <a class="code" href="classCarna_1_1base_1_1Color.html#ae8016cf1e0e2a8bec6e13133a025b225">base::Color:: BLUE</a> );</div><div class="line">    dvr-&gt;writeColorMap(    0, 400, <a class="code" href="classCarna_1_1base_1_1Color.html#a1a5bab6305609743f339da348b9859e8">base::Color::GREEN_NO_ALPHA</a>, <a class="code" href="classCarna_1_1base_1_1Color.html#a28175c253a2e98e62537ad35eef17ff9">base::Color::GREEN</a> );</div><div class="line">    dvr-&gt;setDiffuseLight( 0 );</div></div><!-- fragment --><p> This gives the following rendering: </p><div class="image">
+<div class="fragment"><div class="line">    dvr-&gt;writeColorMap( base::HUV( -400 ).absIntensity(), base::HUV(   0 ).absIntensity(), <a class="code" href="classCarna_1_1base_1_1Color.html#a1bd03dc1046c892458601ba476753ad2">base::Color:: BLUE_NO_ALPHA</a>, <a class="code" href="classCarna_1_1base_1_1Color.html#ae8016cf1e0e2a8bec6e13133a025b225">base::Color:: BLUE</a> );</div><div class="line">    dvr-&gt;writeColorMap( base::HUV(    0 ).absIntensity(), base::HUV( 400 ).absIntensity(), <a class="code" href="classCarna_1_1base_1_1Color.html#a1a5bab6305609743f339da348b9859e8">base::Color::GREEN_NO_ALPHA</a>, <a class="code" href="classCarna_1_1base_1_1Color.html#a28175c253a2e98e62537ad35eef17ff9">base::Color::GREEN</a> );</div><div class="line">    dvr-&gt;setDiffuseLight( 0 );</div></div><!-- fragment --><p> This gives the following rendering: </p><div class="image">
 <img src="withoutLighting.png" alt="withoutLighting.png"/>
 <div class="caption">
 exemplary rendering without lighting from code above</div></div>
@@ -348,7 +347,7 @@ Translucence</h2>
 <h2><a class="anchor" id="DVRStageWithLighting"></a>
 With Lighting Enabled</h2>
 <p>The <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#af2a4b97c2ff4ce9a6f1f8e9a39e883f0">default translucence</a> is quite high, which is fine for rendering without lighting. You might consider setting it down when rendering with lighting enabled:</p>
-<div class="fragment"><div class="line">    dvr-&gt;writeColorMap( -400,   0, <a class="code" href="classCarna_1_1base_1_1Color.html#a1bd03dc1046c892458601ba476753ad2">base::Color:: BLUE_NO_ALPHA</a>, <a class="code" href="classCarna_1_1base_1_1Color.html#ae8016cf1e0e2a8bec6e13133a025b225">base::Color:: BLUE</a> );</div><div class="line">    dvr-&gt;writeColorMap(    0, 400, <a class="code" href="classCarna_1_1base_1_1Color.html#a1a5bab6305609743f339da348b9859e8">base::Color::GREEN_NO_ALPHA</a>, <a class="code" href="classCarna_1_1base_1_1Color.html#a28175c253a2e98e62537ad35eef17ff9">base::Color::GREEN</a> );</div><div class="line">    dvr-&gt;setSampleRate( 500 );</div><div class="line">    dvr-&gt;setTranslucence( 2 );</div></div><!-- fragment --><p> This gives the following rendering: </p><div class="image">
+<div class="fragment"><div class="line">    dvr-&gt;writeColorMap( base::HUV( -400 ).absIntensity(), base::HUV(   0 ).absIntensity(), <a class="code" href="classCarna_1_1base_1_1Color.html#a1bd03dc1046c892458601ba476753ad2">base::Color:: BLUE_NO_ALPHA</a>, <a class="code" href="classCarna_1_1base_1_1Color.html#ae8016cf1e0e2a8bec6e13133a025b225">base::Color:: BLUE</a> );</div><div class="line">    dvr-&gt;writeColorMap( base::HUV(    0 ).absIntensity(), base::HUV( 400 ).absIntensity(), <a class="code" href="classCarna_1_1base_1_1Color.html#a1a5bab6305609743f339da348b9859e8">base::Color::GREEN_NO_ALPHA</a>, <a class="code" href="classCarna_1_1base_1_1Color.html#a28175c253a2e98e62537ad35eef17ff9">base::Color::GREEN</a> );</div><div class="line">    dvr-&gt;setSampleRate( 500 );</div><div class="line">    dvr-&gt;setTranslucence( 2 );</div></div><!-- fragment --><p> This gives the following rendering: </p><div class="image">
 <img src="withLighting.png" alt="withLighting.png"/>
 <div class="caption">
 exemplary rendering with lighting from code above</div></div>
@@ -356,7 +355,39 @@ exemplary rendering with lighting from code above</div></div>
 <dl class="section date"><dt>Date</dt><dd>25.3.15 - 29.3.15 </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="DVRStage_8h_source.html#l00101">101</a> of file <a class="el" href="DVRStage_8h_source.html">DVRStage.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af14257670eeb5b02b62e17eac4d6de75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af14257670eeb5b02b62e17eac4d6de75">&#9670;&nbsp;</a></span>DVRStage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Carna::presets::DVRStage::DVRStage </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>geometryType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>colorMapResolution</em> = <code>(1&lt;&lt;&#160;12)</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instantiates. The created stage will render such <a class="el" href="classCarna_1_1base_1_1Geometry.html">base::Geometry</a> scene graph nodes, whose <a class="el" href="index.html#GeometryTypes">geometry types</a> equal <em>geometryType</em>. </p>
+<p>The parameter <em>colorMapResolution</em> determines the resolution of the color map. If your data is 8bit, using 8bit color map is sufficient. If your data is 32bit, you probably also want to use a 32bit color map. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a96cc4946c577f9ec76ab4fd7ad30dc1a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a96cc4946c577f9ec76ab4fd7ad30dc1a">&#9670;&nbsp;</a></span>clone()</h2>
 
@@ -495,8 +526,8 @@ exemplary rendering with lighting from code above</div></div>
 
 </div>
 </div>
-<a id="a5a24eb00a498bcf9cd77553dbd83a6e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a24eb00a498bcf9cd77553dbd83a6e7">&#9670;&nbsp;</a></span>writeColorMap() <span class="overload">[1/2]</span></h2>
+<a id="a030c14e0a6f08bf2c262fa02532e7201"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a030c14e0a6f08bf2c262fa02532e7201">&#9670;&nbsp;</a></span>writeColorMap() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -504,8 +535,8 @@ exemplary rendering with lighting from code above</div></div>
         <tr>
           <td class="memname">void Carna::presets::DVRStage::writeColorMap </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classCarna_1_1base_1_1math_1_1Span.html">base::math::Span</a>&lt; <a class="el" href="namespaceCarna_1_1base.html#a61ae65c0c70cc744db5be165ade8f4e7">base::HUV</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>huRange</em>, </td>
+          <td class="paramtype">const <a class="el" href="classCarna_1_1base_1_1math_1_1Span.html">base::math::Span</a>&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>intensityRange</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -521,13 +552,14 @@ exemplary rendering with lighting from code above</div></div>
       </table>
 </div><div class="memdoc">
 
-<p>Maps all HU values from <em>huRange</em> to <em>colorRange</em>. The first/last HU value from <em>huRange</em> is mapped to the first/last value of <em>colorRange</em>, respectively. The values are interpolated linearly in between. </p>
-<p>Nothing happens if the last HU value of <em>huRange</em> is <em>smaller</em> than the first. If the first and the last HU values of <em>huRange</em> are equal, they are mapped to the <em>mean</em> of the first and the last values from <em>colorRange</em>. </p>
+<p>Maps all intensity values from <em>intensityRange</em> to <em>colorRange</em>. </p>
+<p>The first/last intensity values from <em>intensityRange</em> are mapped to the first/last values of <em>colorRange</em>, respectively. The values are interpolated linearly in between.</p>
+<p>Nothing happens if the last intensity value of <em>intensityRange</em> is <em>smaller</em> than the first. If the first and the last intensity values of <em>intensityRange</em> correspond to the same entry of the color map, the <em>mean</em> of the first and the last values from <em>colorRange</em> is written. </p>
 
 </div>
 </div>
-<a id="a26b4183ff681da97c15f8ebc8739ff3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26b4183ff681da97c15f8ebc8739ff3e">&#9670;&nbsp;</a></span>writeColorMap() <span class="overload">[2/2]</span></h2>
+<a id="a5bbbae96d736976b20d2a31fcd8a31e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bbbae96d736976b20d2a31fcd8a31e8">&#9670;&nbsp;</a></span>writeColorMap() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -535,14 +567,14 @@ exemplary rendering with lighting from code above</div></div>
         <tr>
           <td class="memname">void Carna::presets::DVRStage::writeColorMap </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceCarna_1_1base.html#a61ae65c0c70cc744db5be165ade8f4e7">base::HUV</a>&#160;</td>
-          <td class="paramname"><em>huFirst</em>, </td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>intensityFirst</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceCarna_1_1base.html#a61ae65c0c70cc744db5be165ade8f4e7">base::HUV</a>&#160;</td>
-          <td class="paramname"><em>huLast</em>, </td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>intensityLast</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

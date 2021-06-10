@@ -34,7 +34,8 @@ namespace presets
 // presets :: MIPLayer
 // ----------------------------------------------------------------------------------
 
-/** \brief  Defines an HUV range and the way it's visualized within a \ref MIPStage.
+/** \brief  Defines an intensity range and the way it is visualized by a
+  * \ref MIPStage "maximum intensity projection".
   *
   * \author Leonid Kostrykin
   * \date   26.7.11 - 26.2.15
@@ -56,22 +57,22 @@ public:
     /** \brief  Instantiates.
       */
     MIPLayer
-        ( const base::math::Span< base::HUV >& huRange
+        ( const base::math::Span< float >& intensityRange
         , const base::math::Vector4f& color
         , const base::BlendFunction& function = LAYER_FUNCTION_REPLACE );
 
     /** \brief  Instantiates.
       */
     MIPLayer
-        ( base::HUV firstHuv, base::HUV lastHuv
+        ( float minIntensity, float maxIntensity
         , const base::math::Vector4f& color
         , const base::BlendFunction& function = LAYER_FUNCTION_REPLACE );
 
     /** \brief
-      * Holds the HUV range that this layer covers as described
+      * Holds the intensity range that this layer covers as described
       * \ref MIPStageLayers "here".
       */
-    base::math::Span< base::HUV > huRange;
+    base::math::Span< float > intensityRange;
     
     /** \brief
       * Holds the color of this layer as described \ref MIPStageLayers "here".

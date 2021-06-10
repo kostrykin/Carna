@@ -64,12 +64,12 @@ class CARNA_LIB CuttingPlanesStage : public base::GeometryStage< void >
 
 public:
 
-    const static unsigned int DEFAULT_WINDOWING_WIDTH; ///< Holds the default value for \ref setWindowingWidth.
-    const static    base::HUV DEFAULT_WINDOWING_LEVEL; ///< Holds the default value for \ref setWindowingLevel.
+    const static float DEFAULT_WINDOWING_WIDTH; ///< Holds the default value for \ref setWindowingWidth.
+    const static float DEFAULT_WINDOWING_LEVEL; ///< Holds the default value for \ref setWindowingLevel.
     
     /** \brief
-      * Holds the \ref GeometryFeatures "role" that HU volume data is expected to
-      * take when attached to \ref base::Geometry nodes.
+      * Holds the \ref GeometryFeatures "role" that intensity volume data is expected
+      * to take when attached to \ref base::Geometry nodes.
       */
     const static unsigned int ROLE_INTENSITY_VOLUME;
 
@@ -93,40 +93,44 @@ public:
     /** \brief
       * Sets windowing level to \a windowingLevel.
       */
-    void setWindowingLevel( base::HUV windowingLevel );
+    void setWindowingLevel( float windowingLevel );
     
     /** \brief
       * Sets windowing level to \a windowingWidth.
       */
+    void setWindowingWidth( float windowingWidth );
+    
+    /** \overload
+      */
     void setWindowingWidth( unsigned int windowingWidth );
 
     /** \brief
-      * Sets whether brightness shall be \a inverse proportional to HUV.
+      * Sets whether brightness shall be inversely proportional to the intensity.
       */
     void setRenderingInverse( bool inverse );
 
     /** \brief
-      * Tells the windowing level.
+      * Tells the windowing level intensity.
       */
-    base::HUV windowingLevel() const;
+    float windowingLevel() const;
     
     /** \brief
       * Tells the windowing width.
       */
-    unsigned int windowingWidth() const;
+    float windowingWidth() const;
 
     /** \brief
-      * Tells the lowest HUV that is mapped to gray, but not to black or white.
+      * Tells the lower bound of the intensity window.
       */
-    base::HUV minimumHUV() const;
+    float minimumIntensity() const;
     
     /** \brief
-      * Tells the highest HUV that is mapped to gray, but not to black or white.
+      * Tells the upper bound of the intensity window.
       */
-    base::HUV maximumHUV() const;
+    float maximumIntensity() const;
     
     /** \brief
-      * Tells whether brightness is \a inverse proportional to HUV.
+      * Tells whether brightness is inversely proportional to the intensity.
       */
     bool isRenderingInverse() const;
 

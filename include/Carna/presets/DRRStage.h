@@ -14,6 +14,7 @@
 
 #include <Carna/presets/VolumeRenderingStage.h>
 #include <Carna/Carna.h>
+#include <Carna/base/HUV.h>
 #include <memory>
 
 /** \file   DRRStage.h

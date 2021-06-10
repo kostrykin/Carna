@@ -14,7 +14,7 @@ var searchData=
   ['singleton_3c_20shadermanager_20_3e',['Singleton&lt; ShaderManager &gt;',['../classCarna_1_1base_1_1Singleton.html',1,'Carna::base']]],
   ['spacing',['Spacing',['../structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Spacing.html',1,'Carna::helpers::VolumeGridHelperBase']]],
   ['span',['Span',['../classCarna_1_1base_1_1math_1_1Span.html',1,'Carna::base::math']]],
-  ['span_3c_20base_3a_3ahuv_20_3e',['Span&lt; base::HUV &gt;',['../classCarna_1_1base_1_1math_1_1Span.html',1,'Carna::base::math']]],
+  ['span_3c_20float_20_3e',['Span&lt; float &gt;',['../classCarna_1_1base_1_1math_1_1Span.html',1,'Carna::base::math']]],
   ['spatial',['Spatial',['../classCarna_1_1base_1_1Spatial.html',1,'Carna::base']]],
   ['spatialmovement',['SpatialMovement',['../classCarna_1_1base_1_1SpatialMovement.html',1,'Carna::base']]],
   ['statistics',['Statistics',['../structCarna_1_1base_1_1math_1_1Statistics.html',1,'Carna::base::math']]],

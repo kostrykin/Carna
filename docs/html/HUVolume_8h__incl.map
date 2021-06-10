@@ -1,7 +1,8 @@
 <map id="include/Carna/base/HUVolume.h" name="include/Carna/base/HUVolume.h">
-<area shape="rect" id="node2" href="$VectorField_8h.html" title="Defines Carna::base::math::VectorField. " alt="" coords="545,95,747,121"/>
-<area shape="rect" id="node16" href="$noncopyable_8h.html" title="Carna/base/noncopyable.h" alt="" coords="772,95,949,121"/>
-<area shape="rect" id="node3" href="$math_8h.html" title="Defines Carna::base::math namespace and CARNA_FOR_VECTOR3UI. " alt="" coords="459,169,593,196"/>
-<area shape="rect" id="node4" href="$Carna_8h_source.html" title="Carna/Carna.h" alt="" coords="662,319,769,345"/>
-<area shape="rect" id="node7" href="$CarnaException_8h.html" title="Defines Carna::base::CarnaException, Carna::base::AssertionFailure. " alt="" coords="70,244,267,271"/>
+<area shape="rect" id="node2" href="$VectorField_8h.html" title="Defines Carna::base::math::VectorField. " alt="" coords="439,95,642,121"/>
+<area shape="rect" id="node16" href="$noncopyable_8h.html" title="Carna/base/noncopyable.h" alt="" coords="667,95,844,121"/>
+<area shape="rect" id="node17" href="$HUV_8h.html" title="Defines Carna::base::HUV. " alt="" coords="250,169,383,196"/>
+<area shape="rect" id="node3" href="$math_8h.html" title="Defines Carna::base::math namespace and CARNA_FOR_VECTOR3UI. " alt="" coords="474,169,607,196"/>
+<area shape="rect" id="node4" href="$Carna_8h_source.html" title="Carna/Carna.h" alt="" coords="525,319,631,345"/>
+<area shape="rect" id="node7" href="$CarnaException_8h.html" title="Defines Carna::base::CarnaException, Carna::base::AssertionFailure. " alt="" coords="82,244,279,271"/>
 </map>

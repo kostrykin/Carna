@@ -39,14 +39,9 @@ struct CuttingPlanesStage::Details
     base::RenderTask* renderTask;
     const base::Viewport* viewPort;
 
-    base::HUV windowingLevel;
-    unsigned int windowingWidth;
+    float windowingLevel;
+    float windowingWidth;
     bool renderingInverse;
-
-    static inline float huvToIntensity( base::HUV huv )
-    {
-        return ( huv + 1024 ) / 4095.f;
-    }
 };
 
 
@@ -136,8 +131,8 @@ CuttingPlanesStage::VideoResources::PlaneMesh* CuttingPlanesStage::VideoResource
 // CuttingPlanesStage
 // ----------------------------------------------------------------------------------
 
-const unsigned int CuttingPlanesStage::DEFAULT_WINDOWING_WIDTH = 4096;
-const    base::HUV CuttingPlanesStage::DEFAULT_WINDOWING_LEVEL = static_cast< base::HUV >( CuttingPlanesStage::DEFAULT_WINDOWING_WIDTH / 2 ) - 1024;
+const float CuttingPlanesStage::DEFAULT_WINDOWING_WIDTH = 1.0f;
+const float CuttingPlanesStage::DEFAULT_WINDOWING_LEVEL = 0.5f;
 const unsigned int CuttingPlanesStage::ROLE_INTENSITY_VOLUME = 0;
 
 
@@ -168,13 +163,13 @@ CuttingPlanesStage* CuttingPlanesStage::clone() const
 }
 
 
-void CuttingPlanesStage::setWindowingLevel( base::HUV windowingLevel )
+void CuttingPlanesStage::setWindowingLevel( float windowingLevel )
 {
     pimpl->windowingLevel = windowingLevel;
 }
 
 
-void CuttingPlanesStage::setWindowingWidth( unsigned int windowingWidth )
+void CuttingPlanesStage::setWindowingWidth( float windowingWidth )
 {
     pimpl->windowingWidth = windowingWidth;
 }
@@ -186,27 +181,27 @@ void CuttingPlanesStage::setRenderingInverse( bool inverse )
 }
 
 
-base::HUV CuttingPlanesStage::windowingLevel() const
+float CuttingPlanesStage::windowingLevel() const
 {
     return pimpl->windowingLevel;
 }
 
 
-unsigned int CuttingPlanesStage::windowingWidth() const
+float CuttingPlanesStage::windowingWidth() const
 {
     return pimpl->windowingWidth;
 }
 
 
-base::HUV CuttingPlanesStage::minimumHUV() const
+float CuttingPlanesStage::minimumIntensity() const
 {
-    return static_cast< base::HUV >( pimpl->windowingLevel - static_cast< int >( pimpl->windowingWidth ) );
+    return pimpl->windowingLevel - pimpl->windowingWidth / 2;
 }
 
 
-base::HUV CuttingPlanesStage::maximumHUV() const
+float CuttingPlanesStage::maximumIntensity() const
 {
-    return static_cast< base::HUV >( pimpl->windowingLevel + static_cast< int >( pimpl->windowingWidth ) );
+    return pimpl->windowingLevel + pimpl->windowingWidth / 2;
 }
 
 
@@ -326,8 +321,8 @@ void CuttingPlanesStage::renderPass
 
     /* Set shader and upload all uniforms that are same for all planes and volumes.
      */
-    base::ShaderUniform< float >( "minIntensity", Details::huvToIntensity( minimumHUV() ) ).upload();
-    base::ShaderUniform< float >( "maxIntensity", Details::huvToIntensity( maximumHUV() ) ).upload();
+    base::ShaderUniform< float >( "minIntensity", minimumIntensity() ).upload();
+    base::ShaderUniform< float >( "maxIntensity", maximumIntensity() ).upload();
     base::ShaderUniform<   int >(       "invert", pimpl->renderingInverse ? 1 : 0 ).upload();
     
     /* Set shader and do the rendering.

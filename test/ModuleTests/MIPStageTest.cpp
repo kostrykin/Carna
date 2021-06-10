@@ -34,8 +34,8 @@ void MIPStageTest::initTestCase()
     const static unsigned int GEOMETRY_TYPE_VOLUMETRIC = TestScene::GEOMETRY_TYPE_VOLUMETRIC;
     //! [mip_instantiation]
     mip = new presets::MIPStage( GEOMETRY_TYPE_VOLUMETRIC );
-    mip->appendLayer( new presets::MIPLayer( -1024,    0, base::math::Vector4f( 0, 0, 1, 0.5f ) ) );
-    mip->appendLayer( new presets::MIPLayer(     0, 3071, base::math::Vector4f( 1, 1, 0, 0.5f ) ) );
+    mip->appendLayer( new presets::MIPLayer( base::HUV( -1024 ).absIntensity(), base::HUV(    0 ).absIntensity(), base::math::Vector4f( 0, 0, 1, 0.5f ) ) );
+    mip->appendLayer( new presets::MIPLayer( base::HUV(     0 ).absIntensity(), base::HUV( 3071 ).absIntensity(), base::math::Vector4f( 1, 1, 0, 0.5f ) ) );
     renderer->appendStage( mip );
     //! [mip_instantiation]
 }

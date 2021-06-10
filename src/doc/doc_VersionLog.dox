@@ -51,8 +51,10 @@ namespace Carna
   * - Refactored \ref Carna/base/Vertex.h and renamed <tt>base::VertexBase</tt> to \ref base::PVertex.
   * - Added \ref base::VertexPosition and \ref base::PNVertex.
   * - Added the <tt>solid</tt> material shader.
-  * - Added \ref IntensityVolumeUInt16, \ref BufferedIntensityVolume.
-  * - Marked \ref HUVolumeUInt16 as deprecated.
+  * - Added \ref base::IntensityVolumeUInt16, \ref base::BufferedIntensityVolume.
+  * - Marked \ref base::HUVolumeUInt16 as deprecated.
+  * - Internally, %Carna is now intensity-based and not HUV-based any more (since image intensities are a more general concept).
+  * - HUV is still supported and \ref base::HUV is now a class.
   */
   
 }  // namespace Carna

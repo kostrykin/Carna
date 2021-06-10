@@ -14,10 +14,11 @@ var searchData=
   ['hitexists',['hitExists',['../classCarna_1_1base_1_1math_1_1RayPlaneHitTest.html#a3f68d42d0f828720e643055fd57a8373',1,'Carna::base::math::RayPlaneHitTest::hitExists()'],['../classCarna_1_1base_1_1math_1_1RaySphereHitTest.html#a155e266a618e27c3e2ef44bc59c44bae',1,'Carna::base::math::RaySphereHitTest::hitExists()']]],
   ['hitlocation',['hitLocation',['../classCarna_1_1base_1_1math_1_1RayPlaneHitTest.html#ae58b36db904787b786e0b3d7ce60e79d',1,'Carna::base::math::RayPlaneHitTest::hitLocation()'],['../classCarna_1_1base_1_1math_1_1RaySphereHitTest.html#a4380fdd44a66f294c4dc0e1427adf805',1,'Carna::base::math::RaySphereHitTest::hitLocation()']]],
   ['hugzscenefactory',['HUGZSceneFactory',['../structCarna_1_1testing_1_1HUGZSceneFactory.html',1,'Carna::testing']]],
-  ['hurange',['huRange',['../classCarna_1_1presets_1_1MIPLayer.html#a60cd4ec5d987d44f7e83d00163ae541a',1,'Carna::presets::MIPLayer']]],
-  ['huv',['HUV',['../namespaceCarna_1_1base.html#a61ae65c0c70cc744db5be165ade8f4e7',1,'Carna::base']]],
+  ['huv',['HUV',['../structCarna_1_1base_1_1HUV.html',1,'Carna::base::HUV'],['../structCarna_1_1base_1_1HUV.html#ab4f3250142a0ca4671701e2999095e35',1,'Carna::base::HUV::HUV()=default'],['../structCarna_1_1base_1_1HUV.html#ab4c0ae49934a5671f460f6d741ed7bf6',1,'Carna::base::HUV::HUV(signed int value, bool absolute=false)'],['../structCarna_1_1base_1_1HUV.html#a69f92009391fea948466db8e97c970ab',1,'Carna::base::HUV::HUV(float intensity, bool absolute=false)']]],
+  ['huv_2eh',['HUV.h',['../HUV_8h.html',1,'']]],
   ['huvolume',['HUVolume',['../classCarna_1_1base_1_1HUVolume.html',1,'Carna::base::HUVolume'],['../classCarna_1_1base_1_1HUVolume.html#a4a9c2c478afad3358d4186e5683e0f09',1,'Carna::base::HUVolume::HUVolume()'],['../classCarna_1_1base_1_1HUVolume.html#a3473f77eeeca8a87c07d9b3b3d04ae0b',1,'Carna::base::HUVolume::HUVolume(const math::Vector3ui &amp;size)']]],
   ['huvolume_2eh',['HUVolume.h',['../HUVolume_8h.html',1,'']]],
   ['huvolumeuint16',['HUVolumeUInt16',['../namespaceCarna_1_1base.html#acf44a83f0617e80de54f3502160a3336',1,'Carna::base']]],
+  ['huvtest',['HUVTest',['../classCarna_1_1testing_1_1HUVTest.html',1,'Carna::testing']]],
   ['huvtobuffervalue',['HUVToBufferValue',['../classCarna_1_1base_1_1BufferedHUVolume.html#aace355d839844fedf5d220419866d799',1,'Carna::base::BufferedHUVolume']]]
 ];

@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['valid',['valid',['../classCarna_1_1base_1_1BaseBuffer.html#a1b8200ddfef94b4dd59cb672e08decc9',1,'Carna::base::BaseBuffer']]],
-  ['value',['value',['../classCarna_1_1base_1_1ShaderUniform.html#a58513510ef875da4d6d452583617cf44',1,'Carna::base::ShaderUniform']]],
-  ['variance',['variance',['../structCarna_1_1base_1_1math_1_1Statistics.html#aecb36326411b7dbf26102ebb086cda80',1,'Carna::base::math::Statistics']]],
-  ['vertexattributes',['vertexAttributes',['../classCarna_1_1base_1_1ManagedMeshBase.html#a4d95027de4e05624c1508b5a6a9373fd',1,'Carna::base::ManagedMeshBase']]],
-  ['viewport',['viewport',['../classCarna_1_1base_1_1SpatialMovement.html#a8a49f7e294ae26b349b8f5510a085c6f',1,'Carna::base::SpatialMovement']]]
+  ['w',['w',['../structCarna_1_1base_1_1VertexPosition.html#a87eaf25d2609631fd905de2501cf58d8',1,'Carna::base::VertexPosition']]],
+  ['white',['WHITE',['../classCarna_1_1base_1_1Color.html#ad9cbfafbf758c2c139259ac8050225dc',1,'Carna::base::Color']]],
+  ['white_5fno_5falpha',['WHITE_NO_ALPHA',['../classCarna_1_1base_1_1Color.html#a6612fc7554d76caa3a528539b52fa7fa',1,'Carna::base::Color']]],
+  ['wrap_5fmode_5fclamp',['WRAP_MODE_CLAMP',['../classCarna_1_1base_1_1Sampler.html#a9138c73ba9ac54a461ba348f280f164f',1,'Carna::base::Sampler']]],
+  ['wrap_5fmode_5fmirrored_5frepeat',['WRAP_MODE_MIRRORED_REPEAT',['../classCarna_1_1base_1_1Sampler.html#a1540df2e413e100280004d519a6e8727',1,'Carna::base::Sampler']]],
+  ['wrap_5fmode_5frepeat',['WRAP_MODE_REPEAT',['../classCarna_1_1base_1_1Sampler.html#a79c50cef1406054957f269701188c1b9',1,'Carna::base::Sampler']]]
 ];

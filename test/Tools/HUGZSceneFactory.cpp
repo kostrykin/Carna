@@ -60,7 +60,7 @@ Carna::base::HUVolumeUInt16* HUGZSceneFactory::importVolume( const std::string& 
     for( unsigned int x = 0; x < size.x(); ++x )
     {
         const signed short huv = reader.read();
-        volume->setVoxel( x, y, z, huv );
+        volume->setVoxel( x, y, z, Carna::base::HUV::abs( huv ) );
     }
 
     return volume;

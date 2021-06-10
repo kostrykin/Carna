@@ -49,12 +49,8 @@ namespace Carna
       */
     namespace base
     {
-
-        /** \brief
-          * Represents values in \f$\left[-1024, +3071\right]\f$.
-          */
-        typedef signed short HUV;
     
+        struct HUV;
         class  Application;
         class  AssertionFailure;
         class  BoundingBox;

@@ -175,6 +175,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/RotatingColor.h
 		include/${PROJECT_NAME}/base/RenderStageSequence.h
 		include/${PROJECT_NAME}/base/RenderStageListener.h
+		include/${PROJECT_NAME}/base/HUV.h
 		include/${PROJECT_NAME}/base/math/Span.h
 		include/${PROJECT_NAME}/base/math/Ray.h
 		include/${PROJECT_NAME}/base/math/RayPlaneHitTest.h

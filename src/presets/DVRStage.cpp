@@ -35,13 +35,12 @@ namespace presets
 
 struct DVRStage::Details
 {
-    Details();
+    Details( unsigned int colorMapResolution );
     std::unique_ptr< base::Texture< 2 > > accumulationColorBuffer;
     std::unique_ptr< base::Framebuffer  > accumulationFrameBuffer;
     
-    const static unsigned int COLORMAP_SIZE = 1 << 12;
     const static unsigned int COLORMAP_TEXTURE_UNIT = base::Texture< 0 >::SETUP_UNIT + 1;
-    base::Color colorMap[ COLORMAP_SIZE ];
+    std::vector< base::Color > colorMap;
     std::unique_ptr< base::Texture< 1 > > colorMapTexture;
     std::unique_ptr< base::Sampler      > colorMapSampler;
     bool isColorMapDirty;
@@ -51,18 +50,27 @@ struct DVRStage::Details
     float diffuseLight;
     bool isLightingUsed;
 
-    static inline float huvToIntensity( base::HUV huv )
-    {
-        return ( huv + 1024 ) / 4095.f;
-    }
+    std::size_t colorMapLocationByIntensity( float intensity );
 };
 
 
-DVRStage::Details::Details()
-    : isColorMapDirty( true )
+DVRStage::Details::Details( unsigned int colorMapResolution )
+    : colorMap( colorMapResolution )
+    , isColorMapDirty( true )
     , translucence( DEFAULT_TRANSLUCENCE )
     , diffuseLight( DEFAULT_DIFFUSE_LIGHT )
 {
+}
+
+
+std::size_t DVRStage::Details::colorMapLocationByIntensity( float intensity )
+{
+    if( intensity < 0 ) intensity = 0;
+    if( intensity > 1 ) intensity = 1;
+    const std::size_t maxLocation = colorMap.size() - 1;
+    float location = intensity * maxLocation + 0.5;
+    if( location > maxLocation ) location = maxLocation;
+    return static_cast< std::size_t >( location );
 }
 
 
@@ -80,8 +88,8 @@ void DVRStage::Details::updateColorMap()
         /* Update the texture.
          */
         base::Texture< 1 >::Resolution textureSize;
-        textureSize.x() = COLORMAP_SIZE;
-        colorMapTexture->update( textureSize, GL_UNSIGNED_BYTE, colorMap );
+        textureSize.x() = colorMap.size();
+        colorMapTexture->update( textureSize, GL_UNSIGNED_BYTE, &colorMap[ 0 ] );
         isColorMapDirty = false;
         base::Log::instance().record( base::Log::debug, "DVRStage: Color map updated." );
     }
@@ -97,9 +105,9 @@ const float DVRStage::DEFAULT_TRANSLUCENCE = 50;
 const float DVRStage::DEFAULT_DIFFUSE_LIGHT = 1;
 
 
-DVRStage::DVRStage( unsigned int geometryType )
+DVRStage::DVRStage( unsigned int geometryType, unsigned int colorMapResolution )
     : VolumeRenderingStage( geometryType )
-    , pimpl( new Details() )
+    , pimpl( new Details( colorMapResolution ) )
 {
 }
 
@@ -120,34 +128,34 @@ DVRStage* DVRStage::clone() const
 
 void DVRStage::clearColorMap()
 {
-    std::fill_n( pimpl->colorMap, Details::COLORMAP_SIZE, base::Color::BLACK_NO_ALPHA );
+    std::fill( pimpl->colorMap.begin(), pimpl->colorMap.end(), base::Color::BLACK_NO_ALPHA );
     pimpl->isColorMapDirty = true;
 }
 
 
-void DVRStage::writeColorMap( const base::math::Span< base::HUV >& huRange, const base::math::Span< base::Color > colorRange )
+void DVRStage::writeColorMap( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange )
 {
-    const int huRangeSize = huRange.last - huRange.first + 1;
+    const std::size_t locFirst = pimpl->colorMapLocationByIntensity( intensityRange.first );
+    const std::size_t locLast  = pimpl->colorMapLocationByIntensity( intensityRange.last  );
+    const int rangeSize = locLast - locFirst + 1;
     const base::math::Vector4f color0 = colorRange.first;
     const base::math::Vector4f color1 = colorRange.last;
-    if( huRangeSize > 0 )
+    if( rangeSize > 0 )
     {
-        CARNA_ASSERT( huRange.first >= -1024 );
-        CARNA_ASSERT( huRange.last  <=  3071 );
-        for( int huOffset = 0; huOffset < huRangeSize; ++huOffset )
+        for( std::size_t offset = 0; offset < rangeSize; ++offset )
         {
-            const float lambda = huRangeSize == 1 ? 0.5f : huOffset / static_cast< float >( huRangeSize - 1 );
+            const float lambda = rangeSize == 1 ? 0.5f : offset / static_cast< float >( rangeSize - 1 );
             const base::Color color = base::math::mix< base::math::Vector4f >( color0, color1, lambda );
-            pimpl->colorMap[ 1024 + huRange.first + huOffset ] = color;
+            pimpl->colorMap[ locFirst + offset ] = color;
         }
         pimpl->isColorMapDirty = true;
     }
 }
 
 
-void DVRStage::writeColorMap( base::HUV huFirst, base::HUV huLast, const base::Color& colorFirst, const base::Color& colorLast )
+void DVRStage::writeColorMap( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast )
 {
-    writeColorMap( base::math::Span< base::HUV >( huFirst, huLast ), base::math::Span< base::Color >( colorFirst, colorLast ) );
+    writeColorMap( base::math::Span< float >( intensityFirst, intensityLast ), base::math::Span< base::Color >( colorFirst, colorLast ) );
 }
 
 
@@ -259,7 +267,7 @@ void DVRStage::renderPass
 
 void DVRStage::createVolumeSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler )
 {
-    /* Create sampler for the HU volume texture.
+    /* Create sampler for the intensity volume texture.
      */
     registerSampler( ROLE_INTENSITY_VOLUME, new base::Sampler
         ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP

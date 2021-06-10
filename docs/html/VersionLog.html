@@ -109,8 +109,10 @@ API Version 3.2.0</h2>
 <li>Refactored <a class="el" href="Vertex_8h.html">Carna/base/Vertex.h</a> and renamed <code>base::VertexBase</code> to <a class="el" href="structCarna_1_1base_1_1PVertex.html">base::PVertex</a>.</li>
 <li>Added <a class="el" href="structCarna_1_1base_1_1VertexPosition.html">base::VertexPosition</a> and <a class="el" href="structCarna_1_1base_1_1PNVertex.html">base::PNVertex</a>.</li>
 <li>Added the <code>solid</code> material shader.</li>
-<li>Added IntensityVolumeUInt16, BufferedIntensityVolume.</li>
-<li>Marked HUVolumeUInt16 as deprecated. </li>
+<li>Added <a class="el" href="namespaceCarna_1_1base.html#ad880df076e915679124c8c3269132768">base::IntensityVolumeUInt16</a>, <a class="el" href="classCarna_1_1base_1_1BufferedIntensityVolume.html">base::BufferedIntensityVolume</a>.</li>
+<li>Marked <a class="el" href="namespaceCarna_1_1base.html#acf44a83f0617e80de54f3502160a3336">base::HUVolumeUInt16</a> as deprecated.</li>
+<li>Internally, Carna is now intensity-based and not HUV-based any more (since image intensities are a more general concept).</li>
+<li>HUV is still supported and <a class="el" href="structCarna_1_1base_1_1HUV.html">base::HUV</a> is now a class. </li>
 </ul>
 </div></div><!-- contents -->
 <hr class="footer"/>

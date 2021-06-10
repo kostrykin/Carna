@@ -29,11 +29,11 @@ const base::BlendFunction MIPLayer::LAYER_FUNCTION_ADD    ( GL_SRC_ALPHA, GL_ONE
 
 
 MIPLayer::MIPLayer
-    ( const base::math::Span< base::HUV >& huRange
+    ( const base::math::Span< float >& intensityRange
     , const base::math::Vector4f& color
     , const base::BlendFunction& function )
 
-    : huRange( huRange )
+    : intensityRange( intensityRange )
     , color( color )
     , myFunction( &function )
 {
@@ -41,11 +41,11 @@ MIPLayer::MIPLayer
 
 
 MIPLayer::MIPLayer
-    ( base::HUV firstHuv, base::HUV lastHuv
+    ( float minIntensity, float maxIntensity
     , const base::math::Vector4f& color
     , const base::BlendFunction& function )
 
-    : huRange( firstHuv, lastHuv )
+    : intensityRange( minIntensity, maxIntensity )
     , color( color )
     , myFunction( &function )
 {

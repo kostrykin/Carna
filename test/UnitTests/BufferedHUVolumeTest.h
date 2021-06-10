@@ -62,9 +62,13 @@ private slots:
 
     void test_instantiation();
 
+#if 0
+
     void test_parenthesisOperator();
 
     void test_setVoxel();
+
+#endif
 
  // ---------------------------------------------------------------------------------
 

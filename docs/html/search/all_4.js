@@ -22,8 +22,8 @@ var searchData=
   ['default_5fupper_5fmultiplier',['DEFAULT_UPPER_MULTIPLIER',['../classCarna_1_1presets_1_1DRRStage.html#ae656960a29b700d1252abb70c33d4295',1,'Carna::presets::DRRStage']]],
   ['default_5fupper_5fthreshold',['DEFAULT_UPPER_THRESHOLD',['../classCarna_1_1presets_1_1DRRStage.html#a0cbadebaaa9007bfc4af9404842d7d7b',1,'Carna::presets::DRRStage']]],
   ['default_5fwater_5fattenuation',['DEFAULT_WATER_ATTENUATION',['../classCarna_1_1presets_1_1DRRStage.html#ad6cdaa924c3a8c0f18ca82a19c3b0b78',1,'Carna::presets::DRRStage']]],
-  ['default_5fwindowing_5flevel',['DEFAULT_WINDOWING_LEVEL',['../classCarna_1_1presets_1_1CuttingPlanesStage.html#a1b4ddac20ba08ded9a7eb75148192804',1,'Carna::presets::CuttingPlanesStage']]],
-  ['default_5fwindowing_5fwidth',['DEFAULT_WINDOWING_WIDTH',['../classCarna_1_1presets_1_1CuttingPlanesStage.html#ae13b96acd7c17d9780d082374ba64d48',1,'Carna::presets::CuttingPlanesStage']]],
+  ['default_5fwindowing_5flevel',['DEFAULT_WINDOWING_LEVEL',['../classCarna_1_1presets_1_1CuttingPlanesStage.html#a1772f1d9c023d521f7d43db0d00d0131',1,'Carna::presets::CuttingPlanesStage']]],
+  ['default_5fwindowing_5fwidth',['DEFAULT_WINDOWING_WIDTH',['../classCarna_1_1presets_1_1CuttingPlanesStage.html#a6db3e3cc28db5dbca86f35ab17cc482b',1,'Carna::presets::CuttingPlanesStage']]],
   ['default_5fzoom_5fstrength',['DEFAULT_ZOOM_STRENGTH',['../classCarna_1_1presets_1_1OrthogonalControl.html#ae2e7e55a61e6ed1eb9b5dcb8a0466384',1,'Carna::presets::OrthogonalControl']]],
   ['defaultrenderstageorder',['DefaultRenderStageOrder',['../classCarna_1_1helpers_1_1DefaultRenderStageOrder.html',1,'Carna::helpers']]],
   ['deg2rad',['deg2rad',['../namespaceCarna_1_1base_1_1math.html#ae56685f515809184a2e23209a1a33c13',1,'Carna::base::math']]],
@@ -47,7 +47,7 @@ var searchData=
   ['drrstage',['DRRStage',['../classCarna_1_1presets_1_1DRRStage.html',1,'Carna::presets::DRRStage'],['../classCarna_1_1presets_1_1DRRStage.html#ab365b0d3e042e9573a2f7de0462b14ba',1,'Carna::presets::DRRStage::DRRStage()']]],
   ['drrstage_2eh',['DRRStage.h',['../DRRStage_8h.html',1,'']]],
   ['drrstagetest',['DRRStageTest',['../classCarna_1_1testing_1_1DRRStageTest.html',1,'Carna::testing']]],
-  ['dvrstage',['DVRStage',['../classCarna_1_1presets_1_1DVRStage.html',1,'Carna::presets::DVRStage'],['../classCarna_1_1presets_1_1DVRStage.html#ab26aebe50a6e551f7b2a2a938961a794',1,'Carna::presets::DVRStage::DVRStage()']]],
+  ['dvrstage',['DVRStage',['../classCarna_1_1presets_1_1DVRStage.html',1,'Carna::presets::DVRStage'],['../classCarna_1_1presets_1_1DVRStage.html#af14257670eeb5b02b62e17eac4d6de75',1,'Carna::presets::DVRStage::DVRStage()']]],
   ['dvrstage_2eh',['DVRStage.h',['../DVRStage_8h.html',1,'']]],
   ['dvrstagetest',['DVRStageTest',['../classCarna_1_1testing_1_1DVRStageTest.html',1,'Carna::testing']]]
 ];

@@ -22,6 +22,7 @@
 
 #include <Carna/base/math/VectorField.h>
 #include <Carna/base/noncopyable.h>
+#include <Carna/base/HUV.h>
 
 namespace Carna
 {

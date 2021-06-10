@@ -45,11 +45,6 @@ struct MIPStage::Details
     std::unique_ptr< base::Texture< 2 > > layerColorBuffer;
     std::unique_ptr< base::Framebuffer  > layerFrameBuffer;
 
-    static inline float huvToIntensity( base::HUV huv )
-    {
-        return ( huv + 1024 ) / 4095.f;
-    }
-
 }; // MIPStage :: Details
 
 
@@ -245,8 +240,8 @@ void MIPStage::configureShader()
     CARNA_ASSERT( pimpl->currentLayer != nullptr );
     const MIPLayer& ch = *pimpl->currentLayer;
 
-    base::ShaderUniform< float >( "minIntensity", Details::huvToIntensity( ch.huRange.first ) ).upload();
-    base::ShaderUniform< float >( "maxIntensity", Details::huvToIntensity( ch.huRange.last  ) ).upload();
+    base::ShaderUniform< float >( "minIntensity", ch.intensityRange.first ).upload();
+    base::ShaderUniform< float >( "maxIntensity", ch.intensityRange.last  ).upload();
     base::ShaderUniform< base::math::Vector4f >( "color", ch.color ).upload();
 }
 

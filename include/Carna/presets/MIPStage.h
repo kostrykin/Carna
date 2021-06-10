@@ -70,8 +70,8 @@ class CARNA_LIB MIPStage : public VolumeRenderingStage
 public:
     
     /** \brief
-      * Holds the \ref GeometryFeatures "role" that HU volume data is expected to
-      * take when attached to \ref base::Geometry nodes.
+      * Holds the \ref GeometryFeatures "role" that intensity volume data is expected
+      * to take when attached to \ref base::Geometry nodes.
       */
     const static unsigned int ROLE_INTENSITY_VOLUME = 0;
 

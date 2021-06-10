@@ -51,10 +51,10 @@ namespace presets
   * The `%DVRStage` supports two types of rendering modes: Rendering with lighting
   * enabled and rendering without lighting. In general, lighting produces more
   * sculptural results, but it comes at the cost of additional requirements: Not only
-  * the HU volume must be uploaded to the GPU, but also another 3D texture that maps
-  * \ref VolumeRenderingModelTexture "texture space coordinates" to the normal
-  * vectors of the surface at a particular location. Depending on the resolution of
-  * the data, this might cause noteworthy memory consumption.
+  * the intensity volume must be uploaded to the GPU, but also another 3D texture
+  * that maps \ref VolumeRenderingModelTexture "texture space coordinates" to the
+  * normal vectors of the surface at a particular location. Depending on the
+  * resolution of the data, this might cause noteworthy memory consumption.
   *
   * Luckily the \ref helpers::VolumeGridHelper class does everything that is needed
   * in order to compute the normal vectors and upload them to the GPU, if it is
@@ -107,8 +107,8 @@ class CARNA_LIB DVRStage : public VolumeRenderingStage
 public:
 
     /** \brief
-      * Holds the \ref GeometryFeatures "role" that HU volume data is expected to
-      * take when attached to \ref base::Geometry nodes.
+      * Holds the \ref GeometryFeatures "role" that intensity volume data is expected
+      * to take when attached to \ref base::Geometry nodes.
       */
     const static unsigned int ROLE_INTENSITY_VOLUME = 0;
     
@@ -132,8 +132,12 @@ public:
     /** \brief
       * Instantiates. The created stage will render such \ref base::Geometry scene
       * graph nodes, whose \ref GeometryTypes "geometry types" equal \a geometryType.
+      *
+      * The parameter \a colorMapResolution determines the resolution of the color
+      * map. If your data is 8bit, using 8bit color map is sufficient. If your data
+      * is 32bit, you probably also want to use a 32bit color map.
       */
-    DVRStage( unsigned int geometryType );
+    DVRStage( unsigned int geometryType, unsigned int colorMapResolution = ( 1 << 12 ) );
 
     /** \brief
       * Deletes.
@@ -150,25 +154,28 @@ public:
         , const base::Viewport& vp ) override;
 
     /** \brief
-      * Clears the color map. All HU values are mapped to
+      * Clears the color map. All intensity values are mapped to
       * \ref base::Color::BLACK_NO_ALPHA after calling this method.
       */
     void clearColorMap();
     
     /** \brief
-      * Maps all HU values from \a huRange to \a colorRange. The first/last HU value
-      * from \a huRange is mapped to the first/last value of \a colorRange,
-      * respectively. The values are interpolated linearly in between.
+      * Maps all intensity values from \a intensityRange to \a colorRange.
       *
-      * Nothing happens if the last HU value of \a huRange is *smaller* than the
-      * first. If the first and the last HU values of \a huRange are equal, they are
-      * mapped to the *mean* of the first and the last values from \a colorRange.
+      * The first/last intensity values from \a intensityRange are mapped to the
+      * first/last values of \a colorRange, respectively. The values are interpolated
+      * linearly in between.
+      *
+      * Nothing happens if the last intensity value of \a intensityRange is *smaller*
+      * than the first. If the first and the last intensity values of
+      * \a intensityRange correspond to the same entry of the color map, the *mean*
+      * of the first and the last values from \a colorRange is written.
       */
-    void writeColorMap( const base::math::Span< base::HUV >& huRange, const base::math::Span< base::Color > colorRange );
+    void writeColorMap( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange );
     
     /** \overload
       */
-    void writeColorMap( base::HUV huFirst, base::HUV huLast, const base::Color& colorFirst, const base::Color& colorLast );
+    void writeColorMap( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast );
     
     /** \brief
       * Sets the \ref DVRStageTranslucence "translucence" property.

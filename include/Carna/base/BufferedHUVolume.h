@@ -90,7 +90,7 @@ public:
       */
     static HUV bufferValueToHUV( VoxelType bufferValue )
     {
-        return static_cast< HUV >( bufferValue >> ( sizeof( VoxelType ) * 8 - 12 ) ) - 1024;
+        return HUV::abs( ( bufferValue >> ( sizeof( VoxelType ) * 8 - 12 ) ) - 1024 );
     }
 
     /** \brief

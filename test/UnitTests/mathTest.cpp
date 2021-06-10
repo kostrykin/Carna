@@ -254,7 +254,7 @@ void mathTest::test_CARNA_FOR_VECTOR3UI()
   
     /* Initialize all 'data' voxels with '-1024'.
      */
-    const HUV expected = -1024;
+    const HUV expected = HUV::abs( -1024 );
     CARNA_FOR_VECTOR3UI( p, data.size )
     {
         data.setVoxel( p, expected );
