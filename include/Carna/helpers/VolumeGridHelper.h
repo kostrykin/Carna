@@ -198,7 +198,7 @@ void VolumeGridHelperBase::loadHUData( const LoadHUDataFunction& huData )
 {
     loadHUData( static_cast< const std::function< base::HUV( const base::math::Vector3ui& ) >& >
         (
-            [&huData]( const base::math::Vector3ui& loc ) -> base::HUV
+            [&huData]( const base::math::Vector3ui& loc )
             {
                 return huData( loc );
             }
