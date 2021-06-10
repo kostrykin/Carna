@@ -532,7 +532,7 @@ namespace math
     /** \overload
       *
       * \param fovRadiansHorizontal
-      *     Specifies the *half* angle between the left and the right frustum planes.
+      *     Specifies the angle between the left and the right frustum planes.
       *
       * \param heightOverWidth
       *     Specifies the ratio \f$\frac{\text{height}}{\text{width}}\f$ for the
@@ -546,7 +546,7 @@ namespace math
       */
     inline Matrix4f frustum4f( float fovRadiansHorizontal, float heightOverWidth, float zNear, float zFar )
     {
-        const float halfProjPlaneWidth  = zNear * std::tan( fovRadiansHorizontal );
+        const float halfProjPlaneWidth  = zNear * std::tan( fovRadiansHorizontal / 2 );
         const float halfProjPlaneHeight = halfProjPlaneWidth * heightOverWidth;
         return frustum4f( -halfProjPlaneWidth, +halfProjPlaneWidth, -halfProjPlaneHeight, +halfProjPlaneHeight, zNear, zFar );
     }

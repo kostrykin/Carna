@@ -38,7 +38,7 @@ void PointMarkerHelperTest::initTestCase()
      */
     cam.reset( new base::Camera() );
     cam->localTransform = base::math::translation4f( 0, 0, 350 );
-    cam->setProjection( base::math::frustum4f( base::math::deg2rad( 45 ), 1, 10, 2000 ) );
+    cam->setProjection( base::math::frustum4f( base::math::deg2rad( 90 ), 1, 10, 2000 ) );
 }
 
 

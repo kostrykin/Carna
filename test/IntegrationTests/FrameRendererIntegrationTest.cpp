@@ -84,7 +84,7 @@ void FrameRendererIntegrationTest::test_typical()
      */
     base::Camera* const cam = new base::Camera();
     cam->localTransform = base::math::rotation4f( 0, 1, 0, base::math::deg2rad( 20 ) ) * base::math::translation4f( 0, 0, 350 );
-    cam->setProjection( base::math::frustum4f( base::math::deg2rad( 45 ), 1, 10, 2000 ) );
+    cam->setProjection( base::math::frustum4f( base::math::deg2rad( 90 ), 1, 10, 2000 ) );
     root.attachChild( cam );
 
     /* Configure geometry node for volume data.

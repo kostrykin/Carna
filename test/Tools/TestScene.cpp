@@ -55,7 +55,7 @@ TestScene::TestScene()
 
     /* Configure camera node.
      */
-    myCam->setProjection( base::math::frustum4f( 3.14f * 45 / 180.f, 1, 10, 2000 ) );
+    myCam->setProjection( base::math::frustum4f( 3.14f * 90 / 180.f, 1, 10, 2000 ) );
     resetCamTransform();
     root->attachChild( myCam );
 }
