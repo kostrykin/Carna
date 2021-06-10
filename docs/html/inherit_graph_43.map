@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classCarna_1_1base_1_1math_1_1VectorField.html" title="Carna::base::math::\lVectorField\&lt; HUV \&gt;" alt="" coords="5,5,147,47"/>
-<area shape="rect" id="node2" href="$classCarna_1_1base_1_1HUVolume.html" title="Defines interface to &#160;volumetric data. " alt="" coords="195,13,360,39"/>
-<area shape="rect" id="node3" href="$classCarna_1_1base_1_1BufferedHUVolume.html" title="Implements HUVolume generically for a particular VoxelType. " alt="" coords="408,5,623,47"/>
+<area shape="rect" id="node1" href="$classCarna_1_1base_1_1math_1_1VectorField.html" title="Carna::base::math::\lVectorField\&lt; float \&gt;" alt="" coords="5,5,144,47"/>
+<area shape="rect" id="node2" href="$classCarna_1_1base_1_1IntensityVolume.html" title="Defines interface to &#160;volume data. " alt="" coords="192,13,387,39"/>
+<area shape="rect" id="node3" href="$classCarna_1_1base_1_1BufferedIntensityVolume.html" title="Implements IntensityVolume generically for a particular VoxelType. " alt="" coords="435,5,659,47"/>
 </map>

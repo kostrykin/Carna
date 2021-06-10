@@ -4,7 +4,8 @@ list( APPEND TESTS
 		CuttingPlanesStageTest
 		DRRStageTest
 		FrameRendererHelperTest
-		VolumeGridTest
+		VolumeGridTestUInt8
+		VolumeGridTestUInt16
 		MeshColorCodingStageTest
 		MIPStageTest
 		OpaqueRenderingStageTest

@@ -56,9 +56,13 @@ private slots:
 
  // ---------------------------------------------------------------------------------
 
-    void test_512x512x71();
+    void test_uint16_512x512x71();
 
-    void test_173x511x16();
+    void test_uint16_173x511x16();
+
+    void test_uint8_512x512x71();
+
+    void test_uint8_173x511x16();
 
 }; // VolumeGridHelperTest
 

@@ -16,6 +16,7 @@ var searchData=
   ['bufferedvectorfieldformat',['BufferedVectorFieldFormat',['../structCarna_1_1base_1_1BufferedVectorFieldFormat.html',1,'Carna::base']]],
   ['bufferedvectorfieldformat_3c_20huvolumeuint16_20_3e',['BufferedVectorFieldFormat&lt; HUVolumeUInt16 &gt;',['../structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01HUVolumeUInt16_01_4.html',1,'Carna::base']]],
   ['bufferedvectorfieldformat_3c_20intensityvolumeuint16_20_3e',['BufferedVectorFieldFormat&lt; IntensityVolumeUInt16 &gt;',['../structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01IntensityVolumeUInt16_01_4.html',1,'Carna::base']]],
+  ['bufferedvectorfieldformat_3c_20intensityvolumeuint8_20_3e',['BufferedVectorFieldFormat&lt; IntensityVolumeUInt8 &gt;',['../structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01IntensityVolumeUInt8_01_4.html',1,'Carna::base']]],
   ['bufferedvectorfieldformat_3c_20normalmap3dint8_20_3e',['BufferedVectorFieldFormat&lt; NormalMap3DInt8 &gt;',['../structCarna_1_1base_1_1BufferedVectorFieldFormat_3_01NormalMap3DInt8_01_4.html',1,'Carna::base']]],
   ['bufferedvectorfieldtexture',['BufferedVectorFieldTexture',['../classCarna_1_1base_1_1BufferedVectorFieldTexture.html',1,'Carna::base']]]
 ];

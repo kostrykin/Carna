@@ -141,6 +141,13 @@ namespace Carna
         typedef BufferedIntensityVolume< uint16_t > IntensityVolumeUInt16;
 
         /** \brief
+          * Defines 8bit intensity volume.
+          *
+          * \since  \ref v_3_2_0
+          */
+        typedef BufferedIntensityVolume< uint8_t > IntensityVolumeUInt8;
+
+        /** \brief
           * Defines 16bit unsigned integer \ref HUV "HU" volume data.
           *
           * \deprecated Use \ref IntensityVolumeUInt16 instead.

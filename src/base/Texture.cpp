@@ -130,8 +130,15 @@ void TextureBase::uploadGLTextureData
     , int bufferType
     , const void* bufferPtr )
 {
+    GLint unpackAlignment; // TODO: in the future it will be better to use unpackAlignment as a parameter along of bufferPtr
+    glGetIntegerv( GL_UNPACK_ALIGNMENT, &unpackAlignment );
+    if( bufferType == GL_UNSIGNED_BYTE && pixelFormat == GL_RED )
+    {
+        glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
+    }
     checkGLTextureDataParameters( internalFormat, pixelFormat, bufferType, bufferPtr );
     glTexImage3D( GL_TEXTURE_3D, 0, internalFormat, size.x(), size.y(), size.z(), 0, pixelFormat, bufferType, bufferPtr );
+    glPixelStorei( GL_UNPACK_ALIGNMENT, unpackAlignment );
     REPORT_GL_ERROR;
 }
 

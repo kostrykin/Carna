@@ -57,7 +57,7 @@ void VolumeGridHelperTest::cleanup()
 }
 
 
-void VolumeGridHelperTest::test_512x512x71()
+void VolumeGridHelperTest::test_uint16_512x512x71()
 {
     const static std::size_t TESTED_MAX_SEGMENT_BYTESIZE = 2 * 300 * 300 * 300;
     typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16 > TestedHelperType;
@@ -66,10 +66,28 @@ void VolumeGridHelperTest::test_512x512x71()
 }
 
 
-void VolumeGridHelperTest::test_173x511x16()
+void VolumeGridHelperTest::test_uint16_173x511x16()
 {
     const static std::size_t TESTED_MAX_SEGMENT_BYTESIZE = 2 * 300 * 300 * 300;
     typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16 > TestedHelperType;
+    TestedHelperType instance( base::math::Vector3ui( 173, 511, 16 ), TESTED_MAX_SEGMENT_BYTESIZE );
+    verifyPartitioning( instance );
+}
+
+
+void VolumeGridHelperTest::test_uint8_512x512x71()
+{
+    const static std::size_t TESTED_MAX_SEGMENT_BYTESIZE = 2 * 300 * 300 * 300;
+    typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt8 > TestedHelperType;
+    TestedHelperType instance( base::math::Vector3ui( 512, 512, 71 ), TESTED_MAX_SEGMENT_BYTESIZE );
+    verifyPartitioning( instance );
+}
+
+
+void VolumeGridHelperTest::test_uint8_173x511x16()
+{
+    const static std::size_t TESTED_MAX_SEGMENT_BYTESIZE = 2 * 300 * 300 * 300;
+    typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt8 > TestedHelperType;
     TestedHelperType instance( base::math::Vector3ui( 173, 511, 16 ), TESTED_MAX_SEGMENT_BYTESIZE );
     verifyPartitioning( instance );
 }

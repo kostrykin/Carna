@@ -55,6 +55,20 @@ struct CARNA_LIB BufferedVectorFieldFormat< IntensityVolumeUInt16 >
 
 
 /** \brief
+  * Defines \ref Texture format for \ref IntensityVolumeUInt8.
+  * 
+  * \since \ref v_3_2_0
+  */
+template< >
+struct CARNA_LIB BufferedVectorFieldFormat< IntensityVolumeUInt8 >
+{
+    const static unsigned int INTERNAL_FORMAT; ///< \copydoc ManagedTexture3D::internalFormat
+    const static unsigned int PIXEL_FORMAT;    ///< \copydoc ManagedTexture3D::pixelFormat
+    const static unsigned int BUFFER_TYPE;     ///< \copydoc ManagedTexture3D::bufferType
+};
+
+
+/** \brief
   * Defines \ref Texture format for \ref HUVolumeUInt16.
   */
 template< >

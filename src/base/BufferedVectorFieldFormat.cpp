@@ -28,6 +28,10 @@ const unsigned int BufferedVectorFieldFormat< IntensityVolumeUInt16 >::INTERNAL_
 const unsigned int BufferedVectorFieldFormat< IntensityVolumeUInt16 >::PIXEL_FORMAT    = GL_RED;
 const unsigned int BufferedVectorFieldFormat< IntensityVolumeUInt16 >::BUFFER_TYPE     = GL_UNSIGNED_SHORT;
 
+const unsigned int BufferedVectorFieldFormat< IntensityVolumeUInt8 >::INTERNAL_FORMAT = GL_INTENSITY8;
+const unsigned int BufferedVectorFieldFormat< IntensityVolumeUInt8 >::PIXEL_FORMAT    = GL_RED;
+const unsigned int BufferedVectorFieldFormat< IntensityVolumeUInt8 >::BUFFER_TYPE     = GL_UNSIGNED_BYTE;
+
 const unsigned int BufferedVectorFieldFormat< HUVolumeUInt16 >::INTERNAL_FORMAT = GL_INTENSITY16;
 const unsigned int BufferedVectorFieldFormat< HUVolumeUInt16 >::PIXEL_FORMAT    = GL_RED;
 const unsigned int BufferedVectorFieldFormat< HUVolumeUInt16 >::BUFFER_TYPE     = GL_UNSIGNED_SHORT;
