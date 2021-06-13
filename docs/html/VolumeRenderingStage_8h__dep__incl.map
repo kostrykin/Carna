@@ -1,5 +1,6 @@
 <map id="include/Carna/presets/VolumeRenderingStage.h" name="include/Carna/presets/VolumeRenderingStage.h">
 <area shape="rect" id="node2" href="$DRRStage_8h.html" title="Defines Carna::presets::DRRStage. " alt="" coords="5,95,155,136"/>
 <area shape="rect" id="node3" href="$DVRStage_8h.html" title="Defines Carna::presets::DVRStage. " alt="" coords="179,95,328,136"/>
-<area shape="rect" id="node4" href="$MIPStage_8h.html" title="Defines Carna::presets::MIPStage. " alt="" coords="352,95,501,136"/>
+<area shape="rect" id="node4" href="$MaskRenderingStage_8h.html" title="Defines Carna::presets::MaskRenderingStage. " alt="" coords="352,95,515,136"/>
+<area shape="rect" id="node5" href="$MIPStage_8h.html" title="Defines Carna::presets::MIPStage. " alt="" coords="539,95,688,136"/>
 </map>

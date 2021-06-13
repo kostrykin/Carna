@@ -193,6 +193,7 @@ namespace Carna
         class MIPLayer;
         class DRRStage;
         class DVRStage;
+        class MaskRenderingStage;
         class CuttingPlanesStage;
         class TransparentRenderingStage;
         class OccludedRenderingStage;

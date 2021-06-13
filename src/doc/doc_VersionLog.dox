@@ -56,6 +56,11 @@ namespace Carna
   * - Internally, %Carna is now intensity-based and not HUV-based any more (since image intensities are a more general concept).
   * - HUV is still supported and \ref base::HUV is now a class.
   * - \ref base::math::frustum4f now takes the full FOV angle (not the half).
+  *
+  * \subsection v_3_3_0 API Version 3.3.0
+  *
+  * - Added \ref presets::MaskRenderingStage.
+  * - Added \ref base::math::computeFastGradient3f.
   */
   
 }  // namespace Carna

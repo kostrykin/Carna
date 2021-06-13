@@ -68,7 +68,7 @@ public:
       * \param geometryType
       *     is the \ref GeometryTypes "geometry type" rendered by this stage.
       */
-    TransparentRenderingStage( unsigned int geometryType );
+    explicit TransparentRenderingStage( unsigned int geometryType );
     
     TransparentRenderingStage* clone() const override;
 

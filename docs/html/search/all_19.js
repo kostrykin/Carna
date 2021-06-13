@@ -27,6 +27,7 @@ var searchData=
   ['_7emanagedmeshinterface',['~ManagedMeshInterface',['../classCarna_1_1base_1_1ManagedMeshInterface.html#a76160c0099fa8f235e03441d5428c893',1,'Carna::base::ManagedMeshInterface']]],
   ['_7emanagedtexture3d',['~ManagedTexture3D',['../classCarna_1_1base_1_1ManagedTexture3D.html#a68669716831fc060b911de7864a81cf1',1,'Carna::base::ManagedTexture3D']]],
   ['_7emanagedtexture3dinterface',['~ManagedTexture3DInterface',['../classCarna_1_1base_1_1ManagedTexture3DInterface.html#a029b78e8ab73530379dbc80b996acb7a',1,'Carna::base::ManagedTexture3DInterface']]],
+  ['_7emaskrenderingstage',['~MaskRenderingStage',['../classCarna_1_1presets_1_1MaskRenderingStage.html#aef026688eced642f9f6798ced72a65a9',1,'Carna::presets::MaskRenderingStage']]],
   ['_7ematerial',['~Material',['../classCarna_1_1base_1_1Material.html#a8e6982a7c5ad1740d122f4aa23ebd764',1,'Carna::base::Material']]],
   ['_7emeshbase',['~MeshBase',['../classCarna_1_1base_1_1MeshBase.html#a01973e5e22986882f7f1fadc606acc64',1,'Carna::base::MeshBase']]],
   ['_7emeshcolorcodingstage',['~MeshColorCodingStage',['../classCarna_1_1presets_1_1MeshColorCodingStage.html#a27456d5fa81835a7562bf0b2762a046d',1,'Carna::presets::MeshColorCodingStage']]],

@@ -61,7 +61,7 @@ namespace presets
   * instructed to do so: Its second type argument is optional and set to `void` by
   * default. This disables its normal vectors support. Setting it to anything
   * different, like \ref base::NormalMap3DInt8 for example, makes it compute the
-  * normal vectors when \ref helpers::VolumeGridHelper::loadData or its
+  * normal vectors when \ref helpers::VolumeGridHelper::loadHUData or its
   * `computeNormals` method are called.
   *
   * The `%DVRStage` decides which mode to use depending on whether the normal vectors
@@ -137,7 +137,7 @@ public:
       * map. If your data is 8bit, using 8bit color map is sufficient. If your data
       * is 32bit, you probably also want to use a 32bit color map.
       */
-    DVRStage( unsigned int geometryType, unsigned int colorMapResolution = ( 1 << 12 ) );
+    explicit DVRStage( unsigned int geometryType, unsigned int colorMapResolution = ( 1 << 12 ) );
 
     /** \brief
       * Deletes.

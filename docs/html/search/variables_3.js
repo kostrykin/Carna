@@ -1,6 +1,7 @@
 var searchData=
 [
   ['default_5fbase_5fintensity',['DEFAULT_BASE_INTENSITY',['../classCarna_1_1presets_1_1DRRStage.html#ae16534bc1d5af87ea2924f70008c4548',1,'Carna::presets::DRRStage']]],
+  ['default_5fcolor',['DEFAULT_COLOR',['../classCarna_1_1presets_1_1MaskRenderingStage.html#a096defdf53fdc1893b53522f8519d61f',1,'Carna::presets::MaskRenderingStage']]],
   ['default_5fdiffuse_5flight',['DEFAULT_DIFFUSE_LIGHT',['../classCarna_1_1presets_1_1DVRStage.html#a2620e0b5e9fb545daccc6985dd04d542',1,'Carna::presets::DVRStage']]],
   ['default_5feye_5fdistance',['DEFAULT_EYE_DISTANCE',['../classCarna_1_1presets_1_1ParallaxStage.html#aed4caf39c82440f894cc100e0480d6c2',1,'Carna::presets::ParallaxStage']]],
   ['default_5ffov_5fhorizontal',['DEFAULT_FOV_HORIZONTAL',['../classCarna_1_1presets_1_1PerspectiveControl.html#aa373a41dab62c942c9df0605b2a5cb72',1,'Carna::presets::PerspectiveControl']]],

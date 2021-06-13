@@ -29,7 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Carna
-   &#160;<span id="projectnumber">Version 3.2.0</span>
+   &#160;<span id="projectnumber">Version 3.3.0</span>
    </div>
   </td>
  </tr>
@@ -112,6 +112,7 @@ $(function() {
 , <a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html#a62d9b42b511cb986066f58eee29014d9">Carna::presets::CuttingPlanesStage</a>
 , <a class="el" href="classCarna_1_1presets_1_1DRRStage.html#a2e7d189c709949ba8562b5b9f349c431">Carna::presets::DRRStage</a>
 , <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a96cc4946c577f9ec76ab4fd7ad30dc1a">Carna::presets::DVRStage</a>
+, <a class="el" href="classCarna_1_1presets_1_1MaskRenderingStage.html#a13819d82215c394d56f8195675581da0">Carna::presets::MaskRenderingStage</a>
 , <a class="el" href="classCarna_1_1presets_1_1MeshColorCodingStage.html#a9439f1f3540cd913737cff90202aff8e">Carna::presets::MeshColorCodingStage</a>
 , <a class="el" href="classCarna_1_1presets_1_1MIPStage.html#ab20ba5073932bdb89ef98c71d1a38280">Carna::presets::MIPStage</a>
 , <a class="el" href="classCarna_1_1presets_1_1OccludedRenderingStage.html#ae9eb78ab03b42a495446bae216c4c6af">Carna::presets::OccludedRenderingStage</a>
@@ -120,6 +121,9 @@ $(function() {
 </li>
 <li>Color()
 : <a class="el" href="classCarna_1_1base_1_1Color.html#a174f01344814bb42c8fe70cc45eff6a4">Carna::base::Color</a>
+</li>
+<li>color()
+: <a class="el" href="classCarna_1_1presets_1_1MaskRenderingStage.html#aee5d5f1f85027a62274897f8b3e2fa01">Carna::presets::MaskRenderingStage</a>
 </li>
 <li>commit()
 : <a class="el" href="classCarna_1_1base_1_1RenderState.html#a123d1612ec7831a1d960df5aedc3f555">Carna::base::RenderState</a>
@@ -150,6 +154,7 @@ $(function() {
 <li>configureShader()
 : <a class="el" href="classCarna_1_1presets_1_1DRRStage.html#a90c2ffe1f1d9f86d3d59a92e043b2c44">Carna::presets::DRRStage</a>
 , <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a56dca2208f550462858e9f925a8c7d21">Carna::presets::DVRStage</a>
+, <a class="el" href="classCarna_1_1presets_1_1MaskRenderingStage.html#a048fd96253cd4bf2d92526d65ce59729">Carna::presets::MaskRenderingStage</a>
 , <a class="el" href="classCarna_1_1presets_1_1MIPStage.html#a9376ef09c8acb22294ae00bc067ffbcf">Carna::presets::MIPStage</a>
 , <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#a4765b3c371adc7c42207edbed31d0d38">Carna::presets::VolumeRenderingStage</a>
 </li>
@@ -183,7 +188,7 @@ $(function() {
 : <a class="el" href="classCarna_1_1base_1_1MeshFactory.html#a3f973244e83837c839a7a8b327c42b98">Carna::base::MeshFactory&lt; VertexType &gt;</a>
 </li>
 <li>createBox()
-: <a class="el" href="classCarna_1_1base_1_1MeshFactory.html#acac7c62e90744138576e18dd7496f6aa">Carna::base::MeshFactory&lt; VertexType &gt;</a>
+: <a class="el" href="classCarna_1_1base_1_1MeshFactory.html#a7bb51a25b6bd2a72b5d22a0cca5b08e1">Carna::base::MeshFactory&lt; VertexType &gt;</a>
 </li>
 <li>createFromSTL()
 : <a class="el" href="classCarna_1_1base_1_1MeshFactory.html#ada9eaa3c9a03821fc9fa0fa9c715319e">Carna::base::MeshFactory&lt; VertexType &gt;</a>
@@ -199,7 +204,7 @@ $(function() {
 : <a class="el" href="classCarna_1_1base_1_1MeshFactory.html#a071136782c95030052bceea73ba1b8f7">Carna::base::MeshFactory&lt; VertexType &gt;</a>
 </li>
 <li>createPointMarker()
-: <a class="el" href="classCarna_1_1helpers_1_1PointMarkerHelper.html#a31a9216382e78d4fea9e6829f2cf6950">Carna::helpers::PointMarkerHelper</a>
+: <a class="el" href="classCarna_1_1helpers_1_1PointMarkerHelper.html#a6ffe0db4d91eb503180de8592c46173a">Carna::helpers::PointMarkerHelper</a>
 </li>
 <li>createRenderTexture()
 : <a class="el" href="classCarna_1_1base_1_1Framebuffer.html#afa2a3a79789e82834364935562086a60">Carna::base::Framebuffer</a>
@@ -211,6 +216,7 @@ $(function() {
 <li>createVolumeSamplers()
 : <a class="el" href="classCarna_1_1presets_1_1DRRStage.html#a27d8589b9490439a3e1a354024cfa37f">Carna::presets::DRRStage</a>
 , <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a49e80360b676003dd9c40265633c84aa">Carna::presets::DVRStage</a>
+, <a class="el" href="classCarna_1_1presets_1_1MaskRenderingStage.html#a6473302bbe763460f1152468f19776f9">Carna::presets::MaskRenderingStage</a>
 , <a class="el" href="classCarna_1_1presets_1_1MIPStage.html#abe36f92d7418acaeb9c6823bb615296b">Carna::presets::MIPStage</a>
 , <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#a46b058684e26cc198d547a863acf0bab">Carna::presets::VolumeRenderingStage</a>
 </li>

@@ -78,7 +78,7 @@ public:
     /** \brief
       * Instantiates.
       */
-    MIPStage( unsigned int geometryType );
+    explicit MIPStage( unsigned int geometryType );
 
     /** \brief
       * Deletes.

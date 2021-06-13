@@ -3,15 +3,16 @@
 <area shape="rect" id="node4" href="$classCarna_1_1presets_1_1CompositionStage.html" title="Defines rendering stage that combines two other renderings either by putting them next to each other ..." alt="" coords="251,71,441,112"/>
 <area shape="rect" id="node6" href="$classCarna_1_1presets_1_1OccludedRenderingStage.html" title="Renders geometry that is actually depth&#45;occluded. The occluded geometry is rendered with reduced opac..." alt="" coords="261,136,431,177"/>
 <area shape="rect" id="node7" href="$classCarna_1_1base_1_1GeometryStage.html" title="Carna::base::GeometryStage\l\&lt; base::Renderable::BackToFront \&gt;" alt="" coords="231,201,461,243"/>
-<area shape="rect" id="node14" href="$classCarna_1_1base_1_1GeometryStage.html" title="Carna::base::GeometryStage\l\&lt; void \&gt;" alt="" coords="250,283,442,324"/>
+<area shape="rect" id="node15" href="$classCarna_1_1base_1_1GeometryStage.html" title="Carna::base::GeometryStage\l\&lt; void \&gt;" alt="" coords="250,283,442,324"/>
 <area shape="rect" id="node3" href="$classCarna_1_1base_1_1MeshRenderingStage.html" title="Implements a geometry rendering stage that renders meshes. " alt="" coords="519,5,718,47"/>
 <area shape="rect" id="node5" href="$classCarna_1_1presets_1_1ParallaxStage.html" title="Produces stereoscopic renderings. " alt="" coords="537,71,700,112"/>
 <area shape="rect" id="node8" href="$classCarna_1_1presets_1_1VolumeRenderingStage.html" title="Defines abstract base class for rendering stages that render volume geometries in the scene..." alt="" coords="509,136,728,177"/>
-<area shape="rect" id="node12" href="$classCarna_1_1base_1_1MeshRenderingStage.html" title="Carna::base::MeshRendering\lStage\&lt; base::Renderable\l::BackToFront \&gt;" alt="" coords="523,202,715,258"/>
-<area shape="rect" id="node9" href="$classCarna_1_1presets_1_1DRRStage.html" title="Renders digital radiograph reconstructs of volume geometries in the scene. " alt="" coords="779,75,959,102"/>
-<area shape="rect" id="node10" href="$classCarna_1_1presets_1_1DVRStage.html" title="Performs direct volume renderings of the volume geometries in the scene. " alt="" coords="779,126,958,153"/>
-<area shape="rect" id="node11" href="$classCarna_1_1presets_1_1MIPStage.html" title="Renders maximum intensity projections of volume geometries in the scene. " alt="" coords="781,177,956,203"/>
-<area shape="rect" id="node13" href="$classCarna_1_1presets_1_1TransparentRenderingStage.html" title="Implements rendering stage that renders transparent meshes. " alt="" coords="776,228,961,269"/>
-<area shape="rect" id="node15" href="$classCarna_1_1presets_1_1CuttingPlanesStage.html" title="Renders cutting planes of volume geometries in the scene. " alt="" coords="519,283,718,324"/>
-<area shape="rect" id="node16" href="$classCarna_1_1presets_1_1MeshColorCodingStage.html" title="Implements a simple interface for mapping frame coordinates to base::Mesh objects. " alt="" coords="529,348,708,389"/>
+<area shape="rect" id="node13" href="$classCarna_1_1base_1_1MeshRenderingStage.html" title="Carna::base::MeshRendering\lStage\&lt; base::Renderable\l::BackToFront \&gt;" alt="" coords="523,202,715,258"/>
+<area shape="rect" id="node9" href="$classCarna_1_1presets_1_1DRRStage.html" title="Renders digital radiograph reconstructs of volume geometries in the scene. " alt="" coords="789,34,969,61"/>
+<area shape="rect" id="node10" href="$classCarna_1_1presets_1_1DVRStage.html" title="Performs direct volume renderings of the volume geometries in the scene. " alt="" coords="790,85,969,111"/>
+<area shape="rect" id="node11" href="$classCarna_1_1presets_1_1MaskRenderingStage.html" title="Renders 3D masks. " alt="" coords="776,136,983,177"/>
+<area shape="rect" id="node12" href="$classCarna_1_1presets_1_1MIPStage.html" title="Renders maximum intensity projections of volume geometries in the scene. " alt="" coords="792,202,967,229"/>
+<area shape="rect" id="node14" href="$classCarna_1_1presets_1_1TransparentRenderingStage.html" title="Implements rendering stage that renders transparent meshes. " alt="" coords="787,253,972,295"/>
+<area shape="rect" id="node16" href="$classCarna_1_1presets_1_1CuttingPlanesStage.html" title="Renders cutting planes of volume geometries in the scene. " alt="" coords="519,283,718,324"/>
+<area shape="rect" id="node17" href="$classCarna_1_1presets_1_1MeshColorCodingStage.html" title="Implements a simple interface for mapping frame coordinates to base::Mesh objects. " alt="" coords="529,348,708,389"/>
 </map>

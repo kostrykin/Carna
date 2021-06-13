@@ -270,7 +270,7 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
      */
     unsigned int lastUnit = pimpl->firstVolumeUnit - 1;
     std::vector< unsigned int > roles;
-    const base::ManagedTexture3D* anyTexture;
+    const base::ManagedTexture3D* anyTexture = nullptr;
     renderable.geometry().visitFeatures( [&]( base::GeometryFeature& gf, unsigned int role )
         {
             if( dynamic_cast< base::ManagedTexture3D* >( &gf ) != nullptr )

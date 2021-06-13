@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
 project(Carna)
 
 set(MAJOR_VERSION	3)
-set(MINOR_VERSION	2)
+set(MINOR_VERSION	3)
 set(PATCH_VERSION	0)
 
 ############################################
@@ -196,6 +196,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/presets/CompositionStage.h
 		include/${PROJECT_NAME}/presets/ParallaxStage.h
 		include/${PROJECT_NAME}/presets/DVRStage.h
+		include/${PROJECT_NAME}/presets/MaskRenderingStage.h
 		include/${PROJECT_NAME}/helpers/VolumeGridHelper.h
 		include/${PROJECT_NAME}/helpers/VolumeGridHelperDetails.h
 		include/${PROJECT_NAME}/helpers/FrameRendererHelper.h
@@ -280,6 +281,7 @@ set( SRC
 		src/presets/CompositionStage.cpp
 		src/presets/ParallaxStage.cpp
 		src/presets/DVRStage.cpp
+		src/presets/MaskRenderingStage.cpp
 		src/helpers/FrameRendererHelper.cpp
 		src/helpers/VolumeGridHelper.cpp
 		src/helpers/VolumeGridHelperDetails.cpp
@@ -308,6 +310,10 @@ set( SHADERS_SRC
 		src/res/mip.vert
 		src/res/dvr.frag
 		src/res/dvr.vert
+		src/res/mr.frag
+		src/res/mr.vert
+		src/res/mr-edgedetect.frag
+		src/res/mr-edgedetect.vert
 		src/res/solid.vert
 		src/res/solid.frag
 		src/res/unshaded.vert

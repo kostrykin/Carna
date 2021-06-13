@@ -29,7 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Carna
-   &#160;<span id="projectnumber">Version 3.2.0</span>
+   &#160;<span id="projectnumber">Version 3.3.0</span>
    </div>
   </td>
  </tr>
@@ -283,6 +283,10 @@ template&lt;typename Matrix &gt; </td></tr>
 <a class="el" href="namespaceCarna_1_1base_1_1math.html#a991a0f5376e1e66d3d97eafed6d057ef">Matrix4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceCarna_1_1base_1_1math.html#a622f49dce5701d7223ddea13f71c7c3a">ortho4f</a> (float left, float right, float bottom, float top, float zNear, float zFar)</td></tr>
 <tr class="memdesc:a622f49dce5701d7223ddea13f71c7c3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the projection matrix that is described by the specified box. <br /></td></tr>
 <tr class="separator:a622f49dce5701d7223ddea13f71c7c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7df18d41ce2b3b5d488313c9cc3480a9"><td class="memTemplParams" colspan="2">template&lt;typename Sampler &gt; </td></tr>
+<tr class="memitem:a7df18d41ce2b3b5d488313c9cc3480a9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceCarna_1_1base_1_1math.html#a5514f9471eeafc285ab52b33f1c79cec">base::math::Vector3f</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCarna_1_1base_1_1math.html#a7df18d41ce2b3b5d488313c9cc3480a9">computeFastGradient3f</a> (<a class="el" href="classCarna_1_1base_1_1Sampler.html">Sampler</a> func)</td></tr>
+<tr class="memdesc:a7df18d41ce2b3b5d488313c9cc3480a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes fast approximation of the gradient at the origin of the scalar field <em>func</em>.  <a href="#a7df18d41ce2b3b5d488313c9cc3480a9">More...</a><br /></td></tr>
+<tr class="separator:a7df18d41ce2b3b5d488313c9cc3480a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae661e2135fe1201f5528bde45471b7fb"><td class="memTemplParams" colspan="2"><a id="ae661e2135fe1201f5528bde45471b7fb"></a>
 template&lt;typename ScalarType &gt; </td></tr>
 <tr class="memitem:ae661e2135fe1201f5528bde45471b7fb"><td class="memTemplItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCarna_1_1base_1_1math.html#ae661e2135fe1201f5528bde45471b7fb">round_ui</a> (ScalarType x)</td></tr>
@@ -462,6 +466,31 @@ template&lt;typename T &gt; </div>
 <p>Returns \( \left\{ \begin{array}{ll} \mathrm{max} &amp; \mbox{if $\mathrm{val} &gt; \mathrm{max}$} \\ \mathrm{min} &amp; \mbox{if $\mathrm{val} &lt; \mathrm{min}$} \\ \mathrm{val} &amp; \mbox{else}.\end{array} \right. \) </p>
 
 <p class="definition">Definition at line <a class="el" href="math_8h_source.html#l00064">64</a> of file <a class="el" href="math_8h_source.html">math.h</a>.</p>
+
+</div>
+</div>
+<a id="a7df18d41ce2b3b5d488313c9cc3480a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7df18d41ce2b3b5d488313c9cc3480a9">&#9670;&nbsp;</a></span>computeFastGradient3f()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Sampler &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceCarna_1_1base_1_1math.html#a5514f9471eeafc285ab52b33f1c79cec">base::math::Vector3f</a> Carna::base::math::computeFastGradient3f </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classCarna_1_1base_1_1Sampler.html">Sampler</a>&#160;</td>
+          <td class="paramname"><em>func</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes fast approximation of the gradient at the origin of the scalar field <em>func</em>. </p>
+<dl class="section since"><dt>Since</dt><dd><a class="el" href="VersionLog.html#v_3_3_0">API Version 3.3.0</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="math_8h_source.html#l00580">580</a> of file <a class="el" href="math_8h_source.html">math.h</a>.</p>
 
 </div>
 </div>

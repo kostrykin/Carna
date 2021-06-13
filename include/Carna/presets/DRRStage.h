@@ -128,7 +128,7 @@ public:
       * Instantiates. The created stage will render such \ref base::Geometry scene
       * graph nodes, whose \ref GeometryTypes "geometry types" equal \a geometryType.
       */
-    DRRStage( unsigned int geometryType );
+    explicit DRRStage( unsigned int geometryType );
 
     /** \brief
       * Deletes.

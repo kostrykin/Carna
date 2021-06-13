@@ -29,7 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Carna
-   &#160;<span id="projectnumber">Version 3.2.0</span>
+   &#160;<span id="projectnumber">Version 3.3.0</span>
    </div>
   </td>
  </tr>
@@ -91,11 +91,12 @@ $(function() {
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="classCarna_1_1presets_1_1VolumeRenderingStage__inherit__graph.png" border="0" usemap="#Carna_1_1presets_1_1VolumeRenderingStage_inherit__map" alt="Inheritance graph"/></div>
 <map name="Carna_1_1presets_1_1VolumeRenderingStage_inherit__map" id="Carna_1_1presets_1_1VolumeRenderingStage_inherit__map">
-<area shape="rect" id="node4" href="classCarna_1_1presets_1_1DRRStage.html" title="Renders digital radiograph reconstructs of volume geometries in the scene. " alt="" coords="5,259,185,285"/>
-<area shape="rect" id="node5" href="classCarna_1_1presets_1_1DVRStage.html" title="Performs direct volume renderings of the volume geometries in the scene. " alt="" coords="210,259,389,285"/>
-<area shape="rect" id="node6" href="classCarna_1_1presets_1_1MIPStage.html" title="Renders maximum intensity projections of volume geometries in the scene. " alt="" coords="413,259,588,285"/>
-<area shape="rect" id="node2" href="classCarna_1_1base_1_1GeometryStage.html" title="Carna::base::GeometryStage\l\&lt; base::Renderable::BackToFront \&gt;" alt="" coords="184,80,415,121"/>
-<area shape="rect" id="node3" href="classCarna_1_1base_1_1RenderStage.html" title="Base abstract class of each rendering stage. Refer to the documentation of the rendering process..." alt="" coords="211,5,388,32"/>
+<area shape="rect" id="node4" href="classCarna_1_1presets_1_1DRRStage.html" title="Renders digital radiograph reconstructs of volume geometries in the scene. " alt="" coords="789,5,969,32"/>
+<area shape="rect" id="node5" href="classCarna_1_1presets_1_1DVRStage.html" title="Performs direct volume renderings of the volume geometries in the scene. " alt="" coords="790,56,969,83"/>
+<area shape="rect" id="node6" href="classCarna_1_1presets_1_1MaskRenderingStage.html" title="Renders 3D masks. " alt="" coords="776,107,983,149"/>
+<area shape="rect" id="node7" href="classCarna_1_1presets_1_1MIPStage.html" title="Renders maximum intensity projections of volume geometries in the scene. " alt="" coords="792,173,967,200"/>
+<area shape="rect" id="node2" href="classCarna_1_1base_1_1GeometryStage.html" title="Carna::base::GeometryStage\l\&lt; base::Renderable::BackToFront \&gt;" alt="" coords="231,78,461,119"/>
+<area shape="rect" id="node3" href="classCarna_1_1base_1_1RenderStage.html" title="Base abstract class of each rendering stage. Refer to the documentation of the rendering process..." alt="" coords="5,85,183,112"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -388,7 +389,7 @@ Fragment Shader</h3>
 <p>Loads video resources when rendering is triggered for the first time. Override this method if you need any additional resources to be loaded, but always call the base implementation. </p>
 <dl class="section return"><dt>Returns</dt><dd>the first texture unit to use for volume textures. The dafault implementation returns <a class="el" href="classCarna_1_1base_1_1TextureBase.html#a9383ef7089043f4e7c624068a468a21e">base::Texture&lt;0&gt;::SETUP_UNIT</a> <code>+1</code>. </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classCarna_1_1presets_1_1DRRStage.html#a332fbf13046859e78869e6edd7966874">Carna::presets::DRRStage</a>, and <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#ad64da1cbd849210e75fb4e81c0616133">Carna::presets::DVRStage</a>.</p>
+<p>Reimplemented in <a class="el" href="classCarna_1_1presets_1_1DRRStage.html#a332fbf13046859e78869e6edd7966874">Carna::presets::DRRStage</a>, <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#ad64da1cbd849210e75fb4e81c0616133">Carna::presets::DVRStage</a>, and <a class="el" href="classCarna_1_1presets_1_1MaskRenderingStage.html#aa18f319517ebce8784337a84762c8261">Carna::presets::MaskRenderingStage</a>.</p>
 
 </div>
 </div>

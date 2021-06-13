@@ -531,20 +531,19 @@ void NormalsComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::c
     const Vector3ui coordUpperBound = ( resolution.cast< int >() - Vector3i( 1, 1, 1 ) ).cast< unsigned int >();
     CARNA_FOR_VECTOR3UI_EX( coord, coordUpperBound, coordLowerBound )
     {
-        /* Sample the neighboring voxels.
+        /* Compute the gradient vector.
          */
-        const float val_0yz = grid->template getVoxel< IntensitySelector >( Vector3ui( coord.x() - 1, coord.y(), coord.z() ) );
-        const float val_1yz = grid->template getVoxel< IntensitySelector >( Vector3ui( coord.x() + 1, coord.y(), coord.z() ) );
-        const float val_x0z = grid->template getVoxel< IntensitySelector >( Vector3ui( coord.x(), coord.y() - 1, coord.z() ) );
-        const float val_x1z = grid->template getVoxel< IntensitySelector >( Vector3ui( coord.x(), coord.y() + 1, coord.z() ) );
-        const float val_xy0 = grid->template getVoxel< IntensitySelector >( Vector3ui( coord.x(), coord.y(), coord.z() - 1 ) );
-        const float val_xy1 = grid->template getVoxel< IntensitySelector >( Vector3ui( coord.x(), coord.y(), coord.z() + 1 ) );
+        const Vector3f gradient = base::math::computeFastGradient3f(
+            [this, &coord]( unsigned int dx, unsigned int dy, unsigned int dz )
+            {
+                return grid->template getVoxel< IntensitySelector >( Vector3ui( coord.x() + dx, coord.y() + dy, coord.z() + dz ) );
+            }
+        );
 
-        /* Compute the normal vector and write the result. Note that the normal
-         * vector points to the *reverse* direction of the gradient, i.e. away from
-         * the steepest ascent.
+        /* The normal vector points to the *reverse* direction of the gradient, i.e.
+         * away from the steepest ascent.
          */
-        Vector3f normal = Vector3f( val_0yz - val_1yz, val_x0z - val_x1z, val_xy0 - val_xy1 ) / 2;
+        Vector3f normal = -gradient;
         if( normal.squaredNorm() > 1e-12 )
         {
             normal.normalize();

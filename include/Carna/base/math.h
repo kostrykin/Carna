@@ -571,6 +571,25 @@ namespace math
     }
 
     /** \brief
+      * Computes fast approximation of the gradient at the origin of the scalar field
+      * \a func.
+      * 
+      * \since  \ref v_3_3_0
+      */
+    template< typename Sampler >
+    base::math::Vector3f computeFastGradient3f( Sampler func )
+    {
+        const float val_0yz = func( -1,  0,  0 );
+        const float val_1yz = func( +1,  0,  0 );
+        const float val_x0z = func(  0, -1,  0 );
+        const float val_x1z = func(  0, +1,  0 );
+        const float val_xy0 = func(  0,  0, -1 );
+        const float val_xy1 = func(  0,  0, +1 );
+
+        return base::math::Vector3f( val_1yz - val_0yz, val_x1z - val_x0z, val_xy1 - val_xy0 ) / 2;
+    }
+
+    /** \brief
       * Rounds \a x to the closest \f$x' \in \mathbb Z_{\geq 0}\f$. Either the
       * data type of \f$x\f$ must be unsigned or \f$x \geq 0\f$.
       */

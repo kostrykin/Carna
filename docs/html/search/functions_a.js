@@ -12,6 +12,7 @@ var searchData=
   ['marginleft',['marginLeft',['../classCarna_1_1base_1_1Viewport.html#a686f664322df9118a6010bde2720b172',1,'Carna::base::Viewport']]],
   ['marginright',['marginRight',['../classCarna_1_1base_1_1Viewport.html#a24d4a1bf65dd0304ea77ff8c6d49f9c9',1,'Carna::base::Viewport']]],
   ['margintop',['marginTop',['../classCarna_1_1base_1_1Viewport.html#a0b6206ff5e96aae4d87ea207ff3bfd8f',1,'Carna::base::Viewport']]],
+  ['maskrenderingstage',['MaskRenderingStage',['../classCarna_1_1presets_1_1MaskRenderingStage.html#a686e7b3f88895ddec6034e19fd60fbf9',1,'Carna::presets::MaskRenderingStage']]],
   ['material',['Material',['../classCarna_1_1base_1_1Material.html#a0e571bb93cac82234d8de709e45ad5c0',1,'Carna::base::Material']]],
   ['maxabselement',['maxAbsElement',['../namespaceCarna_1_1base_1_1math.html#ab6bf23d3a419b8eaf955ab49136b7f77',1,'Carna::base::math']]],
   ['maxdistance',['maxDistance',['../classCarna_1_1presets_1_1CameraShowcaseControl.html#a4dbaa6848736ba96671961cc503349d7',1,'Carna::presets::CameraShowcaseControl']]],

@@ -333,7 +333,7 @@ public:
       * Instantiates. The created stage will render such \ref base::Geometry scene
       * graph nodes, whose \ref GeometryTypes "geometry types" equal \a geometryType.
       */
-    VolumeRenderingStage( unsigned int geometryType );
+    explicit VolumeRenderingStage( unsigned int geometryType );
 
     /** \brief
       * Deletes.

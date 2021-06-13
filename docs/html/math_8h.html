@@ -29,7 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Carna
-   &#160;<span id="projectnumber">Version 3.2.0</span>
+   &#160;<span id="projectnumber">Version 3.3.0</span>
    </div>
   </td>
  </tr>
@@ -362,6 +362,10 @@ template&lt;typename Matrix &gt; </td></tr>
 Matrix4f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceCarna_1_1base_1_1math.html#a622f49dce5701d7223ddea13f71c7c3a">Carna::base::math::ortho4f</a> (float left, float right, float bottom, float top, float zNear, float zFar)</td></tr>
 <tr class="memdesc:a622f49dce5701d7223ddea13f71c7c3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the projection matrix that is described by the specified box. <br /></td></tr>
 <tr class="separator:a622f49dce5701d7223ddea13f71c7c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7df18d41ce2b3b5d488313c9cc3480a9"><td class="memTemplParams" colspan="2">template&lt;typename Sampler &gt; </td></tr>
+<tr class="memitem:a7df18d41ce2b3b5d488313c9cc3480a9"><td class="memTemplItemLeft" align="right" valign="top">base::math::Vector3f&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCarna_1_1base_1_1math.html#a7df18d41ce2b3b5d488313c9cc3480a9">Carna::base::math::computeFastGradient3f</a> (Sampler func)</td></tr>
+<tr class="memdesc:a7df18d41ce2b3b5d488313c9cc3480a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes fast approximation of the gradient at the origin of the scalar field <em>func</em>.  <a href="namespaceCarna_1_1base_1_1math.html#a7df18d41ce2b3b5d488313c9cc3480a9">More...</a><br /></td></tr>
+<tr class="separator:a7df18d41ce2b3b5d488313c9cc3480a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae661e2135fe1201f5528bde45471b7fb"><td class="memTemplParams" colspan="2"><a id="ae661e2135fe1201f5528bde45471b7fb"></a>
 template&lt;typename ScalarType &gt; </td></tr>
 <tr class="memitem:ae661e2135fe1201f5528bde45471b7fb"><td class="memTemplItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceCarna_1_1base_1_1math.html#ae661e2135fe1201f5528bde45471b7fb">Carna::base::math::round_ui</a> (ScalarType x)</td></tr>
@@ -422,7 +426,7 @@ template&lt;typename ResultType , typename SupportType &gt; </td></tr>
 
 <p>Loops <em>vecName</em> over all \(\vec x \in \mathbb Z^3_{\geq 0} : x_i &lt; n_i \forall i\) where \(\vec n\) is <em>vecLimit</em>. </p>
 <p>Example: </p><div class="fragment"><div class="line">    <span class="keyword">using namespace </span><a class="code" href="namespaceCarna_1_1base.html">Carna::base</a>;</div><div class="line">    <a class="code" href="classCarna_1_1base_1_1BufferedHUVolume.html">HUVolumeUInt16</a> data( <a class="code" href="namespaceCarna_1_1base_1_1math.html#a94e29f81f3a6cc27615a00fa4c143c1a">math::Vector3ui</a>( 100, 100, 30 ) );</div><div class="line">  </div><div class="line">    <span class="comment">/* Initialize all &#39;data&#39; voxels with &#39;-1024&#39;.</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">const</span> <a class="code" href="structCarna_1_1base_1_1HUV.html">HUV</a> expected = <a class="code" href="structCarna_1_1base_1_1HUV.html#af62759752fd4fc6e136c347fac57ac88">HUV::abs</a>( -1024 );</div><div class="line">    <a class="code" href="math_8h.html#a4227a757819e6a53bf8b75a6bbd01db8">CARNA_FOR_VECTOR3UI</a>( p, data.size )</div><div class="line">    {</div><div class="line">        data.setVoxel( p, expected );</div><div class="line">    }</div><div class="line">  </div><div class="line">    <span class="comment">/* Verify the result.</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keywordflow">for</span>( std::size_t i = 0; i &lt; data.buffer().size(); ++i )</div><div class="line">    {</div><div class="line">        QCOMPARE( data.buffer()[ i ], <a class="code" href="classCarna_1_1base_1_1BufferedHUVolume.html#aace355d839844fedf5d220419866d799">HUVolumeUInt16::HUVToBufferValue</a>( expected ) );</div><div class="line">    }</div></div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="math_8h_source.html#l00728">728</a> of file <a class="el" href="math_8h_source.html">math.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="math_8h_source.html#l00747">747</a> of file <a class="el" href="math_8h_source.html">math.h</a>.</p>
 
 </div>
 </div>
@@ -461,7 +465,7 @@ template&lt;typename ResultType , typename SupportType &gt; </td></tr>
 </div><!-- fragment -->
 <p>Loops <em>vecName</em> over all \(\vec x \in \mathbb Z^3_{\geq 0} : x_i &lt; n_i \wedge x_i \geq s_i \forall i\) where \(\vec n\) is <em>vecLimit</em> and \(\vec s\) is <em>vecStart</em>. </p>
 
-<p class="definition">Definition at line <a class="el" href="math_8h_source.html#l00714">714</a> of file <a class="el" href="math_8h_source.html">math.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="math_8h_source.html#l00733">733</a> of file <a class="el" href="math_8h_source.html">math.h</a>.</p>
 
 </div>
 </div>

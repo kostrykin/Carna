@@ -34,6 +34,8 @@ class TestScene
 
     base::Camera* const myCam;
 
+    base::math::Vector3f spacings;
+
 public:
 
     const static unsigned int GEOMETRY_TYPE_VOLUMETRIC = 0;
@@ -51,6 +53,12 @@ public:
     base::Camera& cam() const;
 
     void resetCamTransform();
+
+    const base::HUVolumeUInt16& volume() const;
+
+    base::math::Vector3f scale() const;
+
+    const base::math::Vector3f& getSpacings() const;
 
 }; // TestScene
 

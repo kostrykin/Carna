@@ -29,7 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Carna
-   &#160;<span id="projectnumber">Version 3.2.0</span>
+   &#160;<span id="projectnumber">Version 3.3.0</span>
    </div>
   </td>
  </tr>
@@ -332,7 +332,7 @@ Usage</h1>
 <div class="fragment"><div class="line">    dvr = <span class="keyword">new</span> presets::DVRStage( GEOMETRY_TYPE_VOLUMETRIC );</div><div class="line">    <a class="code" href="classCarna_1_1base_1_1RenderStage.html#aa6bb1002b162542d1495981098322f1d">renderer</a>-&gt;<a class="code" href="classCarna_1_1base_1_1RenderStageSequence.html#a0195f8a5a8d1a92d5ebdb475b37b9309">appendStage</a>( dvr );</div></div><!-- fragment --><p> The concept of geometry types is explained <a class="el" href="index.html#GeometryTypes">here</a>.</p>
 <dl class="section note"><dt>Note</dt><dd>In the <a class="el" href="classCarna_1_1base_1_1FrameRenderer.html#RenderingProcess">rendering process</a> this stage will usually be inserted <em>after</em> such stages that render opaque geometry, like <a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html">CuttingPlanesStage</a> and <a class="el" href="namespaceCarna_1_1presets.html#a544f1850fe5eb21b67d35bec55e6a9dd">OpaqueRenderingStage</a>.</dd></dl>
 <p>The <code>DVRStage</code> supports two types of rendering modes: Rendering with lighting enabled and rendering without lighting. In general, lighting produces more sculptural results, but it comes at the cost of additional requirements: Not only the intensity volume must be uploaded to the GPU, but also another 3D texture that maps <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#VolumeRenderingModelTexture">texture space coordinates</a> to the normal vectors of the surface at a particular location. Depending on the resolution of the data, this might cause noteworthy memory consumption.</p>
-<p>Luckily the <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html">helpers::VolumeGridHelper</a> class does everything that is needed in order to compute the normal vectors and upload them to the GPU, if it is instructed to do so: Its second type argument is optional and set to <code>void</code> by default. This disables its normal vectors support. Setting it to anything different, like <a class="el" href="namespaceCarna_1_1base.html#a003f31060d6741eee6f4c1fd6b2226a3">base::NormalMap3DInt8</a> for example, makes it compute the normal vectors when helpers::VolumeGridHelper::loadData or its <code>computeNormals</code> method are called.</p>
+<p>Luckily the <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html">helpers::VolumeGridHelper</a> class does everything that is needed in order to compute the normal vectors and upload them to the GPU, if it is instructed to do so: Its second type argument is optional and set to <code>void</code> by default. This disables its normal vectors support. Setting it to anything different, like <a class="el" href="namespaceCarna_1_1base.html#a003f31060d6741eee6f4c1fd6b2226a3">base::NormalMap3DInt8</a> for example, makes it compute the normal vectors when <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#aa512b07755c12fb4df17a6b22d6ed0b5">helpers::VolumeGridHelper::loadHUData</a> or its <code>computeNormals</code> method are called.</p>
 <p>The <code>DVRStage</code> decides which mode to use depending on whether the normal vectors are provided or not.</p>
 <h2><a class="anchor" id="DVRStageWithoutLighting"></a>
 Without Lighting</h2>
@@ -361,6 +361,9 @@ exemplary rendering with lighting from code above</div></div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Carna::presets::DVRStage::DVRStage </td>
@@ -380,6 +383,11 @@ exemplary rendering with lighting from code above</div></div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Instantiates. The created stage will render such <a class="el" href="classCarna_1_1base_1_1Geometry.html">base::Geometry</a> scene graph nodes, whose <a class="el" href="index.html#GeometryTypes">geometry types</a> equal <em>geometryType</em>. </p>
