@@ -60,10 +60,10 @@ const base::Color  MaskRenderingStage::DEFAULT_COLOR = base::Color::GREEN;
 const unsigned int MaskRenderingStage::DEFAULT_ROLE_MASK = 2;
 
 
-MaskRenderingStage::MaskRenderingStage( unsigned int geometryType, unsigned int roleMask )
+MaskRenderingStage::MaskRenderingStage( unsigned int geometryType, unsigned int maskRole )
     : VolumeRenderingStage( geometryType )
     , pimpl( new Details() )
-    , roleMask( roleMask )
+    , maskRole( maskRole )
 {
 }
 
@@ -80,7 +80,7 @@ MaskRenderingStage::~MaskRenderingStage()
 
 MaskRenderingStage* MaskRenderingStage::clone() const
 {
-    MaskRenderingStage* const result = new MaskRenderingStage( geometryType, roleMask );
+    MaskRenderingStage* const result = new MaskRenderingStage( geometryType, maskRole );
     result->setEnabled( isEnabled() );
     return result;
 }
@@ -131,54 +131,57 @@ void MaskRenderingStage::renderPass
     , base::RenderTask& rt
     , const base::Viewport& outputViewport )
 {
-    /* Copy depth buffer from output to the accumulation frame buffer.
-     */
-    const base::Viewport framebufferViewport( *pimpl->accumulationFrameBuffer );
-    const unsigned int outputFramebufferId = base::Framebuffer::currentId();
-    base::Framebuffer::copyDepthAttachment
-        ( outputFramebufferId
-        , pimpl->accumulationFrameBuffer->id
-        , outputViewport
-        , framebufferViewport );
+    if( pimpl->renderBorders )
+    {
+        /* First, render the projected mask intensities.
+         */
+        const base::Viewport framebufferViewport( *pimpl->accumulationFrameBuffer );
+        CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->accumulationFrameBuffer,
 
-    /* First, render the projected mask intensities.
-     */
-    CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->accumulationFrameBuffer,
+            /* Configure OpenGL state for accumulation pass.
+             */
+            base::RenderState rs;
+            rs.setDepthTest( true );
+            rs.setDepthWrite( true );
 
-        /* Configure OpenGL state for accumulation pass.
+            glClearColor( 0, 0, 0, 0 );
+            rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT );
+
+            framebufferViewport.makeActive();
+            VolumeRenderingStage::renderPass( vt, rt, framebufferViewport );
+            framebufferViewport.done();
+
+        );
+
+        /* Render result to output framebuffer.
+         */
+        base::RenderState rs;
+        rs.setBlendFunction( base::BlendFunction( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ) );
+        rs.setBlend( true );
+
+        base::FrameRenderer::RenderTextureParams params( 0 );
+        if( pimpl->renderBorders )
+        {
+            rs.setDepthTest ( false );
+            rs.setDepthWrite( false );
+            rt.renderer.glContext().setShader( *pimpl->edgeDetectShader );
+            base::ShaderUniform< base::math::Vector4f >( "color", pimpl->color ).upload();
+            base::ShaderUniform< base::math::Vector2f >( "steps", pimpl->textureSteps ).upload();
+            params.useDefaultShader = false;
+            params.textureUniformName = "labelMap";
+        }
+        pimpl->accumulationColorBuffer->bind( 0 );
+        rt.renderer.renderTexture( params );
+    }
+    else
+    {
+        /* Render directly to output framebuffer.
          */
         base::RenderState rs;
         rs.setDepthTest( true );
         rs.setDepthWrite( true );
-
-        glClearColor( 0, 0, 0, 0 );
-        rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT );
-
-        framebufferViewport.makeActive();
-        VolumeRenderingStage::renderPass( vt, rt, framebufferViewport );
-        framebufferViewport.done();
-
-    );
-
-    /* Render result to output framebuffer.
-     */
-    base::RenderState rs;
-    rs.setBlendFunction( base::BlendFunction( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ) );
-    rs.setBlend( true );
-
-    base::FrameRenderer::RenderTextureParams params( 0 );
-    if( pimpl->renderBorders )
-    {
-        rs.setDepthTest ( false );
-        rs.setDepthWrite( false );
-        rt.renderer.glContext().setShader( *pimpl->edgeDetectShader );
-        base::ShaderUniform< base::math::Vector4f >( "color", pimpl->color ).upload();
-        base::ShaderUniform< base::math::Vector2f >( "steps", pimpl->textureSteps ).upload();
-        params.useDefaultShader = false;
-        params.textureUniformName = "labelMap";
+        VolumeRenderingStage::renderPass( vt, rt, outputViewport );
     }
-    pimpl->accumulationColorBuffer->bind( 0 );
-    rt.renderer.renderTexture( params );
 }
 
 
@@ -186,7 +189,7 @@ void MaskRenderingStage::createVolumeSamplers( const std::function< void( unsign
 {
     /* Create sampler for the mask texture.
      */
-    registerSampler( roleMask, new base::Sampler
+    registerSampler( maskRole, new base::Sampler
         ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
         , base::Sampler::FILTER_NEAREST, base::Sampler::FILTER_NEAREST ) );
 }
@@ -201,7 +204,7 @@ const base::ShaderProgram& MaskRenderingStage::acquireShader()
 const std::string& MaskRenderingStage::uniformName( unsigned int role ) const
 {
     const static std::string ROLE_MASK_NAME = "mask";
-    if( role == roleMask )
+    if( role == maskRole )
     {
         return ROLE_MASK_NAME;
     }

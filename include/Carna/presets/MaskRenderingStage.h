@@ -65,22 +65,22 @@ class CARNA_LIB MaskRenderingStage : public VolumeRenderingStage
 public:
 
     const static base::Color  DEFAULT_COLOR;      ///< Holds the default rendering color.
-    const static unsigned int DEFAULT_ROLE_MASK;  ///< Holds the default value of \ref roleMask.
+    const static unsigned int DEFAULT_ROLE_MASK;  ///< Holds the default value of \ref maskRole.
 
     /** \brief
       * Holds the \ref GeometryFeatures "role" that mask volume data is expected to
       * take when attached to \ref base::Geometry nodes.
       */
-    const unsigned int roleMask;
+    const unsigned int maskRole;
     
     /** \brief
       * Instantiates.
       *
       * The created stage will render such \ref base::Geometry scene graph nodes,
       * whose \ref GeometryTypes "geometry types" equal \a geometryType. The mask
-      * data will be obtained from \a roleMask.
+      * data will be obtained from \a maskRole.
       */
-    explicit MaskRenderingStage( unsigned int geometryType, unsigned int roleMask = DEFAULT_ROLE_MASK );
+    explicit MaskRenderingStage( unsigned int geometryType, unsigned int maskRole = DEFAULT_ROLE_MASK );
 
     /** \brief
       * Deletes.
@@ -131,7 +131,7 @@ protected:
     virtual const base::ShaderProgram& acquireShader() override;
 
     /** \brief
-      * Maps \ref roleMask to `mask`.
+      * Maps \ref maskRole to `mask`.
       */
     virtual const std::string& uniformName( unsigned int role ) const override;
 

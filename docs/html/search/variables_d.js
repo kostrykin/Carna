@@ -11,6 +11,5 @@ var searchData=
   ['role_5fdefault_5fmesh',['ROLE_DEFAULT_MESH',['../classCarna_1_1base_1_1MeshRenderingStageBase.html#a5358a537a3fe04ff0d2a38e9c0da1ebf',1,'Carna::base::MeshRenderingStageBase']]],
   ['role_5fintensities',['ROLE_INTENSITIES',['../classCarna_1_1presets_1_1CuttingPlanesStage.html#a12dc6a142683391ac57ee94d3d9374a2',1,'Carna::presets::CuttingPlanesStage::ROLE_INTENSITIES()'],['../classCarna_1_1presets_1_1DRRStage.html#a756d7f4278f72e1b0ecb3951992d9173',1,'Carna::presets::DRRStage::ROLE_INTENSITIES()'],['../classCarna_1_1presets_1_1DVRStage.html#a18066a297641d5e032eaa43fa13797ef',1,'Carna::presets::DVRStage::ROLE_INTENSITIES()'],['../classCarna_1_1presets_1_1MIPStage.html#a08958fed6fad19969db558903e98a26f',1,'Carna::presets::MIPStage::ROLE_INTENSITIES()']]],
   ['role_5fnormals',['ROLE_NORMALS',['../classCarna_1_1presets_1_1DVRStage.html#af20fadb7f7d95b911e26d298273f4792',1,'Carna::presets::DVRStage']]],
-  ['rolemask',['roleMask',['../classCarna_1_1presets_1_1MaskRenderingStage.html#a2e28c47e1885b8f6a5f042ca92bf4c09',1,'Carna::presets::MaskRenderingStage']]],
   ['rq',['rq',['../classCarna_1_1base_1_1GeometryStage.html#a19f72e739017069d2280801be2e5b20f',1,'Carna::base::GeometryStage']]]
 ];
