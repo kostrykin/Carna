@@ -57,13 +57,13 @@ MaskRenderingStage::Details::Details()
 // ----------------------------------------------------------------------------------
 
 const base::Color  MaskRenderingStage::DEFAULT_COLOR = base::Color::GREEN;
-const unsigned int MaskRenderingStage::ROLE_DEFAULT_MASK = 2;
+const unsigned int MaskRenderingStage::DEFAULT_ROLE_MASK = 2;
 
 
-MaskRenderingStage::MaskRenderingStage( unsigned int geometryType, unsigned int maskRole )
+MaskRenderingStage::MaskRenderingStage( unsigned int geometryType, unsigned int roleMask )
     : VolumeRenderingStage( geometryType )
     , pimpl( new Details() )
-    , maskRole( maskRole )
+    , roleMask( roleMask )
 {
 }
 
@@ -80,7 +80,7 @@ MaskRenderingStage::~MaskRenderingStage()
 
 MaskRenderingStage* MaskRenderingStage::clone() const
 {
-    MaskRenderingStage* const result = new MaskRenderingStage( geometryType, maskRole );
+    MaskRenderingStage* const result = new MaskRenderingStage( geometryType, roleMask );
     result->setEnabled( isEnabled() );
     return result;
 }
@@ -186,7 +186,7 @@ void MaskRenderingStage::createVolumeSamplers( const std::function< void( unsign
 {
     /* Create sampler for the mask texture.
      */
-    registerSampler( maskRole, new base::Sampler
+    registerSampler( roleMask, new base::Sampler
         ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
         , base::Sampler::FILTER_NEAREST, base::Sampler::FILTER_NEAREST ) );
 }
@@ -201,7 +201,7 @@ const base::ShaderProgram& MaskRenderingStage::acquireShader()
 const std::string& MaskRenderingStage::uniformName( unsigned int role ) const
 {
     const static std::string ROLE_MASK_NAME = "mask";
-    if( role == maskRole )
+    if( role == roleMask )
     {
         return ROLE_MASK_NAME;
     }

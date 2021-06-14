@@ -66,7 +66,7 @@ void MaskRenderingStageTest::test_shared_geometry_node()
 
     base::BufferedVectorFieldTexture< base::IntensityVolumeUInt8 >& maskTexture
         = base::BufferedVectorFieldTexture< base::IntensityVolumeUInt8 >::create( *mask );
-    geometry.putFeature( mr->maskRole, maskTexture );
+    geometry.putFeature( mr->roleMask, maskTexture );
     maskTexture.release();
 
     renderer->render( scene->cam(), *scene->root );
@@ -93,7 +93,7 @@ void MaskRenderingStageTest::test_dedicated_geometry_node()
     base::BufferedVectorFieldTexture< base::IntensityVolumeUInt8 >& maskTexture
         = base::BufferedVectorFieldTexture< base::IntensityVolumeUInt8 >::create( *mask );
     base::Geometry* const geometry = new base::Geometry( GEOMETRY_TYPE_MASK );
-    geometry->putFeature( mr->maskRole, maskTexture );
+    geometry->putFeature( mr->roleMask, maskTexture );
     geometry->localTransform = base::math::scaling4f( scene->scale() );
     scene->root->attachChild( geometry );
     maskTexture.release();

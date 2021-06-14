@@ -253,7 +253,7 @@ void DRRStage::renderPass
 
 void DRRStage::createVolumeSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler )
 {
-    registerSampler( ROLE_INTENSITY_VOLUME, new base::Sampler
+    registerSampler( ROLE_INTENSITIES, new base::Sampler
         ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
         , base::Sampler::FILTER_LINEAR, base::Sampler::FILTER_LINEAR ) );
 }
@@ -267,12 +267,12 @@ const base::ShaderProgram& DRRStage::acquireShader()
 
 const std::string& DRRStage::uniformName( unsigned int role ) const
 {
-    const static std::string ROLE_INTENSITY_VOLUME_NAME = "huVolume";
+    const static std::string ROLE_INTENSITIES_NAME = "huVolume";
     switch( role )
     {
 
-    case ROLE_INTENSITY_VOLUME:
-        return ROLE_INTENSITY_VOLUME_NAME;
+    case ROLE_INTENSITIES:
+        return ROLE_INTENSITIES_NAME;
 
     default:
         CARNA_FAIL( "unknown role" );

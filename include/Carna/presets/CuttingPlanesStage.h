@@ -71,7 +71,7 @@ public:
       * Holds the \ref GeometryFeatures "role" that intensity volume data is expected
       * to take when attached to \ref base::Geometry nodes.
       */
-    const static unsigned int ROLE_INTENSITY_VOLUME;
+    const static unsigned int ROLE_INTENSITIES;
 
     /** \brief
       * Instantiates.

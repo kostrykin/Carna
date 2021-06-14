@@ -390,7 +390,7 @@ template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType
 SegmentIntensityVolumeType& VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::IntensitySelector::volume
     ( VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment )
 {
-    return segment.intensityVolume();
+    return segment.intensities();
 }
 
 
@@ -398,7 +398,7 @@ template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType
 const SegmentIntensityVolumeType& VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::IntensitySelector::volume
     ( const VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment )
 {
-    return segment.intensityVolume();
+    return segment.intensities();
 }
 
 

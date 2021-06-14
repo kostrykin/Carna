@@ -110,7 +110,7 @@ public:
       * Holds the \ref GeometryFeatures "role" that intensity volume data is expected
       * to take when attached to \ref base::Geometry nodes.
       */
-    const static unsigned int ROLE_INTENSITY_VOLUME = 0;
+    const static unsigned int ROLE_INTENSITIES = 0;
     
     /** \brief
       * Holds the \ref GeometryFeatures "role" that the normal map is expected to
@@ -222,7 +222,7 @@ protected:
     virtual const base::ShaderProgram& acquireShader() override;
 
     /** \brief
-      * Maps \ref ROLE_INTENSITY_VOLUME to `huVolume` and \ref ROLE_NORMALS to `normalMap`.
+      * Maps \ref ROLE_INTENSITIES to `huVolume` and \ref ROLE_NORMALS to `normalMap`.
       */
     virtual const std::string& uniformName( unsigned int role ) const override;
 

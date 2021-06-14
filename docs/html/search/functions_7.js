@@ -3,7 +3,7 @@ var searchData=
   ['hasboundingvolume',['hasBoundingVolume',['../classCarna_1_1base_1_1Geometry.html#a83f6858c2a921f6c40243f4e26ce05aa',1,'Carna::base::Geometry']]],
   ['haschild',['hasChild',['../classCarna_1_1base_1_1Node.html#a6d77da1a33ebda532f15bb133bd5d778',1,'Carna::base::Node']]],
   ['hasfeature',['hasFeature',['../classCarna_1_1base_1_1Geometry.html#a3872b346aa4cdca133d4b38b0722325b',1,'Carna::base::Geometry::hasFeature(const GeometryFeature &amp;feature) const'],['../classCarna_1_1base_1_1Geometry.html#ad1d73fa80f81623eaa253254702693c1',1,'Carna::base::Geometry::hasFeature(unsigned int role) const']]],
-  ['hasintensityvolume',['hasIntensityVolume',['../classCarna_1_1base_1_1VolumeSegment.html#ac88636cd53a3f3e30ca2c3ca3364a615',1,'Carna::base::VolumeSegment']]],
+  ['hasintensities',['hasIntensities',['../classCarna_1_1base_1_1VolumeSegment.html#ab2d4ede2d9de05ecd0ffaa51a1c14ef4',1,'Carna::base::VolumeSegment']]],
   ['hasmovedspatial',['hasMovedSpatial',['../classCarna_1_1base_1_1SpatialMovement.html#a39414c0fba519efb35ea3eb190ea7ea3',1,'Carna::base::SpatialMovement']]],
   ['hasnormals',['hasNormals',['../classCarna_1_1base_1_1VolumeSegmentNormalsComponent.html#a4f309dd5b2865c7084ecb0816fe2e609',1,'Carna::base::VolumeSegmentNormalsComponent']]],
   ['hasparameter',['hasParameter',['../classCarna_1_1base_1_1Material.html#a2cd5c3d4efe3d259bf18f934fc30a877',1,'Carna::base::Material']]],

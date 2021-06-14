@@ -479,7 +479,7 @@ base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeTy
                segmentCoord.x() + 1 == myGrid->segmentCounts.x()
             || segmentCoord.y() + 1 == myGrid->segmentCounts.y()
             || segmentCoord.z() + 1 == myGrid->segmentCounts.z();
-        const base::math::Vector3ui& volumeSize = segment.intensityVolume().size;
+        const base::math::Vector3ui& volumeSize = segment.intensities().size;
         const base::math::Vector3f dimensions = !isTail ? regularSegmentDimensions
             : ( ( volumeSize.cast< int >() - base::math::Vector3i( 1, 1, 1 ) )
                 .cast< float >().cwiseProduct( spacing.millimeters ) );

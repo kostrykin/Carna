@@ -70,7 +70,7 @@ void VolumeGridTestUInt16::test_parenthesisOperator()
     {
         base::VolumeSegment< base::IntensityVolumeUInt16, void >& segment = grid->segmentAt( segCoord.x(), segCoord.y(), segCoord.z() );
         base::IntensityVolumeUInt16* const volume = new base::IntensityVolumeUInt16( grid->maxSegmentSize );
-        segment.setIntensityVolume( new base::Composition< base::IntensityVolumeUInt16 >( volume ) );
+        segment.setIntensities( new base::Composition< base::IntensityVolumeUInt16 >( volume ) );
 
         /* Load segment volume data.
         */
@@ -156,7 +156,7 @@ void VolumeGridTestUInt8::test_parenthesisOperator1()
     {
         base::VolumeSegment< base::IntensityVolumeUInt8, void >& segment = grid->segmentAt( segCoord.x(), segCoord.y(), segCoord.z() );
         base::IntensityVolumeUInt8* const volume = new base::IntensityVolumeUInt8( grid->maxSegmentSize );
-        segment.setIntensityVolume( new base::Composition< base::IntensityVolumeUInt8 >( volume ) );
+        segment.setIntensities( new base::Composition< base::IntensityVolumeUInt8 >( volume ) );
 
         /* Load segment volume data.
         */
@@ -210,7 +210,7 @@ void VolumeGridTestUInt8::test_parenthesisOperator2()
     {
         base::VolumeSegment< base::IntensityVolumeUInt8, void >& segment = grid->segmentAt( segCoord.x(), segCoord.y(), segCoord.z() );
         base::IntensityVolumeUInt8* const volume = new base::IntensityVolumeUInt8( grid->maxSegmentSize );
-        segment.setIntensityVolume( new base::Composition< base::IntensityVolumeUInt8 >( volume ) );
+        segment.setIntensities( new base::Composition< base::IntensityVolumeUInt8 >( volume ) );
 
         /* Load segment volume data.
         */

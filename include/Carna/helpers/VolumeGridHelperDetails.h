@@ -50,7 +50,7 @@ namespace VolumeGridHelper
 
 /** \brief
   * Creates \ref base::ManagedTexture3D "textures" that represents
-  * \ref base::VolumeSegment::intensityVolume in video memory.
+  * \ref base::VolumeSegment::intensities in video memory.
   *
   * \author Leonid Kostrykin
   * \date   26.3.15 - 27.3.15
@@ -70,7 +70,7 @@ struct IntensityTextureFactory
 
     /** \brief
       * Creates \ref base::ManagedTexture3D "texture" that represents the
-      * \ref base::VolumeSegment::intensityVolume of \a segment in video memory.
+      * \ref base::VolumeSegment::intensities of \a segment in video memory.
       */
     static base::ManagedTexture3D& createTexture
         ( const base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment );
@@ -81,7 +81,7 @@ template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType
 base::ManagedTexture3D& IntensityTextureFactory< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::createTexture
     ( const base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment )
 {
-    return base::BufferedVectorFieldTexture< SegmentIntensityVolumeType >::create( segment.intensityVolume() );
+    return base::BufferedVectorFieldTexture< SegmentIntensityVolumeType >::create( segment.intensities() );
 }
 
 
@@ -268,12 +268,12 @@ public:
       * Holds the default \ref GeometryTypes "role" to use for
       * \ref attachTexture "attaching textures" to \ref base::Geometry nodes.
       */
-    const static unsigned int DEFAULT_ROLE_INTENSITY_VOLUME = 0;
+    const static unsigned int DEFAULT_ROLE_INTENSITIES = 0;
 
     /** \brief
       * Sets the \ref GeometryTypes "role" to use for
       * \ref attachTexture "attaching textures" to \ref base::Geometry nodes to
-      * \ref DEFAULT_ROLE_INTENSITY_VOLUME.
+      * \ref DEFAULT_ROLE_INTENSITIES.
       */
     IntensityComponent();
 
@@ -281,27 +281,27 @@ public:
       * Sets the \ref GeometryTypes "role" to use for
       * \ref attachTexture "attaching textures" to \ref base::Geometry nodes.
       */
-    void setIntensityVolumeRole( unsigned int role );
+    void setIntensitiesRole( unsigned int role );
     
     /** \brief
       * Tels the \ref GeometryTypes "role" used for
       * \ref attachTexture "attaching textures" to \ref base::Geometry nodes.
       */
-    unsigned int intensityVolumeRole() const;
+    unsigned int intensitiesRole() const;
 
 protected:
 
     /** \brief
       * Attaches the \ref base::ManagedTexture3D "texture" that represents the
-      * \ref base::VolumeSegment::intensityVolume of \a segment to \a geometry
-      * using the \ref setIntensityVolumeRole "previously configured role".
+      * \ref base::VolumeSegment::intensities of \a segment to \a geometry
+      * using the \ref setIntensitiesRole "previously configured role".
       */
     void attachTexture
         ( base::Geometry& geometry
         , const base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment ) const;
 
     /** \brief
-      * Initializes \ref base::VolumeSegment::setIntensityVolume "intensity volume" of \a segment.
+      * Initializes \ref base::VolumeSegment::setIntensities "intensity volume" of \a segment.
       */
     void initializeSegment
         ( base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment
@@ -312,20 +312,20 @@ protected:
 
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::IntensityComponent()
-    : role( DEFAULT_ROLE_INTENSITY_VOLUME )
+    : role( DEFAULT_ROLE_INTENSITIES )
 {
 }
 
 
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
-void IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::setIntensityVolumeRole( unsigned int role )
+void IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::setIntensitiesRole( unsigned int role )
 {
     this->role = role;
 }
 
 
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
-unsigned int IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::intensityVolumeRole() const
+unsigned int IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::intensitiesRole() const
 {
     return role;
 }
@@ -346,8 +346,8 @@ void IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >:
     ( base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment
     , const base::math::Vector3ui& size ) const
 {
-    SegmentIntensityVolumeType* const intensityVolume = new SegmentIntensityVolumeType( size );
-    segment.setIntensityVolume( new base::Composition< SegmentIntensityVolumeType >( intensityVolume ) );
+    SegmentIntensityVolumeType* const intensities = new SegmentIntensityVolumeType( size );
+    segment.setIntensities( new base::Composition< SegmentIntensityVolumeType >( intensities ) );
 }
 
 

@@ -1,7 +1,6 @@
 var searchData=
 [
   ['managed',['managed',['../classCarna_1_1base_1_1ManagedMeshInterface.html#a423c284ef2ab303e4de5deca2db127f4',1,'Carna::base::ManagedMeshInterface::managed()'],['../classCarna_1_1base_1_1ManagedTexture3DInterface.html#aa93c7ffafa8896a394a9e1b108968b87',1,'Carna::base::ManagedTexture3DInterface::managed()']]],
-  ['maskrole',['maskRole',['../classCarna_1_1presets_1_1MaskRenderingStage.html#acf1c393bf132bf0af4cf09be9fb6a52f',1,'Carna::presets::MaskRenderingStage']]],
   ['material',['material',['../classCarna_1_1base_1_1Material_1_1ManagedInterface.html#a5b9e08ef0dcab5d5763b2ea7048c125f',1,'Carna::base::Material::ManagedInterface']]],
   ['materialrole',['materialRole',['../classCarna_1_1helpers_1_1PointMarkerHelper.html#ac8537d5a2dcf06ac5e0794ad886c311a',1,'Carna::helpers::PointMarkerHelper']]],
   ['maximum_5fallowed_5fcolor_5fcomponents',['MAXIMUM_ALLOWED_COLOR_COMPONENTS',['../classCarna_1_1base_1_1Framebuffer.html#a5dcdc1bd369ebf9b140738fe3f52805a',1,'Carna::base::Framebuffer']]],

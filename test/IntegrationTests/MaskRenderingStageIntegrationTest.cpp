@@ -83,7 +83,7 @@ void MaskRenderingStageIntegrationTest::test_shared_geometry_node()
     //! [create_mask]
 
     //! [attach_mask]
-    geometry.putFeature( mr->maskRole, maskTexture );
+    geometry.putFeature( mr->roleMask, maskTexture );
     maskTexture.release();
     //! [attach_mask]
 
@@ -111,7 +111,7 @@ void MaskRenderingStageIntegrationTest::test_dedicated_geometry_node()
     base::BufferedVectorFieldTexture< base::IntensityVolumeUInt8 >& maskTexture
         = base::BufferedVectorFieldTexture< base::IntensityVolumeUInt8 >::create( *mask );
     base::Geometry* const geometry = new base::Geometry( GEOMETRY_TYPE_MASK );
-    geometry->putFeature( mr->maskRole, maskTexture );
+    geometry->putFeature( mr->roleMask, maskTexture );
     geometry->localTransform = base::math::scaling4f( scene->scale() );
     scene->root->attachChild( geometry );
     maskTexture.release();
@@ -134,7 +134,7 @@ void MaskRenderingStageIntegrationTest::test_helper_geometry_node()
      */
     typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt8 > UInt8GridHelper;
     UInt8GridHelper gridHelper( scene.volume().size );
-    gridHelper.setIntensityVolumeRole( mr->maskRole );
+    gridHelper.setIntensitiesRole( mr->roleMask );
     gridHelper.loadIntensities( [&scene]( const base::math::Vector3ui& voxel )
         {
             return ( scene.volume()( voxel ) + 1024 ) * 16 > 48000 ? 1.f : 0.f;
@@ -163,7 +163,7 @@ void MaskRenderingStageIntegrationTest::test_render_borders()
      */
     typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt8 > UInt8GridHelper;
     UInt8GridHelper gridHelper( scene.volume().size );
-    gridHelper.setIntensityVolumeRole( mr->maskRole );
+    gridHelper.setIntensitiesRole( mr->roleMask );
     gridHelper.loadIntensities( [&scene]( const base::math::Vector3ui& voxel )
         {
             return ( scene.volume()( voxel ) + 1024 ) * 16 > 10000 ? 1.f : 0.f;

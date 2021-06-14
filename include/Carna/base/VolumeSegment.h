@@ -201,22 +201,22 @@ public:
     /** \brief
       * Sets the intensity volume data of this partition.
       */
-    void setIntensityVolume( Association< SegmentIntensityVolumeType >* intensityVolume );
+    void setIntensities( Association< SegmentIntensityVolumeType >* intensities );
 
     /** \brief
       * References the intensity volume data of this partition.
-      * \pre `hasIntensityVolume() == true`
+      * \pre `hasIntensities() == true`
       */
-    SegmentIntensityVolumeType& intensityVolume();
+    SegmentIntensityVolumeType& intensities();
 
     /** \overload
       */
-    const SegmentIntensityVolumeType& intensityVolume() const;
+    const SegmentIntensityVolumeType& intensities() const;
 
     /** \brief
       * Tells whether this partition has intensity volume data associated.
       */
-    bool hasIntensityVolume() const;
+    bool hasIntensities() const;
 
     /** \brief
       * Holds the coordinate offset this partition within the \ref grid "whole"
@@ -226,7 +226,7 @@ public:
 
 private:
 
-    std::unique_ptr< Association< SegmentIntensityVolumeType > > myIntensityVolume;
+    std::unique_ptr< Association< SegmentIntensityVolumeType > > myIntensities;
 
 }; // VolumeSegment
 
@@ -240,32 +240,32 @@ VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::VolumeSeg
 
 
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
-void VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::setIntensityVolume( Association< SegmentIntensityVolumeType >* intensityVolume )
+void VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::setIntensities( Association< SegmentIntensityVolumeType >* intensities )
 {
-    myIntensityVolume.reset( intensityVolume );
+    myIntensities.reset( intensities );
 }
 
 
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
-SegmentIntensityVolumeType& VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::intensityVolume()
+SegmentIntensityVolumeType& VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::intensities()
 {
-    CARNA_ASSERT( hasIntensityVolume() );
-    return **myIntensityVolume;
+    CARNA_ASSERT( hasIntensities() );
+    return **myIntensities;
 }
 
 
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
-const SegmentIntensityVolumeType& VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::intensityVolume() const
+const SegmentIntensityVolumeType& VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::intensities() const
 {
-    CARNA_ASSERT( hasIntensityVolume() );
-    return **myIntensityVolume;
+    CARNA_ASSERT( hasIntensities() );
+    return **myIntensities;
 }
 
 
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
-bool VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::hasIntensityVolume() const
+bool VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::hasIntensities() const
 {
-    return myIntensityVolume.get() != nullptr && myIntensityVolume->get() != nullptr;
+    return myIntensities.get() != nullptr && myIntensities->get() != nullptr;
 }
 
 
