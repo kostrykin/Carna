@@ -453,15 +453,32 @@ template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType
 base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::createNode
     ( unsigned int geometryType, const Spacing& spacing, const Dimensions& dimensions ) const
 {
-    /* Compute dimensions of a regular grid segment,
-     * taking the redundant texels into account.
+    /* Compute dimensions of a regular grid segment, taking the redundant texels into
+     * account. Regular segments have `regularPartitionSize + 1` texels per dimension
+     * which is due to the redundant pixels.
      */
     const base::math::Vector3f regularSegmentDimensions = dimensions.millimeters.cwiseMin( base::math::Vector3f
         ( spacing.millimeters.x() * partitioningX.regularPartitionSize
         , spacing.millimeters.y() * partitioningY.regularPartitionSize
         , spacing.millimeters.z() * partitioningZ.regularPartitionSize ) );
     
-    /* Create pivot node that shifts it's children to a corner.
+    /* Create pivot node that centers its children.
+     *
+     * Suppose the following example grid layout, where p is the absolute center and
+     * q is the center of the first segment:
+     *
+     *     o-------o-------o---o
+     *     |   q   |       |   |
+     *     o-------o-------o---o
+     *     |       | p     |   |
+     *     o-------o-------o---o
+     *     |       |       |   |
+     *     o-------o-------o---o
+     *
+     * Each segment is rendered around its local center. Thus, the translation T
+     * required to center the volume geometry in the origin, corresponds to:
+     *
+     *     T = -p + q
      */
     base::Node* const pivot = new base::Node();
     pivot->localTransform = base::math::translation4f( ( regularSegmentDimensions - dimensions.millimeters ) / 2 );
@@ -475,14 +492,14 @@ base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeTy
 
         /* Compute dimensions of particular grid segment.
          */
-        const bool isTail =
-               segmentCoord.x() + 1 == myGrid->segmentCounts.x()
-            || segmentCoord.y() + 1 == myGrid->segmentCounts.y()
-            || segmentCoord.z() + 1 == myGrid->segmentCounts.z();
-        const base::math::Vector3ui& volumeSize = segment.intensities().size;
-        const base::math::Vector3f dimensions = !isTail ? regularSegmentDimensions
-            : ( ( volumeSize.cast< int >() - base::math::Vector3i( 1, 1, 1 ) )
-                .cast< float >().cwiseProduct( spacing.millimeters ) );
+        const bool isTailX = segmentCoord.x() + 1 == myGrid->segmentCounts.x();
+        const bool isTailY = segmentCoord.y() + 1 == myGrid->segmentCounts.y();
+        const bool isTailZ = segmentCoord.z() + 1 == myGrid->segmentCounts.z();
+        const base::math::Vector3ui& volumeSize = segment.intensities().size; // includes redundant pixels (only along non-tail dimensions)
+        const base::math::Vector3f segmentDimensions
+            ( isTailX ? ( volumeSize.x() - 1 ) * spacing.millimeters.x() : regularSegmentDimensions.x()
+            , isTailY ? ( volumeSize.y() - 1 ) * spacing.millimeters.y() : regularSegmentDimensions.y()
+            , isTailZ ? ( volumeSize.z() - 1 ) * spacing.millimeters.z() : regularSegmentDimensions.z() );
 
         /* Create geometry node for particular grid segment.
          */
@@ -493,15 +510,22 @@ base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeTy
         geom->setMovable( false );
         geom->setBoundingVolume( new base::BoundingBox( 1, 1, 1 ) );
         geom->localTransform
-            = base::math::translation4f( segmentCoord.cast< float >().cwiseProduct( regularSegmentDimensions )
-                - ( !isTail
-                    ? base::math::Vector3f( 0, 0, 0 )
-                    : ( regularSegmentDimensions - dimensions ) / 2 ) )
-            * base::math::scaling4f( dimensions );
+            = base::math::translation4f
+                ( segmentCoord.x() * regularSegmentDimensions.x() - ( isTailX ? ( regularSegmentDimensions.x() - segmentDimensions.x() ) / 2 : 0 )
+                , segmentCoord.y() * regularSegmentDimensions.y() - ( isTailY ? ( regularSegmentDimensions.y() - segmentDimensions.y() ) / 2 : 0 )
+                , segmentCoord.z() * regularSegmentDimensions.z() - ( isTailZ ? ( regularSegmentDimensions.z() - segmentDimensions.z() ) / 2 : 0 ) )
+            * base::math::scaling4f( segmentDimensions );
     }
 
     /* We're done.
      */
+    base::Log::instance().record( base::Log::debug
+        , "VolumeGridHelper computed "
+        + base::text::lexical_cast< std::string >( 8 * sizeof( typename SegmentIntensityVolumeType::Voxel ) )
+        + "bit grid data using "
+        + base::text::lexical_cast< std::string >( myGrid->segmentCounts.x() ) + "×"
+        + base::text::lexical_cast< std::string >( myGrid->segmentCounts.y() ) + "×"
+        + base::text::lexical_cast< std::string >( myGrid->segmentCounts.z() ) + " segments" );
     return pivot;
 }
 
@@ -511,7 +535,7 @@ base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeTy
     ( unsigned int geometryType, const Spacing& spacing ) const
 {
     const base::math::Vector3f dimensions
-        = ( resolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >().cwiseProduct( spacing.millimeters );
+        = ( nativeResolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >().cwiseProduct( spacing.millimeters );
     return createNode( geometryType, spacing, Dimensions( dimensions ) );
 }
 
@@ -522,7 +546,7 @@ base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeTy
 {
     const base::math::Vector3f& mmDimensions = dimensions.millimeters;
     const base::math::Vector3f spacing
-        = mmDimensions.cast< float >().cwiseQuotient( ( resolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >() );
+        = mmDimensions.cast< float >().cwiseQuotient( ( nativeResolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >() );
     return createNode( geometryType, Spacing( spacing ), dimensions );
 }
 

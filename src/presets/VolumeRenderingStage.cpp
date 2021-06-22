@@ -289,7 +289,7 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
     );
 
     /* We assume here that the texture coordinates correction is same for all
-     * textures, i.e. all textures have same resolution.
+     * textures, i.e. all textures *of one geometry node* have same resolution.
      */
     const Matrix4f modelTexture =
         ( anyTexture == nullptr ? base::math::identity4f() : anyTexture->textureCoordinatesCorrection )

@@ -62,6 +62,10 @@ namespace Carna
   * - Added \ref presets::MaskRenderingStage.
   * - Added \ref base::math::computeFastGradient3f.
   * - Renamed most occurances of "intensity volume" in attributes/fields/methods to "intensities" to be more consistent with "normals".
+  *
+  * \subsection v_3_3_1 API Version 3.3.1
+  *
+  * - Fixes bug which may have caused volume data being rendered slightly displaced due to padding (up to one voxel).
   */
   
 }  // namespace Carna
