@@ -66,6 +66,10 @@ namespace Carna
   * \subsection v_3_3_1 API Version 3.3.1
   *
   * - Fixes bug which may have caused volume data being rendered slightly displaced due to padding (up to one voxel).
+  *
+  * \subsection v_3_3_2 API Version 3.3.2
+  *
+  * - Fixes a six-year-old bug in \ref presets::VolumeRenderingStage which caused rendering artifacts at specific angles when rendering strongly anistropic volumes. There was a work-around previously implemented which, however, was not 100% reliable, and came at the cost of forcing a sample rate twice as high as specified. Since this work-around has been removed now, the specified sample rate is used (which effectively is twice as low as before). This means that same rates must be doubled to yield the same results as before (note that the *effective* sample rate will be the same then, meaning that rendering performance will be the same, in terms of both quality and time, but without the artifacts). \ref presets::VolumeRenderingStage::DEFAULT_SAMPLE_RATE has thus been doubled.
   */
   
 }  // namespace Carna

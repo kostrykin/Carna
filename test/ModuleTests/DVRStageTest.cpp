@@ -83,8 +83,8 @@ void DVRStageTest::test_withLighting()
     //! [dvr_setup_with_lighting]
     dvr->writeColorMap( base::HUV( -400 ).absIntensity(), base::HUV(   0 ).absIntensity(), base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
     dvr->writeColorMap( base::HUV(    0 ).absIntensity(), base::HUV( 400 ).absIntensity(), base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
-    dvr->setSampleRate( 500 );
-    dvr->setTranslucence( 2 );
+    dvr->setSampleRate( 1000 );
+    dvr->setTranslucence(  2 );
     //! [dvr_setup_with_lighting]
 
     /* Render and verify.

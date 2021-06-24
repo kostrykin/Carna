@@ -29,7 +29,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Carna
-   &#160;<span id="projectnumber">Version 3.3.1</span>
+   &#160;<span id="projectnumber">Version 3.3.2</span>
    </div>
   </td>
  </tr>
@@ -255,7 +255,7 @@ static const float&#160;</td><td class="memItemRight" valign="bottom"><a class="
 <tr class="separator:a2620e0b5e9fb545daccc6985dd04d542"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_attribs_classCarna_1_1presets_1_1VolumeRenderingStage"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classCarna_1_1presets_1_1VolumeRenderingStage')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html">Carna::presets::VolumeRenderingStage</a></td></tr>
 <tr class="memitem:a9f7a5cbbdb68dcaac5ce451bf9a0a1cc inherit pub_static_attribs_classCarna_1_1presets_1_1VolumeRenderingStage"><td class="memItemLeft" align="right" valign="top"><a id="a9f7a5cbbdb68dcaac5ce451bf9a0a1cc"></a>
-static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#a9f7a5cbbdb68dcaac5ce451bf9a0a1cc">DEFAULT_SAMPLE_RATE</a> = 100</td></tr>
+static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#a9f7a5cbbdb68dcaac5ce451bf9a0a1cc">DEFAULT_SAMPLE_RATE</a> = 200</td></tr>
 <tr class="memdesc:a9f7a5cbbdb68dcaac5ce451bf9a0a1cc inherit pub_static_attribs_classCarna_1_1presets_1_1VolumeRenderingStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the default number of slices rendered per segment. <br /></td></tr>
 <tr class="separator:a9f7a5cbbdb68dcaac5ce451bf9a0a1cc inherit pub_static_attribs_classCarna_1_1presets_1_1VolumeRenderingStage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -347,7 +347,7 @@ Translucence</h2>
 <h2><a class="anchor" id="DVRStageWithLighting"></a>
 With Lighting Enabled</h2>
 <p>The <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#af2a4b97c2ff4ce9a6f1f8e9a39e883f0">default translucence</a> is quite high, which is fine for rendering without lighting. You might consider setting it down when rendering with lighting enabled:</p>
-<div class="fragment"><div class="line">    dvr-&gt;writeColorMap( base::HUV( -400 ).absIntensity(), base::HUV(   0 ).absIntensity(), <a class="code" href="classCarna_1_1base_1_1Color.html#a1bd03dc1046c892458601ba476753ad2">base::Color:: BLUE_NO_ALPHA</a>, <a class="code" href="classCarna_1_1base_1_1Color.html#ae8016cf1e0e2a8bec6e13133a025b225">base::Color:: BLUE</a> );</div><div class="line">    dvr-&gt;writeColorMap( base::HUV(    0 ).absIntensity(), base::HUV( 400 ).absIntensity(), <a class="code" href="classCarna_1_1base_1_1Color.html#a1a5bab6305609743f339da348b9859e8">base::Color::GREEN_NO_ALPHA</a>, <a class="code" href="classCarna_1_1base_1_1Color.html#a28175c253a2e98e62537ad35eef17ff9">base::Color::GREEN</a> );</div><div class="line">    dvr-&gt;setSampleRate( 500 );</div><div class="line">    dvr-&gt;setTranslucence( 2 );</div></div><!-- fragment --><p> This gives the following rendering: </p><div class="image">
+<div class="fragment"><div class="line">    dvr-&gt;writeColorMap( base::HUV( -400 ).absIntensity(), base::HUV(   0 ).absIntensity(), <a class="code" href="classCarna_1_1base_1_1Color.html#a1bd03dc1046c892458601ba476753ad2">base::Color:: BLUE_NO_ALPHA</a>, <a class="code" href="classCarna_1_1base_1_1Color.html#ae8016cf1e0e2a8bec6e13133a025b225">base::Color:: BLUE</a> );</div><div class="line">    dvr-&gt;writeColorMap( base::HUV(    0 ).absIntensity(), base::HUV( 400 ).absIntensity(), <a class="code" href="classCarna_1_1base_1_1Color.html#a1a5bab6305609743f339da348b9859e8">base::Color::GREEN_NO_ALPHA</a>, <a class="code" href="classCarna_1_1base_1_1Color.html#a28175c253a2e98e62537ad35eef17ff9">base::Color::GREEN</a> );</div><div class="line">    dvr-&gt;setSampleRate( 1000 );</div><div class="line">    dvr-&gt;setTranslucence(  2 );</div></div><!-- fragment --><p> This gives the following rendering: </p><div class="image">
 <img src="withLighting.png" alt="withLighting.png"/>
 <div class="caption">
 exemplary rendering with lighting from code above</div></div>

@@ -106,9 +106,12 @@ VolumeRenderingStage::VideoResources::SlicesMesh* VolumeRenderingStage::VideoRes
      *
      * ** NOTE: **  We also use the double sample rate here to achieve rendering
      *              results that look the same at the cost of a lower frame rate.
+     *
+     * ** Update 24.6.2021: **  This has apparently finally been fixed, so we will
+     *                          return to using factor 1 (see Version 3.3.2 notes).
      */
-    const float radius = idealRadius * 2;
-    sampleRate = 2 * sampleRate;
+    const float radius = idealRadius * 1;
+    sampleRate = 1 * sampleRate;
     
     /* Create slices.
      */
@@ -237,6 +240,31 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
     const Vector4f modelBitangent = ( viewModel * Vector4f( 0, 1, 0, 0 ) ).normalized();
     const Matrix4f tangentModel   = base::math::basis4f( modelTangent, modelBitangent, modelNormal );
 
+    /* Compute the scale to fit the minimum bounding ellipsoid of the volume.
+     */
+    const Matrix4f tangentModelInverse = tangentModel.inverse();
+    base::math::Vector4f corners[] =
+    {
+        tangentModelInverse * base::math::Vector4f( -0.5f, -0.5f, -0.5f, 1.0f ),
+        tangentModelInverse * base::math::Vector4f( -0.5f, -0.5f,  0.5f, 1.0f ),
+        tangentModelInverse * base::math::Vector4f( -0.5f,  0.5f, -0.5f, 1.0f ),
+        tangentModelInverse * base::math::Vector4f( -0.5f,  0.5f,  0.5f, 1.0f ),
+        tangentModelInverse * base::math::Vector4f(  0.5f, -0.5f, -0.5f, 1.0f ),
+        tangentModelInverse * base::math::Vector4f(  0.5f, -0.5f,  0.5f, 1.0f ),
+        tangentModelInverse * base::math::Vector4f(  0.5f,  0.5f, -0.5f, 1.0f ),
+        tangentModelInverse * base::math::Vector4f(  0.5f,  0.5f,  0.5f, 1.0f )
+    };
+    const float inf = std::numeric_limits< float >::infinity();
+    base::math::Vector3f cornersMinima( inf, inf, inf ), cornersMaxima( -inf, -inf, -inf );
+    for( std::size_t cornerIdx = 0; cornerIdx < 8; ++cornerIdx )
+    for( unsigned char componentIdx = 0; componentIdx < 3; ++componentIdx )
+    {
+        cornersMinima[ componentIdx ] = std::min( cornersMinima[ componentIdx ], corners[ cornerIdx ][ componentIdx ] );
+        cornersMaxima[ componentIdx ] = std::max( cornersMaxima[ componentIdx ], corners[ cornerIdx ][ componentIdx ] );
+    }
+    const base::math::Vector3f scale = ( cornersMinima.cwiseAbs().cwiseMax( cornersMaxima.cwiseAbs() ) / 0.5f )
+        .cwiseMax( base::math::Vector3f( 1, 1, 1 ) );
+
     /* Lets compute the distance between the slices only if the shader requires this,
      * i.e. it has an uniform named 'stepLength' defined. Initially however we assume
      * that the shader does require this value.
@@ -254,8 +282,8 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
         const Vector4f modelFirstSlice = base::math::vector4< float, 4 >( -modelLastSlice, 1 );
         const Vector4f worldLastSlice  = renderable.geometry().worldTransform() * modelLastSlice;
         const Vector4f worldFirstSlice = renderable.geometry().worldTransform() * modelFirstSlice;
-        const float totalLength = base::math::vector3< float, 4 >( worldFirstSlice - worldLastSlice ).norm();
-        const float stepLength = totalLength / pimpl->sampleRate;
+        const float totalLength = base::math::vector3< float, 4 >( worldFirstSlice - worldLastSlice ).norm() * scale.z();
+        const float stepLength = totalLength / ( pimpl->sampleRate + 1 );
         pimpl->stepLengthRequired = base::ShaderUniform< float >( "stepLength", stepLength ).upload();
         
         /* Write to log that the step length will not be computed any more.
@@ -279,6 +307,10 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
                 if( samplerItr != vr->samplers.end() )
                 {
                     const base::ManagedTexture3D& texture = static_cast< const base::ManagedTexture3D& >( gf );
+                    if( anyTexture != nullptr && anyTexture->size != texture.size )
+                    {
+                        base::Log::instance().record( base::Log::error, "Renderable has ManagedTexture3D objects of conflicting resolutions." );
+                    }
                     anyTexture = &texture;
                     videoResource( texture ).get().bind( ++lastUnit );
                     samplerItr->second->bind( lastUnit );
@@ -294,12 +326,14 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
     const Matrix4f modelTexture =
         ( anyTexture == nullptr ? base::math::identity4f() : anyTexture->textureCoordinatesCorrection )
         * base::math::translation4f( 0.5f, 0.5f, 0.5f );
-        
+
     /* Upload matrices to the shader and set the texture samplers properly.
      */
     base::ShaderUniform< Matrix4f >( "modelViewProjection", pimpl->renderTask->projection * modelView ).upload();
     base::ShaderUniform< Matrix4f >( "modelTexture", modelTexture ).upload();
-    base::ShaderUniform< Matrix4f >( "tangentModel", tangentModel ).upload();
+    //base::ShaderUniform< Matrix4f >( "tangentModel", tangentModel * base::math::scaling4f( 5, 5, 5 ) ).upload();
+    //base::ShaderUniform< Matrix4f >( "tangentModel", tangentModel ).upload();
+    base::ShaderUniform< Matrix4f >( "tangentModel", tangentModel * base::math::scaling4f( scale ) ).upload();
     for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {
         const unsigned int role = roles[ samplerOffset ];

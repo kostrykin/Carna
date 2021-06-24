@@ -327,7 +327,7 @@ public:
     /** \brief
       * Holds the default number of slices rendered per segment.
       */
-    const static unsigned int DEFAULT_SAMPLE_RATE = 100;
+    const static unsigned int DEFAULT_SAMPLE_RATE = 200;
 
     /** \brief
       * Instantiates. The created stage will render such \ref base::Geometry scene

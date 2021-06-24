@@ -37,7 +37,7 @@ void MaskRenderingStageIntegrationTest::cleanupTestCase()
 void MaskRenderingStageIntegrationTest::init()
 {
     presets::DRRStage* const drr = new presets::DRRStage( GEOMETRY_TYPE_VOLUMETRIC );
-    drr->setSampleRate( 100 );
+    drr->setSampleRate( 200 );
     drr->setWaterAttenuation( 5e-3f );
     drr->setBaseIntensity( 1.f );
     drr->setLowerThreshold( base::HUV::abs( -400 ) );
