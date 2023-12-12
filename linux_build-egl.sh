@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 if command -v doxygen &> /dev/null; then
     export BUILD_DOC="ON"
