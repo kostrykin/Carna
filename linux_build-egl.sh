@@ -2,9 +2,9 @@
 
 set -ex
 
-if command -v doxygen &> /dev/null; then
+if command -v doxygen >/dev/null; then
     export BUILD_DOC="ON"
-else    
+else
     export BUILD_DOC="OFF"
 fi
 
