@@ -16,7 +16,7 @@ uniform float alphaFactor;
 
 in vec2 textureCoordinates;
 
-out vec4 gl_FragColor;
+layout( location = 0 ) out vec4 _gl_FragColor;
 
 
 // ----------------------------------------------------------------------------------
@@ -26,5 +26,5 @@ out vec4 gl_FragColor;
 void main()
 {
     vec4 color = texture( colorMap, textureCoordinates );
-    gl_FragColor = vec4( color.rgb, color.a * alphaFactor );
+    _gl_FragColor = vec4( color.rgb, color.a * alphaFactor );
 }

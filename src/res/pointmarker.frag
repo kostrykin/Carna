@@ -13,7 +13,7 @@
 
 in vec4 fragColor;
 
-out vec4 gl_FragColor;
+layout( location = 0 ) out vec4 _gl_FragColor;
 
 
 // ----------------------------------------------------------------------------------
@@ -22,5 +22,5 @@ out vec4 gl_FragColor;
 
 void main()
 {
-    gl_FragColor = fragColor;
+    _gl_FragColor = fragColor;
 }
