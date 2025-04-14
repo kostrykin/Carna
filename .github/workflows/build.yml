@@ -9,29 +9,16 @@ on:
     branches: [ "master" ]
 
 jobs:
-  linux_build-default:
-    name: linux_build-default.sh
+  linux_build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        variant: ['default', 'egl']
         build: ['only_debug', 'only_release']
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: Build default
-      run: bash linux_build.bash
-      env:
-        BUILD: ${{ matrix.build }}
-
-  linux_build-egl:
-    name: linux_build-egl.sh
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Build with EGL
-      run: bash linux_build-egl.bash
+    - run: bash linux_build-${{ matrix.variant }}.bash
       env:
         BUILD: ${{ matrix.build }}
