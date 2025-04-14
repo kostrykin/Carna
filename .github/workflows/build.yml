@@ -23,8 +23,8 @@ jobs:
     - name: Install dependencies
       run: sudo apt-get install libeigen3-dev libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev libglew-dev
 
-    - name: Install Qt
-      run: sudo apt-get install qtbase5-dev
+    - name: Install extra dependencies
+      run: sudo apt-get install qtbase5-dev libboost-all-dev
       if: ${{ matrix.variant == 'default' }}
 
     - run: bash linux_build-${{ matrix.variant }}.bash
