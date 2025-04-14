@@ -29,7 +29,7 @@ Compilation process has been tested with following tool chains:
 ---
 ## 2. Build instructions
 
-On Linux you can run the `linux_build.sh` script.
+On Linux you can run the `linux_build-default.sh` script.
 
 ---
 ## 3. Including in your project
