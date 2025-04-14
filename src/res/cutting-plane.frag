@@ -19,7 +19,7 @@ uniform int       invert;
 
 in vec4 modelSpaceCoordinates;
 
-out vec4 gl_FragColor;
+layout( location = 0 ) out vec4 _gl_FragColor;
 
 
 // ----------------------------------------------------------------------------------
@@ -49,5 +49,5 @@ void main()
           f = f + step( maxIntensity, intensity );
           f = ( 1 - invert ) * f + invert * ( 1 - f );
 
-    gl_FragColor = vec4( f, f, f, 1 );
+    _gl_FragColor = vec4( f, f, f, 1 );
 }
