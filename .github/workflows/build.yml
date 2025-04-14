@@ -27,6 +27,6 @@ jobs:
       run: sudo apt-get install qtbase5-dev libboost-iostreams-dev
       if: ${{ matrix.variant == 'default' }}
 
-    - run: xvfb-run --server-args="-screen 0 1024x768x24" ./linux_build-${{ matrix.variant }}.bash
+    - run: xvfb-run --server-args="-screen 0 1024x768x24+32" ./linux_build-${{ matrix.variant }}.bash
       env:
         BUILD: ${{ matrix.build }}
