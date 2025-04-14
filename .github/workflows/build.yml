@@ -24,7 +24,7 @@ jobs:
       run: sudo apt-get install libeigen3-dev libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev libglew-dev
 
     - run: sudo apt-get install libqt4-dev libqtcore4 libqtgui4
-      #if: '${{ matrix.variant }}' == 'default'
+      if: ${{ matrix.variant == 'default' }}
 
     - run: bash linux_build-${{ matrix.variant }}.bash
       env:
