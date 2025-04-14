@@ -10,7 +10,7 @@ fi
 
 mkdir -p build/make_debug
 mkdir -p build/make_release
-cd build
+cd build/make_debug
 
 if [ "$BUILD" != "only_debug" ]; then
     cd ../make_debug
