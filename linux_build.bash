@@ -8,7 +8,7 @@ else
     export BUILD_DOC="OFF"
 fi
 
-mkdir -p buildmake_debug
+mkdir -p build/make_debug
 mkdir -p build/make_release
 cd build
 
