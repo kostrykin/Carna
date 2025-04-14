@@ -30,3 +30,4 @@ jobs:
     - run: bash linux_build-${{ matrix.variant }}.bash
       env:
         BUILD: ${{ matrix.build }}
+        QT_QPA_PLATFORM: offscreen
