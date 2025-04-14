@@ -31,3 +31,7 @@ jobs:
       env:
         BUILD: ${{ matrix.build }}
         QT_QPA_PLATFORM: offscreen
+      continue-on-error: true
+
+    - uses: mxschmitt/action-tmate@v3
+      timeout-minutes: 10
