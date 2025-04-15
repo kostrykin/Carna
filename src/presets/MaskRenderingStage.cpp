@@ -145,7 +145,7 @@ void MaskRenderingStage::renderPass
             rs.setDepthWrite( true );
 
             glClearColor( 0, 0, 0, 0 );
-            rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT );
+            rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
             framebufferViewport.makeActive();
             VolumeRenderingStage::renderPass( vt, rt, framebufferViewport );
