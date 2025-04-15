@@ -2,15 +2,16 @@ name: Build
 
 on:
   push:
-    branches: [ "master", "develop" ]
+    branches: [ 'master', 'develop' ]
     paths-ignore:
       - 'docs/**'
       - '.git*'
       - 'LICENSE'
       - 'LICENSE-*'
       - 'README.md'
+
   pull_request:
-    branches: [ "*" ]
+    branches-ignore: [ 'master' ]
 
 jobs:
   linux_build:
