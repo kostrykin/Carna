@@ -1,4 +1,4 @@
-Carna
+
 ========
 
 Carna provides classes for simple and fast visualization of CT data.
@@ -19,12 +19,14 @@ Go to: [Library Documentation](https://kostrykin.github.io/Carna/html)
 ## 1. Dependencies
 
 * [Eigen](http://eigen.tuxfamily.org/) ≥ 3.0.5
-* OpenGL 3.3
+* OpenGL ≥ 3.3, tested with up to 4.6
 * GLEW ≥ 1.7
+* libboost-iostreams (tested with 1.83.0, older versions might work too)
 
 Compilation process has been tested with following tool chains:
 
-* **GCC 7.5:** is known to be fully supported.
+* **GCC 7.5** (tested 2021)
+* **GCC 13.3 + CMake 3.28.3** (tested 2025)
 
 ---
 ## 2. Build instructions
