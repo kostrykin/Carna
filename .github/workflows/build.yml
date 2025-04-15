@@ -21,13 +21,18 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Install dependencies for Carna build
-      run: sudo apt-get install libeigen3-dev libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev libglew-dev xvfb
+      run: sudo apt-get install libeigen3-dev libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev libglew-dev
 
     - name: Install dependencies for demo and tests
-      run: sudo apt-get install qtbase5-dev libboost-iostreams-dev
       if: ${{ matrix.variant == 'default' }}
+      run: sudo apt-get install qtbase5-dev libboost-iostreams-dev xvfb
 
-    - run: xvfb-run --server-args="-screen 0 1024x768x24+32" ./linux_build-${{ matrix.variant }}.bash
+    - name: Setup to use xvfb
+      if: ${{ matrix.variant == 'default' }}
+      id: setup
+      run: echo "prefix=xvfb-run" >> $GITHUB_OUTPUT
+
+    - run: ${{ steps.setup.outputs.prefix }} ./linux_build-${{ matrix.variant }}.bash
       env:
         BUILD: only_${{ matrix.build }}
 
