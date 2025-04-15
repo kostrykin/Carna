@@ -1,5 +1,5 @@
-
-========
+Carna
+=====
 
 Carna provides classes for simple and fast visualization of CT data.
 It is named after the greek god of organs (yup, they really did have even one for organs).
