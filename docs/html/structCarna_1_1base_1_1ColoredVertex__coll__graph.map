@@ -1,4 +1,0 @@
-<map id="Carna::base::ColoredVertex" name="Carna::base::ColoredVertex">
-<area shape="rect" id="node2" href="$structCarna_1_1base_1_1VertexBase.html" title="Defines simple&#45;most vertex that only consists of a positional attribute. " alt="" coords="5,5,175,32"/>
-<area shape="rect" id="node3" href="$structCarna_1_1base_1_1VertexColor.html" title="Defines vertex component for colors. Usage is explained here. " alt="" coords="199,5,370,32"/>
-</map>

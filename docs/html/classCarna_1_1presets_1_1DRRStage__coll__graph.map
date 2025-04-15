@@ -1,7 +1,0 @@
-<map id="Carna::presets::DRRStage" name="Carna::presets::DRRStage">
-<area shape="rect" id="node2" href="$classCarna_1_1presets_1_1VolumeRenderingStage.html" title="Defines abstract base class for rendering stages that render volume geometries in the scene..." alt="" coords="580,27,799,69"/>
-<area shape="rect" id="node3" href="$classCarna_1_1base_1_1GeometryStage.html" title="Carna::base::GeometryStage\l\&lt; base::Renderable::BackToFront \&gt;" alt="" coords="300,27,531,69"/>
-<area shape="rect" id="node4" href="$classCarna_1_1base_1_1RenderStage.html" title="Base abstract class of each rendering stage. Refer to the documentation of the rendering process..." alt="" coords="32,5,209,32"/>
-<area shape="rect" id="node5" href="$classCarna_1_1base_1_1RenderQueue.html" title="Carna::base::RenderQueue\l\&lt; base::Renderable::BackToFront \&gt;" alt="" coords="5,57,236,98"/>
-<area shape="rect" id="node6" href="$structCarna_1_1base_1_1HUV.html" title="Represents values in . " alt="" coords="624,93,755,120"/>
-</map>

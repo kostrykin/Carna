@@ -1,6 +1,0 @@
-<map id="Carna::base::BaseBuffer" name="Carna::base::BaseBuffer">
-<area shape="rect" id="node2" href="$classCarna_1_1base_1_1IndexBufferBase.html" title="Maintains GL_ELEMENT_ARRAY_BUFFER object that holds the vertex indices, that interconnect the vertice..." alt="" coords="5,80,204,107"/>
-<area shape="rect" id="node4" href="$classCarna_1_1base_1_1VertexBufferBase.html" title="Maintains GL_ARRAY_BUFFER object that holds vertices. This class realizes the RAII&#45;idiom. " alt="" coords="228,80,432,107"/>
-<area shape="rect" id="node3" href="$classCarna_1_1base_1_1IndexBuffer.html" title="Specializes IndexBufferBase for particular IndexType. " alt="" coords="21,155,189,196"/>
-<area shape="rect" id="node5" href="$classCarna_1_1base_1_1VertexBuffer.html" title="Specializes VertexBufferBase for particular VertexType. " alt="" coords="243,155,417,196"/>
-</map>
