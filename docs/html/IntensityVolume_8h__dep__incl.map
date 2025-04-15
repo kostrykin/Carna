@@ -1,8 +1,0 @@
-<map id="include/Carna/base/IntensityVolume.h" name="include/Carna/base/IntensityVolume.h">
-<area shape="rect" id="node2" href="$BufferedIntensityVolume_8h.html" title="Defines Carna::base::BufferedIntensityVolume. " alt="" coords="27,95,207,136"/>
-<area shape="rect" id="node4" href="$VolumeGrid_8h.html" title="Defines Carna::base::VolumeGrid. " alt="" coords="238,95,373,136"/>
-<area shape="rect" id="node3" href="$BufferedIntensityVolumeTest_8h_source.html" title="test/UnitTests/BufferedIntensity\lVolumeTest.h" alt="" coords="5,184,213,225"/>
-<area shape="rect" id="node5" href="$VolumeSegment_8h.html" title="Defines Carna::base::VolumeSegment. " alt="" coords="238,184,373,225"/>
-<area shape="rect" id="node6" href="$VolumeGridHelper_8h.html" title="Defines Carna::helpers::VolumeGridHelper. " alt="" coords="297,363,445,404"/>
-<area shape="rect" id="node7" href="$VolumeGridHelperDetails_8h.html" title="Defines Carna::helpers::details::VolumeGridHelper. " alt="" coords="279,273,463,315"/>
-</map>

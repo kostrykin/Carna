@@ -1,6 +1,0 @@
-<map id="Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;" name="Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;">
-<area shape="rect" id="node2" href="$classCarna_1_1helpers_1_1VolumeGridHelperBase.html" title="Defines type&#45;parameters&#45;independent VolumeGridHelper base interface. " alt="" coords="405,5,587,47"/>
-<area shape="rect" id="node3" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1IntensityComponent.html" title="Defines the helpers::VolumeGridHelper component that maintains intensity volume data. " alt="" coords="356,71,636,141"/>
-<area shape="rect" id="node4" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1TextureManager.html" title="Carna::helpers::details\l::VolumeGridHelper::TextureManager\l\&lt; IntensityTextureFactory\&lt; SegmentIntensity\lVolumeType, SegmentNormalsVolumeType \&gt; \&gt;" alt="" coords="5,71,307,141"/>
-<area shape="rect" id="node5" href="$structCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1Partionining.html" title="Computes the partitioning that VolumeGridHelper uses along one dimension. " alt="" coords="390,165,602,207"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="Carna::base::CameraControl" name="Carna::base::CameraControl">
-<area shape="rect" id="node2" href="$classCarna_1_1presets_1_1CameraNavigationControl.html" title="Implements base::CameraControl, rotates the camera around itself and allows completely free camera mo..." alt="" coords="243,5,467,47"/>
-<area shape="rect" id="node3" href="$classCarna_1_1presets_1_1CameraShowcaseControl.html" title="Implements base::CameraControl, rotates the camera around its parent node. The camera movement is bou..." alt="" coords="243,71,466,112"/>
-<area shape="rect" id="node4" href="$classCarna_1_1presets_1_1OrthogonalControl.html" title="Controls orthogonal projection matrices, that induce box&#45;shaped visible volume, and base::Camera obje..." alt="" coords="265,136,444,177"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="include/Carna/base/NormalMap3D.h" name="include/Carna/base/NormalMap3D.h">
-<area shape="rect" id="node2" href="$VectorField_8h.html" title="Defines Carna::base::math::VectorField. " alt="" coords="563,95,766,121"/>
-<area shape="rect" id="node3" href="$math_8h.html" title="Defines Carna::base::math namespace and CARNA_FOR_VECTOR3UI. " alt="" coords="459,169,593,196"/>
-<area shape="rect" id="node16" href="$noncopyable_8h.html" title="Carna/base/noncopyable.h" alt="" coords="791,95,968,121"/>
-<area shape="rect" id="node4" href="$Carna_8h_source.html" title="Carna/Carna.h" alt="" coords="662,319,769,345"/>
-<area shape="rect" id="node7" href="$CarnaException_8h.html" title="Defines Carna::base::CarnaException, Carna::base::AssertionFailure. " alt="" coords="70,244,267,271"/>
-</map>

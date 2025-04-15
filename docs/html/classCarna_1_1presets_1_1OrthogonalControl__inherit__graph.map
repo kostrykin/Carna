@@ -1,4 +1,0 @@
-<map id="Carna::presets::OrthogonalControl" name="Carna::presets::OrthogonalControl">
-<area shape="rect" id="node2" href="$classCarna_1_1base_1_1ProjectionControl.html" title="Controls projection matrices. " alt="" coords="5,5,207,32"/>
-<area shape="rect" id="node3" href="$classCarna_1_1base_1_1CameraControl.html" title="Defines interface for intuitive Camera control. " alt="" coords="231,5,421,32"/>
-</map>

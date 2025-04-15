@@ -1,6 +1,0 @@
-<map id="Carna::presets::TransparentRenderingStage" name="Carna::presets::TransparentRenderingStage">
-<area shape="rect" id="node2" href="$classCarna_1_1base_1_1MeshRenderingStage.html" title="Carna::base::MeshRendering\lStage\&lt; base::Renderable\l::BackToFront \&gt;" alt="" coords="509,31,701,87"/>
-<area shape="rect" id="node3" href="$classCarna_1_1base_1_1GeometryStage.html" title="Carna::base::GeometryStage\l\&lt; base::Renderable::BackToFront \&gt;" alt="" coords="231,5,461,47"/>
-<area shape="rect" id="node4" href="$classCarna_1_1base_1_1RenderStage.html" title="Base abstract class of each rendering stage. Refer to the documentation of the rendering process..." alt="" coords="5,13,183,39"/>
-<area shape="rect" id="node5" href="$classCarna_1_1base_1_1MeshRenderingStageBase.html" title="Defines MeshRenderingStage class template instance invariants. " alt="" coords="250,71,442,112"/>
-</map>
