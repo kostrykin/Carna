@@ -21,7 +21,11 @@ Go to: [Library Documentation](https://kostrykin.github.io/Carna/html)
 * [Eigen](http://eigen.tuxfamily.org/) ≥ 3.0.5
 * OpenGL ≥ 3.3, tested with up to 4.6
 * GLEW ≥ 1.7
+
+In addition, building the demo or the test suite also requires the following libraries:
+
 * libboost-iostreams (tested with 1.83.0, older versions might work too)
+* Qt ≥ 4 (tested with up to Qt 5.15.13)
 
 Compilation process has been tested with following tool chains:
 
