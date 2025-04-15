@@ -17,7 +17,7 @@ uniform int       renderInverse;
 
 in vec2 textureCoordinates;
 
-out vec4 gl_FragColor;
+layout( location = 0 ) out vec4 _gl_FragColor;
 
 
 // ----------------------------------------------------------------------------------
@@ -31,5 +31,5 @@ void main()
 
     vec3 color = ( 1 - renderInverse ) * vec3( 1, 1, 1 );
 
-    gl_FragColor = vec4( color, 1 - result );
+    _gl_FragColor = vec4( color, 1 - result );
 }

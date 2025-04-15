@@ -1,0 +1,43 @@
+# This starter workflow is for a CMake project running on a single platform. There is a different starter workflow if you need cross-platform coverage.
+# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-multi-platform.yml
+name: Build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "*" ]
+
+jobs:
+  linux_build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: ['default', 'egl']
+        build: ['debug', 'release']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies for Carna build
+      run: sudo apt-get install libeigen3-dev libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev libglew-dev
+
+    - name: Install dependencies for demo and tests
+      if: ${{ matrix.variant == 'default' }}
+      run: sudo apt-get install qtbase5-dev libboost-iostreams-dev xvfb
+
+    - name: Setup to use xvfb
+      if: ${{ matrix.variant == 'default' }}
+      id: setup
+      run: echo "prefix=xvfb-run" >> $GITHUB_OUTPUT
+
+    - run: ${{ steps.setup.outputs.prefix }} ./linux_build-${{ matrix.variant }}.bash
+      env:
+        BUILD: only_${{ matrix.build }}
+
+    - uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: ${{ matrix.variant }}-${{ matrix.build }}-test_output
+        path: build/make_${{ matrix.build }}/test/test_output/
