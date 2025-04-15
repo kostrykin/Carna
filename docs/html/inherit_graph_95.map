@@ -1,6 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1TextureManager.html" title="Carna::helpers::details\l::VolumeGridHelper::TextureManager\l\&lt; IntensityTextureFactory\&lt; SegmentIntensity\lVolumeType, SegmentNormalsVolumeType \&gt; \&gt;" alt="" coords="5,5,307,76"/>
-<area shape="rect" id="node2" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1IntensityComponent.html" title="Defines the helpers::VolumeGridHelper component that maintains intensity volume data. " alt="" coords="355,5,635,76"/>
-<area shape="rect" id="node3" href="$classCarna_1_1helpers_1_1VolumeGridHelper.html" title="Computes the partitioning of volumetric data and the corresponding normal map. Also creates scene nod..." alt="" coords="683,53,928,109"/>
-<area shape="rect" id="node4" href="$classCarna_1_1helpers_1_1VolumeGridHelperBase.html" title="Defines type&#45;parameters&#45;independent VolumeGridHelper base interface. " alt="" coords="403,100,586,141"/>
-</map>

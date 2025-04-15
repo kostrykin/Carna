@@ -1,0 +1,14 @@
+digraph "Carna::base::SpatialMovement"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [id="Node000001",label="Carna::base::SpatialMovement",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Handles the displacement of a Spatial object in a drag-&-drop like manner."];
+  Node2 -> Node1 [id="edge1_Node000001_Node000002",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" viewport",fontcolor="grey" ];
+  Node2 [id="Node000002",label="Carna::base::Viewport",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classCarna_1_1base_1_1Viewport.html",tooltip="Defines a rendering viewport. The viewport is a property of the current OpenGL context."];
+  Node3 -> Node1 [id="edge2_Node000001_Node000003",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" cam",fontcolor="grey" ];
+  Node3 [id="Node000003",label="Carna::base::Camera",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classCarna_1_1base_1_1Camera.html",tooltip="Represents the point-of-view and defines the 3D to 2D projection."];
+  Node4 -> Node3 [id="edge3_Node000003_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="Carna::base::Spatial",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classCarna_1_1base_1_1Spatial.html",tooltip="Represents a spatial scene element. It's location is determined relatively to another spatial that is..."];
+}
