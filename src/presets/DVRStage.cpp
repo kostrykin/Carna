@@ -204,7 +204,7 @@ unsigned int DVRStage::loadVideoResources()
     VolumeRenderingStage::loadVideoResources();
     pimpl->colorMapSampler.reset( new base::Sampler
         ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
-        , base::Sampler::FILTER_NEAREST, base::Sampler::FILTER_NEAREST ) );
+        , base::Sampler::FILTER_LINEAR, base::Sampler::FILTER_LINEAR ) );
     return Details::COLORMAP_TEXTURE_UNIT + 1;
 }
 
