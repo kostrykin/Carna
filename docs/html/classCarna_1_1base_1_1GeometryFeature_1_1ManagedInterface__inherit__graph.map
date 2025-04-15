@@ -1,5 +1,0 @@
-<map id="Carna::base::GeometryFeature::ManagedInterface" name="Carna::base::GeometryFeature::ManagedInterface">
-<area shape="rect" id="node2" href="$classCarna_1_1base_1_1ManagedMeshInterface.html" title="Interfaces the MeshBase that a ManagedMeshBase represents. " alt="" coords="265,5,452,47"/>
-<area shape="rect" id="node3" href="$classCarna_1_1base_1_1ManagedTexture3DInterface.html" title="Interfaces the Texture&lt;3&gt; that a ManagedTexture3D represents. " alt="" coords="256,71,461,112"/>
-<area shape="rect" id="node4" href="$classCarna_1_1base_1_1Material_1_1ManagedInterface.html" title="Represents an acquisition of video resources from a particular Material. This realizes the RAII idiom..." alt="" coords="285,136,432,177"/>
-</map>

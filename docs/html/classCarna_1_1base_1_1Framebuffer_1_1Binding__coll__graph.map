@@ -1,4 +1,0 @@
-<map id="Carna::base::Framebuffer::Binding" name="Carna::base::Framebuffer::Binding">
-<area shape="rect" id="node2" href="$classCarna_1_1base_1_1Framebuffer_1_1MinimalBinding.html" title="Maintains the binding of a Framebuffer in a RAII&#45;manner. " alt="" coords="5,95,176,136"/>
-<area shape="rect" id="node3" href="$classCarna_1_1base_1_1Framebuffer.html" title="Maintains a framebuffer object that supports up to 8 color components simultaneously. " alt="" coords="5,5,176,32"/>
-</map>

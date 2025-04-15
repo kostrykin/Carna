@@ -1,6 +1,0 @@
-<map id="include/Carna/base/Log.h" name="include/Carna/base/Log.h">
-<area shape="rect" id="node2" href="$Carna_8h_source.html" title="Carna/Carna.h" alt="" coords="23,244,129,271"/>
-<area shape="rect" id="node5" href="$Singleton_8h.html" title="Defines Carna::base::Singleton. " alt="" coords="303,95,462,121"/>
-<area shape="rect" id="node11" href="$noncopyable_8h.html" title="Carna/base/noncopyable.h" alt="" coords="335,169,513,196"/>
-<area shape="rect" id="node6" href="$CarnaException_8h.html" title="Defines Carna::base::CarnaException, Carna::base::AssertionFailure. " alt="" coords="113,169,311,196"/>
-</map>

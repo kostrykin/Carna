@@ -1,0 +1,9 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node0 [id="Node000000",label="Carna::base::math::\lelement_type_of\< Eigen\l::Matrix\< VectorElementType,\l rows, cols \> \>",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$structCarna_1_1base_1_1math_1_1element__type__of_3_01Eigen_1_1Matrix_3_01VectorElementType_00_01rows_00_01cols_01_4_01_4.html",tooltip="Retrieves element types of vectors and scalars. This is the specialization for vector and matrix type..."];
+}

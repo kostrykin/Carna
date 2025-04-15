@@ -1,6 +1,0 @@
-<map id="include/Carna/base/ManagedTexture3DInterface.h" name="include/Carna/base/ManagedTexture3DInterface.h">
-<area shape="rect" id="node2" href="$ManagedTexture3D_8h.html" title="Defines Carna::base::ManagedTexture3D. " alt="" coords="31,95,182,136"/>
-<area shape="rect" id="node3" href="$BufferedVectorFieldTexture_8h.html" title="Defines Carna::base::BufferedVectorFieldTexture. " alt="" coords="9,184,205,225"/>
-<area shape="rect" id="node4" href="$VolumeGridHelperDetails_8h.html" title="Defines Carna::helpers::details::VolumeGridHelper. " alt="" coords="15,273,199,315"/>
-<area shape="rect" id="node5" href="$VolumeGridHelper_8h.html" title="Defines Carna::helpers::VolumeGridHelper. " alt="" coords="33,363,181,404"/>
-</map>

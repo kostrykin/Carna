@@ -1,5 +1,0 @@
-<map id="Carna::base::Material::ManagedInterface" name="Carna::base::Material::ManagedInterface">
-<area shape="rect" id="node2" href="$classCarna_1_1base_1_1GeometryFeature_1_1ManagedInterface.html" title="Represents an acquisition of the video resources from a particular GeometryFeature. This acquisition realizes the RAII idiom. " alt="" coords="5,95,208,136"/>
-<area shape="rect" id="node3" href="$classCarna_1_1base_1_1GeometryFeature.html" title="Represents &quot;components&quot; that are aggregated by Geometry objects. Closer description is given here..." alt="" coords="104,5,307,32"/>
-<area shape="rect" id="node4" href="$classCarna_1_1base_1_1Material.html" title="Specifies the shader and it&#39;s configuration that are to be used for rendering a Geometry node with a ..." alt="" coords="232,102,379,129"/>
-</map>
