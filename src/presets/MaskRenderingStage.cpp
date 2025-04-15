@@ -22,20 +22,6 @@ namespace presets
 
 
 // ----------------------------------------------------------------------------------
-// createLabelMapSampler
-// ----------------------------------------------------------------------------------
-
-static base::Sampler* createLabelMapSampler()
-{
-    using base::Sampler;
-    return new Sampler
-        ( Sampler::WRAP_MODE_CLAMP, Sampler::WRAP_MODE_CLAMP, Sampler::WRAP_MODE_CLAMP
-        , Sampler::FILTER_NEAREST, Sampler::FILTER_NEAREST );
-}
-
-
-
-// ----------------------------------------------------------------------------------
 // MaskRenderingStage :: Details
 // ----------------------------------------------------------------------------------
 
@@ -54,7 +40,7 @@ struct MaskRenderingStage::Details
 
     base::math::Vector2f textureSteps;
 
-    const std::unique_ptr< base::Sampler > labelMapSampler;
+    std::unique_ptr< base::Sampler > labelMapSampler;
 
 }; // MaskRenderingStage :: Details
 
@@ -63,7 +49,6 @@ MaskRenderingStage::Details::Details()
     : color( MaskRenderingStage::DEFAULT_COLOR )
     , renderBorders( false )
     , edgeDetectShader( nullptr )
-    , labelMapSampler( createLabelMapSampler() )
 {
 }
 
@@ -139,6 +124,9 @@ void MaskRenderingStage::reshape( base::FrameRenderer& fr, unsigned int width, u
 unsigned int MaskRenderingStage::loadVideoResources()
 {
     pimpl->edgeDetectShader = &base::ShaderManager::instance().acquireShader( "mr_edgedetect" );
+    pimpl->labelMapSampler.reset( new base::Sampler
+        ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
+        , base::Sampler::FILTER_NEAREST, base::Sampler::FILTER_NEAREST ) );
     return VolumeRenderingStage::loadVideoResources();
 }
 
