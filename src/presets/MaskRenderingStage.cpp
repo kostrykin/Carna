@@ -19,6 +19,21 @@ namespace Carna
 namespace presets
 {
 
+using base::Sampler;
+
+
+
+// ----------------------------------------------------------------------------------
+// createSampler
+// ----------------------------------------------------------------------------------
+
+static Sampler* createSampler()
+{
+    return new Sampler
+        ( Sampler::WRAP_MODE_CLAMP, Sampler::WRAP_MODE_CLAMP, Sampler::WRAP_MODE_CLAMP
+        , Sampler::FILTER_NEAREST, Sampler::FILTER_NEAREST );
+}
+
 
 
 // ----------------------------------------------------------------------------------
@@ -40,6 +55,8 @@ struct MaskRenderingStage::Details
 
     base::math::Vector2f textureSteps;
 
+    const std::unique_ptr< Sampler > sampler;
+
 }; // MaskRenderingStage :: Details
 
 
@@ -47,6 +64,7 @@ MaskRenderingStage::Details::Details()
     : color( MaskRenderingStage::DEFAULT_COLOR )
     , renderBorders( false )
     , edgeDetectShader( nullptr )
+    , sampler( createSampler() )
 {
 }
 
@@ -169,6 +187,8 @@ void MaskRenderingStage::renderPass
             base::ShaderUniform< base::math::Vector2f >( "steps", pimpl->textureSteps ).upload();
             params.useDefaultShader = false;
             params.textureUniformName = "labelMap";
+            params.useDefaultSampler = false;
+            pimpl->sampler->bind( params.unit );
         }
         pimpl->accumulationColorBuffer->bind( 0 );
         rt.renderer.renderTexture( params );
