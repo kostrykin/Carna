@@ -1,15 +1,27 @@
-# This starter workflow is for a CMake project running on a single platform. There is a different starter workflow if you need cross-platform coverage.
-# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-multi-platform.yml
 name: Build
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "develop" ]
+    paths-ignore:
+      - 'docs/**'
+      - '.git*'
+      - 'LICENSE'
+      - 'LICENSE-*'
+      - 'README.md'
   pull_request:
     branches: [ "*" ]
 
 jobs:
   linux_build:
+    if: |
+      ${{
+        (
+          github.event_name == 'push' && github.ref == 'refs/heads/master'
+        ) || (
+          github.event_name == 'pull_request'
+        )
+      }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -41,3 +53,39 @@ jobs:
       with:
         name: ${{ matrix.variant }}-${{ matrix.build }}-test_output
         path: build/make_${{ matrix.build }}/test/test_output/
+
+  build_docs:
+    if: |
+      ${{
+        (
+          github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        ) || (
+          github.event_name == 'pull_request'
+        )
+      }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: sudo apt-get install libeigen3-dev libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev libglew-dev doxygen
+
+    - run: rm -rf docs
+
+    - run: ./linux_build-egl.bash
+      env:
+        BUILD: only_release
+
+    - uses: peter-evans/create-pull-request@v7
+      if: ${{ github.event_name == 'push' }}
+      with:
+        branch: __build_docs
+        branch-suffix: random
+        commit-message: Update documentation
+        title: Update documentation
+        labels: documentation
+        body: |
+          Auto-update the documentation.
+
+          Triggered by: ${{ github.sha }}
