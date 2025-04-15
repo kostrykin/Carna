@@ -1,9 +1,0 @@
-<map id="include/Carna/base/FrameRenderer.h" name="include/Carna/base/FrameRenderer.h">
-<area shape="rect" id="node2" href="$Carna_8h_source.html" title="Carna/Carna.h" alt="" coords="433,319,539,345"/>
-<area shape="rect" id="node5" href="$RenderStageSequence_8h.html" title="Defines Carna::base::RenderStageSequence. " alt="" coords="119,95,357,121"/>
-<area shape="rect" id="node6" href="$Aggregation_8h.html" title="Defines Carna::base::Aggregation. " alt="" coords="275,169,449,196"/>
-<area shape="rect" id="node8" href="$noncopyable_8h.html" title="Carna/base/noncopyable.h" alt="" coords="5,319,183,345"/>
-<area shape="rect" id="node10" href="$math_8h.html" title="Defines Carna::base::math namespace and CARNA_FOR_VECTOR3UI. " alt="" coords="597,95,730,121"/>
-<area shape="rect" id="node7" href="$Association_8h.html" title="Defines Carna::base::Association. " alt="" coords="276,244,448,271"/>
-<area shape="rect" id="node11" href="$CarnaException_8h.html" title="Defines Carna::base::CarnaException, Carna::base::AssertionFailure. " alt="" coords="934,169,1131,196"/>
-</map>
