@@ -1,0 +1,31 @@
+name: Build docs
+
+on:
+  push:
+    branches: [ "develop" ]
+
+jobs:
+  build_docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies for Carna build
+      run: sudo apt-get install libeigen3-dev libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev libglew-dev doxygen
+
+    - run: rm -rf docs
+
+    - run: ./linux_build-egl.bash
+      env:
+        BUILD: only_release
+
+    - uses: peter-evans/create-pull-request@v7
+      with:
+        commit-message: Update documentation
+        title: Update documentation
+        labels: documentation
+        body: |
+          Auto-update the documentation.
+
+          Triggered by: ${{ github.sha }}
