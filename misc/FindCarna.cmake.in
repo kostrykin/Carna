@@ -12,7 +12,7 @@
 set(FOUND_VERSION @FULL_VERSION@)
 
 # set directory where headers are located
-get_filename_component(@PROJECT_NAMES@_INCLUDE_DIR "@CMAKE_INSTALL_PREFIX@/@INSTALL_HEADERS_DIR@" ABSOLUTE)
+get_filename_component(@PROJECT_NAME@_INCLUDE_DIR "@CMAKE_INSTALL_PREFIX@/@INSTALL_HEADERS_DIR@" ABSOLUTE)
 
 # set path to RELEASE library file
 find_library(	@PROJECT_NAME@_LIBRARY_RELEASE
