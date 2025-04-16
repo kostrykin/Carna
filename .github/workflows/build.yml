@@ -57,7 +57,7 @@ jobs:
 
     - name: Test FindCarna.cmake
       if: ${{ matrix.variant == 'egl' }}
-      run: ./test.sh
+      run: ./test.sh ${{ matrix.build }}
       working-directory: test_cmake
 
   build_docs:
