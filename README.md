@@ -1,3 +1,5 @@
+[![Build](https://github.com/kostrykin/Carna/actions/workflows/build.yml/badge.svg)](https://github.com/kostrykin/Carna/actions/workflows/build.yml)
+
 Carna
 =====
 
