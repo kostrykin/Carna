@@ -2,39 +2,39 @@
 # Locates Carna library.
 #-------------------------------------------
 # The following variables are set:
-#	CARNA_INCLUDE_DIR   points to headers
-#	CARNA_LIBRARIES     points to lib files
-#	CARNA_FOUND         indicates success
+#	Carna_INCLUDE_DIR   points to headers
+#	Carna_LIBRARIES     points to lib files
+#	Carna_FOUND         indicates success
 #-------------------------------------------
-# Leonid Kostrykin, 12.12.2014
+# Leonid Kostrykin, 16.04.2025
 ############################################
 
 set(FOUND_VERSION @FULL_VERSION@)
 
 # set directory where headers are located
-get_filename_component(@PROJECT_NAME_CAPS@_INCLUDE_DIR "@CMAKE_INSTALL_PREFIX@/@INSTALL_HEADERS_DIR@" ABSOLUTE)
+get_filename_component(@PROJECT_NAMES@_INCLUDE_DIR "@CMAKE_INSTALL_PREFIX@/@INSTALL_HEADERS_DIR@" ABSOLUTE)
 
 # set path to RELEASE library file
-find_library(	@PROJECT_NAME_CAPS@_LIBRARY_RELEASE
+find_library(	@PROJECT_NAME@_LIBRARY_RELEASE
 				NAMES @TARGET_NAME@
 				PATHS "@CMAKE_INSTALL_PREFIX@/@INSTALL_LIBRARY_DIR@"
-				DOC "@PROJECT_NAME_CAPS@ library (Release)" )
+				DOC "@PROJECT_NAME@ library (Release)" )
 
 # set path to DEBUG library file
-find_library(	@PROJECT_NAME_CAPS@_LIBRARY_DEBUG
+find_library(	@PROJECT_NAME@_LIBRARY_DEBUG
 				NAMES @TARGET_NAME@@CMAKE_DEBUG_POSTFIX@
 				PATHS "@CMAKE_INSTALL_PREFIX@/@INSTALL_LIBRARY_DIR@"
-				DOC "@PROJECT_NAME_CAPS@ library (Debug)" )
+				DOC "@PROJECT_NAME@ library (Debug)" )
 
 # handles REQUIRED, QUIET and version-related
 # arguments and also sets the _FOUND variable
-find_package_handle_standard_args( @PROJECT_NAME_CAPS@
-	REQUIRED_VARS @PROJECT_NAME_CAPS@_INCLUDE_DIR @PROJECT_NAME_CAPS@_LIBRARY_RELEASE @PROJECT_NAME_CAPS@_LIBRARY_DEBUG
+find_package_handle_standard_args( @PROJECT_NAME@
+	REQUIRED_VARS @PROJECT_NAME@_INCLUDE_DIR @PROJECT_NAME@_LIBRARY_RELEASE @PROJECT_NAME@_LIBRARY_DEBUG
 	VERSION_VAR FOUND_VERSION)
 
 # set paths to library files
-if( DEFINED @PROJECT_NAME_CAPS@_LIBRARY_RELEASE AND DEFINED @PROJECT_NAME_CAPS@_LIBRARY_DEBUG )
-	set( @PROJECT_NAME_CAPS@_LIBRARIES
-			optimized	${@PROJECT_NAME_CAPS@_LIBRARY_RELEASE}
-			debug		${@PROJECT_NAME_CAPS@_LIBRARY_DEBUG} )
+if( DEFINED @PROJECT_NAME@_LIBRARY_RELEASE AND DEFINED @PROJECT_NAME@_LIBRARY_DEBUG )
+	set( @PROJECT_NAMES@_LIBRARIES
+			optimized	${@PROJECT_NAME@_LIBRARY_RELEASE}
+			debug		${@PROJECT_NAME@_LIBRARY_DEBUG} )
 endif()
