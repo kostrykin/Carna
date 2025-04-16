@@ -5,7 +5,7 @@ set -xe
 mkdir -p build
 cd build
 
-cmake ..
+cmake -DBUILD="$1" ..
 make
 
 ls -al

@@ -4,7 +4,7 @@ project( CarnaTest )
 
 include( FindPackageHandleStandardArgs )
 
-find_package( Carna 3.3 REQUIRED )
+find_package( Carna 3.3 REQUIRED COMPONENTS ${BUILD} )
 include_directories( ${Carna_INCLUDE_DIR} )
 set( Carna_VERSION ${FOUND_VERSION} )
 
