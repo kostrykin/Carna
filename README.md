@@ -42,29 +42,7 @@ On Linux you can run either of the two build scripts:
 ---
 ## 3. Including in your project
 
-Add a `find_package` directive to your project's `CMakeLists.txt` file, e.g.:
-
-```CMake
-find_package( Carna REQUIRED )
-include_directories( ${CARNA_INCLUDE_DIR} )
-```
-
-If you need to put a constraint on the version, use `find_package(Carna 3.1.0 REQUIRED)`
-to pick a package with a version *compatible* to 3.1.0,
-or use `find_package(Carna 3.1.0 EXACT REQUIRED)` to pick a package by the exact version.
-
-You also need to add the headers (usually *only* the headers) from Eigen:
-
-```CMake
-find_package( Eigen3 REQUIRED )
-include_directories( ${EIGEN3_INCLUDE_DIR} )
-```
-
-Finally add Carna to the linking stage:
-
-```CMake
-target_link_libraries( ${TARGET_NAME} ${SOME_OTHER_LIBRARIES} ${CARNA_LIBRARIES} )
-```
+See *test_cmake/CMakeLists.txt* as a starting point.
 
 ---
 ## 4. See also
