@@ -27,12 +27,14 @@ fi
 echo
 echo "** Ready to install."
 
-if [ "$BUILD" != "only_release" ]; then
-    cd ../make_debug
-    sudo make install
-fi
-
-if [ "$BUILD" != "only_debug" ]; then
-    cd ../make_release
-    sudo make install
+if [ "$INSTALL" != "off" ]; then
+    if [ "$BUILD" != "only_release" ]; then
+        cd ../make_debug
+        sudo make install
+    fi
+    
+    if [ "$BUILD" != "only_debug" ]; then
+        cd ../make_release
+        sudo make install
+    fi
 fi
