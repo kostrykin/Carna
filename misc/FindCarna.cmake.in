@@ -27,14 +27,14 @@ find_library( @PROJECT_NAME@_LIBRARY_DEBUG
 				DOC "@PROJECT_NAME@ library (Debug)" )
 
 # set which components were found
-set( @PROJECT_NAMES@_LIBRARIES "" )
+set( @PROJECT_NAME@_LIBRARIES "" )
 if( @PROJECT_NAME@_LIBRARY_RELEASE )
     set( Carna_release_FOUND TRUE )
-    set( @PROJECT_NAMES@_LIBRARIES ${@PROJECT_NAMES@_LIBRARIES} optimized ${@PROJECT_NAME@_LIBRARY_RELEASE} )
+    set( @PROJECT_NAME@_LIBRARIES ${@PROJECT_NAME@_LIBRARIES} optimized ${@PROJECT_NAME@_LIBRARY_RELEASE} )
 endif()
 if( @PROJECT_NAME@_LIBRARY_DEBUG )
     set( Carna_debug_FOUND TRUE )
-    set( @PROJECT_NAMES@_LIBRARIES ${@PROJECT_NAMES@_LIBRARIES} debug ${@PROJECT_NAME@_LIBRARY_DEBUG} )
+    set( @PROJECT_NAME@_LIBRARIES ${@PROJECT_NAME@_LIBRARIES} debug ${@PROJECT_NAME@_LIBRARY_DEBUG} )
 endif()
 
 # handles REQUIRED, QUIET and version-related
