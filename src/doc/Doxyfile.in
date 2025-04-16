@@ -9,7 +9,7 @@
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "@PROJECT_NAME@"
 PROJECT_NUMBER         = "Version @FULL_VERSION@"
-#PROJECT_LOGO          = src/doc/logo.png
+PROJECT_LOGO           = src/doc/logo.png
 HTML_EXTRA_STYLESHEET  = src/doc/doc_extra.css
 OUTPUT_DIRECTORY       = docs/
 TAB_SIZE               = 4

@@ -1,5 +1,0 @@
-<map id="Carna::base::MeshRenderingStage&lt; RenderableCompare &gt;" name="Carna::base::MeshRenderingStage&lt; RenderableCompare &gt;">
-<area shape="rect" id="node2" href="$classCarna_1_1base_1_1GeometryStage.html" title="Partially implements a rendering stage that uses at least one render queue for rendering geometry fro..." alt="" coords="231,5,423,47"/>
-<area shape="rect" id="node3" href="$classCarna_1_1base_1_1RenderStage.html" title="Base abstract class of each rendering stage. Refer to the documentation of the rendering process..." alt="" coords="5,13,183,39"/>
-<area shape="rect" id="node4" href="$classCarna_1_1base_1_1MeshRenderingStageBase.html" title="Defines MeshRenderingStage class template instance invariants. " alt="" coords="231,71,423,112"/>
-</map>

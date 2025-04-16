@@ -1,0 +1,97 @@
+name: Build
+
+on:
+  push:
+    branches: [ 'master', 'develop' ]
+    paths-ignore:
+      - 'docs/**'
+      - '.git*'
+      - 'LICENSE'
+      - 'LICENSE-*'
+      - 'README.md'
+
+  pull_request:
+    branches-ignore: [ 'master' ]
+
+jobs:
+  linux_build:
+    if: |
+      ${{
+        (
+          github.event_name == 'push' && github.ref == 'refs/heads/master'
+        ) || (
+          github.event_name == 'pull_request'
+        )
+      }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: ['default', 'egl']
+        build: ['debug', 'release']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies for Carna build
+      run: sudo apt-get install libeigen3-dev libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev libglew-dev
+
+    - name: Install dependencies for demo and tests
+      if: ${{ matrix.variant == 'default' }}
+      run: sudo apt-get install qtbase5-dev libboost-iostreams-dev xvfb
+
+    - name: Setup to use xvfb
+      if: ${{ matrix.variant == 'default' }}
+      id: setup
+      run: echo "prefix=xvfb-run" >> $GITHUB_OUTPUT
+
+    - run: ${{ steps.setup.outputs.prefix }} ./linux_build-${{ matrix.variant }}.bash
+      env:
+        BUILD: only_${{ matrix.build }}
+
+    - uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: ${{ matrix.variant }}-${{ matrix.build }}-test_output
+        path: build/make_${{ matrix.build }}/test/test_output/
+
+    - name: Test FindCarna.cmake
+      if: ${{ matrix.variant == 'egl' }}
+      run: ./test.sh ${{ matrix.build }}
+      working-directory: test_cmake
+
+  build_docs:
+    if: |
+      ${{
+        (
+          github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        ) || (
+          github.event_name == 'pull_request'
+        )
+      }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: sudo apt-get install libeigen3-dev libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev libglew-dev doxygen
+
+    - run: rm -rf docs
+
+    - run: ./linux_build-egl.bash
+      env:
+        BUILD: only_release
+
+    - uses: peter-evans/create-pull-request@v7
+      if: ${{ github.event_name == 'push' }}
+      with:
+        branch: __build_docs
+        branch-suffix: random
+        commit-message: Update documentation
+        title: Update documentation
+        labels: documentation
+        body: |
+          Auto-update the documentation.
+
+          Triggered by: ${{ github.sha }}

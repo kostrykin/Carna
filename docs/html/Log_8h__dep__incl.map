@@ -1,7 +1,0 @@
-<map id="include/Carna/base/Log.h" name="include/Carna/base/Log.h">
-<area shape="rect" id="node2" href="$GLContext_8h.html" title="Defines Carna::base::GLContext. " alt="" coords="5,95,140,136"/>
-<area shape="rect" id="node3" href="$FrameRendererHelper_8h.html" title="Defines Carna::helpers::FrameRendererHelper. " alt="" coords="43,184,209,225"/>
-<area shape="rect" id="node4" href="$glew_8h_source.html" title="include/Carna/base\l/glew.h" alt="" coords="216,95,351,136"/>
-<area shape="rect" id="node5" href="$VolumeGridHelperDetails_8h.html" title="Defines Carna::helpers::details::VolumeGridHelper. " alt="" coords="375,95,559,136"/>
-<area shape="rect" id="node6" href="$VolumeGridHelper_8h.html" title="Defines Carna::helpers::VolumeGridHelper. " alt="" coords="393,184,541,225"/>
-</map>

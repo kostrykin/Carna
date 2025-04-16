@@ -1,0 +1,3 @@
+include/Carna/base/GL/* linguist-vendored
+test/* linguist-vendored
+docs/* linguist-generated

@@ -23,7 +23,7 @@ uniform int       lightingEnabled;
 
 in vec4 modelSpaceCoordinates;
 
-out vec4 gl_FragColor;
+layout( location = 0 ) out vec4 _gl_FragColor;
 
 
 // ----------------------------------------------------------------------------------
@@ -74,5 +74,5 @@ void main()
     vec4 color = sampleAt( textureCoordinates.xyz );
     
     float alpha = color.a * stepLength / ( 1 + translucence );
-    gl_FragColor = vec4( color.rgb * alpha, alpha );
+    _gl_FragColor = vec4( color.rgb * alpha, alpha );
 }

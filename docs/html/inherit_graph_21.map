@@ -1,4 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classCarna_1_1base_1_1Framebuffer_1_1MinimalBinding.html" title="Maintains the binding of a Framebuffer in a RAII&#45;manner. " alt="" coords="5,5,176,47"/>
-<area shape="rect" id="node2" href="$classCarna_1_1base_1_1Framebuffer_1_1Binding.html" title="Acts like MinimalBinding, but checks the bound framebuffer for validity and allows rendering..." alt="" coords="224,5,395,47"/>
-</map>

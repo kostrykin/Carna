@@ -21,7 +21,7 @@ uniform float     upperMultiplier;
 
 in vec4 modelSpaceCoordinates;
 
-out vec4 gl_FragColor;
+layout( location = 0 ) out vec4 _gl_FragColor;
 
 
 // ----------------------------------------------------------------------------------
@@ -52,5 +52,5 @@ void main()
     float mu        = waterAttenuation * ( 1 + huv / 1000 );
     float summand   = step( lowerThreshold, intensity ) * mu * stepLength;
     
-    gl_FragColor = vec4( summand, 0, 0, 1 );
+    _gl_FragColor = vec4( summand, 0, 0, 1 );
 }

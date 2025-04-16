@@ -331,8 +331,6 @@ void VolumeRenderingStage::render( const base::Renderable& renderable )
      */
     base::ShaderUniform< Matrix4f >( "modelViewProjection", pimpl->renderTask->projection * modelView ).upload();
     base::ShaderUniform< Matrix4f >( "modelTexture", modelTexture ).upload();
-    //base::ShaderUniform< Matrix4f >( "tangentModel", tangentModel * base::math::scaling4f( 5, 5, 5 ) ).upload();
-    //base::ShaderUniform< Matrix4f >( "tangentModel", tangentModel ).upload();
     base::ShaderUniform< Matrix4f >( "tangentModel", tangentModel * base::math::scaling4f( scale ) ).upload();
     for( unsigned int samplerOffset = 0; samplerOffset < roles.size(); ++samplerOffset )
     {

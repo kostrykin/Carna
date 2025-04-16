@@ -19,7 +19,7 @@ uniform vec4      color;
 
 in vec4 modelSpaceCoordinates;
 
-out vec4 gl_FragColor;
+layout( location = 0 ) out vec4 _gl_FragColor;
 
 
 // ----------------------------------------------------------------------------------
@@ -47,5 +47,5 @@ void main()
     float intensity = intensityAt( textureCoordinates.xyz );
     float f = step( minIntensity, intensity ) * ( 1 - step( maxIntensity, intensity ) ) * ( intensity - minIntensity ) / ( maxIntensity - minIntensity );
     
-    gl_FragColor = vec4( color.rgb, color.a * f );
+    _gl_FragColor = vec4( color.rgb, color.a * f );
 }

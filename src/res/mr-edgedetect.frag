@@ -11,7 +11,7 @@ uniform vec2      steps;
 
 in vec2 textureCoordinates;
 
-out vec4 gl_FragColor;
+layout( location = 0 ) out vec4 _gl_FragColor;
 
 
 // ----------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ void main()
 
     if( edgeScore > 0 )
     {
-        gl_FragColor = color;
+        _gl_FragColor = color;
     }
     else
     {

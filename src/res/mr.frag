@@ -12,7 +12,7 @@ uniform vec4      color;
 
 in vec4 modelSpaceCoordinates;
 
-out vec4 gl_FragColor;
+layout( location = 0 ) out vec4 _gl_FragColor;
 
 
 // ----------------------------------------------------------------------------------
@@ -32,11 +32,11 @@ void main()
     {
         if( ignoreColor )
         {
-            gl_FragColor = vec4( intensity, 0, 0, 1.0 );
+            _gl_FragColor = vec4( intensity, 0, 0, 1.0 );
         }
         else
         {
-            gl_FragColor = vec4( color );
+            _gl_FragColor = vec4( color );
         }
     }
     else

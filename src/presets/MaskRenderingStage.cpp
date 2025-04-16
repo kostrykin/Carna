@@ -40,6 +40,8 @@ struct MaskRenderingStage::Details
 
     base::math::Vector2f textureSteps;
 
+    std::unique_ptr< base::Sampler > labelMapSampler;
+
 }; // MaskRenderingStage :: Details
 
 
@@ -122,6 +124,9 @@ void MaskRenderingStage::reshape( base::FrameRenderer& fr, unsigned int width, u
 unsigned int MaskRenderingStage::loadVideoResources()
 {
     pimpl->edgeDetectShader = &base::ShaderManager::instance().acquireShader( "mr_edgedetect" );
+    pimpl->labelMapSampler.reset( new base::Sampler
+        ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
+        , base::Sampler::FILTER_NEAREST, base::Sampler::FILTER_NEAREST ) );
     return VolumeRenderingStage::loadVideoResources();
 }
 
@@ -145,7 +150,7 @@ void MaskRenderingStage::renderPass
             rs.setDepthWrite( true );
 
             glClearColor( 0, 0, 0, 0 );
-            rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT );
+            rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
             framebufferViewport.makeActive();
             VolumeRenderingStage::renderPass( vt, rt, framebufferViewport );
@@ -169,6 +174,8 @@ void MaskRenderingStage::renderPass
             base::ShaderUniform< base::math::Vector2f >( "steps", pimpl->textureSteps ).upload();
             params.useDefaultShader = false;
             params.textureUniformName = "labelMap";
+            params.useDefaultSampler = false;
+            pimpl->labelMapSampler->bind( params.unit );
         }
         pimpl->accumulationColorBuffer->bind( 0 );
         rt.renderer.renderTexture( params );

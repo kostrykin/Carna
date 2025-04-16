@@ -16,7 +16,7 @@ uniform int mod2result;
 
 in vec2 textureCoordinates;
 
-out vec4 gl_FragColor;
+layout( location = 0 ) out vec4 _gl_FragColor;
 
 
 // ----------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ void main()
     if( mod( int( gl_FragCoord.y + 0.5 ), 2 ) == mod2result )
     {
         vec4 color = texture( colorMap, textureCoordinates );
-        gl_FragColor = color;
+        _gl_FragColor = color;
     }
     else
     {

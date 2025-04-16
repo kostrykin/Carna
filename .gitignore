@@ -1,4 +1,5 @@
 /build
+/test_cmake/build
 /include/Carna/Version.h
 /src/doc/Doxyfile
 *~

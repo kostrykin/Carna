@@ -1,4 +1,0 @@
-<map id="Carna::base::CarnaException" name="Carna::base::CarnaException">
-<area shape="rect" id="node2" href="$classCarna_1_1base_1_1AssertionFailure.html" title="Carna exception that indicates a failed assertion. " alt="" coords="5,87,200,114"/>
-<area shape="rect" id="node3" href="$classCarna_1_1base_1_1ShaderCompilationError.html" title="Thrown when shader compilation fails. " alt="" coords="224,80,435,121"/>
-</map>
