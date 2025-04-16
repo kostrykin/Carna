@@ -12,8 +12,8 @@ namespace Carna
   *     guaranteed: The compatibility of the API is usually broken when this version
   *     number is incremented.
   *   - The *minor version number* is incremeted on API changes that might break
-  *     downward compatibility, but only locally, s.t. only a few tweaks are
-  *     neccessary - if any - in order to upgrade.
+  *     downward compatibility, but only locally, so that only a few tweaks are
+  *     neccessary — if any — in order to upgrade.
   *   - The *patch version number* is incremeted on such changes that neither of the
   *     two prior rules apply to: Full downward compatibility is guaranteed, thus one
   *     should always try to use the most recent patch version.
@@ -38,7 +38,7 @@ namespace Carna
   * \subsection v_3_0_2 API Version 3.0.2
   *
   * - Added \ref base::MeshFactory::createFromSTL.
-  * - Added support for Qt5 to testing and demo.
+  * - Added support for Qt 5 to testing and demo.
   *
   * \subsection v_3_1_0 API Version 3.1.0
   *
@@ -70,6 +70,13 @@ namespace Carna
   * \subsection v_3_3_2 API Version 3.3.2
   *
   * - Fixes a six-year-old bug in \ref presets::VolumeRenderingStage which caused rendering artifacts at specific angles when rendering strongly anistropic volumes. There was a work-around previously implemented which, however, was not 100% reliable, and came at the cost of forcing a sample rate twice as high as specified. Since this work-around has been removed now, the specified sample rate is used (which effectively is twice as low as before). This means that same rates must be doubled to yield the same results as before (note that the *effective* sample rate will be the same then, meaning that rendering performance will be the same, in terms of both quality and time, but without the artifacts). \ref presets::VolumeRenderingStage::DEFAULT_SAMPLE_RATE has thus been doubled.
+  *
+  * \subsection v_3_3_3 API Version 3.3.3
+  *
+  * - Fix an issue with the <tt>#include</tt> directives in the GLEW headers that are shipped with Carna, that could prevent compilation when GLEW headers were not also installed globally.
+  * - Fix some issues with <tt>FindCarna.cmake.in</tt> that arised when only a release or only a debug version were built.
+  * - Fix consistency of software and hardware rendering results. As a consequence, the width of the borders rendered by the \ref presets::MaskRenderingStage with \ref presets::MaskRenderingStage::setRenderBorders activated could now be somewhat thinner.
+  * - Fix compatibility with OpenGL 4.6.
   */
   
 }  // namespace Carna
