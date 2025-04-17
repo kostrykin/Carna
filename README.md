@@ -40,7 +40,7 @@ On Linux you can run either of the two build scripts:
 ### Dependencies:
 
 * **OpenGL ≥ 3.3** (tested with up to 4.6)
-* **Eigen** ≥ 3.0.5
+* **Eigen ≥ 3.0.5**
 
 In addition, building the demo or the test suite also requires the following libraries:
 
