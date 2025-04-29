@@ -13,9 +13,7 @@
 
 uniform sampler3D huVolume;
 uniform mat4      modelTexture;
-uniform float     minIntensity;
-uniform float     maxIntensity;
-uniform vec4      color;
+uniform sampler1D colorMap;
 
 in vec4 modelSpaceCoordinates;
 
@@ -45,7 +43,6 @@ void main()
     
     vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;
     float intensity = intensityAt( textureCoordinates.xyz );
-    float f = step( minIntensity, intensity ) * ( 1 - step( maxIntensity, intensity ) ) * ( intensity - minIntensity ) / ( maxIntensity - minIntensity );
     
-    _gl_FragColor = vec4( color.rgb, color.a * f );
+    _gl_FragColor = texture( colorMap, intensity );
 }

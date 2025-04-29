@@ -44,6 +44,8 @@ struct MIPStage::Details
 
     std::unique_ptr< base::Texture< 2 > > layerColorBuffer;
     std::unique_ptr< base::Framebuffer  > layerFrameBuffer;
+    
+    const static unsigned int COLORMAP_TEXTURE_UNIT = base::Texture< 0 >::SETUP_UNIT + 1;
 
 }; // MIPStage :: Details
 
@@ -80,10 +82,11 @@ MIPStage* MIPStage::clone() const
 }
 
 
-void MIPStage::appendLayer( MIPLayer* layer )
+MIPLayer& MIPStage::appendLayer( MIPLayer* layer )
 {
     CARNA_ASSERT( std::find( pimpl->layers.begin(), pimpl->layers.end(), layer ) == pimpl->layers.end() );
     pimpl->layers.push_back( layer );
+    return *layer;
 }
 
 
@@ -92,6 +95,7 @@ MIPLayer* MIPStage::removeLayer( const MIPLayer& layer )
     const auto layerItr = std::find( pimpl->layers.begin(), pimpl->layers.end(), const_cast< MIPLayer* >( &layer ) );
     CARNA_ASSERT( layerItr != pimpl->layers.end() );
     MIPLayer* const ownedLayer = *layerItr;
+    ownedLayer->colorMap.releaseVideoResources();
     pimpl->layers.erase( layerItr );
     return ownedLayer;
 }
@@ -141,6 +145,13 @@ void MIPStage::reshape( base::FrameRenderer& fr, unsigned int width, unsigned in
     base::RenderStage::reshape( fr, width, height );
     pimpl->layerColorBuffer.reset( base::Framebuffer::createRenderTexture() );
     pimpl->layerFrameBuffer.reset( new base::Framebuffer( width, height, *pimpl->layerColorBuffer ) );
+}
+
+
+unsigned int MIPStage::loadVideoResources()
+{
+    VolumeRenderingStage::loadVideoResources();
+    return Details::COLORMAP_TEXTURE_UNIT + 1;
 }
 
 
@@ -240,9 +251,8 @@ void MIPStage::configureShader()
     CARNA_ASSERT( pimpl->currentLayer != nullptr );
     const MIPLayer& ch = *pimpl->currentLayer;
 
-    base::ShaderUniform< float >( "minIntensity", ch.intensityRange.first ).upload();
-    base::ShaderUniform< float >( "maxIntensity", ch.intensityRange.last  ).upload();
-    base::ShaderUniform< base::math::Vector4f >( "color", ch.color ).upload();
+    base::ShaderUniform< int >( "colorMap", Details::COLORMAP_TEXTURE_UNIT ).upload();
+    ch.colorMap.bind( Details::COLORMAP_TEXTURE_UNIT );
 }
 
 

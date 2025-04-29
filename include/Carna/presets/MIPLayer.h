@@ -17,6 +17,7 @@
   */
 
 #include <Carna/Carna.h>
+#include <Carna/base/ColorMap.h>
 #include <Carna/base/noncopyable.h>
 #include <Carna/base/math/Span.h>
 #include <Carna/base/math.h>
@@ -34,8 +35,8 @@ namespace presets
 // presets :: MIPLayer
 // ----------------------------------------------------------------------------------
 
-/** \brief  Defines an intensity range and the way it is visualized by a
-  * \ref MIPStage "maximum intensity projection".
+/** \brief
+  * Defines a color map and a blending function within a \ref MIPStage "maximum intensity projection".
   *
   * \author Leonid Kostrykin
   * \date   26.7.11 - 26.2.15
@@ -45,7 +46,8 @@ class CARNA_LIB MIPLayer
 
     NON_COPYABLE
 
-    const base::BlendFunction* myFunction;
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
 
 public:
 
@@ -54,30 +56,17 @@ public:
     const static base::BlendFunction LAYER_FUNCTION_ADD;     ///< Defines the additive blending function.
     const static base::BlendFunction LAYER_FUNCTION_REPLACE; ///< Defines "replacing" blending function.
 
-    /** \brief  Instantiates.
+    /** \brief
+      * Instantiates.
       */
     MIPLayer
-        ( const base::math::Span< float >& intensityRange
-        , const base::math::Vector4f& color
-        , const base::BlendFunction& function = LAYER_FUNCTION_REPLACE );
-
-    /** \brief  Instantiates.
-      */
-    MIPLayer
-        ( float minIntensity, float maxIntensity
-        , const base::math::Vector4f& color
-        , const base::BlendFunction& function = LAYER_FUNCTION_REPLACE );
+        ( const base::BlendFunction& function = LAYER_FUNCTION_REPLACE
+        , unsigned int colorMapResolution = base::ColorMap::DEFAULT_RESOLUTION );
 
     /** \brief
-      * Holds the intensity range that this layer covers as described
-      * \ref MIPStageLayers "here".
+      * The color map used for the layer.
       */
-    base::math::Span< float > intensityRange;
-    
-    /** \brief
-      * Holds the color of this layer as described \ref MIPStageLayers "here".
-      */
-    base::math::Vector4f color;
+    base::ColorMap colorMap;
 
     /** \brief
       * Sets the blending function to be used to combine this layer with the previous

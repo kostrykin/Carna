@@ -6,6 +6,7 @@
 #define COLORMAP_H_6014714286
 
 #include <Carna/Carna.h>
+#include <Carna/base/noncopyable.h>
 #include <memory>
 
 /** \file   ColorMap.h
@@ -21,27 +22,49 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// ColorMapInterface
+// ColorMap
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Interface for classes that can be used as color maps.
+  * Represents a mapping of intensity values to RGBA colors, that can be queried in a shader.
   *
   * \author Leonid Kostrykin
   * \date   29.4.25
   */
-  class CARNA_LIB ColorMapInterface
+class CARNA_LIB ColorMap
 {
+
+    NON_COPYABLE
+
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
 
 public:
 
-    virtual ~ColorMapInterface() = default;
+    /** \brief
+      * Holds the default resolution of the color map (16bit).
+      */
+    const static unsigned int DEFAULT_RESOLUTION = ( 1 << 12 );
+
+    /** \brief
+      * Instantiates.
+      *
+      * The parameter \a resolution determines the resolution of the color map. If your
+      * data is 8bit, using a 8bit color map is sufficient. If your data is 32bit, you
+      * probably also want to use a 32bit color map.
+      */
+    explicit ColorMap( unsigned int resolution = DEFAULT_RESOLUTION );
+
+    /** \brief
+      * Deletes the maintained OpenGL texture and sampler objects.
+      */
+    ~ColorMap();
 
     /** \brief
       * Clears the color map. All intensity values are mapped to
       * \ref base::Color::BLACK_NO_ALPHA after calling this method.
       */
-    virtual void clear() = 0;
+    void clear();
     
     /** \brief
       * Maps all intensity values from \a intensityRange to \a colorRange.
@@ -55,90 +78,23 @@ public:
       * \a intensityRange correspond to the same entry of the color map, the *mean*
       * of the first and the last values from \a colorRange is written.
       */
-    virtual void writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange ) = 0;
+    void writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange );
     
     /** \overload
       */
-    virtual void writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast ) = 0;
-
-}; // ColorMapInterface
-
-
-
-// ----------------------------------------------------------------------------------
-// ColorMapControl
-// ----------------------------------------------------------------------------------
-
-/** \brief
-  * Implementation of the \ref ColorMapInterface that propagates calls to another
-  * implementation the \ref ColorMapInterface interface.
-  *
-  * \author Leonid Kostrykin
-  * \date   29.4.25
-  */
-class ColorMapControl : public ColorMapInterface
-{
-
-    ColorMapInterface& target;
-
-public:
-
-    ColorMapControl( ColorMapInterface& target );
-
-    virtual void clear() override;
-
-    virtual void writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange ) override;
-
-    virtual void writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast ) override;
-
-};
-
-
-
-// ----------------------------------------------------------------------------------
-// ColorMap
-// ----------------------------------------------------------------------------------
-
-/** \brief
-  * Represents a mapping of intensity values to RGBA colors, that can be queried in a shader.
-  *
-  * \author Leonid Kostrykin
-  * \date   29.4.25
-  */
-class CARNA_LIB ColorMap : public ColorMapInterface
-{
-
-    struct Details;
-    const std::unique_ptr< Details > pimpl;
-
-public:
-
-    /** \brief
-      * Instantiates.
-      *
-      * The parameter \a resolution determines the resolution of the color map. If your
-      * data is 8bit, using a 8bit color map is sufficient. If your data is 32bit, you
-      * probably also want to use a 32bit color map.
-      */
-    explicit ColorMap( unsigned int resolution = ( 1 << 12 ) );
-
-    /** \brief
-      * Deletes the maintained OpenGL texture and sampler objects.
-      */
-    virtual ~ColorMap();
-
-    virtual void clear() override;
-    
-    virtual void writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange ) override;
-    
-    virtual void writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast ) override;
+    void writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast );
 
     /** \brief
       * Binds this texture and the corresponding sampler to \a unit.
       */
-    void bind( int unit );
+    void bind( int unit ) const;
 
-}; // ColorMap
+    /** \brief
+      * Deletes the maintained OpenGL texture and sampler objects (if loaded).
+      */
+    void releaseVideoResources();
+
+}; // base :: ColorMap
 
 
 

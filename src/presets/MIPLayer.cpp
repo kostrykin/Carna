@@ -21,46 +21,48 @@ namespace presets
 
 
 // ----------------------------------------------------------------------------------
-// MIP :: MIPLayer
+// MIPLayer :: Details
+// ----------------------------------------------------------------------------------
+
+struct MIPLayer::Details
+{
+    Details( const base::BlendFunction& function );
+
+    const base::BlendFunction* function;
+};
+
+
+MIPLayer::Details::Details( const base::BlendFunction& function )
+    : function( &LAYER_FUNCTION_REPLACE )
+{
+}
+
+
+
+// ----------------------------------------------------------------------------------
+// MIPLayer
 // ----------------------------------------------------------------------------------
 
 const base::BlendFunction MIPLayer::LAYER_FUNCTION_REPLACE( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 const base::BlendFunction MIPLayer::LAYER_FUNCTION_ADD    ( GL_SRC_ALPHA, GL_ONE );
 
 
-MIPLayer::MIPLayer
-    ( const base::math::Span< float >& intensityRange
-    , const base::math::Vector4f& color
-    , const base::BlendFunction& function )
-
-    : intensityRange( intensityRange )
-    , color( color )
-    , myFunction( &function )
+MIPLayer::MIPLayer( const base::BlendFunction& function, unsigned int colorMapResolution )
+    : pimpl( new Details( function ) )
+    , colorMap( colorMapResolution )
 {
 }
 
 
-MIPLayer::MIPLayer
-    ( float minIntensity, float maxIntensity
-    , const base::math::Vector4f& color
-    , const base::BlendFunction& function )
-
-    : intensityRange( minIntensity, maxIntensity )
-    , color( color )
-    , myFunction( &function )
+void MIPLayer::setFunction( const base::BlendFunction& function )
 {
-}
-
-
-void MIPLayer::setFunction( const base::BlendFunction& layerFunction )
-{
-    myFunction = &layerFunction;
+    pimpl->function = &function;
 }
 
 
 const base::BlendFunction& MIPLayer::function() const
 {
-    return *myFunction;
+    return *pimpl->function;
 }
 
 

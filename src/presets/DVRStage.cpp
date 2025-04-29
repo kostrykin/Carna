@@ -36,12 +36,11 @@ namespace presets
 
 struct DVRStage::Details
 {
-    Details( unsigned int colorMapResolution );
+    Details();
     std::unique_ptr< base::Texture< 2 > > accumulationColorBuffer;
     std::unique_ptr< base::Framebuffer  > accumulationFrameBuffer;
     
     const static unsigned int COLORMAP_TEXTURE_UNIT = base::Texture< 0 >::SETUP_UNIT + 1;
-    base::ColorMap colorMap;
     
     float translucence;
     float diffuseLight;
@@ -49,9 +48,8 @@ struct DVRStage::Details
 };
 
 
-DVRStage::Details::Details( unsigned int colorMapResolution )
-    : colorMap( colorMapResolution )
-    , translucence( DEFAULT_TRANSLUCENCE )
+DVRStage::Details::Details()
+    : translucence( DEFAULT_TRANSLUCENCE )
     , diffuseLight( DEFAULT_DIFFUSE_LIGHT )
 {
 }
@@ -68,8 +66,8 @@ const float DVRStage::DEFAULT_DIFFUSE_LIGHT = 1;
 
 DVRStage::DVRStage( unsigned int geometryType, unsigned int colorMapResolution )
     : VolumeRenderingStage( geometryType )
-    , pimpl( new Details( colorMapResolution ) )
-    , colorMap( pimpl->colorMap )
+    , pimpl( new Details() )
+    , colorMap( colorMapResolution )
 {
 }
 
@@ -239,7 +237,7 @@ void DVRStage::configureShader()
         
     /* Bind the color map.
      */
-    pimpl->colorMap.bind(  Details::COLORMAP_TEXTURE_UNIT );
+    colorMap.bind( Details::COLORMAP_TEXTURE_UNIT );
 }
 
 

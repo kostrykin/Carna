@@ -12,9 +12,9 @@
 #ifndef DVRSTAGE_H_6014714286
 #define DVRSTAGE_H_6014714286
 
+#include <Carna/Carna.h>
 #include <Carna/base/ColorMap.h>
 #include <Carna/presets/VolumeRenderingStage.h>
-#include <Carna/Carna.h>
 #include <memory>
 
 /** \file   DVRStage.h
@@ -138,7 +138,9 @@ public:
       * map. If your data is 8bit, using 8bit color map is sufficient. If your data
       * is 32bit, you probably also want to use a 32bit color map.
       */
-    explicit DVRStage( unsigned int geometryType, unsigned int colorMapResolution = ( 1 << 12 ) );
+    explicit DVRStage
+        ( unsigned int geometryType
+        , unsigned int colorMapResolution = base::ColorMap::DEFAULT_RESOLUTION );
 
     /** \brief
       * Deletes.
@@ -154,10 +156,10 @@ public:
         , base::RenderTask& rt
         , const base::Viewport& vp ) override;
 
-    /* \brief
-     * The color map used for the rendering.
-     */
-    base::ColorMapControl colorMap;
+    /** \brief
+      * The color map used for the rendering.
+      */
+    base::ColorMap colorMap;
     
     /** \brief
       * Sets the \ref DVRStageTranslucence "translucence" property.
@@ -215,7 +217,7 @@ protected:
       */
     virtual void configureShader( const base::Renderable& ) override;
 
-}; // DVRStage
+}; // presets :: DVRStage
 
 
 

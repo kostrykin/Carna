@@ -18,35 +18,6 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// ColorMapControl
-// ----------------------------------------------------------------------------------
-
-ColorMapControl::ColorMapControl( ColorMapInterface& target )
-    : target( target )
-{
-}
-
-
-void ColorMapControl::clear()
-{
-    target.clear();
-}
-
-
-void ColorMapControl::writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange )
-{
-    target.writeLinearSegment( intensityRange, colorRange );
-}
-
-
-void ColorMapControl::writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast )
-{
-    target.writeLinearSegment( intensityFirst, intensityLast, colorFirst, colorLast );
-}
-
-
-
-// ----------------------------------------------------------------------------------
 // ColorMap :: Details
 // ----------------------------------------------------------------------------------
 
@@ -153,7 +124,7 @@ void ColorMap::writeLinearSegment( float intensityFirst, float intensityLast, co
 }
 
 
-void ColorMap::bind( int unit )
+void ColorMap::bind( int unit ) const
 {
     /* Create the sampler, if it was not created yet.
      */
@@ -172,6 +143,14 @@ void ColorMap::bind( int unit )
     */
     pimpl->texture->bind( unit );
     pimpl->sampler->bind( unit );
+}
+
+
+void ColorMap::releaseVideoResources()
+{
+    pimpl->texture.reset();
+    pimpl->sampler.reset();
+    pimpl->isDirty = true;
 }
 
 

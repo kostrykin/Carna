@@ -102,7 +102,7 @@ public:
     /** \brief
       * Appends \a layer to the \ref MIPStageLayers "layers list" and takes it's ownership.
       */
-    void appendLayer( MIPLayer* layer );
+    MIPLayer& appendLayer( MIPLayer* layer );
     
     /** \brief
       * Removes \a layer from the \ref MIPStageLayers "layers list".
@@ -130,6 +130,8 @@ public:
     void clearLayers();
 
 protected:
+
+    virtual unsigned int loadVideoResources() override;
 
     virtual void createVolumeSamplers( const std::function< void( unsigned int, base::Sampler* ) >& registerSampler ) override;
 
