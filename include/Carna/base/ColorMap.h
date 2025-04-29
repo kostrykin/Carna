@@ -44,7 +44,7 @@ public:
     /** \brief
       * Holds the default resolution of the color map (16bit).
       */
-    const static unsigned int DEFAULT_RESOLUTION = ( 1 << 12 );
+    const static unsigned int DEFAULT_RESOLUTION = ( 1 << 16 );
 
     /** \brief
       * Instantiates.

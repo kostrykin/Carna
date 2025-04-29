@@ -8,6 +8,7 @@
 #include <Carna/base/glew.h>
 #include <Carna/base/ShaderManager.h>
 #include <Carna/base/Texture.h>
+#include <iostream>
 
 namespace Carna
 {
@@ -32,6 +33,7 @@ struct ColorMap::Details
     void update();
 
     std::size_t locationByIntensity( float intensity );
+    void sampleDownTo( unsigned int resolution );
 };
 
 
@@ -63,14 +65,42 @@ void ColorMap::Details::update()
         {
             texture.reset( new base::Texture< 1 >( GL_RGBA8, GL_RGBA ) );
         }
+
+        /* Verify that the texture size is supported by the hardware (and perform down-sampling if required).
+         */
+        const unsigned int maxTextureSize = base::Texture< 1 >::maxTextureSize();
+        if( colorMap.size() > maxTextureSize )
+        {
+            std::stringstream ss;
+            ss << "Color map size (" << colorMap.size() << ") exceeds maximum texture size (" << maxTextureSize << ").";
+            base::Log::instance().record( base::Log::warning, ss.str() );
+            sampleDownTo( maxTextureSize );
+        }
         
         /* Update the texture.
-        */
+         */
         base::Texture< 1 >::Resolution textureSize;
         textureSize.x() = colorMap.size();
         texture->update( textureSize, GL_UNSIGNED_BYTE, &colorMap[ 0 ] );
         isDirty = false;
         base::Log::instance().record( base::Log::debug, "Color map updated." );
+    }
+}
+
+
+void ColorMap::Details::sampleDownTo( unsigned int resolution )
+{
+    CARNA_ASSERT( resolution <= colorMap.size() );
+    if( resolution < colorMap.size() )
+    {
+        std::vector< base::Color > newColorMap( resolution );
+        for( std::size_t location = 0; location < resolution; ++location )
+        {
+            const float intensity = static_cast< float >( location ) / ( resolution - 1 );
+            newColorMap[ location ] = colorMap[ locationByIntensity( intensity ) ];
+        }
+        colorMap = newColorMap;
+        isDirty = true;
     }
 }
 
