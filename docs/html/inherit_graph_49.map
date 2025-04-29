@@ -1,0 +1,38 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classCarna_1_1base_1_1MeshRenderingStageBase.html" title="Defines MeshRenderingStage class template instance invariants." alt="" coords="266,219,474,259"/>
+<area shape="rect" id="Node000001" href="$classCarna_1_1base_1_1MeshRenderingStage.html" title=" " alt="" coords="559,225,767,280"/>
+<area shape="poly" id="edge36_Node000000_Node000001" title=" " alt="" coords="488,242,559,245,559,251,488,247"/>
+<area shape="rect" id="Node000004" href="$classCarna_1_1base_1_1MeshRenderingStage.html" title="Implements a geometry rendering stage that renders meshes." alt="" coords="552,317,775,357"/>
+<area shape="poly" id="edge38_Node000000_Node000004" title=" " alt="" coords="471,261,497,269,545,290,607,314,605,319,543,295,495,274,469,266"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1presets_1_1TransparentRenderingStage.html" title="Implements rendering stage that renders transparent meshes." alt="" coords="843,233,1043,273"/>
+<area shape="poly" id="edge37_Node000001_Node000002" title=" " alt="" coords="781,250,843,250,843,255,781,255"/>
+<area shape="rect" id="Node000005" href="$classCarna_1_1base_1_1RenderStage.html" title="Base abstract class of each rendering stage. Refer to the documentation of the rendering process." alt="" coords="5,291,196,316"/>
+<area shape="rect" id="Node000006" href="$classCarna_1_1base_1_1GeometryStage.html" title=" " alt="" coords="265,411,475,451"/>
+<area shape="poly" id="edge39_Node000005_Node000006" title=" " alt="" coords="129,323,181,361,245,397,276,409,275,414,243,402,178,365,126,327"/>
+<area shape="rect" id="Node000009" href="$classCarna_1_1base_1_1GeometryStage.html" title=" " alt="" coords="244,91,496,131"/>
+<area shape="poly" id="edge42_Node000005_Node000009" title=" " alt="" coords="115,277,165,209,201,172,243,141,267,129,269,134,245,146,205,176,169,213,119,281"/>
+<area shape="rect" id="Node000003" href="$classCarna_1_1base_1_1GeometryStage.html" title="Partially implements a rendering stage that uses at least one render queue for rendering geometry fro..." alt="" coords="265,347,475,387"/>
+<area shape="poly" id="edge48_Node000005_Node000003" title=" " alt="" coords="169,317,286,345,284,350,168,322"/>
+<area shape="rect" id="Node000015" href="$classCarna_1_1presets_1_1CompositionStage.html" title="Defines rendering stage that combines two other renderings either by putting them next to each other ..." alt="" coords="267,155,473,195"/>
+<area shape="poly" id="edge51_Node000005_Node000015" title=" " alt="" coords="126,280,178,242,243,205,275,193,276,198,245,210,181,246,129,284"/>
+<area shape="rect" id="Node000017" href="$classCarna_1_1presets_1_1OccludedRenderingStage.html" title="Renders geometry that is actually depth&#45;occluded. The occluded geometry is rendered with reduced opac..." alt="" coords="278,283,462,323"/>
+<area shape="poly" id="edge53_Node000005_Node000017" title=" " alt="" coords="210,301,278,301,278,306,210,306"/>
+<area shape="rect" id="Node000007" href="$classCarna_1_1presets_1_1CuttingPlanesStage.html" title="Renders cutting planes of volume geometries in the scene." alt="" coords="556,405,771,445"/>
+<area shape="poly" id="edge40_Node000006_Node000007" title=" " alt="" coords="489,426,556,424,556,430,489,431"/>
+<area shape="rect" id="Node000008" href="$classCarna_1_1presets_1_1MeshColorCodingStage.html" title="Implements a simple interface for mapping frame coordinates to base::Mesh objects." alt="" coords="567,469,760,509"/>
+<area shape="poly" id="edge41_Node000006_Node000008" title=" " alt="" coords="487,451,567,467,566,472,486,457"/>
+<area shape="rect" id="Node000010" href="$classCarna_1_1presets_1_1VolumeRenderingStage.html" title="Defines abstract base class for rendering stages that render volume geometries in the scene." alt="" coords="544,91,783,131"/>
+<area shape="poly" id="edge43_Node000009_Node000010" title=" " alt="" coords="510,109,544,109,544,114,510,114"/>
+<area shape="rect" id="Node000011" href="$classCarna_1_1presets_1_1DRRStage.html" title="Renders digital radiograph reconstructs of volume geometries in the scene." alt="" coords="849,169,1038,195"/>
+<area shape="poly" id="edge44_Node000010_Node000011" title=" " alt="" coords="753,132,783,141,831,154,884,167,883,172,830,159,782,146,751,138"/>
+<area shape="rect" id="Node000012" href="$classCarna_1_1presets_1_1DVRStage.html" title="Performs direct volume renderings of the volume geometries in the scene." alt="" coords="849,5,1038,31"/>
+<area shape="poly" id="edge45_Node000010_Node000012" title=" " alt="" coords="718,83,772,60,830,39,873,28,874,33,831,45,774,65,720,88"/>
+<area shape="rect" id="Node000013" href="$classCarna_1_1presets_1_1MIPStage.html" title="Renders maximum intensity projections of volume geometries in the scene." alt="" coords="851,55,1036,80"/>
+<area shape="poly" id="edge46_Node000010_Node000013" title=" " alt="" coords="795,88,861,77,862,83,796,93"/>
+<area shape="rect" id="Node000014" href="$classCarna_1_1presets_1_1MaskRenderingStage.html" title="Renders 3D masks." alt="" coords="831,105,1056,145"/>
+<area shape="poly" id="edge47_Node000010_Node000014" title=" " alt="" coords="796,115,830,117,830,122,796,120"/>
+<area shape="poly" id="edge49_Node000003_Node000001" title=" " alt="" coords="476,340,495,333,519,318,543,302,594,278,596,282,545,307,522,323,497,338,478,345"/>
+<area shape="poly" id="edge50_Node000003_Node000004" title=" " alt="" coords="488,352,552,346,552,351,489,358"/>
+<area shape="rect" id="Node000016" href="$classCarna_1_1presets_1_1ParallaxStage.html" title="Produces stereoscopic renderings." alt="" coords="575,155,751,195"/>
+<area shape="poly" id="edge52_Node000015_Node000016" title=" " alt="" coords="487,173,575,173,575,178,487,178"/>
+</map>

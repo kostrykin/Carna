@@ -1,0 +1,7 @@
+<map id="Carna::presets::MIPLayer" name="Carna::presets::MIPLayer">
+<area shape="rect" id="Node000001" title="Defines an intensity range and the way it is visualized by a maximum intensity projection." alt="" coords="119,123,303,148"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1BlendFunction.html" title="Defines how alpha blending is to be performed." alt="" coords="5,13,204,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,52,100,75,108,97,122,111,140,120,137,125,119,115,104,100,95,76,96,52"/>
+<area shape="rect" id="Node000003" href="$classCarna_1_1base_1_1math_1_1Span.html" title=" " alt="" coords="245,5,394,45"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="315,59,306,81,292,101,273,115,253,125,251,120,271,110,288,97,301,78,310,57"/>
+</map>

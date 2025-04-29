@@ -1,0 +1,5 @@
+<map id="Carna::presets::CameraShowcaseControl" name="Carna::presets::CameraShowcaseControl">
+<area shape="rect" id="Node000001" title="Implements base::CameraControl, rotates the camera around its parent node. The camera movement is bou..." alt="" coords="5,79,245,119"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1CameraControl.html" title="Defines interface for intuitive Camera control." alt="" coords="23,5,228,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,44,128,79,123,79,123,44"/>
+</map>

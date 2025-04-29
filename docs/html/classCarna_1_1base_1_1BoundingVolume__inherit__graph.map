@@ -1,0 +1,7 @@
+<map id="Carna::base::BoundingVolume" name="Carna::base::BoundingVolume">
+<area shape="rect" id="Node000001" title="Represents a Geometry minimal boundary volume of simple geometric shape. The volume is centered withi..." alt="" coords="107,5,324,31"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1BoundingBox.html" title="Defines a Geometry minimal boundary box." alt="" coords="5,79,199,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,40,122,81,119,76,184,36"/>
+<area shape="rect" id="Node000003" href="$classCarna_1_1base_1_1BoundingSphere.html" title="Defines a Geometry minimal boundary sphere." alt="" coords="223,79,437,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="247,35,313,76,310,81,244,40"/>
+</map>

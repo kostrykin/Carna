@@ -1,0 +1,7 @@
+<map id="Carna::base::ManagedMeshBase" name="Carna::base::ManagedMeshBase">
+<area shape="rect" id="Node000001" title="Represents MeshBase object whose lifetime is managed by instances of this class. This is a format&#45;ind..." alt="" coords="5,79,240,104"/>
+<area shape="rect" id="Node000003" href="$classCarna_1_1base_1_1ManagedMesh.html" title="Implements MeshBase class for particular VertexType and IndexType." alt="" coords="21,152,224,192"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="125,118,125,152,120,152,120,118"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1GeometryFeature.html" title="Represents &quot;components&quot; that are aggregated by Geometry objects. Closer description is given here." alt="" coords="12,5,233,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,44,125,79,120,79,120,44"/>
+</map>

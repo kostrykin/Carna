@@ -1,0 +1,9 @@
+<map id="Carna::presets::MaskRenderingStage" name="Carna::presets::MaskRenderingStage">
+<area shape="rect" id="Node000001" title="Renders 3D masks." alt="" coords="19,255,244,295"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1presets_1_1VolumeRenderingStage.html" title="Defines abstract base class for rendering stages that render volume geometries in the scene." alt="" coords="12,167,251,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,221,134,254,129,254,129,221"/>
+<area shape="rect" id="Node000003" href="$classCarna_1_1base_1_1GeometryStage.html" title=" " alt="" coords="5,79,257,119"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="134,133,134,166,129,166,129,133"/>
+<area shape="rect" id="Node000004" href="$classCarna_1_1base_1_1RenderStage.html" title="Base abstract class of each rendering stage. Refer to the documentation of the rendering process." alt="" coords="36,5,227,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="134,44,134,79,129,79,129,44"/>
+</map>

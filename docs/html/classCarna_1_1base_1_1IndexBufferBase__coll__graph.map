@@ -1,0 +1,5 @@
+<map id="Carna::base::IndexBufferBase" name="Carna::base::IndexBufferBase">
+<area shape="rect" id="Node000001" title="Maintains GL_ELEMENT_ARRAY_BUFFER object that holds the vertex indices, that interconnect the vertice..." alt="" coords="5,79,220,104"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1BaseBuffer.html" title="Implements OpenGL buffer objects maintenance RAII base class." alt="" coords="23,5,202,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,44,115,79,110,79,110,44"/>
+</map>

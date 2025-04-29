@@ -1,0 +1,5 @@
+<map id="Carna::base::IntensityVolume" name="Carna::base::IntensityVolume">
+<area shape="rect" id="Node000001" title="Defines interface to &#160;volume data." alt="" coords="5,93,219,119"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1math_1_1VectorField.html" title=" " alt="" coords="35,5,189,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,59,115,93,109,93,109,59"/>
+</map>

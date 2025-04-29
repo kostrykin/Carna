@@ -1,0 +1,5 @@
+<map id="Carna::base::ShaderManager" name="Carna::base::ShaderManager">
+<area shape="rect" id="Node000001" title="Ensures that each shader is built just once and not each time someone requests it." alt="" coords="5,93,215,119"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1Singleton.html" title=" " alt="" coords="26,5,194,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,59,113,93,107,93,107,59"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="include/Carna/presets/OpaqueRenderingStage.h" name="include/Carna/presets/OpaqueRenderingStage.h">
+<area shape="rect" id="Node000001" title="Defines Carna::presets::OpaqueRenderingStage." alt="" coords="266,5,457,45"/>
+<area shape="rect" id="Node000002" href="$MeshColorCodingStageTest_8h_source.html" title=" " alt="" coords="5,93,211,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="294,52,164,96,163,91,292,47"/>
+<area shape="rect" id="Node000003" href="$OpaqueRenderingStageTest_8h_source.html" title=" " alt="" coords="235,93,487,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="364,59,364,93,359,93,359,59"/>
+<area shape="rect" id="Node000004" href="$PointMarkerHelperTest_8h_source.html" title=" " alt="" coords="511,93,726,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="432,47,563,91,561,96,430,52"/>
+</map>

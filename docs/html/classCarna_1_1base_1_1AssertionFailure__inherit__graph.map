@@ -1,0 +1,5 @@
+<map id="Carna::base::AssertionFailure" name="Carna::base::AssertionFailure">
+<area shape="rect" id="Node000001" title="Carna exception that indicates a failed assertion." alt="" coords="5,79,216,104"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1CarnaException.html" title="Base exception class that provides distinct attributes for the type (category) of the exception,..." alt="" coords="6,5,215,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,44,113,79,108,79,108,44"/>
+</map>

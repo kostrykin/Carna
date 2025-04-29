@@ -1,0 +1,7 @@
+<map id="Carna::presets::CuttingPlanesStage" name="Carna::presets::CuttingPlanesStage">
+<area shape="rect" id="Node000001" title="Renders cutting planes of volume geometries in the scene." alt="" coords="5,167,220,207"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1GeometryStage.html" title=" " alt="" coords="8,79,217,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,133,115,166,110,166,110,133"/>
+<area shape="rect" id="Node000003" href="$classCarna_1_1base_1_1RenderStage.html" title="Base abstract class of each rendering stage. Refer to the documentation of the rendering process." alt="" coords="17,5,208,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="115,44,115,79,110,79,110,44"/>
+</map>

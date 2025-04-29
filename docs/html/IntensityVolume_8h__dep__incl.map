@@ -1,0 +1,19 @@
+<map id="include/Carna/base/IntensityVolume.h" name="include/Carna/base/IntensityVolume.h">
+<area shape="rect" id="Node000001" title="Defines Carna::base::IntensityVolume." alt="" coords="151,5,297,45"/>
+<area shape="rect" id="Node000002" href="$BufferedIntensityVolume_8h.html" title="Defines Carna::base::BufferedIntensityVolume." alt="" coords="26,93,225,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,56,149,95,145,91,190,52"/>
+<area shape="rect" id="Node000004" href="$VolumeGrid_8h.html" title="Defines Carna::base::VolumeGrid." alt="" coords="256,93,403,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="259,52,308,91,304,95,256,56"/>
+<area shape="rect" id="Node000003" href="$BufferedIntensityVolumeTest_8h_source.html" title=" " alt="" coords="5,181,232,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="125,147,123,181,117,181,120,147"/>
+<area shape="rect" id="Node000005" href="$VolumeSegment_8h.html" title="Defines Carna::base::VolumeSegment." alt="" coords="256,181,403,221"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="323,147,324,181,319,181,318,147"/>
+<area shape="rect" id="Node000006" href="$VolumeGridHelper_8h.html" title="Defines Carna::helpers::VolumeGridHelper." alt="" coords="315,357,477,397"/>
+<area shape="poly" id="edge9_Node000004_Node000006" title=" " alt="" coords="383,138,419,160,456,190,489,226,512,268,518,290,512,311,486,340,453,360,450,355,482,336,507,308,512,290,507,270,484,229,452,194,416,165,380,142"/>
+<area shape="rect" id="Node000007" href="$VolumeGridHelperDetails_8h.html" title="Defines Carna::helpers::details::VolumeGridHelper." alt="" coords="295,269,497,309"/>
+<area shape="poly" id="edge10_Node000004_Node000007" title=" " alt="" coords="380,139,401,157,417,180,423,204,422,228,408,270,403,268,417,227,418,204,412,182,397,161,376,143"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="335,168,334,134,340,134,341,168"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="304,233,292,251,283,270,280,290,285,308,310,336,342,355,339,360,306,340,280,311,275,290,278,269,287,248,300,230"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="355,231,383,267,379,271,350,234"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="399,323,399,357,393,357,393,323"/>
+</map>

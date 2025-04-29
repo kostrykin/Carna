@@ -1,0 +1,5 @@
+<map id="Carna::base::Geometry" name="Carna::base::Geometry">
+<area shape="rect" id="Node000001" title="Defines scene graph leafs. Instances of this class represent visible geometry that can be rendered...." alt="" coords="5,79,177,104"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1Spatial.html" title="Represents a spatial scene element. It&#39;s location is determined relatively to another spatial that is..." alt="" coords="15,5,167,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,44,94,79,89,79,89,44"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="include/Carna/base/HUV.h" name="include/Carna/base/HUV.h">
+<area shape="rect" id="Node000001" title="Defines Carna::base::HUV." alt="" coords="133,5,279,45"/>
+<area shape="rect" id="Node000002" href="$HUVolume_8h.html" title="Defines Carna::base::HUVolume." alt="" coords="43,93,190,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,57,138,95,135,91,174,53"/>
+<area shape="rect" id="Node000005" href="$DRRStage_8h.html" title="Defines Carna::presets::DRRStage." alt="" coords="214,93,377,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="238,53,277,91,274,95,234,57"/>
+<area shape="rect" id="Node000003" href="$BufferedHUVolume_8h.html" title="Defines Carna::base::BufferedHUVolume." alt="" coords="35,181,198,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="119,147,119,181,114,181,114,147"/>
+<area shape="rect" id="Node000004" href="$HUGZSceneFactory_8h_source.html" title=" " alt="" coords="5,269,228,295"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="119,235,119,269,114,269,114,235"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Carna::base::PNVertex" name="Carna::base::PNVertex">
+<area shape="rect" id="Node000001" title="Defines vertex that consists of the two attributes position and normal vector." alt="" coords="135,79,301,104"/>
+<area shape="rect" id="Node000002" href="$structCarna_1_1base_1_1VertexPosition.html" title="Defines vertex component for position vectors. Usage is explained here." alt="" coords="5,5,207,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,36,201,76,198,81,134,40"/>
+<area shape="rect" id="Node000003" href="$structCarna_1_1base_1_1VertexNormal.html" title="Defines vertex component for normal vectors. Usage is explained here." alt="" coords="231,5,429,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="302,40,238,81,235,76,299,36"/>
+</map>

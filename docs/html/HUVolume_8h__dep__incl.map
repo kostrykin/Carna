@@ -1,0 +1,7 @@
+<map id="include/Carna/base/HUVolume.h" name="include/Carna/base/HUVolume.h">
+<area shape="rect" id="Node000001" title="Defines Carna::base::HUVolume." alt="" coords="43,5,190,45"/>
+<area shape="rect" id="Node000002" href="$BufferedHUVolume_8h.html" title="Defines Carna::base::BufferedHUVolume." alt="" coords="35,93,198,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,59,119,93,114,93,114,59"/>
+<area shape="rect" id="Node000003" href="$HUGZSceneFactory_8h_source.html" title=" " alt="" coords="5,181,228,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="119,147,119,181,114,181,114,147"/>
+</map>
