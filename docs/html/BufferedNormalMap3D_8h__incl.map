@@ -1,0 +1,56 @@
+<map id="include/Carna/base/BufferedNormalMap3D.h" name="include/Carna/base/BufferedNormalMap3D.h">
+<area shape="rect" id="Node000001" title="Defines Carna::base::BufferedNormalMap3D." alt="" coords="785,5,971,45"/>
+<area shape="rect" id="Node000002" href="$NormalMap3D_8h.html" title="Defines Carna::base::NormalMap3D." alt="" coords="485,93,690,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="809,48,644,92,642,87,808,43"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="859,460,921,485"/>
+<area shape="poly" id="edge29_Node000001_Node000006" title=" " alt="" coords="927,43,968,64,1007,94,1024,112,1038,132,1047,154,1050,178,1050,328,1047,351,1038,372,1009,408,972,436,934,457,931,452,969,432,1006,404,1034,369,1042,349,1045,327,1045,178,1042,155,1033,134,1020,115,1004,98,965,69,925,48"/>
+<area shape="rect" id="Node000008" href="$CarnaException_8h.html" title="Defines Carna::base::CarnaException, Carna::base::AssertionFailure." alt="" coords="41,313,254,339"/>
+<area shape="poly" id="edge24_Node000001_Node000008" title=" " alt="" coords="785,36,575,58,476,75,406,96,366,117,328,143,260,201,204,258,166,304,162,301,200,255,256,197,325,138,364,113,404,91,474,70,575,53,784,31"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="867,313,959,339"/>
+<area shape="poly" id="edge31_Node000001_Node000014" title=" " alt="" coords="896,44,911,66,922,93,932,150,933,208,928,260,921,301,916,300,922,260,927,208,927,151,917,94,906,69,892,47"/>
+<area shape="rect" id="Node000018" href="$Composition_8h.html" title="Defines Carna::base::Composition." alt="" coords="715,93,908,119"/>
+<area shape="poly" id="edge20_Node000001_Node000018" title=" " alt="" coords="864,47,832,84,828,81,860,44"/>
+<area shape="rect" id="Node000020" href="$text_8h.html" title="Defines Carna::base::text." alt="" coords="279,313,416,339"/>
+<area shape="poly" id="edge25_Node000001_Node000020" title=" " alt="" coords="785,34,715,40,636,52,553,70,474,96,409,121,386,139,364,168,351,201,345,237,346,300,341,300,339,236,346,200,360,165,382,135,407,117,472,91,552,65,635,47,714,35,784,28"/>
+<area shape="rect" id="Node000021" title=" " alt="" coords="1085,93,1162,119"/>
+<area shape="poly" id="edge30_Node000001_Node000021" title=" " alt="" coords="938,43,1076,87,1074,92,936,48"/>
+<area shape="rect" id="Node000022" title=" " alt="" coords="1186,93,1253,119"/>
+<area shape="poly" id="edge32_Node000001_Node000022" title=" " alt="" coords="964,43,1173,90,1172,96,963,48"/>
+<area shape="rect" id="Node000003" href="$VectorField_8h.html" title="Defines Carna::base::math::VectorField." alt="" coords="374,167,595,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="572,121,514,161,511,156,569,116"/>
+<area shape="rect" id="Node000004" href="$math_8h.html" title="Defines Carna::base::math namespace and CARNA_FOR_VECTOR3UI." alt="" coords="544,240,689,265"/>
+<area shape="poly" id="edge18_Node000002_Node000004" title=" " alt="" coords="595,118,610,166,618,226,613,226,605,167,590,120"/>
+<area shape="rect" id="Node000017" href="$noncopyable_8h.html" title=" " alt="" coords="714,240,909,265"/>
+<area shape="poly" id="edge19_Node000002_Node000017" title=" " alt="" coords="604,117,710,190,780,231,777,236,707,194,601,121"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="507,190,584,231,582,236,505,194"/>
+<area shape="rect" id="Node000005" href="$Carna_8h_source.html" title=" " alt="" coords="586,387,701,412"/>
+<area shape="poly" id="edge17_Node000003_Node000005" title=" " alt="" coords="483,193,474,221,466,259,467,300,472,319,482,337,500,356,522,371,573,388,572,394,520,376,496,361,477,340,467,321,462,301,461,259,468,220,477,192"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="678,263,753,283,784,296,804,312,811,327,810,340,803,352,790,362,756,378,715,389,713,384,754,373,788,358,799,348,805,338,806,328,800,315,782,301,751,288,676,268"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="544,268,236,314,236,309,543,262"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="491,313,577,339"/>
+<area shape="poly" id="edge13_Node000004_Node000013" title=" " alt="" coords="605,267,560,306,556,302,602,263"/>
+<area shape="poly" id="edge14_Node000004_Node000014" title=" " alt="" coords="665,263,854,308,852,313,664,268"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="601,313,664,339"/>
+<area shape="poly" id="edge15_Node000004_Node000015" title=" " alt="" coords="622,265,630,300,625,301,617,266"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="688,313,791,339"/>
+<area shape="poly" id="edge16_Node000004_Node000016" title=" " alt="" coords="638,263,709,304,706,309,635,268"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="684,409,846,456,845,461,682,415"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="610,460,677,485"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="646,412,646,446,641,446,641,412"/>
+<area shape="poly" id="edge8_Node000008_Node000005" title=" " alt="" coords="227,336,573,385,572,391,227,341"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="317,387,375,412"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="180,336,304,380,302,385,178,341"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="215,387,290,412"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="166,336,226,377,223,381,163,341"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="5,387,92,412"/>
+<area shape="poly" id="edge11_Node000008_Node000011" title=" " alt="" coords="133,341,77,381,74,376,130,337"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="116,387,184,412"/>
+<area shape="poly" id="edge12_Node000008_Node000012" title=" " alt="" coords="150,339,152,373,146,373,145,339"/>
+<area shape="rect" id="Node000019" href="$Association_8h.html" title="Defines Carna::base::Association." alt="" coords="721,167,907,192"/>
+<area shape="poly" id="edge21_Node000018_Node000019" title=" " alt="" coords="814,119,816,153,810,153,809,119"/>
+<area shape="poly" id="edge22_Node000019_Node000005" title=" " alt="" coords="843,190,894,215,948,251,969,271,982,294,985,317,973,340,956,354,931,366,864,382,787,393,715,398,714,393,786,387,863,377,929,361,953,350,969,337,980,316,977,295,965,275,945,255,892,220,841,194"/>
+<area shape="poly" id="edge23_Node000019_Node000017" title=" " alt="" coords="816,192,815,227,810,226,811,192"/>
+<area shape="poly" id="edge26_Node000020_Node000005" title=" " alt="" coords="396,336,583,381,582,386,394,341"/>
+<area shape="poly" id="edge27_Node000020_Node000009" title=" " alt="" coords="350,339,349,373,344,373,344,339"/>
+<area shape="poly" id="edge28_Node000020_Node000010" title=" " alt="" coords="334,341,281,380,278,376,331,337"/>
+</map>

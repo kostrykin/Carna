@@ -1,0 +1,7 @@
+<map id="include/Carna/base/BufferedNormalMap3D.h" name="include/Carna/base/BufferedNormalMap3D.h">
+<area shape="rect" id="Node000001" title="Defines Carna::base::BufferedNormalMap3D." alt="" coords="13,5,200,45"/>
+<area shape="rect" id="Node000002" href="$VolumeGridHelperDetails_8h.html" title="Defines Carna::helpers::details::VolumeGridHelper." alt="" coords="5,93,208,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,59,109,93,104,93,104,59"/>
+<area shape="rect" id="Node000003" href="$VolumeGridHelper_8h.html" title="Defines Carna::helpers::VolumeGridHelper." alt="" coords="25,181,188,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="109,147,109,181,104,181,104,147"/>
+</map>

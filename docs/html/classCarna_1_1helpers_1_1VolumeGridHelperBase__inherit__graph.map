@@ -1,0 +1,5 @@
+<map id="Carna::helpers::VolumeGridHelperBase" name="Carna::helpers::VolumeGridHelperBase">
+<area shape="rect" id="Node000001" title="Defines type&#45;parameters&#45;independent VolumeGridHelper base interface." alt="" coords="5,13,205,53"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1helpers_1_1VolumeGridHelper.html" title="Computes the partitioning of volumetric data and the corresponding normal map. Also creates scene nod..." alt="" coords="253,5,520,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,30,253,30,253,35,219,35"/>
+</map>

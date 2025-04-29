@@ -1,0 +1,5 @@
+<map id="Carna::presets::CompositionStage" name="Carna::presets::CompositionStage">
+<area shape="rect" id="Node000001" title="Defines rendering stage that combines two other renderings either by putting them next to each other ..." alt="" coords="5,79,212,119"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1RenderStage.html" title="Base abstract class of each rendering stage. Refer to the documentation of the rendering process." alt="" coords="13,5,204,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,44,111,79,106,79,106,44"/>
+</map>

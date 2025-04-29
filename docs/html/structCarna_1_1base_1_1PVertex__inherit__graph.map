@@ -1,0 +1,5 @@
+<map id="Carna::base::PVertex" name="Carna::base::PVertex">
+<area shape="rect" id="Node000001" title="Defines simple&#45;most vertex that only consists of a positional attribute." alt="" coords="27,79,185,104"/>
+<area shape="rect" id="Node000002" href="$structCarna_1_1base_1_1VertexPosition.html" title="Defines vertex component for position vectors. Usage is explained here." alt="" coords="5,5,207,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,44,109,79,103,79,103,44"/>
+</map>

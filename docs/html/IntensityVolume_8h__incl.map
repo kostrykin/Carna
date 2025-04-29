@@ -1,0 +1,35 @@
+<map id="include/Carna/base/IntensityVolume.h" name="include/Carna/base/IntensityVolume.h">
+<area shape="rect" id="Node000001" title="Defines Carna::base::IntensityVolume." alt="" coords="731,5,877,45"/>
+<area shape="rect" id="Node000002" href="$VectorField_8h.html" title="Defines Carna::base::math::VectorField." alt="" coords="577,93,799,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="777,48,718,88,715,83,774,43"/>
+<area shape="rect" id="Node000016" href="$noncopyable_8h.html" title=" " alt="" coords="823,93,1017,119"/>
+<area shape="poly" id="edge17_Node000001_Node000016" title=" " alt="" coords="834,43,893,83,890,88,831,48"/>
+<area shape="rect" id="Node000003" href="$math_8h.html" title="Defines Carna::base::math namespace and CARNA_FOR_VECTOR3UI." alt="" coords="493,167,638,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="670,121,598,162,596,157,667,116"/>
+<area shape="rect" id="Node000004" href="$Carna_8h_source.html" title=" " alt="" coords="704,313,819,339"/>
+<area shape="poly" id="edge16_Node000002_Node000004" title=" " alt="" coords="699,117,733,168,751,202,764,239,768,270,767,299,762,299,763,271,759,241,746,205,728,171,695,120"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="639,188,691,206,716,220,738,238,755,268,762,299,757,300,750,270,734,242,713,224,689,211,637,193"/>
+<area shape="rect" id="Node000007" href="$CarnaException_8h.html" title="Defines Carna::base::CarnaException, Carna::base::AssertionFailure." alt="" coords="71,240,284,265"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="503,195,254,240,253,235,503,189"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="308,240,393,265"/>
+<area shape="poly" id="edge12_Node000003_Node000012" title=" " alt="" coords="532,195,399,238,398,233,530,189"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="418,240,510,265"/>
+<area shape="poly" id="edge13_Node000003_Node000013" title=" " alt="" coords="551,194,493,234,490,230,548,190"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="534,240,597,265"/>
+<area shape="poly" id="edge14_Node000003_Node000014" title=" " alt="" coords="568,192,568,226,563,226,563,192"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="621,240,723,265"/>
+<area shape="poly" id="edge15_Node000003_Node000015" title=" " alt="" coords="584,190,645,230,642,235,581,194"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="685,387,747,412"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="756,340,733,377,728,374,752,338"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="772,387,839,412"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="771,338,793,374,789,376,766,340"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="271,263,690,313,690,319,271,268"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="5,313,64,339"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="156,268,71,309,69,305,153,263"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="88,313,163,339"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="171,267,144,304,140,301,167,264"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="187,313,274,339"/>
+<area shape="poly" id="edge10_Node000007_Node000010" title=" " alt="" coords="188,264,216,301,212,304,184,267"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="298,313,366,339"/>
+<area shape="poly" id="edge11_Node000007_Node000011" title=" " alt="" coords="203,263,295,305,293,310,201,268"/>
+</map>

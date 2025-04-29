@@ -1,0 +1,11 @@
+<map id="Carna::presets::TransparentRenderingStage" name="Carna::presets::TransparentRenderingStage">
+<area shape="rect" id="Node000001" title="Implements rendering stage that renders transparent meshes." alt="" coords="757,37,957,77"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1MeshRenderingStage.html" title=" " alt="" coords="501,30,709,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="723,55,757,55,757,60,723,60"/>
+<area shape="rect" id="Node000003" href="$classCarna_1_1base_1_1GeometryStage.html" title="Partially implements a rendering stage that uses at least one render queue for rendering geometry fro..." alt="" coords="244,5,453,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="467,37,501,42,501,47,467,43"/>
+<area shape="rect" id="Node000004" href="$classCarna_1_1base_1_1RenderStage.html" title="Base abstract class of each rendering stage. Refer to the documentation of the rendering process." alt="" coords="5,13,196,38"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="210,23,244,23,244,28,210,28"/>
+<area shape="rect" id="Node000005" href="$classCarna_1_1base_1_1MeshRenderingStageBase.html" title="Defines MeshRenderingStage class template instance invariants." alt="" coords="245,69,453,109"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="466,72,501,68,502,73,467,77"/>
+</map>

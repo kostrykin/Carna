@@ -1,0 +1,5 @@
+<map id="Carna::base::Material" name="Carna::base::Material">
+<area shape="rect" id="Node000001" title="Specifies the shader and it&#39;s configuration that are to be used for rendering a Geometry node with a ..." alt="" coords="35,79,197,104"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1GeometryFeature.html" title="Represents &quot;components&quot; that are aggregated by Geometry objects. Closer description is given here." alt="" coords="5,5,227,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,44,119,79,113,79,113,44"/>
+</map>

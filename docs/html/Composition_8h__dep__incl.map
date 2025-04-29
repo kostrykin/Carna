@@ -1,0 +1,17 @@
+<map id="include/Carna/base/Composition.h" name="include/Carna/base/Composition.h">
+<area shape="rect" id="Node000001" title="Defines Carna::base::Composition." alt="" coords="293,5,439,45"/>
+<area shape="rect" id="Node000002" href="$BufferedHUVolume_8h.html" title="Defines Carna::base::BufferedHUVolume." alt="" coords="58,93,221,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="304,53,190,96,188,91,302,48"/>
+<area shape="rect" id="Node000004" href="$BufferedIntensityVolume_8h.html" title="Defines Carna::base::BufferedIntensityVolume." alt="" coords="267,93,465,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="369,59,369,93,363,93,363,59"/>
+<area shape="rect" id="Node000006" href="$BufferedNormalMap3D_8h.html" title="Defines Carna::base::BufferedNormalMap3D." alt="" coords="501,93,687,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="430,48,545,91,543,96,428,53"/>
+<area shape="rect" id="Node000003" href="$HUGZSceneFactory_8h_source.html" title=" " alt="" coords="5,189,228,214"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="133,147,122,189,117,188,128,146"/>
+<area shape="rect" id="Node000005" href="$BufferedIntensityVolumeTest_8h_source.html" title=" " alt="" coords="253,181,479,221"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="369,147,369,181,363,181,363,147"/>
+<area shape="rect" id="Node000007" href="$VolumeGridHelperDetails_8h.html" title="Defines Carna::helpers::details::VolumeGridHelper." alt="" coords="503,181,706,221"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="601,147,605,181,600,181,595,147"/>
+<area shape="rect" id="Node000008" href="$VolumeGridHelper_8h.html" title="Defines Carna::helpers::VolumeGridHelper." alt="" coords="523,269,686,309"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="607,235,607,269,602,269,602,235"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="include/Carna/base/ManagedTexture3DInterface.h" name="include/Carna/base/ManagedTexture3DInterface.h">
+<area shape="rect" id="Node000001" title="Defines Carna::base::ManagedTexture3DInterface." alt="" coords="5,5,228,45"/>
+<area shape="rect" id="Node000002" href="$ManagedTexture3D_8h.html" title="Defines Carna::base::ManagedTexture3D." alt="" coords="35,93,199,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,59,119,93,114,93,114,59"/>
+<area shape="rect" id="Node000003" href="$BufferedVectorFieldTexture_8h.html" title="Defines Carna::base::BufferedVectorFieldTexture." alt="" coords="10,181,223,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="119,147,119,181,114,181,114,147"/>
+<area shape="rect" id="Node000004" href="$VolumeGridHelperDetails_8h.html" title="Defines Carna::helpers::details::VolumeGridHelper." alt="" coords="15,269,218,309"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="119,235,119,269,114,269,114,235"/>
+<area shape="rect" id="Node000005" href="$VolumeGridHelper_8h.html" title="Defines Carna::helpers::VolumeGridHelper." alt="" coords="35,357,198,397"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="119,323,119,357,114,357,114,323"/>
+</map>

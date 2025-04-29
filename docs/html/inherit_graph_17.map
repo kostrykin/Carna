@@ -1,0 +1,13 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classCarna_1_1base_1_1CameraControl.html" title="Defines interface for intuitive Camera control." alt="" coords="12,77,217,102"/>
+<area shape="rect" id="Node000001" href="$classCarna_1_1presets_1_1CameraNavigationControl.html" title="Implements base::CameraControl, rotates the camera around itself and allows completely free camera mo..." alt="" coords="272,5,519,45"/>
+<area shape="poly" id="edge9_Node000000_Node000001" title=" " alt="" coords="184,71,306,43,307,48,185,76"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1presets_1_1CameraShowcaseControl.html" title="Implements base::CameraControl, rotates the camera around its parent node. The camera movement is bou..." alt="" coords="275,69,515,109"/>
+<area shape="poly" id="edge10_Node000000_Node000002" title=" " alt="" coords="231,87,275,87,275,92,231,92"/>
+<area shape="rect" id="Node000003" href="$classCarna_1_1presets_1_1OrthogonalControl.html" title="Controls orthogonal projection matrices, that induce box&#45;shaped visible volume, and base::Camera obje..." alt="" coords="297,133,493,173"/>
+<area shape="poly" id="edge11_Node000000_Node000003" title=" " alt="" coords="185,103,307,131,306,136,184,108"/>
+<area shape="rect" id="Node000004" href="$classCarna_1_1base_1_1ProjectionControl.html" title="Controls projection matrices." alt="" coords="5,173,224,198"/>
+<area shape="poly" id="edge12_Node000004_Node000003" title=" " alt="" coords="238,169,297,162,297,167,238,174"/>
+<area shape="rect" id="Node000005" href="$classCarna_1_1presets_1_1PerspectiveControl.html" title="Controls projection matrices that induce frustum&#45;shaped visible volume." alt="" coords="295,197,495,237"/>
+<area shape="poly" id="edge13_Node000004_Node000005" title=" " alt="" coords="238,197,295,203,295,209,238,202"/>
+</map>

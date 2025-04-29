@@ -1,0 +1,9 @@
+<map id="include/Carna/base/CameraControl.h" name="include/Carna/base/CameraControl.h">
+<area shape="rect" id="Node000001" title="Defines Carna::base::CameraControl." alt="" coords="263,5,410,45"/>
+<area shape="rect" id="Node000002" href="$CameraNavigationControl_8h.html" title="Defines Carna::presets::CameraNavigationControl." alt="" coords="5,93,212,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="275,53,160,96,158,91,273,48"/>
+<area shape="rect" id="Node000003" href="$CameraShowcaseControl_8h.html" title="Defines Carna::presets::CameraShowcaseControl." alt="" coords="236,93,437,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="339,59,339,93,334,93,334,59"/>
+<area shape="rect" id="Node000004" href="$OrthogonalControl_8h.html" title="Defines Carna::presets::OrthogonalControl." alt="" coords="462,93,625,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="396,48,499,91,497,96,394,53"/>
+</map>

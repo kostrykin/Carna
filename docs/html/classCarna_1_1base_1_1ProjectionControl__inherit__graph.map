@@ -1,0 +1,7 @@
+<map id="Carna::base::ProjectionControl" name="Carna::base::ProjectionControl">
+<area shape="rect" id="Node000001" title="Controls projection matrices." alt="" coords="105,5,323,31"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1presets_1_1OrthogonalControl.html" title="Controls orthogonal projection matrices, that induce box&#45;shaped visible volume, and base::Camera obje..." alt="" coords="5,79,201,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,41,132,81,128,76,185,36"/>
+<area shape="rect" id="Node000003" href="$classCarna_1_1presets_1_1PerspectiveControl.html" title="Controls projection matrices that induce frustum&#45;shaped visible volume." alt="" coords="226,79,426,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="243,36,301,76,297,81,240,41"/>
+</map>

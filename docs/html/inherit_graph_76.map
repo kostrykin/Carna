@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classCarna_1_1base_1_1TextureBase.html" title="Texture base class with dimension&#45;independent definitions." alt="" coords="5,55,192,80"/>
+<area shape="rect" id="Node000001" href="$classCarna_1_1base_1_1Texture.html" title=" " alt="" coords="240,5,433,31"/>
+<area shape="poly" id="edge61_Node000000_Node000001" title=" " alt="" coords="173,49,274,28,275,33,174,54"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1Texture.html" title=" " alt="" coords="240,55,433,80"/>
+<area shape="poly" id="edge62_Node000000_Node000002" title=" " alt="" coords="206,65,240,65,240,70,206,70"/>
+<area shape="rect" id="Node000003" href="$classCarna_1_1base_1_1Texture.html" title="Represents an OpenGL texture object. This class realizes the RAII&#45;idiom." alt="" coords="259,105,414,145"/>
+<area shape="poly" id="edge63_Node000000_Node000003" title=" " alt="" coords="166,81,260,104,258,109,165,86"/>
+</map>

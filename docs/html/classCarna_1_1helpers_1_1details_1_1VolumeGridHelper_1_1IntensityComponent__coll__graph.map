@@ -1,0 +1,5 @@
+<map id="Carna::helpers::details::VolumeGridHelper::IntensityComponent&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;" name="Carna::helpers::details::VolumeGridHelper::IntensityComponent&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;">
+<area shape="rect" id="Node000001" title="Defines the helpers::VolumeGridHelper component that maintains intensity volume data." alt="" coords="384,5,695,75"/>
+<area shape="rect" id="Node000002" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1TextureManager.html" title=" " alt="" coords="5,5,336,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="350,37,384,37,384,43,350,43"/>
+</map>
