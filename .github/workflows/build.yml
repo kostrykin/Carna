@@ -75,7 +75,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Install dependencies
-      run: sudo apt-get install libeigen3-dev libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev libglew-dev doxygen
+      run: sudo apt-get install libeigen3-dev libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev libglew-dev doxygen graphviz
 
     - run: rm -rf docs
 
