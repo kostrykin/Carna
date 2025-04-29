@@ -117,6 +117,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/CameraControl.h
 		include/${PROJECT_NAME}/base/CarnaException.h
 		include/${PROJECT_NAME}/base/Color.h
+		include/${PROJECT_NAME}/base/ColorMap.h
 		include/${PROJECT_NAME}/base/Composition.h
 		include/${PROJECT_NAME}/base/Framebuffer.h
 		include/${PROJECT_NAME}/base/FrameRenderer.h
@@ -221,6 +222,7 @@ set( SRC
 		src/base/CameraControl.cpp
 		src/base/CarnaException.cpp
 		src/base/Color.cpp
+		src/base/ColorMap.cpp
 		src/base/Framebuffer.cpp
 		src/base/FrameRenderer.cpp
 		src/base/Geometry.cpp
