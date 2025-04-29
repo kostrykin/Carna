@@ -10,6 +10,7 @@
  */
 
 #include <Carna/presets/DVRStage.h>
+#include <Carna/base/math/Span.h>
 #include <Carna/base/glew.h>
 #include <Carna/base/ShaderManager.h>
 #include <Carna/base/Framebuffer.h>
@@ -30,7 +31,7 @@ namespace presets
 
 
 // ----------------------------------------------------------------------------------
-// DVRStage :: DVRStage
+// DVRStage :: Details
 // ----------------------------------------------------------------------------------
 
 struct DVRStage::Details
