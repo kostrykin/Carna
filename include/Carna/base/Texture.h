@@ -96,6 +96,11 @@ public:
       * textures up. This unit shouldn't be used for lasting bindings.
       */
     const static unsigned int SETUP_UNIT = 0;
+
+    /** \brief
+      * Queries `GL_MAX_TEXTURE_SIZE` from the current GL context.
+      */
+    static unsigned int maxTextureSize();
     
 protected:
 
