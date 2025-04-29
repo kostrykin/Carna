@@ -63,6 +63,9 @@ namespace Carna
         class  BlendFunction;
         class  Camera;
         class  Color;
+        class  ColorMap;
+        class  ColorMapControl;
+        class  ColorMapInterface;
         class  Framebuffer;
         class  FrameRenderer;
         class  Geometry;

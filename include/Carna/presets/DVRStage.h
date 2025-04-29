@@ -12,6 +12,7 @@
 #ifndef DVRSTAGE_H_6014714286
 #define DVRSTAGE_H_6014714286
 
+#include <Carna/base/ColorMap.h>
 #include <Carna/presets/VolumeRenderingStage.h>
 #include <Carna/Carna.h>
 #include <memory>
@@ -96,7 +97,7 @@ namespace presets
   * \image html DVRStageTest/withLighting.png "exemplary rendering with lighting from code above"
   *
   * \author Leonid Kostrykin
-  * \date   25.3.15 - 29.3.15
+  * \date   25.3.15 - 29.4.25
   */
 class CARNA_LIB DVRStage : public VolumeRenderingStage
 {
@@ -153,29 +154,10 @@ public:
         , base::RenderTask& rt
         , const base::Viewport& vp ) override;
 
-    /** \brief
-      * Clears the color map. All intensity values are mapped to
-      * \ref base::Color::BLACK_NO_ALPHA after calling this method.
-      */
-    void clearColorMap();
-    
-    /** \brief
-      * Maps all intensity values from \a intensityRange to \a colorRange.
-      *
-      * The first/last intensity values from \a intensityRange are mapped to the
-      * first/last values of \a colorRange, respectively. The values are interpolated
-      * linearly in between.
-      *
-      * Nothing happens if the last intensity value of \a intensityRange is *smaller*
-      * than the first. If the first and the last intensity values of
-      * \a intensityRange correspond to the same entry of the color map, the *mean*
-      * of the first and the last values from \a colorRange is written.
-      */
-    void writeColorMap( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange );
-    
-    /** \overload
-      */
-    void writeColorMap( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast );
+    /* \brief
+     * The color map used for the rendering.
+     */
+    base::ColorMapControl colorMap;
     
     /** \brief
       * Sets the \ref DVRStageTranslucence "translucence" property.

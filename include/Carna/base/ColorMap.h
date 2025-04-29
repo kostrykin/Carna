@@ -21,6 +21,81 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
+// ColorMapInterface
+// ----------------------------------------------------------------------------------
+
+/** \brief
+  * Interface for classes that can be used as color maps.
+  *
+  * \author Leonid Kostrykin
+  * \date   29.4.25
+  */
+  class CARNA_LIB ColorMapInterface
+{
+
+public:
+
+    virtual ~ColorMapInterface() = default;
+
+    /** \brief
+      * Clears the color map. All intensity values are mapped to
+      * \ref base::Color::BLACK_NO_ALPHA after calling this method.
+      */
+    virtual void clear() = 0;
+    
+    /** \brief
+      * Maps all intensity values from \a intensityRange to \a colorRange.
+      *
+      * The first/last intensity values from \a intensityRange are mapped to the
+      * first/last values of \a colorRange, respectively. The values are interpolated
+      * linearly in between.
+      *
+      * Nothing happens if the last intensity value of \a intensityRange is *smaller*
+      * than the first. If the first and the last intensity values of
+      * \a intensityRange correspond to the same entry of the color map, the *mean*
+      * of the first and the last values from \a colorRange is written.
+      */
+    virtual void writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange ) = 0;
+    
+    /** \overload
+      */
+    virtual void writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast ) = 0;
+
+}; // ColorMapInterface
+
+
+
+// ----------------------------------------------------------------------------------
+// ColorMapControl
+// ----------------------------------------------------------------------------------
+
+/** \brief
+  * Implementation of the \ref ColorMapInterface that propagates calls to another
+  * implementation the \ref ColorMapInterface interface.
+  *
+  * \author Leonid Kostrykin
+  * \date   29.4.25
+  */
+class ColorMapControl : public ColorMapInterface
+{
+
+    ColorMapInterface& target;
+
+public:
+
+    ColorMapControl( ColorMapInterface& target );
+
+    virtual void clear() override;
+
+    virtual void writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange ) override;
+
+    virtual void writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast ) override;
+
+};
+
+
+
+// ----------------------------------------------------------------------------------
 // ColorMap
 // ----------------------------------------------------------------------------------
 
@@ -30,7 +105,7 @@ namespace base
   * \author Leonid Kostrykin
   * \date   29.4.25
   */
-class CARNA_LIB ColorMap
+class CARNA_LIB ColorMap : public ColorMapInterface
 {
 
     struct Details;
@@ -52,29 +127,11 @@ public:
       */
     virtual ~ColorMap();
 
-    /** \brief
-      * Clears the color map. All intensity values are mapped to
-      * \ref base::Color::BLACK_NO_ALPHA after calling this method.
-      */
-    void clear();
+    virtual void clear() override;
     
-    /** \brief
-      * Maps all intensity values from \a intensityRange to \a colorRange.
-      *
-      * The first/last intensity values from \a intensityRange are mapped to the
-      * first/last values of \a colorRange, respectively. The values are interpolated
-      * linearly in between.
-      *
-      * Nothing happens if the last intensity value of \a intensityRange is *smaller*
-      * than the first. If the first and the last intensity values of
-      * \a intensityRange correspond to the same entry of the color map, the *mean*
-      * of the first and the last values from \a colorRange is written.
-      */
-    void writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange );
+    virtual void writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange ) override;
     
-    /** \overload
-      */
-    void writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast );
+    virtual void writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast ) override;
 
     /** \brief
       * Binds this texture and the corresponding sampler to \a unit.

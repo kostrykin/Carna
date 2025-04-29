@@ -41,59 +41,19 @@ struct DVRStage::Details
     std::unique_ptr< base::Framebuffer  > accumulationFrameBuffer;
     
     const static unsigned int COLORMAP_TEXTURE_UNIT = base::Texture< 0 >::SETUP_UNIT + 1;
-    std::vector< base::Color > colorMap;
-    std::unique_ptr< base::Texture< 1 > > colorMapTexture;
-    std::unique_ptr< base::Sampler      > colorMapSampler;
-    bool isColorMapDirty;
-    void updateColorMap();
+    base::ColorMap colorMap;
     
     float translucence;
     float diffuseLight;
     bool isLightingUsed;
-
-    std::size_t colorMapLocationByIntensity( float intensity );
 };
 
 
 DVRStage::Details::Details( unsigned int colorMapResolution )
     : colorMap( colorMapResolution )
-    , isColorMapDirty( true )
     , translucence( DEFAULT_TRANSLUCENCE )
     , diffuseLight( DEFAULT_DIFFUSE_LIGHT )
 {
-}
-
-
-std::size_t DVRStage::Details::colorMapLocationByIntensity( float intensity )
-{
-    if( intensity < 0 ) intensity = 0;
-    if( intensity > 1 ) intensity = 1;
-    const std::size_t maxLocation = colorMap.size() - 1;
-    float location = intensity * maxLocation + 0.5;
-    if( location > maxLocation ) location = maxLocation;
-    return static_cast< std::size_t >( location );
-}
-
-
-void DVRStage::Details::updateColorMap()
-{
-    if( isColorMapDirty )
-    {
-        /* Create the texture if it was not created yet.
-         */
-        if( colorMapTexture.get() == nullptr )
-        {
-            colorMapTexture.reset( new base::Texture< 1 >( GL_RGBA8, GL_RGBA ) );
-        }
-        
-        /* Update the texture.
-         */
-        base::Texture< 1 >::Resolution textureSize;
-        textureSize.x() = colorMap.size();
-        colorMapTexture->update( textureSize, GL_UNSIGNED_BYTE, &colorMap[ 0 ] );
-        isColorMapDirty = false;
-        base::Log::instance().record( base::Log::debug, "DVRStage: Color map updated." );
-    }
 }
 
 
@@ -109,6 +69,7 @@ const float DVRStage::DEFAULT_DIFFUSE_LIGHT = 1;
 DVRStage::DVRStage( unsigned int geometryType, unsigned int colorMapResolution )
     : VolumeRenderingStage( geometryType )
     , pimpl( new Details( colorMapResolution ) )
+    , colorMap( pimpl->colorMap )
 {
 }
 
@@ -124,39 +85,6 @@ DVRStage* DVRStage::clone() const
     DVRStage* const result = new DVRStage( geometryType );
     result->setEnabled( isEnabled() );
     return result;
-}
-
-
-void DVRStage::clearColorMap()
-{
-    std::fill( pimpl->colorMap.begin(), pimpl->colorMap.end(), base::Color::BLACK_NO_ALPHA );
-    pimpl->isColorMapDirty = true;
-}
-
-
-void DVRStage::writeColorMap( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange )
-{
-    const std::size_t locFirst = pimpl->colorMapLocationByIntensity( intensityRange.first );
-    const std::size_t locLast  = pimpl->colorMapLocationByIntensity( intensityRange.last  );
-    const int rangeSize = locLast - locFirst + 1;
-    const base::math::Vector4f color0 = colorRange.first;
-    const base::math::Vector4f color1 = colorRange.last;
-    if( rangeSize > 0 )
-    {
-        for( std::size_t offset = 0; offset < rangeSize; ++offset )
-        {
-            const float lambda = rangeSize == 1 ? 0.5f : offset / static_cast< float >( rangeSize - 1 );
-            const base::Color color = base::math::mix< base::math::Vector4f >( color0, color1, lambda );
-            pimpl->colorMap[ locFirst + offset ] = color;
-        }
-        pimpl->isColorMapDirty = true;
-    }
-}
-
-
-void DVRStage::writeColorMap( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast )
-{
-    writeColorMap( base::math::Span< float >( intensityFirst, intensityLast ), base::math::Span< base::Color >( colorFirst, colorLast ) );
 }
 
 
@@ -203,9 +131,6 @@ void DVRStage::reshape( base::FrameRenderer& fr, unsigned int width, unsigned in
 unsigned int DVRStage::loadVideoResources()
 {
     VolumeRenderingStage::loadVideoResources();
-    pimpl->colorMapSampler.reset( new base::Sampler
-        ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
-        , base::Sampler::FILTER_NEAREST, base::Sampler::FILTER_NEAREST ) );
     return Details::COLORMAP_TEXTURE_UNIT + 1;
 }
 
@@ -215,8 +140,6 @@ void DVRStage::renderPass
     , base::RenderTask& rt
     , const base::Viewport& outputViewport )
 {
-    pimpl->updateColorMap();
-        
     /* Reset whether lighting was used for rendering.
      */
     pimpl->isLightingUsed = false;
@@ -316,8 +239,7 @@ void DVRStage::configureShader()
         
     /* Bind the color map.
      */
-    pimpl->colorMapTexture->bind( Details::COLORMAP_TEXTURE_UNIT );
-    pimpl->colorMapSampler->bind( Details::COLORMAP_TEXTURE_UNIT );
+    pimpl->colorMap.bind(  Details::COLORMAP_TEXTURE_UNIT );
 }
 
 

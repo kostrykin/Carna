@@ -18,6 +18,35 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
+// ColorMapControl
+// ----------------------------------------------------------------------------------
+
+ColorMapControl::ColorMapControl( ColorMapInterface& target )
+    : target( target )
+{
+}
+
+
+void ColorMapControl::clear()
+{
+    target.clear();
+}
+
+
+void ColorMapControl::writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange )
+{
+    target.writeLinearSegment( intensityRange, colorRange );
+}
+
+
+void ColorMapControl::writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast )
+{
+    target.writeLinearSegment( intensityFirst, intensityLast, colorFirst, colorLast );
+}
+
+
+
+// ----------------------------------------------------------------------------------
 // ColorMap :: Details
 // ----------------------------------------------------------------------------------
 

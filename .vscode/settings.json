@@ -1,0 +1,7 @@
+{
+    "search.exclude": {
+        "docs": true
+    },
+    "editor.detectIndentation": false,
+    "editor.tabSize": 4
+}
