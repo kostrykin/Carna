@@ -1,7 +1,0 @@
-<map id="include/Carna/base/ProjectionControl.h" name="include/Carna/base/ProjectionControl.h">
-<area shape="rect" id="Node000001" title="Defines Carna::base::ProjectionControl." alt="" coords="105,5,255,45"/>
-<area shape="rect" id="Node000002" href="$OrthogonalControl_8h.html" title="Defines Carna::presets::OrthogonalControl." alt="" coords="5,93,168,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,57,109,95,106,91,147,53"/>
-<area shape="rect" id="Node000003" href="$PerspectiveControl_8h.html" title="Defines Carna::presets::PerspectiveControl." alt="" coords="192,93,355,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="213,53,254,91,251,95,209,57"/>
-</map>

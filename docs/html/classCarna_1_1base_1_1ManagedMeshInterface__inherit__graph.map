@@ -1,5 +1,0 @@
-<map id="Carna::base::ManagedMeshInterface" name="Carna::base::ManagedMeshInterface">
-<area shape="rect" id="Node000001" title="Interfaces the MeshBase that a ManagedMeshBase represents." alt="" coords="15,93,217,133"/>
-<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1GeometryFeature_1_1ManagedInterface.html" title="Represents an acquisition of the video resources from a particular GeometryFeature...." alt="" coords="5,5,227,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,59,119,93,113,93,113,59"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classCarna_1_1base_1_1VolumeSegmentNormalsComponent.html" title="Represents the normal map component of an VolumeSegment object." alt="" coords="5,67,285,121"/>
-<area shape="rect" id="Node000001" href="$classCarna_1_1base_1_1VolumeSegment.html" title=" " alt="" coords="333,5,644,89"/>
-<area shape="poly" id="edge69_Node000000_Node000001" title=" " alt="" coords="299,70,333,66,334,71,299,76"/>
-<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1VolumeSegment.html" title="Represents a single volumetric data partition." alt="" coords="371,113,606,168"/>
-<area shape="poly" id="edge70_Node000000_Node000002" title=" " alt="" coords="299,112,371,122,371,127,299,118"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classCarna_1_1base_1_1BoundingVolume.html" title="Represents a Geometry minimal boundary volume of simple geometric shape. The volume is centered withi..." alt="" coords="5,31,223,56"/>
-<area shape="rect" id="Node000001" href="$classCarna_1_1base_1_1BoundingBox.html" title="Defines a Geometry minimal boundary box." alt="" coords="281,5,474,31"/>
-<area shape="poly" id="edge7_Node000000_Node000001" title=" " alt="" coords="236,29,280,25,281,30,237,34"/>
-<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1BoundingSphere.html" title="Defines a Geometry minimal boundary sphere." alt="" coords="271,55,484,80"/>
-<area shape="poly" id="edge8_Node000000_Node000002" title=" " alt="" coords="236,52,271,55,270,60,236,57"/>
-</map>

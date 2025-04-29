@@ -1,5 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classCarna_1_1base_1_1MeshBase.html" title="Format&#45;independent abstract Mesh base class. Each mesh consists of a VertexBuffer,..." alt="" coords="5,13,180,38"/>
-<area shape="rect" id="Node000001" href="$classCarna_1_1base_1_1Mesh.html" title="Implements MeshBase class for particular VertexType and IndexType." alt="" coords="228,5,415,45"/>
-<area shape="poly" id="edge35_Node000000_Node000001" title=" " alt="" coords="194,23,228,23,228,28,194,28"/>
-</map>

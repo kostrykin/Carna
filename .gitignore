@@ -4,3 +4,5 @@
 /src/doc/Doxyfile
 *~
 *.swp
+/docs/**/*.md5
+/docs/**/*.map

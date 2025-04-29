@@ -1,5 +1,0 @@
-<map id="Carna::base::Log" name="Carna::base::Log">
-<area shape="rect" id="Node000001" title="Records log messages. The log writing is delegated to implementations of the Log::Writer interface...." alt="" coords="24,93,155,119"/>
-<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1Singleton.html" title=" " alt="" coords="5,5,173,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,59,92,93,87,93,87,59"/>
-</map>

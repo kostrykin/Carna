@@ -1,5 +1,0 @@
-<map id="Carna::base::MeshBase" name="Carna::base::MeshBase">
-<area shape="rect" id="Node000001" title="Format&#45;independent abstract Mesh base class. Each mesh consists of a VertexBuffer,..." alt="" coords="5,93,180,119"/>
-<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1GLContext.html" title="Wraps and represents an OpenGL context." alt="" coords="5,5,180,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,45,95,93,90,93,90,45"/>
-</map>

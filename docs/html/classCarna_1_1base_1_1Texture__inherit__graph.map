@@ -1,5 +1,0 @@
-<map id="Carna::base::Texture&lt; dimension &gt;" name="Carna::base::Texture&lt; dimension &gt;">
-<area shape="rect" id="Node000001" title="Represents an OpenGL texture object. This class realizes the RAII&#45;idiom." alt="" coords="21,79,176,119"/>
-<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1TextureBase.html" title="Texture base class with dimension&#45;independent definitions." alt="" coords="5,5,192,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,44,101,79,96,79,96,44"/>
-</map>

@@ -1,9 +1,0 @@
-<map id="Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;" name="Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;">
-<area shape="rect" id="Node000001" title="Computes the partitioning of volumetric data and the corresponding normal map. Also creates scene nod..." alt="" coords="743,38,1009,93"/>
-<area shape="rect" id="Node000002" href="$classCarna_1_1helpers_1_1VolumeGridHelperBase.html" title="Defines type&#45;parameters&#45;independent VolumeGridHelper base interface." alt="" coords="439,5,639,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="653,36,743,47,742,52,653,41"/>
-<area shape="rect" id="Node000003" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1IntensityComponent.html" title="Defines the helpers::VolumeGridHelper component that maintains intensity volume data." alt="" coords="384,69,695,139"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="708,82,742,78,743,83,709,87"/>
-<area shape="rect" id="Node000004" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1TextureManager.html" title=" " alt="" coords="5,69,336,139"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="350,101,384,101,384,107,350,107"/>
-</map>

@@ -1,9 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponentBase.html" title="Defines the NormalsComponent base class that is independent of type arguments." alt="" coords="11,103,330,143"/>
-<area shape="rect" id="Node000001" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html" title="Defines the helpers::VolumeGridHelper component that computes and maintains normal maps." alt="" coords="384,5,671,75"/>
-<area shape="poly" id="edge71_Node000000_Node000001" title=" " alt="" coords="278,97,335,84,386,72,387,77,337,89,279,102"/>
-<area shape="rect" id="Node000003" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent_3_01SegmentIntensityVolumeType_00_01void_01_4.html" title="Specializes NormalsComponent when no normals are required." alt="" coords="384,99,671,154"/>
-<area shape="poly" id="edge72_Node000000_Node000003" title=" " alt="" coords="344,122,384,122,384,128,344,127"/>
-<area shape="rect" id="Node000002" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1TextureManager.html" title=" " alt="" coords="5,5,336,75"/>
-<area shape="poly" id="edge73_Node000002_Node000001" title=" " alt="" coords="349,37,384,37,384,43,349,43"/>
-</map>

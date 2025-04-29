@@ -1,5 +1,0 @@
-<map id="Carna::presets::PerspectiveControl" name="Carna::presets::PerspectiveControl">
-<area shape="rect" id="Node000001" title="Controls projection matrices that induce frustum&#45;shaped visible volume." alt="" coords="15,79,215,119"/>
-<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1ProjectionControl.html" title="Controls projection matrices." alt="" coords="5,5,224,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,44,117,79,112,79,112,44"/>
-</map>

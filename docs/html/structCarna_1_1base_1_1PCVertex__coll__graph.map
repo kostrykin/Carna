@@ -1,7 +1,0 @@
-<map id="Carna::base::PCVertex" name="Carna::base::PCVertex">
-<area shape="rect" id="Node000001" title="Defines vertex that consists of the two attributes position and color." alt="" coords="131,79,297,104"/>
-<area shape="rect" id="Node000002" href="$structCarna_1_1base_1_1VertexPosition.html" title="Defines vertex component for position vectors. Usage is explained here." alt="" coords="5,5,207,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,36,198,76,195,81,133,40"/>
-<area shape="rect" id="Node000003" href="$structCarna_1_1base_1_1VertexColor.html" title="Defines vertex component for colors. Usage is explained here." alt="" coords="231,5,413,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="295,40,233,81,230,76,292,36"/>
-</map>

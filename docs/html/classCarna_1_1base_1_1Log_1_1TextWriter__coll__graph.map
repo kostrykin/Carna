@@ -1,5 +1,0 @@
-<map id="Carna::base::Log::TextWriter" name="Carna::base::Log::TextWriter">
-<area shape="rect" id="Node000001" title="Abstract implementation of the Writer interface, that formats log messages along with their severity ..." alt="" coords="5,79,211,104"/>
-<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1Log_1_1Writer.html" title="Writes log entries." alt="" coords="19,5,197,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,44,111,79,105,79,105,44"/>
-</map>

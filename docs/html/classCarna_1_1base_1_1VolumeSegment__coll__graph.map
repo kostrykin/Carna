@@ -1,7 +1,0 @@
-<map id="Carna::base::VolumeSegment&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;" name="Carna::base::VolumeSegment&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;">
-<area shape="rect" id="Node000001" title="Represents a single volumetric data partition." alt="" coords="363,45,597,100"/>
-<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1VolumeSegmentNormalsComponent.html" title="Represents the normal map component of an VolumeSegment object." alt="" coords="5,5,285,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="299,48,363,56,362,61,298,54"/>
-<area shape="rect" id="Node000003" href="$classCarna_1_1base_1_1VolumeGrid.html" title="Represents a particular partitioning of volumetric data." alt="" coords="28,84,263,139"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="276,94,362,84,363,89,277,99"/>
-</map>

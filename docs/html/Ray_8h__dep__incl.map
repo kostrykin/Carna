@@ -1,7 +1,0 @@
-<map id="include/Carna/base/math/Ray.h" name="include/Carna/base/math/Ray.h">
-<area shape="rect" id="Node000001" title="Defines Carna::base::math::Ray." alt="" coords="129,5,275,45"/>
-<area shape="rect" id="Node000002" href="$RayPlaneHitTest_8h.html" title="Defines Carna::base::math::RayPlaneHitTest." alt="" coords="5,93,188,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,56,122,95,118,91,167,52"/>
-<area shape="rect" id="Node000003" href="$RaySphereHitTest_8h.html" title="Defines Carna::base::math::RaySphereHitTest." alt="" coords="212,93,403,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="237,52,286,91,282,95,234,56"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="Carna::helpers::details::VolumeGridHelper::NormalsComponentBase" name="Carna::helpers::details::VolumeGridHelper::NormalsComponentBase">
-<area shape="rect" id="Node000001" title="Defines the NormalsComponent base class that is independent of type arguments." alt="" coords="5,64,324,104"/>
-<area shape="rect" id="Node000002" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html" title="Defines the helpers::VolumeGridHelper component that computes and maintains normal maps." alt="" coords="372,5,659,75"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="337,60,371,55,372,61,338,65"/>
-<area shape="rect" id="Node000003" href="$classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent_3_01SegmentIntensityVolumeType_00_01void_01_4.html" title="Specializes NormalsComponent when no normals are required." alt="" coords="372,99,659,154"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="338,102,372,107,371,112,337,108"/>
-</map>

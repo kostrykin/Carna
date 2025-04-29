@@ -1,5 +1,0 @@
-<map id="Carna::helpers::FrameRendererHelper&lt; RenderStageOrder &gt;" name="Carna::helpers::FrameRendererHelper&lt; RenderStageOrder &gt;">
-<area shape="rect" id="Node000001" title="Adds rendering stages to a base::FrameRenderer object according to RenderStageOrder." alt="" coords="5,108,229,148"/>
-<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1RenderStageSequence.html" title="Represents a rendering stages sequence." alt="" coords="22,5,213,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,59,120,108,115,108,115,59"/>
-</map>

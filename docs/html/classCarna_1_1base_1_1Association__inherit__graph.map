@@ -1,7 +1,0 @@
-<map id="Carna::base::Association&lt; AssociatedObjectType &gt;" name="Carna::base::Association&lt; AssociatedObjectType &gt;">
-<area shape="rect" id="Node000001" title="Represents an association." alt="" coords="5,37,200,77"/>
-<area shape="rect" id="Node000002" href="$classCarna_1_1base_1_1Aggregation.html" title="Represents an aggregation, i.e. a weak reference." alt="" coords="248,5,443,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="213,40,247,36,248,41,214,45"/>
-<area shape="rect" id="Node000003" href="$classCarna_1_1base_1_1Composition.html" title="Represents a composition, i.e. a strong reference. This basically is a std::unique_ptr that supports ..." alt="" coords="248,69,443,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="214,69,248,74,247,79,213,75"/>
-</map>
