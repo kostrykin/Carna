@@ -78,11 +78,15 @@ public:
       * \a intensityRange correspond to the same entry of the color map, the *mean*
       * of the first and the last values from \a colorRange is written.
       */
-    void writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange );
+    ColorMap& writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange );
     
     /** \overload
       */
-    void writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast );
+    ColorMap& writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast );
+
+    ColorMap& writeLinearSpline( const std::vector< base::Color >& colors );
+
+    const std::vector< base::Color >& getColorList() const;
 
     /** \brief
       * Binds this texture and the corresponding sampler to \a unit.

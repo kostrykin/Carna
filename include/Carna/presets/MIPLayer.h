@@ -63,6 +63,10 @@ public:
         ( const base::BlendFunction& function = LAYER_FUNCTION_REPLACE
         , unsigned int colorMapResolution = base::ColorMap::DEFAULT_RESOLUTION );
 
+    /** Deletes.
+      */
+    ~MIPLayer();
+
     /** \brief
       * The color map used for the layer.
       */

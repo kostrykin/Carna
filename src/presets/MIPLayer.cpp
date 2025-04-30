@@ -54,6 +54,11 @@ MIPLayer::MIPLayer( const base::BlendFunction& function, unsigned int colorMapRe
 }
 
 
+MIPLayer::~MIPLayer()
+{
+}
+
+
 void MIPLayer::setFunction( const base::BlendFunction& function )
 {
     pimpl->function = &function;

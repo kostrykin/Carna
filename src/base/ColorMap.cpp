@@ -8,7 +8,6 @@
 #include <Carna/base/glew.h>
 #include <Carna/base/ShaderManager.h>
 #include <Carna/base/Texture.h>
-#include <iostream>
 
 namespace Carna
 {
@@ -128,29 +127,56 @@ void ColorMap::clear()
 }
 
 
-void ColorMap::writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange )
+ColorMap& ColorMap::writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange )
 {
+    CARNA_ASSERT( intensityRange.first <= intensityRange.last );
     const std::size_t locFirst = pimpl->locationByIntensity( intensityRange.first );
     const std::size_t locLast  = pimpl->locationByIntensity( intensityRange.last  );
     const int rangeSize = locLast - locFirst + 1;
     const base::math::Vector4f color0 = colorRange.first;
     const base::math::Vector4f color1 = colorRange.last;
-    if( rangeSize > 0 )
+
+    for( std::size_t offset = 0; offset < rangeSize; ++offset )
     {
-        for( std::size_t offset = 0; offset < rangeSize; ++offset )
-        {
-            const float lambda = rangeSize == 1 ? 0.5f : offset / static_cast< float >( rangeSize - 1 );
-            const base::Color color = base::math::mix< base::math::Vector4f >( color0, color1, lambda );
-            pimpl->colorMap[ locFirst + offset ] = color;
-        }
-        pimpl->isDirty = true;
+        const float lambda = ( rangeSize == 1 ? 0.5f : offset / static_cast< float >( rangeSize - 1 ) );
+        const base::Color color = base::math::mix< base::math::Vector4f >( color0, color1, lambda );
+        pimpl->colorMap[ locFirst + offset ] = color;
     }
+    pimpl->isDirty = true;
+
+    return *this;
 }
 
 
-void ColorMap::writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast )
+ColorMap& ColorMap::writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast )
 {
-    writeLinearSegment( base::math::Span< float >( intensityFirst, intensityLast ), base::math::Span< base::Color >( colorFirst, colorLast ) );
+    return writeLinearSegment( base::math::Span< float >( intensityFirst, intensityLast ), base::math::Span< base::Color >( colorFirst, colorLast ) );
+}
+
+
+ColorMap& ColorMap::writeLinearSpline( const std::vector< base::Color >& colors )
+{
+    CARNA_ASSERT( colors.size() >= 2 );
+    unsigned int segmentIndex = 0;
+    float intensityLast = 0;
+    for( auto colorItr = colors.begin(); colorItr + 1 != colors.end(); ++colorItr )
+    {
+        const base::math::Vector4f color0 = *colorItr;
+        const base::math::Vector4f color1 = *( colorItr + 1 );
+
+        float intensityFirst = intensityLast;
+        intensityLast += static_cast< float >( segmentIndex + 1 ) / ( colors.size() - 1 );
+
+        writeLinearSegment( intensityFirst, intensityLast, color0, color1 );
+        ++segmentIndex;
+    }
+    return *this;
+}
+
+
+const std::vector< base::Color >& ColorMap::getColorList() const
+{
+    return pimpl->colorMap;
 }
 
 
