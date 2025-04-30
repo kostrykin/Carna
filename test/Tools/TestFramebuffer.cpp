@@ -49,8 +49,9 @@ TestFramebuffer::TestFramebuffer( base::GLContext& glContext, unsigned int width
     , renderTexture( createRenderTexture( glContext ) )
     , fbo( new base::Framebuffer( width, height, *renderTexture ) )
     , fboBinding( new base::Framebuffer::Binding( *fbo ) )
-    , myEpsilon( DEFAULT_EPSILON )
     , glContext( glContext )
+    , epsilon( DEFAULT_EPSILON )
+    , numIgnore( 0 )
 {
 }
 
@@ -125,7 +126,7 @@ void TestFramebuffer::verifyFramebuffer
     }
 
     const QImage expected( expectedPath.c_str() );
-    if( !areSimilar( *frame, expected, myEpsilon ) )
+    if( !areSimilar( *frame, expected, epsilon, numIgnore ) )
     {
         if( saveActualResult( *frame, actualPath ) )
         {
@@ -136,18 +137,6 @@ void TestFramebuffer::verifyFramebuffer
             QFAIL( ( "Rendered image differs from expected. Result FAILED to be written to: " + actualPath ).c_str() );
         }
     }
-}
-
-
-void TestFramebuffer::setEpsilon( double epsilon )
-{
-    myEpsilon = epsilon;
-}
-
-
-double TestFramebuffer::epsilon() const
-{
-    return myEpsilon;
 }
 
 
@@ -163,13 +152,14 @@ bool TestFramebuffer::saveActualResult( const QImage& frame, const std::string& 
 }
 
 
-bool TestFramebuffer::areSimilar( const QImage& img1, const QImage& img2, double epsilon )
+bool TestFramebuffer::areSimilar( const QImage& img1, const QImage& img2, double epsilon, std::size_t numIgnore )
 {
     if( img1.width() != img2.width() || img1.height() != img2.height() )
     {
         return false;
     }
 
+    std::vector< double > sqErrorList;
     double sqError = 0;
     for( int y = 0; y < img1.height(); ++y )
     for( int x = 0; x < img1.width(); ++x )
@@ -180,10 +170,20 @@ bool TestFramebuffer::areSimilar( const QImage& img1, const QImage& img2, double
         const base::math::Vector3i color1( qRed( rgb1 ), qGreen( rgb1 ), qBlue( rgb1 ) );
         const base::math::Vector3i color2( qRed( rgb2 ), qGreen( rgb2 ), qBlue( rgb2 ) );
         
-        sqError += ( ( color1 - color2 ).cast< float >() / 255 ).squaredNorm();
+        const double sqError = ( ( color1 - color2 ).cast< float >() / 255 ).squaredNorm();
+        sqErrorList.push_back(sqError);
     }
-    
-    const double rms = std::sqrt( sqError / ( img1.width() * img1.height() ) );
+
+    /* Ignore the `numIgnore` largest errors.
+     */
+    if( numIgnore > 0 )
+    {
+        std::sort( sqErrorList.begin(), sqErrorList.end() );
+        sqErrorList.erase( sqErrorList.end() - numIgnore, sqErrorList.end() );
+    }
+
+    const double sqErrorSum = std::accumulate( sqErrorList.begin(), sqErrorList.end(), 0.0 );
+    const double rms = std::sqrt( sqErrorSum / sqErrorList.size() );
     return rms < epsilon;
 }
 

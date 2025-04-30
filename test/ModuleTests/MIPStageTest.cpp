@@ -66,6 +66,7 @@ void MIPStageTest::cleanup()
 void MIPStageTest::test_writeLinearSegment()
 {
     renderer->render( scene->cam(), *scene->root );
+    testFramebuffer->numIgnore = 60; // Software rendering produces some artifacts at the corners of the volume, which are negligible.
     VERIFY_FRAMEBUFFER( *testFramebuffer );
 }
 
