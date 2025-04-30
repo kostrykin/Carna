@@ -13,7 +13,6 @@
 #include <Carna/base/Node.h>
 #include <Carna/base/FrameRenderer.h>
 #include <Carna/presets/MIPStage.h>
-#include <Carna/presets/MIPLayer.h>
 
 
 
