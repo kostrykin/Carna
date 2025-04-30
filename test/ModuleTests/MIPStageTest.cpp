@@ -23,31 +23,39 @@
 
 void MIPStageTest::initTestCase()
 {
+}
+
+
+void MIPStageTest::cleanupTestCase()
+{
+}
+
+
+void MIPStageTest::init()
+{
     const unsigned int width  = 640;
     const unsigned int height = 480;
 
     qglContextHolder.reset( new QGLContextHolder() );
     testFramebuffer.reset( new TestFramebuffer( qglContextHolder->glContext(), width, height ) );
-    scene.reset( new TestScene() );
+    scene.reset( new TestScene( true ) );
     renderer.reset( new base::FrameRenderer( qglContextHolder->glContext(), width, height, true ) );
 
     const static unsigned int GEOMETRY_TYPE_VOLUMETRIC = TestScene::GEOMETRY_TYPE_VOLUMETRIC;
     //! [mip_instantiation]
     mip = new presets::MIPStage( GEOMETRY_TYPE_VOLUMETRIC );
-    auto& layer1 = mip->appendLayer( new presets::MIPLayer() );
-    auto& layer2 = mip->appendLayer( new presets::MIPLayer() );
-    layer1.colorMap.writeLinearSegment
-        ( base::HUV( -1024 ).absIntensity(), base::HUV( 0 ).absIntensity()
-        , base::math::Vector4f( 0, 0, 1, 0 ), base::math::Vector4f( 0, 0, 1, 0.5f ) );
-    layer2.colorMap.writeLinearSegment
-        ( base::HUV( 0 ).absIntensity(), base::HUV( 3071 ).absIntensity()
-        , base::math::Vector4f( 1, 1, 0, 0 ), base::math::Vector4f( 1, 1, 0, 0.5f ) );
+    mip->colorMap.writeLinearSegment(
+        0, 1,
+        base::Color( 0, 0, 255, 255 ), base::Color( 255, 0, 0, 255 )
+    );
     renderer->appendStage( mip );
     //! [mip_instantiation]
+
+    mip->setSampleRate( 100 );
 }
 
 
-void MIPStageTest::cleanupTestCase()
+void MIPStageTest::cleanup()
 {
     renderer.reset();
     scene.reset();
@@ -56,30 +64,24 @@ void MIPStageTest::cleanupTestCase()
 }
 
 
-void MIPStageTest::init()
+void MIPStageTest::test_writeLinearSegment()
 {
-    mip->setSampleRate( 100 );
-}
-
-
-void MIPStageTest::cleanup()
-{
-}
-
-
-void MIPStageTest::test_layerReplace()
-{
-    mip->layer( 1 ).setFunction( presets::MIPLayer::LAYER_FUNCTION_REPLACE );
     renderer->render( scene->cam(), *scene->root );
     VERIFY_FRAMEBUFFER( *testFramebuffer );
 }
 
 
-void MIPStageTest::test_layerAdditive()
+void MIPStageTest::test_writeLinearSpline()
 {
-    //! [mip_setup_additive]
-    mip->layer( 1 ).setFunction( presets::MIPLayer::LAYER_FUNCTION_ADD );
-    //! [mip_setup_additive]
+    //! [mip_jet]
+    std::vector< base::Color > colors =
+        { base::Color(   0,   0, 255,   0 )
+        , base::Color(   0,   0, 255, 255 )
+        , base::Color(   0, 255, 255, 255 )
+        , base::Color( 255, 255,   0, 255 )
+        , base::Color( 255,   0,   0, 255 ) };
+    mip->colorMap.writeLinearSpline( colors );
+    //! [mip_jet]
     renderer->render( scene->cam(), *scene->root );
     VERIFY_FRAMEBUFFER( *testFramebuffer );
 }

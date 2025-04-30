@@ -30,14 +30,14 @@ namespace testing
 // TestScene
 // ----------------------------------------------------------------------------------
 
-TestScene::TestScene()
+TestScene::TestScene( bool stretchIntensities )
     : myVolumeGeometry( new base::Geometry( GEOMETRY_TYPE_VOLUMETRIC ) )
     , myCam( new base::Camera() )
     , root( new base::Node() )
 {
     /* Load test volume data.
      */
-    huVolume.reset( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/res/pelves_reduced.hugz", spacings ) );
+    huVolume.reset( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/res/pelves_reduced.hugz", spacings, stretchIntensities ) );
 
     /* Configure geometry node for volume data.
      */

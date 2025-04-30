@@ -2,7 +2,7 @@
 
 set -ex
 
-if [ -v CARNA_BUILD_DOCS ] && [ command -v doxygen >/dev/null ]; then
+if [ -v CARNA_BUILD_DOCS ] && command -v doxygen >/dev/null; then
     export BUILD_DOC="ON"
 else
     export BUILD_DOC="OFF"

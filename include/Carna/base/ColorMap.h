@@ -67,7 +67,7 @@ public:
     void clear();
     
     /** \brief
-      * Maps all intensity values from \a intensityRange to \a colorRange.
+      * Linearly maps all intensity values from \a intensityRange to \a colorRange.
       *
       * The first/last intensity values from \a intensityRange are mapped to the
       * first/last values of \a colorRange, respectively. The values are interpolated
@@ -84,19 +84,22 @@ public:
       */
     ColorMap& writeLinearSegment( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast );
 
+    /** \brief
+      * Writes a linear segment with \ref writeLinearSegment for each subsequent pair
+      * of \a colors. The \a colors are spaced equidistantly to cover the whole range
+      * of values in \f$[0, 1]\f$.
+      */
     ColorMap& writeLinearSpline( const std::vector< base::Color >& colors );
 
+    /** \brief
+      * Returns the list of colors stored in the color map.
+      */
     const std::vector< base::Color >& getColorList() const;
 
     /** \brief
       * Binds this texture and the corresponding sampler to \a unit.
       */
     void bind( int unit ) const;
-
-    /** \brief
-      * Deletes the maintained OpenGL texture and sampler objects (if loaded).
-      */
-    void releaseVideoResources();
 
 }; // base :: ColorMap
 

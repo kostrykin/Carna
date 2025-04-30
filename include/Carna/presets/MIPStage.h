@@ -12,8 +12,9 @@
 #ifndef MIPSTAGE_H_6014714286
 #define MIPSTAGE_H_6014714286
 
-#include <Carna/presets/VolumeRenderingStage.h>
 #include <Carna/Carna.h>
+#include <Carna/base/ColorMap.h>
+#include <Carna/presets/VolumeRenderingStage.h>
 #include <memory>
 
 /** \file   MIPStage.h
@@ -41,6 +42,8 @@ namespace presets
   *
   * \snippet ModuleTests/MIPStageTest.cpp mip_instantiation
   *
+  * \image html MIPStageTest/writeLinearSegment.png "exemplary rendering with a linearly transitioning blue-to-red color map"
+  *
   * The concept of geometry types is explained \ref GeometryTypes "here".
   *
   * \note
@@ -48,18 +51,14 @@ namespace presets
   * inserted \em after such stages that render opaque geometry, like
   * \ref CuttingPlanesStage and \ref OpaqueRenderingStage.
   *
-  * \image html MIPStageTest/layerReplace.png "exemplary rendering with two layers from the code above"
+  * More complex color maps can easily be generated using the \ref base::ColorMap::writeLinearSpline function:
   *
-  * \section MIPStageLayers Layers
+  * \snippet ModuleTests/MIPStageTest.cpp mip_jet
   *
-  * \todo Add documentation on layers.
-  *
-  * The next code snippet turns the second layer to *additive*-mode:
-  *
-  * \snippet ModuleTests/MIPStageTest.cpp mip_setup_additive
+  * \image html MIPStageTest/writeLinearSpline.png "exemplary rendering with a \"jet\"-like color map"
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 11.3.15
+  * \date   22.2.15 - 30.4.25
   */
 class CARNA_LIB MIPStage : public VolumeRenderingStage
 {
@@ -78,7 +77,7 @@ public:
     /** \brief
       * Instantiates.
       */
-    explicit MIPStage( unsigned int geometryType );
+    explicit MIPStage( unsigned int geometryType, unsigned int colorMapResolution = base::ColorMap::DEFAULT_RESOLUTION );
 
     /** \brief
       * Deletes.
@@ -87,47 +86,17 @@ public:
     
     MIPStage* clone() const override;
 
+    /** \brief
+      * The color map used for the layer.
+      */
+    base::ColorMap colorMap;
+
     virtual void reshape( base::FrameRenderer& fr, unsigned int width, unsigned int height ) override;
 
     virtual void renderPass
         ( const base::math::Matrix4f& viewTransform
         , base::RenderTask& rt
         , const base::Viewport& vp ) override;
-    
-    /** \brief
-      * Swaps positions of \a layer with it's successor in the \ref MIPStageLayers "layers list".
-      */
-    void ascendLayer( const MIPLayer& layer );
-    
-    /** \brief
-      * Appends \a layer to the \ref MIPStageLayers "layers list" and takes it's ownership.
-      */
-    MIPLayer& appendLayer( MIPLayer* layer );
-    
-    /** \brief
-      * Removes \a layer from the \ref MIPStageLayers "layers list".
-      * The ownership is transferred to the caller.
-      */
-    MIPLayer* removeLayer( const MIPLayer& layer );
-
-    /** \brief
-      * Tells number of \ref MIPStageLayers "layers".
-      */
-    std::size_t layersCount() const;
-
-    /** \brief
-      * References the \ref MIPStageLayers "layer" with \a layerIndex.
-      */
-    MIPLayer& layer( std::size_t layerIndex );
-
-    /** \overload
-      */
-    const MIPLayer& layer( std::size_t layerIndex ) const;
-
-    /** \brief
-      * Clears the \ref MIPStageLayers "layers list".
-      */
-    void clearLayers();
 
 protected:
 
@@ -139,6 +108,9 @@ protected:
 
     virtual const std::string& uniformName( unsigned int role ) const override;
 
+    /** \brief
+      * Does nothing.
+      */
     virtual void configureShader() override;
 
     /** \brief

@@ -161,11 +161,11 @@ ColorMap& ColorMap::writeLinearSpline( const std::vector< base::Color >& colors 
     float intensityLast = 0;
     for( auto colorItr = colors.begin(); colorItr + 1 != colors.end(); ++colorItr )
     {
-        const base::math::Vector4f color0 = *colorItr;
-        const base::math::Vector4f color1 = *( colorItr + 1 );
+        const base::Color color0 = *colorItr;
+        const base::Color color1 = *( colorItr + 1 );
 
         float intensityFirst = intensityLast;
-        intensityLast += static_cast< float >( segmentIndex + 1 ) / ( colors.size() - 1 );
+        intensityLast = static_cast< float >( segmentIndex + 1 ) / ( colors.size() - 1 );
 
         writeLinearSegment( intensityFirst, intensityLast, color0, color1 );
         ++segmentIndex;
@@ -199,14 +199,6 @@ void ColorMap::bind( int unit ) const
     */
     pimpl->texture->bind( unit );
     pimpl->sampler->bind( unit );
-}
-
-
-void ColorMap::releaseVideoResources()
-{
-    pimpl->texture.reset();
-    pimpl->sampler.reset();
-    pimpl->isDirty = true;
 }
 
 

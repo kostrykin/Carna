@@ -191,7 +191,6 @@ namespace Carna
         class MeshColorCodingStage;
         class VolumeRenderingStage;
         class MIPStage;
-        class MIPLayer;
         class DRRStage;
         class DVRStage;
         class MaskRenderingStage;
