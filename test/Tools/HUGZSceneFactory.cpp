@@ -35,7 +35,7 @@ void stream_read( StreamType& in, ValueType& out )
 // HUGZSceneFactory
 // ----------------------------------------------------------------------------------
 
-Carna::base::HUVolumeUInt16* HUGZSceneFactory::importVolume( const std::string& filename, Carna::base::math::Vector3f& spacing )
+Carna::base::HUVolumeUInt16* HUGZSceneFactory::importVolume( const std::string& filename, Carna::base::math::Vector3f& spacing, bool stretchIntensities )
 {
     std::ifstream file( filename, std::ios::in | std::ios::binary );
     CARNA_ASSERT( file.is_open() && !file.fail() );
@@ -61,6 +61,22 @@ Carna::base::HUVolumeUInt16* HUGZSceneFactory::importVolume( const std::string& 
     {
         const signed short huv = reader.read();
         volume->setVoxel( x, y, z, Carna::base::HUV::abs( huv ) );
+    }
+
+    if( stretchIntensities )
+    {
+        const unsigned short minValue = *std::min_element( volume->buffer().begin(), volume->buffer().end() );
+        for( auto& value : volume->buffer() )
+        {
+            value -= minValue;
+        }
+        const unsigned short maxValue = *std::max_element( volume->buffer().begin(), volume->buffer().end() );
+        for( auto& value : volume->buffer() )
+        {
+            value = static_cast< unsigned short >( value * static_cast< float >( 0xFFFF ) / maxValue + 0.5f );
+        }
+        CARNA_ASSERT( *std::min_element( volume->buffer().begin(), volume->buffer().end() ) == 0 );
+        CARNA_ASSERT( *std::max_element( volume->buffer().begin(), volume->buffer().end() ) == 0xFFFF );
     }
 
     return volume;

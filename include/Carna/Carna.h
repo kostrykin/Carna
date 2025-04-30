@@ -63,6 +63,7 @@ namespace Carna
         class  BlendFunction;
         class  Camera;
         class  Color;
+        class  ColorMap;
         class  Framebuffer;
         class  FrameRenderer;
         class  Geometry;
@@ -190,7 +191,6 @@ namespace Carna
         class MeshColorCodingStage;
         class VolumeRenderingStage;
         class MIPStage;
-        class MIPLayer;
         class DRRStage;
         class DVRStage;
         class MaskRenderingStage;

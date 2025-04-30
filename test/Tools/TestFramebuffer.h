@@ -38,14 +38,16 @@ class TestFramebuffer
     const std::unique_ptr< base::Framebuffer::Binding > fboBinding;
 
     void grabFrame() const;
-    
-    double myEpsilon;
 
 public:
 
     const static double DEFAULT_EPSILON;
 
     base::GLContext& glContext;
+    
+    double epsilon;
+    
+    std::size_t numIgnore;
 
     TestFramebuffer( base::GLContext& glContext, unsigned int width, unsigned int height );
 
@@ -54,10 +56,6 @@ public:
     unsigned int width() const;
 
     unsigned int height() const;
-    
-    void setEpsilon( double epsilon );
-    
-    double epsilon() const;
 
     void verifyFramebuffer( const std::string& signature ) const;
 
@@ -67,7 +65,7 @@ public:
 
 private:
 
-    static bool areSimilar( const QImage&, const QImage&, double epsilon );
+    static bool areSimilar( const QImage&, const QImage&, double epsilon, std::size_t n_ignore = 0 );
 
     static bool saveActualResult( const QImage& frame, const std::string& filename );
 
@@ -80,7 +78,7 @@ private:
 // ----------------------------------------------------------------------------------
 
 #define VERIFY_FRAMEBUFFER_EX( testFramebuffer, name ) \
-    ( testFramebuffer ).verifyFramebuffer( BOOST_CURRENT_FUNCTION );
+    ( testFramebuffer ).verifyFramebuffer( name );
 
 #define VERIFY_FRAMEBUFFER( testFramebuffer ) \
     VERIFY_FRAMEBUFFER_EX( testFramebuffer, BOOST_CURRENT_FUNCTION );

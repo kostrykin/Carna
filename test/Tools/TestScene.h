@@ -42,7 +42,7 @@ public:
 
     const static unsigned int ROLE_HU_VOLUME = 0;
 
-    TestScene();
+    TestScene( bool stretchIntensities = false );
 
     ~TestScene();
 

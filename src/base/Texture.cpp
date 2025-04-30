@@ -96,6 +96,14 @@ TextureBase::~TextureBase()
 }
 
 
+unsigned int TextureBase::maxTextureSize()
+{
+    GLint maxSize;
+    glGetIntegerv( GL_MAX_TEXTURE_SIZE, &maxSize );
+    return static_cast< unsigned int >( maxSize );
+}
+
+
 void TextureBase::uploadGLTextureData
     ( const Eigen::Matrix< unsigned int, 1, 1 >& size
     , int internalFormat

@@ -56,9 +56,9 @@ private slots:
 
  // ---------------------------------------------------------------------------------
 
-    void test_layerReplace();
+    void test_writeLinearSegment();
 
-    void test_layerAdditive();
+    void test_writeLinearSpline();
 
  // ---------------------------------------------------------------------------------
 

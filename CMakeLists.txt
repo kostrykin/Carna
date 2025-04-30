@@ -117,6 +117,7 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/CameraControl.h
 		include/${PROJECT_NAME}/base/CarnaException.h
 		include/${PROJECT_NAME}/base/Color.h
+		include/${PROJECT_NAME}/base/ColorMap.h
 		include/${PROJECT_NAME}/base/Composition.h
 		include/${PROJECT_NAME}/base/Framebuffer.h
 		include/${PROJECT_NAME}/base/FrameRenderer.h
@@ -188,7 +189,6 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/presets/DVRStage.h
 		include/${PROJECT_NAME}/presets/MaskRenderingStage.h
 		include/${PROJECT_NAME}/presets/MeshColorCodingStage.h
-		include/${PROJECT_NAME}/presets/MIPLayer.h
 		include/${PROJECT_NAME}/presets/MIPStage.h
 		include/${PROJECT_NAME}/presets/OccludedRenderingStage.h
 		include/${PROJECT_NAME}/presets/OpaqueRenderingStage.h
@@ -221,6 +221,7 @@ set( SRC
 		src/base/CameraControl.cpp
 		src/base/CarnaException.cpp
 		src/base/Color.cpp
+		src/base/ColorMap.cpp
 		src/base/Framebuffer.cpp
 		src/base/FrameRenderer.cpp
 		src/base/Geometry.cpp
@@ -274,7 +275,6 @@ set( SRC
 		src/presets/DVRStage.cpp
 		src/presets/MaskRenderingStage.cpp
 		src/presets/MeshColorCodingStage.cpp
-		src/presets/MIPLayer.cpp
 		src/presets/MIPStage.cpp
 		src/presets/OccludedRenderingStage.cpp
 		src/presets/OrthogonalControl.cpp
@@ -288,9 +288,6 @@ set( SRC
 		src/helpers/VolumeGridHelper.cpp
 		src/helpers/VolumeGridHelperDetails.cpp
 	)
-set( FORMS
-		""
-	)
 set( DOC_SRC
 		src/doc/Doxyfile.in
 		src/doc/doc_extra.css
@@ -299,31 +296,33 @@ set( DOC_SRC
 		src/doc/doc_VersionLog.dox
 	)
 set( SHADERS_SRC
-		src/res/cutting-plane.vert
 		src/res/cutting-plane.frag
+		src/res/cutting-plane.vert
 		src/res/drr-accumulation.frag
 		src/res/drr-accumulation.vert
 		src/res/drr-exponential.frag
 		src/res/drr-exponential.vert
-		src/res/full_frame_quad.vert
-		src/res/full_frame_quad.frag
-		src/res/mip.frag
-		src/res/mip.vert
 		src/res/dvr.frag
 		src/res/dvr.vert
-		src/res/mr.frag
-		src/res/mr.vert
+		src/res/full_frame_quad.frag
+		src/res/full_frame_quad.vert
+		src/res/interleave.frag
+		src/res/interleave.vert
+		src/res/mip_colorization.frag
+		src/res/mip_colorization.vert
+		src/res/mip.frag
+		src/res/mip.vert
 		src/res/mr-edgedetect.frag
 		src/res/mr-edgedetect.vert
-		src/res/solid.vert
-		src/res/solid.frag
-		src/res/unshaded.vert
-		src/res/unshaded.frag
-		src/res/interleave.vert
-		src/res/interleave.frag
-		src/res/pointmarker.vert
-		src/res/pointmarker.geom
+		src/res/mr.frag
+		src/res/mr.vert
 		src/res/pointmarker.frag
+		src/res/pointmarker.geom
+		src/res/pointmarker.vert
+		src/res/solid.frag
+		src/res/solid.vert
+		src/res/unshaded.frag
+		src/res/unshaded.vert
 	)
 set( RESOURCES
 		${SHADERS_SRC}
@@ -418,7 +417,6 @@ SOURCE_GROUP( "Miscellaneous\\Generated Files"
 set_source_files_properties(	${SRC}
 								${PUBLIC_HEADERS_MOC}
 								${PRIVATE_HEADERS_MOC}
-								${FORMS_HEADERS}
 								${RESOURCES_RCC}
 								${DOC_SRC}
 								${SHADERS_SRC}
@@ -478,7 +476,6 @@ add_library( ${TARGET_NAME} SHARED
 			${PRIVATE_HEADERS}
 			${PUBLIC_HEADERS_MOC}
 			${PRIVATE_HEADERS_MOC}
-			${FORMS_HEADERS}
 			${RESOURCES_RCC}
 			${DOC_SRC}
 			${SHADERS_SRC}

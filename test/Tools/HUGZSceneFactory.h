@@ -44,7 +44,7 @@ struct HUGZSceneFactory
       *
       * The HUGZ file format is described \ref HUGZFileFormat "here".
       */
-    static Carna::base::HUVolumeUInt16* importVolume( const std::string& filename, Carna::base::math::Vector3f& spacing );
+    static Carna::base::HUVolumeUInt16* importVolume( const std::string& filename, Carna::base::math::Vector3f& spacing, bool stretchIntensities = false );
 };
 
 

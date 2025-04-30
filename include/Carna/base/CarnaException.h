@@ -191,8 +191,7 @@ public:
         std::stringstream details; \
         details \
             << "Description: " << description << std::endl \
-            << "File: " << __FILE__ << std::endl \
-            << "Line: " << __LINE__; \
+            << "Where: " << __FILE__ << ":" << __LINE__; \
         throw ::Carna::base::AssertionFailure( details.str() ); \
     }
 
@@ -216,8 +215,7 @@ public:
         std::stringstream details; \
         details \
             << "Failed expression: " << #expression << std::endl \
-            << "File: " << __FILE__ << std::endl \
-            << "Line: " << __LINE__; \
+            << "Where: " << __FILE__ << ":" << __LINE__; \
         throw ::Carna::base::AssertionFailure( details.str() ); \
     }
 
@@ -242,8 +240,7 @@ public:
         details \
             << "Failed expression: " << #expression << std::endl \
             << "Description: " << description << std::endl \
-            << "File: " << __FILE__ << std::endl \
-            << "Line: " << __LINE__; \
+            << "Where: " << __FILE__ << ":" << __LINE__; \
         throw ::Carna::base::AssertionFailure( details.str() ); \
     }
 
