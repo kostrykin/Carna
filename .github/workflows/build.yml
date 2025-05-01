@@ -82,6 +82,7 @@ jobs:
     - run: ./linux_build-egl.bash
       env:
         BUILD: only_release
+        CARNA_BUILD_DOCS: 1
 
     - uses: peter-evans/create-pull-request@v7
       if: ${{ github.event_name == 'push' }}
