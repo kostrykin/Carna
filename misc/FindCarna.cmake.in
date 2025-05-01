@@ -18,13 +18,15 @@ get_filename_component(@PROJECT_NAME@_INCLUDE_DIR "@CMAKE_INSTALL_PREFIX@/@INSTA
 find_library( @PROJECT_NAME@_LIBRARY_RELEASE
 				NAMES @TARGET_NAME@
 				PATHS "@CMAKE_INSTALL_PREFIX@/@INSTALL_LIBRARY_DIR@"
-				DOC "@PROJECT_NAME@ library (Release)" )
+				DOC "@PROJECT_NAME@ library (Release)"
+				NO_DEFAULT_PATH )
 
 # set path to DEBUG library file
 find_library( @PROJECT_NAME@_LIBRARY_DEBUG
 				NAMES @TARGET_NAME@@CMAKE_DEBUG_POSTFIX@
 				PATHS "@CMAKE_INSTALL_PREFIX@/@INSTALL_LIBRARY_DIR@"
-				DOC "@PROJECT_NAME@ library (Debug)" )
+				DOC "@PROJECT_NAME@ library (Debug)"
+				NO_DEFAULT_PATH )
 
 # set which components were found
 set( @PROJECT_NAME@_LIBRARIES "" )
