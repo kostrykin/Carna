@@ -16,9 +16,9 @@ var searchData=
   ['meshcolorcodingstage_13',['MeshColorCodingStage',['../classCarna_1_1presets_1_1MeshColorCodingStage.html',1,'Carna::presets']]],
   ['meshcolorcodingstagetest_14',['MeshColorCodingStageTest',['../classCarna_1_1testing_1_1MeshColorCodingStageTest.html',1,'Carna::testing']]],
   ['meshfactory_15',['MeshFactory',['../classCarna_1_1base_1_1MeshFactory.html',1,'Carna::base']]],
-  ['meshrenderingstage_16',['MeshRenderingStage',['../classCarna_1_1base_1_1MeshRenderingStage.html',1,'Carna::base']]],
-  ['meshrenderingstage_3c_20base_3a_3arenderable_3a_3abacktofront_20_3e_17',['MeshRenderingStage&lt; base::Renderable::BackToFront &gt;',['../classCarna_1_1base_1_1MeshRenderingStage.html',1,'Carna::base']]],
-  ['meshrenderingstagebase_18',['MeshRenderingStageBase',['../classCarna_1_1base_1_1MeshRenderingStageBase.html',1,'Carna::base']]],
+  ['meshrenderingmixin_16',['MeshRenderingMixin',['../classCarna_1_1base_1_1MeshRenderingMixin.html',1,'Carna::base']]],
+  ['meshrenderingstage_17',['MeshRenderingStage',['../classCarna_1_1base_1_1MeshRenderingStage.html',1,'Carna::base']]],
+  ['meshrenderingstage_3c_20base_3a_3arenderable_3a_3abacktofront_20_3e_18',['MeshRenderingStage&lt; base::Renderable::BackToFront &gt;',['../classCarna_1_1base_1_1MeshRenderingStage.html',1,'Carna::base']]],
   ['minimalbinding_19',['MinimalBinding',['../classCarna_1_1base_1_1Framebuffer_1_1MinimalBinding.html',1,'Carna::base::Framebuffer']]],
   ['mipstage_20',['MIPStage',['../classCarna_1_1presets_1_1MIPStage.html',1,'Carna::presets']]],
   ['mipstagetest_21',['MIPStageTest',['../classCarna_1_1testing_1_1MIPStageTest.html',1,'Carna::testing']]]

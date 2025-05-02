@@ -146,9 +146,6 @@ Public Member Functions</h2></td></tr>
 <a class="el" href="classCarna_1_1base_1_1Association.html">virtual</a>&#160;</td><td class="memItemRight" valign="bottom"><b>~RenderStage</b> ()</td></tr>
 <tr class="memdesc:a203b394dde3169bf2217fcdee0f414a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes. <br /></td></tr>
 <tr class="separator:a203b394dde3169bf2217fcdee0f414a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e139137d3c6579594c83bba05917007" id="r_a9e139137d3c6579594c83bba05917007"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarna_1_1base_1_1Association.html">virtual</a> <a class="el" href="classCarna_1_1base_1_1RenderStage.html">RenderStage</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1RenderStage.html#a9e139137d3c6579594c83bba05917007">clone</a> () <a class="el" href="classCarna_1_1base_1_1Association.html">const</a> =0</td></tr>
-<tr class="memdesc:a9e139137d3c6579594c83bba05917007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns same <code>RenderStage</code> implementation with same configuration.  <br /></td></tr>
-<tr class="separator:a9e139137d3c6579594c83bba05917007"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ce4c605ca0637c98e807d8419a30729" id="r_a6ce4c605ca0637c98e807d8419a30729"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarna_1_1base_1_1Association.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1RenderStage.html#a6ce4c605ca0637c98e807d8419a30729">setViewTransformFixed</a> (<a class="el" href="classCarna_1_1base_1_1Association.html">bool</a> <a class="el" href="classCarna_1_1base_1_1Association.html">viewTransformFixed</a>)</td></tr>
 <tr class="memdesc:a6ce4c605ca0637c98e807d8419a30729"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether the view transform is pass-invariant for the duration of a single frame.  <br /></td></tr>
 <tr class="separator:a6ce4c605ca0637c98e807d8419a30729"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,7 +154,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2a116a4ac99e4538d35f39807f35b308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells whether the view transform is pass-invariant for the duration of a single frame. <br /></td></tr>
 <tr class="separator:a2a116a4ac99e4538d35f39807f35b308"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a373b278fc33c72faca6e98931196cf42" id="r_a373b278fc33c72faca6e98931196cf42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarna_1_1base_1_1Association.html">virtual</a> <a class="el" href="classCarna_1_1base_1_1Association.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1RenderStage.html#a373b278fc33c72faca6e98931196cf42">reshape</a> (<a class="el" href="classCarna_1_1base_1_1FrameRenderer.html">FrameRenderer</a> &amp;<a class="el" href="classCarna_1_1base_1_1Association.html">fr</a>, <a class="el" href="classCarna_1_1base_1_1Association.html">unsigned</a> <a class="el" href="classCarna_1_1base_1_1Association.html">int</a> width, <a class="el" href="classCarna_1_1base_1_1Association.html">unsigned</a> <a class="el" href="classCarna_1_1base_1_1Association.html">int</a> height)</td></tr>
-<tr class="memdesc:a373b278fc33c72faca6e98931196cf42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified dimensions.  <br /></td></tr>
+<tr class="memdesc:a373b278fc33c72faca6e98931196cf42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>.  <br /></td></tr>
 <tr class="separator:a373b278fc33c72faca6e98931196cf42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0d94798371265efb80ba9312fd75717" id="r_ab0d94798371265efb80ba9312fd75717"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarna_1_1base_1_1Association.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1RenderStage.html#ab0d94798371265efb80ba9312fd75717">isInitialized</a> () <a class="el" href="classCarna_1_1base_1_1Association.html">const</a></td></tr>
 <tr class="memdesc:ab0d94798371265efb80ba9312fd75717"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells whether this stage is ready for rendering.  <br /></td></tr>
@@ -197,37 +194,6 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="RenderStage_8h_source.html#l00042">42</a> of file <a class="el" href="RenderStage_8h_source.html">RenderStage.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9e139137d3c6579594c83bba05917007" name="a9e139137d3c6579594c83bba05917007"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e139137d3c6579594c83bba05917007">&#9670;&#160;</a></span>clone()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classCarna_1_1base_1_1Association.html">virtual</a> <a class="el" href="classCarna_1_1base_1_1RenderStage.html">RenderStage</a> * Carna::base::RenderStage::clone </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns same <code>RenderStage</code> implementation with same configuration. </p>
-<p>The listeners and the rendering state are not copied.</p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>Do not use this method. It will be removed shortly. </dd></dl>
-
-<p>Implemented in <a class="el" href="classCarna_1_1base_1_1MeshRenderingStage.html#ac8447e41e9c38a4baf76aaa202d56913">Carna::base::MeshRenderingStage&lt; RenderableCompare &gt;</a>, <a class="el" href="classCarna_1_1base_1_1MeshRenderingStage.html#ac8447e41e9c38a4baf76aaa202d56913">Carna::base::MeshRenderingStage&lt; base::Renderable::BackToFront &gt;</a>, <a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html#a4c89a9bb2a671d578ae498c4f75f5998">Carna::presets::CuttingPlanesStage</a>, <a class="el" href="classCarna_1_1presets_1_1DRRStage.html#a47aaf1b5b8503226311592e3d11d79ed">Carna::presets::DRRStage</a>, <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#ab1c895efb48085b63aef5889336513be">Carna::presets::DVRStage</a>, <a class="el" href="classCarna_1_1presets_1_1MaskRenderingStage.html#a555f08edd95ddb762b9591f2315f7f90">Carna::presets::MaskRenderingStage</a>, <a class="el" href="classCarna_1_1presets_1_1MeshColorCodingStage.html#a53dcd7ef728859916757b0008386cf92">Carna::presets::MeshColorCodingStage</a>, <a class="el" href="classCarna_1_1presets_1_1MIPStage.html#ac57890107d3f4d9ab9e8f4fc4d185b18">Carna::presets::MIPStage</a>, <a class="el" href="classCarna_1_1presets_1_1OccludedRenderingStage.html#a97fe03980953a9d041b222c5a15954ef">Carna::presets::OccludedRenderingStage</a>, <a class="el" href="classCarna_1_1presets_1_1ParallaxStage.html#aecc5f283d06615c9d538b14134e5d7db">Carna::presets::ParallaxStage</a>, and <a class="el" href="classCarna_1_1presets_1_1TransparentRenderingStage.html#a0c7c2fc3ca425b185efa6a0e01bfc2ab">Carna::presets::TransparentRenderingStage</a>.</p>
-
-</div>
-</div>
 <a id="ab0d94798371265efb80ba9312fd75717" name="ab0d94798371265efb80ba9312fd75717"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab0d94798371265efb80ba9312fd75717">&#9670;&#160;</a></span>isInitialized()</h2>
 
@@ -244,7 +210,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Tells whether this stage is ready for rendering. </p>
-<p>In particular, this method returns <code>true</code> if this rendering stage only requires <a class="el" href="classCarna_1_1base_1_1RenderStage.html#a373b278fc33c72faca6e98931196cf42">reshape</a> to be called, if the dimensions actually have changed. In contrary, i.e. if this method returns <code>false</code>, <a class="el" href="classCarna_1_1base_1_1RenderStage.html#a373b278fc33c72faca6e98931196cf42">reshape</a> will be called before every frame. </p>
+<p>In particular, this method returns <code>true</code> if this rendering stage only requires <a class="el" href="classCarna_1_1base_1_1RenderStage.html#a373b278fc33c72faca6e98931196cf42">reshape</a> to be called, if width or height actually have changed. In contrary, i.e. if this method returns <code>false</code>, <a class="el" href="classCarna_1_1base_1_1RenderStage.html#a373b278fc33c72faca6e98931196cf42">reshape</a> will be called before every frame. </p>
 
 </div>
 </div>
@@ -403,7 +369,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Orders this stage to reshape its buffers according to the specified dimensions. </p>
+<p>Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>. </p>
 <dl class="section attention"><dt>Attention</dt><dd>Always call the base implementaion!</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

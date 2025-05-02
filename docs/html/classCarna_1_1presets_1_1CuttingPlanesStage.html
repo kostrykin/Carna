@@ -136,9 +136,6 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~CuttingPlanesStage</b> ()</td></tr>
 <tr class="memdesc:a50870d78ecfc0826ab962808c7eb954a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes. <br /></td></tr>
 <tr class="separator:a50870d78ecfc0826ab962808c7eb954a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c89a9bb2a671d578ae498c4f75f5998" id="r_a4c89a9bb2a671d578ae498c4f75f5998"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html">CuttingPlanesStage</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html#a4c89a9bb2a671d578ae498c4f75f5998">clone</a> () const override</td></tr>
-<tr class="memdesc:a4c89a9bb2a671d578ae498c4f75f5998"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns same <code>RenderStage</code> implementation with same configuration.  <br /></td></tr>
-<tr class="separator:a4c89a9bb2a671d578ae498c4f75f5998"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ef3d1fc20e535efcf8907fa2d0ff351" id="r_a2ef3d1fc20e535efcf8907fa2d0ff351"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html#a2ef3d1fc20e535efcf8907fa2d0ff351">renderPass</a> (const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a991a0f5376e1e66d3d97eafed6d057ef">base::math::Matrix4f</a> &amp;viewTransform, <a class="el" href="classCarna_1_1base_1_1RenderTask.html">base::RenderTask</a> &amp;rt, const <a class="el" href="classCarna_1_1base_1_1Viewport.html">base::Viewport</a> &amp;vp) override</td></tr>
 <tr class="memdesc:a2ef3d1fc20e535efcf8907fa2d0ff351"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once per pass.  <br /></td></tr>
 <tr class="separator:a2ef3d1fc20e535efcf8907fa2d0ff351"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -211,7 +208,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isRenderingInverse</b
 <tr class="memdesc:a2a116a4ac99e4538d35f39807f35b308 inherit pub_methods_classCarna_1_1base_1_1RenderStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells whether the view transform is pass-invariant for the duration of a single frame. <br /></td></tr>
 <tr class="separator:a2a116a4ac99e4538d35f39807f35b308 inherit pub_methods_classCarna_1_1base_1_1RenderStage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a373b278fc33c72faca6e98931196cf42 inherit pub_methods_classCarna_1_1base_1_1RenderStage" id="r_a373b278fc33c72faca6e98931196cf42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarna_1_1base_1_1Association.html">virtual</a> <a class="el" href="classCarna_1_1base_1_1Association.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1RenderStage.html#a373b278fc33c72faca6e98931196cf42">reshape</a> (<a class="el" href="classCarna_1_1base_1_1FrameRenderer.html">FrameRenderer</a> &amp;<a class="el" href="classCarna_1_1base_1_1Association.html">fr</a>, <a class="el" href="classCarna_1_1base_1_1Association.html">unsigned</a> <a class="el" href="classCarna_1_1base_1_1Association.html">int</a> width, <a class="el" href="classCarna_1_1base_1_1Association.html">unsigned</a> <a class="el" href="classCarna_1_1base_1_1Association.html">int</a> height)</td></tr>
-<tr class="memdesc:a373b278fc33c72faca6e98931196cf42 inherit pub_methods_classCarna_1_1base_1_1RenderStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified dimensions.  <br /></td></tr>
+<tr class="memdesc:a373b278fc33c72faca6e98931196cf42 inherit pub_methods_classCarna_1_1base_1_1RenderStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>.  <br /></td></tr>
 <tr class="separator:a373b278fc33c72faca6e98931196cf42 inherit pub_methods_classCarna_1_1base_1_1RenderStage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0d94798371265efb80ba9312fd75717 inherit pub_methods_classCarna_1_1base_1_1RenderStage" id="r_ab0d94798371265efb80ba9312fd75717"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarna_1_1base_1_1Association.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1RenderStage.html#ab0d94798371265efb80ba9312fd75717">isInitialized</a> () <a class="el" href="classCarna_1_1base_1_1Association.html">const</a></td></tr>
 <tr class="memdesc:ab0d94798371265efb80ba9312fd75717 inherit pub_methods_classCarna_1_1base_1_1RenderStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells whether this stage is ready for rendering.  <br /></td></tr>
@@ -360,37 +357,6 @@ rendering result of example code above</div></div>
 <p>Builds the rendering queues of this stage. </p>
 
 <p>Reimplemented from <a class="el" href="classCarna_1_1base_1_1GeometryStage.html#a9dfe86e58ba7d83e4f7c78dafbf9fb02">Carna::base::GeometryStage&lt; void &gt;</a>.</p>
-
-</div>
-</div>
-<a id="a4c89a9bb2a671d578ae498c4f75f5998" name="a4c89a9bb2a671d578ae498c4f75f5998"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c89a9bb2a671d578ae498c4f75f5998">&#9670;&#160;</a></span>clone()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html">CuttingPlanesStage</a> * Carna::presets::CuttingPlanesStage::clone </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns same <code>RenderStage</code> implementation with same configuration. </p>
-<p>The listeners and the rendering state are not copied.</p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>Do not use this method. It will be removed shortly. </dd></dl>
-
-<p>Implements <a class="el" href="classCarna_1_1base_1_1RenderStage.html#a9e139137d3c6579594c83bba05917007">Carna::base::RenderStage</a>.</p>
 
 </div>
 </div>

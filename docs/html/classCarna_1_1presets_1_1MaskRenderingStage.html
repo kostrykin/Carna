@@ -143,11 +143,8 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~MaskRenderingStage</b> ()</td></tr>
 <tr class="memdesc:aef026688eced642f9f6798ced72a65a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes. <br /></td></tr>
 <tr class="separator:aef026688eced642f9f6798ced72a65a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a555f08edd95ddb762b9591f2315f7f90" id="r_a555f08edd95ddb762b9591f2315f7f90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarna_1_1presets_1_1MaskRenderingStage.html">MaskRenderingStage</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1MaskRenderingStage.html#a555f08edd95ddb762b9591f2315f7f90">clone</a> () const override</td></tr>
-<tr class="memdesc:a555f08edd95ddb762b9591f2315f7f90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns same <code>RenderStage</code> implementation with same configuration.  <br /></td></tr>
-<tr class="separator:a555f08edd95ddb762b9591f2315f7f90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa974ee321da9b6b2aff3ba9398d48fbc" id="r_aa974ee321da9b6b2aff3ba9398d48fbc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1MaskRenderingStage.html#aa974ee321da9b6b2aff3ba9398d48fbc">reshape</a> (<a class="el" href="classCarna_1_1base_1_1FrameRenderer.html">base::FrameRenderer</a> &amp;fr, unsigned int width, unsigned int height) override</td></tr>
-<tr class="memdesc:aa974ee321da9b6b2aff3ba9398d48fbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified dimensions.  <br /></td></tr>
+<tr class="memdesc:aa974ee321da9b6b2aff3ba9398d48fbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>.  <br /></td></tr>
 <tr class="separator:aa974ee321da9b6b2aff3ba9398d48fbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a395ade03ad627313d06de3ea0417a720" id="r_a395ade03ad627313d06de3ea0417a720"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1MaskRenderingStage.html#a395ade03ad627313d06de3ea0417a720">renderPass</a> (const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a991a0f5376e1e66d3d97eafed6d057ef">base::math::Matrix4f</a> &amp;viewTransform, <a class="el" href="classCarna_1_1base_1_1RenderTask.html">base::RenderTask</a> &amp;rt, const <a class="el" href="classCarna_1_1base_1_1Viewport.html">base::Viewport</a> &amp;vp) override</td></tr>
 <tr class="memdesc:a395ade03ad627313d06de3ea0417a720"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the mask rendering.  <br /></td></tr>
@@ -417,37 +414,6 @@ exemplary rendering from code above</div></div>
 
 </div>
 </div>
-<a id="a555f08edd95ddb762b9591f2315f7f90" name="a555f08edd95ddb762b9591f2315f7f90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a555f08edd95ddb762b9591f2315f7f90">&#9670;&#160;</a></span>clone()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classCarna_1_1presets_1_1MaskRenderingStage.html">MaskRenderingStage</a> * Carna::presets::MaskRenderingStage::clone </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns same <code>RenderStage</code> implementation with same configuration. </p>
-<p>The listeners and the rendering state are not copied.</p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>Do not use this method. It will be removed shortly. </dd></dl>
-
-<p>Implements <a class="el" href="classCarna_1_1base_1_1RenderStage.html#a9e139137d3c6579594c83bba05917007">Carna::base::RenderStage</a>.</p>
-
-</div>
-</div>
 <a id="a048fd96253cd4bf2d92526d65ce59729" name="a048fd96253cd4bf2d92526d65ce59729"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a048fd96253cd4bf2d92526d65ce59729">&#9670;&#160;</a></span>configureShader() <span class="overload">[1/2]</span></h2>
 
@@ -653,7 +619,7 @@ exemplary rendering from code above</div></div>
 </table>
 </div><div class="memdoc">
 
-<p>Orders this stage to reshape its buffers according to the specified dimensions. </p>
+<p>Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>. </p>
 <dl class="section attention"><dt>Attention</dt><dd>Always call the base implementaion!</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

@@ -157,7 +157,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isCompositionSwapped<
 <tr class="memdesc:a7e48a4a8e0c664148e84dc8948ed38d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells whether the two renderings obtained through <a class="el" href="classCarna_1_1presets_1_1CompositionStage.html#af10f4f71d453644483ef52aa577bf537">renderPass(const base::math::Matrix4f&amp;,base::RenderTask&amp;,const base::Viewport&amp;,bool,bool)</a> are swapped when combined. <br /></td></tr>
 <tr class="separator:a7e48a4a8e0c664148e84dc8948ed38d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c1acba091eb890792468a4dfd352fda" id="r_a0c1acba091eb890792468a4dfd352fda"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1CompositionStage.html#a0c1acba091eb890792468a4dfd352fda">reshape</a> (<a class="el" href="classCarna_1_1base_1_1FrameRenderer.html">base::FrameRenderer</a> &amp;fr, unsigned int width, unsigned int height) override</td></tr>
-<tr class="memdesc:a0c1acba091eb890792468a4dfd352fda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified dimensions.  <br /></td></tr>
+<tr class="memdesc:a0c1acba091eb890792468a4dfd352fda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>.  <br /></td></tr>
 <tr class="separator:a0c1acba091eb890792468a4dfd352fda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab57ae14a2cd8bf6d1a8860fa2bb7bbc7" id="r_ab57ae14a2cd8bf6d1a8860fa2bb7bbc7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1CompositionStage.html#ab57ae14a2cd8bf6d1a8860fa2bb7bbc7">prepareFrame</a> (<a class="el" href="classCarna_1_1base_1_1Node.html">base::Node</a> &amp;root) override</td></tr>
 <tr class="memdesc:ab57ae14a2cd8bf6d1a8860fa2bb7bbc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once before each frame.  <br /></td></tr>
@@ -174,9 +174,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isCompositionSwapped<
 <a class="el" href="classCarna_1_1base_1_1Association.html">virtual</a>&#160;</td><td class="memItemRight" valign="bottom"><b>~RenderStage</b> ()</td></tr>
 <tr class="memdesc:a203b394dde3169bf2217fcdee0f414a2 inherit pub_methods_classCarna_1_1base_1_1RenderStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes. <br /></td></tr>
 <tr class="separator:a203b394dde3169bf2217fcdee0f414a2 inherit pub_methods_classCarna_1_1base_1_1RenderStage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e139137d3c6579594c83bba05917007 inherit pub_methods_classCarna_1_1base_1_1RenderStage" id="r_a9e139137d3c6579594c83bba05917007"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarna_1_1base_1_1Association.html">virtual</a> <a class="el" href="classCarna_1_1base_1_1RenderStage.html">RenderStage</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1RenderStage.html#a9e139137d3c6579594c83bba05917007">clone</a> () <a class="el" href="classCarna_1_1base_1_1Association.html">const</a> =0</td></tr>
-<tr class="memdesc:a9e139137d3c6579594c83bba05917007 inherit pub_methods_classCarna_1_1base_1_1RenderStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns same <code>RenderStage</code> implementation with same configuration.  <br /></td></tr>
-<tr class="separator:a9e139137d3c6579594c83bba05917007 inherit pub_methods_classCarna_1_1base_1_1RenderStage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ce4c605ca0637c98e807d8419a30729 inherit pub_methods_classCarna_1_1base_1_1RenderStage" id="r_a6ce4c605ca0637c98e807d8419a30729"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarna_1_1base_1_1Association.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1base_1_1RenderStage.html#a6ce4c605ca0637c98e807d8419a30729">setViewTransformFixed</a> (<a class="el" href="classCarna_1_1base_1_1Association.html">bool</a> <a class="el" href="classCarna_1_1base_1_1Association.html">viewTransformFixed</a>)</td></tr>
 <tr class="memdesc:a6ce4c605ca0637c98e807d8419a30729 inherit pub_methods_classCarna_1_1base_1_1RenderStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether the view transform is pass-invariant for the duration of a single frame.  <br /></td></tr>
 <tr class="separator:a6ce4c605ca0637c98e807d8419a30729 inherit pub_methods_classCarna_1_1base_1_1RenderStage"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -436,7 +433,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Orders this stage to reshape its buffers according to the specified dimensions. </p>
+<p>Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>. </p>
 <dl class="section attention"><dt>Attention</dt><dd>Always call the base implementaion!</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

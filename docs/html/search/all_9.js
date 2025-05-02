@@ -14,6 +14,7 @@ var searchData=
   ['exact_5fmatch_5fgeometry_5ftype_5fmask_11',['EXACT_MATCH_GEOMETRY_TYPE_MASK',['../classCarna_1_1base_1_1RenderQueue.html#a606ddf4a2bf752f10f7f95b5cca09983',1,'Carna::base::RenderQueue']]],
   ['example_12',['Example',['../classCarna_1_1presets_1_1ParallaxStage.html#ParallaxStageExample',1,'']]],
   ['exists_13',['exists',['../classCarna_1_1base_1_1Singleton.html#a77577a40e90313e346015d7e4ecde237',1,'Carna::base::Singleton']]],
-  ['eyedistance_14',['eyeDistance',['../classCarna_1_1presets_1_1ParallaxStage.html#a090b7451368950a2d7c59d03c07e7715',1,'Carna::presets::ParallaxStage']]],
-  ['eyedistance2_15',['eyeDistance2',['../classCarna_1_1base_1_1Renderable.html#a0b53a5155e2b7cec4f0067723edd72c5',1,'Carna::base::Renderable']]]
+  ['extent_14',['extent',['../structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Extent.html#a3628c39df6b9132145de1bac49c4e982',1,'Carna::helpers::VolumeGridHelperBase::Extent::Extent()'],['../structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Extent.html',1,'Carna::helpers::VolumeGridHelperBase::Extent']]],
+  ['eyedistance_15',['eyeDistance',['../classCarna_1_1presets_1_1ParallaxStage.html#a090b7451368950a2d7c59d03c07e7715',1,'Carna::presets::ParallaxStage']]],
+  ['eyedistance2_16',['eyeDistance2',['../classCarna_1_1base_1_1Renderable.html#a0b53a5155e2b7cec4f0067723edd72c5',1,'Carna::base::Renderable']]]
 ];

@@ -125,9 +125,6 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>OccludedRenderingStage</b> ()</td></tr>
 <tr class="memdesc:ad17448f7a4629d441066ec68caf09bef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets <a class="el" href="classCarna_1_1presets_1_1OccludedRenderingStage.html#a5ed4acebb695066da778f660ca5466d7">translucency of occluding geometry</a> to <a class="el" href="classCarna_1_1presets_1_1OccludedRenderingStage.html#a9094998ff61aafec1db421aebcc6dfa8">DEFAULT_OCCLUSION_TRANSLUCENCY</a>. <br /></td></tr>
 <tr class="separator:ad17448f7a4629d441066ec68caf09bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97fe03980953a9d041b222c5a15954ef" id="r_a97fe03980953a9d041b222c5a15954ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarna_1_1presets_1_1OccludedRenderingStage.html">OccludedRenderingStage</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1OccludedRenderingStage.html#a97fe03980953a9d041b222c5a15954ef">clone</a> () const override</td></tr>
-<tr class="memdesc:a97fe03980953a9d041b222c5a15954ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns same <code>RenderStage</code> implementation with same configuration.  <br /></td></tr>
-<tr class="separator:a97fe03980953a9d041b222c5a15954ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7265d7aee3bd44f3add9a3a3e975ca3" id="r_ad7265d7aee3bd44f3add9a3a3e975ca3"><td class="memItemLeft" align="right" valign="top"><a id="ad7265d7aee3bd44f3add9a3a3e975ca3" name="ad7265d7aee3bd44f3add9a3a3e975ca3"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~OccludedRenderingStage</b> ()</td></tr>
 <tr class="memdesc:ad7265d7aee3bd44f3add9a3a3e975ca3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes. <br /></td></tr>
@@ -155,7 +152,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isStageEnabled</b> (c
 <tr class="memdesc:ab1acbc727fe5cf5212286e0abfead4d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells the translucency of the occluding geometry.  <br /></td></tr>
 <tr class="separator:ab1acbc727fe5cf5212286e0abfead4d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf96b700d7a10bab54d9e9f0650d45c9" id="r_aaf96b700d7a10bab54d9e9f0650d45c9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1OccludedRenderingStage.html#aaf96b700d7a10bab54d9e9f0650d45c9">reshape</a> (<a class="el" href="classCarna_1_1base_1_1FrameRenderer.html">base::FrameRenderer</a> &amp;fr, unsigned int width, unsigned int height) override</td></tr>
-<tr class="memdesc:aaf96b700d7a10bab54d9e9f0650d45c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified dimensions.  <br /></td></tr>
+<tr class="memdesc:aaf96b700d7a10bab54d9e9f0650d45c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>.  <br /></td></tr>
 <tr class="separator:aaf96b700d7a10bab54d9e9f0650d45c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad6accf4857ca8748bf954767f66e549" id="r_aad6accf4857ca8748bf954767f66e549"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1OccludedRenderingStage.html#aad6accf4857ca8748bf954767f66e549">prepareFrame</a> (<a class="el" href="classCarna_1_1base_1_1Node.html">base::Node</a> &amp;root) override</td></tr>
 <tr class="memdesc:aad6accf4857ca8748bf954767f66e549"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once before each frame.  <br /></td></tr>
@@ -218,44 +215,13 @@ Static Public Attributes</h2></td></tr>
 <ol type="1">
 <li><a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html">CuttingPlanesStage</a></li>
 <li><a class="el" href="classCarna_1_1presets_1_1OccludedRenderingStage.html">OccludedRenderingStage</a> with stage 3 enabled</li>
-<li><a class="el" href="namespaceCarna_1_1presets.html#a544f1850fe5eb21b67d35bec55e6a9dd">OpaqueRenderingStage</a></li>
+<li><a class="el" href="namespaceCarna_1_1presets.html#a031c46b31027885006f5f60805c30779">OpaqueRenderingStage</a></li>
 </ol>
 <dl class="section author"><dt>Author</dt><dd>Leonid Kostrykin </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>21.2.15 - 6.3.15 </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="OccludedRenderingStage_8h_source.html#l00056">56</a> of file <a class="el" href="OccludedRenderingStage_8h_source.html">OccludedRenderingStage.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a97fe03980953a9d041b222c5a15954ef" name="a97fe03980953a9d041b222c5a15954ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97fe03980953a9d041b222c5a15954ef">&#9670;&#160;</a></span>clone()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classCarna_1_1presets_1_1OccludedRenderingStage.html">OccludedRenderingStage</a> * Carna::presets::OccludedRenderingStage::clone </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns same <code>RenderStage</code> implementation with same configuration. </p>
-<p>The listeners and the rendering state are not copied.</p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>Do not use this method. It will be removed shortly. </dd></dl>
-
-<p>Implements <a class="el" href="classCarna_1_1base_1_1RenderStage.html#a9e139137d3c6579594c83bba05917007">Carna::base::RenderStage</a>.</p>
-
-</div>
-</div>
 <a id="ab1acbc727fe5cf5212286e0abfead4d2" name="ab1acbc727fe5cf5212286e0abfead4d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab1acbc727fe5cf5212286e0abfead4d2">&#9670;&#160;</a></span>occlusionTranslucency()</h2>
 
@@ -393,7 +359,7 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Orders this stage to reshape its buffers according to the specified dimensions. </p>
+<p>Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>. </p>
 <dl class="section attention"><dt>Attention</dt><dd>Always call the base implementaion!</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
