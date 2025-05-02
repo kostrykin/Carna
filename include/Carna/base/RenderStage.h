@@ -60,15 +60,6 @@ public:
     virtual ~RenderStage();
     
     /** \brief
-      * Returns same `%RenderStage` implementation with same configuration.
-      *
-      * The listeners and the rendering state are not copied.
-      *
-      * \deprecated Do not use this method. It will be removed shortly.
-      */
-    virtual RenderStage* clone() const = 0;
-    
-    /** \brief
       * Sets whether the view transform is pass-invariant for the duration of a
       * single frame.
       *

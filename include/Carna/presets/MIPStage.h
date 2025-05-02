@@ -83,8 +83,6 @@ public:
       * Deletes.
       */
     virtual ~MIPStage();
-    
-    MIPStage* clone() const override;
 
     /** \brief
       * The color map used for the layer.

@@ -78,14 +78,6 @@ DVRStage::~DVRStage()
 }
 
 
-DVRStage* DVRStage::clone() const
-{
-    DVRStage* const result = new DVRStage( geometryType );
-    result->setEnabled( isEnabled() );
-    return result;
-}
-
-
 void DVRStage::setTranslucence( float translucence )
 {
     CARNA_ASSERT( translucence >= 0 );

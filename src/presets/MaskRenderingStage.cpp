@@ -80,14 +80,6 @@ MaskRenderingStage::~MaskRenderingStage()
 }
 
 
-MaskRenderingStage* MaskRenderingStage::clone() const
-{
-    MaskRenderingStage* const result = new MaskRenderingStage( geometryType, maskRole );
-    result->setEnabled( isEnabled() );
-    return result;
-}
-
-
 const base::Color& MaskRenderingStage::color() const
 {
     return pimpl->color;

@@ -56,14 +56,6 @@ ParallaxStage::~ParallaxStage()
 }
 
 
-ParallaxStage* ParallaxStage::clone() const
-{
-    ParallaxStage* const result = new ParallaxStage( compositionMode() );
-    result->setEnabled( isEnabled() );
-    return result;
-}
-
-
 void ParallaxStage::setEyeDistance( float eyeDistance )
 {
     pimpl->eyeDistance = eyeDistance;

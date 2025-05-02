@@ -155,14 +155,6 @@ CuttingPlanesStage::~CuttingPlanesStage()
 }
 
 
-CuttingPlanesStage* CuttingPlanesStage::clone() const
-{
-    CuttingPlanesStage* const result = new CuttingPlanesStage( geometryType, pimpl->planes.geometryType );
-    result->setEnabled( isEnabled() );
-    return result;
-}
-
-
 void CuttingPlanesStage::setWindowingLevel( float windowingLevel )
 {
     pimpl->windowingLevel = windowingLevel;

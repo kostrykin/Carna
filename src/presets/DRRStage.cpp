@@ -98,14 +98,6 @@ DRRStage::~DRRStage()
 }
 
 
-DRRStage* DRRStage::clone() const
-{
-    DRRStage* const result = new DRRStage( geometryType );
-    result->setEnabled( isEnabled() );
-    return result;
-}
-
-
 float DRRStage::waterAttenuation() const
 {
     return pimpl->waterAttenuation;

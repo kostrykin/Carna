@@ -82,8 +82,6 @@ public:
       * Deletes.
       */
     virtual ~CuttingPlanesStage();
-    
-    CuttingPlanesStage* clone() const override;
 
     virtual void renderPass
         ( const base::math::Matrix4f& viewTransform

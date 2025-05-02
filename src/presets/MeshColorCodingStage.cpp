@@ -142,14 +142,6 @@ MeshColorCodingStage::~MeshColorCodingStage()
 }
 
 
-MeshColorCodingStage* MeshColorCodingStage::clone() const
-{
-    MeshColorCodingStage* const result = new MeshColorCodingStage();
-    result->setEnabled( isEnabled() );
-    return result;
-}
-
-
 base::Aggregation< const base::Geometry > MeshColorCodingStage::pick( const base::math::Vector2ui& v ) const
 {
     return pick( v.x(), v.y() );

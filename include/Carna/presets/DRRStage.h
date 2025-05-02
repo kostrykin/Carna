@@ -134,8 +134,6 @@ public:
       * Deletes.
       */
     virtual ~DRRStage();
-    
-    DRRStage* clone() const override;
 
     virtual void reshape( base::FrameRenderer& fr, unsigned int width, unsigned int height ) override;
 

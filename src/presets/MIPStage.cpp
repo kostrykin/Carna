@@ -78,14 +78,6 @@ MIPStage::~MIPStage()
 }
 
 
-MIPStage* MIPStage::clone() const
-{
-    MIPStage* const result = new MIPStage( geometryType );
-    result->setEnabled( isEnabled() );
-    return result;
-}
-
-
 void MIPStage::reshape( base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     base::RenderStage::reshape( fr, width, height );
