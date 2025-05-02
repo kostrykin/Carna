@@ -10,6 +10,7 @@
  */
 
 #include <Carna/base/CarnaException.h>
+#include <Carna/base/Log.h>
 #include <iostream>
 
 namespace Carna
@@ -49,8 +50,13 @@ void CarnaException::Details::initialize( CarnaException* self )
 
 void CarnaException::Details::reportException( CarnaException* self )
 {
-    std::cout << std::endl << self->type << ": " << self->message << std::endl;
-    std::cout << self->details << std::endl << std::endl;
+    std::stringstream msg;
+    msg << self->type << ": " << self->message << std::endl;
+    if( !self->details.empty() )
+    {
+        msg << self->details;
+    }
+    Log::instance().record( Log::fatal, msg.str() );
 }
 
 
