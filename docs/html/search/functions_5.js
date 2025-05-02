@@ -9,7 +9,7 @@ var searchData=
   ['first_6',['first',['../classCarna_1_1base_1_1RenderQueue.html#a8a59c3f2236c75dbe65190ae088cd329',1,'Carna::base::RenderQueue']]],
   ['forget_7',['forget',['../classCarna_1_1base_1_1Association.html#adc8554d7b0e53570976043f5f7697e70',1,'Carna::base::Association']]],
   ['fovhorizontal_8',['fovHorizontal',['../classCarna_1_1presets_1_1PerspectiveControl.html#a91db1da40eb6bc94e29cf34ac28110a1',1,'Carna::presets::PerspectiveControl']]],
-  ['framebuffer_9',['framebuffer',['../classCarna_1_1base_1_1Framebuffer.html#a6e6254783ff37aa49487bd608c0b3c80',1,'Carna::base::Framebuffer::Framebuffer()'],['../classCarna_1_1base_1_1Framebuffer_1_1MinimalBinding.html#a92418224530731248b607a0730b8ed3d',1,'Carna::base::Framebuffer::MinimalBinding::framebuffer()']]],
+  ['framebuffer_9',['framebuffer',['../classCarna_1_1base_1_1Framebuffer_1_1MinimalBinding.html#a92418224530731248b607a0730b8ed3d',1,'Carna::base::Framebuffer::MinimalBinding::framebuffer()'],['../classCarna_1_1base_1_1Framebuffer.html#a6e6254783ff37aa49487bd608c0b3c80',1,'Carna::base::Framebuffer::Framebuffer()']]],
   ['framerenderer_10',['FrameRenderer',['../classCarna_1_1base_1_1FrameRenderer.html#ae746dd780c5f729280ca900d1e6ebd8d',1,'Carna::base::FrameRenderer']]],
   ['framerendererhelper_11',['FrameRendererHelper',['../classCarna_1_1helpers_1_1FrameRendererHelper.html#a41e90333f542613966fa6101ab200beb',1,'Carna::helpers::FrameRendererHelper']]],
   ['framespersecond_12',['framesPerSecond',['../classCarna_1_1base_1_1FrameRenderer.html#a4cb4e1c9eb3ed2f1152d95aeb2db108a',1,'Carna::base::FrameRenderer']]],

@@ -24,7 +24,7 @@ var searchData=
   ['maskrenderingstageintegrationtest_21',['MaskRenderingStageIntegrationTest',['../classCarna_1_1testing_1_1MaskRenderingStageIntegrationTest.html',1,'Carna::testing']]],
   ['maskrenderingstagetest_22',['MaskRenderingStageTest',['../classCarna_1_1testing_1_1MaskRenderingStageTest.html',1,'Carna::testing']]],
   ['maskrole_23',['maskRole',['../classCarna_1_1presets_1_1MaskRenderingStage.html#acf1c393bf132bf0af4cf09be9fb6a52f',1,'Carna::presets::MaskRenderingStage']]],
-  ['material_24',['material',['../classCarna_1_1base_1_1Material.html#a0e571bb93cac82234d8de709e45ad5c0',1,'Carna::base::Material::Material()'],['../classCarna_1_1base_1_1Material_1_1ManagedInterface.html#a5b9e08ef0dcab5d5763b2ea7048c125f',1,'Carna::base::Material::ManagedInterface::material'],['../classCarna_1_1base_1_1Material.html',1,'Carna::base::Material']]],
+  ['material_24',['material',['../classCarna_1_1base_1_1Material_1_1ManagedInterface.html#a5b9e08ef0dcab5d5763b2ea7048c125f',1,'Carna::base::Material::ManagedInterface::material'],['../classCarna_1_1base_1_1Material.html#a0e571bb93cac82234d8de709e45ad5c0',1,'Carna::base::Material::Material()'],['../classCarna_1_1base_1_1Material.html',1,'Carna::base::Material']]],
   ['material_2eh_25',['Material.h',['../Material_8h.html',1,'']]],
   ['materialrole_26',['materialRole',['../classCarna_1_1helpers_1_1PointMarkerHelper.html#ac8537d5a2dcf06ac5e0794ad886c311a',1,'Carna::helpers::PointMarkerHelper']]],
   ['materials_27',['materials',['../classCarna_1_1base_1_1Material.html#CustomMaterials',1,'Custom Materials'],['../classCarna_1_1base_1_1Material.html#ShaderMaterialIntegration',1,'Integration into Materials'],['../index.html#QuickStart_Materials',1,'Materials']]],
