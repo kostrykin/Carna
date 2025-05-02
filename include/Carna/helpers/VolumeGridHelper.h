@@ -210,42 +210,34 @@ void VolumeGridHelperBase::loadHUData( const LoadHUDataFunction& huData )
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Computes the \ref VolumePartitioning "partitioning of volumetric data" and the
-  * corresponding normal map. Also creates \ref SceneGraph "scene nodes" that insert
-  * the volumetric data into a scene.
+  * Computes the \ref VolumePartitioning "partitioning of volumetric data" and the corresponding normal map. Also
+  * creates \ref SceneGraph "scene nodes" that insert the volumetric data into a scene.
   *
-  * \param SegmentIntensityVolumeType is the \ref base::BufferedIntensityVolume
-  *     compatible type to use for storing the intensity volume of a single partition.
+  * \param SegmentIntensityVolumeType
+  * is the \ref base::BufferedIntensityVolume compatible type to use for storing the intensity volume of a single
+  * partition.
   *
-  * \param SegmentNormalsVolumeType is the \ref base::BufferedNormalMap3D compatible
-  *     type to use for storing the normal map of a single partition. Set to `void`
-  *     if the normal map is not required.
+  * \param SegmentNormalsVolumeType
+  * is the \ref base::BufferedNormalMap3D compatible type to use for storing the normal map of a single partition. Set
+  * to `void` if a normal map is not required.
   *
   * \section VolumeGridHelperNormals Normal Map Computation
   *
-  * The \ref loadIntensities kicks off the computation of the normals automatically.
-  * If you alter the volume data differently, it is within your responsibility to do
-  * this by calling `computeNormals` on this object. Note that the `computeNormals`
-  * method is only available if \a SegmentNormalsVolumeType is not `void`.
+  * The \ref loadIntensities method performs the computation of the normals automatically. If the intensities are
+  * changed in a different way, it is within your responsibility to perform the computation of the normals by calling
+  * `computeNormals` on this object. Note that the `computeNormals` method is only available if
+  * \a SegmentNormalsVolumeType is not `void`.
   *
   * \section VolumeGridHelperResolutions Resolutions
   *
-  * This class needs to distinguish between three kinds of resolutions. The grid's
-  * volume textures are \em not disjoint, but must maintain redundant voxels along
-  * common segment faces. Hence, the resolution of the data uploaded to GPU from all
-  * segments, that we will call the \em total resolution therefore, will usually be
-  * greater than the resolution of the actually \ref loadIntensities "loaded data".
-  * We will refer to the latter as the \em native resolution.
+  * This class needs to distinguish between three kinds of resolutions. The grid's volume textures are \em not disjoint,
+  * but must maintain redundant voxels along the segment faces that they have in common. Hence, the resolution of the
+  * data uploaded to the GPU from all segments, that is therefore called the \em total resolution, will usually be
+  * greater than the \em native resolution of the data passed to \ref loadIntensities.
   *
-  * Furthermore, the \em effective resolution, that is the one covered by the grid
-  * and available for payload, might still be greater than the native resolution,
-  * namely because the segments' resolution is rounded to even numbers. The
-  * additional voxels arising from this are \em not queried from the data source, but
-  * automatically padded with \f$-1024\f$, s.t. the data source doesn't have to pay
-  * attention to this circumstance.
-  *
-  * \author Leonid Kostrykin
-  * \date   8.3.15 - 29.3.15
+  * Furthermore, the \em effective resolution, that is the one covered by the grid and available for payload, might
+  * still be greater than the native resolution, because the resolution of the segments is rounded to even numbers. The
+  * additional voxels arising from this are \em not queried from the data source, but padded automatically.
   */
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 class VolumeGridHelper
@@ -269,17 +261,16 @@ public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /** \brief
-      * Creates new \ref base::VolumeGrid object. Initializes its' segments s.t. the
-      * totally covered resolution is \a resolution at least. It may be chosen larger
-      * if the buffers' resolution need to be rounded to even numbers.
+      * Creates a new \ref base::VolumeGrid object. Initializes the segments of the grid so that the totally covered
+      * resolution is \a resolution or larger. It will be larger if the resolution of the buffers need to be rounded
+      * to even numbers.
       *
       * \param nativeResolution
-      *     The resolution the grid is to be prepared for. This is the resolution
-      *     that will be expected from the \ref loadIntensities "data source".
+      * The resolution the grid is to be prepared for. This is the resolution that will be expected from the
+      * \ref loadIntensities "data source".
       *
       * \param maxSegmentBytesize
-      *     Maximum memory size of a single segment volume. The segments partitioning
-      *     is chosen according to this value.
+      * Maximum memory size of a single segment volume. The segments partitioning is chosen according to this value.
       */
     VolumeGridHelper( const base::math::Vector3ui& nativeResolution, std::size_t maxSegmentBytesize = DEFAULT_MAX_SEGMENT_BYTESIZE );
 
