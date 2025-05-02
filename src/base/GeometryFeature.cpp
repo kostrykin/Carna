@@ -135,7 +135,7 @@ GeometryFeature::ManagedInterface::ManagedInterface( GeometryFeature& manager )
 }
 
 
-GeometryFeature::ManagedInterface::~ManagedInterface()
+GeometryFeature::ManagedInterface::~ManagedInterface() noexcept( false )
 {
     CARNA_ASSERT( geometryFeature.pimpl->videoResourceAcquisitions > 0 );
     if( --geometryFeature.pimpl->videoResourceAcquisitions == 0 )

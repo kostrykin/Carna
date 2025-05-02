@@ -88,7 +88,7 @@ MeshBase::MeshBase
 }
 
 
-MeshBase::~MeshBase()
+MeshBase::~MeshBase() noexcept( false )
 {
     CARNA_ASSERT( &GLContext::current() == &glContext );
     glDeleteVertexArrays( 1, &id );

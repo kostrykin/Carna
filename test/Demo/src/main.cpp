@@ -177,7 +177,7 @@ void Demo::mouseReleaseEvent( QMouseEvent* ev )
 void Demo::wheelEvent( QWheelEvent* ev )
 {
     const static float SPEED = -5e-2f;
-    cameraControl.moveAxially( ev->delta() * SPEED );
+    cameraControl.moveAxially( ev->angleDelta().y() * SPEED );
     updateGL();
     ev->accept();
 }

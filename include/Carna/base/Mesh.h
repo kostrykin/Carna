@@ -81,7 +81,7 @@ public:
       * Deletes.
       * \pre `&GLContext::current() == &glContext`
       */
-    virtual ~MeshBase();
+    virtual ~MeshBase() noexcept( false );
 
     /** \brief
       * Holds the ID of the OpenGL vertex array object.

@@ -132,7 +132,7 @@ public:
           * Releases the video resources previously acquired from the managing
           * \ref geometryFeature.
           */
-        virtual ~ManagedInterface();
+        virtual ~ManagedInterface() noexcept( false );
         
         /** \brief
           * References the `%GeometryFeature` that manages the video resources that

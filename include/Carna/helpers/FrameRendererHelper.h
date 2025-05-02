@@ -46,7 +46,7 @@ namespace helpers
   * \author Leonid Kostrykin
   * \date   26.10.11 - 20.3.15
   */
-class CARNA_LIB DefaultRenderStageOrder : std::binary_function< base::RenderStage*, base::RenderStage*, bool >
+class CARNA_LIB DefaultRenderStageOrder
 {
 
 public:

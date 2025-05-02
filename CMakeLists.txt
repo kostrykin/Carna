@@ -57,12 +57,12 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/misc/CMake-Modules)
 ############################################
 
 # set default library and header destinations (relative to CMAKE_INSTALL_PREFIX)
-option_default_to(INSTALL_LIBRARY_DIR "lib"                       String "Installation directory for libraries")
-option_default_to(INSTALL_HEADERS_DIR "include"                   String "Installation directory for headers")
-option_default_to(INSTALL_DOC_DIR     "share/doc/${PROJECT_NAME}" String "Installation directory for API documentation")
+option_default_to(INSTALL_LIBRARY_DIR "lib"                       STRING "Installation directory for libraries")
+option_default_to(INSTALL_HEADERS_DIR "include"                   STRING "Installation directory for headers")
+option_default_to(INSTALL_DOC_DIR     "share/doc/${PROJECT_NAME}" STRING "Installation directory for API documentation")
 
 # set default destination for CMake modules
-option_default_to(INSTALL_CMAKE_DIR "${CMAKE_ROOT}/Modules" String "Installation directory for CMake files")
+option_default_to(INSTALL_CMAKE_DIR "${CMAKE_ROOT}/Modules" STRING "Installation directory for CMake files")
 
 ############################################
 # Normalize installation paths

@@ -34,8 +34,8 @@ conda install bioconda::libcarna
 ## 2. Build instructions
 
 On Linux you can run either of the two build scripts:
-- `linux_build-default.sh`: Runs the default build, which includes the demo and the test suite. Also runs the tests. Carna is built without EGL support for offscreen rendering.
-- `linux_build-egl.sh`: Builds Carna with EGL support, but skips the demo and the test suite. This is becaue the demo and the test suite are built with Qt, which cannot be initialized when Carna is built with EGL support.
+- `linux_build-default.bash`: Runs the default build, which includes the demo and the test suite. Also runs the tests. Carna is built without EGL support for offscreen rendering.
+- `linux_build-egl.bash`: Builds Carna with EGL support, but skips the demo and the test suite. This is becaue the demo and the test suite are built with Qt, which cannot be initialized when Carna is built with EGL support.
 
 ### Dependencies:
 
