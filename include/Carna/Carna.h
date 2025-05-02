@@ -150,8 +150,6 @@ namespace Carna
 
         /** \brief
           * Defines 16bit unsigned integer \ref HUV "HU" volume data.
-          *
-          * \deprecated Use \ref IntensityVolumeUInt16 instead.
           */
         typedef BufferedHUVolume< uint16_t > HUVolumeUInt16;
 
