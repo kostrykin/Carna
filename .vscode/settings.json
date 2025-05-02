@@ -2,6 +2,9 @@
     "search.exclude": {
         "docs": true
     },
+    "editor.rulers": [
+        119
+    ],
     "editor.detectIndentation": false,
     "editor.tabSize": 4,
     "files.associations": {

@@ -102,55 +102,52 @@ public:
     };
     
     /** \brief
-      * Specifies the dimensions of the whole dataset in millimeters.
+      * Specifies the extent of the whole dataset in millimeters.
       */
-    struct CARNA_LIB Dimensions
+    struct CARNA_LIB Extent
     {
         /** \brief
           * Instantiates.
           */
-        explicit Dimensions( const base::math::Vector3f& millimeters );
+        explicit Extent( const base::math::Vector3f& millimeters );
 
         /** \brief
-          * Holds the dimensions of the whole dataset in millimeters.
+          * Holds the extent of the whole dataset in millimeters.
           */
         base::math::Vector3f millimeters;
     };
 
     /** \brief
-      * Creates renderable representation of the underlying grid, that can be put
-      * anywhere in the scene graph. The volume is centered in the node.
+      * Creates renderable representation of the underlying grid, that can be put anywhere in the scene graph. The
+      * volume is centered in the node.
       *
       * \warning
-      *     Only change the returned node's \ref base::Spatial::localTransform
-      *     "localTransform" attribute when you know what you're doing! Put it into
-      *     another node otherwise.
+      * Only change the returned node's \ref base::Spatial::localTransform "localTransform" attribute when you know
+      * what you're doing! Put it into another node otherwise.
       *
       * \param geometryType
-      *     Will be used for \ref base::Geometry instantiation.
+      * Will be used for \ref base::Geometry instantiation.
       *
       * \param spacing
-      *     Specifies the spacing between two succeeding voxel centers in
-      *     millimeters.
+      * Specifies the spacing between two succeeding voxel centers in millimeters.
       */
     virtual base::Node* createNode( unsigned int geometryType, const Spacing& spacing ) const = 0;
     
     /** \brief
-      * Creates renderable representation of the underlying grid, that can be put
-      * anywhere in the scene graph. The volume is centered in the node.
+      * Creates renderable representation of the underlying grid, that can be put anywhere in the scene graph. The
+      * volume is centered in the node.
       *
       * \warning
-      *     Only change the returned node's \ref base::Spatial::localTransform
-      *     "localTransform" attribute when you know what you're doing! Put it into
-      *     another node otherwise.
+      * Only change the returned node's \ref base::Spatial::localTransform "localTransform" attribute when you know
+      * what you're doing! Put it into another node otherwise.
       *
       * \param geometryType
-      *     Will be used for \ref base::Geometry instantiation.
+      * Will be used for \ref base::Geometry instantiation.
       *
-      * \param dimensions
-      *     Specifies the dimensions of the whole dataset in millimeters.
+      * \param extent
+      * Specifies the extent of the whole dataset in millimeters.
       */
-    virtual base::Node* createNode( unsigned int geometryType, const Dimensions& dimensions ) const = 0;
+    virtual base::Node* createNode( unsigned int geometryType, const Extent& extent ) const = 0;
     
     /** \brief
       * Updates the data of the volume grid.
@@ -322,22 +319,21 @@ public:
       * The \a intensityData must be scaled to \f$\left[0, 1\right]\f$.
       *
       * \param intensityData
-      *     Unary function that maps \ref base::math::Vector3ui to an intensity
-      *     value. It will be queried for all values up to \ref nativeResolution.
+      * Unary function that maps \ref base::math::Vector3ui to an intensity value. It will be queried for all values up
+      * to \ref nativeResolution.
       *
       * The normal map is re-computed if `SegmentNormalsVolumeType` is not `void`.
       */
     virtual void loadIntensities( const std::function< float( const base::math::Vector3ui& ) >& intensityData ) override;
     
     /** \brief
-    * Releases all previously acquired textures. Invoke this method when the volume
-    * data changes, \ref loadIntensities already does takes care of that.
-    *
-    * If this method is not invoked after an update of the volume data, succeeding
-    * calls to \ref createNode will not reflect the new data. Note however, that if
-    * you call this method between two invocations of \ref createNode without the
-    * volume data been altered, same textures will get uploaded twice to video
-    * memory, i.e. video resources will be wasted.
+      * Releases all previously acquired textures. Invoke this method when the volume data changes,
+      * \ref loadIntensities already does takes care of that.
+      *
+      * If this method is not invoked after an update of the volume data, succeeding calls to \ref createNode will not
+      * reflect the new data. Note however, that if you call this method between two invocations of \ref createNode
+      * without the volume data been altered, same textures will get uploaded twice to video memory, i.e. video
+      * resources will be wasted.
       */
     virtual void releaseGeometryFeatures() override;
 
@@ -348,7 +344,7 @@ public:
 
     virtual base::Node* createNode( unsigned int geometryType, const Spacing& spacing ) const override;
     
-    virtual base::Node* createNode( unsigned int geometryType, const Dimensions& dimensions ) const override;
+    virtual base::Node* createNode( unsigned int geometryType, const Extent& extent ) const override;
     
 protected:
 
@@ -359,9 +355,11 @@ private:
     base::Node* createNode
         ( unsigned int geometryType
         , const Spacing& spacing
-        , const Dimensions& dimensions ) const;
+        , const Extent& extent ) const;
 
-    static base::math::Vector3ui computeMaxSegmentSize( const base::math::Vector3ui& nativeResolution, std::size_t maxSegmentBytesize );
+    static base::math::Vector3ui computeMaxSegmentSize
+        ( const base::math::Vector3ui& nativeResolution
+        , std::size_t maxSegmentBytesize );
 
 }; // VolumeGridHelper
 
@@ -451,13 +449,12 @@ base::VolumeGrid< SegmentIntensityVolumeType, SegmentNormalsVolumeType >&
 
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::createNode
-    ( unsigned int geometryType, const Spacing& spacing, const Dimensions& dimensions ) const
+    ( unsigned int geometryType, const Spacing& spacing, const Extent& extent ) const
 {
-    /* Compute dimensions of a regular grid segment, taking the redundant texels into
-     * account. Regular segments have `regularPartitionSize + 1` texels per dimension
-     * which is due to the redundant pixels.
+    /* Compute the extent of a regular grid segment, taking the redundant texels into account. Regular segments have
+     * `regularPartitionSize + 1` texels per dimension which is due to the redundant pixels.
      */
-    const base::math::Vector3f regularSegmentDimensions = dimensions.millimeters.cwiseMin( base::math::Vector3f
+    const base::math::Vector3f regularSegmentExtent = extent.millimeters.cwiseMin( base::math::Vector3f
         ( spacing.millimeters.x() * partitioningX.regularPartitionSize
         , spacing.millimeters.y() * partitioningY.regularPartitionSize
         , spacing.millimeters.z() * partitioningZ.regularPartitionSize ) );
@@ -481,7 +478,7 @@ base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeTy
      *     T = -p + q
      */
     base::Node* const pivot = new base::Node();
-    pivot->localTransform = base::math::translation4f( ( regularSegmentDimensions - dimensions.millimeters ) / 2 );
+    pivot->localTransform = base::math::translation4f( ( regularSegmentExtent - extent.millimeters ) / 2 );
     pivot->setMovable( false );
 
     /* Create geometry nodes for all grid segments.
@@ -490,16 +487,16 @@ base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeTy
     {
         const base::VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >& segment = myGrid->segmentAt( segmentCoord );
 
-        /* Compute dimensions of particular grid segment.
+        /* Compute extent of particular grid segment.
          */
         const bool isTailX = segmentCoord.x() + 1 == myGrid->segmentCounts.x();
         const bool isTailY = segmentCoord.y() + 1 == myGrid->segmentCounts.y();
         const bool isTailZ = segmentCoord.z() + 1 == myGrid->segmentCounts.z();
-        const base::math::Vector3ui& volumeSize = segment.intensities().size; // includes redundant pixels (only along non-tail dimensions)
-        const base::math::Vector3f segmentDimensions
-            ( isTailX ? ( volumeSize.x() - 1 ) * spacing.millimeters.x() : regularSegmentDimensions.x()
-            , isTailY ? ( volumeSize.y() - 1 ) * spacing.millimeters.y() : regularSegmentDimensions.y()
-            , isTailZ ? ( volumeSize.z() - 1 ) * spacing.millimeters.z() : regularSegmentDimensions.z() );
+        const base::math::Vector3ui& volumeSize = segment.intensities().size; // includes redundant pixels (only along non-tail axes)
+        const base::math::Vector3f segmentExtent
+            ( isTailX ? ( volumeSize.x() - 1 ) * spacing.millimeters.x() : regularSegmentExtent.x()
+            , isTailY ? ( volumeSize.y() - 1 ) * spacing.millimeters.y() : regularSegmentExtent.y()
+            , isTailZ ? ( volumeSize.z() - 1 ) * spacing.millimeters.z() : regularSegmentExtent.z() );
 
         /* Create geometry node for particular grid segment.
          */
@@ -511,10 +508,10 @@ base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeTy
         geom->setBoundingVolume( new base::BoundingBox( 1, 1, 1 ) );
         geom->localTransform
             = base::math::translation4f
-                ( segmentCoord.x() * regularSegmentDimensions.x() - ( isTailX ? ( regularSegmentDimensions.x() - segmentDimensions.x() ) / 2 : 0 )
-                , segmentCoord.y() * regularSegmentDimensions.y() - ( isTailY ? ( regularSegmentDimensions.y() - segmentDimensions.y() ) / 2 : 0 )
-                , segmentCoord.z() * regularSegmentDimensions.z() - ( isTailZ ? ( regularSegmentDimensions.z() - segmentDimensions.z() ) / 2 : 0 ) )
-            * base::math::scaling4f( segmentDimensions );
+                ( segmentCoord.x() * regularSegmentExtent.x() - ( isTailX ? ( regularSegmentExtent.x() - segmentExtent.x() ) / 2 : 0 )
+                , segmentCoord.y() * regularSegmentExtent.y() - ( isTailY ? ( regularSegmentExtent.y() - segmentExtent.y() ) / 2 : 0 )
+                , segmentCoord.z() * regularSegmentExtent.z() - ( isTailZ ? ( regularSegmentExtent.z() - segmentExtent.z() ) / 2 : 0 ) )
+            * base::math::scaling4f( segmentExtent );
     }
 
     /* We're done.
@@ -534,20 +531,20 @@ template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType
 base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::createNode
     ( unsigned int geometryType, const Spacing& spacing ) const
 {
-    const base::math::Vector3f dimensions
+    const base::math::Vector3f extent
         = ( nativeResolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >().cwiseProduct( spacing.millimeters );
-    return createNode( geometryType, spacing, Dimensions( dimensions ) );
+    return createNode( geometryType, spacing, Extent( extent ) );
 }
 
 
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::createNode
-    ( unsigned int geometryType, const Dimensions& dimensions ) const
+    ( unsigned int geometryType, const Extent& extent ) const
 {
-    const base::math::Vector3f& mmDimensions = dimensions.millimeters;
+    const base::math::Vector3f& mmExtent = extent.millimeters;
     const base::math::Vector3f spacing
-        = mmDimensions.cast< float >().cwiseQuotient( ( nativeResolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >() );
-    return createNode( geometryType, Spacing( spacing ), dimensions );
+        = mmExtent.cast< float >().cwiseQuotient( ( nativeResolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >() );
+    return createNode( geometryType, Spacing( spacing ), extent );
 }
 
 

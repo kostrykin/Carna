@@ -40,7 +40,7 @@ VolumeGridHelperBase::Spacing::Spacing( const base::math::Vector3f& millimeters 
 }
 
 
-VolumeGridHelperBase::Dimensions::Dimensions( const base::math::Vector3f& millimeters )
+VolumeGridHelperBase::Extent::Extent( const base::math::Vector3f& millimeters )
     : millimeters( millimeters )
 {
 }

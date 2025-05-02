@@ -75,8 +75,7 @@ public:
     bool isViewTransformFixed() const;
     
     /** \brief
-      * Orders this stage to reshape its buffers according to the specified
-      * dimensions.
+      * Orders this stage to reshape its buffers according to the specified \a width and \a height.
       *
       * \attention
       * Always call the base implementaion!
@@ -90,10 +89,9 @@ public:
     /** \brief
       * Tells whether this stage is ready for rendering.
       *
-      * In particular, this method returns `true` if this rendering stage only
-      * requires \ref reshape to be called, if the dimensions actually have changed.
-      * In contrary, i.e. if this method returns `false`, \ref reshape will be called
-      * before every frame.
+      * In particular, this method returns `true` if this rendering stage only requires \ref reshape to be called, if
+      * width or height actually have changed. In contrary, i.e. if this method returns `false`, \ref reshape will be
+      * called before every frame.
       */
     bool isInitialized() const;
     
@@ -105,31 +103,27 @@ public:
     /** \brief
       * Called once per pass.
       *
-      * If this rendering stage maintains one or more \ref Carna::base::RenderQueue
-      * objects, than this is the right place to
-      * \ref Carna::base::RenderQueue::build "build" them. Note that the queues need
-      * to be rebuilt only *once per frame* and not *per pass*, unless
-      * \ref isViewTransformFixed is `false`. If it is `true` and this is not the
-      * first invocation of this method since the last time \ref prepareFrame was
-      * called, \ref Carna::base::RenderQueue::rewind "rewinding" the queue will be
-      * sufficient.
+      * If this rendering stage maintains one or more \ref Carna::base::RenderQueue objects, than this is the right
+      * place to \ref Carna::base::RenderQueue::build "build" them. Note that the queues need to be rebuilt only *once
+      * per frame* and not *per pass*, unless \ref isViewTransformFixed is `false`. If it is `true` and this is not the
+      * first invocation of this method since the last time \ref prepareFrame was called,
+      * \ref Carna::base::RenderQueue::rewind "rewinding" the queue will be sufficient.
       */
     virtual void renderPass( const math::Matrix4f& viewTransform, RenderTask& rt, const Viewport& vp ) = 0;
     
     /** \brief
-      * Tells whether this stage is enabled. Disabled stages are not rendered by
-      * \ref RenderTask "render tasks".
+      * Tells whether this stage is enabled. Disabled stages are not rendered by \ref RenderTask "render tasks".
       */
     bool isEnabled() const;
     
     /** \brief
-      * Sets whether this stage is enabled. Disabled stages are not rendered by
-      * \ref RenderTask "render tasks".
+      * Sets whether this stage is enabled. Disabled stages are not rendered by \ref RenderTask "render tasks".
       */
     void setEnabled( bool );
     
     /** \brief
       * References the renderer this stage belongs to.
+      * 
       * \pre `isInitialized() == true`
       */
     base::FrameRenderer& renderer();
@@ -139,14 +133,12 @@ public:
     const base::FrameRenderer& renderer() const;
     
     /** \brief
-      * Adds \a listener to the set of listeners this instance notifies in
-      * \f$\mathcal O\left(\log n\right)\f$.
+      * Adds \a listener to the set of listeners this instance notifies in \f$\mathcal O\left(\log n\right)\f$.
       */
     void addRenderStageListener( RenderStageListener& listener );
     
     /** \brief
-      * Removes \a listener from the set of listeners this instance notifies in
-      * \f$\mathcal O\left(\log n\right)\f$.
+      * Removes \a listener from the set of listeners this instance notifies in \f$\mathcal O\left(\log n\right)\f$.
       */
     void removeRenderStageListener( RenderStageListener& listener );
 
