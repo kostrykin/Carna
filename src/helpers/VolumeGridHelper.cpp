@@ -34,14 +34,14 @@ VolumeGridHelperBase::~VolumeGridHelperBase()
 }
 
 
-VolumeGridHelperBase::Spacing::Spacing( const base::math::Vector3f& millimeters )
-    : millimeters( millimeters )
+VolumeGridHelperBase::Spacing::Spacing( const base::math::Vector3f& units )
+    : units( units )
 {
 }
 
 
-VolumeGridHelperBase::Extent::Extent( const base::math::Vector3f& millimeters )
-    : millimeters( millimeters )
+VolumeGridHelperBase::Extent::Extent( const base::math::Vector3f& units )
+    : units( units )
 {
 }
 

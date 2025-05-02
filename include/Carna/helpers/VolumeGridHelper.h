@@ -86,35 +86,35 @@ public:
     virtual void releaseGeometryFeatures() = 0;
 
     /** \brief
-      * Specifies the spacing between two succeeding voxel centers in millimeters.
+      * Specifies the spacing between two succeeding voxel centers.
       */
     struct CARNA_LIB Spacing
     {
         /** \brief
           * Instantiates.
           */
-        explicit Spacing( const base::math::Vector3f& millimeters );
+        explicit Spacing( const base::math::Vector3f& units );
 
         /** \brief
-          * Holds the spacing between two succeeding voxel centers in millimeters.
+          * Holds the spacing between two succeeding voxel centers.
           */
-        base::math::Vector3f millimeters;
+        base::math::Vector3f units;
     };
     
     /** \brief
-      * Specifies the extent of the whole dataset in millimeters.
+      * Specifies the extent of the whole dataset.
       */
     struct CARNA_LIB Extent
     {
         /** \brief
           * Instantiates.
           */
-        explicit Extent( const base::math::Vector3f& millimeters );
+        explicit Extent( const base::math::Vector3f& units );
 
         /** \brief
-          * Holds the extent of the whole dataset in millimeters.
+          * Holds the extent of the whole dataset in units.
           */
-        base::math::Vector3f millimeters;
+        base::math::Vector3f units;
     };
 
     /** \brief
@@ -129,7 +129,7 @@ public:
       * Will be used for \ref base::Geometry instantiation.
       *
       * \param spacing
-      * Specifies the spacing between two succeeding voxel centers in millimeters.
+      * Specifies the spacing between two succeeding voxel centers.
       */
     virtual base::Node* createNode( unsigned int geometryType, const Spacing& spacing ) const = 0;
     
@@ -145,7 +145,7 @@ public:
       * Will be used for \ref base::Geometry instantiation.
       *
       * \param extent
-      * Specifies the extent of the whole dataset in millimeters.
+      * Specifies the extent of the whole dataset.
       */
     virtual base::Node* createNode( unsigned int geometryType, const Extent& extent ) const = 0;
     
@@ -454,10 +454,10 @@ base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeTy
     /* Compute the extent of a regular grid segment, taking the redundant texels into account. Regular segments have
      * `regularPartitionSize + 1` texels per dimension which is due to the redundant pixels.
      */
-    const base::math::Vector3f regularSegmentExtent = extent.millimeters.cwiseMin( base::math::Vector3f
-        ( spacing.millimeters.x() * partitioningX.regularPartitionSize
-        , spacing.millimeters.y() * partitioningY.regularPartitionSize
-        , spacing.millimeters.z() * partitioningZ.regularPartitionSize ) );
+    const base::math::Vector3f regularSegmentExtent = extent.units.cwiseMin( base::math::Vector3f
+        ( spacing.units.x() * partitioningX.regularPartitionSize
+        , spacing.units.y() * partitioningY.regularPartitionSize
+        , spacing.units.z() * partitioningZ.regularPartitionSize ) );
     
     /* Create pivot node that centers its children.
      *
@@ -478,7 +478,7 @@ base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeTy
      *     T = -p + q
      */
     base::Node* const pivot = new base::Node();
-    pivot->localTransform = base::math::translation4f( ( regularSegmentExtent - extent.millimeters ) / 2 );
+    pivot->localTransform = base::math::translation4f( ( regularSegmentExtent - extent.units ) / 2 );
     pivot->setMovable( false );
 
     /* Create geometry nodes for all grid segments.
@@ -494,9 +494,9 @@ base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeTy
         const bool isTailZ = segmentCoord.z() + 1 == myGrid->segmentCounts.z();
         const base::math::Vector3ui& volumeSize = segment.intensities().size; // includes redundant pixels (only along non-tail axes)
         const base::math::Vector3f segmentExtent
-            ( isTailX ? ( volumeSize.x() - 1 ) * spacing.millimeters.x() : regularSegmentExtent.x()
-            , isTailY ? ( volumeSize.y() - 1 ) * spacing.millimeters.y() : regularSegmentExtent.y()
-            , isTailZ ? ( volumeSize.z() - 1 ) * spacing.millimeters.z() : regularSegmentExtent.z() );
+            ( isTailX ? ( volumeSize.x() - 1 ) * spacing.units.x() : regularSegmentExtent.x()
+            , isTailY ? ( volumeSize.y() - 1 ) * spacing.units.y() : regularSegmentExtent.y()
+            , isTailZ ? ( volumeSize.z() - 1 ) * spacing.units.z() : regularSegmentExtent.z() );
 
         /* Create geometry node for particular grid segment.
          */
@@ -531,8 +531,9 @@ template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType
 base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::createNode
     ( unsigned int geometryType, const Spacing& spacing ) const
 {
-    const base::math::Vector3f extent
-        = ( nativeResolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >().cwiseProduct( spacing.millimeters );
+    const base::math::Vector3f extent = (
+        nativeResolution.cast< int >() - base::math::Vector3i( 1, 1, 1 )
+    ).cast< float >().cwiseProduct( spacing.units );
     return createNode( geometryType, spacing, Extent( extent ) );
 }
 
@@ -541,9 +542,9 @@ template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType
 base::Node* VolumeGridHelper< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::createNode
     ( unsigned int geometryType, const Extent& extent ) const
 {
-    const base::math::Vector3f& mmExtent = extent.millimeters;
-    const base::math::Vector3f spacing
-        = mmExtent.cast< float >().cwiseQuotient( ( nativeResolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >() );
+    const base::math::Vector3f spacing = extent.units.cast< float >().cwiseQuotient(
+        ( nativeResolution.cast< int >() - base::math::Vector3i( 1, 1, 1 ) ).cast< float >()
+    );
     return createNode( geometryType, Spacing( spacing ), extent );
 }
 
