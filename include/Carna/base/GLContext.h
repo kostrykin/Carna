@@ -156,8 +156,8 @@ protected:
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * If you're using Qt, this class template implements the abstract \ref GLContext
-  * class as an adapter to the \c QGLContext class from Qt.
+  * If you're using Qt, this class template implements the abstract \ref GLContext class as an adapter to the
+  * \c QGLContext class from Qt.
   *
   * Example:
   *

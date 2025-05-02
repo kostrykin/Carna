@@ -35,8 +35,7 @@
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Invokes \c glewInit and raises an
-  * \ref Carna::base::AssertionFailure "AssertionFailure" if it fails.
+  * Invokes \c glewInit and raises an \ref Carna::base::AssertionFailure "AssertionFailure" if it fails.
   */
 #define CARNA_GLEW_INIT \
     { \
