@@ -20,16 +20,16 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// MeshRenderingStageBase
+// MeshRenderingMixin
 // ----------------------------------------------------------------------------------
 
-MeshRenderingStageBase::MeshRenderingStageBase( unsigned int geometryType )
+MeshRenderingMixin::MeshRenderingMixin( unsigned int geometryType )
     : geometryType( geometryType )
 {
 }
 
 
-MeshRenderingStageBase::~MeshRenderingStageBase()
+MeshRenderingMixin::~MeshRenderingMixin()
 {
 }
 

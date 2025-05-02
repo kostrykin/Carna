@@ -166,7 +166,7 @@ void FrameRendererHelper< RenderStageOrder >::commit( bool clear )
             occluded = dynamic_cast< presets::OccludedRenderingStage* >( rs );
         }
 
-        base::MeshRenderingStageBase* const meshRenderer = dynamic_cast< base::MeshRenderingStageBase* >( rs );
+        base::MeshRenderingMixin* const meshRenderer = dynamic_cast< base::MeshRenderingMixin* >( rs );
         if( meshRenderer != nullptr && mccs != nullptr )
         {
             mccs->putGeometryType( meshRenderer->geometryType, meshRenderer->ROLE_DEFAULT_MESH );

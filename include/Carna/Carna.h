@@ -73,7 +73,7 @@ namespace Carna
         class  MeshBase;
         class  ManagedMeshBase;
         class  ManagedMeshInterface;
-        class  MeshRenderingStageBase;
+        class  MeshRenderingMixin;
         class  Node;
         class  ProjectionControl;
         class  Releasable;

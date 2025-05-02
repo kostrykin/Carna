@@ -32,7 +32,7 @@ TransparentRenderingStage::TransparentRenderingStage( unsigned int geometryType 
 
 TransparentRenderingStage* TransparentRenderingStage::clone() const
 {
-    TransparentRenderingStage* const result = new TransparentRenderingStage( MeshRenderingStageBase::geometryType );
+    TransparentRenderingStage* const result = new TransparentRenderingStage( MeshRenderingMixin::geometryType );
     result->setEnabled( isEnabled() );
     return result;
 }

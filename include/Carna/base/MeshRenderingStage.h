@@ -33,7 +33,7 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// MeshRenderingStageBase
+// MeshRenderingMixin
 // ----------------------------------------------------------------------------------
 
 /** \brief
@@ -42,7 +42,7 @@ namespace base
   * \author Leonid Kostrykin
   * \date   21.2.15 - 6.3.15
   */
-class CARNA_LIB MeshRenderingStageBase
+class CARNA_LIB MeshRenderingMixin
 {
 
 public:
@@ -54,12 +54,12 @@ public:
       *     is the \ref QuickStart_FrameRenderer "geometry type" rendered by this
       *     \ref MeshRenderingStage.
       */
-    MeshRenderingStageBase( unsigned int geometryType );
+     MeshRenderingMixin( unsigned int geometryType );
 
     /** \brief
       * Does nothing.
       */   
-    virtual ~MeshRenderingStageBase();
+    virtual ~MeshRenderingMixin();
 
     /** \brief
       * Identifies the \ref Mesh object that \ref MeshRenderingStage uses for
@@ -79,7 +79,7 @@ public:
       */
     const unsigned int geometryType;
 
-}; // MeshRenderingStageBase
+}; // MeshRenderingMixin
 
 
 
@@ -105,7 +105,7 @@ public:
   * \date   21.2.15 - 6.3.15
   */
 template< typename RenderableCompare >
-class MeshRenderingStage : public GeometryStage< RenderableCompare >, public MeshRenderingStageBase
+class MeshRenderingStage : public GeometryStage< RenderableCompare >, public MeshRenderingMixin
 {
 
     RenderTask* renderTask;
@@ -138,7 +138,7 @@ protected:
 template< typename RenderableCompare >
 MeshRenderingStage< RenderableCompare >::MeshRenderingStage( unsigned int geometryType )
     : GeometryStage< RenderableCompare >( geometryType )
-    , MeshRenderingStageBase( geometryType )
+    , MeshRenderingMixin( geometryType )
 {
 }
 
@@ -147,7 +147,7 @@ template< typename RenderableCompare >
 MeshRenderingStage< RenderableCompare >* MeshRenderingStage< RenderableCompare >::clone() const
 {
     typedef MeshRenderingStage< RenderableCompare > MyType;
-    MyType* const result = new MyType( MeshRenderingStageBase::geometryType );
+    MyType* const result = new MyType( MeshRenderingMixin::geometryType );
     result->setEnabled( this->isEnabled() );
     return result;
 }
