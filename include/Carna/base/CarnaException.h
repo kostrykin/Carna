@@ -18,6 +18,7 @@
   *             \ref Carna::base::AssertionFailure.
   */
 
+#include <memory>
 #include <Carna/Carna.h>
 #include <string>
 #include <sstream>
@@ -46,6 +47,9 @@ namespace base
 class CARNA_LIB CarnaException
 {
 
+    struct Details;
+    const std::unique_ptr< Details > pimpl;
+
 public:
 
     /** \brief  Initializes the attributes plainly from the arguments.
@@ -59,6 +63,8 @@ public:
     /** \brief  Initializes the type as ''Unhandled Exception'' and the message from the given exception.
       */
     CarnaException( const std::runtime_error& error, const std::string& details = "" );
+
+    CarnaException( const CarnaException& other );
 
     virtual ~CarnaException();
 
@@ -74,6 +80,11 @@ public:
     /** \brief  Tells the details of this exception. May be empty.
       */
     const std::string details;
+
+
+    /** \brief  Tells the message and the details of this exception. 
+      */
+    const char* what() const;
 
 }; // CarnaException
 

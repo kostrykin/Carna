@@ -21,13 +21,51 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// reportException
+// CarnaException :: Details
 // ----------------------------------------------------------------------------------
 
-static void reportException( const CarnaException* ex )
+struct CarnaException::Details
 {
-    std::cout << std::endl << ex->type << ": " << ex->message << std::endl;
-    std::cout << ex->details << std::endl << std::endl;
+
+    std::string whatBuffer;
+
+    void initialize( CarnaException* self );
+
+private:
+
+    void reportException( CarnaException* self );
+
+    void initializeWhatBuffer( CarnaException* self );
+
+}; // CarnaException :: Details
+
+
+void CarnaException::Details::initialize( CarnaException* self )
+{
+    initializeWhatBuffer( self );
+    reportException( self );
+}
+
+
+void CarnaException::Details::reportException( CarnaException* self )
+{
+    std::cout << std::endl << self->type << ": " << self->message << std::endl;
+    std::cout << self->details << std::endl << std::endl;
+}
+
+
+void CarnaException::Details::initializeWhatBuffer( CarnaException* self )
+{
+    if( self->details.empty() )
+    {
+        whatBuffer = self->message;
+    }
+    else
+    {
+        std::stringstream ss;
+        ss << self->message << std::endl << self->details;
+        whatBuffer = ss.str();
+    }
 }
 
 
@@ -41,11 +79,12 @@ CarnaException::CarnaException
     , const std::string& message
     , const std::string& details )
 
-    : type( type )
+    : pimpl( new Details() )
+    , type( type )
     , message( message )
     , details( details )
 {
-    reportException( this );
+    pimpl->initialize( this );
 }
 
 
@@ -53,11 +92,12 @@ CarnaException::CarnaException
     ( const std::logic_error& error
     , const std::string& details )
 
-    : type( "Assertion Error" )
+    : pimpl( new Details() )
+    , type( "Assertion Error" )
     , message( error.what() )
     , details( details )
 {
-    reportException( this );
+    pimpl->initialize( this );
 }
 
 
@@ -65,16 +105,33 @@ CarnaException::CarnaException
     ( const std::runtime_error& error
     , const std::string& details )
 
-    : type( "Unhandled Exception" )
+    : pimpl( new Details() )
+    , type( "Unhandled Exception" )
     , message( error.what() )
     , details( details )
 {
-    reportException( this );
+    pimpl->initialize( this );
+}
+
+
+CarnaException::CarnaException( const CarnaException& other )
+    : pimpl( new Details() )
+    , type( other.type )
+    , message( other.message )
+    , details( other.details )
+{
+    pimpl->initialize( this );
 }
 
 
 CarnaException::~CarnaException()
 {
+}
+
+
+const char* CarnaException::what() const
+{
+    return pimpl->whatBuffer.c_str();
 }
 
 
