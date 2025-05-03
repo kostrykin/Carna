@@ -111,11 +111,11 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Dimensions.html">Dimensions</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the dimensions of the whole dataset in millimeters.  <a href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Dimensions.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Extent.html">Extent</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the extent of the whole dataset.  <a href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Extent.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Spacing.html">Spacing</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the spacing between two succeeding voxel centers in millimeters.  <a href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Spacing.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the spacing between two succeeding voxel centers.  <a href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Spacing.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -133,9 +133,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~VolumeGridHelperB
 <tr class="memitem:ad2d36de2edcc7e4d5aeeded314534449" id="r_ad2d36de2edcc7e4d5aeeded314534449"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classCarna_1_1base_1_1Node.html">base::Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#ad2d36de2edcc7e4d5aeeded314534449">createNode</a> (unsigned int geometryType, const <a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Spacing.html">Spacing</a> &amp;spacing) const =0</td></tr>
 <tr class="memdesc:ad2d36de2edcc7e4d5aeeded314534449"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates renderable representation of the underlying grid, that can be put anywhere in the scene graph. The volume is centered in the node.  <br /></td></tr>
 <tr class="separator:ad2d36de2edcc7e4d5aeeded314534449"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a809b961f04b22d29fc008ad0aea55e4e" id="r_a809b961f04b22d29fc008ad0aea55e4e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classCarna_1_1base_1_1Node.html">base::Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#a809b961f04b22d29fc008ad0aea55e4e">createNode</a> (unsigned int geometryType, const <a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Dimensions.html">Dimensions</a> &amp;dimensions) const =0</td></tr>
-<tr class="memdesc:a809b961f04b22d29fc008ad0aea55e4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates renderable representation of the underlying grid, that can be put anywhere in the scene graph. The volume is centered in the node.  <br /></td></tr>
-<tr class="separator:a809b961f04b22d29fc008ad0aea55e4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad403e2ab6edf28d957bbb3796adb5052" id="r_ad403e2ab6edf28d957bbb3796adb5052"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classCarna_1_1base_1_1Node.html">base::Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#ad403e2ab6edf28d957bbb3796adb5052">createNode</a> (unsigned int geometryType, const <a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Extent.html">Extent</a> &amp;extent) const =0</td></tr>
+<tr class="memdesc:ad403e2ab6edf28d957bbb3796adb5052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates renderable representation of the underlying grid, that can be put anywhere in the scene graph. The volume is centered in the node.  <br /></td></tr>
+<tr class="separator:ad403e2ab6edf28d957bbb3796adb5052"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad223260819271ff3adfc9c45159eaea2" id="r_ad223260819271ff3adfc9c45159eaea2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#ad223260819271ff3adfc9c45159eaea2">loadIntensities</a> (const std::function&lt; float(const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a94e29f81f3a6cc27615a00fa4c143c1a">base::math::Vector3ui</a> &amp;) &gt; &amp;intensityData)=0</td></tr>
 <tr class="memdesc:ad223260819271ff3adfc9c45159eaea2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the data of the volume grid.  <br /></td></tr>
 <tr class="separator:ad223260819271ff3adfc9c45159eaea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -196,8 +196,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a809b961f04b22d29fc008ad0aea55e4e" name="a809b961f04b22d29fc008ad0aea55e4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a809b961f04b22d29fc008ad0aea55e4e">&#9670;&#160;</a></span>createNode() <span class="overload">[1/2]</span></h2>
+<a id="ad403e2ab6edf28d957bbb3796adb5052" name="ad403e2ab6edf28d957bbb3796adb5052"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad403e2ab6edf28d957bbb3796adb5052">&#9670;&#160;</a></span>createNode() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -214,8 +214,8 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Dimensions.html">Dimensions</a> &amp;&#160;</td>
-          <td class="paramname"><em>dimensions</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Extent.html">Extent</a> &amp;&#160;</td>
+          <td class="paramname"><em>extent</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -235,12 +235,12 @@ Static Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">geometryType</td><td>Will be used for <a class="el" href="classCarna_1_1base_1_1Geometry.html">base::Geometry</a> instantiation.</td></tr>
-    <tr><td class="paramname">dimensions</td><td>Specifies the dimensions of the whole dataset in millimeters. </td></tr>
+    <tr><td class="paramname">extent</td><td>Specifies the extent of the whole dataset. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a1d1033e5c50070a619807fa775e3480e">Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#ad2905faea9ff01270c421ed4624ac37d">Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>.</p>
 
 </div>
 </div>
@@ -283,7 +283,7 @@ Static Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">geometryType</td><td>Will be used for <a class="el" href="classCarna_1_1base_1_1Geometry.html">base::Geometry</a> instantiation.</td></tr>
-    <tr><td class="paramname">spacing</td><td>Specifies the spacing between two succeeding voxel centers in millimeters. </td></tr>
+    <tr><td class="paramname">spacing</td><td>Specifies the spacing between two succeeding voxel centers. </td></tr>
   </table>
   </dd>
 </dl>
@@ -311,7 +311,7 @@ template&lt;typename LoadHUDataFunction &gt; </div>
 </div><div class="memdoc">
 <p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00197">197</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00194">194</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
@@ -355,7 +355,7 @@ template&lt;typename LoadIntensitiesFunction &gt; </div>
 </div><div class="memdoc">
 <p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00183">183</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00180">180</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
