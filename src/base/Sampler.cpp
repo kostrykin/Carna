@@ -9,11 +9,11 @@
  *
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/glError.h>
-#include <Carna/base/Sampler.h>
-#include <Carna/base/Texture.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/glError.h>
+#include <LibCarna/base/Sampler.h>
+#include <LibCarna/base/Texture.h>
+#include <LibCarna/base/CarnaException.h>
 
 namespace Carna
 {
@@ -29,7 +29,7 @@ namespace base
 
 static inline void validateWrapMode( unsigned int wrapMode )
 {
-    CARNA_ASSERT_EX
+    LIBCARNA_ASSERT_EX
         (  wrapMode == Sampler::WRAP_MODE_CLAMP
         || wrapMode == Sampler::WRAP_MODE_REPEAT
         || wrapMode == Sampler::WRAP_MODE_MIRRORED_REPEAT
@@ -44,7 +44,7 @@ static inline void validateWrapMode( unsigned int wrapMode )
 
 static inline void validateTextureFilter( unsigned int filter )
 {
-    CARNA_ASSERT_EX
+    LIBCARNA_ASSERT_EX
         (  filter == Sampler::FILTER_NEAREST
         || filter == Sampler::FILTER_LINEAR
         , "Unknown texture filter." );

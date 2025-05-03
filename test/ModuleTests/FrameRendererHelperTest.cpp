@@ -10,14 +10,14 @@
  */
 
 #include "FrameRendererHelperTest.h"
-#include <Carna/presets/OpaqueRenderingStage.h>
-#include <Carna/presets/TransparentRenderingStage.h>
-#include <Carna/presets/CuttingPlanesStage.h>
-#include <Carna/presets/DRRStage.h>
-#include <Carna/presets/OccludedRenderingStage.h>
-#include <Carna/presets/MeshColorCodingStage.h>
-#include <Carna/presets/ParallaxStage.h>
-#include <Carna/helpers/FrameRendererHelper.h>
+#include <LibCarna/presets/OpaqueRenderingStage.h>
+#include <LibCarna/presets/TransparentRenderingStage.h>
+#include <LibCarna/presets/CuttingPlanesStage.h>
+#include <LibCarna/presets/DRRStage.h>
+#include <LibCarna/presets/OccludedRenderingStage.h>
+#include <LibCarna/presets/MeshColorCodingStage.h>
+#include <LibCarna/presets/ParallaxStage.h>
+#include <LibCarna/helpers/FrameRendererHelper.h>
 
 
 

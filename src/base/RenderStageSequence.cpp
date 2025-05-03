@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/base/RenderStageSequence.h>
-#include <Carna/base/RenderStage.h>
+#include <LibCarna/base/RenderStageSequence.h>
+#include <LibCarna/base/RenderStage.h>
 #include <vector>
 
 namespace Carna
@@ -69,7 +69,7 @@ void RenderStageSequence::clearStages()
 
 RenderStage& RenderStageSequence::stageAt( std::size_t position ) const
 {
-    CARNA_ASSERT( position < stages() );
+    LIBCARNA_ASSERT( position < stages() );
     return *pimpl->stages[ position ];
 }
 

@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/VertexBuffer.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/VertexBuffer.h>
 
 namespace Carna
 {

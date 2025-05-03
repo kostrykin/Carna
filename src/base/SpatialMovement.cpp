@@ -9,11 +9,11 @@
  *
  */
 
-#include <Carna/base/SpatialMovement.h>
-#include <Carna/base/Spatial.h>
-#include <Carna/base/CarnaException.h>
-#include <Carna/base/math/Ray.h>
-#include <Carna/base/math/RayPlaneHitTest.h>
+#include <LibCarna/base/SpatialMovement.h>
+#include <LibCarna/base/Spatial.h>
+#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/math/Ray.h>
+#include <LibCarna/base/math/RayPlaneHitTest.h>
 
 namespace Carna
 {
@@ -85,7 +85,7 @@ math::Vector3f SpatialMovement::Details::computeMovementPlaneHitLocation
      */
     math::RayPlaneHitTest< math::Vector3f > hitTest;
     hitTest.compute( ray, movementPlaneNormal, movementPlaneOriginOffset );
-    CARNA_ASSERT( hitTest.hitExists() );
+    LIBCARNA_ASSERT( hitTest.hitExists() );
     return hitTest.hitLocation();
 }
 
@@ -223,7 +223,7 @@ bool SpatialMovement::hasMovedSpatial() const
 
 Spatial& SpatialMovement::movedSpatial() const
 {
-    CARNA_ASSERT( hasMovedSpatial() );
+    LIBCARNA_ASSERT( hasMovedSpatial() );
     return *pimpl->movedSpatial;
 }
 

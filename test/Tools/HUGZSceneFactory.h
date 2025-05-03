@@ -1,8 +1,8 @@
 #pragma once
 
 #include <HUIO.h>
-#include <Carna/base/math.h>
-#include <Carna/base/BufferedHUVolume.h>
+#include <LibCarna/base/math.h>
+#include <LibCarna/base/BufferedHUVolume.h>
 #include <fstream>
 #include <QDebug>
 #include <boost/iostreams/filtering_stream.hpp>

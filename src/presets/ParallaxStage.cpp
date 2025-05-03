@@ -9,9 +9,9 @@
  *
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/presets/ParallaxStage.h>
-#include <Carna/base/math.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/presets/ParallaxStage.h>
+#include <LibCarna/base/math.h>
 
 namespace Carna
 {

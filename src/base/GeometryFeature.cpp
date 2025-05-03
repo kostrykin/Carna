@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/base/GeometryFeature.h>
-#include <Carna/base/Log.h>
+#include <LibCarna/base/GeometryFeature.h>
+#include <LibCarna/base/Log.h>
 #include <set>
 
 namespace Carna
@@ -137,7 +137,7 @@ GeometryFeature::ManagedInterface::ManagedInterface( GeometryFeature& manager )
 
 GeometryFeature::ManagedInterface::~ManagedInterface() noexcept( false )
 {
-    CARNA_ASSERT( geometryFeature.pimpl->videoResourceAcquisitions > 0 );
+    LIBCARNA_ASSERT( geometryFeature.pimpl->videoResourceAcquisitions > 0 );
     if( --geometryFeature.pimpl->videoResourceAcquisitions == 0 )
     {
         if( geometryFeature.pimpl->released )
@@ -181,7 +181,7 @@ unsigned int GeometryFeature::videoResourceAcquisitionsCount() const
 
 void GeometryFeature::release()
 {
-    CARNA_ASSERT( !pimpl->released );
+    LIBCARNA_ASSERT( !pimpl->released );
     if( !pimpl->deleteIfAllowed( this ) )
     {
         pimpl->released = true;

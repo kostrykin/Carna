@@ -11,8 +11,8 @@
 
 #pragma once
 
-#include <Carna/Carna.h>
-#include <Carna/presets/TransparentRenderingStage.h>
+#include <LibCarna/LibCarna.h>
+#include <LibCarna/presets/TransparentRenderingStage.h>
 
 namespace Carna
 {

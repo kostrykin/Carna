@@ -9,11 +9,11 @@
  *
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/glError.h>
-#include <Carna/base/ManagedTexture3D.h>
-#include <Carna/base/CarnaException.h>
-#include <Carna/base/text.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/glError.h>
+#include <LibCarna/base/ManagedTexture3D.h>
+#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/text.h>
 
 namespace Carna
 {

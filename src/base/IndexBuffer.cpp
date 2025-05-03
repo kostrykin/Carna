@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/IndexBuffer.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/IndexBuffer.h>
 
 namespace Carna
 {

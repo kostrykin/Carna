@@ -10,10 +10,10 @@
  */
 
 #include "TestFramebuffer.h"
-#include <Carna/base/CarnaException.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Texture.h>
-#include <Carna/base/math.h>
+#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/Framebuffer.h>
+#include <LibCarna/base/Texture.h>
+#include <LibCarna/base/math.h>
 #include <QFileInfo>
 #include <regex>
 
@@ -97,7 +97,7 @@ void TestFramebuffer::verifyFramebuffer( const std::string& signature ) const
     }
     else
     {
-        CARNA_FAIL( "Unknown signature format." );
+        LIBCARNA_FAIL( "Unknown signature format." );
     }
 }
 

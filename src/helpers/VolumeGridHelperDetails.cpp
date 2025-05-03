@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/helpers/VolumeGridHelperDetails.h>
+#include <LibCarna/helpers/VolumeGridHelperDetails.h>
 
 namespace Carna
 {

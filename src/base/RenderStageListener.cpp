@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/RenderStageListener.h>
+#include <LibCarna/base/RenderStageListener.h>
 
 namespace Carna
 {

@@ -9,23 +9,23 @@
  *
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/glError.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/base/Camera.h>
-#include <Carna/base/RenderTask.h>
-#include <Carna/base/RenderStage.h>
-#include <Carna/base/Node.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/Vertex.h>
-#include <Carna/base/Mesh.h>
-#include <Carna/base/VertexBuffer.h>
-#include <Carna/base/IndexBuffer.h>
-#include <Carna/base/Sampler.h>
-#include <Carna/base/Stopwatch.h>
-#include <Carna/base/Composition.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/glError.h>
+#include <LibCarna/base/FrameRenderer.h>
+#include <LibCarna/base/Camera.h>
+#include <LibCarna/base/RenderTask.h>
+#include <LibCarna/base/RenderStage.h>
+#include <LibCarna/base/Node.h>
+#include <LibCarna/base/Viewport.h>
+#include <LibCarna/base/ShaderManager.h>
+#include <LibCarna/base/ShaderUniform.h>
+#include <LibCarna/base/Vertex.h>
+#include <LibCarna/base/Mesh.h>
+#include <LibCarna/base/VertexBuffer.h>
+#include <LibCarna/base/IndexBuffer.h>
+#include <LibCarna/base/Sampler.h>
+#include <LibCarna/base/Stopwatch.h>
+#include <LibCarna/base/Composition.h>
 #include <vector>
 
 namespace Carna
@@ -161,7 +161,7 @@ std::size_t circular_buffer< T >::size() const
 template< typename T >
 const T& circular_buffer< T >::operator[]( std::size_t idx ) const
 {
-    CARNA_ASSERT( idx < size() );
+    LIBCARNA_ASSERT( idx < size() );
     if( saturated )
     {
         return buffer[ ( nextIdx + idx ) % buffer.size() ];
@@ -314,7 +314,7 @@ void FrameRenderer::reshape( unsigned int width, unsigned int height )
 void FrameRenderer::render( Camera& cam ) const
 {
     Node& root = cam.findRoot();
-    CARNA_ASSERT( static_cast< Spatial* >( &root ) != static_cast< Spatial* >( &cam ) );
+    LIBCARNA_ASSERT( static_cast< Spatial* >( &root ) != static_cast< Spatial* >( &cam ) );
     render( cam, root );
 }
 

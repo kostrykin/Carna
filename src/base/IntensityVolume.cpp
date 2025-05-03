@@ -3,7 +3,7 @@
  *
  */
 
-#include <Carna/base/IntensityVolume.h>
+#include <LibCarna/base/IntensityVolume.h>
 
 namespace Carna
 {

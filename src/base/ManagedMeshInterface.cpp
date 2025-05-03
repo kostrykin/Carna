@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/base/ManagedMeshInterface.h>
-#include <Carna/base/Mesh.h>
+#include <LibCarna/base/ManagedMeshInterface.h>
+#include <LibCarna/base/Mesh.h>
 
 namespace Carna
 {

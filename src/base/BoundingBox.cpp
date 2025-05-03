@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/BoundingBox.h>
+#include <LibCarna/base/BoundingBox.h>
 
 namespace Carna
 {
@@ -56,7 +56,7 @@ BoundingBox::~BoundingBox()
 
 void BoundingBox::setSize( const math::Vector3f& size )
 {
-    CARNA_ASSERT( size.x() > 0 && size.y() > 0 && size.z() > 0 );
+    LIBCARNA_ASSERT( size.x() > 0 && size.y() > 0 && size.z() > 0 );
     pimpl->size = size;
 }
 

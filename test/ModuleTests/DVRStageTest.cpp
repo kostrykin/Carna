@@ -10,11 +10,11 @@
  */
 
 #include "DVRStageTest.h"
-#include <Carna/base/Node.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/base/BufferedIntensityVolume.h>
-#include <Carna/helpers/VolumeGridHelper.h>
-#include <Carna/presets/DVRStage.h>
+#include <LibCarna/base/Node.h>
+#include <LibCarna/base/FrameRenderer.h>
+#include <LibCarna/base/BufferedIntensityVolume.h>
+#include <LibCarna/helpers/VolumeGridHelper.h>
+#include <LibCarna/presets/DVRStage.h>
 
 
 

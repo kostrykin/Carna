@@ -9,11 +9,11 @@
  *
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/ShaderProgram.h>
-#include <Carna/base/Shader.h>
-#include <Carna/base/ShaderCompilationError.h>
-#include <Carna/base/Log.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/ShaderProgram.h>
+#include <LibCarna/base/Shader.h>
+#include <LibCarna/base/ShaderCompilationError.h>
+#include <LibCarna/base/Log.h>
 
 namespace Carna
 {
@@ -62,29 +62,29 @@ ShaderProgram::Factory::~Factory()
 
 void ShaderProgram::Factory::setVertexShader( const Shader& shader )
 {
-    CARNA_ASSERT( shader.type == Shader::TYPE_VERTEX_SHADER );
+    LIBCARNA_ASSERT( shader.type == Shader::TYPE_VERTEX_SHADER );
     pimpl->vertShader = &shader;
 }
 
 
 void ShaderProgram::Factory::setGeometryShader( const Shader& shader )
 {
-    CARNA_ASSERT( shader.type == Shader::TYPE_GEOMETRY_SHADER );
+    LIBCARNA_ASSERT( shader.type == Shader::TYPE_GEOMETRY_SHADER );
     pimpl->geomShader = &shader;
 }
 
 
 void ShaderProgram::Factory::setFragmentShader( const Shader& shader )
 {
-    CARNA_ASSERT( shader.type == Shader::TYPE_FRAGMENT_SHADER );
+    LIBCARNA_ASSERT( shader.type == Shader::TYPE_FRAGMENT_SHADER );
     pimpl->fragShader = &shader;
 }
 
 
 ShaderProgram* ShaderProgram::Factory::create() const
 {
-    CARNA_ASSERT_EX( pimpl->vertShader != nullptr, "No vertex shader set!" );
-    CARNA_ASSERT_EX( pimpl->fragShader != nullptr, "No fragment shader set!" );
+    LIBCARNA_ASSERT_EX( pimpl->vertShader != nullptr, "No vertex shader set!" );
+    LIBCARNA_ASSERT_EX( pimpl->fragShader != nullptr, "No fragment shader set!" );
     
     ShaderProgram* const shaderProgram = new ShaderProgram();
     try

@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/base/RenderStage.h>
-#include <Carna/base/RenderStageListener.h>
+#include <LibCarna/base/RenderStage.h>
+#include <LibCarna/base/RenderStageListener.h>
 #include <set>
 
 namespace Carna
@@ -76,14 +76,14 @@ bool RenderStage::isInitialized() const
 
 base::FrameRenderer& RenderStage::renderer()
 {
-    CARNA_ASSERT( isInitialized() );
+    LIBCARNA_ASSERT( isInitialized() );
     return *pimpl->fr;
 }
 
 
 const base::FrameRenderer& RenderStage::renderer() const
 {
-    CARNA_ASSERT( isInitialized() );
+    LIBCARNA_ASSERT( isInitialized() );
     return *pimpl->fr;
 }
 
@@ -106,7 +106,7 @@ void RenderStage::reshape( FrameRenderer& fr, unsigned int width, unsigned int h
     }
     else
     {
-        CARNA_ASSERT( pimpl->fr == &fr );
+        LIBCARNA_ASSERT( pimpl->fr == &fr );
     }
 }
 

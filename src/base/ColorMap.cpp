@@ -2,12 +2,12 @@
  *  Copyright (C) 2025 Leonid Kostrykin
  */
 
-#include <Carna/base/ColorMap.h>
-#include <Carna/base/math/Span.h>
-#include <Carna/base/Sampler.h>
-#include <Carna/base/glew.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/Texture.h>
+#include <LibCarna/base/ColorMap.h>
+#include <LibCarna/base/math/Span.h>
+#include <LibCarna/base/Sampler.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/ShaderManager.h>
+#include <LibCarna/base/Texture.h>
 
 namespace Carna
 {
@@ -89,7 +89,7 @@ void ColorMap::Details::update()
 
 void ColorMap::Details::sampleDownTo( unsigned int resolution )
 {
-    CARNA_ASSERT( resolution <= colorMap.size() );
+    LIBCARNA_ASSERT( resolution <= colorMap.size() );
     if( resolution < colorMap.size() )
     {
         std::vector< base::Color > newColorMap( resolution );
@@ -129,7 +129,7 @@ void ColorMap::clear()
 
 ColorMap& ColorMap::writeLinearSegment( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange )
 {
-    CARNA_ASSERT( intensityRange.first <= intensityRange.last );
+    LIBCARNA_ASSERT( intensityRange.first <= intensityRange.last );
     const std::size_t locFirst = pimpl->locationByIntensity( intensityRange.first );
     const std::size_t locLast  = pimpl->locationByIntensity( intensityRange.last  );
     const int rangeSize = locLast - locFirst + 1;
@@ -156,7 +156,7 @@ ColorMap& ColorMap::writeLinearSegment( float intensityFirst, float intensityLas
 
 ColorMap& ColorMap::writeLinearSpline( const std::vector< base::Color >& colors )
 {
-    CARNA_ASSERT( colors.size() >= 2 );
+    LIBCARNA_ASSERT( colors.size() >= 2 );
     unsigned int segmentIndex = 0;
     float intensityLast = 0;
     for( auto colorItr = colors.begin(); colorItr + 1 != colors.end(); ++colorItr )

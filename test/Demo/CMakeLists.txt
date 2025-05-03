@@ -113,7 +113,7 @@ if(Boost_FOUND)
             -DEXPECTED_RELEASE_VERSION=${PATCH_VERSION}
             -DSOURCE_PATH="${CMAKE_CURRENT_SOURCE_DIR}"
     	)
-    remove_definitions( -DCARNA_EXPORT )
+    remove_definitions( -DLIBCARNA_EXPORT )
     
     add_executable( ${TARGET_NAME} WIN32
             ${SRC}
@@ -130,8 +130,8 @@ if(Boost_FOUND)
             ${OPENGL_LIBRARIES}
             ${QT_LIBRARIES}
             ${Boost_LIBRARIES}
-            optimized   Carna-${FULL_VERSION}
-            debug       Carna-${FULL_VERSION}${CMAKE_DEBUG_POSTFIX}
+            optimized   carna-${FULL_VERSION}
+            debug       carna-${FULL_VERSION}${CMAKE_DEBUG_POSTFIX}
     	)
     
     if(MSVC)

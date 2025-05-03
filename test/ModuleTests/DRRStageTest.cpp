@@ -10,10 +10,10 @@
  */
 
 #include "DRRStageTest.h"
-#include <Carna/base/Node.h>
-#include <Carna/base/Color.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/presets/DRRStage.h>
+#include <LibCarna/base/Node.h>
+#include <LibCarna/base/Color.h>
+#include <LibCarna/base/FrameRenderer.h>
+#include <LibCarna/presets/DRRStage.h>
 
 
 

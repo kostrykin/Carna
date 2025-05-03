@@ -10,7 +10,7 @@
  */
 
 #include "mathTest.h"
-#include <Carna/base/math.h>
+#include <LibCarna/base/math.h>
 
 namespace Carna
 {
@@ -246,16 +246,16 @@ void mathTest::test_mix()
 }
 
 
-void mathTest::test_CARNA_FOR_VECTOR3UI()
+void mathTest::test_LIBCARNA_FOR_VECTOR3UI()
 {
-    //! [example_CARNA_FOR_VECTOR3UI]
+    //! [example_LIBCARNA_FOR_VECTOR3UI]
     using namespace Carna::base;
     HUVolumeUInt16 data( math::Vector3ui( 100, 100, 30 ) );
   
     /* Initialize all 'data' voxels with '-1024'.
      */
     const HUV expected = HUV::abs( -1024 );
-    CARNA_FOR_VECTOR3UI( p, data.size )
+    LIBCARNA_FOR_VECTOR3UI( p, data.size )
     {
         data.setVoxel( p, expected );
     }
@@ -266,7 +266,7 @@ void mathTest::test_CARNA_FOR_VECTOR3UI()
     {
         QCOMPARE( data.buffer()[ i ], HUVolumeUInt16::HUVToBufferValue( expected ) );
     }
-    //! [example_CARNA_FOR_VECTOR3UI]
+    //! [example_LIBCARNA_FOR_VECTOR3UI]
 };
 
 

@@ -10,7 +10,7 @@
  */
 
 #include "VolumeGridTest.h"
-#include <Carna/base/VolumeGrid.h>
+#include <LibCarna/base/VolumeGrid.h>
 
 
 

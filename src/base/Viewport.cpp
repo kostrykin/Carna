@@ -9,10 +9,10 @@
  *
  */
 
-#include <Carna/base/Viewport.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/base/glew.h>
-#include <Carna/base/math.h>
+#include <LibCarna/base/Viewport.h>
+#include <LibCarna/base/FrameRenderer.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/math.h>
 #include <stack>
 
 namespace Carna
@@ -140,7 +140,7 @@ void Viewport::makeActive() const
 
 void Viewport::done() const
 {
-    CARNA_ASSERT( isActive() );
+    LIBCARNA_ASSERT( isActive() );
     viewports.pop();
     if( !viewports.empty() )
     {
@@ -151,28 +151,28 @@ void Viewport::done() const
     
 void Viewport::setWidth( unsigned int width )
 {
-    CARNA_ASSERT( !isActive() );
+    LIBCARNA_ASSERT( !isActive() );
     pimpl->width = width;
 }
 
 
 void Viewport::setHeight( unsigned int height )
 {
-    CARNA_ASSERT( !isActive() );
+    LIBCARNA_ASSERT( !isActive() );
     pimpl->height = height;
 }
 
 
 void Viewport::setMarginLeft( unsigned int marginLeft )
 {
-    CARNA_ASSERT( !isActive() );
+    LIBCARNA_ASSERT( !isActive() );
     pimpl->left = marginLeft;
 }
 
 
 void Viewport::setMarginTop( unsigned int marginTop )
 {
-    CARNA_ASSERT( !isActive() );
+    LIBCARNA_ASSERT( !isActive() );
     pimpl->top = marginTop;
 }
 

@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/presets/PerspectiveControl.h>
-#include <Carna/base/math.h>
+#include <LibCarna/presets/PerspectiveControl.h>
+#include <LibCarna/base/math.h>
 
 namespace Carna
 {
@@ -59,7 +59,7 @@ PerspectiveControl::~PerspectiveControl()
 
 void PerspectiveControl::setFovHorizontal( float radians )
 {
-    CARNA_ASSERT( radians > 0 );
+    LIBCARNA_ASSERT( radians > 0 );
     if( !base::math::isEqual( pimpl->fovHorizontal, radians ) )
     {
         pimpl->fovHorizontal = radians;
@@ -76,7 +76,7 @@ float PerspectiveControl::fovHorizontal() const
 
 void PerspectiveControl::updateProjection( base::math::Matrix4f& projection ) const
 {
-    CARNA_ASSERT_EX
+    LIBCARNA_ASSERT_EX
         ( minimumVisibleDistance() > 0
         , "PerspectiveControl does not support 'minimumVisibleDistance' set to 0!" );
     

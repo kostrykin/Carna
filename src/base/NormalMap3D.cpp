@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/NormalMap3D.h>
+#include <LibCarna/base/NormalMap3D.h>
 
 namespace Carna
 {

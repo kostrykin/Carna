@@ -75,7 +75,7 @@ IGNORE_PREFIX          =
 ENABLE_PREPROCESSING   = YES
 MACRO_EXPANSION        = YES
 EXPAND_ONLY_PREDEF     = YES
-PREDEFINED             = EIGEN_MAKE_ALIGNED_OPERATOR_NEW= NONCOPYABLE= CARNA_LIB=
+PREDEFINED             = EIGEN_MAKE_ALIGNED_OPERATOR_NEW= NONCOPYABLE= LIBCARNA=
 
 #---------------------------------------------------------------------------
 # Configuration options related to the HTML output

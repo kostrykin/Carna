@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/base/Log.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/base/Log.h>
+#include <LibCarna/base/CarnaException.h>
 #include <iostream>
 #include <stack>
 
@@ -103,7 +103,7 @@ void Log::pushTag( const std::string& tag )
 
 void Log::popTag()
 {
-    CARNA_ASSERT( !pimpl->tags.empty() );
+    LIBCARNA_ASSERT( !pimpl->tags.empty() );
     pimpl->tags.pop();
 }
 
@@ -123,7 +123,7 @@ const std::string& Log::tag() const
 
 void Log::setWriter( Writer* writer )
 {
-    CARNA_ASSERT( writer != nullptr )
+    LIBCARNA_ASSERT( writer != nullptr )
     pimpl->writer.reset( writer );
 }
 

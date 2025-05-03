@@ -10,9 +10,9 @@
  */
 
 #include "PointMarkerHelperTest.h"
-#include <Carna/base/Node.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/helpers/PointMarkerHelper.h>
+#include <LibCarna/base/Node.h>
+#include <LibCarna/base/FrameRenderer.h>
+#include <LibCarna/helpers/PointMarkerHelper.h>
 
 
 

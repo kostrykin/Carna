@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/ShaderUniform.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/ShaderUniform.h>
 
 namespace Carna
 {

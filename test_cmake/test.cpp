@@ -1,5 +1,5 @@
-#include <Carna/Version.h>
-#include <Carna/base/Node.h>
+#include <LibCarna/Version.h>
+#include <LibCarna/base/Node.h>
 #include <iostream>
 
 
@@ -11,5 +11,5 @@ int main()
 
     /* Write the version number for verification.
      */
-    std::cout << CARNA_MAJOR_VERSION << "." << CARNA_MINOR_VERSION << "." << CARNA_PATCH_VERSION << std::endl;
+    std::cout << LIBCARNA_MAJOR_VERSION << "." << LIBCARNA_MINOR_VERSION << "." << LIBCARNA_PATCH_VERSION << std::endl;
 }

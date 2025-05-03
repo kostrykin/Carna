@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/BoundingSphere.h>
+#include <LibCarna/base/BoundingSphere.h>
 
 namespace Carna
 {
@@ -37,7 +37,7 @@ struct BoundingSphere::Details
 BoundingSphere::BoundingSphere( float radius )
     : pimpl( new Details() )
 {
-    CARNA_ASSERT( radius > 0 );
+    LIBCARNA_ASSERT( radius > 0 );
     pimpl->radius = radius;
 }
 
@@ -55,7 +55,7 @@ float BoundingSphere::radius() const
 
 void BoundingSphere::setRadius( float radius )
 {
-    CARNA_ASSERT( radius > 0 );
+    LIBCARNA_ASSERT( radius > 0 );
     pimpl->radius = radius;
 }
 

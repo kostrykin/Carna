@@ -11,7 +11,7 @@
 
 #pragma once
 
-#include <Carna/Carna.h>
+#include <LibCarna/LibCarna.h>
 #include <QApplication>
 
 namespace Carna

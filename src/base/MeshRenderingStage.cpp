@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/MeshRenderingStage.h>
+#include <LibCarna/base/MeshRenderingStage.h>
 
 namespace Carna
 {

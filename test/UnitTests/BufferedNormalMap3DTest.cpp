@@ -10,7 +10,7 @@
  */
 
 #include "BufferedNormalMap3DTest.h"
-#include <Carna/base/BufferedNormalMap3D.h>
+#include <LibCarna/base/BufferedNormalMap3D.h>
 
 
 

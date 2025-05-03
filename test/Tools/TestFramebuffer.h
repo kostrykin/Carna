@@ -11,8 +11,8 @@
 
 #pragma once
 
-#include <Carna/Carna.h>
-#include <Carna/base/Framebuffer.h>
+#include <LibCarna/LibCarna.h>
+#include <LibCarna/base/Framebuffer.h>
 #include <boost/current_function.hpp>
 
 class QImage;

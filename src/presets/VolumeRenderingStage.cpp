@@ -9,18 +9,18 @@
  *
  */
 
-#include <Carna/presets/VolumeRenderingStage.h>
-#include <Carna/base/Mesh.h>
-#include <Carna/base/ManagedTexture3D.h>
-#include <Carna/base/ManagedTexture3DInterface.h>
-#include <Carna/base/Vertex.h>
-#include <Carna/base/IndexBuffer.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/Log.h>
-#include <Carna/base/math.h>
-#include <Carna/base/text.h>
+#include <LibCarna/presets/VolumeRenderingStage.h>
+#include <LibCarna/base/Mesh.h>
+#include <LibCarna/base/ManagedTexture3D.h>
+#include <LibCarna/base/ManagedTexture3DInterface.h>
+#include <LibCarna/base/Vertex.h>
+#include <LibCarna/base/IndexBuffer.h>
+#include <LibCarna/base/ShaderManager.h>
+#include <LibCarna/base/RenderState.h>
+#include <LibCarna/base/ShaderUniform.h>
+#include <LibCarna/base/Log.h>
+#include <LibCarna/base/math.h>
+#include <LibCarna/base/text.h>
 
 namespace Carna
 {
@@ -357,7 +357,7 @@ unsigned int VolumeRenderingStage::loadVideoResources()
     vr.reset( new VideoResources( shader, pimpl->sampleRate ) );
     createVolumeSamplers( [&]( unsigned int role, base::Sampler* sampler )
         {
-            CARNA_ASSERT( vr->samplers.find( role ) == vr->samplers.end() );
+            LIBCARNA_ASSERT( vr->samplers.find( role ) == vr->samplers.end() );
             vr->samplers[ role ] = sampler;
         }
     );
@@ -393,7 +393,7 @@ void VolumeRenderingStage::renderPass
 
 void VolumeRenderingStage::setSampleRate( unsigned int sampleRate )
 {
-    CARNA_ASSERT( sampleRate >= 2 );
+    LIBCARNA_ASSERT( sampleRate >= 2 );
     pimpl->sampleRate = sampleRate;
 }
 

@@ -10,7 +10,7 @@
  */
 
 #include "ColorTest.h"
-#include <Carna/base/Color.h>
+#include <LibCarna/base/Color.h>
 
 namespace Carna
 {

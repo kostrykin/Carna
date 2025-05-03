@@ -9,15 +9,15 @@
  *
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/presets/CompositionStage.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Texture.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/RenderState.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/presets/CompositionStage.h>
+#include <LibCarna/base/FrameRenderer.h>
+#include <LibCarna/base/Framebuffer.h>
+#include <LibCarna/base/Texture.h>
+#include <LibCarna/base/ShaderManager.h>
+#include <LibCarna/base/ShaderUniform.h>
+#include <LibCarna/base/Viewport.h>
+#include <LibCarna/base/RenderState.h>
 
 namespace Carna
 {
@@ -89,12 +89,12 @@ void CompositionStage::Details::renderInterleavedPass
     , bool isFirstInvocation
     , bool isFirstSource )
 {
-    CARNA_ASSERT( interleaveShader != nullptr );
+    LIBCARNA_ASSERT( interleaveShader != nullptr );
     
     /* Render to intermediate buffer.
      */
     const base::Viewport framebufferViewport( *intermediateBuffer );
-    CARNA_RENDER_TO_FRAMEBUFFER( *intermediateBuffer,
+    LIBCARNA_RENDER_TO_FRAMEBUFFER( *intermediateBuffer,
         
         glClearColor( 0, 0, 0, 0 );
         rt.renderer.glContext().clearBuffers( base::GLContext::COLOR_BUFFER_BIT | base::GLContext::DEPTH_BUFFER_BIT );
@@ -221,7 +221,7 @@ void CompositionStage::renderPass
         break;
         
     default:
-        CARNA_FAIL( "Unknown composition mode!" );
+        LIBCARNA_FAIL( "Unknown composition mode!" );
     
     }
 }

@@ -11,9 +11,9 @@
 
 #pragma once
 
-#include <Carna/Carna.h>
-#include <Carna/base/math.h>
-#include <Carna/presets/OpaqueRenderingStage.h>
+#include <LibCarna/LibCarna.h>
+#include <LibCarna/base/math.h>
+#include <LibCarna/presets/OpaqueRenderingStage.h>
 
 namespace Carna
 {

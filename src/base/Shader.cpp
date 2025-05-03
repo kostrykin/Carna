@@ -9,9 +9,9 @@
  *
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/Shader.h>
-#include <Carna/base/ShaderCompilationError.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/Shader.h>
+#include <LibCarna/base/ShaderCompilationError.h>
 #include <cstdlib>
 #include <memory>
 #include <sstream>
@@ -39,7 +39,7 @@ Shader::Shader( unsigned int type, const std::string& src )
 {
     try
     {
-        CARNA_ASSERT_EX( id != 0, "Failed to acquire shader object!" );
+        LIBCARNA_ASSERT_EX( id != 0, "Failed to acquire shader object!" );
 
         const char* pcSrc = src.c_str();
         const GLint nSrcLength = src.length();

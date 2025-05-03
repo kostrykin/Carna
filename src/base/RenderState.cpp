@@ -9,10 +9,10 @@
  *
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/BlendFunction.h>
-#include <Carna/base/GLContext.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/RenderState.h>
+#include <LibCarna/base/BlendFunction.h>
+#include <LibCarna/base/GLContext.h>
 
 namespace Carna
 {
@@ -60,7 +60,7 @@ RenderState::Details::Details( const RenderState* parent, GLContext* glc )
 
 bool RenderState::Details::isCurrent( RenderState* self )
 {
-    CARNA_ASSERT( self->pimpl->glc != nullptr );
+    LIBCARNA_ASSERT( self->pimpl->glc != nullptr );
     if( self->pimpl->glc->isCurrent() )
     {
         return &self->pimpl->glc->currentRenderState() == self;
@@ -74,7 +74,7 @@ bool RenderState::Details::isCurrent( RenderState* self )
 
 void RenderState::Details::assertCurrent( RenderState* self )
 {
-    CARNA_ASSERT_EX( isCurrent( self ), "RenderState instance is locked, because it is not the current one." );
+    LIBCARNA_ASSERT_EX( isCurrent( self ), "RenderState instance is locked, because it is not the current one." );
 }
 
 

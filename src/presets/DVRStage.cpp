@@ -9,17 +9,17 @@
  *
  */
 
-#include <Carna/presets/DVRStage.h>
-#include <Carna/base/math/Span.h>
-#include <Carna/base/glew.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/math.h>
-#include <Carna/base/CarnaException.h>
-#include <Carna/base/Log.h>
+#include <LibCarna/presets/DVRStage.h>
+#include <LibCarna/base/math/Span.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/ShaderManager.h>
+#include <LibCarna/base/Framebuffer.h>
+#include <LibCarna/base/Viewport.h>
+#include <LibCarna/base/RenderState.h>
+#include <LibCarna/base/ShaderUniform.h>
+#include <LibCarna/base/math.h>
+#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/Log.h>
 #include <algorithm>
 
 namespace Carna
@@ -80,7 +80,7 @@ DVRStage::~DVRStage()
 
 void DVRStage::setTranslucence( float translucence )
 {
-    CARNA_ASSERT( translucence >= 0 );
+    LIBCARNA_ASSERT( translucence >= 0 );
     pimpl->translucence = translucence;
 }
 
@@ -93,7 +93,7 @@ float DVRStage::translucence() const
 
 void DVRStage::setDiffuseLight( float diffuseLight )
 {
-    CARNA_ASSERT( diffuseLight >= 0 && diffuseLight <= 1 );
+    LIBCARNA_ASSERT( diffuseLight >= 0 && diffuseLight <= 1 );
     pimpl->diffuseLight = diffuseLight;
 }
 
@@ -152,7 +152,7 @@ void DVRStage::renderPass
     /* We will render to a dedicated render target first, s.t. the depth buffer is
      * not contaminated by the slices.
      */
-    CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->accumulationFrameBuffer,
+    LIBCARNA_RENDER_TO_FRAMEBUFFER( *pimpl->accumulationFrameBuffer,
 
         /* Configure OpenGL state for accumulation pass.
          */
@@ -215,7 +215,7 @@ const std::string& DVRStage::uniformName( unsigned int role ) const
         return ROLE_NORMALS_NAME;
 
     default:
-        CARNA_FAIL( "Unknown role: " + base::text::lexical_cast< std::string >( role ) );
+        LIBCARNA_FAIL( "Unknown role: " + base::text::lexical_cast< std::string >( role ) );
 
     }
 }

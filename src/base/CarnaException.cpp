@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/base/CarnaException.h>
-#include <Carna/base/Log.h>
+#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/Log.h>
 #include <iostream>
 
 namespace Carna

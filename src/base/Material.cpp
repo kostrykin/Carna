@@ -9,10 +9,10 @@
  *
  */
 
-#include <Carna/base/Material.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/GLContext.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/base/Material.h>
+#include <LibCarna/base/ShaderManager.h>
+#include <LibCarna/base/GLContext.h>
+#include <LibCarna/base/CarnaException.h>
 #include <map>
 
 namespace Carna
@@ -67,7 +67,7 @@ Material::ManagedInterface::~ManagedInterface()
 
 const ShaderProgram& Material::ManagedInterface::shader() const
 {
-    CARNA_ASSERT( material.shader != nullptr );
+    LIBCARNA_ASSERT( material.shader != nullptr );
     return *material.shader;
 }
 
@@ -129,7 +129,7 @@ bool Material::controlsSameVideoResource( const GeometryFeature& other ) const
 
 void Material::addParameter( ShaderUniformBase* uniform )
 {
-    CARNA_ASSERT( !uniform->name.empty() );
+    LIBCARNA_ASSERT( !uniform->name.empty() );
     const auto uniformItr = pimpl->uniforms.find( uniform->name );
     if( uniformItr != pimpl->uniforms.end() )
     {
@@ -170,7 +170,7 @@ bool Material::hasParameter( const std::string& name ) const
 const ShaderUniformBase& Material::parameter( const std::string& name ) const
 {
     const auto uniformItr = pimpl->uniforms.find( name );
-    CARNA_ASSERT( uniformItr != pimpl->uniforms.end() );
+    LIBCARNA_ASSERT( uniformItr != pimpl->uniforms.end() );
     return *uniformItr->second;
 }
 

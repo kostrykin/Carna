@@ -3,31 +3,31 @@
 #include <QMouseEvent>
 #include <QWheelEvent>
 
-#include <Carna/Version.h>
-#include <Carna/base/text.h>
-#include <Carna/base/Log.h>
-#include <Carna/base/GLContext.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/base/Color.h>
-#include <Carna/base/Node.h>
-#include <Carna/base/Camera.h>
-#include <Carna/base/Geometry.h>
-#include <Carna/base/GeometryFeature.h>
-#include <Carna/base/BufferedVectorFieldTexture.h>
-#include <Carna/base/Material.h>
-#include <Carna/base/MeshFactory.h>
-#include <Carna/base/Vertex.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/BufferedIntensityVolume.h>
-#include <Carna/base/SpatialMovement.h>
-#include <Carna/presets/CameraShowcaseControl.h>
-#include <Carna/presets/OccludedRenderingStage.h>
-#include <Carna/presets/OpaqueRenderingStage.h>
-#include <Carna/presets/MeshColorCodingStage.h>
-#include <Carna/presets/DVRStage.h>
-#include <Carna/presets/DRRStage.h>
-#include <Carna/presets/CuttingPlanesStage.h>
-#include <Carna/helpers/VolumeGridHelper.h>
+#include <LibCarna/Version.h>
+#include <LibCarna/base/text.h>
+#include <LibCarna/base/Log.h>
+#include <LibCarna/base/GLContext.h>
+#include <LibCarna/base/FrameRenderer.h>
+#include <LibCarna/base/Color.h>
+#include <LibCarna/base/Node.h>
+#include <LibCarna/base/Camera.h>
+#include <LibCarna/base/Geometry.h>
+#include <LibCarna/base/GeometryFeature.h>
+#include <LibCarna/base/BufferedVectorFieldTexture.h>
+#include <LibCarna/base/Material.h>
+#include <LibCarna/base/MeshFactory.h>
+#include <LibCarna/base/Vertex.h>
+#include <LibCarna/base/ShaderUniform.h>
+#include <LibCarna/base/BufferedIntensityVolume.h>
+#include <LibCarna/base/SpatialMovement.h>
+#include <LibCarna/presets/CameraShowcaseControl.h>
+#include <LibCarna/presets/OccludedRenderingStage.h>
+#include <LibCarna/presets/OpaqueRenderingStage.h>
+#include <LibCarna/presets/MeshColorCodingStage.h>
+#include <LibCarna/presets/DVRStage.h>
+#include <LibCarna/presets/DRRStage.h>
+#include <LibCarna/presets/CuttingPlanesStage.h>
+#include <LibCarna/helpers/VolumeGridHelper.h>
 
 #include <TestApplication.h>
 #include <HUGZSceneFactory.h>
@@ -37,7 +37,7 @@
 
 // ----------------------------------------------------------------------------------
 
-CARNA_ASSERT_API_VERSION( EXPECTED_MAJOR_VERSION, EXPECTED_MINOR_VERSION, EXPECTED_RELEASE_VERSION )
+LIBCARNA_ASSERT_API_VERSION( EXPECTED_MAJOR_VERSION, EXPECTED_MINOR_VERSION, EXPECTED_RELEASE_VERSION )
 
 // ----------------------------------------------------------------------------------
 

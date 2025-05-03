@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include <Carna/Carna.h>
-#include <Carna/base/BufferedIntensityVolume.h>
+#include <LibCarna/LibCarna.h>
+#include <LibCarna/base/BufferedIntensityVolume.h>
 
 namespace Carna
 {

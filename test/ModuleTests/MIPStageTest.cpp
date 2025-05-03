@@ -10,9 +10,9 @@
  */
 
 #include "MIPStageTest.h"
-#include <Carna/base/Node.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/presets/MIPStage.h>
+#include <LibCarna/base/Node.h>
+#include <LibCarna/base/FrameRenderer.h>
+#include <LibCarna/presets/MIPStage.h>
 
 
 

@@ -10,11 +10,11 @@
  */
 
 #include "FrameRendererIntegrationTest.h"
-#include <Carna/base/Node.h>
-#include <Carna/base/Geometry.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/presets/CuttingPlanesStage.h>
-#include <Carna/helpers/VolumeGridHelper.h>
+#include <LibCarna/base/Node.h>
+#include <LibCarna/base/Geometry.h>
+#include <LibCarna/base/FrameRenderer.h>
+#include <LibCarna/presets/CuttingPlanesStage.h>
+#include <LibCarna/helpers/VolumeGridHelper.h>
 
 
 

@@ -10,7 +10,7 @@
  */
 
 #include <TestApplication.h>
-#include <Carna/base/Log.h>
+#include <LibCarna/base/Log.h>
 #include <QDebug>
 
 namespace Carna

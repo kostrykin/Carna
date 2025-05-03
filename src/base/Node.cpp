@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/base/Node.h>
-#include <Carna/base/NodeListener.h>
+#include <LibCarna/base/Node.h>
+#include <LibCarna/base/NodeListener.h>
 #include <algorithm>
 #include <set>
 
@@ -180,8 +180,8 @@ bool Node::hasChild( const Spatial& child ) const
 
 void Node::attachChild( Spatial* child )
 {
-    CARNA_ASSERT( child != nullptr );
-    CARNA_ASSERT( child != this );
+    LIBCARNA_ASSERT( child != nullptr );
+    LIBCARNA_ASSERT( child != this );
     if( !child->hasParent() || &child->parent() != this )
     {
         if( child->hasParent() )
@@ -200,7 +200,7 @@ Spatial* Node::detachChild( Spatial& child )
     const auto childItr = pimpl->children.find( &child );
     if( childItr != pimpl->children.end() )
     {
-        CARNA_ASSERT( child.hasParent() && &child.parent() == this );
+        LIBCARNA_ASSERT( child.hasParent() && &child.parent() == this );
         pimpl->children.erase( &child );
         child.detachFromParent();
         pimpl->notifyTreeChanges( true );

@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/HUVolume.h>
+#include <LibCarna/base/HUVolume.h>
 
 namespace Carna
 {

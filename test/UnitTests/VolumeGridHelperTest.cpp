@@ -10,8 +10,8 @@
  */
 
 #include "VolumeGridHelperTest.h"
-#include <Carna/base/BufferedIntensityVolume.h>
-#include <Carna/helpers/VolumeGridHelper.h>
+#include <LibCarna/base/BufferedIntensityVolume.h>
+#include <LibCarna/helpers/VolumeGridHelper.h>
 
 
 
@@ -22,7 +22,7 @@
 template< typename TestedHelperType >
 void verifyPartitioning( const TestedHelperType& helper )
 {
-    CARNA_FOR_VECTOR3UI( coord, helper.grid().segmentCounts )
+    LIBCARNA_FOR_VECTOR3UI( coord, helper.grid().segmentCounts )
     {
         const Carna::base::math::Vector3ui& size = helper.grid().segmentAt( coord ).intensities().size;
         QCOMPARE( size.x() % 2, 0u );

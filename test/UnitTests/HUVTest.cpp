@@ -4,7 +4,7 @@
  */
 
 #include "HUVTest.h"
-#include <Carna/base/HUV.h>
+#include <LibCarna/base/HUV.h>
 
 namespace Carna
 {

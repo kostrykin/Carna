@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/Renderable.h>
+#include <LibCarna/base/Renderable.h>
 
 namespace Carna
 {

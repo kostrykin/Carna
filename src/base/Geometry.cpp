@@ -9,11 +9,11 @@
  *
  */
 
-#include <Carna/base/Geometry.h>
-#include <Carna/base/GeometryFeature.h>
-#include <Carna/base/CarnaException.h>
-#include <Carna/base/Association.h>
-#include <Carna/base/Node.h>
+#include <LibCarna/base/Geometry.h>
+#include <LibCarna/base/GeometryFeature.h>
+#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/Association.h>
+#include <LibCarna/base/Node.h>
 #include <vector>
 #include <map>
 
@@ -165,7 +165,7 @@ bool Geometry::hasFeature( unsigned int role ) const
 GeometryFeature& Geometry::feature( unsigned int role ) const
 {
     const auto featureItr = pimpl->featureByRole.find( role );
-    CARNA_ASSERT( featureItr != pimpl->featureByRole.end() );
+    LIBCARNA_ASSERT( featureItr != pimpl->featureByRole.end() );
     return *featureItr->second;
 }
 

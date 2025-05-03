@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/text.h>
+#include <LibCarna/base/text.h>
 #include <fstream>
 
 namespace Carna

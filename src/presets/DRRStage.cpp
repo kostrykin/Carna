@@ -9,15 +9,15 @@
  *
  */
 
-#include <Carna/presets/DRRStage.h>
-#include <Carna/base/glew.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/math.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/presets/DRRStage.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/ShaderManager.h>
+#include <LibCarna/base/Framebuffer.h>
+#include <LibCarna/base/Viewport.h>
+#include <LibCarna/base/RenderState.h>
+#include <LibCarna/base/ShaderUniform.h>
+#include <LibCarna/base/math.h>
+#include <LibCarna/base/CarnaException.h>
 
 namespace Carna
 {
@@ -136,35 +136,35 @@ bool DRRStage::isRenderingInverse() const
 
 void DRRStage::setWaterAttenuation( float muWater )
 {
-    CARNA_ASSERT( muWater > 0 );
+    LIBCARNA_ASSERT( muWater > 0 );
     pimpl->waterAttenuation = muWater;
 }
 
 
 void DRRStage::setBaseIntensity( float baseIntensity )
 {
-    CARNA_ASSERT( baseIntensity > 0 );
+    LIBCARNA_ASSERT( baseIntensity > 0 );
     pimpl->baseIntensity = baseIntensity;
 }
 
 
 void DRRStage::setLowerThreshold( base::HUV lower )
 {
-    CARNA_ASSERT( lower >= -1024 && lower <= 3071 );
+    LIBCARNA_ASSERT( lower >= -1024 && lower <= 3071 );
     pimpl->lowerThreshold = lower;
 }
 
 
 void DRRStage::setUpperThreshold( base::HUV upper )
 {
-    CARNA_ASSERT( upper >= -1024 && upper <= 3071 );
+    LIBCARNA_ASSERT( upper >= -1024 && upper <= 3071 );
     pimpl->upperThreshold = upper;
 }
 
 
 void DRRStage::setUpperMultiplier( float multiplier )
 {
-    CARNA_ASSERT( multiplier >= 0 );
+    LIBCARNA_ASSERT( multiplier >= 0 );
     pimpl->upperMultiplier = multiplier;
 }
 
@@ -212,7 +212,7 @@ void DRRStage::renderPass
 
     /* First, evaluate the integral by rendering to the accumulation buffer.
      */
-    CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->accumulationFrameBuffer,
+    LIBCARNA_RENDER_TO_FRAMEBUFFER( *pimpl->accumulationFrameBuffer,
 
         /* Configure OpenGL state for accumulation pass.
          */
@@ -267,7 +267,7 @@ const std::string& DRRStage::uniformName( unsigned int role ) const
         return ROLE_INTENSITIES_NAME;
 
     default:
-        CARNA_FAIL( "unknown role" );
+        LIBCARNA_FAIL( "unknown role" );
 
     }
 }

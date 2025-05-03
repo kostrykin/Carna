@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/BlendFunction.h>
+#include <LibCarna/base/BlendFunction.h>
 
 namespace Carna
 {

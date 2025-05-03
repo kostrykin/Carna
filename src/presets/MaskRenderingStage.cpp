@@ -3,15 +3,15 @@
  *
  */
 
-#include <Carna/presets/MaskRenderingStage.h>
-#include <Carna/base/glew.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/math.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/presets/MaskRenderingStage.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/ShaderManager.h>
+#include <LibCarna/base/Framebuffer.h>
+#include <LibCarna/base/Viewport.h>
+#include <LibCarna/base/RenderState.h>
+#include <LibCarna/base/ShaderUniform.h>
+#include <LibCarna/base/math.h>
+#include <LibCarna/base/CarnaException.h>
 
 namespace Carna
 {
@@ -133,7 +133,7 @@ void MaskRenderingStage::renderPass
         /* First, render the projected mask intensities.
          */
         const base::Viewport framebufferViewport( *pimpl->accumulationFrameBuffer );
-        CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->accumulationFrameBuffer,
+        LIBCARNA_RENDER_TO_FRAMEBUFFER( *pimpl->accumulationFrameBuffer,
 
             /* Configure OpenGL state for accumulation pass.
              */
@@ -209,7 +209,7 @@ const std::string& MaskRenderingStage::uniformName( unsigned int role ) const
     }
     else
     {
-        CARNA_FAIL( "Unknown role: " + base::text::lexical_cast< std::string >( role ) );
+        LIBCARNA_FAIL( "Unknown role: " + base::text::lexical_cast< std::string >( role ) );
     }
 }
 

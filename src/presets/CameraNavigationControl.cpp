@@ -9,10 +9,10 @@
  *
  */
 
-#include <Carna/presets/CameraNavigationControl.h>
-#include <Carna/base/Camera.h>
-#include <Carna/base/math.h>
-#include <Carna/base/Log.h>
+#include <LibCarna/presets/CameraNavigationControl.h>
+#include <LibCarna/base/Camera.h>
+#include <LibCarna/base/math.h>
+#include <LibCarna/base/Log.h>
 
 namespace Carna
 {
@@ -73,28 +73,28 @@ void CameraNavigationControl::setCamera( base::Spatial& cam )
 
 void CameraNavigationControl::rotateHorizontally( float radians )
 {
-    CARNA_ASSERT( pimpl->cam != nullptr );
+    LIBCARNA_ASSERT( pimpl->cam != nullptr );
     pimpl->rotate( 0, 1, 0, radians );
 }
 
 
 void CameraNavigationControl::rotateVertically( float radians )
 {
-    CARNA_ASSERT( pimpl->cam != nullptr );
+    LIBCARNA_ASSERT( pimpl->cam != nullptr );
     pimpl->rotate( 1, 0, 0, radians );
 }
 
 
 void CameraNavigationControl::moveAxially( float units )
 {
-    CARNA_ASSERT( pimpl->cam != nullptr );
+    LIBCARNA_ASSERT( pimpl->cam != nullptr );
     pimpl->cam->localTransform = pimpl->cam->localTransform * base::math::translation4f( 0, 0, units );
 }
 
 
 void CameraNavigationControl::moveLaterally( float unitsX, float unitsY )
 {
-    CARNA_ASSERT( pimpl->cam != nullptr );
+    LIBCARNA_ASSERT( pimpl->cam != nullptr );
     pimpl->cam->localTransform = pimpl->cam->localTransform * base::math::translation4f( unitsX, unitsY, 0 );
 }
 

@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/math/Ray.h>
+#include <LibCarna/base/math/Ray.h>
 
 namespace Carna
 {

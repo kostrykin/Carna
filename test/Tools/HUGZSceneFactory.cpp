@@ -38,7 +38,7 @@ void stream_read( StreamType& in, ValueType& out )
 Carna::base::HUVolumeUInt16* HUGZSceneFactory::importVolume( const std::string& filename, Carna::base::math::Vector3f& spacing, bool stretchIntensities )
 {
     std::ifstream file( filename, std::ios::in | std::ios::binary );
-    CARNA_ASSERT( file.is_open() && !file.fail() );
+    LIBCARNA_ASSERT( file.is_open() && !file.fail() );
     boost::iostreams::filtering_istream in;
     in.push( boost::iostreams::gzip_decompressor() );
     in.push( file );
@@ -75,8 +75,8 @@ Carna::base::HUVolumeUInt16* HUGZSceneFactory::importVolume( const std::string& 
         {
             value = static_cast< unsigned short >( value * static_cast< float >( 0xFFFF ) / maxValue + 0.5f );
         }
-        CARNA_ASSERT( *std::min_element( volume->buffer().begin(), volume->buffer().end() ) == 0 );
-        CARNA_ASSERT( *std::max_element( volume->buffer().begin(), volume->buffer().end() ) == 0xFFFF );
+        LIBCARNA_ASSERT( *std::min_element( volume->buffer().begin(), volume->buffer().end() ) == 0 );
+        LIBCARNA_ASSERT( *std::max_element( volume->buffer().begin(), volume->buffer().end() ) == 0xFFFF );
     }
 
     return volume;

@@ -10,13 +10,13 @@
  */
 
 #include "TransparentRenderingStageTest.h"
-#include <Carna/base/Node.h>
-#include <Carna/base/Geometry.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/base/Vertex.h>
-#include <Carna/base/Material.h>
-#include <Carna/base/Mesh.h>
-#include <Carna/base/MeshFactory.h>
+#include <LibCarna/base/Node.h>
+#include <LibCarna/base/Geometry.h>
+#include <LibCarna/base/FrameRenderer.h>
+#include <LibCarna/base/Vertex.h>
+#include <LibCarna/base/Material.h>
+#include <LibCarna/base/Mesh.h>
+#include <LibCarna/base/MeshFactory.h>
 
 
 

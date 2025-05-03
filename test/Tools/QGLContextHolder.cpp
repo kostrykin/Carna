@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/GLContext.h>
+#include <LibCarna/base/GLContext.h>
 #include <QGLContextHolder.h>
 #include <QGLPixelBuffer>
 
@@ -37,7 +37,7 @@ const QGLFormat QGLContextHolder::format = []()->QGLFormat
 Carna::base::GLContext* QGLContextHolder::createGLContextWrapper( QGLPixelBuffer& pbuffer )
 {
     const bool success = pbuffer.makeCurrent();
-    CARNA_ASSERT( success );
+    LIBCARNA_ASSERT( success );
     return new Carna::base::QGLContextAdapter< QGLContext, QGLFormat >();
 }
 

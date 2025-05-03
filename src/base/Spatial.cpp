@@ -9,9 +9,9 @@
  *
  */
 
-#include <Carna/base/Spatial.h>
-#include <Carna/base/Node.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/base/Spatial.h>
+#include <LibCarna/base/Node.h>
+#include <LibCarna/base/CarnaException.h>
 
 namespace Carna
 {
@@ -42,8 +42,8 @@ Spatial::~Spatial()
 
 void Spatial::updateParent( Node& parent )
 {
-    CARNA_ASSERT( &parent != this );
-    CARNA_ASSERT( parent.hasChild( *this ) );
+    LIBCARNA_ASSERT( &parent != this );
+    LIBCARNA_ASSERT( parent.hasChild( *this ) );
     myParent = &parent;
 }
 
@@ -71,14 +71,14 @@ Spatial* Spatial::detachFromParent()
     
 Node& Spatial::parent()
 {
-    CARNA_ASSERT( hasParent() );
+    LIBCARNA_ASSERT( hasParent() );
     return *myParent;
 }
 
 
 const Node& Spatial::parent() const
 {
-    CARNA_ASSERT( hasParent() );
+    LIBCARNA_ASSERT( hasParent() );
     return *myParent;
 }
 
@@ -92,7 +92,7 @@ Node& Spatial::findRoot()
     else
     {
         Node* const node = dynamic_cast< Node* >( this );
-        CARNA_ASSERT( node != nullptr );
+        LIBCARNA_ASSERT( node != nullptr );
         return *node;
     }
 }
@@ -107,7 +107,7 @@ const Node& Spatial::findRoot() const
     else
     {
         const Node* const node = dynamic_cast< const Node* >( this );
-        CARNA_ASSERT( node != nullptr );
+        LIBCARNA_ASSERT( node != nullptr );
         return *node;
     }
 }
@@ -135,7 +135,7 @@ const math::Matrix4f& Spatial::worldTransform() const
 void Spatial::removeUserData()
 {
     myUserData = nullptr;
-    CARNA_ASSERT( !hasUserData() );
+    LIBCARNA_ASSERT( !hasUserData() );
 }
 
 

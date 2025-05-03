@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/base/Color.h>
-#include <Carna/base/math.h>
+#include <LibCarna/base/Color.h>
+#include <LibCarna/base/math.h>
 
 namespace Carna
 {

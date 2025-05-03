@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Carna/Carna.h>
+#include <LibCarna/LibCarna.h>
 #include <ostream>
 #include <istream>
 #include <queue>

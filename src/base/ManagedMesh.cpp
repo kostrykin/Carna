@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/base/ManagedMesh.h>
-#include <Carna/base/Aggregation.h>
+#include <LibCarna/base/ManagedMesh.h>
+#include <LibCarna/base/Aggregation.h>
 
 namespace Carna
 {
@@ -96,7 +96,7 @@ void ManagedMeshBase::acquireMesh()
      */
     if( videoResourceAcquisitionsCount() == 1 )
     {
-        CARNA_ASSERT( pimpl->acquisitions.empty() );
+        LIBCARNA_ASSERT( pimpl->acquisitions.empty() );
         pimpl->vertexBuffer.reset( loadVertexBuffer() );
         pimpl-> indexBuffer.reset( loadIndexBuffer () );
     }
@@ -129,9 +129,9 @@ void ManagedMeshBase::releaseMesh()
      */
     const GLContext& glc = GLContext::current();
     const auto infoItr = pimpl->acquisitions.find( &glc );
-    CARNA_ASSERT( infoItr != pimpl->acquisitions.end() );
+    LIBCARNA_ASSERT( infoItr != pimpl->acquisitions.end() );
     unsigned int& acquisitionCount = infoItr->second->acquisitionCount;
-    CARNA_ASSERT( acquisitionCount > 0 );
+    LIBCARNA_ASSERT( acquisitionCount > 0 );
     if( --acquisitionCount == 0 )
     {
         /* Delete the mesh within the current OpenGL context.
@@ -144,7 +144,7 @@ void ManagedMeshBase::releaseMesh()
      */
     if( videoResourceAcquisitionsCount() == 1 )
     {
-        CARNA_ASSERT( pimpl->acquisitions.empty() );
+        LIBCARNA_ASSERT( pimpl->acquisitions.empty() );
         pimpl->vertexBuffer.reset();
         pimpl-> indexBuffer.reset();
     }
@@ -155,7 +155,7 @@ const MeshBase& ManagedMeshBase::mesh() const
 {
     const GLContext& glc = GLContext::current();
     const auto infoItr = pimpl->acquisitions.find( &glc );
-    CARNA_ASSERT( infoItr != pimpl->acquisitions.end() );
+    LIBCARNA_ASSERT( infoItr != pimpl->acquisitions.end() );
     return *infoItr->second->mesh;
 }
 

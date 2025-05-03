@@ -9,15 +9,15 @@
  *
  */
 
-#include <Carna/presets/MIPStage.h>
-#include <Carna/base/glew.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/math.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/presets/MIPStage.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/base/ShaderManager.h>
+#include <LibCarna/base/ShaderUniform.h>
+#include <LibCarna/base/Framebuffer.h>
+#include <LibCarna/base/Viewport.h>
+#include <LibCarna/base/RenderState.h>
+#include <LibCarna/base/math.h>
+#include <LibCarna/base/CarnaException.h>
 #include <vector>
 #include <algorithm>
 
@@ -118,7 +118,7 @@ void MIPStage::renderPass
 
     /* First render the projection of the intensities into the dedicated framebuffer.
      */
-    CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->projectionFrameBuffer,
+    LIBCARNA_RENDER_TO_FRAMEBUFFER( *pimpl->projectionFrameBuffer,
 
         base::RenderState rs;
         rs.setBlendEquation( GL_MAX );
@@ -173,7 +173,7 @@ const std::string& MIPStage::uniformName( unsigned int role ) const
         return ROLE_INTENSITIES_NAME;
 
     default:
-        CARNA_FAIL( "unknown role" );
+        LIBCARNA_FAIL( "unknown role" );
 
     }
 }

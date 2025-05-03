@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/presets/TransparentRenderingStage.h>
-#include <Carna/base/RenderState.h>
+#include <LibCarna/presets/TransparentRenderingStage.h>
+#include <LibCarna/base/RenderState.h>
 
 namespace Carna
 {

@@ -9,9 +9,9 @@
  *
  */
 
-#include <Carna/base/ManagedTexture3DInterface.h>
-#include <Carna/base/ManagedTexture3D.h>
-#include <Carna/base/Texture.h>
+#include <LibCarna/base/ManagedTexture3DInterface.h>
+#include <LibCarna/base/ManagedTexture3D.h>
+#include <LibCarna/base/Texture.h>
 
 namespace Carna
 {

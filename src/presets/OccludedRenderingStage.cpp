@@ -9,12 +9,12 @@
  *
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/presets/OccludedRenderingStage.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/RenderTask.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Viewport.h>
+#include <LibCarna/base/glew.h>
+#include <LibCarna/presets/OccludedRenderingStage.h>
+#include <LibCarna/base/RenderState.h>
+#include <LibCarna/base/RenderTask.h>
+#include <LibCarna/base/Framebuffer.h>
+#include <LibCarna/base/Viewport.h>
 #include <set>
 
 namespace Carna
@@ -180,7 +180,7 @@ void OccludedRenderingStage::renderPass
      */
     const Viewport forkViewport( vp, 0, 0, vr->fbo.width(), vr->fbo.height() );
     const unsigned int outputFramebufferId = base::Framebuffer::currentId();
-    CARNA_RENDER_TO_FRAMEBUFFER( vr->fbo,
+    LIBCARNA_RENDER_TO_FRAMEBUFFER( vr->fbo,
 
         base::Framebuffer::copyDepthAttachment( outputFramebufferId, vr->fbo.id, vp, forkViewport );
 

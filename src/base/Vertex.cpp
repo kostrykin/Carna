@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/Vertex.h>
+#include <LibCarna/base/Vertex.h>
 #include <vector>
 
 namespace Carna

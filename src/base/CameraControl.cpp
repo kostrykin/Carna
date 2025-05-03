@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/CameraControl.h>
+#include <LibCarna/base/CameraControl.h>
 
 namespace Carna
 {

@@ -9,8 +9,8 @@
  *
  */
 
-#include <Carna/presets/OrthogonalControl.h>
-#include <Carna/base/math.h>
+#include <LibCarna/presets/OrthogonalControl.h>
+#include <LibCarna/base/math.h>
 
 namespace Carna
 {
@@ -70,7 +70,7 @@ const float OrthogonalControl::DEFAULT_ZOOM_STRENGTH = 1e-1f;
 OrthogonalControl::OrthogonalControl( base::CameraControl* cc )
     : pimpl( new Details( cc ) )
 {
-    CARNA_ASSERT( cc != nullptr );
+    LIBCARNA_ASSERT( cc != nullptr );
 }
 
 
@@ -81,7 +81,7 @@ OrthogonalControl::~OrthogonalControl()
 
 void OrthogonalControl::setZoomStrength( float zoomStrength )
 {
-    CARNA_ASSERT( zoomStrength > 0 );
+    LIBCARNA_ASSERT( zoomStrength > 0 );
     if( !base::math::isEqual( pimpl->zoomStrength, zoomStrength ) )
     {
         pimpl->zoomStrength = zoomStrength;

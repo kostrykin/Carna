@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/ShaderCompilationError.h>
+#include <LibCarna/base/ShaderCompilationError.h>
 #include <sstream>
 
 namespace Carna

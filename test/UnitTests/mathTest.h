@@ -124,9 +124,9 @@ private slots:
     void test_mix();
     
     /** \brief
-      * Test cases for \ref Carna::base::math::CARNA_FOR_VECTOR3UI
+      * Test cases for \ref Carna::base::math::LIBCARNA_FOR_VECTOR3UI
       */
-    void test_CARNA_FOR_VECTOR3UI();
+    void test_LIBCARNA_FOR_VECTOR3UI();
     
 }; // mathTest
 

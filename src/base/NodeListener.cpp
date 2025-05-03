@@ -9,7 +9,7 @@
  *
  */
 
-#include <Carna/base/NodeListener.h>
+#include <LibCarna/base/NodeListener.h>
 
 namespace Carna
 {
