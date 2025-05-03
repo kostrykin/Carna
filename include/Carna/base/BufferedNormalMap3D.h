@@ -219,7 +219,7 @@ private:
                 << " bytes!" );
     }
 
-}; // BufferedHUVolume
+}; // BufferedNormalMap3D
 
 
 

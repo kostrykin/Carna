@@ -203,7 +203,7 @@ const base::ShaderProgram& DVRStage::acquireShader()
 
 const std::string& DVRStage::uniformName( unsigned int role ) const
 {
-    const static std::string ROLE_INTENSITIES_NAME = "huVolume";
+    const static std::string ROLE_INTENSITIES_NAME = "intensities";
     const static std::string ROLE_NORMALS_NAME     = "normalMap";
     switch( role )
     {

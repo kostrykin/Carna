@@ -11,7 +11,7 @@
  *
  */
 
-uniform sampler3D huVolume;
+uniform sampler3D intensities;
 uniform mat4      modelTexture;
 uniform float     minIntensity;
 uniform float     maxIntensity;
@@ -28,7 +28,7 @@ layout( location = 0 ) out vec4 _gl_FragColor;
 
 float intensityAt( vec3 p )
 {
-    return texture( huVolume, p ).r;
+    return texture( intensities, p ).r;
 }
 
 

@@ -11,7 +11,7 @@
  *
  */
 
-uniform sampler3D huVolume;
+uniform sampler3D intensities;
 uniform mat4      modelTexture;
 
 in vec4 modelSpaceCoordinates;
@@ -31,7 +31,7 @@ void main()
     }
     
     vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;
-    float intensity = texture( huVolume, textureCoordinates.xyz ).r;
+    float intensity = texture( intensities, textureCoordinates.xyz ).r;
     
     _gl_FragColor = vec4( intensity, 0, 0, 1 );
 }
