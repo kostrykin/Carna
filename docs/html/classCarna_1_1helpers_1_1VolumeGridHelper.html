@@ -133,7 +133,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a89d689155c66f279a99d974bbd25fccf" id="r_a89d689155c66f279a99d974bbd25fccf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a89d689155c66f279a99d974bbd25fccf">VolumeGridHelper</a> (const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a94e29f81f3a6cc27615a00fa4c143c1a">base::math::Vector3ui</a> &amp;<a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#ae951c918011a7e56e1ad404a95db6257">nativeResolution</a>, std::size_t <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#ab416cff030b59159ba0d44cbedb22219">maxSegmentBytesize</a>=<a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#a92ef4e813da3e881b2c8d015cfe0dd1d">DEFAULT_MAX_SEGMENT_BYTESIZE</a>)</td></tr>
-<tr class="memdesc:a89d689155c66f279a99d974bbd25fccf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html">base::VolumeGrid</a> object. Initializes its' segments s.t. the totally covered resolution is <em>resolution</em> at least. It may be chosen larger if the buffers' resolution need to be rounded to even numbers.  <br /></td></tr>
+<tr class="memdesc:a89d689155c66f279a99d974bbd25fccf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html">base::VolumeGrid</a> object. Initializes the segments of the grid so that the totally covered resolution is <em>resolution</em> or larger. It will be larger if the resolution of the buffers need to be rounded to even numbers.  <br /></td></tr>
 <tr class="separator:a89d689155c66f279a99d974bbd25fccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6eda1ac9a01f44a51616d65b2cb3973a" id="r_a6eda1ac9a01f44a51616d65b2cb3973a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a6eda1ac9a01f44a51616d65b2cb3973a">loadIntensities</a> (const std::function&lt; float(const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a94e29f81f3a6cc27615a00fa4c143c1a">base::math::Vector3ui</a> &amp;) &gt; &amp;intensityData) override</td></tr>
 <tr class="memdesc:a6eda1ac9a01f44a51616d65b2cb3973a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the data of the volume grid.  <br /></td></tr>
@@ -147,9 +147,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab03947088a1de662b7a468516e4b5e24" id="r_ab03947088a1de662b7a468516e4b5e24"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classCarna_1_1base_1_1Node.html">base::Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#ab03947088a1de662b7a468516e4b5e24">createNode</a> (unsigned int geometryType, const <a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Spacing.html">Spacing</a> &amp;spacing) const override</td></tr>
 <tr class="memdesc:ab03947088a1de662b7a468516e4b5e24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates renderable representation of the underlying grid, that can be put anywhere in the scene graph. The volume is centered in the node.  <br /></td></tr>
 <tr class="separator:ab03947088a1de662b7a468516e4b5e24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d1033e5c50070a619807fa775e3480e" id="r_a1d1033e5c50070a619807fa775e3480e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classCarna_1_1base_1_1Node.html">base::Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a1d1033e5c50070a619807fa775e3480e">createNode</a> (unsigned int geometryType, const <a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Dimensions.html">Dimensions</a> &amp;dimensions) const override</td></tr>
-<tr class="memdesc:a1d1033e5c50070a619807fa775e3480e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates renderable representation of the underlying grid, that can be put anywhere in the scene graph. The volume is centered in the node.  <br /></td></tr>
-<tr class="separator:a1d1033e5c50070a619807fa775e3480e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2905faea9ff01270c421ed4624ac37d" id="r_ad2905faea9ff01270c421ed4624ac37d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classCarna_1_1base_1_1Node.html">base::Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#ad2905faea9ff01270c421ed4624ac37d">createNode</a> (unsigned int geometryType, const <a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Extent.html">Extent</a> &amp;extent) const override</td></tr>
+<tr class="memdesc:ad2905faea9ff01270c421ed4624ac37d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates renderable representation of the underlying grid, that can be put anywhere in the scene graph. The volume is centered in the node.  <br /></td></tr>
+<tr class="separator:ad2905faea9ff01270c421ed4624ac37d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classCarna_1_1helpers_1_1VolumeGridHelperBase"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classCarna_1_1helpers_1_1VolumeGridHelperBase')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html">Carna::helpers::VolumeGridHelperBase</a></td></tr>
 <tr class="memitem:a1753d47b062cf7273d3aa3d8bae0c489 inherit pub_methods_classCarna_1_1helpers_1_1VolumeGridHelperBase" id="r_a1753d47b062cf7273d3aa3d8bae0c489"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#a1753d47b062cf7273d3aa3d8bae0c489">VolumeGridHelperBase</a> (const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a94e29f81f3a6cc27615a00fa4c143c1a">base::math::Vector3ui</a> &amp;<a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#ae951c918011a7e56e1ad404a95db6257">nativeResolution</a>)</td></tr>
 <tr class="memdesc:a1753d47b062cf7273d3aa3d8bae0c489 inherit pub_methods_classCarna_1_1helpers_1_1VolumeGridHelperBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates.  <br /></td></tr>
@@ -243,21 +243,19 @@ class Carna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNo
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">SegmentIntensityVolumeType</td><td>is the <a class="el" href="classCarna_1_1base_1_1BufferedIntensityVolume.html">base::BufferedIntensityVolume</a> compatible type to use for storing the intensity volume of a single partition.</td></tr>
-    <tr><td class="paramname">SegmentNormalsVolumeType</td><td>is the <a class="el" href="classCarna_1_1base_1_1BufferedNormalMap3D.html">base::BufferedNormalMap3D</a> compatible type to use for storing the normal map of a single partition. Set to <code>void</code> if the normal map is not required.</td></tr>
+    <tr><td class="paramname">SegmentNormalsVolumeType</td><td>is the <a class="el" href="classCarna_1_1base_1_1BufferedNormalMap3D.html">base::BufferedNormalMap3D</a> compatible type to use for storing the normal map of a single partition. Set to <code>void</code> if a normal map is not required.</td></tr>
   </table>
   </dd>
 </dl>
 <h1><a class="anchor" id="VolumeGridHelperNormals"></a>
 Normal Map Computation</h1>
-<p>The <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a6eda1ac9a01f44a51616d65b2cb3973a">loadIntensities</a> kicks off the computation of the normals automatically. If you alter the volume data differently, it is within your responsibility to do this by calling <code>computeNormals</code> on this object. Note that the <code>computeNormals</code> method is only available if <em>SegmentNormalsVolumeType</em> is not <code>void</code>.</p>
+<p>The <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a6eda1ac9a01f44a51616d65b2cb3973a">loadIntensities</a> method performs the computation of the normals automatically. If the intensities are changed in a different way, it is within your responsibility to perform the computation of the normals by calling <code>computeNormals</code> on this object. Note that the <code>computeNormals</code> method is only available if <em>SegmentNormalsVolumeType</em> is not <code>void</code>.</p>
 <h1><a class="anchor" id="VolumeGridHelperResolutions"></a>
 Resolutions</h1>
-<p>This class needs to distinguish between three kinds of resolutions. The grid's volume textures are <em>not</em> disjoint, but must maintain redundant voxels along common segment faces. Hence, the resolution of the data uploaded to GPU from all segments, that we will call the <em>total</em> resolution therefore, will usually be greater than the resolution of the actually <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a6eda1ac9a01f44a51616d65b2cb3973a">loaded data</a>. We will refer to the latter as the <em>native</em> resolution.</p>
-<p>Furthermore, the <em>effective</em> resolution, that is the one covered by the grid and available for payload, might still be greater than the native resolution, namely because the segments' resolution is rounded to even numbers. The additional voxels arising from this are <em>not</em> queried from the data source, but automatically padded with \(-1024\), s.t. the data source doesn't have to pay attention to this circumstance.</p>
-<dl class="section author"><dt>Author</dt><dd>Leonid Kostrykin </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>8.3.15 - 29.3.15 </dd></dl>
+<p>This class needs to distinguish between three kinds of resolutions. The grid's volume textures are <em>not</em> disjoint, but must maintain redundant voxels along the segment faces that they have in common. Hence, the resolution of the data uploaded to the GPU from all segments, that is therefore called the <em>total</em> resolution, will usually be greater than the <em>native</em> resolution of the data passed to <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a6eda1ac9a01f44a51616d65b2cb3973a">loadIntensities</a>.</p>
+<p>Furthermore, the <em>effective</em> resolution, that is the one covered by the grid and available for payload, might still be greater than the native resolution, because the resolution of the segments is rounded to even numbers. The additional voxels arising from this are <em>not</em> queried from the data source, but padded automatically. </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00254">254</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00243">243</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a89d689155c66f279a99d974bbd25fccf" name="a89d689155c66f279a99d974bbd25fccf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a89d689155c66f279a99d974bbd25fccf">&#9670;&#160;</a></span>VolumeGridHelper()</h2>
@@ -287,7 +285,7 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
       </table>
 </div><div class="memdoc">
 
-<p>Creates new <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html">base::VolumeGrid</a> object. Initializes its' segments s.t. the totally covered resolution is <em>resolution</em> at least. It may be chosen larger if the buffers' resolution need to be rounded to even numbers. </p>
+<p>Creates a new <a class="el" href="classCarna_1_1base_1_1VolumeGrid.html">base::VolumeGrid</a> object. Initializes the segments of the grid so that the totally covered resolution is <em>resolution</em> or larger. It will be larger if the resolution of the buffers need to be rounded to even numbers. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nativeResolution</td><td>The resolution the grid is to be prepared for. This is the resolution that will be expected from the <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html#a6eda1ac9a01f44a51616d65b2cb3973a">data source</a>.</td></tr>
@@ -296,13 +294,13 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00385">385</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00374">374</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1d1033e5c50070a619807fa775e3480e" name="a1d1033e5c50070a619807fa775e3480e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d1033e5c50070a619807fa775e3480e">&#9670;&#160;</a></span>createNode() <span class="overload">[1/2]</span></h2>
+<a id="ad2905faea9ff01270c421ed4624ac37d" name="ad2905faea9ff01270c421ed4624ac37d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2905faea9ff01270c421ed4624ac37d">&#9670;&#160;</a></span>createNode() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -321,8 +319,8 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Dimensions.html">Dimensions</a> &amp;&#160;</td>
-          <td class="paramname"><em>dimensions</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Extent.html">Extent</a> &amp;&#160;</td>
+          <td class="paramname"><em>extent</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -342,14 +340,14 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">geometryType</td><td>Will be used for <a class="el" href="classCarna_1_1base_1_1Geometry.html">base::Geometry</a> instantiation.</td></tr>
-    <tr><td class="paramname">dimensions</td><td>Specifies the dimensions of the whole dataset in millimeters. </td></tr>
+    <tr><td class="paramname">extent</td><td>Specifies the extent of the whole dataset. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#a809b961f04b22d29fc008ad0aea55e4e">Carna::helpers::VolumeGridHelperBase</a>.</p>
+<p>Implements <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#ad403e2ab6edf28d957bbb3796adb5052">Carna::helpers::VolumeGridHelperBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00544">544</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00533">533</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
@@ -394,14 +392,14 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">geometryType</td><td>Will be used for <a class="el" href="classCarna_1_1base_1_1Geometry.html">base::Geometry</a> instantiation.</td></tr>
-    <tr><td class="paramname">spacing</td><td>Specifies the spacing between two succeeding voxel centers in millimeters. </td></tr>
+    <tr><td class="paramname">spacing</td><td>Specifies the spacing between two succeeding voxel centers. </td></tr>
   </table>
   </dd>
 </dl>
 
 <p>Implements <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#ad2d36de2edcc7e4d5aeeded314534449">Carna::helpers::VolumeGridHelperBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00534">534</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00522">522</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
@@ -424,7 +422,7 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
 
 <p>References the underlying grid. </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00446">446</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00435">435</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
@@ -453,7 +451,7 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00555">555</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00544">544</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
@@ -495,7 +493,7 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
 
 <p>Implements <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#ad223260819271ff3adfc9c45159eaea2">Carna::helpers::VolumeGridHelperBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00427">427</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00416">416</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
@@ -529,7 +527,7 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
 
 <p>Implements <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#a2a0d30cf75124fd55bef49fab6f22dd7">Carna::helpers::VolumeGridHelperBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00419">419</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00408">408</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
@@ -550,7 +548,7 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
 
 <p>Maximum memory size of a single segment volume. </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00292">292</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00280">280</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
@@ -570,7 +568,7 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
 
 <p>The maximum effective resolution of a single grid segment. </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00297">297</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00285">285</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
@@ -590,7 +588,7 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
 
 <p>Describes the partitioning along the x-axis. </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00302">302</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00290">290</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
@@ -610,7 +608,7 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
 
 <p>Describes the partitioning along the y-axis. </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00307">307</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00295">295</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
@@ -630,7 +628,7 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
 
 <p>Describes the partitioning along the z-axis. </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00312">312</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00300">300</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>
@@ -650,7 +648,7 @@ template&lt;typename SegmentIntensityVolumeType , typename SegmentNormalsVolumeT
 
 <p>Holds the effective resolution, i.e. the resolution covered by the grid. </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00317">317</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8h_source.html#l00305">305</a> of file <a class="el" href="VolumeGridHelper_8h_source.html">VolumeGridHelper.h</a>.</p>
 
 </div>
 </div>

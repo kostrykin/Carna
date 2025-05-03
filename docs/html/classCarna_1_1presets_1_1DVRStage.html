@@ -142,11 +142,8 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~DVRStage</b> ()</td></tr>
 <tr class="memdesc:a1d7f5918033f1031760ee62a41f8ed86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes. <br /></td></tr>
 <tr class="separator:a1d7f5918033f1031760ee62a41f8ed86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1c895efb48085b63aef5889336513be" id="r_ab1c895efb48085b63aef5889336513be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html">DVRStage</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#ab1c895efb48085b63aef5889336513be">clone</a> () const override</td></tr>
-<tr class="memdesc:ab1c895efb48085b63aef5889336513be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns same <code>RenderStage</code> implementation with same configuration.  <br /></td></tr>
-<tr class="separator:ab1c895efb48085b63aef5889336513be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5e2ee57c35667f37184b6398092be27" id="r_ae5e2ee57c35667f37184b6398092be27"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#ae5e2ee57c35667f37184b6398092be27">reshape</a> (<a class="el" href="classCarna_1_1base_1_1FrameRenderer.html">base::FrameRenderer</a> &amp;fr, unsigned int width, unsigned int height) override</td></tr>
-<tr class="memdesc:ae5e2ee57c35667f37184b6398092be27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified dimensions.  <br /></td></tr>
+<tr class="memdesc:ae5e2ee57c35667f37184b6398092be27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>.  <br /></td></tr>
 <tr class="separator:ae5e2ee57c35667f37184b6398092be27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c280203065923a724b55b326e2c69ee" id="r_a9c280203065923a724b55b326e2c69ee"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a9c280203065923a724b55b326e2c69ee">renderPass</a> (const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a991a0f5376e1e66d3d97eafed6d057ef">base::math::Matrix4f</a> &amp;viewTransform, <a class="el" href="classCarna_1_1base_1_1RenderTask.html">base::RenderTask</a> &amp;rt, const <a class="el" href="classCarna_1_1base_1_1Viewport.html">base::Viewport</a> &amp;vp) override</td></tr>
 <tr class="memdesc:a9c280203065923a724b55b326e2c69ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers the <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#VolumeRenderingApproach">volume rendering</a>.  <br /></td></tr>
@@ -288,7 +285,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:a910d3f4d0042eebffeb85c617a256249"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acquires the <code>dvr</code> shader from the <a class="el" href="classCarna_1_1base_1_1ShaderManager.html">base::ShaderManager</a>.  <br /></td></tr>
 <tr class="separator:a910d3f4d0042eebffeb85c617a256249"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e8e0f1586d05728b89df110c6c23d09" id="r_a9e8e0f1586d05728b89df110c6c23d09"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a9e8e0f1586d05728b89df110c6c23d09">uniformName</a> (unsigned int role) const override</td></tr>
-<tr class="memdesc:a9e8e0f1586d05728b89df110c6c23d09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a18066a297641d5e032eaa43fa13797ef">ROLE_INTENSITIES</a> to <code>huVolume</code> and <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#af20fadb7f7d95b911e26d298273f4792">ROLE_NORMALS</a> to <code>normalMap</code>.  <br /></td></tr>
+<tr class="memdesc:a9e8e0f1586d05728b89df110c6c23d09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a18066a297641d5e032eaa43fa13797ef">ROLE_INTENSITIES</a> to <code>intensities</code> and <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#af20fadb7f7d95b911e26d298273f4792">ROLE_NORMALS</a> to <code>normalMap</code>.  <br /></td></tr>
 <tr class="separator:a9e8e0f1586d05728b89df110c6c23d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56dca2208f550462858e9f925a8c7d21" id="r_a56dca2208f550462858e9f925a8c7d21"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a56dca2208f550462858e9f925a8c7d21">configureShader</a> () override</td></tr>
 <tr class="memdesc:a56dca2208f550462858e9f925a8c7d21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs custom shader configuration on a per-pass level.  <br /></td></tr>
@@ -332,7 +329,7 @@ Usage</h1>
 <div class="ttc" id="aclassCarna_1_1base_1_1RenderStage_html_ab694f59643e3000dec6055b5cd82d723"><div class="ttname"><a href="classCarna_1_1base_1_1RenderStage.html#ab694f59643e3000dec6055b5cd82d723">Carna::base::RenderStage::renderer</a></div><div class="ttdeci">base::FrameRenderer &amp; renderer()</div><div class="ttdoc">References the renderer this stage belongs to.</div></div>
 <div class="ttc" id="aclassCarna_1_1presets_1_1DVRStage_html"><div class="ttname"><a href="classCarna_1_1presets_1_1DVRStage.html">Carna::presets::DVRStage</a></div><div class="ttdoc">Performs direct volume renderings of the volume geometries in the scene.</div><div class="ttdef"><b>Definition</b> <a href="DVRStage_8h_source.html#l00102">DVRStage.h:103</a></div></div>
 </div><!-- fragment --><p>The concept of geometry types is explained <a class="el" href="index.html#GeometryTypes">here</a>.</p>
-<dl class="section note"><dt>Note</dt><dd>In the <a class="el" href="classCarna_1_1base_1_1FrameRenderer.html#RenderingProcess">rendering process</a> this stage will usually be inserted <em>after</em> such stages that render opaque geometry, like <a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html">CuttingPlanesStage</a> and <a class="el" href="namespaceCarna_1_1presets.html#a544f1850fe5eb21b67d35bec55e6a9dd">OpaqueRenderingStage</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>In the <a class="el" href="classCarna_1_1base_1_1FrameRenderer.html#RenderingProcess">rendering process</a> this stage will usually be inserted <em>after</em> such stages that render opaque geometry, like <a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html">CuttingPlanesStage</a> and <a class="el" href="namespaceCarna_1_1presets.html#a031c46b31027885006f5f60805c30779">OpaqueRenderingStage</a>.</dd></dl>
 <p>The <code>DVRStage</code> supports two types of rendering modes: Rendering with lighting enabled and rendering without lighting. In general, lighting produces more sculptural results, but it comes at the cost of additional requirements: Not only the intensity volume must be uploaded to the GPU, but also another 3D texture that maps <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#VolumeRenderingModelTexture">texture space coordinates</a> to the normal vectors of the surface at a particular location. Depending on the resolution of the data, this might cause noteworthy memory consumption.</p>
 <p>Luckily the <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelper.html">helpers::VolumeGridHelper</a> class does everything that is needed in order to compute the normal vectors and upload them to the GPU, if it is instructed to do so: Its second type argument is optional and set to <code>void</code> by default. This disables its normal vectors support. Setting it to anything different, like <a class="el" href="namespaceCarna_1_1base.html#a003f31060d6741eee6f4c1fd6b2226a3">base::NormalMap3DInt8</a> for example, makes it compute the normal vectors when <a class="el" href="classCarna_1_1helpers_1_1VolumeGridHelperBase.html#aa512b07755c12fb4df17a6b22d6ed0b5">helpers::VolumeGridHelper::loadHUData</a> or its <code>computeNormals</code> method are called.</p>
 <p>The <code>DVRStage</code> decides which mode to use depending on whether the normal vectors are provided or not.</p>
@@ -436,37 +433,6 @@ exemplary rendering with lighting from code above</div></div>
 <p>Acquires the <code>dvr</code> shader from the <a class="el" href="classCarna_1_1base_1_1ShaderManager.html">base::ShaderManager</a>. </p>
 
 <p>Implements <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#a0208c4f46aa3711a4cf122a6ca8efb85">Carna::presets::VolumeRenderingStage</a>.</p>
-
-</div>
-</div>
-<a id="ab1c895efb48085b63aef5889336513be" name="ab1c895efb48085b63aef5889336513be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1c895efb48085b63aef5889336513be">&#9670;&#160;</a></span>clone()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classCarna_1_1presets_1_1DVRStage.html">DVRStage</a> * Carna::presets::DVRStage::clone </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns same <code>RenderStage</code> implementation with same configuration. </p>
-<p>The listeners and the rendering state are not copied.</p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>Do not use this method. It will be removed shortly. </dd></dl>
-
-<p>Implements <a class="el" href="classCarna_1_1base_1_1RenderStage.html#a9e139137d3c6579594c83bba05917007">Carna::base::RenderStage</a>.</p>
 
 </div>
 </div>
@@ -675,7 +641,7 @@ exemplary rendering with lighting from code above</div></div>
 </table>
 </div><div class="memdoc">
 
-<p>Orders this stage to reshape its buffers according to the specified dimensions. </p>
+<p>Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>. </p>
 <dl class="section attention"><dt>Attention</dt><dd>Always call the base implementaion!</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -736,7 +702,7 @@ exemplary rendering with lighting from code above</div></div>
 </table>
 </div><div class="memdoc">
 
-<p>Maps <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a18066a297641d5e032eaa43fa13797ef">ROLE_INTENSITIES</a> to <code>huVolume</code> and <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#af20fadb7f7d95b911e26d298273f4792">ROLE_NORMALS</a> to <code>normalMap</code>. </p>
+<p>Maps <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#a18066a297641d5e032eaa43fa13797ef">ROLE_INTENSITIES</a> to <code>intensities</code> and <a class="el" href="classCarna_1_1presets_1_1DVRStage.html#af20fadb7f7d95b911e26d298273f4792">ROLE_NORMALS</a> to <code>normalMap</code>. </p>
 
 <p>Implements <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#a85e3956a62fb035394b5cc64058fadef">Carna::presets::VolumeRenderingStage</a>.</p>
 
@@ -757,7 +723,7 @@ exemplary rendering with lighting from code above</div></div>
 
 <p>The color map used for the rendering. </p>
 
-<p class="definition">Definition at line <a class="el" href="DVRStage_8h_source.html#l00162">162</a> of file <a class="el" href="DVRStage_8h_source.html">DVRStage.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DVRStage_8h_source.html#l00160">160</a> of file <a class="el" href="DVRStage_8h_source.html">DVRStage.h</a>.</p>
 
 </div>
 </div>

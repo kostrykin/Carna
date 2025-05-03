@@ -8,6 +8,7 @@ var searchData=
   ['epsilon_3c_20double_20_3e_5',['epsilon&lt; double &gt;',['../namespaceCarna_1_1base_1_1math.html#a2a7d06b30fbc4e3e4ba04ba306a96edf',1,'Carna::base::math']]],
   ['epsilon_3c_20float_20_3e_6',['epsilon&lt; float &gt;',['../namespaceCarna_1_1base_1_1math.html#a355f1d062b9e2379365fdac9ddd1d08b',1,'Carna::base::math']]],
   ['exists_7',['exists',['../classCarna_1_1base_1_1Singleton.html#a77577a40e90313e346015d7e4ecde237',1,'Carna::base::Singleton']]],
-  ['eyedistance_8',['eyeDistance',['../classCarna_1_1presets_1_1ParallaxStage.html#a090b7451368950a2d7c59d03c07e7715',1,'Carna::presets::ParallaxStage']]],
-  ['eyedistance2_9',['eyeDistance2',['../classCarna_1_1base_1_1Renderable.html#a0b53a5155e2b7cec4f0067723edd72c5',1,'Carna::base::Renderable']]]
+  ['extent_8',['Extent',['../structCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Extent.html#a3628c39df6b9132145de1bac49c4e982',1,'Carna::helpers::VolumeGridHelperBase::Extent']]],
+  ['eyedistance_9',['eyeDistance',['../classCarna_1_1presets_1_1ParallaxStage.html#a090b7451368950a2d7c59d03c07e7715',1,'Carna::presets::ParallaxStage']]],
+  ['eyedistance2_10',['eyeDistance2',['../classCarna_1_1base_1_1Renderable.html#a0b53a5155e2b7cec4f0067723edd72c5',1,'Carna::base::Renderable']]]
 ];

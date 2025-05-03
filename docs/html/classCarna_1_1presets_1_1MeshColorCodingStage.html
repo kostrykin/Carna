@@ -135,9 +135,6 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~MeshColorCodingStage</b> ()</td></tr>
 <tr class="memdesc:a27456d5fa81835a7562bf0b2762a046d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes. <br /></td></tr>
 <tr class="separator:a27456d5fa81835a7562bf0b2762a046d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53dcd7ef728859916757b0008386cf92" id="r_a53dcd7ef728859916757b0008386cf92"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarna_1_1presets_1_1MeshColorCodingStage.html">MeshColorCodingStage</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1MeshColorCodingStage.html#a53dcd7ef728859916757b0008386cf92">clone</a> () const override</td></tr>
-<tr class="memdesc:a53dcd7ef728859916757b0008386cf92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns same <code>RenderStage</code> implementation with same configuration.  <br /></td></tr>
-<tr class="separator:a53dcd7ef728859916757b0008386cf92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d48bb4dadc30827396f68a706d1b0d8" id="r_a0d48bb4dadc30827396f68a706d1b0d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1MeshColorCodingStage.html#a0d48bb4dadc30827396f68a706d1b0d8">setActivationPassIndex</a> (unsigned int <a class="el" href="classCarna_1_1presets_1_1MeshColorCodingStage.html#a75dd9d00bea43f23b6bbf2a1eb3b2f31">activationPassIndex</a>)</td></tr>
 <tr class="memdesc:a0d48bb4dadc30827396f68a706d1b0d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets on which pass this stage should do its work.  <br /></td></tr>
 <tr class="separator:a0d48bb4dadc30827396f68a706d1b0d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,7 +156,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clearGeometryTypes</b
 <tr class="memdesc:acf98e782035566d213b0514ab859347c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deactivates all geometry types. <br /></td></tr>
 <tr class="separator:acf98e782035566d213b0514ab859347c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf7dcca5746756224faeb375744412f7" id="r_abf7dcca5746756224faeb375744412f7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1MeshColorCodingStage.html#abf7dcca5746756224faeb375744412f7">reshape</a> (<a class="el" href="classCarna_1_1base_1_1FrameRenderer.html">base::FrameRenderer</a> &amp;fr, unsigned int width, unsigned int height) override</td></tr>
-<tr class="memdesc:abf7dcca5746756224faeb375744412f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified dimensions.  <br /></td></tr>
+<tr class="memdesc:abf7dcca5746756224faeb375744412f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>.  <br /></td></tr>
 <tr class="separator:abf7dcca5746756224faeb375744412f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbd5286b21cc039181b941a0a7315f4b" id="r_acbd5286b21cc039181b941a0a7315f4b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1MeshColorCodingStage.html#acbd5286b21cc039181b941a0a7315f4b">renderPass</a> (const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a991a0f5376e1e66d3d97eafed6d057ef">base::math::Matrix4f</a> &amp;viewTransform, <a class="el" href="classCarna_1_1base_1_1RenderTask.html">base::RenderTask</a> &amp;rt, const <a class="el" href="classCarna_1_1base_1_1Viewport.html">base::Viewport</a> &amp;vp) override</td></tr>
 <tr class="memdesc:acbd5286b21cc039181b941a0a7315f4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once per pass.  <br /></td></tr>
@@ -264,12 +261,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implements a simple interface for mapping <a class="el" href="CoordinateSystems.html#FrameCoordinates">frame coordinates</a> to <a class="el" href="classCarna_1_1base_1_1Mesh.html">base::Mesh</a> objects. </p>
-<p>Lets assume we have an <a class="el" href="namespaceCarna_1_1presets.html#a544f1850fe5eb21b67d35bec55e6a9dd">OpaqueRenderingStage</a> defined, e.g.:</p>
-<div class="fragment"><div class="line">    opaque = <span class="keyword">new</span> <a class="code hl_typedef" href="namespaceCarna_1_1presets.html#a544f1850fe5eb21b67d35bec55e6a9dd">presets::OpaqueRenderingStage</a>( GEOMETRY_TYPE_OPAQUE );</div>
+<p>Lets assume we have an <a class="el" href="namespaceCarna_1_1presets.html#a031c46b31027885006f5f60805c30779">OpaqueRenderingStage</a> defined, e.g.:</p>
+<div class="fragment"><div class="line">    opaque = <span class="keyword">new</span> <a class="code hl_typedef" href="namespaceCarna_1_1presets.html#a031c46b31027885006f5f60805c30779">presets::OpaqueRenderingStage</a>( GEOMETRY_TYPE_OPAQUE );</div>
 <div class="line">    <a class="code hl_function" href="classCarna_1_1base_1_1RenderStage.html#ab694f59643e3000dec6055b5cd82d723">renderer</a>-&gt;<a class="code hl_function" href="classCarna_1_1base_1_1RenderStageSequence.html#a0195f8a5a8d1a92d5ebdb475b37b9309">appendStage</a>( opaque );</div>
 <div class="ttc" id="aclassCarna_1_1base_1_1RenderStageSequence_html_a0195f8a5a8d1a92d5ebdb475b37b9309"><div class="ttname"><a href="classCarna_1_1base_1_1RenderStageSequence.html#a0195f8a5a8d1a92d5ebdb475b37b9309">Carna::base::RenderStageSequence::appendStage</a></div><div class="ttdeci">void appendStage(RenderStage *stage)</div><div class="ttdoc">Appends stage to the rendering stages sequence.</div></div>
 <div class="ttc" id="aclassCarna_1_1base_1_1RenderStage_html_ab694f59643e3000dec6055b5cd82d723"><div class="ttname"><a href="classCarna_1_1base_1_1RenderStage.html#ab694f59643e3000dec6055b5cd82d723">Carna::base::RenderStage::renderer</a></div><div class="ttdeci">base::FrameRenderer &amp; renderer()</div><div class="ttdoc">References the renderer this stage belongs to.</div></div>
-<div class="ttc" id="anamespaceCarna_1_1presets_html_a544f1850fe5eb21b67d35bec55e6a9dd"><div class="ttname"><a href="namespaceCarna_1_1presets.html#a544f1850fe5eb21b67d35bec55e6a9dd">Carna::presets::OpaqueRenderingStage</a></div><div class="ttdeci">base::MeshRenderingStage&lt; base::Renderable::VideoResourcesOrder&lt; base::MeshRenderingStageBase::ROLE_DEFAULT_MATERIAL &gt; &gt; OpaqueRenderingStage</div><div class="ttdoc">Implements rendering stage that renders opaque meshes.</div><div class="ttdef"><b>Definition</b> <a href="OpaqueRenderingStage_8h_source.html#l00061">OpaqueRenderingStage.h:61</a></div></div>
+<div class="ttc" id="anamespaceCarna_1_1presets_html_a031c46b31027885006f5f60805c30779"><div class="ttname"><a href="namespaceCarna_1_1presets.html#a031c46b31027885006f5f60805c30779">Carna::presets::OpaqueRenderingStage</a></div><div class="ttdeci">base::MeshRenderingStage&lt; base::Renderable::VideoResourcesOrder&lt; base::MeshRenderingMixin::ROLE_DEFAULT_MATERIAL &gt; &gt; OpaqueRenderingStage</div><div class="ttdoc">Implements rendering stage that renders opaque meshes.</div><div class="ttdef"><b>Definition</b> <a href="OpaqueRenderingStage_8h_source.html#l00061">OpaqueRenderingStage.h:61</a></div></div>
 </div><!-- fragment --><p>The concept of geometry types is explained <a class="el" href="index.html#GeometryTypes">here</a>.</p>
 <p>Than we can instantiate the <code>MeshColorCodingStage</code> like this:</p>
 <div class="fragment"><div class="line">    mccs = <span class="keyword">new</span> <a class="code hl_class" href="classCarna_1_1presets_1_1MeshColorCodingStage.html">presets::MeshColorCodingStage</a>();</div>
@@ -301,37 +298,6 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Tells on which pass this stage will do its work. </p>
 <p>If this stage is processed multiple times per frame, than it will contribute its own processing logic to the rendering process only on the \(n\)th pass, where \(n\) is the returned value. Default is \(n = 0\). </p>
-
-</div>
-</div>
-<a id="a53dcd7ef728859916757b0008386cf92" name="a53dcd7ef728859916757b0008386cf92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53dcd7ef728859916757b0008386cf92">&#9670;&#160;</a></span>clone()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classCarna_1_1presets_1_1MeshColorCodingStage.html">MeshColorCodingStage</a> * Carna::presets::MeshColorCodingStage::clone </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns same <code>RenderStage</code> implementation with same configuration. </p>
-<p>The listeners and the rendering state are not copied.</p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>Do not use this method. It will be removed shortly. </dd></dl>
-
-<p>Implements <a class="el" href="classCarna_1_1base_1_1RenderStage.html#a9e139137d3c6579594c83bba05917007">Carna::base::RenderStage</a>.</p>
 
 </div>
 </div>
@@ -533,7 +499,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Orders this stage to reshape its buffers according to the specified dimensions. </p>
+<p>Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>. </p>
 <dl class="section attention"><dt>Attention</dt><dd>Always call the base implementaion!</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

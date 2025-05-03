@@ -143,11 +143,8 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~MIPStage</b> ()</td></tr>
 <tr class="memdesc:a53b5136786c2e9d6420de5c8590bef08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes. <br /></td></tr>
 <tr class="separator:a53b5136786c2e9d6420de5c8590bef08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac57890107d3f4d9ab9e8f4fc4d185b18" id="r_ac57890107d3f4d9ab9e8f4fc4d185b18"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCarna_1_1presets_1_1MIPStage.html">MIPStage</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1MIPStage.html#ac57890107d3f4d9ab9e8f4fc4d185b18">clone</a> () const override</td></tr>
-<tr class="memdesc:ac57890107d3f4d9ab9e8f4fc4d185b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns same <code>RenderStage</code> implementation with same configuration.  <br /></td></tr>
-<tr class="separator:ac57890107d3f4d9ab9e8f4fc4d185b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac96d1a8077c84889664b7d4f14a4fd4d" id="r_ac96d1a8077c84889664b7d4f14a4fd4d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1MIPStage.html#ac96d1a8077c84889664b7d4f14a4fd4d">reshape</a> (<a class="el" href="classCarna_1_1base_1_1FrameRenderer.html">base::FrameRenderer</a> &amp;fr, unsigned int width, unsigned int height) override</td></tr>
-<tr class="memdesc:ac96d1a8077c84889664b7d4f14a4fd4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified dimensions.  <br /></td></tr>
+<tr class="memdesc:ac96d1a8077c84889664b7d4f14a4fd4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>.  <br /></td></tr>
 <tr class="separator:ac96d1a8077c84889664b7d4f14a4fd4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a51683830bcb25e906121ac796ae8ce" id="r_a5a51683830bcb25e906121ac796ae8ce"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCarna_1_1presets_1_1MIPStage.html#a5a51683830bcb25e906121ac796ae8ce">renderPass</a> (const <a class="el" href="namespaceCarna_1_1base_1_1math.html#a991a0f5376e1e66d3d97eafed6d057ef">base::math::Matrix4f</a> &amp;viewTransform, <a class="el" href="classCarna_1_1base_1_1RenderTask.html">base::RenderTask</a> &amp;rt, const <a class="el" href="classCarna_1_1base_1_1Viewport.html">base::Viewport</a> &amp;vp) override</td></tr>
 <tr class="memdesc:a5a51683830bcb25e906121ac796ae8ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers the <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#VolumeRenderingApproach">volume rendering</a>.  <br /></td></tr>
@@ -314,7 +311,7 @@ Basics</h1>
 <div class="caption">
 exemplary rendering with a linearly transitioning blue-to-red color map</div></div>
 <p>The concept of geometry types is explained <a class="el" href="index.html#GeometryTypes">here</a>.</p>
-<dl class="section note"><dt>Note</dt><dd>In the <a class="el" href="classCarna_1_1base_1_1FrameRenderer.html#RenderingProcess">rendering process</a> this stage will usually be inserted <em>after</em> such stages that render opaque geometry, like <a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html">CuttingPlanesStage</a> and <a class="el" href="namespaceCarna_1_1presets.html#a544f1850fe5eb21b67d35bec55e6a9dd">OpaqueRenderingStage</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>In the <a class="el" href="classCarna_1_1base_1_1FrameRenderer.html#RenderingProcess">rendering process</a> this stage will usually be inserted <em>after</em> such stages that render opaque geometry, like <a class="el" href="classCarna_1_1presets_1_1CuttingPlanesStage.html">CuttingPlanesStage</a> and <a class="el" href="namespaceCarna_1_1presets.html#a031c46b31027885006f5f60805c30779">OpaqueRenderingStage</a>.</dd></dl>
 <p>More complex color maps can easily be generated using the <a class="el" href="classCarna_1_1base_1_1ColorMap.html#a32099915f0031b7125fe05c5c879ec8b">base::ColorMap::writeLinearSpline</a> function:</p>
 <div class="fragment"><div class="line">    std::vector&lt; base::Color &gt; colors =</div>
 <div class="line">        { <a class="code hl_class" href="classCarna_1_1base_1_1Color.html">base::Color</a>(   0,   0, 255,   0 )</div>
@@ -358,37 +355,6 @@ exemplary rendering with a "jet"-like color map</div></div>
 <p>Acquires the shader from the <a class="el" href="classCarna_1_1base_1_1ShaderManager.html">base::ShaderManager</a>, that is to be used for <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#VolumeRenderingAlgorithm">rendering the slices</a>. </p>
 
 <p>Implements <a class="el" href="classCarna_1_1presets_1_1VolumeRenderingStage.html#a0208c4f46aa3711a4cf122a6ca8efb85">Carna::presets::VolumeRenderingStage</a>.</p>
-
-</div>
-</div>
-<a id="ac57890107d3f4d9ab9e8f4fc4d185b18" name="ac57890107d3f4d9ab9e8f4fc4d185b18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac57890107d3f4d9ab9e8f4fc4d185b18">&#9670;&#160;</a></span>clone()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classCarna_1_1presets_1_1MIPStage.html">MIPStage</a> * Carna::presets::MIPStage::clone </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns same <code>RenderStage</code> implementation with same configuration. </p>
-<p>The listeners and the rendering state are not copied.</p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>Do not use this method. It will be removed shortly. </dd></dl>
-
-<p>Implements <a class="el" href="classCarna_1_1base_1_1RenderStage.html#a9e139137d3c6579594c83bba05917007">Carna::base::RenderStage</a>.</p>
 
 </div>
 </div>
@@ -597,7 +563,7 @@ exemplary rendering with a "jet"-like color map</div></div>
 </table>
 </div><div class="memdoc">
 
-<p>Orders this stage to reshape its buffers according to the specified dimensions. </p>
+<p>Orders this stage to reshape its buffers according to the specified <em>width</em> and <em>height</em>. </p>
 <dl class="section attention"><dt>Attention</dt><dd>Always call the base implementaion!</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -657,7 +623,7 @@ exemplary rendering with a "jet"-like color map</div></div>
 
 <p>The color map used for the layer. </p>
 
-<p class="definition">Definition at line <a class="el" href="MIPStage_8h_source.html#l00092">92</a> of file <a class="el" href="MIPStage_8h_source.html">MIPStage.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MIPStage_8h_source.html#l00090">90</a> of file <a class="el" href="MIPStage_8h_source.html">MIPStage.h</a>.</p>
 
 </div>
 </div>
