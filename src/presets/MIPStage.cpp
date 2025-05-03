@@ -165,7 +165,7 @@ const base::ShaderProgram& MIPStage::acquireShader()
 
 const std::string& MIPStage::uniformName( unsigned int role ) const
 {
-    const static std::string ROLE_INTENSITIES_NAME = "huVolume";
+    const static std::string ROLE_INTENSITIES_NAME = "intensities";
     switch( role )
     {
 

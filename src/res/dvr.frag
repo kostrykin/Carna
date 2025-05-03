@@ -11,7 +11,7 @@
  *
  */
 
-uniform sampler3D huVolume;
+uniform sampler3D intensities;
 uniform sampler3D normalMap;
 uniform sampler1D colorMap;
 uniform mat4      modelTexture;
@@ -32,7 +32,7 @@ layout( location = 0 ) out vec4 _gl_FragColor;
 
 vec4 sampleAt( vec3 p )
 {
-    float intensity = texture( huVolume, p ).r;
+    float intensity = texture( intensities, p ).r;
     vec4 color = texture( colorMap, intensity );
 
     if( lightingEnabled == 1 )

@@ -239,7 +239,7 @@ void CuttingPlanesStage::render( const base::Renderable& volume )
     const base::math::Matrix4f modelTexture = texture.textureCoordinatesCorrection * base::math::translation4f( 0.5f, 0.5f, 0.5f );
     base::ShaderUniform< base::math::Matrix4f >( "modelViewProjection", modelViewProjection ).upload();
     base::ShaderUniform< base::math::Matrix4f >( "modelTexture", modelTexture ).upload();
-    base::ShaderUniform< int >( "huVolume", TEXTURE_UNIT ).upload();
+    base::ShaderUniform< int >( "intensities", TEXTURE_UNIT ).upload();
 
     /* Compute 'volume' scale in world space.
      */

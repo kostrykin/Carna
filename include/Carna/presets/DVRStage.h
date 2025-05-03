@@ -204,7 +204,7 @@ protected:
     virtual const base::ShaderProgram& acquireShader() override;
 
     /** \brief
-      * Maps \ref ROLE_INTENSITIES to `huVolume` and \ref ROLE_NORMALS to `normalMap`.
+      * Maps \ref ROLE_INTENSITIES to `intensities` and \ref ROLE_NORMALS to `normalMap`.
       */
     virtual const std::string& uniformName( unsigned int role ) const override;
 
