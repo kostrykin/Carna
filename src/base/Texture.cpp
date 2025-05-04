@@ -141,7 +141,7 @@ void TextureBase::uploadGLTextureData
     , int bufferType
     , const void* bufferPtr )
 {
-    GLint unpackAlignment; // TODO: in the future it will be better to use unpackAlignment as a parameter along of bufferPtr
+    GLint unpackAlignment; // TODO: in the future it will be better to use unpackAlignment as a parameter along with bufferPtr
     glGetIntegerv( GL_UNPACK_ALIGNMENT, &unpackAlignment );
     if( bufferType == GL_UNSIGNED_BYTE && pixelFormat == GL_RED )
     {

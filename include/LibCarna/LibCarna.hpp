@@ -66,7 +66,6 @@ namespace LibCarna
         class  CameraControl;
         class  LibCarnaException;
         class  Log;
-        class  HUVolume;
         class  BaseBuffer;
         class  BlendFunction;
         class  Camera;
@@ -123,7 +122,6 @@ namespace LibCarna
         template< typename BufferedVectorComponentType, typename BufferType = std::vector< BufferedVectorComponentType > >
             class BufferedNormalMap3D;
         template< typename VoxelType, typename BufferType = std::vector< VoxelType > > class BufferedIntensityVolume;
-        template< typename VoxelType, typename BufferType = std::vector< VoxelType > > class BufferedHUVolume;
         template< typename BufferedVectorFieldType > struct BufferedVectorFieldFormat;
         template< typename BufferedVectorFieldType > class BufferedVectorFieldTexture;
         template< typename AssociatedObjectType > class Composition;
@@ -151,11 +149,6 @@ namespace LibCarna
           * Defines 8bit intensity volume.
           */
         typedef BufferedIntensityVolume< uint8_t > IntensityVolumeUInt8;
-
-        /** \brief
-          * Defines 16bit unsigned integer \ref HUV "HU" volume data.
-          */
-        typedef BufferedHUVolume< uint16_t > HUVolumeUInt16;
 
         /** \brief
           * Defines 8bit signed integer \ref BufferedNormalMap3D.

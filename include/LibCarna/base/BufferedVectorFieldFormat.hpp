@@ -69,18 +69,6 @@ struct LIBCARNA BufferedVectorFieldFormat< IntensityVolumeUInt8 >
 
 
 /** \brief
-  * Defines \ref Texture format for \ref HUVolumeUInt16.
-  */
-template< >
-struct LIBCARNA BufferedVectorFieldFormat< HUVolumeUInt16 >
-{
-    const static unsigned int INTERNAL_FORMAT; ///< \copydoc ManagedTexture3D::internalFormat
-    const static unsigned int PIXEL_FORMAT;    ///< \copydoc ManagedTexture3D::pixelFormat
-    const static unsigned int BUFFER_TYPE;     ///< \copydoc ManagedTexture3D::bufferType
-};
-
-
-/** \brief
   * Defines \ref Texture format for \ref NormalMap3DInt8.
   */
 template< >

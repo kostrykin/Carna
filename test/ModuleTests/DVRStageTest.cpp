@@ -78,8 +78,7 @@ void DVRStageTest::test_withLighting()
      */
     typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16, base::NormalMap3DInt8 > GridHelper;
     GridHelper gridHelper( data->size );
-    //gridHelper.loadIntensities( *data ); // TODO: fix this
-    gridHelper.loadIntensities( [this]( const base::math::Vector3ui& c )->float { return (*this->data)( c ); } );
+    gridHelper.loadIntensities( *data );
     root->attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( dataSpacings ) ) );
 
     /* Configure DVR stage.
@@ -104,8 +103,7 @@ void DVRStageTest::test_withoutLighting()
      */
     typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16 > GridHelper;
     GridHelper gridHelper( data->size );
-    //gridHelper.loadIntensities( *data ); // TODO: fix this
-    gridHelper.loadIntensities( [this]( const base::math::Vector3ui& c )->float { return (*this->data)( c ); } );
+    gridHelper.loadIntensities( *data );
     root->attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( dataSpacings ) ) );
 
     /* Configure DVR stage.

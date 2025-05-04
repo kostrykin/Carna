@@ -147,13 +147,6 @@ public:
       * Specifies the extent of the whole dataset.
       */
     virtual base::Node* createNode( unsigned int geometryType, const Extent& extent ) const = 0;
-    
-    /** \brief
-      * Updates the data of the volume grid.
-      *
-      * The \a intensityData must be scaled to \f$\left[0, 1\right]\f$.
-      */
-    virtual void loadIntensities( const std::function< float( const base::math::Vector3ui& ) >& intensityData ) = 0;
 
     /** \overload
       */
@@ -171,6 +164,15 @@ public:
       */
     template< typename LoadHUDataFunction >
     void loadHUData( const LoadHUDataFunction& huData );
+
+protected:
+    
+    /** \brief
+      * Updates the data of the volume grid.
+      *
+      * The \a intensityData must be scaled to \f$\left[0, 1\right]\f$.
+      */
+    virtual void loadIntensities( const std::function< float( const base::math::Vector3ui& ) >& intensityData ) = 0;
 
 }; // VolumeGridHelperBase
 
@@ -190,7 +192,7 @@ void VolumeGridHelperBase::loadIntensities( const LoadIntensitiesFunction& inten
 
 
 template< typename LoadHUDataFunction >
-void VolumeGridHelperBase::loadHUData( const LoadHUDataFunction& huData )
+void VolumeGridHelperBase::loadHUData( const LoadHUDataFunction& huData ) // TODO: can this be removed?
 {
     loadHUData( static_cast< const std::function< base::HUV( const base::math::Vector3ui& ) >& >
         (
@@ -302,19 +304,6 @@ public:
       * Holds the effective resolution, i.e. the resolution covered by the grid.
       */
     const base::math::Vector3ui resolution;
-
-    /** \brief
-      * Updates the data of the volume grid.
-      *
-      * The \a intensityData must be scaled to \f$\left[0, 1\right]\f$.
-      *
-      * \param intensityData
-      * Unary function that maps \ref base::math::Vector3ui to an intensity value. It will be queried for all values up
-      * to \ref nativeResolution.
-      *
-      * The normal map is re-computed if `SegmentNormalsVolumeType` is not `void`.
-      */
-    virtual void loadIntensities( const std::function< float( const base::math::Vector3ui& ) >& intensityData ) override;
     
     /** \brief
       * Releases all previously acquired textures. Invoke this method when the volume data changes,
@@ -335,10 +324,25 @@ public:
     virtual base::Node* createNode( unsigned int geometryType, const Spacing& spacing ) const override;
     
     virtual base::Node* createNode( unsigned int geometryType, const Extent& extent ) const override;
+
+    using VolumeGridHelperBase::loadIntensities;
     
 protected:
 
     virtual base::math::Vector3ui gridResolution() const override;
+
+    /** \brief
+      * Updates the data of the volume grid.
+      *
+      * The \a intensityData must be scaled to \f$\left[0, 1\right]\f$.
+      *
+      * \param intensityData
+      * Unary function that maps \ref base::math::Vector3ui to an intensity value. It will be queried for all values up
+      * to \ref nativeResolution.
+      *
+      * The normal map is re-computed if `SegmentNormalsVolumeType` is not `void`.
+      */
+    virtual void loadIntensities( const std::function< float( const base::math::Vector3ui& ) >& intensityData ) override;
 
 private:
 

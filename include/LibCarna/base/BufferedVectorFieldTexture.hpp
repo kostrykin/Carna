@@ -39,7 +39,7 @@ namespace base
 /** \brief
   * Specializes the \ref ManagedTexture3D class s.t. the texture's data is
   * initialized from a \ref math::VectorField that supports a `buffer` method, like
-  * \ref BufferedHUVolume and \ref BufferedNormalMap3D do.
+  * \ref BufferedIntensityVolume and \ref BufferedNormalMap3D do.
   *
   * \author Leonid Kostrykin
   */

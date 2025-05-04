@@ -208,8 +208,7 @@ void Demo::initializeGL()
     gridHelper.reset( new GridHelper
         ( baseVolume->size
         , baseVolume->size.x() * baseVolume->size.y() * baseVolume->size.z() * sizeof( base::IntensityVolumeUInt16::Voxel ) / 50 ) );
-    //gridHelper->loadIntensities( *baseVolume ); // TODO: fix this
-    gridHelper->loadIntensities( [&baseVolume]( const base::math::Vector3ui& c )->float { return (*baseVolume)( c ); } );
+    gridHelper->loadIntensities( *baseVolume );
     base::Node* const volumeNode = gridHelper->createNode( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ) );
 
     base::ManagedMeshBase& boxMesh = base::MeshFactory< base::PVertex >::createBox( 10, 10, 10 );

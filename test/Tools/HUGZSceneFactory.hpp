@@ -35,7 +35,7 @@ namespace testing
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Creates \ref LibCarna::base::HUVolumeUInt16 object from HUGZ-file.
+  * Creates \ref LibCarna::base::IntensityVolumeUInt16 object from HUGZ-file.
   *
   * \section HUGZFileFormat HUGZ File Format
   *

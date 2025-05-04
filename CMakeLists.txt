@@ -112,7 +112,6 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/BoundingBox.hpp
 		include/${PROJECT_NAME}/base/BoundingSphere.hpp
 		include/${PROJECT_NAME}/base/BoundingVolume.hpp
-		include/${PROJECT_NAME}/base/BufferedHUVolume.hpp
 		include/${PROJECT_NAME}/base/BufferedIntensityVolume.hpp
 		include/${PROJECT_NAME}/base/BufferedNormalMap3D.hpp
 		include/${PROJECT_NAME}/base/BufferedVectorFieldFormat.hpp
@@ -135,7 +134,6 @@ set( PUBLIC_HEADERS
 		include/${PROJECT_NAME}/base/glError.hpp
 		include/${PROJECT_NAME}/base/glew.hpp
 		include/${PROJECT_NAME}/base/HUV.hpp
-		include/${PROJECT_NAME}/base/HUVolume.hpp
 		include/${PROJECT_NAME}/base/IndexBuffer.hpp
 		include/${PROJECT_NAME}/base/IntensityVolume.hpp
 		include/${PROJECT_NAME}/base/LibCarnaException.hpp
@@ -231,7 +229,6 @@ set( SRC
 		src/base/GeometryFeature.cpp
 		src/base/GL/glew.c
 		src/base/GLContext.cpp
-		src/base/HUVolume.cpp
 		src/base/IndexBuffer.cpp
 		src/base/IntensityVolume.cpp
 		src/base/LibCarnaException.cpp

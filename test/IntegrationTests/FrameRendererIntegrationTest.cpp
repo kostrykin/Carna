@@ -94,8 +94,7 @@ void FrameRendererIntegrationTest::test_typical()
      */
     typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16, base::NormalMap3DInt8 > UInt16GridHelper;
     UInt16GridHelper gridHelper( data.size );
-    //gridHelper.loadIntensities( data ); // TODO: fix this
-    gridHelper.loadIntensities( [&data]( const base::math::Vector3ui& c )->float { return data( c ); } );
+    gridHelper.loadIntensities( data );
     root.attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, UInt16GridHelper::Spacing( spacings ) ) );
 
     /* Configure cutting planes.
@@ -176,8 +175,7 @@ void FrameRendererIntegrationTest::test_8bit()
      */
     typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt8, base::NormalMap3DInt8 > UInt8HUGridHelper;
     UInt8HUGridHelper gridHelper( data.size );
-    //gridHelper.loadIntensities( data ); // TODO: fix this
-    gridHelper.loadIntensities( [&data]( const base::math::Vector3ui& c )->float { return data( c ); } );
+    gridHelper.loadIntensities( data );
     root.attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, UInt8HUGridHelper::Spacing( spacings ) ) );
 
     /* Configure cutting planes.
