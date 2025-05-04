@@ -66,7 +66,7 @@ namespace presets
   * instructed to do so: Its second type argument is optional and set to `void` by
   * default. This disables its normal vectors support. Setting it to anything
   * different, like \ref base::NormalMap3DInt8 for example, makes it compute the
-  * normal vectors when \ref helpers::VolumeGridHelper::loadHUData or its
+  * normal vectors when \ref helpers::VolumeGridHelper::loadIntensities or its
   * `computeNormals` method are called.
   *
   * The `%DVRStage` decides which mode to use depending on whether the normal vectors
