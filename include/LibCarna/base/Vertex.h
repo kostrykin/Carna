@@ -19,13 +19,13 @@
 #include <LibCarna/base/VertexAttributes.h>
 
 /** \file   Vertex.h
-  * \brief  Defines \ref Carna::base::PVertex,
-  *                 \ref Carna::base::PNVertex,
-  *                 \ref Carna::base::VertexPosition,
-  *                 \ref Carna::base::VertexNormal.
+  * \brief  Defines \ref LibCarna::base::PVertex,
+  *                 \ref LibCarna::base::PNVertex,
+  *                 \ref LibCarna::base::VertexPosition,
+  *                 \ref LibCarna::base::VertexNormal.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -231,7 +231,7 @@ void VertexColor::setColor( const VectorType& color )
   * The next step is to compose the vertex format:
   *
   *     \code
-  *     using namespace Carna::base;
+  *     using namespace LibCarna::base;
   *     struct PNT2Vertex // P for Position, N for Normal, T2 for TexCoord2
   *         : public VertexPosition
   *         , public VertexNormal
@@ -246,10 +246,10 @@ void VertexColor::setColor( const VectorType& color )
   *
   *     \code
   *     #include <vector>
-  *     using namespace Carna::base;
+  *     using namespace LibCarna::base;
   *     const VertexAttributes PNT2Vertex::attributes = []()->VertexAttributes
   *     {
-  *         using Carna::base::VertexAttribute;  // msvc++ requires us to repeat this
+  *         using LibCarna::base::VertexAttribute;  // msvc++ requires us to repeat this
   *         std::vector< VertexAttribute > attributes;
   *         attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
   *         attributes.push_back( VertexAttribute( 4, 4, VertexAttribute::TYPE_FLOAT ) );
@@ -355,8 +355,8 @@ struct LIBCARNA PCVertex
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // VERTEX_H_6014714286

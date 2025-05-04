@@ -19,12 +19,12 @@
 #include <LibCarna/base/math.h>
 
 /** \file   Mesh.h
-  * \brief  Defines \ref Carna::base::ShaderUniformType,
-  *                 \ref Carna::base::ShaderUniformBase and
-  *                 \ref Carna::base::ShaderUniform.
+  * \brief  Defines \ref LibCarna::base::ShaderUniformType,
+  *                 \ref LibCarna::base::ShaderUniformBase and
+  *                 \ref LibCarna::base::ShaderUniform.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -208,8 +208,8 @@ void ShaderUniform< ValueType >::uploadTo( int location ) const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // SHADERUNIFORM_H_6014714286

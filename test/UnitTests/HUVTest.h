@@ -14,7 +14,7 @@
 
 #pragma once
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -27,7 +27,7 @@ namespace testing
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Unit-tests of the \ref Carna::base::HUV class.
+  * Unit-tests of the \ref LibCarna::base::HUV class.
   *
   * \author Leonid Kostrykin
   */
@@ -68,6 +68,6 @@ private slots:
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna

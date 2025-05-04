@@ -14,7 +14,7 @@
 
 #include <LibCarna/base/MeshRenderingStage.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -38,6 +38,6 @@ MeshRenderingMixin::~MeshRenderingMixin()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

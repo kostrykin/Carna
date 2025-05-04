@@ -21,10 +21,10 @@
 #include <map>
 
 /** \file   VolumeRenderingStage.h
-  * \brief  Defines \ref Carna::presets::VolumeRenderingStage.
+  * \brief  Defines \ref LibCarna::presets::VolumeRenderingStage.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -408,8 +408,8 @@ protected:
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // VOLUMERENDERINGSTAGE_H_6014714286

@@ -15,7 +15,7 @@
 #include <LibCarna/presets/TransparentRenderingStage.h>
 #include <LibCarna/base/RenderState.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -51,6 +51,6 @@ void TransparentRenderingStage::renderPass
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

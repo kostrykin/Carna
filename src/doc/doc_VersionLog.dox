@@ -1,4 +1,4 @@
-namespace Carna
+namespace LibCarna
 {
 
 /** \page VersionLog API 3.x Version Log
@@ -79,4 +79,4 @@ namespace Carna
   * - Fix compatibility with OpenGL 4.6.
   */
   
-}  // namespace Carna
+}  // namespace LibCarna

@@ -31,7 +31,7 @@
 #include <LibCarna/base/Composition.h>
 #include <vector>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -432,6 +432,6 @@ const math::Statistics< double >& FrameRenderer::framesPerSecond() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

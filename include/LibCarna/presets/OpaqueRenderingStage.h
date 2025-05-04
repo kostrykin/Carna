@@ -18,10 +18,10 @@
 #include <LibCarna/base/MeshRenderingStage.h>
 
 /** \file   OpaqueRenderingStage.h
-  * \brief  Defines \ref Carna::presets::OpaqueRenderingStage.
+  * \brief  Defines \ref LibCarna::presets::OpaqueRenderingStage.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -64,8 +64,8 @@ typedef base::MeshRenderingStage< base::Renderable::VideoResourcesOrder< base::M
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // OPAQUERENDERINGSTAGE_H_6014714286

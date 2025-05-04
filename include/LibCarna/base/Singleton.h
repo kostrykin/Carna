@@ -16,13 +16,13 @@
 #define SINGLETON_H_6014714286
 
 /** \file   Singleton.h
-  * \brief  Defines \ref Carna::base::Singleton.
+  * \brief  Defines \ref LibCarna::base::Singleton.
   */
 
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <LibCarna/base/noncopyable.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -43,11 +43,11 @@ namespace base
   * Example of usage:
   *
   * \code
-  * class Config : public Carna::base::Singleton< Config >
+  * class Config : public LibCarna::base::Singleton< Config >
   * {
   * protected:
   *
-  *     friend class Carna::base::Singleton< Config >
+  *     friend class LibCarna::base::Singleton< Config >
   *     Config();
   * };
   * \endcode
@@ -129,8 +129,8 @@ InstanceType* Singleton< InstanceType >::instancePtr = nullptr;
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // SINGLETON_H_6014714286

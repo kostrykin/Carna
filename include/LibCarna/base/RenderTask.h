@@ -19,10 +19,10 @@
 #include <LibCarna/base/math.h>
 
 /** \file   RenderTask.h
-  * \brief  Defines \ref Carna::base::RenderTask.
+  * \brief  Defines \ref LibCarna::base::RenderTask.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -111,8 +111,8 @@ protected:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // RENDERTASK_H_6014714286

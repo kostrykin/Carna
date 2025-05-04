@@ -20,7 +20,7 @@
 
 class QImage;
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -90,4 +90,4 @@ private:
 
 }  // namespace testing
 
-}  // namespace Carna
+}  // namespace LibCarna

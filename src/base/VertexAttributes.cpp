@@ -15,7 +15,7 @@
 #include <LibCarna/base/glew.h>
 #include <LibCarna/base/VertexAttributes.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -33,6 +33,6 @@ const unsigned int VertexAttribute::TYPE_UINT  = GL_UNSIGNED_INT;
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

@@ -23,10 +23,10 @@
 #include <string>
 
 /** \file   FrameRenderer.h
-  * \brief  Defines \ref Carna::base::FrameRenderer.
+  * \brief  Defines \ref LibCarna::base::FrameRenderer.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -255,8 +255,8 @@ private:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // FRAMERENDERER_H_6014714286

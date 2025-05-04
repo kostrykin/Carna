@@ -20,10 +20,10 @@
 #include <sstream>
 
 /** \file   text.h
-  * \brief  Defines \ref Carna::base::text.
+  * \brief  Defines \ref LibCarna::base::text.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -58,7 +58,7 @@ std::string LIBCARNA cat( const std::string& file );
   * Example:
   *
   *     \code
-  *     using Carna::base::text::lexical_cast;
+  *     using LibCarna::base::text::lexical_cast;
   *
   *     const unsigned int i = 3;
   *     const  std::string s = lexical_cast<  std::string >( i );
@@ -79,10 +79,10 @@ To lexical_cast( const From& from )
 
 
 
-}  // namespace Carna :: base :: text
+}  // namespace LibCarna :: base :: text
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // TEXT_H_6014714286

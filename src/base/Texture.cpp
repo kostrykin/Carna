@@ -15,10 +15,10 @@
 #include <LibCarna/base/glew.h>
 #include <LibCarna/base/glError.h>
 #include <LibCarna/base/Texture.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <LibCarna/base/text.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -155,6 +155,6 @@ void TextureBase::uploadGLTextureData
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

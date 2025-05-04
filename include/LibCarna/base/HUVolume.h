@@ -17,7 +17,7 @@
 
 /** \file   HUVolume.h
   *
-  * \brief  Defines \ref Carna::base::HUVolume.
+  * \brief  Defines \ref LibCarna::base::HUVolume.
   *
   * \author Leonid Kostrykin
   */
@@ -26,7 +26,7 @@
 #include <LibCarna/base/noncopyable.h>
 #include <LibCarna/base/HUV.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -81,8 +81,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // HUVOLUME_H_6014714286

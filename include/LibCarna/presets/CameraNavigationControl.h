@@ -20,10 +20,10 @@
 #include <memory>
 
 /** \file   CameraNavigationControl.h
-  * \brief  Defines \ref Carna::presets::CameraNavigationControl.
+  * \brief  Defines \ref LibCarna::presets::CameraNavigationControl.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -87,9 +87,9 @@ public:
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 
 

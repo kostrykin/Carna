@@ -20,7 +20,7 @@
 class QGLFormat;
 class QGLPixelBuffer;
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -37,17 +37,17 @@ class QGLContextHolder
 
     const std::unique_ptr< QGLPixelBuffer > pbuffer;
 
-    const std::unique_ptr< Carna::base::GLContext > glContextWrapper;
+    const std::unique_ptr< LibCarna::base::GLContext > glContextWrapper;
 
     const static QGLFormat format;
 
-    static Carna::base::GLContext* createGLContextWrapper( QGLPixelBuffer& );
+    static LibCarna::base::GLContext* createGLContextWrapper( QGLPixelBuffer& );
 
 public:
 
     QGLContextHolder();
 
-    Carna::base::GLContext& glContext();
+    LibCarna::base::GLContext& glContext();
 
 }; // QGLContextHolder
 
@@ -55,4 +55,4 @@ public:
 
 }  // namespace testing
 
-}  // namespace Carna
+}  // namespace LibCarna

@@ -18,10 +18,10 @@
 #include <LibCarna/LibCarna.h>
 
 /** \file   RenderStageListener.h
-  * \brief  Defines \ref Carna::base::RenderStageListener.
+  * \brief  Defines \ref LibCarna::base::RenderStageListener.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -62,8 +62,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // RENDERSTAGELISTENER_H_6014714286

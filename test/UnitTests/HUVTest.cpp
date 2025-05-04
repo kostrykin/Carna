@@ -15,7 +15,7 @@
 #include "HUVTest.h"
 #include <LibCarna/base/HUV.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -64,6 +64,6 @@ void HUVTest::test_HUV_abs()
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna

@@ -24,10 +24,10 @@
 #include <map>
 
 /** \file   GeometryStage.h
-  * \brief  Defines \ref Carna::base::GeometryStage.
+  * \brief  Defines \ref LibCarna::base::GeometryStage.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -78,7 +78,7 @@ public:
 
     /** \brief
       * Instantiates s.t. the \ref rq "predefined rendering queue" enqueues such
-      * \ref Carna::base::Geometry scene graph nodes, whose geometry type
+      * \ref LibCarna::base::Geometry scene graph nodes, whose geometry type
       * *AND*-linked with \a geometryTypeMask equals the \a geometryType specified
       * here.
       */
@@ -94,7 +94,7 @@ public:
       */
     virtual ~GeometryStage();
 
-    /** \copydoc Carna::base::RenderStage::prepareFrame
+    /** \copydoc LibCarna::base::RenderStage::prepareFrame
       */
     virtual void prepareFrame( Node& root ) override;
 
@@ -121,8 +121,8 @@ public:
 protected:
 
     /** \brief
-      * Ensures that the \ref Carna::base::GLContext "OpenGL context" of the hosting
-      * \ref Carna::base::FrameRenderer is the current one.
+      * Ensures that the \ref LibCarna::base::GLContext "OpenGL context" of the hosting
+      * \ref LibCarna::base::FrameRenderer is the current one.
       */
     void activateGLContext() const;
     
@@ -312,8 +312,8 @@ const typename GeometryFeatureType::ManagedInterface& GeometryStage< RenderableC
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // GEOMETRYSTAGE_H_6014714286

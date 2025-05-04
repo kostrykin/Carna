@@ -20,10 +20,10 @@
 #include <memory>
 
 /** \file   RenderState.h
-  * \brief  Defines \ref Carna::base::RenderState.
+  * \brief  Defines \ref LibCarna::base::RenderState.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -221,8 +221,8 @@ private:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // RENDERSTATE_H_6014714286

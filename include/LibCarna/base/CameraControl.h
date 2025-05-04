@@ -18,10 +18,10 @@
 #include <LibCarna/LibCarna.h>
 
 /** \file   CameraControl.h
-  * \brief  Defines \ref Carna::base::CameraControl.
+  * \brief  Defines \ref LibCarna::base::CameraControl.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -83,9 +83,9 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 
 

@@ -23,10 +23,10 @@
 #include <string>
 
 /** \file   Material.h
-  * \brief  Defines \ref Carna::base::Material.
+  * \brief  Defines \ref LibCarna::base::Material.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -160,7 +160,7 @@ namespace base
   * will be able to locate the shader sources:
   *
   *     \code
-  *     using namespace Carna;
+  *     using namespace LibCarna;
   *     base::ShaderManager::instance().setSource( "myShader.vert", srcVert );
   *     base::ShaderManager::instance().setSource( "myShader.frag", srcFrag );
   *     \endcode
@@ -311,8 +311,8 @@ void Material::setParameter( const std::string& name, const ParameterType& value
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // MATERIAL_H_6014714286

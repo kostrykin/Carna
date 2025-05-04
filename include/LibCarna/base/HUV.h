@@ -16,13 +16,13 @@
 #define HUV_H_6014714286
 
 #include <LibCarna/LibCarna.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 
 /** \file   HUV.h
-  * \brief  Defines \ref Carna::base::HUV.
+  * \brief  Defines \ref LibCarna::base::HUV.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -153,8 +153,8 @@ HUV HUV::rel( T value )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // HUV_H_6014714286

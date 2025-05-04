@@ -16,13 +16,13 @@
 #define ROTATINGCOLOR_H_6014714286
 
 /** \file   RotatingColor.h
-  * \brief  Defines \ref Carna::base::RotatingColor.
+  * \brief  Defines \ref LibCarna::base::RotatingColor.
   */
 
 #include <LibCarna/LibCarna.h>
 #include <LibCarna/base/Color.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -106,8 +106,8 @@ private:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // ROTATINGCOLOR_H_6014714286

@@ -20,7 +20,7 @@
 #include <LibCarna/base/Material.h>
 #include <LibCarna/base/RotatingColor.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace helpers
@@ -173,6 +173,6 @@ base::Geometry* PointMarkerHelper::createPointMarker( unsigned int pointSize ) c
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace LibCarna :: helpers
 
-}  // namespace Carna
+}  // namespace LibCarna

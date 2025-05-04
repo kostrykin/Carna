@@ -16,16 +16,16 @@
 #define BUFFEREDINTENSITYVOLUME_H_6014714286
 
 /** \file   BufferedIntensityVolume.h
-  * \brief  Defines \ref Carna::base::BufferedIntensityVolume.
+  * \brief  Defines \ref LibCarna::base::BufferedIntensityVolume.
   */
 
 #include <LibCarna/base/IntensityVolume.h>
 #include <LibCarna/base/Composition.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <vector>
 #include <memory>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -191,8 +191,8 @@ private:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // BUFFEREDINTENSITYVOLUME_H_6014714286

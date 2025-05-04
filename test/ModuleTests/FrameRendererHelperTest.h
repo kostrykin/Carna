@@ -16,7 +16,7 @@
 
 #include <LibCarna/LibCarna.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -29,7 +29,7 @@ namespace testing
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Module-tests of the \ref Carna::helpers::FrameRendererHelper class.
+  * Module-tests of the \ref LibCarna::helpers::FrameRendererHelper class.
   *
   * \author Leonid Kostrykin
   */
@@ -75,4 +75,4 @@ private:
 
 }  // namespace testing
 
-}  // namespace Carna
+}  // namespace LibCarna

@@ -44,7 +44,7 @@
 // Forward Declarations
 // ----------------------------------------------------------------------------------
 
-namespace Carna
+namespace LibCarna
 {
 
     /** \brief
@@ -59,7 +59,7 @@ namespace Carna
         class  BoundingBox;
         class  BoundingVolume;
         class  CameraControl;
-        class  CarnaException;
+        class  LibCarnaException;
         class  Log;
         class  HUVolume;
         class  BaseBuffer;
@@ -225,6 +225,6 @@ namespace Carna
 
     }
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // LIBCARNA_GLOBAL_H_6014714286

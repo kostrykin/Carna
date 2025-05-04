@@ -21,10 +21,10 @@
 #include <memory>
 
 /** \file   DVRStage.h
-  * \brief  Defines \ref Carna::presets::DVRStage.
+  * \brief  Defines \ref LibCarna::presets::DVRStage.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -221,8 +221,8 @@ protected:
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // DVRSTAGE_H_6014714286

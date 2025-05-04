@@ -17,7 +17,7 @@
 #include <LibCarna/base/math.h>
 #include <LibCarna/base/Log.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -103,6 +103,6 @@ void CameraNavigationControl::moveLaterally( float unitsX, float unitsY )
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

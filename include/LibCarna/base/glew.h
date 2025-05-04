@@ -37,7 +37,7 @@
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Invokes \c glewInit and raises an \ref Carna::base::AssertionFailure "AssertionFailure" if it fails.
+  * Invokes \c glewInit and raises an \ref LibCarna::base::AssertionFailure "AssertionFailure" if it fails.
   */
 #define LIBCARNA_GLEW_INIT \
     { \
@@ -45,7 +45,7 @@
         const auto glew_ok = ( glew_state == GLEW_OK ); \
         if( glew_ok ) \
         { \
-            Carna::base::Log::instance().record( Carna::base::Log::debug, "GLEW initialized successfully." ); \
+            LibCarna::base::Log::instance().record( LibCarna::base::Log::debug, "GLEW initialized successfully." ); \
         } \
         else \
         { \

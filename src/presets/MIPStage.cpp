@@ -20,11 +20,11 @@
 #include <LibCarna/base/Viewport.h>
 #include <LibCarna/base/RenderState.h>
 #include <LibCarna/base/math.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <vector>
 #include <algorithm>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -193,6 +193,6 @@ void MIPStage::configureShader( const base::Renderable& )
 
 
 
-}  // namespace Carna :: VolumeRenderings
+}  // namespace LibCarna :: VolumeRenderings
 
-}  // namespace Carna
+}  // namespace LibCarna

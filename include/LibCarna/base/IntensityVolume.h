@@ -17,7 +17,7 @@
 
 /** \file   IntensityVolume.h
   *
-  * \brief  Defines \ref Carna::base::IntensityVolume.
+  * \brief  Defines \ref LibCarna::base::IntensityVolume.
   *
   * \author Leonid Kostrykin
   */
@@ -25,7 +25,7 @@
 #include <LibCarna/base/math/VectorField.h>
 #include <LibCarna/base/noncopyable.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -80,8 +80,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // INTENSITYVOLUME_H_6014714286

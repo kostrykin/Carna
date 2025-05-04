@@ -21,10 +21,10 @@
 #include <memory>
 
 /** \file   RenderStageSequence.h
-  * \brief  Defines \ref Carna::base::RenderStageSequence.
+  * \brief  Defines \ref LibCarna::base::RenderStageSequence.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -116,8 +116,8 @@ Aggregation< RenderStage > RenderStageSequence::findStage() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // RENDERSTAGESEQUENCE_H_0874895466

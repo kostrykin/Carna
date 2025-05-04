@@ -20,17 +20,17 @@
 #include <LibCarna/base/Geometry.h>
 #include <LibCarna/base/Renderable.h>
 #include <LibCarna/base/math.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <LibCarna/base/noncopyable.h>
 #include <vector>
 #include <algorithm>
 #include <climits>
 
 /** \file   RenderQueue.h
-  * \brief  Defines \ref Carna::base::RenderQueue.
+  * \brief  Defines \ref LibCarna::base::RenderQueue.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -265,8 +265,8 @@ const Renderable& RenderQueue< RenderableCompare >::last() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // RENDERQUEUE_H_6014714286

@@ -17,7 +17,7 @@
 #include <LibCarna/base/Framebuffer.h>
 #include <LibCarna/base/Camera.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -120,6 +120,6 @@ void RenderTask::finish()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

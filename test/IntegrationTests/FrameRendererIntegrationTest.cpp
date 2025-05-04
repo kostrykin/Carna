@@ -56,7 +56,7 @@ void FrameRendererIntegrationTest::test_typical()
     const static unsigned int GEOMETRY_TYPE_PLANE      = 1;
     const static unsigned int GEOMETRY_TYPE_OPAQUE     = 2;
 
-    using namespace Carna;
+    using namespace LibCarna;
 
     base::FrameRenderer fr( glContext, 800, 600, true );
     helpers::FrameRendererHelper< > frHelper( fr );
@@ -139,7 +139,7 @@ void FrameRendererIntegrationTest::test_8bit()
     const static unsigned int GEOMETRY_TYPE_PLANE      = 1;
     const static unsigned int GEOMETRY_TYPE_OPAQUE     = 2;
 
-    using namespace Carna;
+    using namespace LibCarna;
 
     base::FrameRenderer fr( glContext, 800, 600, true );
     helpers::FrameRendererHelper< > frHelper( fr );

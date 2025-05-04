@@ -20,10 +20,10 @@
 #include <memory>
 
 /** \file   MaskRenderingStage.h
-  * \brief  Defines \ref Carna::presets::MaskRenderingStage.
+  * \brief  Defines \ref LibCarna::presets::MaskRenderingStage.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -155,8 +155,8 @@ protected:
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // MASKRENDERINGSTAGE_H_6014714286

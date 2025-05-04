@@ -17,7 +17,7 @@
 #include <LibCarna/LibCarna.h>
 #include <QApplication>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -45,4 +45,4 @@ public:
 
 }  // namespace testing
 
-}  // namespace Carna
+}  // namespace LibCarna

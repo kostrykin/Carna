@@ -17,7 +17,7 @@ set( LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/bin )
 ############################################
 # Project name
 ############################################
-project( CarnaDemo )
+project( LibCarnaDemo )
 set( TARGET_NAME	${PROJECT_NAME}-${FULL_VERSION} )
 ############################################
 

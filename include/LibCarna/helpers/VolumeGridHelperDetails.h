@@ -27,10 +27,10 @@
 #include <map>
 
 /** \file   VolumeGridHelperDetails.h
-  * \brief  Defines \ref Carna::helpers::details::VolumeGridHelper.
+  * \brief  Defines \ref LibCarna::helpers::details::VolumeGridHelper.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace helpers
@@ -40,7 +40,7 @@ namespace details
 {
 
 /** \brief
-  * Holds implementation details of \ref Carna::helpers::VolumeGridHelper.
+  * Holds implementation details of \ref LibCarna::helpers::VolumeGridHelper.
   */
 namespace VolumeGridHelper
 {
@@ -161,7 +161,7 @@ public:
     virtual ~TextureManager();
 
     /** \brief
-      * \ref Carna::base::GeometryFeature::release "Releases" all textures.
+      * \ref LibCarna::base::GeometryFeature::release "Releases" all textures.
       */
     void releaseGeometryFeatures();
 
@@ -741,8 +741,8 @@ struct Partionining
 
 }  // namespace details
 
-}  // namespace Carna :: helpers
+}  // namespace LibCarna :: helpers
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // VOLUMEGRIDHELPERDETAILS_H_6014714286

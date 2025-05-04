@@ -18,10 +18,10 @@
 #include <LibCarna/base/RenderStage.h>
 
 /** \file   OccludedRenderingStage.h
-  * \brief  Defines \ref Carna::presets::OccludedRenderingStage.
+  * \brief  Defines \ref LibCarna::presets::OccludedRenderingStage.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -131,8 +131,8 @@ public:
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // OCCLUDEDRENDERINGSTAGE_H_6014714286

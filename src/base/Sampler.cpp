@@ -16,9 +16,9 @@
 #include <LibCarna/base/glError.h>
 #include <LibCarna/base/Sampler.h>
 #include <LibCarna/base/Texture.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -142,6 +142,6 @@ void Sampler::setMagFilter( unsigned int magFilter )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

@@ -14,7 +14,7 @@
 
 #pragma once
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -27,7 +27,7 @@ namespace testing
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Unit-tests of the \ref Carna::base::math namespace.
+  * Unit-tests of the \ref LibCarna::base::math namespace.
   *
   * \author Leonid Kostrykin
   */
@@ -61,72 +61,72 @@ private slots:
  // ----------------------------------------------------------------------------------
 
     /** \brief
-      * Test cases for \ref Carna::base::math::epsilon
+      * Test cases for \ref LibCarna::base::math::epsilon
       */
     void test_epsilon();
 
     /** \brief
-      * Test cases for \ref Carna::base::math::length2
+      * Test cases for \ref LibCarna::base::math::length2
       */
     void test_length2();
 
     /** \brief
-      * Test cases for \ref Carna::base::math::isEqual
+      * Test cases for \ref LibCarna::base::math::isEqual
       */
     void test_isEqual();
 
     /** \brief
-      * Test cases for \ref Carna::base::math::identity4f
+      * Test cases for \ref LibCarna::base::math::identity4f
       */
     void test_identity4f();
 
     /** \brief
-      * Test cases for \ref Carna::base::math::zeros
+      * Test cases for \ref LibCarna::base::math::zeros
       */
     void test_zeros();
 
     /** \brief
-      * Test cases for \ref Carna::base::math::basis4f
+      * Test cases for \ref LibCarna::base::math::basis4f
       */
     void test_basis4f();
 
     /** \brief
-      * Test cases for \ref Carna::base::math::translation4f
+      * Test cases for \ref LibCarna::base::math::translation4f
       */
     void test_translation4f();
 
     /** \brief
-      * Test cases for \ref Carna::base::math::scaling4f
+      * Test cases for \ref LibCarna::base::math::scaling4f
       */
     void test_scaling4f();
 
     /** \brief
-      * Test cases for \ref Carna::base::math::orthogonal3f
+      * Test cases for \ref LibCarna::base::math::orthogonal3f
       */
     void test_orthogonal3f();
 
     /** \brief
-      * Test cases for \ref Carna::base::math::plane4f
+      * Test cases for \ref LibCarna::base::math::plane4f
       */
     void test_plane4f();
 
     /** \brief
-      * Test cases for \ref Carna::base::math::round_ui
+      * Test cases for \ref LibCarna::base::math::round_ui
       */
     void test_round_ui();
 
     /** \brief
-      * Test cases for \ref Carna::base::math::makeEven
+      * Test cases for \ref LibCarna::base::math::makeEven
       */
     void test_makeEven();
 
     /** \brief
-      * Test cases for \ref Carna::base::math::mix
+      * Test cases for \ref LibCarna::base::math::mix
       */
     void test_mix();
     
     /** \brief
-      * Test cases for \ref Carna::base::math::LIBCARNA_FOR_VECTOR3UI
+      * Test cases for \ref LibCarna::base::math::LIBCARNA_FOR_VECTOR3UI
       */
     void test_LIBCARNA_FOR_VECTOR3UI();
     
@@ -134,6 +134,6 @@ private slots:
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna

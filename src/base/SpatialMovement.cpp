@@ -14,11 +14,11 @@
 
 #include <LibCarna/base/SpatialMovement.h>
 #include <LibCarna/base/Spatial.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <LibCarna/base/math/Ray.h>
 #include <LibCarna/base/math/RayPlaneHitTest.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -232,6 +232,6 @@ Spatial& SpatialMovement::movedSpatial() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

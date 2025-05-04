@@ -20,10 +20,10 @@
 #include <memory>
 
 /** \file   CameraShowcaseControl.h
-  * \brief  Defines \ref Carna::presets::CameraShowcaseControl.
+  * \brief  Defines \ref LibCarna::presets::CameraShowcaseControl.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -132,9 +132,9 @@ public:
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 
 

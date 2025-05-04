@@ -15,7 +15,7 @@
 #include <LibCarna/base/ManagedMeshInterface.h>
 #include <LibCarna/base/Mesh.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -48,6 +48,6 @@ const MeshBase& ManagedMeshInterface::get() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

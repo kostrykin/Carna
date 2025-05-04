@@ -15,7 +15,7 @@
 #include <LibCarna/base/Color.h>
 #include <LibCarna/base/math.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -114,6 +114,6 @@ Color& Color::operator=( const Color& other )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

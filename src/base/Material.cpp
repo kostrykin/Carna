@@ -15,10 +15,10 @@
 #include <LibCarna/base/Material.h>
 #include <LibCarna/base/ShaderManager.h>
 #include <LibCarna/base/GLContext.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <map>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -185,6 +185,6 @@ Material::ManagedInterface* Material::acquireVideoResource()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

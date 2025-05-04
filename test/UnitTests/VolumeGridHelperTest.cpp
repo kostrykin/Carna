@@ -27,7 +27,7 @@ void verifyPartitioning( const TestedHelperType& helper )
 {
     LIBCARNA_FOR_VECTOR3UI( coord, helper.grid().segmentCounts )
     {
-        const Carna::base::math::Vector3ui& size = helper.grid().segmentAt( coord ).intensities().size;
+        const LibCarna::base::math::Vector3ui& size = helper.grid().segmentAt( coord ).intensities().size;
         QCOMPARE( size.x() % 2, 0u );
         QCOMPARE( size.y() % 2, 0u );
         QCOMPARE( size.z() % 2, 0u );

@@ -18,7 +18,7 @@
 #include <LibCarna/base/Log.h>
 #include <sstream>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -229,6 +229,6 @@ void ShaderManager::removeSource( const std::string& srcName )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

@@ -17,7 +17,7 @@
 
 /** \file   VectorField.h
   *
-  * \brief  Defines \ref Carna::base::math::VectorField.
+  * \brief  Defines \ref LibCarna::base::math::VectorField.
   *
   * \author Leonid Kostrykin
   */
@@ -25,7 +25,7 @@
 #include <LibCarna/base/math.h>
 #include <LibCarna/LibCarna.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -87,10 +87,10 @@ ValueType VectorField< ValueType >::operator()( const math::Vector3ui& at ) cons
 
 
 
-}  // namespace Carna :: base :: math
+}  // namespace LibCarna :: base :: math
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // VECTORFIELD_H_6014714286

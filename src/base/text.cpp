@@ -15,7 +15,7 @@
 #include <LibCarna/base/text.h>
 #include <fstream>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -38,8 +38,8 @@ std::string cat( const std::string& fileName )
 
 
 
-}  // namespace Carna :: base :: text
+}  // namespace LibCarna :: base :: text
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

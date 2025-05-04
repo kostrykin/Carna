@@ -18,10 +18,10 @@
 #include <LibCarna/base/RenderStage.h>
 
 /** \file   CompositionStage.h
-  * \brief  Defines \ref Carna::presets::CompositionStage.
+  * \brief  Defines \ref LibCarna::presets::CompositionStage.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -148,8 +148,8 @@ protected:
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // COMPOSITIONSTAGE_H_6014714286

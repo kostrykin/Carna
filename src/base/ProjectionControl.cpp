@@ -13,9 +13,9 @@
  */
 
 #include <LibCarna/base/ProjectionControl.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -156,6 +156,6 @@ void ProjectionControl::setProjectionValidated() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

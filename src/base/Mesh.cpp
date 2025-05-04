@@ -15,7 +15,7 @@
 #include <LibCarna/base/glew.h>
 #include <LibCarna/base/Mesh.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -143,6 +143,6 @@ IndexBufferBase& MeshBase::indexBuffer()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

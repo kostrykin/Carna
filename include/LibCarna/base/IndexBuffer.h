@@ -21,10 +21,10 @@
 #include <cstdint>
 
 /** \file   IndexBuffer.h
-  * \brief  Defines \ref Carna::base::IndexBuffer.
+  * \brief  Defines \ref LibCarna::base::IndexBuffer.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -245,8 +245,8 @@ void IndexBuffer< IndexType >::copy( const IndexType* indicesPtr, const std::siz
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // INDEXBUFFER_H_6014714286

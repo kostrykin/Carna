@@ -20,7 +20,7 @@
 #include <LibCarna/base/Viewport.h>
 #include <set>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -240,6 +240,6 @@ float OccludedRenderingStage::occlusionTranslucency() const
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

@@ -14,7 +14,7 @@
 
 #include <LibCarna/base/BoundingVolume.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -84,6 +84,6 @@ const math::Matrix4f& BoundingVolume::inverseTransform() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

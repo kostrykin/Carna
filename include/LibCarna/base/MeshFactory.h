@@ -30,10 +30,10 @@
 #include <string>
 
 /** \file   MeshFactory.h
-  * \brief  Defines \ref Carna::base::MeshFactory.
+  * \brief  Defines \ref LibCarna::base::MeshFactory.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -364,8 +364,8 @@ ManagedMesh< VertexType, uint32_t >& MeshFactory< VertexType >::createFromSTL( s
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // MESHFACTORY_H_6014714286

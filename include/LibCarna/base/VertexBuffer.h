@@ -20,10 +20,10 @@
 #include <iterator>
 
 /** \file   VertexBuffer.h
-  * \brief  Defines \ref Carna::base::VertexBuffer.
+  * \brief  Defines \ref LibCarna::base::VertexBuffer.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -100,8 +100,8 @@ void VertexBuffer< VertexType >::copy( const Vertex* verticesPtr, const std::siz
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // VERTEXBUFFER_H_6014714286

@@ -19,7 +19,7 @@
 #include <LibCarna/base/ShaderManager.h>
 #include <LibCarna/base/Texture.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -213,6 +213,6 @@ void ColorMap::bind( int unit ) const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

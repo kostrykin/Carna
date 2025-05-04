@@ -15,7 +15,7 @@
 #include "ColorTest.h"
 #include <LibCarna/base/Color.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -79,6 +79,6 @@ void ColorTest::test_assignment_operator()
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna

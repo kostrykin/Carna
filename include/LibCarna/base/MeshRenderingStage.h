@@ -24,10 +24,10 @@
 #include <LibCarna/base/ManagedMesh.h>
 
 /** \file   MeshRenderingStage.h
-  * \brief  Defines \ref Carna::base::MeshRenderingStage.
+  * \brief  Defines \ref LibCarna::base::MeshRenderingStage.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -125,7 +125,7 @@ public:
 
 protected:
 
-    /** \copydoc Carna::base::GeometryStage::render
+    /** \copydoc LibCarna::base::GeometryStage::render
       */
     virtual void render( const Renderable& renderable ) override;
 
@@ -167,8 +167,8 @@ void MeshRenderingStage< RenderableCompare >::render( const Renderable& renderab
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // MESHRENDERINGSTAGE_H_6014714286

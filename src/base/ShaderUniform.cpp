@@ -15,7 +15,7 @@
 #include <LibCarna/base/glew.h>
 #include <LibCarna/base/ShaderUniform.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -115,6 +115,6 @@ void uploadUniform( int location, const math::Matrix4f& value )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

@@ -19,10 +19,10 @@
 #include <LibCarna/base/math.h>
 
 /** \file   Ray.h
-  * \brief  Defines \ref Carna::base::math::Ray.
+  * \brief  Defines \ref LibCarna::base::math::Ray.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -107,10 +107,10 @@ public:
 
 
 
-}  // namespace Carna :: base :: math
+}  // namespace LibCarna :: base :: math
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // RAY_H_6014714286

@@ -16,7 +16,7 @@
 
 #include <LibCarna/LibCarna.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -29,7 +29,7 @@ namespace testing
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Integration-tests of the \ref Carna::presets::ParallaxStage class.
+  * Integration-tests of the \ref LibCarna::presets::ParallaxStage class.
   *
   * \author Leonid Kostrykin
   */
@@ -81,4 +81,4 @@ private:
 
 }  // namespace testing
 
-}  // namespace Carna
+}  // namespace LibCarna

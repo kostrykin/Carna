@@ -14,7 +14,7 @@
 
 #include <LibCarna/base/NodeListener.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -32,6 +32,6 @@ NodeListener::~NodeListener()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

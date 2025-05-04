@@ -21,10 +21,10 @@
 #include <LibCarna/base/math.h>
 
 /** \file   ManagedMeshInterface.h
-  * \brief  Defines \ref Carna::base::ManagedMeshInterface.
+  * \brief  Defines \ref LibCarna::base::ManagedMeshInterface.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -71,8 +71,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // MANAGEDMESHINTERFACE_H_6014714286

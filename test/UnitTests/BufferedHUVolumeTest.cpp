@@ -51,13 +51,13 @@ void BufferedHUVolumeTest::test_instantiation()
 }
 
 
-unsigned int BufferedHUVolumeTest::indexByPosition( const Carna::base::math::Vector3ui& pos ) const
+unsigned int BufferedHUVolumeTest::indexByPosition( const LibCarna::base::math::Vector3ui& pos ) const
 {
     return pos.x() + pos.y() * volume->size.x() + pos.z() * volume->size.x() * volume->size.y();
 }
 
 
-Carna::base::HUV BufferedHUVolumeTest::huvByIndex( unsigned int index ) const
+LibCarna::base::HUV BufferedHUVolumeTest::huvByIndex( unsigned int index ) const
 {
     const unsigned int maxIndex = volume->size.x() * volume->size.y() * volume->size.z() - 1;
     const float linear = static_cast< float >( index ) / maxIndex;

@@ -16,7 +16,7 @@
 
 #include <LibCarna/LibCarna.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -29,7 +29,7 @@ namespace testing
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Unit-tests of the \ref Carna::helpers::VolumeGridHelper class template.
+  * Unit-tests of the \ref LibCarna::helpers::VolumeGridHelper class template.
   *
   * \author Leonid Kostrykin
   */
@@ -72,4 +72,4 @@ private slots:
 
 }  // namespace testing
 
-}  // namespace Carna
+}  // namespace LibCarna

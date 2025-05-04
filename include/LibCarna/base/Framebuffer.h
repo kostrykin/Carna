@@ -16,7 +16,7 @@
 #define FRAMEBUFFER_H_6014714286
 
 /** \file   Framebuffer.h
-  * \brief  Defines \ref Carna::base::Framebuffer
+  * \brief  Defines \ref LibCarna::base::Framebuffer
   */
 
 #include <LibCarna/LibCarna.h>
@@ -25,7 +25,7 @@
 #include <stack>
 #include <set>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -302,7 +302,7 @@ private:
   */
 #define LIBCARNA_RENDER_TO_FRAMEBUFFER_EX( fbo, binding, instructions ) \
     { \
-        Carna::base::Framebuffer::Binding binding( fbo ); \
+        LibCarna::base::Framebuffer::Binding binding( fbo ); \
         instructions; \
     }
 
@@ -319,8 +319,8 @@ private:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // FRAMEBUFFER_H_6014714286

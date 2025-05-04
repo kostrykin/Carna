@@ -14,7 +14,7 @@
 
 #include <LibCarna/base/NormalMap3D.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -38,6 +38,6 @@ NormalMap3D::NormalMap3D( const math::Vector3ui& size )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

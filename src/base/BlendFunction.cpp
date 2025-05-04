@@ -14,7 +14,7 @@
 
 #include <LibCarna/base/BlendFunction.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -40,6 +40,6 @@ bool BlendFunction::operator==( const BlendFunction& other ) const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

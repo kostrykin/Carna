@@ -16,12 +16,12 @@
 #define AGGREGATION_H_6014714286
 
 /** \file   Aggregation.h
-  * \brief  Defines \ref Carna::base::Aggregation.
+  * \brief  Defines \ref LibCarna::base::Aggregation.
   */
 
 #include <LibCarna/base/Association.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -88,8 +88,8 @@ const Aggregation< AssociatedObjectType > Aggregation< AssociatedObjectType >::N
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // AGGREGATION_H_6014714286

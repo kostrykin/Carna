@@ -18,10 +18,10 @@
 #include <LibCarna/LibCarna.h>
 
 /** \file   BufferedVectorFieldFormat.h
-  * \brief  Defines \ref Carna::base::BufferedVectorFieldFormat.
+  * \brief  Defines \ref LibCarna::base::BufferedVectorFieldFormat.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -96,8 +96,8 @@ struct LIBCARNA BufferedVectorFieldFormat< NormalMap3DInt8 >
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // BUFFEREDVECTORFIELDFORMAT_H_6014714286

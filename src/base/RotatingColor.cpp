@@ -14,7 +14,7 @@
 
 #include <LibCarna/base/RotatingColor.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -68,6 +68,6 @@ RotatingColor& RotatingColor::operator++()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

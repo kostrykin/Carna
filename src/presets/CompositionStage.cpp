@@ -22,7 +22,7 @@
 #include <LibCarna/base/Viewport.h>
 #include <LibCarna/base/RenderState.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -236,6 +236,6 @@ void CompositionStage::prepareFrame( base::Node& root )
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

@@ -13,14 +13,14 @@
  */
 
 #include "TestFramebuffer.h"
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <LibCarna/base/Framebuffer.h>
 #include <LibCarna/base/Texture.h>
 #include <LibCarna/base/math.h>
 #include <QFileInfo>
 #include <regex>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -192,6 +192,6 @@ bool TestFramebuffer::areSimilar( const QImage& img1, const QImage& img2, double
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna

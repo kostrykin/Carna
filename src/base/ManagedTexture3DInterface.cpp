@@ -16,7 +16,7 @@
 #include <LibCarna/base/ManagedTexture3D.h>
 #include <LibCarna/base/Texture.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -56,6 +56,6 @@ const Texture< 3 >& ManagedTexture3DInterface::get() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

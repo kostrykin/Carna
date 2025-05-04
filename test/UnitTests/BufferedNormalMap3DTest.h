@@ -16,7 +16,7 @@
 
 #include <LibCarna/LibCarna.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -29,7 +29,7 @@ namespace testing
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Unit-tests of the \ref Carna::base::BufferedNormalMap3D class.
+  * Unit-tests of the \ref LibCarna::base::BufferedNormalMap3D class.
   *
   * \author Leonid Kostrykin
   */
@@ -76,4 +76,4 @@ private:
 
 }  // namespace testing
 
-}  // namespace Carna
+}  // namespace LibCarna

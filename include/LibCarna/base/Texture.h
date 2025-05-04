@@ -18,13 +18,13 @@
 #include <LibCarna/LibCarna.h>
 #include <LibCarna/base/noncopyable.h>
 #include <LibCarna/base/math.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 
 /** \file   Texture.h
-  * \brief  Defines \ref Carna::base::Texture.
+  * \brief  Defines \ref LibCarna::base::Texture.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -302,8 +302,8 @@ void Texture< dimension >::update( const Eigen::Matrix< unsigned int, dimension,
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // TEXTURE_H_6014714286

@@ -57,7 +57,7 @@ LIBCARNA_ASSERT_API_VERSION( EXPECTED_MAJOR_VERSION, EXPECTED_MINOR_VERSION, EXP
 
 
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -76,7 +76,7 @@ class Demo : public QGLWidget
     const static int GEOMETRY_TYPE_OPAQUE        = 1;
     const static int GEOMETRY_TYPE_CUTTING_PLANE = 2;
 
-    typedef Carna::helpers::VolumeGridHelper< Carna::base::IntensityVolumeUInt16, Carna::base::NormalMap3DInt8 > GridHelper;
+    typedef LibCarna::helpers::VolumeGridHelper< LibCarna::base::IntensityVolumeUInt16, LibCarna::base::NormalMap3DInt8 > GridHelper;
 
     std::unique_ptr< GridHelper > gridHelper;
     std::unique_ptr< base::GLContext > glContext;
@@ -116,7 +116,7 @@ protected:
 
 
 Demo::Demo()
-    : QGLWidget( Carna::base::QGLContextAdapter< QGLContext, QGLFormat >::desiredFormat() )
+    : QGLWidget( LibCarna::base::QGLContextAdapter< QGLContext, QGLFormat >::desiredFormat() )
     , mouseInteraction( false )
 {
     setMouseTracking( true );
@@ -306,9 +306,9 @@ void Demo::paintGL()
 }
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 
 
@@ -318,8 +318,8 @@ void Demo::paintGL()
 
 int main( int argc, char** argv )
 {
-    Carna::testing::TestApplication app( argc, argv );
-    Carna::testing::Demo demo;
+    LibCarna::testing::TestApplication app( argc, argv );
+    LibCarna::testing::Demo demo;
     demo.show();
     return QApplication::exec();
 }

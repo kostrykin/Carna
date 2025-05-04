@@ -17,11 +17,11 @@
 #include <LibCarna/base/GLContext.h>
 #include <LibCarna/base/ShaderProgram.h>
 #include <LibCarna/base/RenderState.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <set>
 #include <stack>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -194,6 +194,6 @@ void GLContext::clearBuffers( unsigned int flags )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

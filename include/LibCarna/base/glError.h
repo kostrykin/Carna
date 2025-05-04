@@ -45,7 +45,7 @@
 
 #ifndef NO_GL_ERROR_CHECKING
 
-    #include <LibCarna/base/CarnaException.h>
+    #include <LibCarna/base/LibCarnaException.h>
 
     /** \brief  Defines the implementation of the \ref REPORT_GL_ERROR macro.
       *

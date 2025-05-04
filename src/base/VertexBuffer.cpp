@@ -15,7 +15,7 @@
 #include <LibCarna/base/glew.h>
 #include <LibCarna/base/VertexBuffer.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -43,6 +43,6 @@ void VertexBufferBase::copy( const void* bufferPtr, std::size_t bufferSize, std:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

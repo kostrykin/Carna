@@ -21,10 +21,10 @@
 #include <memory>
 
 /** \file   MIPStage.h
-  * \brief  Defines \ref Carna::presets::MIPStage.
+  * \brief  Defines \ref LibCarna::presets::MIPStage.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -122,8 +122,8 @@ protected:
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // MIPSTAGE_H_6014714286

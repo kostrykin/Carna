@@ -17,13 +17,13 @@
 #include <LibCarna/base/GLContext.h>
 #include <LibCarna/base/Framebuffer.h>
 #include <LibCarna/base/Viewport.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <LibCarna/base/Texture.h>
 #include <LibCarna/base/text.h>
 #include <stdexcept>
 #include <sstream>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -566,6 +566,6 @@ void Framebuffer::Binding::refresh()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

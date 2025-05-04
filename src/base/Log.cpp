@@ -13,11 +13,11 @@
  */
 
 #include <LibCarna/base/Log.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <iostream>
 #include <stack>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -259,6 +259,6 @@ Log::OnShutdownListener::~OnShutdownListener()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

@@ -16,7 +16,7 @@
 #include <LibCarna/presets/ParallaxStage.h>
 #include <LibCarna/base/math.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -98,6 +98,6 @@ void ParallaxStage::renderPass
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

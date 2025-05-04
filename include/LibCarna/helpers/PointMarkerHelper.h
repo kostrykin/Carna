@@ -19,10 +19,10 @@
 #include <LibCarna/base/noncopyable.h>
 
 /** \file   PointMarkerHelper.h
-  * \brief  Defines \ref Carna::helpers::PointMarkerHelper.
+  * \brief  Defines \ref LibCarna::helpers::PointMarkerHelper.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace helpers
@@ -146,9 +146,9 @@ public:
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace LibCarna :: helpers
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 
 

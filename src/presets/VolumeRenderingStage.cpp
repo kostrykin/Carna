@@ -25,7 +25,7 @@
 #include <LibCarna/base/math.h>
 #include <LibCarna/base/text.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -408,6 +408,6 @@ unsigned int VolumeRenderingStage::sampleRate() const
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

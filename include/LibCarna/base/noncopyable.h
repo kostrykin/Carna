@@ -17,10 +17,10 @@
 
 /** \file noncopyable.h
   *
-  * Defines \ref Carna::base::noncopyable and \ref NON_COPYABLE.
+  * Defines \ref LibCarna::base::noncopyable and \ref NON_COPYABLE.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -105,15 +105,15 @@ public:
   * \endcode
   *
   * This example also shows why the macro variant is to be preferred in place of the
-  * \ref Carna::base::noncopyable "noncopyable" super-class: In case some derivation
+  * \ref LibCarna::base::noncopyable "noncopyable" super-class: In case some derivation
   * becomes copyable, the \em "is" semantics stay valid.
   */
-#define NON_COPYABLE private: ::Carna::base::noncopyable __noncopyable;
+#define NON_COPYABLE private: ::LibCarna::base::noncopyable __noncopyable;
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // NONCOPYABLE_H_6014714286

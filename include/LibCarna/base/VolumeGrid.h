@@ -17,7 +17,7 @@
 
 /** \file   VolumeGrid.h
   *
-  * \brief  Defines \ref Carna::base::VolumeGrid.
+  * \brief  Defines \ref LibCarna::base::VolumeGrid.
   *
   * \author Leonid Kostrykin
   */
@@ -25,9 +25,9 @@
 #include <LibCarna/LibCarna.h>
 #include <LibCarna/base/IntensityVolume.h>
 #include <LibCarna/base/VolumeSegment.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -425,8 +425,8 @@ const SegmentNormalsVolumeType& VolumeGrid< SegmentIntensityVolumeType, SegmentN
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // VOLUMEGRID_H_6014714286

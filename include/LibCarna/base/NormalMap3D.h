@@ -17,7 +17,7 @@
 
 /** \file   NormalMap3D.h
   *
-  * \brief  Defines \ref Carna::base::NormalMap3D.
+  * \brief  Defines \ref LibCarna::base::NormalMap3D.
   *
   * \author Leonid Kostrykin
   */
@@ -26,7 +26,7 @@
 #include <LibCarna/base/math.h>
 #include <LibCarna/base/noncopyable.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -70,8 +70,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // NORMALMAP3D_H_6014714286

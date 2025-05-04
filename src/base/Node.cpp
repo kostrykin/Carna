@@ -17,7 +17,7 @@
 #include <algorithm>
 #include <set>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -277,6 +277,6 @@ void Node::updateWorldTransform()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

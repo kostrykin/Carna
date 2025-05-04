@@ -18,10 +18,10 @@
 #include <LibCarna/LibCarna.h>
 
 /** \file   NodeListener.h
-  * \brief  Defines \ref Carna::base::NodeListener.
+  * \brief  Defines \ref LibCarna::base::NodeListener.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -70,8 +70,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // NODELISTENER_H_6014714286

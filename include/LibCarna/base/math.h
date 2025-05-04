@@ -16,7 +16,7 @@
 #define MATH_H_6014714286
 
 #include <LibCarna/LibCarna.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <algorithm>
 #include <type_traits>
 #include <cmath>
@@ -39,14 +39,14 @@
   */
 
 /** \file   math.h
-  * \brief  Defines \ref Carna::base::math namespace and \ref LIBCARNA_FOR_VECTOR3UI.
+  * \brief  Defines \ref LibCarna::base::math namespace and \ref LIBCARNA_FOR_VECTOR3UI.
   *
   * \attention
   * If you include `windows.h` before including this file, make sure you have
   * `NOMINMAX` defined before including the `windows.h` header file.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -734,7 +734,7 @@ namespace math
   * where \f$\vec n\f$ is \a vecLimit and \f$\vec s\f$ is \a vecStart.
   */
 #define LIBCARNA_FOR_VECTOR3UI_EX( vecName, vecLimit, vecStart ) \
-    Carna::base::math::Vector3ui vecName; \
+    LibCarna::base::math::Vector3ui vecName; \
     for( vecName.z() = vecStart.x(); vecName.z() < vecLimit.z(); ++vecName.z() ) \
     for( vecName.y() = vecStart.y(); vecName.y() < vecLimit.y(); ++vecName.y() ) \
     for( vecName.x() = vecStart.z(); vecName.x() < vecLimit.x(); ++vecName.x() )
@@ -748,15 +748,15 @@ namespace math
   * Example: \snippet UnitTests/mathTest.cpp example_LIBCARNA_FOR_VECTOR3UI
   */
 #define LIBCARNA_FOR_VECTOR3UI( vecName, vecLimit ) \
-    LIBCARNA_FOR_VECTOR3UI_EX( vecName, vecLimit, Carna::base::math::Vector3ui( 0, 0, 0 ) )
+    LIBCARNA_FOR_VECTOR3UI_EX( vecName, vecLimit, LibCarna::base::math::Vector3ui( 0, 0, 0 ) )
 
 
 
-}  // namespace Carna :: base :: math
+}  // namespace LibCarna :: base :: math
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 
 

@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 3.5 )
 
-project( CarnaTest )
+project( LibCarnaTest )
 
 include( FindPackageHandleStandardArgs )
 

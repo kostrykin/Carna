@@ -16,7 +16,7 @@
 #include <LibCarna/base/RenderStageListener.h>
 #include <set>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -157,6 +157,6 @@ void RenderStage::removeRenderStageListener( RenderStageListener& listener )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

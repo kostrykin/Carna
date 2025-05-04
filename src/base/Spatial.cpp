@@ -14,9 +14,9 @@
 
 #include <LibCarna/base/Spatial.h>
 #include <LibCarna/base/Node.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -182,6 +182,6 @@ const std::string& Spatial::tag() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

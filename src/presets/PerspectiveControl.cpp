@@ -15,7 +15,7 @@
 #include <LibCarna/presets/PerspectiveControl.h>
 #include <LibCarna/base/math.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -92,6 +92,6 @@ void PerspectiveControl::updateProjection( base::math::Matrix4f& projection ) co
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

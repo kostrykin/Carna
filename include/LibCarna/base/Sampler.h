@@ -19,10 +19,10 @@
 #include <LibCarna/base/noncopyable.h>
 
 /** \file   Sampler.h
-  * \brief  Defines \ref Carna::base::Sampler.
+  * \brief  Defines \ref LibCarna::base::Sampler.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -114,8 +114,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // SAMPLER_H_6014714286

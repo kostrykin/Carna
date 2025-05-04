@@ -21,7 +21,7 @@
 #include <LibCarna/base/RenderState.h>
 #include <LibCarna/base/math.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -332,6 +332,6 @@ void CuttingPlanesStage::renderPass
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

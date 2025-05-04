@@ -20,10 +20,10 @@
 #include <LibCarna/base/math.h>
 
 /** \file   Renderable.h
-  * \brief  Defines \ref Carna::base::Renderable.
+  * \brief  Defines \ref LibCarna::base::Renderable.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -185,8 +185,8 @@ bool Renderable::VideoResourcesOrder< role >::operator()( const Renderable& l, c
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // RENDERABLE_H_6014714286

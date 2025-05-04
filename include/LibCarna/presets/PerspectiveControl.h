@@ -19,10 +19,10 @@
 #include <LibCarna/base/ProjectionControl.h>
 
 /** \file   PerspectiveControl.h
-  * \brief  Defines \ref Carna::presets::PerspectiveControl.
+  * \brief  Defines \ref LibCarna::presets::PerspectiveControl.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -84,9 +84,9 @@ public:
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 
 

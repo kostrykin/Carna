@@ -14,7 +14,7 @@
 
 #include <LibCarna/base/BoundingBox.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -88,6 +88,6 @@ void BoundingBox::computeClosemostPoint( math::Vector3f& out, const math::Vector
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

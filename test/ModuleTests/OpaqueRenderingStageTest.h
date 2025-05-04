@@ -17,7 +17,7 @@
 #include <LibCarna/LibCarna.h>
 #include <LibCarna/presets/OpaqueRenderingStage.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -30,7 +30,7 @@ namespace testing
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Module-tests of the \ref Carna::presets::OpaqueRenderingStage class.
+  * Module-tests of the \ref LibCarna::presets::OpaqueRenderingStage class.
   *
   * \author Leonid Kostrykin
   */
@@ -82,4 +82,4 @@ private:
 
 }  // namespace testing
 
-}  // namespace Carna
+}  // namespace LibCarna

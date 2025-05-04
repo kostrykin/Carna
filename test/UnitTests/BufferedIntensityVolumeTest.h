@@ -17,7 +17,7 @@
 #include <LibCarna/LibCarna.h>
 #include <LibCarna/base/BufferedIntensityVolume.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -30,7 +30,7 @@ namespace testing
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Unit-tests of the \ref Carna::base::BufferedIntensityVolume class.
+  * Unit-tests of the \ref LibCarna::base::BufferedIntensityVolume class.
   *
   * \author Leonid Kostrykin
   */
@@ -87,4 +87,4 @@ private:
 
 }  // namespace testing
 
-}  // namespace Carna
+}  // namespace LibCarna

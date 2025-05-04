@@ -22,10 +22,10 @@
 #include <vector>
 
 /** \file   ManagedMesh.h
-  * \brief  Defines \ref Carna::base::ManagedMesh.
+  * \brief  Defines \ref LibCarna::base::ManagedMesh.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -226,8 +226,8 @@ ManagedMesh< VertexType, IndexType >& ManagedMesh< VertexType, IndexType >::crea
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // MANAGEDMESH_H_6014714286

@@ -20,9 +20,9 @@
 #include <LibCarna/base/RenderState.h>
 #include <LibCarna/base/ShaderUniform.h>
 #include <LibCarna/base/math.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -239,6 +239,6 @@ void MaskRenderingStage::configureShader( const base::Renderable& )
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

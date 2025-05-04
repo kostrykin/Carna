@@ -16,12 +16,12 @@
 #define SHADERCOMPILATIONERROR_H_6014714286
 
 /** \file   ShaderCompilationError.h
-  * \brief  Defines \ref Carna::base::ShaderCompilationError.
+  * \brief  Defines \ref LibCarna::base::ShaderCompilationError.
   */
 
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -38,7 +38,7 @@ namespace base
   *
   * \author Leonid Kostrykin
   */
-class LIBCARNA ShaderCompilationError : public CarnaException
+class LIBCARNA ShaderCompilationError : public LibCarnaException
 {
 
 public:
@@ -71,8 +71,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // SHADERCOMPILATIONERROR_H_6014714286

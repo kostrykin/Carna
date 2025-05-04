@@ -14,7 +14,7 @@
 
 #include <LibCarna/helpers/VolumeGridHelperDetails.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace helpers
@@ -38,10 +38,10 @@ NormalsComponentBase::~NormalsComponentBase()
 
 
 
-}  // namespace Carna :: helpers :: VolumeGridHelper
+}  // namespace LibCarna :: helpers :: VolumeGridHelper
 
-}  // namespace Carna :: helpers :: details
+}  // namespace LibCarna :: helpers :: details
 
-}  // namespace Carna :: helpers
+}  // namespace LibCarna :: helpers
 
-}  // namespace Carna
+}  // namespace LibCarna

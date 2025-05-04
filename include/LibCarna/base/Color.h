@@ -20,10 +20,10 @@
 #include <LibCarna/base/math.h>
 
 /** \file   Color.h
-  * \brief  Defines \ref Carna::base::Color.
+  * \brief  Defines \ref LibCarna::base::Color.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -102,8 +102,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // COLOR_H_6014714286

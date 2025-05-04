@@ -27,10 +27,10 @@
 #include <set>
 
 /** \file   FrameRendererHelper.h
-  * \brief  Defines \ref Carna::helpers::FrameRendererHelper.
+  * \brief  Defines \ref LibCarna::helpers::FrameRendererHelper.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace helpers
@@ -193,7 +193,7 @@ void FrameRendererHelper< RenderStageOrder >::commit( bool clear )
 
 
 template< typename RenderStageOrder >
-Carna::helpers::FrameRendererHelper< RenderStageOrder >& FrameRendererHelper< RenderStageOrder >::operator<<( Carna::base::RenderStage* rs )
+LibCarna::helpers::FrameRendererHelper< RenderStageOrder >& FrameRendererHelper< RenderStageOrder >::operator<<( LibCarna::base::RenderStage* rs )
 {
     stages.insert( rs );
     return *this;
@@ -201,9 +201,9 @@ Carna::helpers::FrameRendererHelper< RenderStageOrder >& FrameRendererHelper< Re
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace LibCarna :: helpers
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 
 

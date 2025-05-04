@@ -16,7 +16,7 @@
 #define SHADER_H_6014714286
 
 /** \file   Shader.h
-  * \brief  Defines \ref Carna::base::Shader.
+  * \brief  Defines \ref LibCarna::base::Shader.
   *
   * \author Leonid Kostrykin
   */
@@ -25,7 +25,7 @@
 #include <LibCarna/LibCarna.h>
 #include <LibCarna/base/noncopyable.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -102,8 +102,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // SHADER_H_6014714286

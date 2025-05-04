@@ -21,10 +21,10 @@
 #include <memory>
 
 /** \file   SpatialMovement.h
-  * \brief  Defines \ref Carna::base::SpatialMovement.
+  * \brief  Defines \ref LibCarna::base::SpatialMovement.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -147,8 +147,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // SPATIALMOVEMENT_H_6014714286

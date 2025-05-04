@@ -15,7 +15,7 @@
 #include <LibCarna/base/glew.h>
 #include <LibCarna/base/BufferedVectorFieldFormat.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -45,6 +45,6 @@ const unsigned int BufferedVectorFieldFormat< NormalMap3DInt8 >::BUFFER_TYPE    
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

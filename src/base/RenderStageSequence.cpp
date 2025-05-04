@@ -16,7 +16,7 @@
 #include <LibCarna/base/RenderStage.h>
 #include <vector>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -84,6 +84,6 @@ void RenderStageSequence::releaseStages()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

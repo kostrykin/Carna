@@ -18,10 +18,10 @@
 #include <LibCarna/base/MeshRenderingStage.h>
 
 /** \file   TransparentRenderingStage.h
-  * \brief  Defines \ref Carna::presets::TransparentRenderingStage.
+  * \brief  Defines \ref LibCarna::presets::TransparentRenderingStage.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -86,8 +86,8 @@ public:
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // TRANSPARENTRENDERINGSTAGE_H_6014714286

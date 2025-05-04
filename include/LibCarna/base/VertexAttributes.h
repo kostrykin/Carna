@@ -19,10 +19,10 @@
 #include <vector>
 
 /** \file   VertexAttributes.h
-  * \brief  Defines \ref Carna::base::VertexAttributes.
+  * \brief  Defines \ref LibCarna::base::VertexAttributes.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -104,8 +104,8 @@ typedef std::vector< VertexAttribute > VertexAttributes;
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // VERTEXATTRIBUTES_H_6014714286

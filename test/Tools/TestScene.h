@@ -16,7 +16,7 @@
 
 #include <LibCarna/LibCarna.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -69,4 +69,4 @@ public:
 
 }  // namespace testing
 
-}  // namespace Carna
+}  // namespace LibCarna

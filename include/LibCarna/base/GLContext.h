@@ -16,16 +16,16 @@
 #define GLCONTEXT_H_6014714286
 
 #include <LibCarna/LibCarna.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <LibCarna/base/noncopyable.h>
 #include <LibCarna/base/Log.h>
 #include <memory>
 
 /** \file   GLContext.h
-  * \brief  Defines \ref Carna::base::GLContext.
+  * \brief  Defines \ref LibCarna::base::GLContext.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -166,7 +166,7 @@ protected:
   *     \code
   *     #include <QGLContext>
   *     #include <QGLFormat>
-  *     typedef Carna::base::QGLContextAdapter< QGLContext, QGLFormat > GLContext;
+  *     typedef LibCarna::base::QGLContextAdapter< QGLContext, QGLFormat > GLContext;
   *     \endcode
   *
   * \author Leonid Kostrykin
@@ -237,8 +237,8 @@ void QGLContextAdapter< QGLContext, QGLFormat >::activate() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // GLCONTEXT_H_6014714286

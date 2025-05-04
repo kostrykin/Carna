@@ -23,10 +23,10 @@
 #include <memory>
 
 /** \file   Log.h
-  * \brief  Defines \ref Carna::base::Log.
+  * \brief  Defines \ref LibCarna::base::Log.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -261,15 +261,15 @@ public:
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Enforces the \ref Carna::base::Log to use particular tag within the local scope.
+  * Enforces the \ref LibCarna::base::Log to use particular tag within the local scope.
   */
 #define LIBCARNA_LOG_TAG_SCOPE( tag ) \
-    const ::Carna::base::Log::TagScope _tagScope##__COUNTER__( tag )
+    const ::LibCarna::base::Log::TagScope _tagScope##__COUNTER__( tag )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // LOG_H_6014714286

@@ -20,10 +20,10 @@
 #include <LibCarna/LibCarna.h>
 
 /** \file   CuttingPlanesStage.h
-  * \brief  Defines \ref Carna::presets::CuttingPlanesStage.
+  * \brief  Defines \ref LibCarna::presets::CuttingPlanesStage.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -148,8 +148,8 @@ protected:
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // CUTTINGPLANESSTAGE_H_6014714286

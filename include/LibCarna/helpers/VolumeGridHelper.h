@@ -27,10 +27,10 @@
 #include <cmath>
 
 /** \file   VolumeGridHelper.h
-  * \brief  Defines \ref Carna::helpers::VolumeGridHelper.
+  * \brief  Defines \ref LibCarna::helpers::VolumeGridHelper.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace helpers
@@ -550,8 +550,8 @@ base::math::Vector3ui VolumeGridHelper< SegmentIntensityVolumeType, SegmentNorma
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace LibCarna :: helpers
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // VOLUMEGRIDHELPER_H_6014714286

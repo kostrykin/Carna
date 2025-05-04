@@ -18,10 +18,10 @@
 #include <LibCarna/presets/CompositionStage.h>
 
 /** \file   ParallaxStage.h
-  * \brief  Defines \ref Carna::presets::ParallaxStage.
+  * \brief  Defines \ref LibCarna::presets::ParallaxStage.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -107,8 +107,8 @@ protected:
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // PARALLAXSTAGE_H_6014714286

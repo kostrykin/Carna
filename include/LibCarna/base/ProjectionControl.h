@@ -20,10 +20,10 @@
 #include <memory>
 
 /** \file   ProjectionControl.h
-  * \brief  Defines \ref Carna::base::ProjectionControl.
+  * \brief  Defines \ref LibCarna::base::ProjectionControl.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -154,9 +154,9 @@ protected:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 
 

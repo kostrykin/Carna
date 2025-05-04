@@ -50,7 +50,7 @@ void BufferedIntensityVolumeTest::test_instantiation()
 }
 
 
-unsigned int BufferedIntensityVolumeTest::indexByPosition( const Carna::base::math::Vector3ui& pos ) const
+unsigned int BufferedIntensityVolumeTest::indexByPosition( const LibCarna::base::math::Vector3ui& pos ) const
 {
     return pos.x() + pos.y() * volume->size.x() + pos.z() * volume->size.x() * volume->size.y();
 }

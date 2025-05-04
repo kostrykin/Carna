@@ -15,10 +15,10 @@
 #ifndef LIBCARNAEXCEPTION_H_6014714286
 #define LIBCARNAEXCEPTION_H_6014714286
 
-/** \file   CarnaException.h
+/** \file   LibCarnaException.h
   * \brief  Defines
-  *             \ref Carna::base::CarnaException,
-  *             \ref Carna::base::AssertionFailure.
+  *             \ref LibCarna::base::LibCarnaException,
+  *             \ref LibCarna::base::AssertionFailure.
   */
 
 #include <memory>
@@ -28,7 +28,7 @@
 #include <stdexcept>
 #include <csignal>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -37,7 +37,7 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// CarnaException
+// LibCarnaException
 // ----------------------------------------------------------------------------------
 
 /** \brief
@@ -46,7 +46,7 @@ namespace base
   *
   * \author Leonid Kostrykin
   */
-class LIBCARNA CarnaException
+class LIBCARNA LibCarnaException
 {
 
     struct Details;
@@ -56,19 +56,19 @@ public:
 
     /** \brief  Initializes the attributes plainly from the arguments.
       */
-    CarnaException( const std::string& type, const std::string& message, const std::string& details = "" );
+    LibCarnaException( const std::string& type, const std::string& message, const std::string& details = "" );
     
     /** \brief  Initializes the type as ''Assertion Error'' and the message from the given exception.
       */
-    CarnaException( const std::logic_error& error, const std::string& details = "" );
+    LibCarnaException( const std::logic_error& error, const std::string& details = "" );
     
     /** \brief  Initializes the type as ''Unhandled Exception'' and the message from the given exception.
       */
-    CarnaException( const std::runtime_error& error, const std::string& details = "" );
+    LibCarnaException( const std::runtime_error& error, const std::string& details = "" );
 
-    CarnaException( const CarnaException& other );
+    LibCarnaException( const LibCarnaException& other );
 
-    virtual ~CarnaException();
+    virtual ~LibCarnaException();
 
 
     /** \brief  Tells the type (category) of this exception.
@@ -88,7 +88,7 @@ public:
       */
     const char* what() const;
 
-}; // CarnaException
+}; // LibCarnaException
 
 
 
@@ -101,7 +101,7 @@ public:
   *
   * \author Leonid Kostrykin
   */
-class LIBCARNA AssertionFailure : public CarnaException
+class LIBCARNA AssertionFailure : public LibCarnaException
 {
 
 public:
@@ -161,20 +161,20 @@ public:
   * Causes a break point in debug mode, does nothing in release mode.
   *
   * \see
-  * The behavior in debug mode can be controlled via the \ref Carna::base::BreakForDebug "BreakForDebug" class.
+  * The behavior in debug mode can be controlled via the \ref LibCarna::base::BreakForDebug "BreakForDebug" class.
   *
   * \author Leonid Kostrykin
   */
 #ifndef NDEBUG
     #ifdef _MSC_VER
         #define LIBCARNA_BREAK_FOR_DEBUG \
-            if( ::Carna::base::BreakForDebug::isEnabled() ) \
+            if( ::LibCarna::base::BreakForDebug::isEnabled() ) \
             { \
                 __debugbreak(); \
             }
     #else
         #define LIBCARNA_BREAK_FOR_DEBUG \
-            if( ::Carna::base::BreakForDebug::isEnabled() ) \
+            if( ::LibCarna::base::BreakForDebug::isEnabled() ) \
             { \
                 std::raise( SIGINT ); \
             }
@@ -190,7 +190,7 @@ public:
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Causes a break point in debug mode and throws an \ref Carna::base::AssertionFailure "AssertionFailure".
+  * Causes a break point in debug mode and throws an \ref LibCarna::base::AssertionFailure "AssertionFailure".
   *
   * \author Leonid Kostrykin
   */
@@ -201,7 +201,7 @@ public:
         details \
             << "Description: " << description << std::endl \
             << "Where: " << __FILE__ << ":" << __LINE__; \
-        throw ::Carna::base::AssertionFailure( details.str() ); \
+        throw ::LibCarna::base::AssertionFailure( details.str() ); \
     }
 
 
@@ -212,7 +212,7 @@ public:
 
 /** \brief
   * If the given expression is \em false, a break point is raised in debug mode and
-  * an \ref Carna::base::AssertionFailure "AssertionFailure" thrown.
+  * an \ref LibCarna::base::AssertionFailure "AssertionFailure" thrown.
   *
   * \author Leonid Kostrykin
   */
@@ -224,7 +224,7 @@ public:
         details \
             << "Failed expression: " << #expression << std::endl \
             << "Where: " << __FILE__ << ":" << __LINE__; \
-        throw ::Carna::base::AssertionFailure( details.str() ); \
+        throw ::LibCarna::base::AssertionFailure( details.str() ); \
     }
 
 
@@ -235,7 +235,7 @@ public:
 
 /** \brief
   * If the given expression is \em false, a break point is raised in debug mode and an
-  * \ref Carna::base::AssertionFailure "AssertionFailure" thrown, \a description being noted within the exception.
+  * \ref LibCarna::base::AssertionFailure "AssertionFailure" thrown, \a description being noted within the exception.
   *
   * \author Leonid Kostrykin
   */
@@ -248,13 +248,13 @@ public:
             << "Failed expression: " << #expression << std::endl \
             << "Description: " << description << std::endl \
             << "Where: " << __FILE__ << ":" << __LINE__; \
-        throw ::Carna::base::AssertionFailure( details.str() ); \
+        throw ::LibCarna::base::AssertionFailure( details.str() ); \
     }
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // LIBCARNAEXCEPTION_H_6014714286

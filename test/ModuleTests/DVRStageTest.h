@@ -16,7 +16,7 @@
 
 #include <LibCarna/LibCarna.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -29,7 +29,7 @@ namespace testing
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Module-tests of the \ref Carna::presets::DVRStage class.
+  * Module-tests of the \ref LibCarna::presets::DVRStage class.
   *
   * \author Leonid Kostrykin
   */
@@ -87,4 +87,4 @@ private:
 
 }  // namespace testing
 
-}  // namespace Carna
+}  // namespace LibCarna

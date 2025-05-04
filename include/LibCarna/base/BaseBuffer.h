@@ -18,10 +18,10 @@
 #include <cstdlib>
 
 /** \file   BaseBuffer.h
-  * \brief  Defines \ref Carna::base::BaseBuffer.
+  * \brief  Defines \ref LibCarna::base::BaseBuffer.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -99,8 +99,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // BASEBUFFER_H_6014714286

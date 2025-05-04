@@ -16,7 +16,7 @@
 
 #include <LibCarna/LibCarna.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -29,7 +29,7 @@ namespace testing
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Integration-tests of the \ref Carna::presets::MaskRenderingStage class.
+  * Integration-tests of the \ref LibCarna::presets::MaskRenderingStage class.
   *
   * \author Leonid Kostrykin
   */
@@ -86,4 +86,4 @@ private:
 
 }  // namespace testing
 
-}  // namespace Carna
+}  // namespace LibCarna

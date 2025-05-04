@@ -14,7 +14,7 @@
 
 #include <LibCarna/base/CameraControl.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -33,6 +33,6 @@ CameraControl::~CameraControl()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

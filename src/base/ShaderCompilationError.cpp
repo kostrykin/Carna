@@ -15,7 +15,7 @@
 #include <LibCarna/base/ShaderCompilationError.h>
 #include <sstream>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -36,7 +36,7 @@ const static std::string EXCEPTION_BASE_MESSAGE = "Shader compilation has failed
 // ----------------------------------------------------------------------------------
 
 ShaderCompilationError::ShaderCompilationError( const std::string& details )
-    : CarnaException
+    : LibCarnaException
         ( EXCEPTION_TYPE
         , EXCEPTION_BASE_MESSAGE
         , details )
@@ -74,7 +74,7 @@ ShaderCompilationError::ShaderCompilationError
     , const std::string& vertexShaderFile
     , const std::string& fragmentShaderFile )
 
-    : CarnaException
+    : LibCarnaException
         ( EXCEPTION_TYPE
         , createMessage( vertexShaderFile, fragmentShaderFile )
         , details )
@@ -83,6 +83,6 @@ ShaderCompilationError::ShaderCompilationError
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

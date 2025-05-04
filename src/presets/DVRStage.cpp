@@ -21,11 +21,11 @@
 #include <LibCarna/base/RenderState.h>
 #include <LibCarna/base/ShaderUniform.h>
 #include <LibCarna/base/math.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <LibCarna/base/Log.h>
 #include <algorithm>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -271,6 +271,6 @@ void DVRStage::configureShader( const base::Renderable& renderable )
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

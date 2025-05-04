@@ -21,10 +21,10 @@
 #include <functional>
 
 /** \file   Spatial.h
-  * \brief  Defines \ref Carna::base::Spatial.
+  * \brief  Defines \ref LibCarna::base::Spatial.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -238,8 +238,8 @@ const UserDataType& Spatial::userData() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // SPATIAL_H_6014714286

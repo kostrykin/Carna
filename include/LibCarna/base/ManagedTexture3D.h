@@ -22,10 +22,10 @@
 #include <LibCarna/base/math.h>
 
 /** \file   ManagedTexture3D.h
-  * \brief  Defines \ref Carna::base::ManagedTexture3D.
+  * \brief  Defines \ref LibCarna::base::ManagedTexture3D.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -148,8 +148,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // MANAGEDTEXTURE3D_H_6014714286

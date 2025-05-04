@@ -18,7 +18,7 @@
 #include <LibCarna/base/math.h>
 #include <LibCarna/presets/OpaqueRenderingStage.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -31,7 +31,7 @@ namespace testing
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Module-tests of the \ref Carna::presets::MeshColorCodingStage class.
+  * Module-tests of the \ref LibCarna::presets::MeshColorCodingStage class.
   *
   * \author Leonid Kostrykin
   */
@@ -93,4 +93,4 @@ private:
 
 }  // namespace testing
 
-}  // namespace Carna
+}  // namespace LibCarna

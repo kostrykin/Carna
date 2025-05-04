@@ -14,7 +14,7 @@
 
 #include <LibCarna/base/BoundingSphere.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -89,6 +89,6 @@ void BoundingSphere::computeClosemostPoint( math::Vector3f& out, const math::Vec
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

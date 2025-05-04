@@ -19,7 +19,7 @@
 #include <memory>
 #include <sstream>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -89,6 +89,6 @@ void Shader::release()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

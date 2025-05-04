@@ -20,10 +20,10 @@
 #include <LibCarna/base/math.h>
 
 /** \file   BoundingVolume.h
-  * \brief  Defines \ref Carna::base::BoundingVolume.
+  * \brief  Defines \ref LibCarna::base::BoundingVolume.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -89,8 +89,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // BOUNDINGVOLUME_H_6014714286

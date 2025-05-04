@@ -15,7 +15,7 @@
 #include <LibCarna/base/Vertex.h>
 #include <vector>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -71,7 +71,7 @@ VertexColor::VertexColor()
 
 const VertexAttributes PVertex::attributes = []()->VertexAttributes
 {
-    using Carna::base::VertexAttribute;
+    using LibCarna::base::VertexAttribute;
     std::vector< VertexAttribute > attributes;
     attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
     return attributes;
@@ -85,7 +85,7 @@ const VertexAttributes PVertex::attributes = []()->VertexAttributes
 
 const VertexAttributes PNVertex::attributes = []()->VertexAttributes
 {
-    using Carna::base::VertexAttribute;
+    using LibCarna::base::VertexAttribute;
     std::vector< VertexAttribute > attributes;
     attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
     attributes.push_back( VertexAttribute( 1, 4, VertexAttribute::TYPE_FLOAT ) );
@@ -100,7 +100,7 @@ const VertexAttributes PNVertex::attributes = []()->VertexAttributes
 
 const VertexAttributes PCVertex::attributes = []()->VertexAttributes
 {
-    using Carna::base::VertexAttribute;
+    using LibCarna::base::VertexAttribute;
     std::vector< VertexAttribute > attributes;
     attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
     attributes.push_back( VertexAttribute( 1, 4, VertexAttribute::TYPE_FLOAT ) );
@@ -109,6 +109,6 @@ const VertexAttributes PCVertex::attributes = []()->VertexAttributes
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

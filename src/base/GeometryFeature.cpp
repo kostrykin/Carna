@@ -16,7 +16,7 @@
 #include <LibCarna/base/Log.h>
 #include <set>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -219,6 +219,6 @@ void GeometryFeature::removeFrom( Geometry& sceneGraphNode )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

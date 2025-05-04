@@ -20,10 +20,10 @@
 #include <memory>
 
 /** \file   Geometry.h
-  * \brief  Defines \ref Carna::base::Geometry.
+  * \brief  Defines \ref LibCarna::base::Geometry.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -188,8 +188,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // GEOMETRY_H_6014714286

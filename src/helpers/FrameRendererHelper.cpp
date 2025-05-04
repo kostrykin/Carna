@@ -13,7 +13,7 @@
  */
 
 #include <LibCarna/helpers/FrameRendererHelper.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <LibCarna/presets/OpaqueRenderingStage.h>
 #include <LibCarna/presets/TransparentRenderingStage.h>
 #include <LibCarna/presets/CuttingPlanesStage.h>
@@ -23,7 +23,7 @@
 #include <LibCarna/presets/MeshColorCodingStage.h>
 #include <LibCarna/presets/ParallaxStage.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace helpers
@@ -81,6 +81,6 @@ bool DefaultRenderStageOrder::operator()( const base::RenderStage* x, const base
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace LibCarna :: helpers
 
-}  // namespace Carna
+}  // namespace LibCarna

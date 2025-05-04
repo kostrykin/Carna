@@ -20,10 +20,10 @@
 #include <LibCarna/base/Aggregation.h>
 
 /** \file   MeshColorCodingStage.h
-  * \brief  Defines \ref Carna::presets::MeshColorCodingStage.
+  * \brief  Defines \ref LibCarna::presets::MeshColorCodingStage.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -157,8 +157,8 @@ protected:
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // MESHCOLORCODINGSTAGE_H_6014714286

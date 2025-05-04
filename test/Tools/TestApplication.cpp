@@ -16,7 +16,7 @@
 #include <LibCarna/base/Log.h>
 #include <QDebug>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -86,7 +86,7 @@ void QDebugLogWriter::writeLine( base::Log::Severity severity, const std::string
 TestApplication::TestApplication( int& argc, char** argv )
     : QApplication( argc, argv )
 {
-    Carna::base::Log::instance().setWriter( new Carna::testing::QDebugLogWriter() );
+    LibCarna::base::Log::instance().setWriter( new LibCarna::testing::QDebugLogWriter() );
 }
 
 
@@ -105,7 +105,7 @@ bool TestApplication::notify( QObject* receiver, QEvent* ev )
     {
         return QApplication::notify( receiver, ev );
     }
-    catch( base::CarnaException& ex )
+    catch( base::LibCarnaException& ex )
     {
         std::stringstream msg;
         msg << ex.message << " (" << ex.details << ")";
@@ -117,6 +117,6 @@ bool TestApplication::notify( QObject* receiver, QEvent* ev )
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna

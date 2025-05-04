@@ -19,10 +19,10 @@
 #include <LibCarna/base/BoundingVolume.h>
 
 /** \file   BoundingSphere.h
-  * \brief  Defines \ref Carna::base::BoundingSphere.
+  * \brief  Defines \ref LibCarna::base::BoundingSphere.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -76,8 +76,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // BOUNDINGSPHERE_H_6014714286

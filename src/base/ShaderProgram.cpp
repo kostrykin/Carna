@@ -18,7 +18,7 @@
 #include <LibCarna/base/ShaderCompilationError.h>
 #include <LibCarna/base/Log.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -161,6 +161,6 @@ ShaderProgram::~ShaderProgram()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

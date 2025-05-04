@@ -15,7 +15,7 @@
 #include <LibCarna/base/glew.h>
 #include <LibCarna/base/BaseBuffer.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -75,6 +75,6 @@ bool BaseBuffer::isValid() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

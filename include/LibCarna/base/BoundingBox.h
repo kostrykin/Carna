@@ -19,10 +19,10 @@
 #include <LibCarna/base/BoundingVolume.h>
 
 /** \file   BoundingBox.h
-  * \brief  Defines \ref Carna::base::BoundingBox.
+  * \brief  Defines \ref LibCarna::base::BoundingBox.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -84,8 +84,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // BOUNDINGBOX_H_6014714286

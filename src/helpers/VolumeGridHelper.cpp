@@ -14,7 +14,7 @@
 
 #include <LibCarna/helpers/VolumeGridHelper.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace helpers
@@ -63,6 +63,6 @@ void VolumeGridHelperBase::loadHUData( const std::function< base::HUV( const bas
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace LibCarna :: helpers
 
-}  // namespace Carna
+}  // namespace LibCarna

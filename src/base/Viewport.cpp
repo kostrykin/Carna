@@ -18,7 +18,7 @@
 #include <LibCarna/base/math.h>
 #include <stack>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -243,6 +243,6 @@ unsigned int Viewport::marginBottom() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

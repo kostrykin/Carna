@@ -16,12 +16,12 @@
 #define CAMERA_H_6014714286
 
 /** \file   Camera.h
-  * \brief  Defines \ref Carna::base::Camera.
+  * \brief  Defines \ref LibCarna::base::Camera.
   */
 
 #include <LibCarna/base/Spatial.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -93,8 +93,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // CAMERA_H_6014714286

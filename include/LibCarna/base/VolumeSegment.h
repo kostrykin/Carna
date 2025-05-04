@@ -17,18 +17,18 @@
 
 /** \file   VolumeSegment.h
   *
-  * \brief  Defines \ref Carna::base::VolumeSegment.
+  * \brief  Defines \ref LibCarna::base::VolumeSegment.
   *
   * \author Leonid Kostrykin
   */
 
 #include <LibCarna/LibCarna.h>
 #include <LibCarna/base/Association.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <LibCarna/base/VolumeGrid.h>
 #include <memory>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -269,8 +269,8 @@ bool VolumeSegment< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::hasI
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // VOLUMESEGMENT_H_6014714286

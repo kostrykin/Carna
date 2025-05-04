@@ -24,7 +24,7 @@
 #include <vector>
 #include <climits>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -344,6 +344,6 @@ void MeshColorCodingStage::clearGeometryTypes()
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

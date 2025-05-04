@@ -16,12 +16,12 @@
 #define BLENDFUNCTION_H_6014714286
 
 /** \file   BlendFunction.h
-  * \brief  Defines \ref Carna::base::BlendFunction.
+  * \brief  Defines \ref LibCarna::base::BlendFunction.
   */
 
 #include <LibCarna/LibCarna.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -71,8 +71,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // BLENDFUNCTION_H_6014714286

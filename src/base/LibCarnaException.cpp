@@ -12,11 +12,11 @@
  * 
  */
 
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <LibCarna/base/Log.h>
 #include <iostream>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -25,33 +25,33 @@ namespace base
 
 
 // ----------------------------------------------------------------------------------
-// CarnaException :: Details
+// LibCarnaException :: Details
 // ----------------------------------------------------------------------------------
 
-struct CarnaException::Details
+struct LibCarnaException::Details
 {
 
     std::string whatBuffer;
 
-    void initialize( CarnaException* self );
+    void initialize( LibCarnaException* self );
 
 private:
 
-    void reportException( CarnaException* self );
+    void reportException( LibCarnaException* self );
 
-    void initializeWhatBuffer( CarnaException* self );
+    void initializeWhatBuffer( LibCarnaException* self );
 
-}; // CarnaException :: Details
+}; // LibCarnaException :: Details
 
 
-void CarnaException::Details::initialize( CarnaException* self )
+void LibCarnaException::Details::initialize( LibCarnaException* self )
 {
     initializeWhatBuffer( self );
     reportException( self );
 }
 
 
-void CarnaException::Details::reportException( CarnaException* self )
+void LibCarnaException::Details::reportException( LibCarnaException* self )
 {
     std::stringstream msg;
     msg << self->type << ": " << self->message << std::endl;
@@ -63,7 +63,7 @@ void CarnaException::Details::reportException( CarnaException* self )
 }
 
 
-void CarnaException::Details::initializeWhatBuffer( CarnaException* self )
+void LibCarnaException::Details::initializeWhatBuffer( LibCarnaException* self )
 {
     if( self->details.empty() )
     {
@@ -80,10 +80,10 @@ void CarnaException::Details::initializeWhatBuffer( CarnaException* self )
 
 
 // ----------------------------------------------------------------------------------
-// CarnaException
+// LibCarnaException
 // ----------------------------------------------------------------------------------
 
-CarnaException::CarnaException
+LibCarnaException::LibCarnaException
     ( const std::string& type
     , const std::string& message
     , const std::string& details )
@@ -97,7 +97,7 @@ CarnaException::CarnaException
 }
 
 
-CarnaException::CarnaException
+LibCarnaException::LibCarnaException
     ( const std::logic_error& error
     , const std::string& details )
 
@@ -110,7 +110,7 @@ CarnaException::CarnaException
 }
 
 
-CarnaException::CarnaException
+LibCarnaException::LibCarnaException
     ( const std::runtime_error& error
     , const std::string& details )
 
@@ -123,7 +123,7 @@ CarnaException::CarnaException
 }
 
 
-CarnaException::CarnaException( const CarnaException& other )
+LibCarnaException::LibCarnaException( const LibCarnaException& other )
     : pimpl( new Details() )
     , type( other.type )
     , message( other.message )
@@ -133,12 +133,12 @@ CarnaException::CarnaException( const CarnaException& other )
 }
 
 
-CarnaException::~CarnaException()
+LibCarnaException::~LibCarnaException()
 {
 }
 
 
-const char* CarnaException::what() const
+const char* LibCarnaException::what() const
 {
     return pimpl->whatBuffer.c_str();
 }
@@ -150,7 +150,7 @@ const char* CarnaException::what() const
 // ----------------------------------------------------------------------------------
 
 AssertionFailure::AssertionFailure( const std::string& details )
-    : CarnaException
+    : LibCarnaException
     ( "Assertion Failed"
     , "An assertion has failed. Refer to details for further information."
     , details )
@@ -190,6 +190,6 @@ bool BreakForDebug::isEnabled()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

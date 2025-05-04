@@ -15,7 +15,7 @@
 #include <LibCarna/base/ManagedMesh.h>
 #include <LibCarna/base/Aggregation.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -164,6 +164,6 @@ const MeshBase& ManagedMeshBase::mesh() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

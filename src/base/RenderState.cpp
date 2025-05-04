@@ -17,7 +17,7 @@
 #include <LibCarna/base/BlendFunction.h>
 #include <LibCarna/base/GLContext.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -341,6 +341,6 @@ void RenderState::commitPointSize() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

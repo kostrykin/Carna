@@ -21,7 +21,7 @@
 #include <LibCarna/base/BufferedVectorFieldTexture.h>
 #include <string>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -105,6 +105,6 @@ const base::math::Vector3f& TestScene::getSpacings() const
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna

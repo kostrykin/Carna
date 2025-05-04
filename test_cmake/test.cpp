@@ -7,7 +7,7 @@ int main()
 {
     /* Instantiate an object that is implemented in the shared library, to test linking.
      */
-    Carna::base::Node root;
+    LibCarna::base::Node root;
 
     /* Write the version number for verification.
      */

@@ -16,7 +16,7 @@
 #include <QGLContextHolder.h>
 #include <QGLPixelBuffer>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -30,18 +30,18 @@ namespace testing
 
 const QGLFormat QGLContextHolder::format = []()->QGLFormat
     {
-        QGLFormat format = Carna::base::QGLContextAdapter< QGLContext, QGLFormat >::desiredFormat();
+        QGLFormat format = LibCarna::base::QGLContextAdapter< QGLContext, QGLFormat >::desiredFormat();
         format.setDoubleBuffer( false );
         return format;
     }
 ();
 
 
-Carna::base::GLContext* QGLContextHolder::createGLContextWrapper( QGLPixelBuffer& pbuffer )
+LibCarna::base::GLContext* QGLContextHolder::createGLContextWrapper( QGLPixelBuffer& pbuffer )
 {
     const bool success = pbuffer.makeCurrent();
     LIBCARNA_ASSERT( success );
-    return new Carna::base::QGLContextAdapter< QGLContext, QGLFormat >();
+    return new LibCarna::base::QGLContextAdapter< QGLContext, QGLFormat >();
 }
 
 
@@ -52,13 +52,13 @@ QGLContextHolder::QGLContextHolder()
 }
 
 
-Carna::base::GLContext& QGLContextHolder::glContext()
+LibCarna::base::GLContext& QGLContextHolder::glContext()
 {
     return *glContextWrapper;
 }
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna

@@ -15,7 +15,7 @@
 #include <LibCarna/presets/OrthogonalControl.h>
 #include <LibCarna/base/math.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -180,6 +180,6 @@ bool OrthogonalControl::isRotationEnabled() const
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

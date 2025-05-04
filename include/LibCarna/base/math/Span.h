@@ -16,12 +16,12 @@
 #define SPAN_H_6014714286
 
 /** \file   Span.h
-  * \brief  Defines \ref Carna::base::math::Span.
+  * \brief  Defines \ref LibCarna::base::math::Span.
   */
 
 #include <LibCarna/base/math.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -124,10 +124,10 @@ bool Span< T >::operator<( const Span< T >& other ) const
 
 
 
-}  // namespace Carna :: base :: math
+}  // namespace LibCarna :: base :: math
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // SPAN_H_6014714286

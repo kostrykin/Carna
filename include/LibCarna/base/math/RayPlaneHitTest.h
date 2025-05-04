@@ -18,13 +18,13 @@
 #include <LibCarna/LibCarna.h>
 #include <LibCarna/base/math.h>
 #include <LibCarna/base/math/Ray.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 
 /** \file   RayPlaneHitTest.h
-  * \brief  Defines \ref Carna::base::math::RayPlaneHitTest.
+  * \brief  Defines \ref LibCarna::base::math::RayPlaneHitTest.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -140,10 +140,10 @@ void RayPlaneHitTest< VectorType, ScalarType >::compute
 
 
 
-}  // namespace Carna :: base :: math
+}  // namespace LibCarna :: base :: math
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // RAYPLANEHITTEST_H_6014714286

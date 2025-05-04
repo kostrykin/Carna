@@ -22,7 +22,7 @@
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -35,7 +35,7 @@ namespace testing
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Creates \ref Carna::base::HUVolumeUInt16 object from HUGZ-file.
+  * Creates \ref LibCarna::base::HUVolumeUInt16 object from HUGZ-file.
   *
   * \section HUGZFileFormat HUGZ File Format
   *
@@ -54,15 +54,15 @@ namespace testing
 struct HUGZSceneFactory
 {
     /** \brief
-      * Reads HUGZ file and returns created \ref Carna::base::HUVolumeUInt16 object.
+      * Reads HUGZ file and returns created \ref LibCarna::base::HUVolumeUInt16 object.
       *
       * The HUGZ file format is described \ref HUGZFileFormat "here".
       */
-    static Carna::base::HUVolumeUInt16* importVolume( const std::string& filename, Carna::base::math::Vector3f& spacing, bool stretchIntensities = false );
+    static LibCarna::base::HUVolumeUInt16* importVolume( const std::string& filename, LibCarna::base::math::Vector3f& spacing, bool stretchIntensities = false );
 };
 
 
 
 }  // namespace testing
 
-}  // namespace Carna
+}  // namespace LibCarna

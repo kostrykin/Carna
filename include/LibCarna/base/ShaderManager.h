@@ -16,7 +16,7 @@
 #define SHADERMANAGER_H_6014714286
 
 /** \file   ShaderManager.h
-  * \brief  Defines \ref Carna::base::ShaderManager.
+  * \brief  Defines \ref LibCarna::base::ShaderManager.
   */
 
 #include <LibCarna/LibCarna.h>
@@ -24,7 +24,7 @@
 #include <LibCarna/base/noncopyable.h>
 #include <string>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -105,8 +105,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // SHADERMANAGER_H_6014714286

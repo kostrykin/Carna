@@ -99,7 +99,7 @@ void MeshColorCodingStageTest::cleanup()
 }
 
 
-Carna::base::math::Vector2ui MeshColorCodingStageTest::computeFrameLocation( const Carna::base::Spatial& obj ) const
+LibCarna::base::math::Vector2ui MeshColorCodingStageTest::computeFrameLocation( const LibCarna::base::Spatial& obj ) const
 {
     const base::Viewport& vp = renderer->viewport();
 

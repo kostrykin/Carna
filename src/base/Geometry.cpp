@@ -14,13 +14,13 @@
 
 #include <LibCarna/base/Geometry.h>
 #include <LibCarna/base/GeometryFeature.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <LibCarna/base/Association.h>
 #include <LibCarna/base/Node.h>
 #include <vector>
 #include <map>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -204,6 +204,6 @@ const BoundingVolume& Geometry::boundingVolume() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

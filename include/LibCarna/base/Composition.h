@@ -16,12 +16,12 @@
 #define COMPOSITION_H_6014714286
 
 /** \file   Composition.h
-  * \brief  Defines \ref Carna::base::Composition.
+  * \brief  Defines \ref LibCarna::base::Composition.
   */
 
 #include <LibCarna/base/Association.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -81,8 +81,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // COMPOSITION_H_6014714286

@@ -18,10 +18,10 @@
 #include <QtGlobal>
 #include <iostream>
 
-namespace Carna
+namespace LibCarna
 {
 
-/** \namespace Carna::testing
+/** \namespace LibCarna::testing
   *
   * \brief
   * This namespace contains the test suite components.
@@ -92,14 +92,14 @@ namespace testing
         expression; \
         QFAIL( "Expected assertion failure did not raise upon expression." ); \
     } \
-    catch( const Carna::base::AssertionFailure& ) \
+    catch( const LibCarna::base::AssertionFailure& ) \
     { \
     }
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna
 
-using namespace Carna::testing;
+using namespace LibCarna::testing;

@@ -16,13 +16,13 @@
 #define GEOMETRYFEATURE_H_6014714286
 
 /** \file   GeometryFeature.h
-  * \brief  Defines \ref Carna::base::GeometryFeature.
+  * \brief  Defines \ref LibCarna::base::GeometryFeature.
   */
 
 #include <LibCarna/base/noncopyable.h>
 #include <set>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -155,8 +155,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // GEOMETRYFEATURE_H_6014714286

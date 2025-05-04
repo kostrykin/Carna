@@ -14,7 +14,7 @@
 
 #include <LibCarna/base/math/Ray.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -72,8 +72,8 @@ void Ray3f::fromEye
 
 
 
-}  // namespace Carna :: base :: math
+}  // namespace LibCarna :: base :: math
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

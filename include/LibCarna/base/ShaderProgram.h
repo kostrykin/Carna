@@ -16,7 +16,7 @@
 #define SHADERPROGRAM_H_6014714286
 
 /** \file   ShaderProgram.h
-  * \brief  Defines \ref Carna::base::ShaderProgram
+  * \brief  Defines \ref LibCarna::base::ShaderProgram
   *
   * \author Leonid Kostrykin
   */
@@ -25,7 +25,7 @@
 #include <LibCarna/base/noncopyable.h>
 #include <stack>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -135,8 +135,8 @@ private:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // SHADERPROGRAM_H_6014714286

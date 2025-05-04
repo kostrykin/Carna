@@ -20,10 +20,10 @@
 #include <memory>
 
 /** \file   ColorMap.h
-  * \brief  Defines \ref Carna::base::ColorMap.
+  * \brief  Defines \ref LibCarna::base::ColorMap.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -114,8 +114,8 @@ public:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // COLORMAP_H_6014714286

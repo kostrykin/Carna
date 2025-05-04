@@ -21,10 +21,10 @@
 #include <memory>
 
 /** \file   Mesh.h
-  * \brief  Defines \ref Carna::base::Mesh.
+  * \brief  Defines \ref LibCarna::base::Mesh.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -160,8 +160,8 @@ Mesh< VertexType, IndexType >::Mesh
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // MESH_H_6014714286

@@ -16,19 +16,19 @@
 #define BUFFEREDNORMALMAP3D_H_6014714286
 
 /** \file   BufferedNormalMap3D.h
-  * \brief  Defines \ref Carna::base::BufferedNormalMap3D.
+  * \brief  Defines \ref LibCarna::base::BufferedNormalMap3D.
   */
 
 #include <LibCarna/base/NormalMap3D.h>
 #include <LibCarna/base/Composition.h>
-#include <LibCarna/base/CarnaException.h>
+#include <LibCarna/base/LibCarnaException.h>
 #include <LibCarna/base/text.h>
 #include <vector>
 #include <memory>
 #include <type_traits>
 #include <climits>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -225,8 +225,8 @@ private:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 #endif // BUFFEREDNORMALMAP3D_H_6014714286

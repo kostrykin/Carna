@@ -16,13 +16,13 @@
 #define ASSOCIATION_H_6014714286
 
 /** \file   Association.h
-  * \brief  Defines \ref Carna::base::Association.
+  * \brief  Defines \ref LibCarna::base::Association.
   */
 
 #include <LibCarna/LibCarna.h>
 #include <LibCarna/base/noncopyable.h>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -117,19 +117,19 @@ private:
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 
 
 /** \brief
   * Tells whether \a l and \a r do reference the same object, that may be \c nullptr.
   *
-  * \relates Carna::base::Association
+  * \relates LibCarna::base::Association
   */
 template< typename AssociatedObjectType >
-bool operator==( const Carna::base::Association< AssociatedObjectType >& l, const Carna::base::Association< AssociatedObjectType >& r )
+bool operator==( const LibCarna::base::Association< AssociatedObjectType >& l, const LibCarna::base::Association< AssociatedObjectType >& r )
 {
     return l.get() == r.get();
 }

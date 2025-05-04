@@ -20,10 +20,10 @@
 #include <LibCarna/base/CameraControl.h>
 
 /** \file   OrthogonalControl.h
-  * \brief  Defines \ref Carna::presets::OrthogonalControl.
+  * \brief  Defines \ref LibCarna::presets::OrthogonalControl.
   */
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -132,9 +132,9 @@ public:
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 
 
