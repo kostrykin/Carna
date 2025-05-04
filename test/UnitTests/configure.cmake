@@ -1,7 +1,6 @@
 include_directories( ${CMAKE_PROJECT_DIR}UnitTests )
 
 list( APPEND TESTS
-		BufferedHUVolumeTest
         BufferedIntensityVolumeTest
 		BufferedNormalMap3DTest
 		mathTest
@@ -11,7 +10,6 @@ list( APPEND TESTS
 	)
 
 list( APPEND TESTS_QOBJECT_HEADERS
-		UnitTests/BufferedHUVolumeTest.hpp
 		UnitTests/BufferedIntensityVolumeTest.hpp
 		UnitTests/BufferedNormalMap3DTest.hpp
 		UnitTests/mathTest.hpp
@@ -25,7 +23,6 @@ list( APPEND TESTS_HEADERS
 	)
 
 list( APPEND TESTS_SOURCES
-		UnitTests/BufferedHUVolumeTest.cpp
 		UnitTests/BufferedIntensityVolumeTest.cpp
 		UnitTests/BufferedNormalMap3DTest.cpp
 		UnitTests/mathTest.cpp

@@ -40,12 +40,12 @@ TestScene::TestScene( bool stretchIntensities )
 {
     /* Load test volume data.
      */
-    huVolume.reset( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/res/pelves_reduced.hugz", spacings, stretchIntensities ) );
+    myVolume.reset( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/res/pelves_reduced.hugz", spacings, stretchIntensities ) );
 
     /* Configure geometry node for volume data.
      */
-    base::BufferedVectorFieldTexture< base::HUVolumeUInt16 >& volumeTexture
-        = base::BufferedVectorFieldTexture< base::HUVolumeUInt16 >::create( *huVolume );
+    base::BufferedVectorFieldTexture< base::IntensityVolumeUInt16 >& volumeTexture
+        = base::BufferedVectorFieldTexture< base::IntensityVolumeUInt16 >::create( *myVolume );
     myVolumeGeometry->putFeature( ROLE_HU_VOLUME, volumeTexture );
     myVolumeGeometry->localTransform = base::math::scaling4f( scale() );
     root->attachChild( myVolumeGeometry );
@@ -67,9 +67,9 @@ TestScene::~TestScene()
 base::math::Vector3f TestScene::scale() const
 {
     const base::math::Vector3f scale
-        ( ( huVolume->size.x() - 1 ) * spacings.x()
-        , ( huVolume->size.y() - 1 ) * spacings.y()
-        , ( huVolume->size.z() - 1 ) * spacings.z() );
+        ( ( myVolume->size.x() - 1 ) * spacings.x()
+        , ( myVolume->size.y() - 1 ) * spacings.y()
+        , ( myVolume->size.z() - 1 ) * spacings.z() );
     return scale;
 }
 
@@ -92,9 +92,9 @@ void TestScene::resetCamTransform()
 }
 
 
-const base::HUVolumeUInt16& TestScene::volume() const
+const base::IntensityVolumeUInt16& TestScene::volume() const
 {
-    return *huVolume;
+    return *myVolume;
 }
 
 

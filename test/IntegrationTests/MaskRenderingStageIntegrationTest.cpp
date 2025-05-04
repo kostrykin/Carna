@@ -146,7 +146,8 @@ void MaskRenderingStageIntegrationTest::test_helper_geometry_node()
     gridHelper.setIntensitiesRole( mr->maskRole );
     gridHelper.loadIntensities( [&scene]( const base::math::Vector3ui& voxel )
         {
-            return ( scene.volume()( voxel ) + 1024 ) * 16 > 48000 ? 1.f : 0.f;
+            const base::HUV huv = base::HUV(scene.volume()( voxel ), true);
+            return huv > 1976 ? 1.f : 0.f;
         }
     );
     base::Node* const geometry = gridHelper.createNode( GEOMETRY_TYPE_MASK, UInt8GridHelper::Spacing( spacings ) );
@@ -175,7 +176,8 @@ void MaskRenderingStageIntegrationTest::test_render_borders()
     gridHelper.setIntensitiesRole( mr->maskRole );
     gridHelper.loadIntensities( [&scene]( const base::math::Vector3ui& voxel )
         {
-            return ( scene.volume()( voxel ) + 1024 ) * 16 > 10000 ? 1.f : 0.f;
+            const base::HUV huv = base::HUV(scene.volume()( voxel ), true);
+            return huv > -400 ? 1.f : 0.f;
         }
     );
     base::Node* const geometry = gridHelper.createNode( GEOMETRY_TYPE_MASK, UInt8GridHelper::Spacing( spacings ) );

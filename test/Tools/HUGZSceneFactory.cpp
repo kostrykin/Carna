@@ -12,6 +12,7 @@
  * 
  */
 
+#include <LibCarna/base/HUV.hpp>
 #include "HUGZSceneFactory.hpp"
 
 namespace LibCarna
@@ -38,7 +39,7 @@ void stream_read( StreamType& in, ValueType& out )
 // HUGZSceneFactory
 // ----------------------------------------------------------------------------------
 
-LibCarna::base::HUVolumeUInt16* HUGZSceneFactory::importVolume( const std::string& filename, LibCarna::base::math::Vector3f& spacing, bool stretchIntensities )
+LibCarna::base::IntensityVolumeUInt16* HUGZSceneFactory::importVolume( const std::string& filename, LibCarna::base::math::Vector3f& spacing, bool stretchIntensities )
 {
     std::ifstream file( filename, std::ios::in | std::ios::binary );
     LIBCARNA_ASSERT( file.is_open() && !file.fail() );
@@ -51,7 +52,7 @@ LibCarna::base::HUVolumeUInt16* HUGZSceneFactory::importVolume( const std::strin
     stream_read( in, size.y() );
     stream_read( in, size.z() );
 
-    LibCarna::base::HUVolumeUInt16* const volume = new LibCarna::base::HUVolumeUInt16( size );
+    LibCarna::base::IntensityVolumeUInt16* const volume = new LibCarna::base::IntensityVolumeUInt16( size );
 
     stream_read( in, spacing.x() );
     stream_read( in, spacing.y() );
@@ -63,7 +64,7 @@ LibCarna::base::HUVolumeUInt16* HUGZSceneFactory::importVolume( const std::strin
     for( unsigned int x = 0; x < size.x(); ++x )
     {
         const signed short huv = reader.read();
-        volume->setVoxel( x, y, z, LibCarna::base::HUV::abs( huv ) );
+        volume->setVoxel( x, y, z, LibCarna::base::HUV::abs( huv ).absIntensity() );
     }
 
     if( stretchIntensities )

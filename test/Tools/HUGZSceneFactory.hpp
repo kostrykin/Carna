@@ -16,7 +16,7 @@
 
 #include <HUIO.hpp>
 #include <LibCarna/base/math.hpp>
-#include <LibCarna/base/BufferedHUVolume.hpp>
+#include <LibCarna/base/BufferedIntensityVolume.hpp>
 #include <fstream>
 #include <QDebug>
 #include <boost/iostreams/filtering_stream.hpp>
@@ -54,11 +54,11 @@ namespace testing
 struct HUGZSceneFactory
 {
     /** \brief
-      * Reads HUGZ file and returns created \ref LibCarna::base::HUVolumeUInt16 object.
+      * Reads HUGZ file and returns created \ref LibCarna::base::IntensityVolumeUInt16 object.
       *
       * The HUGZ file format is described \ref HUGZFileFormat "here".
       */
-    static LibCarna::base::HUVolumeUInt16* importVolume( const std::string& filename, LibCarna::base::math::Vector3f& spacing, bool stretchIntensities = false );
+    static LibCarna::base::IntensityVolumeUInt16* importVolume( const std::string& filename, LibCarna::base::math::Vector3f& spacing, bool stretchIntensities = false );
 };
 
 

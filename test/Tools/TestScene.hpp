@@ -31,7 +31,7 @@ namespace testing
 class TestScene
 {
 
-    std::unique_ptr< base::HUVolumeUInt16 > huVolume;
+    std::unique_ptr< base::IntensityVolumeUInt16 > myVolume;
 
     base::Geometry* const myVolumeGeometry;
 
@@ -57,7 +57,7 @@ public:
 
     void resetCamTransform();
 
-    const base::HUVolumeUInt16& volume() const;
+    const base::IntensityVolumeUInt16& volume() const;
 
     base::math::Vector3f scale() const;
 

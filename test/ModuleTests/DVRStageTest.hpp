@@ -74,7 +74,7 @@ private:
     std::unique_ptr< TestFramebuffer > testFramebuffer;
     std::unique_ptr< base::Node > root;
     std::unique_ptr< base::FrameRenderer > renderer;
-    std::unique_ptr< base::HUVolumeUInt16 > data;
+    std::unique_ptr< base::IntensityVolumeUInt16 > data;
 
     base::math::Vector3f dataSpacings;
 

@@ -203,12 +203,13 @@ void Demo::initializeGL()
     root.reset( new base::Node() );
 
     base::math::Vector3f spacing;
-    std::unique_ptr< base::HUVolumeUInt16 > baseVolume
+    std::unique_ptr< base::IntensityVolumeUInt16 > baseVolume
         ( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/../res/pelves_reduced.hugz", spacing ) );
     gridHelper.reset( new GridHelper
         ( baseVolume->size
         , baseVolume->size.x() * baseVolume->size.y() * baseVolume->size.z() * sizeof( base::IntensityVolumeUInt16::Voxel ) / 50 ) );
-    gridHelper->loadHUData( *baseVolume );
+    //gridHelper->loadIntensities( *baseVolume ); // TODO: fix this
+    gridHelper->loadIntensities( [&baseVolume]( const base::math::Vector3ui& c )->float { return (*baseVolume)( c ); } );
     base::Node* const volumeNode = gridHelper->createNode( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ) );
 
     base::ManagedMeshBase& boxMesh = base::MeshFactory< base::PVertex >::createBox( 10, 10, 10 );

@@ -80,7 +80,7 @@ struct HUV
       * Wraps a relative HU value.
       */
     template< typename T >
-    static HUV rel( T value );
+    static HUV rel( T value ); // TODO: rename to `off` for "offset"
 
     /** \brief
       * Returns the corresponding absolute intensity.

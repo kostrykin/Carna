@@ -76,9 +76,9 @@ void FrameRendererIntegrationTest::test_typical()
     /* Load test volume data.
      */
     base::math::Vector3f spacings;
-    const std::unique_ptr< base::HUVolumeUInt16 > dataPtr
+    const std::unique_ptr< base::IntensityVolumeUInt16 > dataPtr
         ( HUGZSceneFactory::importVolume( SOURCE_PATH + "/res/pelves_reduced.hugz", spacings ) );
-    const base::HUVolumeUInt16& data = *dataPtr;
+    const base::IntensityVolumeUInt16& data = *dataPtr;
 
     //! [typical_scene_setup]
     base::Node root;
@@ -94,7 +94,8 @@ void FrameRendererIntegrationTest::test_typical()
      */
     typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16, base::NormalMap3DInt8 > UInt16GridHelper;
     UInt16GridHelper gridHelper( data.size );
-    gridHelper.loadHUData( data );
+    //gridHelper.loadIntensities( data ); // TODO: fix this
+    gridHelper.loadIntensities( [&data]( const base::math::Vector3ui& c )->float { return data( c ); } );
     root.attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, UInt16GridHelper::Spacing( spacings ) ) );
 
     /* Configure cutting planes.
@@ -158,9 +159,9 @@ void FrameRendererIntegrationTest::test_8bit()
     /* Load test volume data.
      */
     base::math::Vector3f spacings;
-    const std::unique_ptr< base::HUVolumeUInt16 > dataPtr
+    const std::unique_ptr< base::IntensityVolumeUInt16 > dataPtr
         ( HUGZSceneFactory::importVolume( SOURCE_PATH + "/res/pelves_reduced.hugz", spacings ) );
-    const base::HUVolumeUInt16& data = *dataPtr;
+    const base::IntensityVolumeUInt16& data = *dataPtr;
 
     base::Node root;
 
@@ -175,7 +176,8 @@ void FrameRendererIntegrationTest::test_8bit()
      */
     typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt8, base::NormalMap3DInt8 > UInt8HUGridHelper;
     UInt8HUGridHelper gridHelper( data.size );
-    gridHelper.loadHUData( data );
+    //gridHelper.loadIntensities( data ); // TODO: fix this
+    gridHelper.loadIntensities( [&data]( const base::math::Vector3ui& c )->float { return data( c ); } );
     root.attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, UInt8HUGridHelper::Spacing( spacings ) ) );
 
     /* Configure cutting planes.

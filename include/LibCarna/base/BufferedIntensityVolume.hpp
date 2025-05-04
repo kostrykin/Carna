@@ -125,7 +125,7 @@ public:
     }
 
     /** \brief
-      * Sets the HUV of a voxel.
+      * Sets the intensity value of a voxel.
       */
     void setVoxel( unsigned int x, unsigned int y, unsigned int z, float intensity )
     {

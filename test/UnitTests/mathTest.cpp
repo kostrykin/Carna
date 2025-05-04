@@ -253,21 +253,20 @@ void mathTest::test_LIBCARNA_FOR_VECTOR3UI()
 {
     //! [example_LIBCARNA_FOR_VECTOR3UI]
     using namespace LibCarna::base;
-    HUVolumeUInt16 data( math::Vector3ui( 100, 100, 30 ) );
+    IntensityVolumeUInt16 data( math::Vector3ui( 100, 100, 30 ) );
   
-    /* Initialize all 'data' voxels with '-1024'.
+    /* Initialize all 'data' voxels with the lowest possible value.
      */
-    const HUV expected = HUV::abs( -1024 );
     LIBCARNA_FOR_VECTOR3UI( p, data.size )
     {
-        data.setVoxel( p, expected );
+        data.setVoxel( p, 0.f );
     }
   
     /* Verify the result.
      */
     for( std::size_t i = 0; i < data.buffer().size(); ++i )
     {
-        QCOMPARE( data.buffer()[ i ], HUVolumeUInt16::HUVToBufferValue( expected ) );
+        QCOMPARE( data.buffer()[ i ], 0 );
     }
     //! [example_LIBCARNA_FOR_VECTOR3UI]
 };
