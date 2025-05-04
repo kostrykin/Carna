@@ -19,7 +19,7 @@ var searchData=
   ['maximumintensity_16',['maximumIntensity',['../classLibCarna_1_1presets_1_1CuttingPlanesStage.html#aab0206554556124d172b187573c375ce',1,'LibCarna::presets::CuttingPlanesStage']]],
   ['maximumvisibledistance_17',['maximumVisibleDistance',['../classLibCarna_1_1base_1_1ProjectionControl.html#a38bc282a28630a40c049c3d27444687b',1,'LibCarna::base::ProjectionControl']]],
   ['maxtexturesize_18',['maxTextureSize',['../classLibCarna_1_1base_1_1TextureBase.html#ab180f5bf4ff0821b126aa6eba126a730',1,'LibCarna::base::TextureBase']]],
-  ['mesh_19',['mesh',['../classLibCarna_1_1base_1_1Mesh.html#a1ef71f123aa0bf454980ffdd5fdf88b8',1,'LibCarna::base::Mesh::Mesh()'],['../classLibCarna_1_1base_1_1ManagedMeshBase.html#a93195bbb32d017774b813cc921db9a00',1,'LibCarna::base::ManagedMeshBase::mesh()']]],
+  ['mesh_19',['mesh',['../classLibCarna_1_1base_1_1ManagedMeshBase.html#a93195bbb32d017774b813cc921db9a00',1,'LibCarna::base::ManagedMeshBase::mesh()'],['../classLibCarna_1_1base_1_1Mesh.html#a1ef71f123aa0bf454980ffdd5fdf88b8',1,'LibCarna::base::Mesh::Mesh()']]],
   ['meshbase_20',['MeshBase',['../classLibCarna_1_1base_1_1MeshBase.html#a59927cd1e80dde4ae2c5569f8548056a',1,'LibCarna::base::MeshBase']]],
   ['meshcolorcodingstage_21',['MeshColorCodingStage',['../classLibCarna_1_1presets_1_1MeshColorCodingStage.html#a59172c46573e2c68c868813069d6027d',1,'LibCarna::presets::MeshColorCodingStage']]],
   ['meshrenderingmixin_22',['MeshRenderingMixin',['../classLibCarna_1_1base_1_1MeshRenderingMixin.html#aa8a0fee9c734f4d31316a22a81745631',1,'LibCarna::base::MeshRenderingMixin']]],
