@@ -144,15 +144,11 @@ namespace LibCarna
 
         /** \brief
           * Defines 16bit intensity volume.
-          *
-          * \since  \ref v_3_2_0
           */
         typedef BufferedIntensityVolume< uint16_t > IntensityVolumeUInt16;
 
         /** \brief
           * Defines 8bit intensity volume.
-          *
-          * \since  \ref v_3_2_0
           */
         typedef BufferedIntensityVolume< uint8_t > IntensityVolumeUInt8;
 

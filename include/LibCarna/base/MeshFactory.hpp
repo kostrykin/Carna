@@ -78,8 +78,6 @@ public:
     /** \brief
       * Creates sphere with \a radius and a vertices number determined by \a degree.
       * The ball is centered in \f$\left(0, 0, 0\right)^\mathrm T\f$.
-      *
-      * \since  \ref v_3_1_0
       */
     static ManagedMesh< VertexType, uint16_t >& createBall( float radius, unsigned int degree = 3 );
 

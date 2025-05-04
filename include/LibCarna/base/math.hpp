@@ -575,10 +575,7 @@ namespace math
     }
 
     /** \brief
-      * Computes fast approximation of the gradient at the origin of the scalar field
-      * \a func.
-      * 
-      * \since  \ref v_3_3_0
+      * Computes fast approximation of the gradient at the origin of the scalar field \a func.
       */
     template< typename Sampler >
     base::math::Vector3f computeFastGradient3f( Sampler func )
@@ -594,8 +591,8 @@ namespace math
     }
 
     /** \brief
-      * Rounds \a x to the closest \f$x' \in \mathbb Z_{\geq 0}\f$. Either the
-      * data type of \f$x\f$ must be unsigned or \f$x \geq 0\f$.
+      * Rounds \a x to the closest \f$x' \in \mathbb Z_{\geq 0}\f$. Either the data type of \f$x\f$ must be unsigned or
+      * \f$x \geq 0\f$.
       */
     template< typename ScalarType >
     unsigned int round_ui( ScalarType x )
@@ -605,9 +602,8 @@ namespace math
     }
 
     /** \brief
-      * Rounds matrix \a m to such \f$m'\f$ that every element in \f$m'\f$ is
-      * close-most to its corresponding element in \f$m\f$. Either the element data
-      * type of \f$m\f$ must be unsigned or \f$m_{i,j} \geq 0 \forall i,j\f$.
+      * Rounds matrix \a m to such \f$m'\f$ that every element in \f$m'\f$ is close-most to its corresponding element
+      * in \f$m\f$. Either the element data type of \f$m\f$ must be unsigned or \f$m_{i,j} \geq 0 \forall i,j\f$.
       */
     template< typename MatrixElementType, int cols, int rows >
     Eigen::Matrix< unsigned int, cols, rows > round_ui( const Eigen::Matrix< MatrixElementType, cols, rows >& m )
@@ -622,8 +618,8 @@ namespace math
     }
 
     /** \brief
-      * Returns \f$x\f$ if \f$x\f$ is even and \f$x + s\f$ if \f$x\f$ is odd, where
-      * \f$s \in \left\{-1, +1\right\}\f$. The data type of \f$x\f$ must be integral.
+      * Returns \f$x\f$ if \f$x\f$ is even and \f$x + s\f$ if \f$x\f$ is odd, where \f$s \in \left\{-1, +1\right\}\f$.
+      * The data type of \f$x\f$ must be integral.
       */
     template< typename ScalarType >
     ScalarType makeEven( ScalarType x, int s )
@@ -634,11 +630,9 @@ namespace math
     }
 
     /** \brief
-      * Returns matrix \f$m'\f$ of the same size like \f$m\f$ where
-      * \f$m'_{i,j} = m_{i,j}\f$ if \f$m_{i,j}\f$ is even and
-      * \f$m'_{i,j} = m_{i,j} + s\f$ if \f$m_{i,j}\f$ is odd, where
-      * \f$s \in \left\{-1, +1\right\}\f$. The element data type of
-      * \f$m\f$ must be integral.
+      * Returns matrix \f$m'\f$ of the same size like \f$m\f$ where \f$m'_{i,j} = m_{i,j}\f$ if \f$m_{i,j}\f$ is even
+      * and \f$m'_{i,j} = m_{i,j} + s\f$ if \f$m_{i,j}\f$ is odd, where \f$s \in \left\{-1, +1\right\}\f$. The element
+      * data type of \f$m\f$ must be integral.
       */
     template< typename MatrixElementType, int cols, int rows >
     Eigen::Matrix< MatrixElementType, cols, rows > makeEven( const Eigen::Matrix< MatrixElementType, cols, rows >& m, int s )

@@ -39,7 +39,6 @@ namespace base
   * Defines interface to \f$\mathbb N_0^3 \to \left[0,1\right]\f$ volume data.
   *
   * \author Leonid Kostrykin
-  * \since  \ref v_3_2_0
   */
 class LIBCARNA IntensityVolume : public math::VectorField< float >
 {

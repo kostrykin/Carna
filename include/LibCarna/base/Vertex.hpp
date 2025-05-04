@@ -41,7 +41,6 @@ namespace base
   * Usage is explained \ref CustomVertexFormats "here".
   *
   * \author Leonid Kostrykin
-  * \since  \ref v_3_2_0
   */
 struct VertexPosition
 {
@@ -113,8 +112,6 @@ struct VertexNormal
     VertexNormal();
 
     /** Sets the normal vector.
-      * 
-      * \since \ref v_3_2_0
       */
     template< typename VectorType >
     void setNormal( const VectorType& normal );
@@ -162,8 +159,6 @@ struct VertexColor
     VertexColor();
 
     /** Sets the color vector.
-      * 
-      * \since \ref v_3_2_0
       */
     template< typename VectorType >
     void setColor( const VectorType& color );
@@ -189,7 +184,6 @@ void VertexColor::setColor( const VectorType& color )
   * Adds null implementation for setter corresponding the the given vertex component.
   *
   * \author Leonid Kostrykin
-  * \since  \ref v_3_2_0
   */
 #define VERTEX_NULL_COMPONENT( name ) \
     template< typename VectorType > \
@@ -285,14 +279,10 @@ struct LIBCARNA PVertex
     static const VertexAttributes attributes;
 
     /** Declares missing component.
-      * 
-      * \since \ref v_3_2_0
       */
     VERTEX_NULL_COMPONENT( Normal );
 
     /** Declares missing component.
-      * 
-      * \since \ref v_3_2_0
       */
     VERTEX_NULL_COMPONENT( Color  );
 };
@@ -307,7 +297,6 @@ struct LIBCARNA PVertex
   * Defines vertex that consists of the two attributes position and normal vector.
   *
   * \author Leonid Kostrykin
-  * \since  \ref v_3_2_0
   */
 struct LIBCARNA PNVertex
     : public VertexPosition
@@ -319,8 +308,6 @@ struct LIBCARNA PNVertex
     static const VertexAttributes attributes;
 
     /** Declares missing component.
-      * 
-      * \since \ref v_3_2_0
       */
     VERTEX_NULL_COMPONENT( Color );
 };
@@ -346,8 +333,6 @@ struct LIBCARNA PCVertex
     static const VertexAttributes attributes;
 
     /** Declares missing component.
-      * 
-      * \since \ref v_3_2_0
       */
     VERTEX_NULL_COMPONENT( Normal );
 };

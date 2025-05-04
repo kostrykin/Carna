@@ -46,8 +46,6 @@ struct BufferedVectorFieldFormat
 
 /** \brief
   * Defines \ref Texture format for \ref IntensityVolumeUInt16.
-  * 
-  * \since \ref v_3_2_0
   */
 template< >
 struct LIBCARNA BufferedVectorFieldFormat< IntensityVolumeUInt16 >
@@ -60,8 +58,6 @@ struct LIBCARNA BufferedVectorFieldFormat< IntensityVolumeUInt16 >
 
 /** \brief
   * Defines \ref Texture format for \ref IntensityVolumeUInt8.
-  * 
-  * \since \ref v_3_2_0
   */
 template< >
 struct LIBCARNA BufferedVectorFieldFormat< IntensityVolumeUInt8 >

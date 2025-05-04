@@ -297,7 +297,7 @@ set( DOC_SRC
 		src/doc/doc_extra.css
 		src/doc/doc_main.dox
 		src/doc/doc_CoordinateSystems.dox
-		src/doc/doc_VersionLog.dox
+		src/doc/doc_versions.dox
 	)
 set( SHADERS_SRC
 		src/res/cutting-plane.frag

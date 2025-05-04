@@ -56,8 +56,6 @@ public:
     /** \brief
       * Default maximum memory size of a single segment volume, 50 megabytes
       * approximately. This determines the segments partitioning.
-      *
-      * \since \ref v_3_0_1
       */
     const static std::size_t DEFAULT_MAX_SEGMENT_BYTESIZE = 2 * 300 * 300 * 300;
 
@@ -65,8 +63,6 @@ public:
       * Instantiates.
       *
       * \param nativeResolution is the resolution the grid is to be prepared for.
-      *
-      * \since \ref v_3_0_1
       */
     VolumeGridHelperBase( const base::math::Vector3ui& nativeResolution );
 
