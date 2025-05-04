@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['node_0',['Node',['../classCarna_1_1base_1_1Node.html#adbbaea3939b8106520423bff4d9a32d5',1,'Carna::base::Node']]],
-  ['noncopyable_1',['noncopyable',['../classCarna_1_1base_1_1noncopyable.html#ab6dc6dad740b3e25ec85926da0b1851f',1,'Carna::base::noncopyable']]],
-  ['normalmap3d_2',['normalmap3d',['../classCarna_1_1base_1_1NormalMap3D.html#ac87ad91392440d9f86d6520989092af9',1,'Carna::base::NormalMap3D::NormalMap3D()'],['../classCarna_1_1base_1_1NormalMap3D.html#ac7ed5187d7a79c0fd0a2565cf901b0e2',1,'Carna::base::NormalMap3D::NormalMap3D(const math::Vector3ui &amp;size)']]],
-  ['normals_3',['normals',['../classCarna_1_1base_1_1VolumeSegmentNormalsComponent.html#ab828e5c1a0b09faf814514f7ee83f851',1,'Carna::base::VolumeSegmentNormalsComponent::normals()'],['../classCarna_1_1base_1_1VolumeSegmentNormalsComponent.html#a203c9435aaeed815a35efcfaa062c4a4',1,'Carna::base::VolumeSegmentNormalsComponent::normals() const']]],
-  ['normalscomponent_4',['NormalsComponent',['../classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html#a7230e07e1ee541eb94e7dbdb33a40178',1,'Carna::helpers::details::VolumeGridHelper::NormalsComponent']]],
-  ['normalsrole_5',['normalsRole',['../classCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html#a31150bfe78b531eb7d11ef8a6f6fa5ea',1,'Carna::helpers::details::VolumeGridHelper::NormalsComponent']]]
+  ['node_0',['Node',['../classLibCarna_1_1base_1_1Node.html#a5e4dcb66c23f27ea2afd61c19f688f03',1,'LibCarna::base::Node']]],
+  ['noncopyable_1',['noncopyable',['../classLibCarna_1_1base_1_1noncopyable.html#a6ff548897401e7cb26dccc00aa5e75e6',1,'LibCarna::base::noncopyable']]],
+  ['normalmap3d_2',['normalmap3d',['../classLibCarna_1_1base_1_1NormalMap3D.html#a8bd2fcc19e4fd917cb1e05d2738710d7',1,'LibCarna::base::NormalMap3D::NormalMap3D()'],['../classLibCarna_1_1base_1_1NormalMap3D.html#af301d947b7464c56315f90c53f70dfd9',1,'LibCarna::base::NormalMap3D::NormalMap3D(const math::Vector3ui &amp;size)']]],
+  ['normals_3',['normals',['../classLibCarna_1_1base_1_1VolumeSegmentNormalsComponent.html#a16d38016e335fd6dabfbd1153e799696',1,'LibCarna::base::VolumeSegmentNormalsComponent::normals()'],['../classLibCarna_1_1base_1_1VolumeSegmentNormalsComponent.html#ad767033684d7ab624435cb1410465749',1,'LibCarna::base::VolumeSegmentNormalsComponent::normals() const']]],
+  ['normalscomponent_4',['NormalsComponent',['../classLibCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html#a6e6977429f8f3bddee554f302d851e5c',1,'LibCarna::helpers::details::VolumeGridHelper::NormalsComponent']]],
+  ['normalsrole_5',['normalsRole',['../classLibCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html#a34677d8ab26851a07b3acc7eda1d7bd5',1,'LibCarna::helpers::details::VolumeGridHelper::NormalsComponent']]]
 ];

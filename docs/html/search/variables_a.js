@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['name_0',['name',['../classCarna_1_1base_1_1ShaderUniformBase.html#a6f914de7d1cf50d53bdecc64c5cec3bb',1,'Carna::base::ShaderUniformBase']]],
-  ['nativeresolution_1',['nativeResolution',['../classCarna_1_1helpers_1_1VolumeGridHelperBase.html#ae951c918011a7e56e1ad404a95db6257',1,'Carna::helpers::VolumeGridHelperBase']]],
-  ['null_5fptr_2',['NULL_PTR',['../classCarna_1_1base_1_1Aggregation.html#a0384c7a767331ba40f032b31b2814186',1,'Carna::base::Aggregation']]],
-  ['nw_3',['nw',['../structCarna_1_1base_1_1VertexNormal.html#afd2577ab26ae4cb5eda7cc4689fcf2e4',1,'Carna::base::VertexNormal']]],
-  ['nx_4',['nx',['../structCarna_1_1base_1_1VertexNormal.html#a950af6c584fae905a52bb1ee62cebba3',1,'Carna::base::VertexNormal']]],
-  ['ny_5',['ny',['../structCarna_1_1base_1_1VertexNormal.html#a1c85d6ade53eaa7beb5e7aee9ad37081',1,'Carna::base::VertexNormal']]],
-  ['nz_6',['nz',['../structCarna_1_1base_1_1VertexNormal.html#afafd43f1151b9b0600ee5e54b7b0c17e',1,'Carna::base::VertexNormal']]]
+  ['name_0',['name',['../classLibCarna_1_1base_1_1ShaderUniformBase.html#af02465fb871561a7a24af894c2813dcc',1,'LibCarna::base::ShaderUniformBase']]],
+  ['nativeresolution_1',['nativeResolution',['../classLibCarna_1_1helpers_1_1VolumeGridHelperBase.html#a502d565e3ee9dc6567bdc7a665d119c2',1,'LibCarna::helpers::VolumeGridHelperBase']]],
+  ['null_5fptr_2',['NULL_PTR',['../classLibCarna_1_1base_1_1Aggregation.html#a4d117adb43ae17fbaa2b379ebc098aaf',1,'LibCarna::base::Aggregation']]],
+  ['nw_3',['nw',['../structLibCarna_1_1base_1_1VertexNormal.html#a4c3e519560be0c6ae52226a4a3268966',1,'LibCarna::base::VertexNormal']]],
+  ['nx_4',['nx',['../structLibCarna_1_1base_1_1VertexNormal.html#a40107620c50cbb812c4e60d1a812fcbb',1,'LibCarna::base::VertexNormal']]],
+  ['ny_5',['ny',['../structLibCarna_1_1base_1_1VertexNormal.html#a8fc18efb9d74ccd1e158ba210ee6461a',1,'LibCarna::base::VertexNormal']]],
+  ['nz_6',['nz',['../structLibCarna_1_1base_1_1VertexNormal.html#ae087cc724790fefef06e497e9f510c6b',1,'LibCarna::base::VertexNormal']]]
 ];

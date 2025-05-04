@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['orange_0',['orange',['../classCarna_1_1base_1_1RotatingColor.html#ab6ed7cd547d006d8b6d00c4e4e31ff2ba342e2cf7974b5067e165f3bba1ea4a27',1,'Carna::base::RotatingColor']]]
+  ['orange_0',['orange',['../classLibCarna_1_1base_1_1RotatingColor.html#aeb74d0dea4915748968d830320867033a02c168fb39f640d34b9a131757f5ea7a',1,'LibCarna::base::RotatingColor']]]
 ];

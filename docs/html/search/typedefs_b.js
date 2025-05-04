@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['uniformtype_0',['uniformtype',['../structCarna_1_1base_1_1ShaderUniformType.html#af79d05459060813db5ebbd467b9ec959',1,'Carna::base::ShaderUniformType::UniformType'],['../structCarna_1_1base_1_1ShaderUniformType_3_01Color_01_4.html#a149804d84cb077e12b2ae655d8627656',1,'Carna::base::ShaderUniformType&lt; Color &gt;::UniformType']]]
+  ['uniformtype_0',['uniformtype',['../structLibCarna_1_1base_1_1ShaderUniformType.html#a6f3fb7a41398113ccd67c346114c1f4e',1,'LibCarna::base::ShaderUniformType::UniformType'],['../structLibCarna_1_1base_1_1ShaderUniformType_3_01Color_01_4.html#aa5e3d51ffaf756e5f76b3008d428e15d',1,'LibCarna::base::ShaderUniformType&lt; Color &gt;::UniformType']]]
 ];

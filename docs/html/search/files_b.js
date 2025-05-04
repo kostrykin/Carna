@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['occludedrenderingstage_2eh_0',['OccludedRenderingStage.h',['../OccludedRenderingStage_8h.html',1,'']]],
-  ['opaquerenderingstage_2eh_1',['OpaqueRenderingStage.h',['../OpaqueRenderingStage_8h.html',1,'']]],
-  ['orthogonalcontrol_2eh_2',['OrthogonalControl.h',['../OrthogonalControl_8h.html',1,'']]]
+  ['occludedrenderingstage_2ehpp_0',['OccludedRenderingStage.hpp',['../OccludedRenderingStage_8hpp.html',1,'']]],
+  ['opaquerenderingstage_2ehpp_1',['OpaqueRenderingStage.hpp',['../OpaqueRenderingStage_8hpp.html',1,'']]],
+  ['orthogonalcontrol_2ehpp_2',['OrthogonalControl.hpp',['../OrthogonalControl_8hpp.html',1,'']]]
 ];

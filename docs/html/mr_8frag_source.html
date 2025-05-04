@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Carna: src/res/mr.frag Source File</title>
+<title>LibCarna: src/res/mr.frag Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@ MathJax.Hub.Config({
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Carna<span id="projectnumber">&#160;Version 3.3.3</span>
+   <div id="projectname">LibCarna<span id="projectnumber">&#160;Version 3.4.0</span>
    </div>
   </td>
  </tr>
@@ -90,59 +90,85 @@ $(document).ready(function() { init_codefold(0); });
   <div class="headertitle"><div class="title">mr.frag</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>#version 330</div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span>/*</div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> *  Copyright (C) 2021 Leonid Kostrykin</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> *</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> */</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>uniform sampler3D mask;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>uniform mat4      modelTexture;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>uniform bool      ignoreColor;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>uniform vec4      color;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>in vec4 modelSpaceCoordinates;</div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>/*</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> *  Copyright (C) 2010 - 2016 Leonid Kostrykin</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> *</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> *  Chair of Medical Engineering (mediTEC)</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> *  RWTH Aachen University</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> *  Pauwelsstr. 20</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> *  52074 Aachen</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> *  Germany</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> * </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> * </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> *  Copyright (C) 2021 - 2025 Leonid Kostrykin</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> * </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> */</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>layout( location = 0 ) out vec4 _gl_FragColor;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>#version 330</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>// ----------------------------------------------------------------------------------</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>// Fragment Procedure</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>// ----------------------------------------------------------------------------------</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>void main()</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    if( abs( modelSpaceCoordinates.x ) &gt; 0.5 || abs( modelSpaceCoordinates.y ) &gt; 0.5 || abs( modelSpaceCoordinates.z ) &gt; 0.5 )</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        discard;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    float intensity = texture( mask, textureCoordinates.xyz ).r;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    if( intensity &gt; 0 )</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        if( ignoreColor )</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            _gl_FragColor = vec4( intensity, 0, 0, 1.0 );</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        }</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        else</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            _gl_FragColor = vec4( color );</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    }</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    else</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        discard;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>/*</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> *  Copyright (C) 2010 - 2016 Leonid Kostrykin</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> *</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> *  Chair of Medical Engineering (mediTEC)</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> *  RWTH Aachen University</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> *  Pauwelsstr. 20</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> *  52074 Aachen</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> *  Germany</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> * </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> * </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> *  Copyright (C) 2021 - 2025 Leonid Kostrykin</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> * </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> */</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>uniform sampler3D mask;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>uniform mat4      modelTexture;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>uniform bool      ignoreColor;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>uniform vec4      color;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>in vec4 modelSpaceCoordinates;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>layout( location = 0 ) out vec4 _gl_FragColor;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>// ----------------------------------------------------------------------------------</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>// Fragment Procedure</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>// ----------------------------------------------------------------------------------</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>void main()</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>{</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    if( abs( modelSpaceCoordinates.x ) &gt; 0.5 || abs( modelSpaceCoordinates.y ) &gt; 0.5 || abs( modelSpaceCoordinates.z ) &gt; 0.5 )</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        discard;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    float intensity = texture( mask, textureCoordinates.xyz ).r;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    if( intensity &gt; 0 )</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        if( ignoreColor )</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            _gl_FragColor = vec4( intensity, 0, 0, 1.0 );</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        else</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            _gl_FragColor = vec4( color );</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    else</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        discard;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
 </div><!-- fragment --></div><!-- contents -->
 <hr class="footer"/>
     <address class="footer">
+        <p>
+            <small>
+                Written by Leonid Kostrykin &copy; 2021&ndash;2025.
+                Based on <a href="https://github.com/RWTHmediTEC/Carna">Carna</a> (&copy; 2010-2016).
+            </small>
+        </p>
         <small>
-			Written by <a href="http://evoid.de">Leonid Kostrykin</a> at the
-            Chair of Medical Engineering (mediTEC),
-            RWTH Aachen University <p>
             Documentation generated by <a href="http://www.doxygen.org/index.html"> Doxygen </a>
         </small>
     </address>

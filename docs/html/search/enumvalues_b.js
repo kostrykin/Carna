@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['verbose_0',['verbose',['../classCarna_1_1base_1_1Log.html#a80ada39f636acf2cdb409c5256467937aa77a6c71db95e03ac4274335f99354e6',1,'Carna::base::Log']]],
-  ['violet_1',['violet',['../classCarna_1_1base_1_1RotatingColor.html#ab6ed7cd547d006d8b6d00c4e4e31ff2bad974dfaf1c90b6b3bb94c6e3cbb70e08',1,'Carna::base::RotatingColor']]]
+  ['verbose_0',['verbose',['../classLibCarna_1_1base_1_1Log.html#abd9a95920f9a76b651a2fd7346440ef2ab3f0288e7f8f2009f8419090060a0d1d',1,'LibCarna::base::Log']]],
+  ['violet_1',['violet',['../classLibCarna_1_1base_1_1RotatingColor.html#aeb74d0dea4915748968d830320867033ade72130b5b3627d5b95f7970f6d5fa64',1,'LibCarna::base::RotatingColor']]]
 ];
