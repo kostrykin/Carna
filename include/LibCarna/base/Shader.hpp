@@ -15,10 +15,9 @@
 #ifndef SHADER_H_6014714286
 #define SHADER_H_6014714286
 
-/** \file   Shader.h
-  * \brief  Defines \ref LibCarna::base::Shader.
-  *
-  * \author Leonid Kostrykin
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Shader.
   */
 
 #include <string>

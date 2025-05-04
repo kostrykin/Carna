@@ -20,8 +20,9 @@
 #include <LibCarna/base/HUV.hpp>
 #include <memory>
 
-/** \file   DRRStage.h
-  * \brief  Defines \ref LibCarna::presets::DRRStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::DRRStage.
   */
 
 namespace LibCarna

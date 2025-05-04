@@ -21,8 +21,9 @@
 #include <LibCarna/base/noncopyable.hpp>
 #include <LibCarna/base/math.hpp>
 
-/** \file   ManagedTexture3D.h
-  * \brief  Defines \ref LibCarna::base::ManagedTexture3D.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::ManagedTexture3D.
   */
 
 namespace LibCarna

@@ -20,8 +20,9 @@
 #include <LibCarna/LibCarna.hpp>
 #include <map>
 
-/** \file   VolumeRenderingStage.h
-  * \brief  Defines \ref LibCarna::presets::VolumeRenderingStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::VolumeRenderingStage.
   */
 
 namespace LibCarna

@@ -15,8 +15,9 @@
 #ifndef SPAN_H_6014714286
 #define SPAN_H_6014714286
 
-/** \file   Span.h
-  * \brief  Defines \ref LibCarna::base::math::Span.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::math::Span.
   */
 
 #include <LibCarna/base/math.hpp>

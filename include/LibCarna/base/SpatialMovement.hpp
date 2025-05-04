@@ -20,8 +20,9 @@
 #include <LibCarna/base/math.hpp>
 #include <memory>
 
-/** \file   SpatialMovement.h
-  * \brief  Defines \ref LibCarna::base::SpatialMovement.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::SpatialMovement.
   */
 
 namespace LibCarna

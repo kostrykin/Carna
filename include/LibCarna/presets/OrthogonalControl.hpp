@@ -19,8 +19,9 @@
 #include <LibCarna/base/ProjectionControl.hpp>
 #include <LibCarna/base/CameraControl.hpp>
 
-/** \file   OrthogonalControl.h
-  * \brief  Defines \ref LibCarna::presets::OrthogonalControl.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::OrthogonalControl.
   */
 
 namespace LibCarna

@@ -26,8 +26,9 @@
 #include <memory>
 #include <cmath>
 
-/** \file   VolumeGridHelper.h
-  * \brief  Defines \ref LibCarna::helpers::VolumeGridHelper.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::helpers::VolumeGridHelper.
   */
 
 namespace LibCarna

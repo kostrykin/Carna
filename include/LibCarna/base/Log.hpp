@@ -22,8 +22,9 @@
 #include <string>
 #include <memory>
 
-/** \file   Log.h
-  * \brief  Defines \ref LibCarna::base::Log.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Log.
   */
 
 namespace LibCarna

@@ -19,8 +19,9 @@
 #include <LibCarna/base/math.hpp>
 #include <memory>
 
-/** \file   ProjectionControl.h
-  * \brief  Defines \ref LibCarna::base::ProjectionControl.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::ProjectionControl.
   */
 
 namespace LibCarna

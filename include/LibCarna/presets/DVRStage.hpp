@@ -20,8 +20,9 @@
 #include <LibCarna/presets/VolumeRenderingStage.hpp>
 #include <memory>
 
-/** \file   DVRStage.h
-  * \brief  Defines \ref LibCarna::presets::DVRStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::DVRStage.
   */
 
 namespace LibCarna

@@ -15,8 +15,9 @@
 #ifndef BUFFEREDINTENSITYVOLUME_H_6014714286
 #define BUFFEREDINTENSITYVOLUME_H_6014714286
 
-/** \file   BufferedIntensityVolume.h
-  * \brief  Defines \ref LibCarna::base::BufferedIntensityVolume.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::BufferedIntensityVolume.
   */
 
 #include <LibCarna/base/IntensityVolume.hpp>

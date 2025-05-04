@@ -20,8 +20,9 @@
 #include <LibCarna/base/math.hpp>
 #include <LibCarna/base/LibCarnaException.hpp>
 
-/** \file   Texture.h
-  * \brief  Defines \ref LibCarna::base::Texture.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Texture.
   */
 
 namespace LibCarna

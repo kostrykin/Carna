@@ -19,8 +19,9 @@
 #include <LibCarna/base/GeometryStage.hpp>
 #include <LibCarna/base/Aggregation.hpp>
 
-/** \file   MeshColorCodingStage.h
-  * \brief  Defines \ref LibCarna::presets::MeshColorCodingStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::MeshColorCodingStage.
   */
 
 namespace LibCarna

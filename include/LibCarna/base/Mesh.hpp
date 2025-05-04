@@ -20,8 +20,9 @@
 #include <LibCarna/base/IndexBuffer.hpp>
 #include <memory>
 
-/** \file   Mesh.h
-  * \brief  Defines \ref LibCarna::base::Mesh.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Mesh.
   */
 
 namespace LibCarna

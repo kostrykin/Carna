@@ -18,8 +18,9 @@
 #include <LibCarna/LibCarna.hpp>
 #include <vector>
 
-/** \file   VertexAttributes.h
-  * \brief  Defines \ref LibCarna::base::VertexAttributes.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::VertexAttributes.
   */
 
 namespace LibCarna

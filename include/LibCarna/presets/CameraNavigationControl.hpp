@@ -19,8 +19,9 @@
 #include <LibCarna/base/CameraControl.hpp>
 #include <memory>
 
-/** \file   CameraNavigationControl.h
-  * \brief  Defines \ref LibCarna::presets::CameraNavigationControl.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::CameraNavigationControl.
   */
 
 namespace LibCarna

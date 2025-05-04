@@ -15,8 +15,9 @@
 #ifndef SHADERCOMPILATIONERROR_H_6014714286
 #define SHADERCOMPILATIONERROR_H_6014714286
 
-/** \file   ShaderCompilationError.h
-  * \brief  Defines \ref LibCarna::base::ShaderCompilationError.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::ShaderCompilationError.
   */
 
 #include <LibCarna/base/LibCarnaException.hpp>

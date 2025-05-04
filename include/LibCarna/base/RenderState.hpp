@@ -19,8 +19,9 @@
 #include <LibCarna/base/noncopyable.hpp>
 #include <memory>
 
-/** \file   RenderState.h
-  * \brief  Defines \ref LibCarna::base::RenderState.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::RenderState.
   */
 
 namespace LibCarna

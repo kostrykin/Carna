@@ -20,8 +20,9 @@
 #include <LibCarna/base/noncopyable.hpp>
 #include <LibCarna/base/math.hpp>
 
-/** \file   ManagedMeshInterface.h
-  * \brief  Defines \ref LibCarna::base::ManagedMeshInterface.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::ManagedMeshInterface.
   */
 
 namespace LibCarna

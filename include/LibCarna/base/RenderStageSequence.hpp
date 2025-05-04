@@ -20,8 +20,9 @@
 #include <LibCarna/base/noncopyable.hpp>
 #include <memory>
 
-/** \file   RenderStageSequence.h
-  * \brief  Defines \ref LibCarna::base::RenderStageSequence.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::RenderStageSequence.
   */
 
 namespace LibCarna

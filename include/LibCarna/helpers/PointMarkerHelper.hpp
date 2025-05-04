@@ -18,8 +18,9 @@
 #include <LibCarna/LibCarna.hpp>
 #include <LibCarna/base/noncopyable.hpp>
 
-/** \file   PointMarkerHelper.h
-  * \brief  Defines \ref LibCarna::helpers::PointMarkerHelper.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::helpers::PointMarkerHelper.
   */
 
 namespace LibCarna

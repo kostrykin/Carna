@@ -17,8 +17,9 @@
 
 #include <LibCarna/LibCarna.hpp>
 
-/** \file   CameraControl.h
-  * \brief  Defines \ref LibCarna::base::CameraControl.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::CameraControl.
   */
 
 namespace LibCarna

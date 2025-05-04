@@ -19,8 +19,9 @@
 #include <LibCarna/base/CameraControl.hpp>
 #include <memory>
 
-/** \file   CameraShowcaseControl.h
-  * \brief  Defines \ref LibCarna::presets::CameraShowcaseControl.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::CameraShowcaseControl.
   */
 
 namespace LibCarna

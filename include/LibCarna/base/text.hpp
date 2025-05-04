@@ -19,8 +19,9 @@
 #include <string>
 #include <sstream>
 
-/** \file   text.h
-  * \brief  Defines \ref LibCarna::base::text.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::text.
   */
 
 namespace LibCarna

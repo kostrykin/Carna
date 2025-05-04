@@ -20,8 +20,9 @@
 #include <LibCarna/base/noncopyable.hpp>
 #include <functional>
 
-/** \file   Spatial.h
-  * \brief  Defines \ref LibCarna::base::Spatial.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Spatial.
   */
 
 namespace LibCarna

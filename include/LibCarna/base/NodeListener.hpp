@@ -17,8 +17,9 @@
 
 #include <LibCarna/LibCarna.hpp>
 
-/** \file   NodeListener.h
-  * \brief  Defines \ref LibCarna::base::NodeListener.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::NodeListener.
   */
 
 namespace LibCarna

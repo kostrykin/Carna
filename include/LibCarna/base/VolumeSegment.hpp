@@ -15,11 +15,9 @@
 #ifndef VOLUMESEGMENT_H_6014714286
 #define VOLUMESEGMENT_H_6014714286
 
-/** \file   VolumeSegment.h
-  *
-  * \brief  Defines \ref LibCarna::base::VolumeSegment.
-  *
-  * \author Leonid Kostrykin
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::VolumeSegment.
   */
 
 #include <LibCarna/LibCarna.hpp>

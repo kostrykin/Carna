@@ -19,8 +19,9 @@
 #include <LibCarna/base/noncopyable.hpp>
 #include <LibCarna/base/math.hpp>
 
-/** \file   BoundingVolume.h
-  * \brief  Defines \ref LibCarna::base::BoundingVolume.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::BoundingVolume.
   */
 
 namespace LibCarna

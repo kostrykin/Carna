@@ -15,8 +15,9 @@
 #ifndef BUFFEREDNORMALMAP3D_H_6014714286
 #define BUFFEREDNORMALMAP3D_H_6014714286
 
-/** \file   BufferedNormalMap3D.h
-  * \brief  Defines \ref LibCarna::base::BufferedNormalMap3D.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::BufferedNormalMap3D.
   */
 
 #include <LibCarna/base/NormalMap3D.hpp>

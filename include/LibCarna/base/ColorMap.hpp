@@ -19,8 +19,9 @@
 #include <LibCarna/base/noncopyable.hpp>
 #include <memory>
 
-/** \file   ColorMap.h
-  * \brief  Defines \ref LibCarna::base::ColorMap.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::ColorMap.
   */
 
 namespace LibCarna

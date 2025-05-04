@@ -26,8 +26,9 @@
 #include <algorithm>
 #include <climits>
 
-/** \file   RenderQueue.h
-  * \brief  Defines \ref LibCarna::base::RenderQueue.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::RenderQueue.
   */
 
 namespace LibCarna

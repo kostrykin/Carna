@@ -15,11 +15,9 @@
 #ifndef INTENSITYVOLUME_H_6014714286
 #define INTENSITYVOLUME_H_6014714286
 
-/** \file   IntensityVolume.h
-  *
-  * \brief  Defines \ref LibCarna::base::IntensityVolume.
-  *
-  * \author Leonid Kostrykin
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::IntensityVolume.
   */
 
 #include <LibCarna/base/math/VectorField.hpp>

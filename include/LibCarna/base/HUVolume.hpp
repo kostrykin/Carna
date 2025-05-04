@@ -15,11 +15,9 @@
 #ifndef HUVOLUME_H_6014714286
 #define HUVOLUME_H_6014714286
 
-/** \file   HUVolume.h
-  *
-  * \brief  Defines \ref LibCarna::base::HUVolume.
-  *
-  * \author Leonid Kostrykin
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::HUVolume.
   */
 
 #include <LibCarna/base/math/VectorField.hpp>

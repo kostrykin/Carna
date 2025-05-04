@@ -17,8 +17,9 @@
 
 #include <LibCarna/base/RenderStage.hpp>
 
-/** \file   OccludedRenderingStage.h
-  * \brief  Defines \ref LibCarna::presets::OccludedRenderingStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::OccludedRenderingStage.
   */
 
 namespace LibCarna

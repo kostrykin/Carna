@@ -17,8 +17,9 @@
 
 #include <cstdlib>
 
-/** \file   BaseBuffer.h
-  * \brief  Defines \ref LibCarna::base::BaseBuffer.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::BaseBuffer.
   */
 
 namespace LibCarna

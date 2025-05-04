@@ -19,8 +19,9 @@
 #include <LibCarna/base/BufferedVectorFieldFormat.hpp>
 #include <memory>
 
-/** \file   BufferedVectorFieldTexture.h
-  * \brief  Defines \ref LibCarna::base::BufferedVectorFieldTexture.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::BufferedVectorFieldTexture.
   */
 
 namespace LibCarna

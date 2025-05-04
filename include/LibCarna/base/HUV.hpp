@@ -18,8 +18,9 @@
 #include <LibCarna/LibCarna.hpp>
 #include <LibCarna/base/LibCarnaException.hpp>
 
-/** \file   HUV.h
-  * \brief  Defines \ref LibCarna::base::HUV.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::HUV.
   */
 
 namespace LibCarna

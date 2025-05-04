@@ -15,8 +15,9 @@
 #ifndef SINGLETON_H_6014714286
 #define SINGLETON_H_6014714286
 
-/** \file   Singleton.h
-  * \brief  Defines \ref LibCarna::base::Singleton.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Singleton.
   */
 
 #include <LibCarna/base/LibCarnaException.hpp>

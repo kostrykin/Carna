@@ -26,8 +26,9 @@
 #include <LibCarna/presets/OccludedRenderingStage.hpp>
 #include <set>
 
-/** \file   FrameRendererHelper.h
-  * \brief  Defines \ref LibCarna::helpers::FrameRendererHelper.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::helpers::FrameRendererHelper.
   */
 
 namespace LibCarna

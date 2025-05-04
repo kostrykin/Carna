@@ -15,11 +15,9 @@
 #ifndef VOLUMEGRID_H_6014714286
 #define VOLUMEGRID_H_6014714286
 
-/** \file   VolumeGrid.h
-  *
-  * \brief  Defines \ref LibCarna::base::VolumeGrid.
-  *
-  * \author Leonid Kostrykin
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::VolumeGrid.
   */
 
 #include <LibCarna/LibCarna.hpp>

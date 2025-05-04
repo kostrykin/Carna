@@ -15,11 +15,9 @@
 #ifndef NORMALMAP3D_H_6014714286
 #define NORMALMAP3D_H_6014714286
 
-/** \file   NormalMap3D.h
-  *
-  * \brief  Defines \ref LibCarna::base::NormalMap3D.
-  *
-  * \author Leonid Kostrykin
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::NormalMap3D.
   */
 
 #include <LibCarna/base/math/VectorField.hpp>

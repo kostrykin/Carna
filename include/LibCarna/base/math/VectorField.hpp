@@ -15,11 +15,9 @@
 #ifndef VECTORFIELD_H_6014714286
 #define VECTORFIELD_H_6014714286
 
-/** \file   VectorField.h
-  *
-  * \brief  Defines \ref LibCarna::base::math::VectorField.
-  *
-  * \author Leonid Kostrykin
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::math::VectorField.
   */
 
 #include <LibCarna/base/math.hpp>

@@ -15,8 +15,9 @@
 #ifndef COMPOSITION_H_6014714286
 #define COMPOSITION_H_6014714286
 
-/** \file   Composition.h
-  * \brief  Defines \ref LibCarna::base::Composition.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Composition.
   */
 
 #include <LibCarna/base/Association.hpp>

@@ -15,14 +15,14 @@
 #ifndef SHADERUNIFORM_H_6014714286
 #define SHADERUNIFORM_H_6014714286
 
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::ShaderUniformType, \ref LibCarna::base::ShaderUniformBase, and
+  * \ref LibCarna::base::ShaderUniform.
+  */
+
 #include <LibCarna/LibCarna.hpp>
 #include <LibCarna/base/math.hpp>
-
-/** \file   Mesh.h
-  * \brief  Defines \ref LibCarna::base::ShaderUniformType,
-  *                 \ref LibCarna::base::ShaderUniformBase and
-  *                 \ref LibCarna::base::ShaderUniform.
-  */
 
 namespace LibCarna
 {

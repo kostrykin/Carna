@@ -19,8 +19,9 @@
 #include <LibCarna/LibCarna.hpp>
 #include <memory>
 
-/** \file   MaskRenderingStage.h
-  * \brief  Defines \ref LibCarna::presets::MaskRenderingStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::MaskRenderingStage.
   */
 
 namespace LibCarna

@@ -19,8 +19,9 @@
 #include <LibCarna/base/noncopyable.hpp>
 #include <LibCarna/base/math.hpp>
 
-/** \file   RenderStage.h
-  * \brief  Defines \ref LibCarna::base::RenderStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::RenderStage.
   */
 
 namespace LibCarna

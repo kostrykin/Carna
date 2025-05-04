@@ -15,8 +15,9 @@
 #ifndef CAMERA_H_6014714286
 #define CAMERA_H_6014714286
 
-/** \file   Camera.h
-  * \brief  Defines \ref LibCarna::base::Camera.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Camera.
   */
 
 #include <LibCarna/base/Spatial.hpp>

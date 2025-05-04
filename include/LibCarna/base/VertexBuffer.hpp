@@ -19,8 +19,9 @@
 #include <LibCarna/base/BaseBuffer.hpp>
 #include <iterator>
 
-/** \file   VertexBuffer.h
-  * \brief  Defines \ref LibCarna::base::VertexBuffer.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::VertexBuffer.
   */
 
 namespace LibCarna

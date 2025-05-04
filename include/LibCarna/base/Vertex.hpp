@@ -18,11 +18,10 @@
 #include <LibCarna/LibCarna.hpp>
 #include <LibCarna/base/VertexAttributes.hpp>
 
-/** \file   Vertex.h
-  * \brief  Defines \ref LibCarna::base::PVertex,
-  *                 \ref LibCarna::base::PNVertex,
-  *                 \ref LibCarna::base::VertexPosition,
-  *                 \ref LibCarna::base::VertexNormal.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::PVertex, \ref LibCarna::base::PNVertex, \ref LibCarna::base::VertexPosition,
+  * \ref LibCarna::base::VertexNormal.
   */
 
 namespace LibCarna

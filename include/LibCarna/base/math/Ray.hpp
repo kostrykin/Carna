@@ -18,8 +18,9 @@
 #include <LibCarna/LibCarna.hpp>
 #include <LibCarna/base/math.hpp>
 
-/** \file   Ray.h
-  * \brief  Defines \ref LibCarna::base::math::Ray.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::math::Ray.
   */
 
 namespace LibCarna

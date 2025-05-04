@@ -15,8 +15,9 @@
 #ifndef BUFFEREDHUVOLUME_H_6014714286
 #define BUFFEREDHUVOLUME_H_6014714286
 
-/** \file   BufferedHUVolume.h
-  * \brief  Defines \ref LibCarna::base::BufferedHUVolume.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::BufferedHUVolume.
   */
 
 #include <LibCarna/base/HUVolume.hpp>

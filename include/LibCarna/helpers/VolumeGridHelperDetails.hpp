@@ -26,8 +26,9 @@
 #include <LibCarna/base/text.hpp>
 #include <map>
 
-/** \file   VolumeGridHelperDetails.h
-  * \brief  Defines \ref LibCarna::helpers::details::VolumeGridHelper.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::helpers::details::VolumeGridHelper.
   */
 
 namespace LibCarna

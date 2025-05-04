@@ -20,8 +20,9 @@
 #include <LibCarna/base/noncopyable.hpp>
 #include <LibCarna/base/math.hpp>
 
-/** \file   ManagedTexture3DInterface.h
-  * \brief  Defines \ref LibCarna::base::ManagedTexture3DInterface.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::ManagedTexture3DInterface.
   */
 
 namespace LibCarna

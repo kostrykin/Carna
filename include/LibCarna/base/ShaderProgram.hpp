@@ -15,10 +15,9 @@
 #ifndef SHADERPROGRAM_H_6014714286
 #define SHADERPROGRAM_H_6014714286
 
-/** \file   ShaderProgram.h
-  * \brief  Defines \ref LibCarna::base::ShaderProgram
-  *
-  * \author Leonid Kostrykin
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::ShaderProgram
   */
 
 #include <LibCarna/base/math.hpp>

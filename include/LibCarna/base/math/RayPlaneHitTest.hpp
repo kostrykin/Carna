@@ -20,8 +20,9 @@
 #include <LibCarna/base/math/Ray.hpp>
 #include <LibCarna/base/LibCarnaException.hpp>
 
-/** \file   RayPlaneHitTest.h
-  * \brief  Defines \ref LibCarna::base::math::RayPlaneHitTest.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::math::RayPlaneHitTest.
   */
 
 namespace LibCarna

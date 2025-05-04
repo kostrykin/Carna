@@ -38,12 +38,13 @@
 /** \endcond
   */
 
-/** \file   math.h
-  * \brief  Defines \ref LibCarna::base::math namespace and \ref LIBCARNA_FOR_VECTOR3UI.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::math namespace and \ref LIBCARNA_FOR_VECTOR3UI.
   *
   * \attention
-  * If you include `windows.h` before including this file, make sure you have
-  * `NOMINMAX` defined before including the `windows.h` header file.
+  * If you include `windows.h` before including this file, make sure you have `NOMINMAX` defined before including the
+  * `windows.h` header file.
   */
 
 namespace LibCarna

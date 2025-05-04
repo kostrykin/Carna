@@ -18,8 +18,9 @@
 #include <LibCarna/LibCarna.hpp>
 #include <LibCarna/base/noncopyable.hpp>
 
-/** \file   Sampler.h
-  * \brief  Defines \ref LibCarna::base::Sampler.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Sampler.
   */
 
 namespace LibCarna

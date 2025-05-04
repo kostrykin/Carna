@@ -17,8 +17,9 @@
 
 #include <LibCarna/base/MeshRenderingStage.hpp>
 
-/** \file   TransparentRenderingStage.h
-  * \brief  Defines \ref LibCarna::presets::TransparentRenderingStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::TransparentRenderingStage.
   */
 
 namespace LibCarna

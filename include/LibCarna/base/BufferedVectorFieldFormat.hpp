@@ -17,8 +17,9 @@
 
 #include <LibCarna/LibCarna.hpp>
 
-/** \file   BufferedVectorFieldFormat.h
-  * \brief  Defines \ref LibCarna::base::BufferedVectorFieldFormat.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::BufferedVectorFieldFormat.
   */
 
 namespace LibCarna

@@ -20,8 +20,9 @@
 #include <LibCarna/presets/VolumeRenderingStage.hpp>
 #include <memory>
 
-/** \file   MIPStage.h
-  * \brief  Defines \ref LibCarna::presets::MIPStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::MIPStage.
   */
 
 namespace LibCarna

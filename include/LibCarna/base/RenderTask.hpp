@@ -18,8 +18,9 @@
 #include <LibCarna/LibCarna.hpp>
 #include <LibCarna/base/math.hpp>
 
-/** \file   RenderTask.h
-  * \brief  Defines \ref LibCarna::base::RenderTask.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::RenderTask.
   */
 
 namespace LibCarna

@@ -15,8 +15,9 @@
 #ifndef ROTATINGCOLOR_H_6014714286
 #define ROTATINGCOLOR_H_6014714286
 
-/** \file   RotatingColor.h
-  * \brief  Defines \ref LibCarna::base::RotatingColor.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::RotatingColor.
   */
 
 #include <LibCarna/LibCarna.hpp>

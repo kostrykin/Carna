@@ -15,8 +15,9 @@
 #ifndef ASSOCIATION_H_6014714286
 #define ASSOCIATION_H_6014714286
 
-/** \file   Association.h
-  * \brief  Defines \ref LibCarna::base::Association.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Association.
   */
 
 #include <LibCarna/LibCarna.hpp>

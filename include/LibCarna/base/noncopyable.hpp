@@ -15,8 +15,8 @@
 #ifndef NONCOPYABLE_H_6014714286
 #define NONCOPYABLE_H_6014714286
 
-/** \file noncopyable.h
-  *
+/** \file
+  * \brief
   * Defines \ref LibCarna::base::noncopyable and \ref NON_COPYABLE.
   */
 
@@ -72,9 +72,7 @@ public:
 
 
 
-/** \def    NON_COPYABLE
-  *
-  * \brief  Features class it is placed in as non-copyable.
+/** \brief  Features class it is placed in as non-copyable.
   *
   * Example:
   *

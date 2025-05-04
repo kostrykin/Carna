@@ -15,8 +15,9 @@
 #ifndef GEOMETRYFEATURE_H_6014714286
 #define GEOMETRYFEATURE_H_6014714286
 
-/** \file   GeometryFeature.h
-  * \brief  Defines \ref LibCarna::base::GeometryFeature.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::GeometryFeature.
   */
 
 #include <LibCarna/base/noncopyable.hpp>

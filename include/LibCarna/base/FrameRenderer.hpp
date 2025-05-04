@@ -22,8 +22,9 @@
 #include <LibCarna/base/math.hpp>
 #include <string>
 
-/** \file   FrameRenderer.h
-  * \brief  Defines \ref LibCarna::base::FrameRenderer.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::FrameRenderer.
   */
 
 namespace LibCarna

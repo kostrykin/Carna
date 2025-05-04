@@ -17,8 +17,9 @@
 
 #include <LibCarna/LibCarna.hpp>
 
-/** \file   RenderStageListener.h
-  * \brief  Defines \ref LibCarna::base::RenderStageListener.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::RenderStageListener.
   */
 
 namespace LibCarna

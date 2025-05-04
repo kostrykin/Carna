@@ -15,10 +15,9 @@
 #ifndef LIBCARNAEXCEPTION_H_6014714286
 #define LIBCARNAEXCEPTION_H_6014714286
 
-/** \file   LibCarnaException.h
-  * \brief  Defines
-  *             \ref LibCarna::base::LibCarnaException,
-  *             \ref LibCarna::base::AssertionFailure.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::LibCarnaException and \ref LibCarna::base::AssertionFailure.
   */
 
 #include <memory>
@@ -66,6 +65,8 @@ public:
       */
     LibCarnaException( const std::runtime_error& error, const std::string& details = "" );
 
+    /** \brief  Instantiates as a copy of the \a other exception. 
+      */
     LibCarnaException( const LibCarnaException& other );
 
     virtual ~LibCarnaException();

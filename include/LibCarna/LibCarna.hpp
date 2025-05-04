@@ -15,6 +15,11 @@
 #ifndef LIBCARNA_GLOBAL_H_6014714286
 #define LIBCARNA_GLOBAL_H_6014714286
 
+/** \file
+  * \brief
+  * Contains forward-declarations.
+  */
+
 #if defined( LIBCARNA_EXPORT )
 #   if defined( _MSC_VER )
 #       define LIBCARNA __declspec( dllexport )

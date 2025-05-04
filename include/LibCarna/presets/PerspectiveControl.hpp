@@ -18,8 +18,9 @@
 #include <LibCarna/LibCarna.hpp>
 #include <LibCarna/base/ProjectionControl.hpp>
 
-/** \file   PerspectiveControl.h
-  * \brief  Defines \ref LibCarna::presets::PerspectiveControl.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::PerspectiveControl.
   */
 
 namespace LibCarna

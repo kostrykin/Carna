@@ -15,8 +15,9 @@
 #ifndef SHADERMANAGER_H_6014714286
 #define SHADERMANAGER_H_6014714286
 
-/** \file   ShaderManager.h
-  * \brief  Defines \ref LibCarna::base::ShaderManager.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::ShaderManager.
   */
 
 #include <LibCarna/LibCarna.hpp>

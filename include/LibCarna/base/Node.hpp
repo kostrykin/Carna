@@ -18,8 +18,9 @@
 #include <LibCarna/base/Spatial.hpp>
 #include <memory>
 
-/** \file   Node.h
-  * \brief  Defines \ref LibCarna::base::Node.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Node.
   */
 
 namespace LibCarna

@@ -20,8 +20,9 @@
 #include <iterator>
 #include <cstdint>
 
-/** \file   IndexBuffer.h
-  * \brief  Defines \ref LibCarna::base::IndexBuffer.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::IndexBuffer.
   */
 
 namespace LibCarna

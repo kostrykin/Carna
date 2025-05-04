@@ -21,8 +21,9 @@
 #include <memory>
 #include <vector>
 
-/** \file   ManagedMesh.h
-  * \brief  Defines \ref LibCarna::base::ManagedMesh.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::ManagedMesh.
   */
 
 namespace LibCarna

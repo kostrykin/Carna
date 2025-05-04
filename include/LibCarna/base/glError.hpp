@@ -15,10 +15,9 @@
 #ifndef GLERROR_H_6014714286
 #define GLERROR_H_6014714286
 
-/** \file   glError.h
-  * \brief  Defines the \ref REPORT_GL_ERROR macro.
-  *
-  * \author Leonid Kostrykin
+/** \file
+  * \brief
+  * Defines the \ref REPORT_GL_ERROR macro.
   */
 
 

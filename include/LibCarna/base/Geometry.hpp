@@ -19,8 +19,9 @@
 #include <LibCarna/base/Spatial.hpp>
 #include <memory>
 
-/** \file   Geometry.h
-  * \brief  Defines \ref LibCarna::base::Geometry.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Geometry.
   */
 
 namespace LibCarna

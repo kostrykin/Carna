@@ -22,8 +22,9 @@
 #include <LibCarna/base/noncopyable.hpp>
 #include <string>
 
-/** \file   Material.h
-  * \brief  Defines \ref LibCarna::base::Material.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Material.
   */
 
 namespace LibCarna

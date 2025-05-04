@@ -19,8 +19,9 @@
 #include <LibCarna/base/Renderable.hpp>
 #include <LibCarna/LibCarna.hpp>
 
-/** \file   CuttingPlanesStage.h
-  * \brief  Defines \ref LibCarna::presets::CuttingPlanesStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::CuttingPlanesStage.
   */
 
 namespace LibCarna

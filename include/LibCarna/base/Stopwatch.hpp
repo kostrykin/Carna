@@ -15,8 +15,9 @@
 #ifndef STOPWATCH_H_6014714286
 #define STOPWATCH_H_6014714286
 
-/** \file   Stopwatch.h
-  * \brief  Defines \ref LibCarna::base::Stopwatch.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Stopwatch.
   */
 
 #include <LibCarna/LibCarna.hpp>

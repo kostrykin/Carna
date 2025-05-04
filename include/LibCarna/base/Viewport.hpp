@@ -18,8 +18,9 @@
 #include <LibCarna/LibCarna.hpp>
 #include <LibCarna/base/noncopyable.hpp>
 
-/** \file   Viewport.h
-  * \brief  Defines \ref LibCarna::base::Viewport.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Viewport.
   */
 
 namespace LibCarna

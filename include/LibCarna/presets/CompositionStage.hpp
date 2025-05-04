@@ -17,8 +17,9 @@
 
 #include <LibCarna/base/RenderStage.hpp>
 
-/** \file   CompositionStage.h
-  * \brief  Defines \ref LibCarna::presets::CompositionStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::CompositionStage.
   */
 
 namespace LibCarna

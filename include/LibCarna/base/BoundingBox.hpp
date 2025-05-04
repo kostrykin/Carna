@@ -18,8 +18,9 @@
 #include <LibCarna/LibCarna.hpp>
 #include <LibCarna/base/BoundingVolume.hpp>
 
-/** \file   BoundingBox.h
-  * \brief  Defines \ref LibCarna::base::BoundingBox.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::BoundingBox.
   */
 
 namespace LibCarna

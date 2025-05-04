@@ -15,8 +15,9 @@
 #ifndef AGGREGATION_H_6014714286
 #define AGGREGATION_H_6014714286
 
-/** \file   Aggregation.h
-  * \brief  Defines \ref LibCarna::base::Aggregation.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Aggregation.
   */
 
 #include <LibCarna/base/Association.hpp>

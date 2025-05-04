@@ -17,8 +17,9 @@
 
 #include <LibCarna/presets/CompositionStage.hpp>
 
-/** \file   ParallaxStage.h
-  * \brief  Defines \ref LibCarna::presets::ParallaxStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::ParallaxStage.
   */
 
 namespace LibCarna

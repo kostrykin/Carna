@@ -21,8 +21,9 @@
 #include <LibCarna/base/Log.hpp>
 #include <memory>
 
-/** \file   GLContext.h
-  * \brief  Defines \ref LibCarna::base::GLContext.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::GLContext.
   */
 
 namespace LibCarna

@@ -30,8 +30,9 @@
 #include <ios>
 #include <string>
 
-/** \file   MeshFactory.h
-  * \brief  Defines \ref LibCarna::base::MeshFactory.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::MeshFactory.
   */
 
 namespace LibCarna

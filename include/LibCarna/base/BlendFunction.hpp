@@ -15,8 +15,9 @@
 #ifndef BLENDFUNCTION_H_6014714286
 #define BLENDFUNCTION_H_6014714286
 
-/** \file   BlendFunction.h
-  * \brief  Defines \ref LibCarna::base::BlendFunction.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::BlendFunction.
   */
 
 #include <LibCarna/LibCarna.hpp>

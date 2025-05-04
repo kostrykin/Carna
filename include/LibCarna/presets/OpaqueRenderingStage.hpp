@@ -17,8 +17,9 @@
 
 #include <LibCarna/base/MeshRenderingStage.hpp>
 
-/** \file   OpaqueRenderingStage.h
-  * \brief  Defines \ref LibCarna::presets::OpaqueRenderingStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::presets::OpaqueRenderingStage.
   */
 
 namespace LibCarna

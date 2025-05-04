@@ -19,8 +19,9 @@
 #include <LibCarna/base/noncopyable.hpp>
 #include <LibCarna/base/math.hpp>
 
-/** \file   Color.h
-  * \brief  Defines \ref LibCarna::base::Color.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Color.
   */
 
 namespace LibCarna

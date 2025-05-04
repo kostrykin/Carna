@@ -15,8 +15,9 @@
 #ifndef FRAMEBUFFER_H_6014714286
 #define FRAMEBUFFER_H_6014714286
 
-/** \file   Framebuffer.h
-  * \brief  Defines \ref LibCarna::base::Framebuffer
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Framebuffer
   */
 
 #include <LibCarna/LibCarna.hpp>

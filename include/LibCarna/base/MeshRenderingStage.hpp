@@ -23,8 +23,9 @@
 #include <LibCarna/base/Material.hpp>
 #include <LibCarna/base/ManagedMesh.hpp>
 
-/** \file   MeshRenderingStage.h
-  * \brief  Defines \ref LibCarna::base::MeshRenderingStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::MeshRenderingStage.
   */
 
 namespace LibCarna

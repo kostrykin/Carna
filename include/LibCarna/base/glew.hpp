@@ -15,11 +15,9 @@
 #ifndef GLEW_H_6014714286
 #define GLEW_H_6014714286
 
-/** \file   glew.h
-  * \brief  Includes \c GL/glew.h and \c windows.h if \c _WIN32 is defined.
-  *         Also defines the \ref LIBCARNA_GLEW_INIT macro.
-  *
-  * \author Leonid Kostrykin
+/** \file
+  * \brief
+  * Includes \c GL/glew.h and \c windows.h if \c _WIN32 is defined. Also defines the \ref LIBCARNA_GLEW_INIT macro.
   */
   
 #include <LibCarna/base/Log.hpp>

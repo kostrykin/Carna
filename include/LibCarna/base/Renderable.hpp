@@ -19,8 +19,9 @@
 #include <LibCarna/base/GeometryFeature.hpp>
 #include <LibCarna/base/math.hpp>
 
-/** \file   Renderable.h
-  * \brief  Defines \ref LibCarna::base::Renderable.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::Renderable.
   */
 
 namespace LibCarna

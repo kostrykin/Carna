@@ -23,8 +23,9 @@
 #include <memory>
 #include <map>
 
-/** \file   GeometryStage.h
-  * \brief  Defines \ref LibCarna::base::GeometryStage.
+/** \file
+  * \brief
+  * Defines \ref LibCarna::base::GeometryStage.
   */
 
 namespace LibCarna
