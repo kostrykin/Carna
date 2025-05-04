@@ -1,13 +1,12 @@
 var searchData=
 [
-  ['camera_2eh_0',['Camera.h',['../Camera_8h.html',1,'']]],
-  ['cameracontrol_2eh_1',['CameraControl.h',['../CameraControl_8h.html',1,'']]],
-  ['cameranavigationcontrol_2eh_2',['CameraNavigationControl.h',['../CameraNavigationControl_8h.html',1,'']]],
-  ['camerashowcasecontrol_2eh_3',['CameraShowcaseControl.h',['../CameraShowcaseControl_8h.html',1,'']]],
-  ['carnaexception_2eh_4',['CarnaException.h',['../CarnaException_8h.html',1,'']]],
-  ['color_2eh_5',['Color.h',['../Color_8h.html',1,'']]],
-  ['colormap_2eh_6',['ColorMap.h',['../ColorMap_8h.html',1,'']]],
-  ['composition_2eh_7',['Composition.h',['../Composition_8h.html',1,'']]],
-  ['compositionstage_2eh_8',['CompositionStage.h',['../CompositionStage_8h.html',1,'']]],
-  ['cuttingplanesstage_2eh_9',['CuttingPlanesStage.h',['../CuttingPlanesStage_8h.html',1,'']]]
+  ['camera_2ehpp_0',['Camera.hpp',['../Camera_8hpp.html',1,'']]],
+  ['cameracontrol_2ehpp_1',['CameraControl.hpp',['../CameraControl_8hpp.html',1,'']]],
+  ['cameranavigationcontrol_2ehpp_2',['CameraNavigationControl.hpp',['../CameraNavigationControl_8hpp.html',1,'']]],
+  ['camerashowcasecontrol_2ehpp_3',['CameraShowcaseControl.hpp',['../CameraShowcaseControl_8hpp.html',1,'']]],
+  ['color_2ehpp_4',['Color.hpp',['../Color_8hpp.html',1,'']]],
+  ['colormap_2ehpp_5',['ColorMap.hpp',['../ColorMap_8hpp.html',1,'']]],
+  ['composition_2ehpp_6',['Composition.hpp',['../Composition_8hpp.html',1,'']]],
+  ['compositionstage_2ehpp_7',['CompositionStage.hpp',['../CompositionStage_8hpp.html',1,'']]],
+  ['cuttingplanesstage_2ehpp_8',['CuttingPlanesStage.hpp',['../CuttingPlanesStage_8hpp.html',1,'']]]
 ];

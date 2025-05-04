@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['log_0',['Log',['../classCarna_1_1base_1_1Log.html',1,'Carna::base']]]
+  ['libcarnaexception_0',['LibCarnaException',['../classLibCarna_1_1base_1_1LibCarnaException.html',1,'LibCarna::base']]],
+  ['log_1',['Log',['../classLibCarna_1_1base_1_1Log.html',1,'LibCarna::base']]]
 ];

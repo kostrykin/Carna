@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['resolution_0',['Resolution',['../classCarna_1_1base_1_1Texture.html#a5263b316e465990d92c39f737bac6ccc',1,'Carna::base::Texture']]]
+  ['resolution_0',['Resolution',['../classLibCarna_1_1base_1_1Texture.html#a50ef5d29e2d5ce86e571b1093415b008',1,'LibCarna::base::Texture']]]
 ];

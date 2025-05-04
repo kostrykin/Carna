@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['unit_0',['unit',['../structCarna_1_1base_1_1FrameRenderer_1_1RenderTextureParams.html#a1f545508dcdd4b7cc402fdb73ddba4e1',1,'Carna::base::FrameRenderer::RenderTextureParams']]],
-  ['usedefaultsampler_1',['useDefaultSampler',['../structCarna_1_1base_1_1FrameRenderer_1_1RenderTextureParams.html#ae5bd6a0c56a85be51ecb1208abb32d9b',1,'Carna::base::FrameRenderer::RenderTextureParams']]],
-  ['usedefaultshader_2',['useDefaultShader',['../structCarna_1_1base_1_1FrameRenderer_1_1RenderTextureParams.html#a3bc2506ce0bbb2dbcf89c580243fcd94',1,'Carna::base::FrameRenderer::RenderTextureParams']]]
+  ['unit_0',['unit',['../structLibCarna_1_1base_1_1FrameRenderer_1_1RenderTextureParams.html#ad52874350fca2c15da3d6f2c797a7a97',1,'LibCarna::base::FrameRenderer::RenderTextureParams']]],
+  ['units_1',['units',['../structLibCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Spacing.html#a36e46222ee0d59f5d2997ce0cb995b77',1,'LibCarna::helpers::VolumeGridHelperBase::Spacing::units'],['../structLibCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Extent.html#a6eb151c32df4894656d4b4519859ac15',1,'LibCarna::helpers::VolumeGridHelperBase::Extent::units']]],
+  ['usedefaultsampler_2',['useDefaultSampler',['../structLibCarna_1_1base_1_1FrameRenderer_1_1RenderTextureParams.html#a51fc20ae903781895214c315e60e9990',1,'LibCarna::base::FrameRenderer::RenderTextureParams']]],
+  ['usedefaultshader_3',['useDefaultShader',['../structLibCarna_1_1base_1_1FrameRenderer_1_1RenderTextureParams.html#a2ecfc83b95234e85bc843b67ef4cb9e5',1,'LibCarna::base::FrameRenderer::RenderTextureParams']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['aggregation_2eh_0',['Aggregation.h',['../Aggregation_8h.html',1,'']]],
-  ['association_2eh_1',['Association.h',['../Association_8h.html',1,'']]]
+  ['aggregation_2ehpp_0',['Aggregation.hpp',['../Aggregation_8hpp.html',1,'']]],
+  ['association_2ehpp_1',['Association.hpp',['../Association_8hpp.html',1,'']]]
 ];
