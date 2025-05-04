@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/LibCarnaException.h>
-#include <LibCarna/base/Log.h>
+#include <LibCarna/base/LibCarnaException.hpp>
+#include <LibCarna/base/Log.hpp>
 #include <iostream>
 
 namespace LibCarna

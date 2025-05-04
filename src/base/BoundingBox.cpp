@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/BoundingBox.h>
+#include <LibCarna/base/BoundingBox.hpp>
 
 namespace LibCarna
 {

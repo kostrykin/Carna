@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/BufferedVectorFieldFormat.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/BufferedVectorFieldFormat.hpp>
 
 namespace LibCarna
 {

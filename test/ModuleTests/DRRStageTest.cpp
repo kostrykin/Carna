@@ -12,11 +12,11 @@
  * 
  */
 
-#include "DRRStageTest.h"
-#include <LibCarna/base/Node.h>
-#include <LibCarna/base/Color.h>
-#include <LibCarna/base/FrameRenderer.h>
-#include <LibCarna/presets/DRRStage.h>
+#include "DRRStageTest.hpp"
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/Color.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/presets/DRRStage.hpp>
 
 
 

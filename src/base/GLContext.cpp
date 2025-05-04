@@ -12,12 +12,12 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/glError.h>
-#include <LibCarna/base/GLContext.h>
-#include <LibCarna/base/ShaderProgram.h>
-#include <LibCarna/base/RenderState.h>
-#include <LibCarna/base/LibCarnaException.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/glError.hpp>
+#include <LibCarna/base/GLContext.hpp>
+#include <LibCarna/base/ShaderProgram.hpp>
+#include <LibCarna/base/RenderState.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
 #include <set>
 #include <stack>
 

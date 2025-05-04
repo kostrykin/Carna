@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/GLContext.h>
-#include <QGLContextHolder.h>
+#include <LibCarna/base/GLContext.hpp>
+#include <QGLContextHolder.hpp>
 #include <QGLPixelBuffer>
 
 namespace LibCarna

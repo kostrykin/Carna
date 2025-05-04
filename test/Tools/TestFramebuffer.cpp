@@ -12,11 +12,11 @@
  * 
  */
 
-#include "TestFramebuffer.h"
-#include <LibCarna/base/LibCarnaException.h>
-#include <LibCarna/base/Framebuffer.h>
-#include <LibCarna/base/Texture.h>
-#include <LibCarna/base/math.h>
+#include "TestFramebuffer.hpp"
+#include <LibCarna/base/LibCarnaException.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Texture.hpp>
+#include <LibCarna/base/math.hpp>
 #include <QFileInfo>
 #include <regex>
 

@@ -12,9 +12,9 @@
  * 
  */
 
-#include <LibCarna/base/Spatial.h>
-#include <LibCarna/base/Node.h>
-#include <LibCarna/base/LibCarnaException.h>
+#include <LibCarna/base/Spatial.hpp>
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
 
 namespace LibCarna
 {

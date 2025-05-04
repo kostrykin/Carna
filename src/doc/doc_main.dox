@@ -3,9 +3,8 @@ namespace LibCarna
 
 /** \mainpage
   *
-  * %Carna provides classes for simple real-time 3-D visualization of biomedical data and
-  * beyond. It is named after the greek god of organs (yup, they really did have even one
-  * for organs). It is based on OpenGL 3.3 and Eigen 3.
+  * %LibCarna provides classes for simple real-time 3D visualization of biomedical data and beyond. It is named after
+  * the greek god of organs (yup, they really did have even one for organs). It is based on OpenGL 3.3 and Eigen 3.
   *
   * Jump to:
   *     \ref QuickStart | \ref VersionLog | \ref testing "Test Suite Documentation"

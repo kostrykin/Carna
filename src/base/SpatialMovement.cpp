@@ -12,11 +12,11 @@
  * 
  */
 
-#include <LibCarna/base/SpatialMovement.h>
-#include <LibCarna/base/Spatial.h>
-#include <LibCarna/base/LibCarnaException.h>
-#include <LibCarna/base/math/Ray.h>
-#include <LibCarna/base/math/RayPlaneHitTest.h>
+#include <LibCarna/base/SpatialMovement.hpp>
+#include <LibCarna/base/Spatial.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
+#include <LibCarna/base/math/Ray.hpp>
+#include <LibCarna/base/math/RayPlaneHitTest.hpp>
 
 namespace LibCarna
 {

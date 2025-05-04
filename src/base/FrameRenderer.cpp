@@ -12,23 +12,23 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/glError.h>
-#include <LibCarna/base/FrameRenderer.h>
-#include <LibCarna/base/Camera.h>
-#include <LibCarna/base/RenderTask.h>
-#include <LibCarna/base/RenderStage.h>
-#include <LibCarna/base/Node.h>
-#include <LibCarna/base/Viewport.h>
-#include <LibCarna/base/ShaderManager.h>
-#include <LibCarna/base/ShaderUniform.h>
-#include <LibCarna/base/Vertex.h>
-#include <LibCarna/base/Mesh.h>
-#include <LibCarna/base/VertexBuffer.h>
-#include <LibCarna/base/IndexBuffer.h>
-#include <LibCarna/base/Sampler.h>
-#include <LibCarna/base/Stopwatch.h>
-#include <LibCarna/base/Composition.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/glError.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/base/Camera.hpp>
+#include <LibCarna/base/RenderTask.hpp>
+#include <LibCarna/base/RenderStage.hpp>
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/Vertex.hpp>
+#include <LibCarna/base/Mesh.hpp>
+#include <LibCarna/base/VertexBuffer.hpp>
+#include <LibCarna/base/IndexBuffer.hpp>
+#include <LibCarna/base/Sampler.hpp>
+#include <LibCarna/base/Stopwatch.hpp>
+#include <LibCarna/base/Composition.hpp>
 #include <vector>
 
 namespace LibCarna

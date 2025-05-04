@@ -12,12 +12,12 @@
  * 
  */
 
-#include <LibCarna/base/ColorMap.h>
-#include <LibCarna/base/math/Span.h>
-#include <LibCarna/base/Sampler.h>
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/ShaderManager.h>
-#include <LibCarna/base/Texture.h>
+#include <LibCarna/base/ColorMap.hpp>
+#include <LibCarna/base/math/Span.hpp>
+#include <LibCarna/base/Sampler.hpp>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/Texture.hpp>
 
 namespace LibCarna
 {

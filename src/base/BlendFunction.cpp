@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/BlendFunction.h>
+#include <LibCarna/base/BlendFunction.hpp>
 
 namespace LibCarna
 {

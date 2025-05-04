@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/Vertex.h>
+#include <LibCarna/base/Vertex.hpp>
 #include <vector>
 
 namespace LibCarna

@@ -12,8 +12,8 @@
  * 
  */
 
-#include "mathTest.h"
-#include <LibCarna/base/math.h>
+#include "mathTest.hpp"
+#include <LibCarna/base/math.hpp>
 
 namespace LibCarna
 {

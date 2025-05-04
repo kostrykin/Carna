@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/VertexBuffer.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/VertexBuffer.hpp>
 
 namespace LibCarna
 {

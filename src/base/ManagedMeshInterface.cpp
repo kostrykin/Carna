@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/ManagedMeshInterface.h>
-#include <LibCarna/base/Mesh.h>
+#include <LibCarna/base/ManagedMeshInterface.hpp>
+#include <LibCarna/base/Mesh.hpp>
 
 namespace LibCarna
 {

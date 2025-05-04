@@ -12,8 +12,8 @@
  * 
  */
 
-#include "BufferedNormalMap3DTest.h"
-#include <LibCarna/base/BufferedNormalMap3D.h>
+#include "BufferedNormalMap3DTest.hpp"
+#include <LibCarna/base/BufferedNormalMap3D.hpp>
 
 
 

@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/BaseBuffer.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/BaseBuffer.hpp>
 
 namespace LibCarna
 {

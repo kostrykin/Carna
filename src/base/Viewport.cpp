@@ -12,10 +12,10 @@
  * 
  */
 
-#include <LibCarna/base/Viewport.h>
-#include <LibCarna/base/FrameRenderer.h>
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/math.h>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/math.hpp>
 #include <stack>
 
 namespace LibCarna

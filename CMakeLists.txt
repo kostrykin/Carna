@@ -79,8 +79,8 @@ file(	TO_CMAKE_PATH	${INSTALL_CMAKE_DIR}	INSTALL_CMAKE_DIR )
 
 ############################################
 
-configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/misc/Version.h.in
-				${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/Version.h @ONLY)
+configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/misc/Version.hpp.in
+				${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/Version.hpp @ONLY)
 
 configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile.in
 				${CMAKE_CURRENT_SOURCE_DIR}/src/doc/Doxyfile @ONLY)
@@ -102,110 +102,110 @@ include_directories( ${EIGEN3_INCLUDE_DIR} )
 
 include_directories(${CMAKE_PROJECT_DIR}include)
 set( PUBLIC_HEADERS
-		include/${PROJECT_NAME}/LibCarna.h
-		include/${PROJECT_NAME}/Version.h
+		include/${PROJECT_NAME}/LibCarna.hpp
+		include/${PROJECT_NAME}/Version.hpp
 
-		include/${PROJECT_NAME}/base/Aggregation.h
-		include/${PROJECT_NAME}/base/Association.h
-		include/${PROJECT_NAME}/base/BaseBuffer.h
-		include/${PROJECT_NAME}/base/BlendFunction.h
-		include/${PROJECT_NAME}/base/BoundingBox.h
-		include/${PROJECT_NAME}/base/BoundingSphere.h
-		include/${PROJECT_NAME}/base/BoundingVolume.h
-		include/${PROJECT_NAME}/base/BufferedHUVolume.h
-		include/${PROJECT_NAME}/base/BufferedIntensityVolume.h
-		include/${PROJECT_NAME}/base/BufferedNormalMap3D.h
-		include/${PROJECT_NAME}/base/BufferedVectorFieldFormat.h
-		include/${PROJECT_NAME}/base/BufferedVectorFieldTexture.h
-		include/${PROJECT_NAME}/base/Camera.h
-		include/${PROJECT_NAME}/base/CameraControl.h
-		include/${PROJECT_NAME}/base/Color.h
-		include/${PROJECT_NAME}/base/ColorMap.h
-		include/${PROJECT_NAME}/base/Composition.h
-		include/${PROJECT_NAME}/base/Framebuffer.h
-		include/${PROJECT_NAME}/base/FrameRenderer.h
-		include/${PROJECT_NAME}/base/Geometry.h
-		include/${PROJECT_NAME}/base/GeometryFeature.h
-		include/${PROJECT_NAME}/base/GeometryStage.h
+		include/${PROJECT_NAME}/base/Aggregation.hpp
+		include/${PROJECT_NAME}/base/Association.hpp
+		include/${PROJECT_NAME}/base/BaseBuffer.hpp
+		include/${PROJECT_NAME}/base/BlendFunction.hpp
+		include/${PROJECT_NAME}/base/BoundingBox.hpp
+		include/${PROJECT_NAME}/base/BoundingSphere.hpp
+		include/${PROJECT_NAME}/base/BoundingVolume.hpp
+		include/${PROJECT_NAME}/base/BufferedHUVolume.hpp
+		include/${PROJECT_NAME}/base/BufferedIntensityVolume.hpp
+		include/${PROJECT_NAME}/base/BufferedNormalMap3D.hpp
+		include/${PROJECT_NAME}/base/BufferedVectorFieldFormat.hpp
+		include/${PROJECT_NAME}/base/BufferedVectorFieldTexture.hpp
+		include/${PROJECT_NAME}/base/Camera.hpp
+		include/${PROJECT_NAME}/base/CameraControl.hpp
+		include/${PROJECT_NAME}/base/Color.hpp
+		include/${PROJECT_NAME}/base/ColorMap.hpp
+		include/${PROJECT_NAME}/base/Composition.hpp
+		include/${PROJECT_NAME}/base/Framebuffer.hpp
+		include/${PROJECT_NAME}/base/FrameRenderer.hpp
+		include/${PROJECT_NAME}/base/Geometry.hpp
+		include/${PROJECT_NAME}/base/GeometryFeature.hpp
+		include/${PROJECT_NAME}/base/GeometryStage.hpp
 		include/${PROJECT_NAME}/base/GL/eglew.h
 		include/${PROJECT_NAME}/base/GL/glew.h
 		include/${PROJECT_NAME}/base/GL/glxew.h
 		include/${PROJECT_NAME}/base/GL/wglew.h
-		include/${PROJECT_NAME}/base/GLContext.h
-		include/${PROJECT_NAME}/base/glError.h
-		include/${PROJECT_NAME}/base/glew.h
-		include/${PROJECT_NAME}/base/HUV.h
-		include/${PROJECT_NAME}/base/HUVolume.h
-		include/${PROJECT_NAME}/base/IndexBuffer.h
-		include/${PROJECT_NAME}/base/IntensityVolume.h
-		include/${PROJECT_NAME}/base/LibCarnaException.h
-		include/${PROJECT_NAME}/base/Log.h
-		include/${PROJECT_NAME}/base/ManagedMesh.h
-		include/${PROJECT_NAME}/base/ManagedMeshInterface.h
-		include/${PROJECT_NAME}/base/ManagedTexture3D.h
-		include/${PROJECT_NAME}/base/ManagedTexture3DInterface.h
-		include/${PROJECT_NAME}/base/Material.h
-		include/${PROJECT_NAME}/base/math.h
-		include/${PROJECT_NAME}/base/math/Ray.h
-		include/${PROJECT_NAME}/base/math/RayPlaneHitTest.h
-		include/${PROJECT_NAME}/base/math/Span.h
-		include/${PROJECT_NAME}/base/math/VectorField.h
-		include/${PROJECT_NAME}/base/Mesh.h
-		include/${PROJECT_NAME}/base/MeshFactory.h
-		include/${PROJECT_NAME}/base/MeshRenderingStage.h
-		include/${PROJECT_NAME}/base/Node.h
-		include/${PROJECT_NAME}/base/NodeListener.h
-		include/${PROJECT_NAME}/base/noncopyable.h
-		include/${PROJECT_NAME}/base/NormalMap3D.h
-		include/${PROJECT_NAME}/base/ProjectionControl.h
-		include/${PROJECT_NAME}/base/Renderable.h
-		include/${PROJECT_NAME}/base/RenderQueue.h
-		include/${PROJECT_NAME}/base/RenderStage.h
-		include/${PROJECT_NAME}/base/RenderStageListener.h
-		include/${PROJECT_NAME}/base/RenderStageSequence.h
-		include/${PROJECT_NAME}/base/RenderState.h
-		include/${PROJECT_NAME}/base/RenderTask.h
-		include/${PROJECT_NAME}/base/RotatingColor.h
-		include/${PROJECT_NAME}/base/Sampler.h
-		include/${PROJECT_NAME}/base/Shader.h
-		include/${PROJECT_NAME}/base/ShaderCompilationError.h
-		include/${PROJECT_NAME}/base/ShaderManager.h
-		include/${PROJECT_NAME}/base/ShaderProgram.h
-		include/${PROJECT_NAME}/base/ShaderUniform.h
-		include/${PROJECT_NAME}/base/Singleton.h
-		include/${PROJECT_NAME}/base/Spatial.h
-		include/${PROJECT_NAME}/base/SpatialMovement.h
-		include/${PROJECT_NAME}/base/Stopwatch.h
-		include/${PROJECT_NAME}/base/text.h
-		include/${PROJECT_NAME}/base/Texture.h
-		include/${PROJECT_NAME}/base/Vertex.h
-		include/${PROJECT_NAME}/base/VertexAttributes.h
-		include/${PROJECT_NAME}/base/VertexBuffer.h
-		include/${PROJECT_NAME}/base/Viewport.h
-		include/${PROJECT_NAME}/base/VolumeGrid.h
-		include/${PROJECT_NAME}/base/VolumeSegment.h
+		include/${PROJECT_NAME}/base/GLContext.hpp
+		include/${PROJECT_NAME}/base/glError.hpp
+		include/${PROJECT_NAME}/base/glew.hpp
+		include/${PROJECT_NAME}/base/HUV.hpp
+		include/${PROJECT_NAME}/base/HUVolume.hpp
+		include/${PROJECT_NAME}/base/IndexBuffer.hpp
+		include/${PROJECT_NAME}/base/IntensityVolume.hpp
+		include/${PROJECT_NAME}/base/LibCarnaException.hpp
+		include/${PROJECT_NAME}/base/Log.hpp
+		include/${PROJECT_NAME}/base/ManagedMesh.hpp
+		include/${PROJECT_NAME}/base/ManagedMeshInterface.hpp
+		include/${PROJECT_NAME}/base/ManagedTexture3D.hpp
+		include/${PROJECT_NAME}/base/ManagedTexture3DInterface.hpp
+		include/${PROJECT_NAME}/base/Material.hpp
+		include/${PROJECT_NAME}/base/math.hpp
+		include/${PROJECT_NAME}/base/math/Ray.hpp
+		include/${PROJECT_NAME}/base/math/RayPlaneHitTest.hpp
+		include/${PROJECT_NAME}/base/math/Span.hpp
+		include/${PROJECT_NAME}/base/math/VectorField.hpp
+		include/${PROJECT_NAME}/base/Mesh.hpp
+		include/${PROJECT_NAME}/base/MeshFactory.hpp
+		include/${PROJECT_NAME}/base/MeshRenderingStage.hpp
+		include/${PROJECT_NAME}/base/Node.hpp
+		include/${PROJECT_NAME}/base/NodeListener.hpp
+		include/${PROJECT_NAME}/base/noncopyable.hpp
+		include/${PROJECT_NAME}/base/NormalMap3D.hpp
+		include/${PROJECT_NAME}/base/ProjectionControl.hpp
+		include/${PROJECT_NAME}/base/Renderable.hpp
+		include/${PROJECT_NAME}/base/RenderQueue.hpp
+		include/${PROJECT_NAME}/base/RenderStage.hpp
+		include/${PROJECT_NAME}/base/RenderStageListener.hpp
+		include/${PROJECT_NAME}/base/RenderStageSequence.hpp
+		include/${PROJECT_NAME}/base/RenderState.hpp
+		include/${PROJECT_NAME}/base/RenderTask.hpp
+		include/${PROJECT_NAME}/base/RotatingColor.hpp
+		include/${PROJECT_NAME}/base/Sampler.hpp
+		include/${PROJECT_NAME}/base/Shader.hpp
+		include/${PROJECT_NAME}/base/ShaderCompilationError.hpp
+		include/${PROJECT_NAME}/base/ShaderManager.hpp
+		include/${PROJECT_NAME}/base/ShaderProgram.hpp
+		include/${PROJECT_NAME}/base/ShaderUniform.hpp
+		include/${PROJECT_NAME}/base/Singleton.hpp
+		include/${PROJECT_NAME}/base/Spatial.hpp
+		include/${PROJECT_NAME}/base/SpatialMovement.hpp
+		include/${PROJECT_NAME}/base/Stopwatch.hpp
+		include/${PROJECT_NAME}/base/text.hpp
+		include/${PROJECT_NAME}/base/Texture.hpp
+		include/${PROJECT_NAME}/base/Vertex.hpp
+		include/${PROJECT_NAME}/base/VertexAttributes.hpp
+		include/${PROJECT_NAME}/base/VertexBuffer.hpp
+		include/${PROJECT_NAME}/base/Viewport.hpp
+		include/${PROJECT_NAME}/base/VolumeGrid.hpp
+		include/${PROJECT_NAME}/base/VolumeSegment.hpp
 
-		include/${PROJECT_NAME}/presets/CameraNavigationControl.h
-		include/${PROJECT_NAME}/presets/CameraShowcaseControl.h
-		include/${PROJECT_NAME}/presets/CompositionStage.h
-		include/${PROJECT_NAME}/presets/CuttingPlanesStage.h
-		include/${PROJECT_NAME}/presets/DRRStage.h
-		include/${PROJECT_NAME}/presets/DVRStage.h
-		include/${PROJECT_NAME}/presets/MaskRenderingStage.h
-		include/${PROJECT_NAME}/presets/MeshColorCodingStage.h
-		include/${PROJECT_NAME}/presets/MIPStage.h
-		include/${PROJECT_NAME}/presets/OccludedRenderingStage.h
-		include/${PROJECT_NAME}/presets/OpaqueRenderingStage.h
-		include/${PROJECT_NAME}/presets/OrthogonalControl.h
-		include/${PROJECT_NAME}/presets/ParallaxStage.h
-		include/${PROJECT_NAME}/presets/PerspectiveControl.h
-		include/${PROJECT_NAME}/presets/TransparentRenderingStage.h
-		include/${PROJECT_NAME}/presets/VolumeRenderingStage.h
+		include/${PROJECT_NAME}/presets/CameraNavigationControl.hpp
+		include/${PROJECT_NAME}/presets/CameraShowcaseControl.hpp
+		include/${PROJECT_NAME}/presets/CompositionStage.hpp
+		include/${PROJECT_NAME}/presets/CuttingPlanesStage.hpp
+		include/${PROJECT_NAME}/presets/DRRStage.hpp
+		include/${PROJECT_NAME}/presets/DVRStage.hpp
+		include/${PROJECT_NAME}/presets/MaskRenderingStage.hpp
+		include/${PROJECT_NAME}/presets/MeshColorCodingStage.hpp
+		include/${PROJECT_NAME}/presets/MIPStage.hpp
+		include/${PROJECT_NAME}/presets/OccludedRenderingStage.hpp
+		include/${PROJECT_NAME}/presets/OpaqueRenderingStage.hpp
+		include/${PROJECT_NAME}/presets/OrthogonalControl.hpp
+		include/${PROJECT_NAME}/presets/ParallaxStage.hpp
+		include/${PROJECT_NAME}/presets/PerspectiveControl.hpp
+		include/${PROJECT_NAME}/presets/TransparentRenderingStage.hpp
+		include/${PROJECT_NAME}/presets/VolumeRenderingStage.hpp
 
-		include/${PROJECT_NAME}/helpers/FrameRendererHelper.h
-		include/${PROJECT_NAME}/helpers/PointMarkerHelper.h
-		include/${PROJECT_NAME}/helpers/VolumeGridHelper.h
-		include/${PROJECT_NAME}/helpers/VolumeGridHelperDetails.h
+		include/${PROJECT_NAME}/helpers/FrameRendererHelper.hpp
+		include/${PROJECT_NAME}/helpers/PointMarkerHelper.hpp
+		include/${PROJECT_NAME}/helpers/VolumeGridHelper.hpp
+		include/${PROJECT_NAME}/helpers/VolumeGridHelperDetails.hpp
 	)
 include_directories(${CMAKE_PROJECT_DIR}src/include)
 set( PRIVATE_QOBJECT_HEADERS
@@ -372,19 +372,19 @@ endforeach( res_file )
 ############################################
 
 SOURCE_GROUP( "Headers"
-	REGULAR_EXPRESSION .*include/Carna/[^/]*\\.h )
+	REGULAR_EXPRESSION .*include/Carna/[^/]*\\.hpp )
 
 SOURCE_GROUP( "Headers\\base"
-	REGULAR_EXPRESSION .*include/Carna/base/[^/]*\\.h )
+	REGULAR_EXPRESSION .*include/Carna/base/[^/]*\\.hpp )
 
 SOURCE_GROUP( "Headers\\base\\math"
-	REGULAR_EXPRESSION .*include/Carna/base/math.*\\.h )
+	REGULAR_EXPRESSION .*include/Carna/base/math.*\\.hpp )
 
 SOURCE_GROUP( "Headers\\presets"
-	REGULAR_EXPRESSION .*include/Carna/presets/[^/]*\\.h )
+	REGULAR_EXPRESSION .*include/Carna/presets/[^/]*\\.hpp )
 
 SOURCE_GROUP( "Headers\\helpers"
-	REGULAR_EXPRESSION .*include/Carna/helpers/[^/]*\\.h )
+	REGULAR_EXPRESSION .*include/Carna/helpers/[^/]*\\.hpp )
 
 SOURCE_GROUP( "Sources"
 	REGULAR_EXPRESSION src/[^/]*\\.cpp )
@@ -436,8 +436,8 @@ set( UNITY_BUILD_FILE	${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}-unitybuild.cpp 
 
 file( REMOVE	${UNITY_BUILD_FILE} )
 file( WRITE		${UNITY_BUILD_FILE} "// This file is automatically generated by CMake.\n\n" )
-file( APPEND	${UNITY_BUILD_FILE}	"#include <LibCarna/base/glew.h>\n" )
-file( APPEND	${UNITY_BUILD_FILE}	"#include <LibCarna/base/LibCarnaException.h>\n" )
+file( APPEND	${UNITY_BUILD_FILE}	"#include <LibCarna/base/glew.hpp>\n" )
+file( APPEND	${UNITY_BUILD_FILE}	"#include <LibCarna/base/LibCarnaException.hpp>\n" )
 file( APPEND	${UNITY_BUILD_FILE}	"#include <string>\n" )
 file( APPEND	${UNITY_BUILD_FILE}	"#include <map>\n" )
 

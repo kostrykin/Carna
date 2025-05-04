@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/Node.h>
-#include <LibCarna/base/NodeListener.h>
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/NodeListener.hpp>
 #include <algorithm>
 #include <set>
 

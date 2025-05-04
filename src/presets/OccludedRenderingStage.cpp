@@ -12,12 +12,12 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/presets/OccludedRenderingStage.h>
-#include <LibCarna/base/RenderState.h>
-#include <LibCarna/base/RenderTask.h>
-#include <LibCarna/base/Framebuffer.h>
-#include <LibCarna/base/Viewport.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/presets/OccludedRenderingStage.hpp>
+#include <LibCarna/base/RenderState.hpp>
+#include <LibCarna/base/RenderTask.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Viewport.hpp>
 #include <set>
 
 namespace LibCarna

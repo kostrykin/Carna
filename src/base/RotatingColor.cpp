@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/RotatingColor.h>
+#include <LibCarna/base/RotatingColor.hpp>
 
 namespace LibCarna
 {

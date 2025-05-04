@@ -12,9 +12,9 @@
  * 
  */
 
-#include <LibCarna/base/ManagedTexture3DInterface.h>
-#include <LibCarna/base/ManagedTexture3D.h>
-#include <LibCarna/base/Texture.h>
+#include <LibCarna/base/ManagedTexture3DInterface.hpp>
+#include <LibCarna/base/ManagedTexture3D.hpp>
+#include <LibCarna/base/Texture.hpp>
 
 namespace LibCarna
 {

@@ -12,11 +12,11 @@
  * 
  */
 
-#include "CuttingPlanesStageTest.h"
-#include <LibCarna/base/Node.h>
-#include <LibCarna/base/Geometry.h>
-#include <LibCarna/base/FrameRenderer.h>
-#include <LibCarna/presets/CuttingPlanesStage.h>
+#include "CuttingPlanesStageTest.hpp"
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/Geometry.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/presets/CuttingPlanesStage.hpp>
 
 
 

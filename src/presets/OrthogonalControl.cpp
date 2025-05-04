@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/presets/OrthogonalControl.h>
-#include <LibCarna/base/math.h>
+#include <LibCarna/presets/OrthogonalControl.hpp>
+#include <LibCarna/base/math.hpp>
 
 namespace LibCarna
 {

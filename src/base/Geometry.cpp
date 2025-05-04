@@ -12,11 +12,11 @@
  * 
  */
 
-#include <LibCarna/base/Geometry.h>
-#include <LibCarna/base/GeometryFeature.h>
-#include <LibCarna/base/LibCarnaException.h>
-#include <LibCarna/base/Association.h>
-#include <LibCarna/base/Node.h>
+#include <LibCarna/base/Geometry.hpp>
+#include <LibCarna/base/GeometryFeature.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
+#include <LibCarna/base/Association.hpp>
+#include <LibCarna/base/Node.hpp>
 #include <vector>
 #include <map>
 

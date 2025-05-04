@@ -7,9 +7,9 @@ list( APPEND TESTS
 	)
 
 list( APPEND TESTS_QOBJECT_HEADERS
-		IntegrationTests/FrameRendererIntegrationTest.h
-		IntegrationTests/ParallaxStageIntegrationTest.h
-        IntegrationTests/MaskRenderingStageIntegrationTest.h
+		IntegrationTests/FrameRendererIntegrationTest.hpp
+		IntegrationTests/ParallaxStageIntegrationTest.hpp
+        IntegrationTests/MaskRenderingStageIntegrationTest.hpp
 	)
 
 list( APPEND TESTS_HEADERS

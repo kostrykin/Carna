@@ -12,17 +12,17 @@
  * 
  */
 
-#include <LibCarna/presets/DVRStage.h>
-#include <LibCarna/base/math/Span.h>
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/ShaderManager.h>
-#include <LibCarna/base/Framebuffer.h>
-#include <LibCarna/base/Viewport.h>
-#include <LibCarna/base/RenderState.h>
-#include <LibCarna/base/ShaderUniform.h>
-#include <LibCarna/base/math.h>
-#include <LibCarna/base/LibCarnaException.h>
-#include <LibCarna/base/Log.h>
+#include <LibCarna/presets/DVRStage.hpp>
+#include <LibCarna/base/math/Span.hpp>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/RenderState.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/math.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
+#include <LibCarna/base/Log.hpp>
 #include <algorithm>
 
 namespace LibCarna

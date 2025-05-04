@@ -12,11 +12,11 @@
  * 
  */
 
-#include "MaskRenderingStageIntegrationTest.h"
-#include <LibCarna/base/Node.h>
-#include <LibCarna/base/Color.h>
-#include <LibCarna/base/FrameRenderer.h>
-#include <LibCarna/presets/MaskRenderingStage.h>
+#include "MaskRenderingStageIntegrationTest.hpp"
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/Color.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/presets/MaskRenderingStage.hpp>
 
 
 

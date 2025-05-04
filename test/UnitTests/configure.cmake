@@ -11,13 +11,13 @@ list( APPEND TESTS
 	)
 
 list( APPEND TESTS_QOBJECT_HEADERS
-		UnitTests/BufferedHUVolumeTest.h
-		UnitTests/BufferedIntensityVolumeTest.h
-		UnitTests/BufferedNormalMap3DTest.h
-		UnitTests/mathTest.h
-		UnitTests/ColorTest.h
-		UnitTests/HUVTest.h
-		UnitTests/VolumeGridHelperTest.h
+		UnitTests/BufferedHUVolumeTest.hpp
+		UnitTests/BufferedIntensityVolumeTest.hpp
+		UnitTests/BufferedNormalMap3DTest.hpp
+		UnitTests/mathTest.hpp
+		UnitTests/ColorTest.hpp
+		UnitTests/HUVTest.hpp
+		UnitTests/VolumeGridHelperTest.hpp
 	)
 
 list( APPEND TESTS_HEADERS

@@ -12,11 +12,11 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/ShaderProgram.h>
-#include <LibCarna/base/Shader.h>
-#include <LibCarna/base/ShaderCompilationError.h>
-#include <LibCarna/base/Log.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/ShaderProgram.hpp>
+#include <LibCarna/base/Shader.hpp>
+#include <LibCarna/base/ShaderCompilationError.hpp>
+#include <LibCarna/base/Log.hpp>
 
 namespace LibCarna
 {

@@ -12,15 +12,15 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/presets/CompositionStage.h>
-#include <LibCarna/base/FrameRenderer.h>
-#include <LibCarna/base/Framebuffer.h>
-#include <LibCarna/base/Texture.h>
-#include <LibCarna/base/ShaderManager.h>
-#include <LibCarna/base/ShaderUniform.h>
-#include <LibCarna/base/Viewport.h>
-#include <LibCarna/base/RenderState.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/presets/CompositionStage.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Texture.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/RenderState.hpp>
 
 namespace LibCarna
 {

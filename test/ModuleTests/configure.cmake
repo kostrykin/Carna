@@ -16,17 +16,17 @@ list( APPEND TESTS
 	)
 
 list( APPEND TESTS_QOBJECT_HEADERS
-		ModuleTests/CuttingPlanesStageTest.h
-		ModuleTests/DRRStageTest.h
-		ModuleTests/FrameRendererHelperTest.h
-		ModuleTests/VolumeGridTest.h
-		ModuleTests/MeshColorCodingStageTest.h
-		ModuleTests/MIPStageTest.h
-		ModuleTests/OpaqueRenderingStageTest.h
-		ModuleTests/TransparentRenderingStageTest.h
-		ModuleTests/DVRStageTest.h
-		ModuleTests/MaskRenderingStageTest.h
-		ModuleTests/PointMarkerHelperTest.h
+		ModuleTests/CuttingPlanesStageTest.hpp
+		ModuleTests/DRRStageTest.hpp
+		ModuleTests/FrameRendererHelperTest.hpp
+		ModuleTests/VolumeGridTest.hpp
+		ModuleTests/MeshColorCodingStageTest.hpp
+		ModuleTests/MIPStageTest.hpp
+		ModuleTests/OpaqueRenderingStageTest.hpp
+		ModuleTests/TransparentRenderingStageTest.hpp
+		ModuleTests/DVRStageTest.hpp
+		ModuleTests/MaskRenderingStageTest.hpp
+		ModuleTests/PointMarkerHelperTest.hpp
 	)
 
 list( APPEND TESTS_HEADERS

@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/ProjectionControl.h>
-#include <LibCarna/base/LibCarnaException.h>
+#include <LibCarna/base/ProjectionControl.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
 
 namespace LibCarna
 {

@@ -12,13 +12,13 @@
  * 
  */
 
-#include <LibCarna/helpers/PointMarkerHelper.h>
-#include <LibCarna/presets/OpaqueRenderingStage.h>
-#include <LibCarna/base/MeshFactory.h>
-#include <LibCarna/base/Vertex.h>
-#include <LibCarna/base/Geometry.h>
-#include <LibCarna/base/Material.h>
-#include <LibCarna/base/RotatingColor.h>
+#include <LibCarna/helpers/PointMarkerHelper.hpp>
+#include <LibCarna/presets/OpaqueRenderingStage.hpp>
+#include <LibCarna/base/MeshFactory.hpp>
+#include <LibCarna/base/Vertex.hpp>
+#include <LibCarna/base/Geometry.hpp>
+#include <LibCarna/base/Material.hpp>
+#include <LibCarna/base/RotatingColor.hpp>
 
 namespace LibCarna
 {

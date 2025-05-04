@@ -12,7 +12,7 @@
  * 
  */
 
-#include "BufferedIntensityVolumeTest.h"
+#include "BufferedIntensityVolumeTest.hpp"
 
 
 

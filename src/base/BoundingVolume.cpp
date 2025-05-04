@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/BoundingVolume.h>
+#include <LibCarna/base/BoundingVolume.hpp>
 
 namespace LibCarna
 {

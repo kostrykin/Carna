@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/Color.h>
-#include <LibCarna/base/math.h>
+#include <LibCarna/base/Color.hpp>
+#include <LibCarna/base/math.hpp>
 
 namespace LibCarna
 {

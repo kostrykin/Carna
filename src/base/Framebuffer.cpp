@@ -12,14 +12,14 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/glError.h>
-#include <LibCarna/base/GLContext.h>
-#include <LibCarna/base/Framebuffer.h>
-#include <LibCarna/base/Viewport.h>
-#include <LibCarna/base/LibCarnaException.h>
-#include <LibCarna/base/Texture.h>
-#include <LibCarna/base/text.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/glError.hpp>
+#include <LibCarna/base/GLContext.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
+#include <LibCarna/base/Texture.hpp>
+#include <LibCarna/base/text.hpp>
 #include <stdexcept>
 #include <sstream>
 

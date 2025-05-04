@@ -12,10 +12,10 @@
  * 
  */
 
-#include <LibCarna/base/RenderTask.h>
-#include <LibCarna/base/RenderStage.h>
-#include <LibCarna/base/Framebuffer.h>
-#include <LibCarna/base/Camera.h>
+#include <LibCarna/base/RenderTask.hpp>
+#include <LibCarna/base/RenderStage.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Camera.hpp>
 
 namespace LibCarna
 {

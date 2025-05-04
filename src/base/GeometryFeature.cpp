@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/GeometryFeature.h>
-#include <LibCarna/base/Log.h>
+#include <LibCarna/base/GeometryFeature.hpp>
+#include <LibCarna/base/Log.hpp>
 #include <set>
 
 namespace LibCarna

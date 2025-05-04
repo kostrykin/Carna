@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/ShaderCompilationError.h>
+#include <LibCarna/base/ShaderCompilationError.hpp>
 #include <sstream>
 
 namespace LibCarna

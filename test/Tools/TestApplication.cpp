@@ -12,8 +12,8 @@
  * 
  */
 
-#include <TestApplication.h>
-#include <LibCarna/base/Log.h>
+#include <TestApplication.hpp>
+#include <LibCarna/base/Log.hpp>
 #include <QDebug>
 
 namespace LibCarna

@@ -12,7 +12,7 @@
  * 
  */
 
-#include "HUGZSceneFactory.h"
+#include "HUGZSceneFactory.hpp"
 
 namespace LibCarna
 {

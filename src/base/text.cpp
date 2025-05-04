@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/text.h>
+#include <LibCarna/base/text.hpp>
 #include <fstream>
 
 namespace LibCarna

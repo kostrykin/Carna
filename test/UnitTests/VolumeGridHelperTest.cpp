@@ -12,9 +12,9 @@
  * 
  */
 
-#include "VolumeGridHelperTest.h"
-#include <LibCarna/base/BufferedIntensityVolume.h>
-#include <LibCarna/helpers/VolumeGridHelper.h>
+#include "VolumeGridHelperTest.hpp"
+#include <LibCarna/base/BufferedIntensityVolume.hpp>
+#include <LibCarna/helpers/VolumeGridHelper.hpp>
 
 
 

@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/ShaderUniform.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
 
 namespace LibCarna
 {

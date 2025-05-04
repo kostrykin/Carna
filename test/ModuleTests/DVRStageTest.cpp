@@ -12,12 +12,12 @@
  * 
  */
 
-#include "DVRStageTest.h"
-#include <LibCarna/base/Node.h>
-#include <LibCarna/base/FrameRenderer.h>
-#include <LibCarna/base/BufferedIntensityVolume.h>
-#include <LibCarna/helpers/VolumeGridHelper.h>
-#include <LibCarna/presets/DVRStage.h>
+#include "DVRStageTest.hpp"
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/base/BufferedIntensityVolume.hpp>
+#include <LibCarna/helpers/VolumeGridHelper.hpp>
+#include <LibCarna/presets/DVRStage.hpp>
 
 
 

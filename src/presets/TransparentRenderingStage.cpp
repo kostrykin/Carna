@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/presets/TransparentRenderingStage.h>
-#include <LibCarna/base/RenderState.h>
+#include <LibCarna/presets/TransparentRenderingStage.hpp>
+#include <LibCarna/base/RenderState.hpp>
 
 namespace LibCarna
 {

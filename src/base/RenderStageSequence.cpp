@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/RenderStageSequence.h>
-#include <LibCarna/base/RenderStage.h>
+#include <LibCarna/base/RenderStageSequence.hpp>
+#include <LibCarna/base/RenderStage.hpp>
 #include <vector>
 
 namespace LibCarna

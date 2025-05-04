@@ -12,10 +12,10 @@
  * 
  */
 
-#include "MIPStageTest.h"
-#include <LibCarna/base/Node.h>
-#include <LibCarna/base/FrameRenderer.h>
-#include <LibCarna/presets/MIPStage.h>
+#include "MIPStageTest.hpp"
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/presets/MIPStage.hpp>
 
 
 

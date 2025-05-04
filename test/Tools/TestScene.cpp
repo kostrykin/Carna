@@ -12,13 +12,13 @@
  * 
  */
 
-#include <TestScene.h>
-#include <HUGZSceneFactory.h>
-#include <LibCarna/base/Node.h>
-#include <LibCarna/base/math.h>
-#include <LibCarna/base/Camera.h>
-#include <LibCarna/base/Geometry.h>
-#include <LibCarna/base/BufferedVectorFieldTexture.h>
+#include <TestScene.hpp>
+#include <HUGZSceneFactory.hpp>
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/math.hpp>
+#include <LibCarna/base/Camera.hpp>
+#include <LibCarna/base/Geometry.hpp>
+#include <LibCarna/base/BufferedVectorFieldTexture.hpp>
 #include <string>
 
 namespace LibCarna

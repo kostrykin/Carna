@@ -12,8 +12,8 @@
  * 
  */
 
-#include "VolumeGridTest.h"
-#include <LibCarna/base/VolumeGrid.h>
+#include "VolumeGridTest.hpp"
+#include <LibCarna/base/VolumeGrid.hpp>
 
 
 

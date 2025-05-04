@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/VertexAttributes.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/VertexAttributes.hpp>
 
 namespace LibCarna
 {

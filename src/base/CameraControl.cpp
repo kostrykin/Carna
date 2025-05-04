@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/CameraControl.h>
+#include <LibCarna/base/CameraControl.hpp>
 
 namespace LibCarna
 {

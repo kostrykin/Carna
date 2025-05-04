@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/IntensityVolume.h>
+#include <LibCarna/base/IntensityVolume.hpp>
 
 namespace LibCarna
 {

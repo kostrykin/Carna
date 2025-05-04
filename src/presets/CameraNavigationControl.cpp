@@ -12,10 +12,10 @@
  * 
  */
 
-#include <LibCarna/presets/CameraNavigationControl.h>
-#include <LibCarna/base/Camera.h>
-#include <LibCarna/base/math.h>
-#include <LibCarna/base/Log.h>
+#include <LibCarna/presets/CameraNavigationControl.hpp>
+#include <LibCarna/base/Camera.hpp>
+#include <LibCarna/base/math.hpp>
+#include <LibCarna/base/Log.hpp>
 
 namespace LibCarna
 {

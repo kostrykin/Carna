@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/BoundingSphere.h>
+#include <LibCarna/base/BoundingSphere.hpp>
 
 namespace LibCarna
 {

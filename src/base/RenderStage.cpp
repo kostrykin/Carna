@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/RenderStage.h>
-#include <LibCarna/base/RenderStageListener.h>
+#include <LibCarna/base/RenderStage.hpp>
+#include <LibCarna/base/RenderStageListener.hpp>
 #include <set>
 
 namespace LibCarna

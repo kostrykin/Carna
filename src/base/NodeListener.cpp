@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/NodeListener.h>
+#include <LibCarna/base/NodeListener.hpp>
 
 namespace LibCarna
 {

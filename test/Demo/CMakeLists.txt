@@ -70,8 +70,8 @@ include_directories( ${EIGEN3_INCLUDE_DIR} )
 include_directories(${CMAKE_PROJECT_DIR}src)
 include_directories(${CMAKE_PROJECT_DIR}../Tools)
 set( HEADERS
-        ../Tools/HUGZSceneFactory.h
-        ../Tools/HUIO.h
+        ../Tools/HUGZSceneFactory.hpp
+        ../Tools/HUIO.hpp
     )
 set( QOBJECT_HEADERS
         ""

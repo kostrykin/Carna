@@ -12,8 +12,8 @@
  * 
  */
 
-#include "ColorTest.h"
-#include <LibCarna/base/Color.h>
+#include "ColorTest.hpp"
+#include <LibCarna/base/Color.hpp>
 
 namespace LibCarna
 {

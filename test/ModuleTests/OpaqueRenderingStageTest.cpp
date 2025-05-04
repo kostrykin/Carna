@@ -12,14 +12,14 @@
  * 
  */
 
-#include "OpaqueRenderingStageTest.h"
-#include <LibCarna/base/Node.h>
-#include <LibCarna/base/Geometry.h>
-#include <LibCarna/base/FrameRenderer.h>
-#include <LibCarna/base/Vertex.h>
-#include <LibCarna/base/Material.h>
-#include <LibCarna/base/Mesh.h>
-#include <LibCarna/base/MeshFactory.h>
+#include "OpaqueRenderingStageTest.hpp"
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/Geometry.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/base/Vertex.hpp>
+#include <LibCarna/base/Material.hpp>
+#include <LibCarna/base/Mesh.hpp>
+#include <LibCarna/base/MeshFactory.hpp>
 
 
 

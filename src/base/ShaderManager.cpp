@@ -12,10 +12,10 @@
  * 
  */
 
-#include <LibCarna/base/ShaderManager.h>
-#include <LibCarna/base/Shader.h>
-#include <LibCarna/base/ShaderProgram.h>
-#include <LibCarna/base/Log.h>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/Shader.hpp>
+#include <LibCarna/base/ShaderProgram.hpp>
+#include <LibCarna/base/Log.hpp>
 #include <sstream>
 
 namespace LibCarna

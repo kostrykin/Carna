@@ -12,9 +12,9 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/presets/ParallaxStage.h>
-#include <LibCarna/base/math.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/presets/ParallaxStage.hpp>
+#include <LibCarna/base/math.hpp>
 
 namespace LibCarna
 {

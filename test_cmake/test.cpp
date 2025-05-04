@@ -1,5 +1,5 @@
 #include <LibCarna/Version.h>
-#include <LibCarna/base/Node.h>
+#include <LibCarna/base/Node.hpp>
 #include <iostream>
 
 

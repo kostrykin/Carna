@@ -12,17 +12,17 @@
  * 
  */
 
-#include "MeshColorCodingStageTest.h"
-#include <LibCarna/base/Node.h>
-#include <LibCarna/base/Geometry.h>
-#include <LibCarna/base/FrameRenderer.h>
-#include <LibCarna/base/Vertex.h>
-#include <LibCarna/base/Material.h>
-#include <LibCarna/base/Mesh.h>
-#include <LibCarna/base/MeshFactory.h>
-#include <LibCarna/base/Viewport.h>
-#include <LibCarna/base/Aggregation.h>
-#include <LibCarna/presets/MeshColorCodingStage.h>
+#include "MeshColorCodingStageTest.hpp"
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/Geometry.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/base/Vertex.hpp>
+#include <LibCarna/base/Material.hpp>
+#include <LibCarna/base/Mesh.hpp>
+#include <LibCarna/base/MeshFactory.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/Aggregation.hpp>
+#include <LibCarna/presets/MeshColorCodingStage.hpp>
 
 
 

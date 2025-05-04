@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/Renderable.h>
+#include <LibCarna/base/Renderable.hpp>
 
 namespace LibCarna
 {

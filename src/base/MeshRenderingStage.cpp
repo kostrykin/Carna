@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/MeshRenderingStage.h>
+#include <LibCarna/base/MeshRenderingStage.hpp>
 
 namespace LibCarna
 {

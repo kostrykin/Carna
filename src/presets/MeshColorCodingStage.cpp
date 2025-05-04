@@ -12,14 +12,14 @@
  * 
  */
 
-#include <LibCarna/presets/MeshColorCodingStage.h>
-#include <LibCarna/base/ShaderManager.h>
-#include <LibCarna/base/ShaderUniform.h>
-#include <LibCarna/base/GLContext.h>
-#include <LibCarna/base/RenderTask.h>
-#include <LibCarna/base/Viewport.h>
-#include <LibCarna/base/Framebuffer.h>
-#include <LibCarna/base/Log.h>
+#include <LibCarna/presets/MeshColorCodingStage.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/GLContext.hpp>
+#include <LibCarna/base/RenderTask.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Log.hpp>
 #include <map>
 #include <vector>
 #include <climits>

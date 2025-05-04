@@ -12,11 +12,11 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/glError.h>
-#include <LibCarna/base/Texture.h>
-#include <LibCarna/base/LibCarnaException.h>
-#include <LibCarna/base/text.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/glError.hpp>
+#include <LibCarna/base/Texture.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
+#include <LibCarna/base/text.hpp>
 
 namespace LibCarna
 {

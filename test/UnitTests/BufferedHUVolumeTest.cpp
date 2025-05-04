@@ -12,7 +12,7 @@
  * 
  */
 
-#include "BufferedHUVolumeTest.h"
+#include "BufferedHUVolumeTest.hpp"
 #include <iostream>
 
 

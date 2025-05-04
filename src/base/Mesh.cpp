@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/Mesh.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/Mesh.hpp>
 
 namespace LibCarna
 {

@@ -12,10 +12,10 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/RenderState.h>
-#include <LibCarna/base/BlendFunction.h>
-#include <LibCarna/base/GLContext.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/RenderState.hpp>
+#include <LibCarna/base/BlendFunction.hpp>
+#include <LibCarna/base/GLContext.hpp>
 
 namespace LibCarna
 {

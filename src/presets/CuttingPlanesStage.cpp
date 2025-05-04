@@ -12,14 +12,14 @@
  * 
  */
 
-#include <LibCarna/presets/CuttingPlanesStage.h>
-#include <LibCarna/base/Mesh.h>
-#include <LibCarna/base/Vertex.h>
-#include <LibCarna/base/IndexBuffer.h>
-#include <LibCarna/base/ShaderManager.h>
-#include <LibCarna/base/ShaderUniform.h>
-#include <LibCarna/base/RenderState.h>
-#include <LibCarna/base/math.h>
+#include <LibCarna/presets/CuttingPlanesStage.hpp>
+#include <LibCarna/base/Mesh.hpp>
+#include <LibCarna/base/Vertex.hpp>
+#include <LibCarna/base/IndexBuffer.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/RenderState.hpp>
+#include <LibCarna/base/math.hpp>
 
 namespace LibCarna
 {

@@ -12,10 +12,10 @@
  * 
  */
 
-#include <LibCarna/base/Material.h>
-#include <LibCarna/base/ShaderManager.h>
-#include <LibCarna/base/GLContext.h>
-#include <LibCarna/base/LibCarnaException.h>
+#include <LibCarna/base/Material.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/GLContext.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
 #include <map>
 
 namespace LibCarna

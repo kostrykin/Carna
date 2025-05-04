@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/Stopwatch.h>
+#include <LibCarna/base/Stopwatch.hpp>
 #include <climits>
 #include <omp.h>
 

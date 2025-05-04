@@ -12,9 +12,9 @@
  * 
  */
 
-#include <LibCarna/base/glew.h>
-#include <LibCarna/base/Shader.h>
-#include <LibCarna/base/ShaderCompilationError.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/Shader.hpp>
+#include <LibCarna/base/ShaderCompilationError.hpp>
 #include <cstdlib>
 #include <memory>
 #include <sstream>

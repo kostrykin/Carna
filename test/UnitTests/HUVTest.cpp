@@ -12,8 +12,8 @@
  * 
  */
 
-#include "HUVTest.h"
-#include <LibCarna/base/HUV.h>
+#include "HUVTest.hpp"
+#include <LibCarna/base/HUV.hpp>
 
 namespace LibCarna
 {

@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/presets/PerspectiveControl.h>
-#include <LibCarna/base/math.h>
+#include <LibCarna/presets/PerspectiveControl.hpp>
+#include <LibCarna/base/math.hpp>
 
 namespace LibCarna
 {

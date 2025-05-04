@@ -12,8 +12,8 @@
  * 
  */
 
-#include <LibCarna/base/ManagedMesh.h>
-#include <LibCarna/base/Aggregation.h>
+#include <LibCarna/base/ManagedMesh.hpp>
+#include <LibCarna/base/Aggregation.hpp>
 
 namespace LibCarna
 {

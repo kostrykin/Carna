@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/helpers/VolumeGridHelper.h>
+#include <LibCarna/helpers/VolumeGridHelper.hpp>
 
 namespace LibCarna
 {

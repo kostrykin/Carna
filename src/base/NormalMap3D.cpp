@@ -12,7 +12,7 @@
  * 
  */
 
-#include <LibCarna/base/NormalMap3D.h>
+#include <LibCarna/base/NormalMap3D.hpp>
 
 namespace LibCarna
 {
