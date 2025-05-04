@@ -40,7 +40,6 @@ namespace base
   * Inspired by boost::noncopyable.
   *
   * \author Leonid Kostrykin
-  * \date   2.3.2011
   */
 class noncopyable
 {

@@ -20,7 +20,6 @@
   * \brief  Defines \ref Carna::base::IntensityVolume.
   *
   * \author Leonid Kostrykin
-  * \date   June 2021
   */
 
 #include <LibCarna/base/math/VectorField.h>
@@ -42,7 +41,6 @@ namespace base
   * Defines interface to \f$\mathbb N_0^3 \to \left[0,1\right]\f$ volume data.
   *
   * \author Leonid Kostrykin
-  * \date   June 2021
   * \since  \ref v_3_2_0
   */
 class LIBCARNA IntensityVolume : public math::VectorField< float >

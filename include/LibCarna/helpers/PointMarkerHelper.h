@@ -58,7 +58,6 @@ namespace helpers
   * \image html PointMarkerHelperTest/multiple.png "exemplary rendering from code above"
   *
   * \author Leonid Kostrykin
-  * \date   31.3.15
   */
 class LIBCARNA PointMarkerHelper
 {

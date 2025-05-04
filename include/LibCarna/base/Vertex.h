@@ -42,7 +42,6 @@ namespace base
   * Usage is explained \ref CustomVertexFormats "here".
   *
   * \author Leonid Kostrykin
-  * \date   9.6.21
   * \since  \ref v_3_2_0
   */
 struct VertexPosition
@@ -92,7 +91,6 @@ void VertexPosition::setPosition( const VectorType& position )
   * Usage is explained \ref CustomVertexFormats "here".
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 10.3.15
   */
 struct VertexNormal
 {
@@ -143,7 +141,6 @@ void VertexNormal::setNormal( const VectorType& normal )
   * Usage is explained \ref CustomVertexFormats "here".
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 31.3.15
   */
 struct VertexColor
 {
@@ -193,7 +190,6 @@ void VertexColor::setColor( const VectorType& color )
   * Adds null implementation for setter corresponding the the given vertex component.
   *
   * \author Leonid Kostrykin
-  * \date   9.6.21
   * \since  \ref v_3_2_0
   */
 #define VERTEX_NULL_COMPONENT( name ) \
@@ -280,7 +276,6 @@ void VertexColor::setColor( const VectorType& color )
   *     \endcode
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 10.3.15
   */
 struct LIBCARNA PVertex
     : public VertexPosition
@@ -313,7 +308,6 @@ struct LIBCARNA PVertex
   * Defines vertex that consists of the two attributes position and normal vector.
   *
   * \author Leonid Kostrykin
-  * \date   9.6.21
   * \since  \ref v_3_2_0
   */
 struct LIBCARNA PNVertex
@@ -342,7 +336,6 @@ struct LIBCARNA PNVertex
   * Defines vertex that consists of the two attributes position and color.
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 31.3.15
   */
 struct LIBCARNA PCVertex
     : public VertexPosition

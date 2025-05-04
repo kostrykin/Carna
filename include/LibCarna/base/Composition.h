@@ -49,7 +49,6 @@ namespace base
   * and is therefore responsible of deleting it at some time.
   *
   * \author Leonid Kostrykin
-  * \date   26.10.11 - 17.3.15
   */
 template< typename AssociatedObjectType >
 class Composition : public Association< AssociatedObjectType >

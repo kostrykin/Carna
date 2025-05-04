@@ -20,7 +20,6 @@
   * \brief  Defines \ref Carna::base::math::VectorField.
   *
   * \author Leonid Kostrykin
-  * \date   21.2.13
   */
 
 #include <LibCarna/base/math.h>
@@ -46,7 +45,6 @@ namespace math
   * \a ValueType.
   *
   * \author Leonid Kostrykin
-  * \date   21.2.13 - 26.3.15
   */
 template< typename ValueType >
 class VectorField

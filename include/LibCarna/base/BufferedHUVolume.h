@@ -46,7 +46,6 @@ namespace base
   * \param BufferType is the data type used as voxel container.
   *
   * \author Leonid Kostrykin
-  * \date   2011 - 2015
   */
 template< typename VoxelType, typename BufferType >
 class BufferedHUVolume : public HUVolume

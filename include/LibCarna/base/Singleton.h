@@ -56,7 +56,6 @@ namespace base
   * is no need for the friend class declaration.
   *
   * \author Leonid Kostrykin
-  * \date   2.3.11 - 16.3.15
   */
 template< typename InstanceType >
 class Singleton

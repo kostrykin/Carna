@@ -40,7 +40,6 @@ namespace math
   * Defines an interval \f$\left[a, b\right]\f$ with \f$a,b \in\f$ \a T.
   *
   * \author Leonid Kostrykin
-  * \date   12.3.13
   */
 template< typename T >
 class Span

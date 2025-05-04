@@ -37,7 +37,6 @@ namespace base
   * Defines how alpha blending is to be performed.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 17.3.15
   */
 class LIBCARNA BlendFunction
 {

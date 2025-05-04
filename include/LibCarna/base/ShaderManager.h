@@ -41,7 +41,6 @@ namespace base
   * time someone requests it.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 18.3.15
   */
 class LIBCARNA ShaderManager : public Singleton< ShaderManager >
 {

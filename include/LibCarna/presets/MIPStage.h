@@ -61,7 +61,6 @@ namespace presets
   * \image html MIPStageTest/writeLinearSpline.png "exemplary rendering with a \"jet\"-like color map"
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 30.4.25
   */
 class LIBCARNA MIPStage : public VolumeRenderingStage
 {

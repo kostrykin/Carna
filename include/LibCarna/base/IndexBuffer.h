@@ -41,7 +41,6 @@ namespace base
   * interconnect the vertices to primitives. This class realizes the RAII-idiom.
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 14.3.15
   */
 class LIBCARNA IndexBufferBase : public BaseBuffer
 {
@@ -201,7 +200,6 @@ struct IndexBufferTypeMapper< uint32_t >
   * Specializes \ref IndexBufferBase for particular \a IndexType.
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 14.3.15
   */
 template< typename IndexType >
 class IndexBuffer : public IndexBufferBase

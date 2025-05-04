@@ -104,7 +104,6 @@ namespace presets
   * \image html DRRStageTest/inverted.png "exemplary rendering in inverse-mode from code above"
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 11.3.15
   */
 class LIBCARNA DRRStage : public VolumeRenderingStage
 {

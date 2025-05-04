@@ -37,7 +37,6 @@ namespace base
   * Represents an aggregation, i.e. a weak reference.
   *
   * \author Leonid Kostrykin
-  * \date   26.10.11 - 4.3.15
   */
 template< typename AssociatedObjectType >
 class Aggregation : public Association< AssociatedObjectType >

@@ -46,7 +46,6 @@ namespace base
   * that do not have such a parent viewport, are named *root* viewports.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 20.3.15
   */
 class LIBCARNA Viewport
 {

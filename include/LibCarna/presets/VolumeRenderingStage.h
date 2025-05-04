@@ -314,7 +314,6 @@ namespace presets
   * self-explaining.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 23.3.15
   */
 class LIBCARNA VolumeRenderingStage : public base::GeometryStage< base::Renderable::BackToFront >
 {

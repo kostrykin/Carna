@@ -39,7 +39,6 @@ namespace base
   * Controls projection matrices.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 16.3.15
   */
 class LIBCARNA ProjectionControl
 {

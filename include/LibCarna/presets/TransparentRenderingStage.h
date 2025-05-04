@@ -58,7 +58,6 @@ namespace presets
   * \image html TransparentRenderingStageTest/transparentFromFront.png "exemplary rendering of two box meshes from code above"
   *
   * \author Leonid Kostrykin
-  * \date   21.2.15 - 6.3.15
   */
 class LIBCARNA TransparentRenderingStage : public base::MeshRenderingStage< base::Renderable::BackToFront >
 {

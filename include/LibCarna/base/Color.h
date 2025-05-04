@@ -39,7 +39,6 @@ namespace base
   * Represents a color. Objects from this class are copyable and assignable.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 17.3.15
   */
 class LIBCARNA Color
 {

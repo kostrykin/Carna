@@ -38,7 +38,6 @@ namespace base
   * Defines a \ref Geometry minimal boundary box.
   *
   * \author Leonid Kostrykin
-  * \date   22.3.15
   */
 class LIBCARNA BoundingBox : public BoundingVolume
 {

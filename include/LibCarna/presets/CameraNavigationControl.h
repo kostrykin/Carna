@@ -40,7 +40,6 @@ namespace presets
   * completely free camera movement.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 5.4.15
   */
 class LIBCARNA CameraNavigationControl : public base::CameraControl
 {

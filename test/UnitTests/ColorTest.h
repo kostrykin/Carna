@@ -30,7 +30,6 @@ namespace testing
   * Unit-tests of the \ref Carna::base::Color class.
   *
   * \author Leonid Kostrykin
-  * \date   4.4.15
   */
 class ColorTest : public QObject
 {

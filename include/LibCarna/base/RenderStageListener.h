@@ -37,7 +37,6 @@ namespace base
   * Defines callbacks for \ref RenderStage lifetime events.
   *
   * \author Leonid Kostrykin
-  * \date   2.4.15
   */
 class LIBCARNA RenderStageListener
 {

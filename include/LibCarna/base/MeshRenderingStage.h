@@ -43,7 +43,6 @@ namespace base
   * Defines \ref MeshRenderingStage class template instance invariants.
   *
   * \author Leonid Kostrykin
-  * \date   21.2.15 - 6.3.15
   */
 class LIBCARNA MeshRenderingMixin
 {
@@ -105,7 +104,6 @@ public:
   * - \ref ROLE_DEFAULT_MATERIAL must be a \ref Material object.
   *
   * \author Leonid Kostrykin
-  * \date   21.2.15 - 6.3.15
   */
 template< typename RenderableCompare >
 class MeshRenderingStage : public GeometryStage< RenderableCompare >, public MeshRenderingMixin

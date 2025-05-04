@@ -60,7 +60,6 @@ namespace base
   * through the \ref RenderState class.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 15.3.15
   */
 class LIBCARNA GLContext
 {
@@ -171,7 +170,6 @@ protected:
   *     \endcode
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 20.3.15
   */
 template< typename QGLContext, typename QGLFormat >
 class QGLContextAdapter : public GLContext

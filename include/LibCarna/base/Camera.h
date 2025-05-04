@@ -37,7 +37,6 @@ namespace base
   * Represents the point-of-view and defines the 3D to 2D projection.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 16.3.15
   */
 class LIBCARNA Camera : public Spatial
 {

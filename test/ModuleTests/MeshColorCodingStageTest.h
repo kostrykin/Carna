@@ -34,7 +34,6 @@ namespace testing
   * Module-tests of the \ref Carna::presets::MeshColorCodingStage class.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.14 - 4.4.15
   */
 class MeshColorCodingStageTest : public QObject
 {

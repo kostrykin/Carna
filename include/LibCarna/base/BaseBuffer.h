@@ -37,7 +37,6 @@ namespace base
   * Implements OpenGL buffer objects maintenance RAII base class.
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 14.3.15
   */
 class LIBCARNA BaseBuffer
 {

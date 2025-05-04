@@ -47,7 +47,6 @@ namespace base
   * always textures. We call them *render textures* here.
   *
   * \author Leonid Kostrykin
-  * \date   9.3.2011 - 25.3.15
   */
 class LIBCARNA Framebuffer
 {
@@ -160,7 +159,6 @@ public:
       * render to the framebuffer.
       *
       * \author Leonid Kostrykin
-      * \date   24.4.2011 - 25.3.15
       */
     class LIBCARNA MinimalBinding
     {
@@ -244,7 +242,6 @@ public:
       * and allows rendering.
       *
       * \author Leonid Kostrykin
-      * \date   24.4.2011 - 25.3.2015
       */
     class LIBCARNA Binding : public MinimalBinding
     {

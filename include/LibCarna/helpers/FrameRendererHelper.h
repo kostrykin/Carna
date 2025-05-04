@@ -47,7 +47,6 @@ namespace helpers
   * \ref FrameRendererHelper.
   *
   * \author Leonid Kostrykin
-  * \date   26.10.11 - 20.3.15
   */
 class LIBCARNA DefaultRenderStageOrder
 {
@@ -75,7 +74,6 @@ public:
   * Finish this.
   *
   * \author Leonid Kostrykin
-  * \date   26.10.11 - 20.3.15
   */
 template< typename RenderStageOrder >
 class FrameRendererHelper

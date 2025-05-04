@@ -56,7 +56,6 @@ namespace base
   * within the fourth channel.
   *
   * \author Leonid Kostrykin
-  * \date   26.3.15 - 29.3.15
   */
 template< typename BufferedVectorComponentType, typename BufferType >
 class BufferedNormalMap3D : public NormalMap3D

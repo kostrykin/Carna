@@ -54,7 +54,6 @@ namespace presets
   * \image html CuttingPlanesStageTest/threePlanes.png "rendering result of example code above"
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 20.3.15
   */
 class LIBCARNA CuttingPlanesStage : public base::GeometryStage< void >
 {

@@ -30,7 +30,6 @@ namespace testing
   * Unit-tests of the \ref Carna::base::math namespace.
   *
   * \author Leonid Kostrykin
-  * \date   6.3.15
   */
 class mathTest : public QObject
 {

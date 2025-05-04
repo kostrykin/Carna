@@ -45,7 +45,6 @@ namespace presets
   * adjustment of the projection matrix. 
   *
   * \author Leonid Kostrykin
-  * \date   5.4.15
   */
 class LIBCARNA OrthogonalControl : public base::ProjectionControl, public base::CameraControl
 {

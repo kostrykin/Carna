@@ -60,7 +60,6 @@ namespace presets
   * \image html ParallaxStageIntegrationTest/aside.png "exemplary rendering in aside-mode from code above"
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 11.3.15
   */
 class LIBCARNA ParallaxStage : public CompositionStage
 {

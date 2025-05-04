@@ -37,7 +37,6 @@ namespace base
   * Thrown when shader compilation fails.
   *
   * \author Leonid Kostrykin
-  * \date   5.3.13 - 19.3.13
   */
 class LIBCARNA ShaderCompilationError : public CarnaException
 {

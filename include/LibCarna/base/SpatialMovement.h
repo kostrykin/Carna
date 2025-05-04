@@ -50,7 +50,6 @@ namespace base
   * frame viewport do change for the duration of the movement.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 16.3.15
   */
 class LIBCARNA SpatialMovement
 {

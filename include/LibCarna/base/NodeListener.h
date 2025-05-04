@@ -37,7 +37,6 @@ namespace base
   * Notified by \ref Node objects.
   *
   * \author Leonid Kostrykin
-  * \date   3.4.15
   */
 class LIBCARNA NodeListener
 {

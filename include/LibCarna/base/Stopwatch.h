@@ -38,7 +38,6 @@ namespace base
   * support.
   *
   * \author Leonid Kostrykin
-  * \date   21.3.15
   */
 class LIBCARNA Stopwatch
 {

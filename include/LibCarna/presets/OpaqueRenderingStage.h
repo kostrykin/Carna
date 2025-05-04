@@ -58,7 +58,6 @@ namespace presets
   * \image html OpaqueRenderingStageTest/fromFront.png "exemplary rendering of two box meshes from code above"
   *
   * \author Leonid Kostrykin
-  * \date   21.2.15 - 6.3.15
   */
 typedef base::MeshRenderingStage< base::Renderable::VideoResourcesOrder< base::MeshRenderingMixin::ROLE_DEFAULT_MATERIAL > >
     OpaqueRenderingStage;

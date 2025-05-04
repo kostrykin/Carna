@@ -20,7 +20,6 @@
   * \brief  Defines \ref Carna::base::VolumeSegment.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 26.3.15
   */
 
 #include <LibCarna/LibCarna.h>
@@ -45,7 +44,6 @@ namespace base
   * Represents the normal map component of an \ref VolumeSegment object.
   *
   * \author Leonid Kostrykin
-  * \date   8.3.15 - 29.3.15
   */
 template< typename SegmentNormalsVolumeType >
 class VolumeSegmentNormalsComponent
@@ -130,7 +128,6 @@ bool VolumeSegmentNormalsComponent< SegmentNormalsVolumeType >::hasNormals() con
   * Specializes \ref VolumeSegmentNormalsComponent when no normal maps are desired.
   *
   * \author Leonid Kostrykin
-  * \date   8.3.15 - 29.3.15
   */
 template< >
 class VolumeSegmentNormalsComponent< void >
@@ -160,7 +157,6 @@ inline VolumeSegmentNormalsComponent< void >::~VolumeSegmentNormalsComponent()
   * Represents a single \ref VolumePartitioning "volumetric data partition".
   *
   * \author Leonid Kostrykin
-  * \date   8.3.15 - 29.3.15
   */
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 class VolumeSegment : public VolumeSegmentNormalsComponent< SegmentNormalsVolumeType >

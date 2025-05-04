@@ -39,7 +39,6 @@ namespace base
   * Closer description is given \ref GeometryFeatures "here".
   *
   * \author Leonid Kostrykin
-  * \date   1.3.15 - 13.3.15
   */
 class LIBCARNA GeometryFeature
 {
@@ -108,7 +107,6 @@ public:
       * \ref GeometryFeature. This *acquisition* realizes the RAII idiom.
       *
       * \author Leonid Kostrykin
-      * \date   22.2.15 - 18.3.15
       */
     class LIBCARNA ManagedInterface
     {

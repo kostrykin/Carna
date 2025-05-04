@@ -46,7 +46,6 @@ namespace helpers
   * Defines type-parameters-independent \ref VolumeGridHelper base interface.
   *
   * \author Leonid Kostrykin
-  * \date   3.4.15
   */
 class LIBCARNA VolumeGridHelperBase
 {

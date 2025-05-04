@@ -20,7 +20,6 @@
   * \brief  Defines \ref Carna::base::HUVolume.
   *
   * \author Leonid Kostrykin
-  * \date   25.7.11
   */
 
 #include <LibCarna/base/math/VectorField.h>
@@ -44,7 +43,6 @@ namespace base
   * data.
   *
   * \author Leonid Kostrykin
-  * \date   25.7.11 - 19.3.15
   */
 class LIBCARNA HUVolume : public math::VectorField< HUV >
 {

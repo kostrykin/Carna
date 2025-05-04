@@ -43,7 +43,6 @@ namespace presets
   * \todo Implement `CameraShowcaseControl::%moveLaterally`.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 17.3.15
   */
 class LIBCARNA CameraShowcaseControl : public base::CameraControl
 {

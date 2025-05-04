@@ -172,7 +172,6 @@ namespace base
   * shader from a `%Material` object by setting its `shaderName` to `myShader`.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 18.3.15
   */
 class LIBCARNA Material : public GeometryFeature
 {
@@ -261,7 +260,6 @@ public:
       * This realizes the RAII idiom.
       *
       * \author Leonid Kostrykin
-      * \date   22.2.15 - 18.3.15
       */
     class LIBCARNA ManagedInterface : public GeometryFeature::ManagedInterface
     {

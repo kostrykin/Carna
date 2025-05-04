@@ -40,7 +40,6 @@ namespace base
   * \ref RenderingProcess "rendering process".
   *
   * \author Leonid Kostrykin
-  * \date   21.2.15 - 17.3.15
   */
 class LIBCARNA RenderStage
 {

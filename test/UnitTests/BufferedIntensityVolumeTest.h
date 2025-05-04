@@ -33,7 +33,6 @@ namespace testing
   * Unit-tests of the \ref Carna::base::BufferedIntensityVolume class.
   *
   * \author Leonid Kostrykin
-  * \date   June 2021
   */
 class BufferedIntensityVolumeTest : public QObject
 {

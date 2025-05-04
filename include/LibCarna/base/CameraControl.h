@@ -37,7 +37,6 @@ namespace base
   * Defines interface for intuitive \ref Camera control.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 16.3.15
   */
 class LIBCARNA CameraControl
 {

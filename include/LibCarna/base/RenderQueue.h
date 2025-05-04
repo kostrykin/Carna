@@ -60,7 +60,6 @@ namespace base
   * enqueued.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 17.3.15
   */
 template< typename RenderableCompare >
 class RenderQueue

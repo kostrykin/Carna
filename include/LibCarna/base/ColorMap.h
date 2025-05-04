@@ -39,7 +39,6 @@ namespace base
   * Represents a mapping of intensity values to RGBA colors, that can be queried in a shader.
   *
   * \author Leonid Kostrykin
-  * \date   29.4.25
   */
 class LIBCARNA ColorMap
 {

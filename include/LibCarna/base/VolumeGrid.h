@@ -20,7 +20,6 @@
   * \brief  Defines \ref Carna::base::VolumeGrid.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 26.3.15
   */
 
 #include <LibCarna/LibCarna.h>
@@ -60,7 +59,6 @@ namespace base
   * class represent the cells of such grids.
   *
   * \author Leonid Kostrykin
-  * \date   8.3.15 - 29.3.15
   */
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 class VolumeGrid

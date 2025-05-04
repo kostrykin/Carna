@@ -32,7 +32,6 @@ namespace testing
   * Integration-tests of the \ref Carna::presets::MaskRenderingStage class.
   *
   * \author Leonid Kostrykin
-  * \date   June 2021
   */
 class MaskRenderingStageIntegrationTest : public QObject
 {

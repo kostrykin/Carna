@@ -45,7 +45,6 @@ namespace base
   * of the exception, a \em message and an optional \em details section.
   *
   * \author Leonid Kostrykin
-  * \date   5.3.13 - 19.3.13
   */
 class LIBCARNA CarnaException
 {
@@ -101,7 +100,6 @@ public:
   * Carna exception that indicates a failed assertion.
   *
   * \author Leonid Kostrykin
-  * \date   5.3.13 - 19.3.13
   */
 class LIBCARNA AssertionFailure : public CarnaException
 {
@@ -129,7 +127,6 @@ public:
   * Default configuration will produce <code>%BreakForDebug::isEnabled() == true</code>.
   *
   * \author Leonid Kostrykin
-  * \date   27.5.13
   */
 class LIBCARNA BreakForDebug
 {
@@ -167,7 +164,6 @@ public:
   * The behavior in debug mode can be controlled via the \ref Carna::base::BreakForDebug "BreakForDebug" class.
   *
   * \author Leonid Kostrykin
-  * \date   5.3.13
   */
 #ifndef NDEBUG
     #ifdef _MSC_VER
@@ -197,7 +193,6 @@ public:
   * Causes a break point in debug mode and throws an \ref Carna::base::AssertionFailure "AssertionFailure".
   *
   * \author Leonid Kostrykin
-  * \date   5.3.13
   */
 #define LIBCARNA_FAIL( description ) \
     LIBCARNA_BREAK_FOR_DEBUG \
@@ -220,7 +215,6 @@ public:
   * an \ref Carna::base::AssertionFailure "AssertionFailure" thrown.
   *
   * \author Leonid Kostrykin
-  * \date   5.3.13
   */
 #define LIBCARNA_ASSERT( expression ) \
     if( !( expression ) ) \
@@ -244,7 +238,6 @@ public:
   * \ref Carna::base::AssertionFailure "AssertionFailure" thrown, \a description being noted within the exception.
   *
   * \author Leonid Kostrykin
-  * \date   5.3.13
   */
 #define LIBCARNA_ASSERT_EX( expression, description ) \
     if( !( expression ) ) \

@@ -20,7 +20,6 @@
   *         Also defines the \ref LIBCARNA_GLEW_INIT macro.
   *
   * \author Leonid Kostrykin
-  * \date   24.2.11 - 20.3.15
   */
   
 #include <LibCarna/base/Log.h>

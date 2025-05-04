@@ -40,7 +40,6 @@ namespace base
   * Interfaces the \ref MeshBase that a \ref ManagedMeshBase represents.
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 24.3.15
   */
 class LIBCARNA ManagedMeshInterface : public GeometryFeature::ManagedInterface
 {

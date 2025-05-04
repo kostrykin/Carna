@@ -38,7 +38,6 @@ namespace base
   * Represents values in \f$\left[-1024, +3071\right]\f$.
   *
   * \author Leonid Kostrykin
-  * \date   June 2021
   */
 struct HUV
 {

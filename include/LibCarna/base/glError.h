@@ -19,7 +19,6 @@
   * \brief  Defines the \ref REPORT_GL_ERROR macro.
   *
   * \author Leonid Kostrykin
-  * \date   16.8.2012
   */
 
 
@@ -33,7 +32,6 @@
 /** \brief  Overloads the \c __func__ macro with \c __FUNCTION__ for GCC compatibility.
   *
   * \author Leonid Kostrykin
-  * \date   16.8.2012
   */
 #define __func__ __FUNCTION__
 
@@ -52,7 +50,6 @@
     /** \brief  Defines the implementation of the \ref REPORT_GL_ERROR macro.
       *
       * \author Leonid Kostrykin
-      * \date   26.2.2015
       */
     #define __REPORT_GL_ERROR_IMPL { \
             const unsigned int err = glGetError(); \
@@ -71,7 +68,6 @@
   * Define \c NO_GL_ERROR_CHECKING to disable this functionality, i.e. in the release build.
   *
   * \author Leonid Kostrykin
-  * \date   16.8.2012
   */
 #define REPORT_GL_ERROR __REPORT_GL_ERROR_IMPL
 

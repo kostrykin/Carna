@@ -100,7 +100,6 @@ namespace presets
   * \image html DVRStageTest/withLighting.png "exemplary rendering with lighting from code above"
   *
   * \author Leonid Kostrykin
-  * \date   25.3.15 - 29.4.25
   */
 class LIBCARNA DVRStage : public VolumeRenderingStage
 {

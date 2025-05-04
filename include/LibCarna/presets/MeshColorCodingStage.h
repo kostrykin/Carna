@@ -62,7 +62,6 @@ namespace presets
   * objects very easy.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 20.3.15
   */
 class LIBCARNA MeshColorCodingStage : public base::GeometryStage< void >
 {

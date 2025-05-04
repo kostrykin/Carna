@@ -62,7 +62,6 @@ namespace presets
   * \image html MaskRenderingStageTest.png "exemplary rendering from code above"
   *
   * \author Leonid Kostrykin
-  * \date   June 2021
   * \since  \ref v_3_3_0
   */
 class LIBCARNA MaskRenderingStage : public VolumeRenderingStage

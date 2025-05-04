@@ -19,7 +19,6 @@
   * \brief  Defines \ref Carna::base::Shader.
   *
   * \author Leonid Kostrykin
-  * \date   2009 - 2015
   */
 
 #include <string>
@@ -45,7 +44,6 @@ namespace base
   * The concept of shaders is explained \ref RenderingPipeline "here".
   *
   * \author Leonid Kostrykin
-  * \date   2009 - 2015
   */
 class LIBCARNA Shader
 {

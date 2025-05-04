@@ -42,7 +42,6 @@ namespace base
   * instances of this class.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 24.3.15
   */
 class LIBCARNA ManagedTexture3D : public GeometryFeature
 {

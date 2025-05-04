@@ -39,7 +39,6 @@ namespace presets
   * interleaving.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 31.3.15
   */
 class LIBCARNA CompositionStage : public base::RenderStage
 {

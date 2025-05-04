@@ -61,7 +61,6 @@ namespace base
   *  -# https://www.opengl.org/wiki/OpenGL_Object#Container_objects
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 24.3.15
   */
 class LIBCARNA MeshBase
 {
@@ -132,7 +131,6 @@ public:
   * The \ref MeshFactory class contains a few examples.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 24.3.15
   */
 template< typename VertexType, typename IndexType >
 class Mesh : public MeshBase

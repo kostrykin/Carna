@@ -46,7 +46,6 @@ namespace math
   * \param ScalarType defines the scalar type to use for computation.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 16.3.15
   */
 template< typename VectorType, typename ScalarType >
 class RayPlaneHitTest

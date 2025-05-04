@@ -40,7 +40,6 @@ namespace base
   * Represents a \ref RenderStage "rendering stages" sequence.
   *
   * \author Leonid Kostrykin
-  * \date   2.4.15
   */
 class LIBCARNA RenderStageSequence
 {

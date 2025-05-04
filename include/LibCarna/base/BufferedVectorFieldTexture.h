@@ -41,7 +41,6 @@ namespace base
   * \ref BufferedHUVolume and \ref BufferedNormalMap3D do.
   *
   * \author Leonid Kostrykin
-  * \date   26.3.15 - 30.3.15
   */
 template< typename BufferedVectorFieldType >
 class BufferedVectorFieldTexture : public ManagedTexture3D

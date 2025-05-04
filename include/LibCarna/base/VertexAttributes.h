@@ -38,7 +38,6 @@ namespace base
   * Declares a vertex attribute.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 19.3.15
   */
 struct VertexAttribute
 {

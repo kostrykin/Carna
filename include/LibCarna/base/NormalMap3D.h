@@ -20,7 +20,6 @@
   * \brief  Defines \ref Carna::base::NormalMap3D.
   *
   * \author Leonid Kostrykin
-  * \date   25.7.11
   */
 
 #include <LibCarna/base/math/VectorField.h>
@@ -44,7 +43,6 @@ namespace base
   * \in \mathbb R^3\right\|_2 \leq 1\right\}\f$ mapping.
   *
   * \author Leonid Kostrykin
-  * \date   26.3.15
   */
 class LIBCARNA NormalMap3D : public math::VectorField< math::Vector3f >
 {

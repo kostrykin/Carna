@@ -42,7 +42,6 @@ namespace base
   *
   * Instances of this class are copyable and assignable.
   *
-  * \date   22.2.2015
   * \author Leonid Kostrykin
   */
 class LIBCARNA Renderable

@@ -75,7 +75,6 @@ void LIBCARNA bindGLTextureObject< 3 >( unsigned int unit, unsigned int id );
   * \ref Texture base class with dimension-independent definitions.
   *
   * \author Leonid Kostrykin
-  * \date   24.3.15 - 30.3.15
   */
 class LIBCARNA TextureBase
 {
@@ -154,7 +153,6 @@ protected:
   * Represents an OpenGL texture object. This class realizes the RAII-idiom.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 24.3.15
   */
 template< unsigned int dimension >
 class Texture : public TextureBase

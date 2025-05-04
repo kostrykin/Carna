@@ -42,7 +42,6 @@ namespace base
   * Each node possesses it's children.
   *
   * \author Leonid Kostrykin
-  * \date   21.2.15 - 6.3.15
   */
 class LIBCARNA Node : public Spatial
 {

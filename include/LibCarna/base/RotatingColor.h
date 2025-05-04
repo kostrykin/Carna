@@ -38,7 +38,6 @@ namespace base
   * Supplies colors from a predefined, distinctive palette.
   *
   * \author Leonid Kostrykin
-  * \date   28.7.11 - 31.3.15
   */
 class LIBCARNA RotatingColor
 {

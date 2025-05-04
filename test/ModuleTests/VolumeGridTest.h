@@ -32,7 +32,6 @@ namespace testing
   * Module-tests of the \ref Carna::base::VolumeGrid class.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.14 - 4.4.15
   */
 class VolumeGridTestUInt16 : public QObject
 {
@@ -81,7 +80,6 @@ private:
   * Module-tests of the \ref Carna::base::VolumeGrid class.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.14 - 4.4.15
   */
 class VolumeGridTestUInt8 : public QObject
 {

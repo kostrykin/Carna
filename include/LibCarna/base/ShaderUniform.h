@@ -74,7 +74,6 @@ struct ShaderUniformType< Color >
   * Type-independent abstract \ref ShaderUniform base class.
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 14.3.15
   */
 class LIBCARNA ShaderUniformBase
 {
@@ -163,7 +162,6 @@ void LIBCARNA uploadUniform( int location, const math::Matrix4f& value );
   * \ref ShaderUniformType and its specializations induce.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 14.3.15
   */
 template< typename ValueType >
 class ShaderUniform : public ShaderUniformBase

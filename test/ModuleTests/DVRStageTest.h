@@ -32,7 +32,6 @@ namespace testing
   * Module-tests of the \ref Carna::presets::DVRStage class.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.14 - 4.4.15
   */
 class DVRStageTest : public QObject
 {

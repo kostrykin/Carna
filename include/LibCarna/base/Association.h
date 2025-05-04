@@ -41,7 +41,6 @@ namespace base
   * whether he wants to pass the ownership of some object to that module or not.
   *
   * \author Leonid Kostrykin
-  * \date   26.10.11 - 17.3.15
   */
 template< typename AssociatedObjectType >
 class Association

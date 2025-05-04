@@ -19,7 +19,6 @@
   * \brief  Defines \ref Carna::base::ShaderProgram
   *
   * \author Leonid Kostrykin
-  * \date   2009 - 2015
   */
 
 #include <LibCarna/base/math.h>
@@ -45,7 +44,6 @@ namespace base
   * The concept of shaders is explained \ref RenderingPipeline "here".
   *
   * \author Leonid Kostrykin
-  * \date   2009 - 2015
   */
 class LIBCARNA ShaderProgram
 {
@@ -64,7 +62,6 @@ public:
       * Creates \ref ShaderProgram "OpenGL shader program".
       *
       * \author Leonid Kostrykin
-      * \date   21.3.15
       */
     class Factory
     {

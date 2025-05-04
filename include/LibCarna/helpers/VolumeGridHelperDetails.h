@@ -56,7 +56,6 @@ namespace VolumeGridHelper
   * \ref base::VolumeSegment::intensities in video memory.
   *
   * \author Leonid Kostrykin
-  * \date   26.3.15 - 27.3.15
   */
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 struct IntensityTextureFactory
@@ -98,7 +97,6 @@ base::ManagedTexture3D& IntensityTextureFactory< SegmentIntensityVolumeType, Seg
   * \ref base::VolumeSegmentNormalsComponent::normals in video memory.
   *
   * \author Leonid Kostrykin
-  * \date   26.3.15 - 27.3.15
   */
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 struct NormalsTextureFactory
@@ -142,7 +140,6 @@ base::ManagedTexture3D& NormalsTextureFactory< SegmentIntensityVolumeType, Segme
   * \ref base::ManagedTexture3D instances when cache entry does not exist.
   *
   * \author Leonid Kostrykin
-  * \date   27.3.15
   */
 template< typename TextureFactory >
 class TextureManager
@@ -257,7 +254,6 @@ base::ManagedTexture3D& TextureManager< TextureFactory >::getTexture
   * volume data.
   *
   * \author Leonid Kostrykin
-  * \date   27.3.15 - 29.3.15
   */
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 class IntensityComponent : public TextureManager< IntensityTextureFactory< SegmentIntensityVolumeType, SegmentNormalsVolumeType > >
@@ -364,7 +360,6 @@ void IntensityComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >:
   * arguments.
   *
   * \author Leonid Kostrykin
-  * \date   27.3.15 - 30.3.15
   */
 class LIBCARNA NormalsComponentBase
 {
@@ -396,7 +391,6 @@ protected:
   * normal maps.
   *
   * \author Leonid Kostrykin
-  * \date   27.3.15 - 29.3.15
   */
 template< typename SegmentIntensityVolumeType, typename SegmentNormalsVolumeType >
 class NormalsComponent
@@ -605,7 +599,6 @@ void NormalsComponent< SegmentIntensityVolumeType, SegmentNormalsVolumeType >::i
   * Specializes \ref NormalsComponent when no normals are required.
   *
   * \author Leonid Kostrykin
-  * \date   27.3.15
   */
 template< typename SegmentIntensityVolumeType >
 class NormalsComponent< SegmentIntensityVolumeType, void > : public NormalsComponentBase
@@ -691,7 +684,6 @@ void NormalsComponent< SegmentIntensityVolumeType, void >::initializeSegment
   * Computes the partitioning that \ref VolumeGridHelper uses along one dimension.
   *
   * \author Leonid Kostrykin
-  * \date   13.4.15
   */
 struct Partionining
 {

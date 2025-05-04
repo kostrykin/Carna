@@ -56,7 +56,6 @@ namespace base
   * further notes on how rendering stages operate.
   *
   * \author Leonid Kostrykin
-  * \date   21.2.15 - 6.3.15
   */
 template< typename RenderableCompare >
 class GeometryStage : public RenderStage

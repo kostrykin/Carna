@@ -32,7 +32,6 @@ namespace testing
   * Unit-tests of the \ref Carna::base::BufferedNormalMap3D class.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.14 - 4.4.15
   */
 class BufferedNormalMap3DTest : public QObject
 {

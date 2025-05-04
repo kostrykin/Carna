@@ -38,7 +38,6 @@ namespace base
   * Defines a \ref Geometry minimal boundary sphere.
   *
   * \author Leonid Kostrykin
-  * \date   22.3.15
   */
 class LIBCARNA BoundingSphere : public BoundingVolume
 {

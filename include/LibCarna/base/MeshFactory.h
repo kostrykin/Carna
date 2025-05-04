@@ -53,7 +53,6 @@ namespace base
   *     \ref VertexBuffer "vertex buffers".
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 14.3.15
   */
 template< typename VertexType >
 class MeshFactory
@@ -78,7 +77,6 @@ public:
       * Creates sphere with \a radius and a vertices number determined by \a degree.
       * The ball is centered in \f$\left(0, 0, 0\right)^\mathrm T\f$.
       *
-      * \date   June 2021
       * \since  \ref v_3_1_0
       */
     static ManagedMesh< VertexType, uint16_t >& createBall( float radius, unsigned int degree = 3 );
@@ -92,7 +90,6 @@ public:
       * Creates mesh from an STL file.
       *
       * \author Tim Schroeder
-      * \date   July 2015
       * \since  \ref v_3_0_2
       */
     inline static ManagedMesh< VertexType, uint32_t >& createFromSTL( const std::string& path );

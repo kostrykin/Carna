@@ -43,7 +43,6 @@ namespace base
   * \ref Log::Writer interface. The default writer is an instance from
   * \ref Log::StdWriter class.
   *
-  * \date   22.2.15 - 6.4.15
   * \author Leonid Kostrykin
   */
 class LIBCARNA Log : public Singleton< Log >
@@ -101,7 +100,6 @@ public:
       * the object from this class. The \ref LIBCARNA_LOG_TAG_SCOPE macro is provided
       * for convenience.
       *
-      * \date   6.4.15
       * \author Leonid Kostrykin
       */
     struct LIBCARNA TagScope
@@ -131,7 +129,6 @@ public:
     /** \brief
       * Writes log entries.
       *
-      * \date   22.2.15
       * \author Leonid Kostrykin
       */
     class LIBCARNA Writer
@@ -161,7 +158,6 @@ public:
       * Abstract implementation of the \ref Writer interface, that formats log
       * messages along with their severity as pure ASCII character chains.
       *
-      * \date   22.2.15
       * \author Leonid Kostrykin
       */
     class LIBCARNA TextWriter : public Writer
@@ -188,7 +184,6 @@ public:
       * Writes `fatal` and `error` classified log messages to `std::cerr` and such
       * classified as `warning` or `debug` to `std::cout`.
       *
-      * \date   22.2.15
       * \author Leonid Kostrykin
       */
     class LIBCARNA StdWriter : public TextWriter
@@ -219,7 +214,6 @@ public:
       * to shut down.
       *
       * \author Leonid Kostrykin
-      * \date   18.3.15
       */
     class LIBCARNA OnShutdownListener
     {

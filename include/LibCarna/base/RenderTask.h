@@ -38,7 +38,6 @@ namespace base
   * Invokes the rendering stages of the frame renderer successively.
   *
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 19.3.15
   */
 class LIBCARNA RenderTask
 {

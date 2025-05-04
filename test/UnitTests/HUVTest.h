@@ -30,7 +30,6 @@ namespace testing
   * Unit-tests of the \ref Carna::base::HUV class.
   *
   * \author Leonid Kostrykin
-  * \date   June 2021
   */
 class HUVTest : public QObject
 {

@@ -67,7 +67,6 @@ namespace base
   * finished, the original task continuous with the same.
   *
   * \author Leonid Kostrykin
-  * \date   21.2.15 - 6.3.15
   */
 class LIBCARNA FrameRenderer : public RenderStageSequence
 {

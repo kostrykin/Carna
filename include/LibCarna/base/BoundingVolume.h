@@ -40,7 +40,6 @@ namespace base
   * volume is centered within its local coordinate system.
   *
   * \author Leonid Kostrykin
-  * \date   22.3.15
   */
 class LIBCARNA BoundingVolume
 {

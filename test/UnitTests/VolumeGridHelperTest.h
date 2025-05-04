@@ -32,7 +32,6 @@ namespace testing
   * Unit-tests of the \ref Carna::helpers::VolumeGridHelper class template.
   *
   * \author Leonid Kostrykin
-  * \date   12.4.15
   */
 class VolumeGridHelperTest : public QObject
 {

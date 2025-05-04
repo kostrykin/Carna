@@ -42,7 +42,6 @@ namespace base
   * induces the \ref SceneGraph "scene graph concept".
   *
   * \author Leonid Kostrykin
-  * \date   21.2.15 - 6.3.15
   */
 class LIBCARNA Spatial
 {

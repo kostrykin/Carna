@@ -40,7 +40,6 @@ namespace base
   * RAII-idiom.
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 14.3.15
   */
 class LIBCARNA VertexBufferBase : public BaseBuffer
 {
@@ -72,7 +71,6 @@ public:
   * Specializes \ref VertexBufferBase for particular \a VertexType.
   *
   * \author Leonid Kostrykin
-  * \date   1.9.14 - 14.3.15
   */
 template< typename VertexType >
 class VertexBuffer : public VertexBufferBase

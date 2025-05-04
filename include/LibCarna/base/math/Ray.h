@@ -44,7 +44,6 @@ namespace math
   * \param VectorType Specifies the which vector type is to use.
   * 
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 16.3.15
   */
 template< typename VectorType >
 class Ray
@@ -81,7 +80,6 @@ public:
   * Defines ray in \f$\mathbb R^3\f$.
   * 
   * \author Leonid Kostrykin
-  * \date   22.2.15 - 16.3.15
   */
 class LIBCARNA Ray3f : public Ray< Vector3f >
 {
