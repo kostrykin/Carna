@@ -153,18 +153,6 @@ public:
     template< typename LoadIntensitiesFunction >
     void loadIntensities( const LoadIntensitiesFunction& intensityData );
 
-    /** \brief
-      * Updates the data of the volume grid.
-      *
-      * The \a huData must be scaled to \f$\left[-1024, 3071\right]\f$.
-      */
-    void loadHUData( const std::function< base::HUV( const base::math::Vector3ui& ) >& huData );
-
-    /** \overload
-      */
-    template< typename LoadHUDataFunction >
-    void loadHUData( const LoadHUDataFunction& huData );
-
 protected:
     
     /** \brief
@@ -185,20 +173,6 @@ void VolumeGridHelperBase::loadIntensities( const LoadIntensitiesFunction& inten
             [&intensityData]( const base::math::Vector3ui& loc ) -> float
             {
                 return intensityData( loc );
-            }
-        )
-    );
-}
-
-
-template< typename LoadHUDataFunction >
-void VolumeGridHelperBase::loadHUData( const LoadHUDataFunction& huData ) // TODO: can this be removed?
-{
-    loadHUData( static_cast< const std::function< base::HUV( const base::math::Vector3ui& ) >& >
-        (
-            [&huData]( const base::math::Vector3ui& loc ) -> base::HUV
-            {
-                return huData( loc );
             }
         )
     );
