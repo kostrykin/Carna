@@ -49,8 +49,8 @@ void MaskRenderingStageIntegrationTest::init()
     drr->setSampleRate( 200 );
     drr->setWaterAttenuation( 5e-3f );
     drr->setBaseIntensity( 1.f );
-    drr->setLowerThreshold( base::HUV::abs( -400 ) );
-    drr->setUpperThreshold( base::HUV::abs( +400 ) );
+    drr->setLowerThreshold( base::HUV( -400 ) );
+    drr->setUpperThreshold( base::HUV( +400 ) );
     drr->setUpperMultiplier( 1.5f );
     drr->setRenderingInverse( false );
 
@@ -146,7 +146,7 @@ void MaskRenderingStageIntegrationTest::test_helper_geometry_node()
     gridHelper.setIntensitiesRole( mr->maskRole );
     gridHelper.loadIntensities( [&scene]( const base::math::Vector3ui& voxel )
         {
-            const base::HUV huv = base::HUV(scene.volume()( voxel ), true);
+            const base::HUV huv = base::HUV( scene.volume()( voxel ) );
             return huv > 1976 ? 1.f : 0.f;
         }
     );
@@ -176,7 +176,7 @@ void MaskRenderingStageIntegrationTest::test_render_borders()
     gridHelper.setIntensitiesRole( mr->maskRole );
     gridHelper.loadIntensities( [&scene]( const base::math::Vector3ui& voxel )
         {
-            const base::HUV huv = base::HUV(scene.volume()( voxel ), true);
+            const base::HUV huv = base::HUV( scene.volume()( voxel ) );
             return huv > -400 ? 1.f : 0.f;
         }
     );

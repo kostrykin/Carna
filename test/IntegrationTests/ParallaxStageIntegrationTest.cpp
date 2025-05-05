@@ -91,8 +91,8 @@ void ParallaxStageIntegrationTest::init()
     drr->setSampleRate( 100 );
     drr->setWaterAttenuation( 5e-3f );
     drr->setBaseIntensity( 1.f );
-    drr->setLowerThreshold( base::HUV::abs( -400 ) );
-    drr->setUpperThreshold( base::HUV::abs( +400 ) );
+    drr->setLowerThreshold( base::HUV( -400 ) );
+    drr->setUpperThreshold( base::HUV( +400 ) );
     drr->setUpperMultiplier( 1.5f );
     //! [parallax_instantiation_others]
 }

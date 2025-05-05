@@ -64,7 +64,7 @@ LibCarna::base::IntensityVolumeUInt16* HUGZSceneFactory::importVolume( const std
     for( unsigned int x = 0; x < size.x(); ++x )
     {
         const signed short huv = reader.read();
-        volume->setVoxel( x, y, z, LibCarna::base::HUV::abs( huv ).absIntensity() );
+        volume->setVoxel( x, y, z, LibCarna::base::HUV( huv ).intensity() );
     }
 
     if( stretchIntensities )

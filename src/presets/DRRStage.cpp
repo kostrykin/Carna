@@ -78,8 +78,8 @@ DRRStage::Details::Details()
 
 const float     DRRStage::DEFAULT_WATER_ATTENUATION = 5e-3f;
 const float     DRRStage::DEFAULT_BASE_INTENSITY    = 1;
-const base::HUV DRRStage::DEFAULT_LOWER_THRESHOLD   = base::HUV::abs( -400 );
-const base::HUV DRRStage::DEFAULT_UPPER_THRESHOLD   = base::HUV::abs( +400 );
+const base::HUV DRRStage::DEFAULT_LOWER_THRESHOLD   = base::HUV( -400 );
+const base::HUV DRRStage::DEFAULT_UPPER_THRESHOLD   = base::HUV( +400 );
 const float     DRRStage::DEFAULT_UPPER_MULTIPLIER  = 1.5f;
 const bool      DRRStage::DEFAULT_RENDER_INVERSE    = false;
 

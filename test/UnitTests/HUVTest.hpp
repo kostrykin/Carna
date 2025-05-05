@@ -60,9 +60,9 @@ private slots:
 
  // ----------------------------------------------------------------------------------
 
-    void test_HUV_rel();
+    void test_HUVOffset();
     
-    void test_HUV_abs();
+    void test_HUV();
     
 }; // HUVTest
 

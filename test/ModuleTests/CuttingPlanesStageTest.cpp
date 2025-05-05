@@ -60,8 +60,8 @@ void CuttingPlanesStageTest::cleanupTestCase()
 
 void CuttingPlanesStageTest::init()
 {
-    planes->setWindowingWidth( base::HUV::rel( 2000 ).relIntensity() );
-    planes->setWindowingLevel( base::HUV::abs( -100 ).absIntensity() );
+    planes->setWindowingWidth( base::HUVOffset( 2000 ).intensity() );
+    planes->setWindowingLevel( base::HUV( -100 ).intensity() );
 }
 
 

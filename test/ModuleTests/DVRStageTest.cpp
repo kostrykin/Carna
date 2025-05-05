@@ -84,8 +84,8 @@ void DVRStageTest::test_withLighting()
     /* Configure DVR stage.
      */
     //! [dvr_setup_with_lighting]
-    dvr->colorMap.writeLinearSegment( base::HUV( -400 ).absIntensity(), base::HUV(   0 ).absIntensity(), base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
-    dvr->colorMap.writeLinearSegment( base::HUV(    0 ).absIntensity(), base::HUV( 400 ).absIntensity(), base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
+    dvr->colorMap.writeLinearSegment( base::HUV( -400 ).intensity(), base::HUV(   0 ).intensity(), base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
+    dvr->colorMap.writeLinearSegment( base::HUV(    0 ).intensity(), base::HUV( 400 ).intensity(), base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
     dvr->setSampleRate( 1000 );
     dvr->setTranslucence(  2 );
     //! [dvr_setup_with_lighting]
@@ -109,8 +109,8 @@ void DVRStageTest::test_withoutLighting()
     /* Configure DVR stage.
      */
     //! [dvr_setup_without_lighting]
-    dvr->colorMap.writeLinearSegment( base::HUV( -400 ).absIntensity(), base::HUV(   0 ).absIntensity(), base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
-    dvr->colorMap.writeLinearSegment( base::HUV(    0 ).absIntensity(), base::HUV( 400 ).absIntensity(), base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
+    dvr->colorMap.writeLinearSegment( base::HUV( -400 ).intensity(), base::HUV(   0 ).intensity(), base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
+    dvr->colorMap.writeLinearSegment( base::HUV(    0 ).intensity(), base::HUV( 400 ).intensity(), base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
     dvr->setDiffuseLight( 0 );
     //! [dvr_setup_without_lighting]
 

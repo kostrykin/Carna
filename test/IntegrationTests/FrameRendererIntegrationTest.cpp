@@ -66,8 +66,8 @@ void FrameRendererIntegrationTest::test_typical()
     frHelper << new presets::OccludedRenderingStage();
     frHelper.commit();
 
-    fr.findStage< presets::CuttingPlanesStage >()->setWindowingWidth( base::HUV::rel( 4000 ).relIntensity() );
-    fr.findStage< presets::CuttingPlanesStage >()->setWindowingLevel( base::HUV::abs( 1024 ).absIntensity() );
+    fr.findStage< presets::CuttingPlanesStage >()->setWindowingWidth( base::HUVOffset( 4000 ).intensity() );
+    fr.findStage< presets::CuttingPlanesStage >()->setWindowingLevel( base::HUV( 1024 ).intensity() );
     fr.findStage< presets::CuttingPlanesStage >()->setRenderingInverse( true );
     fr.findStage< presets::DRRStage >()->setRenderingInverse( true );
     fr.setBackgroundColor( base::Color::WHITE_NO_ALPHA );
@@ -149,8 +149,8 @@ void FrameRendererIntegrationTest::test_8bit()
     frHelper << new presets::OccludedRenderingStage();
     frHelper.commit();
 
-    fr.findStage< presets::CuttingPlanesStage >()->setWindowingWidth( base::HUV::rel( 4000 ).relIntensity() );
-    fr.findStage< presets::CuttingPlanesStage >()->setWindowingLevel( base::HUV::abs( 1024 ).absIntensity() );
+    fr.findStage< presets::CuttingPlanesStage >()->setWindowingWidth( base::HUVOffset( 4000 ).intensity() );
+    fr.findStage< presets::CuttingPlanesStage >()->setWindowingLevel( base::HUV( 1024 ).intensity() );
     fr.findStage< presets::CuttingPlanesStage >()->setRenderingInverse( true );
     fr.findStage< presets::DRRStage >()->setRenderingInverse( true );
     fr.setBackgroundColor( base::Color::WHITE_NO_ALPHA );

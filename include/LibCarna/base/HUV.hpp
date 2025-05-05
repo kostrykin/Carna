@@ -59,38 +59,19 @@ struct HUV
     HUV() = default;
 
     /** \brief
-      * Creates HUV with \a value. Clamps to \f$\left[-1024, 3071\right]\f$ if
-      * \a absolute is <tt>true</tt>.
+      * Creates HUV with \a value. Clamps to \f$\left[-1024, 3071\right]\f$.
       */
-    explicit HUV( signed int value, bool absolute=false );
+    explicit HUV( signed int value );
 
     /** \brief
-      * Creates HUV corresponding to \a intensity. Clamps to
-      * \f$\left[-1024, 3071\right]\f$ if \a absolute is <tt>true</tt>.
+      * Creates HUV corresponding to \a intensity. Clamps to \f$\left[-1024, 3071\right]\f$.
       */
-    explicit HUV( float intensity, bool absolute=false );
+    explicit HUV( float intensity );
 
     /** \brief
-      * Wraps an absolute HU value.
+      * Returns the corresponding intensity.
       */
-    template< typename T >
-    static HUV abs( T value );
-
-    /** \brief
-      * Wraps a relative HU value.
-      */
-    template< typename T >
-    static HUV rel( T value ); // TODO: rename to `off` for "offset"
-
-    /** \brief
-      * Returns the corresponding absolute intensity.
-      */
-    float absIntensity() const;
-
-    /** \brief
-      * Returns the corresponding relative intensity.
-      */
-    float relIntensity() const;
+    float intensity() const;
 
 }; // HUV
 
@@ -101,55 +82,96 @@ inline HUV::operator signed short() const
 }
 
 
-inline HUV::HUV( signed int value, bool absolute )
+inline HUV::HUV( signed int value )
     : value( value )
 {
-    if( absolute )
-    {
-        if( this->value < -1024 ) this->value = -1024;
-        if( this->value >  3071 ) this->value =  3071;
-    }
+    if( this->value < -1024 ) this->value = -1024;
+    if( this->value >  3071 ) this->value =  3071;
 }
 
 
-inline HUV::HUV( float intensity, bool absolute )
+inline HUV::HUV( float intensity )
 {
     const static float huvMax = 3071;
-    if( absolute )
-    {
-        if( intensity < 0 ) intensity = 0;
-        if( intensity > 1 ) intensity = 1;
-    }
-    float huvFloat = intensity * 4095.f + 0.5;
-    if( absolute ) huvFloat -= 1024;
-    if( huvFloat > huvMax ) huvFloat = huvMax;
+    if( intensity < 0 ) intensity = 0;
+    if( intensity > 1 ) intensity = 1;
+    const float huvFloat = intensity * 4095.f + 0.5 - 1024;
     value = static_cast< signed short >( huvFloat );
 }
 
 
-inline float HUV::absIntensity() const
+inline float HUV::intensity() const
 {
     return ( value + 1024 ) / 4095.f;
 }
 
 
-inline float HUV::relIntensity() const
+
+// ----------------------------------------------------------------------------------
+// HUVOffset
+// ----------------------------------------------------------------------------------
+
+/** \brief
+  * Represents values in \f$\left[-4095, +4095\right]\f$.
+  *
+  * \author Leonid Kostrykin
+  */
+struct HUVOffset
+{
+
+    /** \brief
+     * Holds the HU value.
+     */
+    signed short value;
+
+    /** \brief
+     * Implicitly casts into a <tt>signed short</tt> and yields \ref value.
+     */
+    operator signed short() const;
+
+    /** \brief
+     * Constructor.
+     */
+    HUVOffset() = default;
+
+    /** \brief
+     * Creates a HUV offset with \a value. Clamps to \f$\left[-4095, +4095\right]\f$.
+     */
+    explicit HUVOffset( signed int value );
+
+    /** \brief
+     * Creates a HUV offset corresponding to \a intensity. Clamps to \f$\left[-4095, +4095\right]\f$.
+     */
+    explicit HUVOffset( float intensity );
+
+    /** \brief
+     * Returns the corresponding intensity offset.
+     */
+    float intensity() const;
+
+}; // HUVOffset
+
+
+inline float HUVOffset::intensity() const
 {
     return value / 4095.f;
 }
 
 
-template< typename T >
-HUV HUV::abs( T value )
+inline HUVOffset::HUVOffset( signed int value )
+    : value( value )
 {
-    return HUV( value, true );
+    if( this->value < -4095 ) this->value = -4095;
+    if( this->value > +4095 ) this->value = +4095;
 }
 
 
-template< typename T >
-HUV HUV::rel( T value )
+inline HUVOffset::HUVOffset( float intensity )
 {
-    return HUV( value, false );
+    if( intensity < -1 ) intensity = -1;
+    if( intensity > +1 ) intensity = +1;
+    const float huvFloat = intensity * 4095.f + 0.5;
+    value = static_cast< signed short >( huvFloat );
 }
 
 
