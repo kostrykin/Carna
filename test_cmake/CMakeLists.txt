@@ -13,7 +13,7 @@ elseif( BUILD STREQUAL "release" )
     set( CMAKE_BUILD_TYPE Release )
 endif()
 
-find_package( LibCarna 3.4 REQUIRED COMPONENTS ${BUILD} )
+find_package( LibCarna 3.4 MODULE REQUIRED COMPONENTS ${BUILD} )
 include_directories( ${LibCarna_INCLUDE_DIR} )
 set( LibCarna_VERSION ${FOUND_VERSION} )
 

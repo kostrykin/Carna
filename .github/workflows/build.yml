@@ -55,7 +55,7 @@ jobs:
         name: ${{ matrix.variant }}-${{ matrix.build }}-test_output
         path: build/make_${{ matrix.build }}/test/test_output/
 
-    - name: Test FindCarna.cmake
+    - name: Test FindLibCarna.cmake
       if: ${{ matrix.variant == 'egl' }}
       run: ./test.sh ${{ matrix.build }}
       working-directory: test_cmake

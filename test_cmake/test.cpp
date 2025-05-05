@@ -1,4 +1,4 @@
-#include <LibCarna/Version.h>
+#include <LibCarna/Version.hpp>
 #include <LibCarna/base/Node.hpp>
 #include <iostream>
 
