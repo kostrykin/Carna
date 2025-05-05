@@ -10,5 +10,5 @@ var searchData=
   ['mean_7',['mean',['../structLibCarna_1_1base_1_1math_1_1Statistics.html#af471c6747ff97dd3e1afc581c0a0cd77',1,'LibCarna::base::math::Statistics']]],
   ['meshrole_8',['meshRole',['../classLibCarna_1_1helpers_1_1PointMarkerHelper.html#a197c48e2585a7b43598dd84013de406d',1,'LibCarna::helpers::PointMarkerHelper']]],
   ['message_9',['message',['../classLibCarna_1_1base_1_1LibCarnaException.html#a9fd4696297dab1b58e32057409c23dc2',1,'LibCarna::base::LibCarnaException']]],
-  ['mybuffer_10',['mybuffer',['../classLibCarna_1_1base_1_1BufferedHUVolume.html#a472759fabd2dd3eb2c8cecf76fa3f9f7',1,'LibCarna::base::BufferedHUVolume::myBuffer'],['../classLibCarna_1_1base_1_1BufferedIntensityVolume.html#aadfd7d1bcaca53468249e30d7967a7d6',1,'LibCarna::base::BufferedIntensityVolume::myBuffer'],['../classLibCarna_1_1base_1_1BufferedNormalMap3D.html#ab5131b80b3c0015b3bf2cdde3beda5cf',1,'LibCarna::base::BufferedNormalMap3D::myBuffer']]]
+  ['mybuffer_10',['mybuffer',['../classLibCarna_1_1base_1_1BufferedIntensityVolume.html#aadfd7d1bcaca53468249e30d7967a7d6',1,'LibCarna::base::BufferedIntensityVolume::myBuffer'],['../classLibCarna_1_1base_1_1BufferedNormalMap3D.html#ab5131b80b3c0015b3bf2cdde3beda5cf',1,'LibCarna::base::BufferedNormalMap3D::myBuffer']]]
 ];
