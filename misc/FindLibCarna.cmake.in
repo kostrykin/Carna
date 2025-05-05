@@ -1,14 +1,3 @@
-############################################
-# Locates Carna library.
-#-------------------------------------------
-# The following variables are set:
-#	Carna_INCLUDE_DIR   points to headers
-#	Carna_LIBRARIES     points to lib files
-#	Carna_FOUND         indicates success
-#-------------------------------------------
-# Leonid Kostrykin, 16.04.2025
-############################################
-
 set(FOUND_VERSION @FULL_VERSION@)
 
 # set directory where headers are located
@@ -38,6 +27,9 @@ if( @PROJECT_NAME@_LIBRARY_DEBUG )
     set( @PROJECT_NAME@_debug_FOUND TRUE )
     set( @PROJECT_NAME@_LIBRARIES ${@PROJECT_NAME@_LIBRARIES} debug ${@PROJECT_NAME@_LIBRARY_DEBUG} )
 endif()
+
+# set path to license files
+set( @PROJECT_NAME@_LICENSE_DIR "@CMAKE_INSTALL_PREFIX@/@INSTALL_LICENSE_DIR@" )
 
 # handles REQUIRED, QUIET and version-related
 # arguments and also sets the _FOUND variable

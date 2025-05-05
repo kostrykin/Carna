@@ -64,6 +64,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/misc/CMake-Modules)
 option_default_to(INSTALL_LIBRARY_DIR "lib"                       STRING "Installation directory for libraries")
 option_default_to(INSTALL_HEADERS_DIR "include"                   STRING "Installation directory for headers")
 option_default_to(INSTALL_DOC_DIR     "share/doc/${PROJECT_NAME}" STRING "Installation directory for API documentation")
+option_default_to(INSTALL_LICENSE_DIR "share/doc/${PROJECT_NAME}" STRING "Installation directory for license files")
 
 # set default destination for CMake modules
 option_default_to(INSTALL_CMAKE_DIR "${CMAKE_ROOT}/Modules" STRING "Installation directory for CMake files")
@@ -75,6 +76,7 @@ option_default_to(INSTALL_CMAKE_DIR "${CMAKE_ROOT}/Modules" STRING "Installation
 
 file(	TO_CMAKE_PATH	${INSTALL_LIBRARY_DIR}	INSTALL_LIBRARY_DIR )
 file(	TO_CMAKE_PATH	${INSTALL_HEADERS_DIR}	INSTALL_HEADERS_DIR )
+file(	TO_CMAKE_PATH	${INSTALL_LICENSE_DIR}	INSTALL_LICENSE_DIR )
 file(	TO_CMAKE_PATH	${INSTALL_CMAKE_DIR}	INSTALL_CMAKE_DIR )
 
 ############################################
@@ -328,6 +330,12 @@ set( SHADERS_SRC
 set( RESOURCES
 		${SHADERS_SRC}
 	)
+set( LICENSES
+        LICENSE-LibCarna
+        LICENSE-Carna
+        LICENSE-Eigen
+        LICENSE-GLEW
+    )
 	
 ############################################
 
@@ -501,28 +509,44 @@ target_link_libraries( ${TARGET_NAME}
 # Define installation routines
 ############################################
 
-install(TARGETS	${TARGET_NAME}
-		RUNTIME	DESTINATION	${INSTALL_LIBRARY_DIR}
-		ARCHIVE	DESTINATION	${INSTALL_LIBRARY_DIR}
-		LIBRARY	DESTINATION	${INSTALL_LIBRARY_DIR})
+install(
+    TARGETS	${TARGET_NAME}
+	RUNTIME	DESTINATION	${INSTALL_LIBRARY_DIR}
+	ARCHIVE	DESTINATION	${INSTALL_LIBRARY_DIR}
+	LIBRARY	DESTINATION	${INSTALL_LIBRARY_DIR}
+)
 
 # install headers
-install(DIRECTORY ${CMAKE_PROJECT_DIR}include/${PROJECT_NAME}
-		DESTINATION ${INSTALL_HEADERS_DIR})
+install(
+    DIRECTORY ${CMAKE_PROJECT_DIR}include/${PROJECT_NAME}
+	DESTINATION ${INSTALL_HEADERS_DIR}
+)
 
 # also install '.PDB' files on Windows
 if( WIN32 )
-	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/bin/${TARGET_NAME}${CMAKE_DEBUG_POSTFIX}.pdb
-			DESTINATION ${INSTALL_LIBRARY_DIR}
-			OPTIONAL)
-	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/bin/${TARGET_NAME}${CMAKE_DEBUG_POSTFIX}.pdb
-			DESTINATION ${INSTALL_LIBRARY_DIR}
-			OPTIONAL)
+	install(
+        FILES ${CMAKE_CURRENT_BINARY_DIR}/bin/${TARGET_NAME}${CMAKE_DEBUG_POSTFIX}.pdb
+		DESTINATION ${INSTALL_LIBRARY_DIR}
+		OPTIONAL
+    )
+	install(
+        FILES ${CMAKE_CURRENT_BINARY_DIR}/bin/${TARGET_NAME}${CMAKE_DEBUG_POSTFIX}.pdb
+		DESTINATION ${INSTALL_LIBRARY_DIR}
+		OPTIONAL
+    )
 endif( WIN32 )
 
 # install CMake Find<Module> file
-install(	FILES ${CMAKE_CURRENT_BINARY_DIR}/misc/Find${PROJECT_NAME}.cmake
-			DESTINATION ${INSTALL_CMAKE_DIR})
+install(
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/misc/Find${PROJECT_NAME}.cmake
+	DESTINATION ${INSTALL_CMAKE_DIR}
+)
+
+# install license files
+install(
+    FILES ${LICENSES}
+	DESTINATION ${INSTALL_LICENSE_DIR}
+)
 
 ############################################
 # Build interactive demo
