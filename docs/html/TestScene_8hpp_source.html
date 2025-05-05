@@ -123,7 +123,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">class </span>TestScene</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>{</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    std::unique_ptr&lt; base::HUVolumeUInt16 &gt; huVolume;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    std::unique_ptr&lt; base::IntensityVolumeUInt16 &gt; myVolume;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    base::Geometry* <span class="keyword">const</span> myVolumeGeometry;</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
@@ -149,7 +149,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">void</span> resetCamTransform();</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespaceLibCarna_1_1base.html#a5cf6e7f8276dc73e1c171ea1b99f0fc1">base::HUVolumeUInt16</a>&amp; volume() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespaceLibCarna_1_1base.html#abcdfa005951662e95262ad8d0b8b948f">base::IntensityVolumeUInt16</a>&amp; volume() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <a class="code hl_typedef" href="namespaceLibCarna_1_1base_1_1math.html#a523993f0edd08ff77f94ea8b86c78446">base::math::Vector3f</a> scale() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
@@ -164,7 +164,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}  <span class="comment">// namespace LibCarna</span></div>
 <div class="ttc" id="aLibCarna_8hpp_html"><div class="ttname"><a href="LibCarna_8hpp.html">LibCarna.hpp</a></div><div class="ttdoc">Contains forward-declarations.</div></div>
 <div class="ttc" id="anamespaceLibCarna_1_1base_1_1math_html_a523993f0edd08ff77f94ea8b86c78446"><div class="ttname"><a href="namespaceLibCarna_1_1base_1_1math.html#a523993f0edd08ff77f94ea8b86c78446">LibCarna::base::math::Vector3f</a></div><div class="ttdeci">Eigen::Matrix&lt; float, 3, 1 &gt; Vector3f</div><div class="ttdoc">Defines  vector.</div><div class="ttdef"><b>Definition</b> <a href="math_8hpp_source.html#l00200">math.hpp:200</a></div></div>
-<div class="ttc" id="anamespaceLibCarna_1_1base_html_a5cf6e7f8276dc73e1c171ea1b99f0fc1"><div class="ttname"><a href="namespaceLibCarna_1_1base.html#a5cf6e7f8276dc73e1c171ea1b99f0fc1">LibCarna::base::HUVolumeUInt16</a></div><div class="ttdeci">BufferedHUVolume&lt; uint16_t &gt; HUVolumeUInt16</div><div class="ttdoc">Defines 16bit unsigned integer HU volume data.</div><div class="ttdef"><b>Definition</b> <a href="LibCarna_8hpp_source.html#l00158">LibCarna.hpp:158</a></div></div>
+<div class="ttc" id="anamespaceLibCarna_1_1base_html_abcdfa005951662e95262ad8d0b8b948f"><div class="ttname"><a href="namespaceLibCarna_1_1base.html#abcdfa005951662e95262ad8d0b8b948f">LibCarna::base::IntensityVolumeUInt16</a></div><div class="ttdeci">BufferedIntensityVolume&lt; uint16_t &gt; IntensityVolumeUInt16</div><div class="ttdoc">Defines 16bit intensity volume.</div><div class="ttdef"><b>Definition</b> <a href="LibCarna_8hpp_source.html#l00147">LibCarna.hpp:147</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <hr class="footer"/>
     <address class="footer">
