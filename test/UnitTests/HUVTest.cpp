@@ -58,8 +58,8 @@ void HUVTest::test_HUVOffset()
 
     /* Test intensity constructor.
      */
-    QCOMPARE( int( base::HUVOffset( +0.5f ).value ), +4095 / 2 );
-    QCOMPARE( int( base::HUVOffset( -0.5f ).value ), -4095 / 2 );
+    QCOMPARE( int( base::HUVOffset( +0.5f ).value ), +2048 ); // round(4095 * +0.5) = +2048
+    QCOMPARE( int( base::HUVOffset( -0.5f ).value ), -2048 ); // round(4095 * -0.5) = -2048
     QCOMPARE( int( base::HUVOffset( +1.5f ).value ), +4095 );
     QCOMPARE( int( base::HUVOffset( -1.5f ).value ), -4095 );
 
@@ -80,10 +80,10 @@ void HUVTest::test_HUV()
 
     /* Test intensity constructor.
      */
-    QCOMPARE( int( base::HUV( 0.75f ).value ), 1023 * 3 );
-    QCOMPARE( int( base::HUV( 0.25f ).value ), 1023 );
+    QCOMPARE( int( base::HUV( 0.75f ).value ), 2047 ); // round(4095 * 0.75) - 1024 = 2047
+    QCOMPARE( int( base::HUV( 0.25f ).value ),    0 ); // round(4095 * 0.25) - 1024 = 0
     QCOMPARE( int( base::HUV( +1.5f ).value ), +3071 );
-    QCOMPARE( int( base::HUV( -0.5f ).value ), -1024 );
+    QCOMPARE( int( base::HUV( -0.5f ).value ), -1024 ); // !!!
 
     /* Test `.intensity()` method.
      */

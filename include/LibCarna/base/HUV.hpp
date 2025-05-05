@@ -15,6 +15,7 @@
 #ifndef HUV_H_6014714286
 #define HUV_H_6014714286
 
+#include <cmath>
 #include <LibCarna/LibCarna.hpp>
 #include <LibCarna/base/LibCarnaException.hpp>
 
@@ -95,8 +96,8 @@ inline HUV::HUV( float intensity )
     const static float huvMax = 3071;
     if( intensity < 0 ) intensity = 0;
     if( intensity > 1 ) intensity = 1;
-    const float huvFloat = intensity * 4095.f + 0.5 - 1024;
-    value = static_cast< signed short >( huvFloat );
+    const float huvFloat = intensity * 4095.f - 1024;
+    value = static_cast< signed short >( std::lround( huvFloat ) );
 }
 
 
@@ -170,8 +171,8 @@ inline HUVOffset::HUVOffset( float intensity )
 {
     if( intensity < -1 ) intensity = -1;
     if( intensity > +1 ) intensity = +1;
-    const float huvFloat = intensity * 4095.f + 0.5;
-    value = static_cast< signed short >( huvFloat );
+    const float huvFloat = intensity * 4095.f;
+    value = static_cast< signed short >( std::lround( huvFloat ) );
 }
 
 

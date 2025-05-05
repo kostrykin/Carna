@@ -177,7 +177,7 @@ void MaskRenderingStageIntegrationTest::test_render_borders()
     gridHelper.loadIntensities( [&scene]( const base::math::Vector3ui& voxel )
         {
             const base::HUV huv = base::HUV( scene.volume()( voxel ) );
-            return huv > -400 ? 1.f : 0.f;
+            return huv >= -400 ? 1.f : 0.f;
         }
     );
     base::Node* const geometry = gridHelper.createNode( GEOMETRY_TYPE_MASK, UInt8GridHelper::Spacing( spacings ) );
