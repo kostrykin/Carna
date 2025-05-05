@@ -87,6 +87,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classLibCarna_1_1helpers_1_1VolumeGridHelperBase-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">LibCarna::helpers::VolumeGridHelperBase Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
@@ -136,18 +137,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~VolumeGridHelperB
 <tr class="memitem:ae66e03ed647e7c5ea446960b5f5dda77" id="r_ae66e03ed647e7c5ea446960b5f5dda77"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classLibCarna_1_1base_1_1Node.html">base::Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1helpers_1_1VolumeGridHelperBase.html#ae66e03ed647e7c5ea446960b5f5dda77">createNode</a> (unsigned int geometryType, const <a class="el" href="structLibCarna_1_1helpers_1_1VolumeGridHelperBase_1_1Extent.html">Extent</a> &amp;extent) const =0</td></tr>
 <tr class="memdesc:ae66e03ed647e7c5ea446960b5f5dda77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates renderable representation of the underlying grid, that can be put anywhere in the scene graph. The volume is centered in the node.  <br /></td></tr>
 <tr class="separator:ae66e03ed647e7c5ea446960b5f5dda77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee71997a8c9cde914ab8160ea20dd603" id="r_aee71997a8c9cde914ab8160ea20dd603"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1helpers_1_1VolumeGridHelperBase.html#aee71997a8c9cde914ab8160ea20dd603">loadIntensities</a> (const std::function&lt; float(const <a class="el" href="namespaceLibCarna_1_1base_1_1math.html#aef87fe1411df710befbfaa8e5233e207">base::math::Vector3ui</a> &amp;) &gt; &amp;intensityData)=0</td></tr>
-<tr class="memdesc:aee71997a8c9cde914ab8160ea20dd603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the data of the volume grid.  <br /></td></tr>
-<tr class="separator:aee71997a8c9cde914ab8160ea20dd603"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afce5505aed39cbce42bc494a4b803e75" id="r_afce5505aed39cbce42bc494a4b803e75"><td class="memTemplParams" colspan="2">template&lt;typename LoadIntensitiesFunction &gt; </td></tr>
 <tr class="memitem:afce5505aed39cbce42bc494a4b803e75"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1helpers_1_1VolumeGridHelperBase.html#afce5505aed39cbce42bc494a4b803e75">loadIntensities</a> (const LoadIntensitiesFunction &amp;intensityData)</td></tr>
 <tr class="separator:afce5505aed39cbce42bc494a4b803e75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd10c2bac4e8707028ab61e007d39b53" id="r_afd10c2bac4e8707028ab61e007d39b53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1helpers_1_1VolumeGridHelperBase.html#afd10c2bac4e8707028ab61e007d39b53">loadHUData</a> (const std::function&lt; <a class="el" href="structLibCarna_1_1base_1_1HUV.html">base::HUV</a>(const <a class="el" href="namespaceLibCarna_1_1base_1_1math.html#aef87fe1411df710befbfaa8e5233e207">base::math::Vector3ui</a> &amp;) &gt; &amp;huData)</td></tr>
-<tr class="memdesc:afd10c2bac4e8707028ab61e007d39b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the data of the volume grid.  <br /></td></tr>
-<tr class="separator:afd10c2bac4e8707028ab61e007d39b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dbdb2434f075054be532cc9ec8834d4" id="r_a8dbdb2434f075054be532cc9ec8834d4"><td class="memTemplParams" colspan="2">template&lt;typename LoadHUDataFunction &gt; </td></tr>
-<tr class="memitem:a8dbdb2434f075054be532cc9ec8834d4"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1helpers_1_1VolumeGridHelperBase.html#a8dbdb2434f075054be532cc9ec8834d4">loadHUData</a> (const LoadHUDataFunction &amp;huData)</td></tr>
-<tr class="separator:a8dbdb2434f075054be532cc9ec8834d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -160,6 +152,12 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:a4ae67b56ca18fdf83a6700ab59e02154" id="r_a4ae67b56ca18fdf83a6700ab59e02154"><td class="memItemLeft" align="right" valign="top">static const std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1helpers_1_1VolumeGridHelperBase.html#a4ae67b56ca18fdf83a6700ab59e02154">DEFAULT_MAX_SEGMENT_BYTESIZE</a> = 2 * 300 * 300 * 300</td></tr>
 <tr class="memdesc:a4ae67b56ca18fdf83a6700ab59e02154"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default maximum memory size of a single segment volume, 50 megabytes approximately. This determines the segments partitioning.  <br /></td></tr>
 <tr class="separator:a4ae67b56ca18fdf83a6700ab59e02154"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:aee71997a8c9cde914ab8160ea20dd603" id="r_aee71997a8c9cde914ab8160ea20dd603"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1helpers_1_1VolumeGridHelperBase.html#aee71997a8c9cde914ab8160ea20dd603">loadIntensities</a> (const std::function&lt; float(const <a class="el" href="namespaceLibCarna_1_1base_1_1math.html#aef87fe1411df710befbfaa8e5233e207">base::math::Vector3ui</a> &amp;) &gt; &amp;intensityData)=0</td></tr>
+<tr class="memdesc:aee71997a8c9cde914ab8160ea20dd603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the data of the volume grid.  <br /></td></tr>
+<tr class="separator:aee71997a8c9cde914ab8160ea20dd603"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines type-parameters-independent <a class="el" href="classLibCarna_1_1helpers_1_1VolumeGridHelper.html">VolumeGridHelper</a> base interface. </p>
@@ -290,50 +288,6 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a8dbdb2434f075054be532cc9ec8834d4" name="a8dbdb2434f075054be532cc9ec8834d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8dbdb2434f075054be532cc9ec8834d4">&#9670;&#160;</a></span>loadHUData() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename LoadHUDataFunction &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void LibCarna::helpers::VolumeGridHelperBase::loadHUData </td>
-          <td>(</td>
-          <td class="paramtype">const LoadHUDataFunction &amp;&#160;</td>
-          <td class="paramname"><em>huData</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
-
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8hpp_source.html#l00193">193</a> of file <a class="el" href="VolumeGridHelper_8hpp_source.html">VolumeGridHelper.hpp</a>.</p>
-
-</div>
-</div>
-<a id="afd10c2bac4e8707028ab61e007d39b53" name="afd10c2bac4e8707028ab61e007d39b53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd10c2bac4e8707028ab61e007d39b53">&#9670;&#160;</a></span>loadHUData() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void LibCarna::helpers::VolumeGridHelperBase::loadHUData </td>
-          <td>(</td>
-          <td class="paramtype">const std::function&lt; <a class="el" href="structLibCarna_1_1base_1_1HUV.html">base::HUV</a>(const <a class="el" href="namespaceLibCarna_1_1base_1_1math.html#aef87fe1411df710befbfaa8e5233e207">base::math::Vector3ui</a> &amp;) &gt; &amp;&#160;</td>
-          <td class="paramname"><em>huData</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Updates the data of the volume grid. </p>
-<p>The <em>huData</em> must be scaled to \(\left[-1024, 3071\right]\). </p>
-
-</div>
-</div>
 <a id="afce5505aed39cbce42bc494a4b803e75" name="afce5505aed39cbce42bc494a4b803e75"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afce5505aed39cbce42bc494a4b803e75">&#9670;&#160;</a></span>loadIntensities() <span class="overload">[1/2]</span></h2>
 
@@ -353,7 +307,7 @@ template&lt;typename LoadIntensitiesFunction &gt; </div>
 </div><div class="memdoc">
 <p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8hpp_source.html#l00179">179</a> of file <a class="el" href="VolumeGridHelper_8hpp_source.html">VolumeGridHelper.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeGridHelper_8hpp_source.html#l00169">169</a> of file <a class="el" href="VolumeGridHelper_8hpp_source.html">VolumeGridHelper.hpp</a>.</p>
 
 </div>
 </div>
@@ -376,7 +330,7 @@ template&lt;typename LoadIntensitiesFunction &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -384,7 +338,7 @@ template&lt;typename LoadIntensitiesFunction &gt; </div>
 <p>Updates the data of the volume grid. </p>
 <p>The <em>intensityData</em> must be scaled to \(\left[0, 1\right]\). </p>
 
-<p>Implemented in <a class="el" href="classLibCarna_1_1helpers_1_1VolumeGridHelper.html#a37bca8c0445c583c42856a8a956cf6e9">LibCarna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classLibCarna_1_1helpers_1_1VolumeGridHelper.html#a37bca8c0445c583c42856a8a956cf6e9">LibCarna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>, and <a class="el" href="classLibCarna_1_1helpers_1_1VolumeGridHelper.html#aee71997a8c9cde914ab8160ea20dd603">LibCarna::helpers::VolumeGridHelper&lt; SegmentIntensityVolumeType, SegmentNormalsVolumeType &gt;</a>.</p>
 
 </div>
 </div>

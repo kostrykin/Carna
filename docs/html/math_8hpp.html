@@ -369,27 +369,25 @@ Functions</h2></td></tr>
 
 <p>Loops <em>vecName</em> over all \(\vec x \in \mathbb Z^3_{\geq 0} : x_i &lt; n_i \forall i\) where \(\vec n\) is <em>vecLimit</em>. </p>
 <p>Example: </p><div class="fragment"><div class="line">    <span class="keyword">using namespace </span><a class="code hl_namespace" href="namespaceLibCarna_1_1base.html">LibCarna::base</a>;</div>
-<div class="line">    <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">HUVolumeUInt16</a> data( <a class="code hl_typedef" href="namespaceLibCarna_1_1base_1_1math.html#aef87fe1411df710befbfaa8e5233e207">math::Vector3ui</a>( 100, 100, 30 ) );</div>
+<div class="line">    <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">IntensityVolumeUInt16</a> data( <a class="code hl_typedef" href="namespaceLibCarna_1_1base_1_1math.html#aef87fe1411df710befbfaa8e5233e207">math::Vector3ui</a>( 100, 100, 30 ) );</div>
 <div class="line">  </div>
-<div class="line">    <span class="comment">/* Initialize all &#39;data&#39; voxels with &#39;-1024&#39;.</span></div>
+<div class="line">    <span class="comment">/* Initialize all &#39;data&#39; voxels with the lowest possible value.</span></div>
 <div class="line"><span class="comment">     */</span></div>
-<div class="line">    <span class="keyword">const</span> <a class="code hl_struct" href="structLibCarna_1_1base_1_1HUV.html">HUV</a> <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">expected</a> = HUV::abs( -1024 );</div>
 <div class="line">    <a class="code hl_define" href="math_8hpp.html#a6dc9bbe09f6d893c62b7f83f9c6d1393">LIBCARNA_FOR_VECTOR3UI</a>( <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">p</a>, data.size )</div>
 <div class="line">    {</div>
-<div class="line">        data.setVoxel( <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">p</a>, <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">expected</a> );</div>
+<div class="line">        data.setVoxel( <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">p</a>, 0.f );</div>
 <div class="line">    }</div>
 <div class="line">  </div>
 <div class="line">    <span class="comment">/* Verify the result.</span></div>
 <div class="line"><span class="comment">     */</span></div>
 <div class="line">    <span class="keywordflow">for</span>( std::size_t <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">i</a> = 0; <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">i</a> &lt; data.buffer().size(); ++<a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">i</a> )</div>
 <div class="line">    {</div>
-<div class="line">        <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">QCOMPARE</a>( data.buffer()[ <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">i</a> ], HUVolumeUInt16::HUVToBufferValue( <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">expected</a> ) );</div>
+<div class="line">        <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">QCOMPARE</a>( data.buffer()[ <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">i</a> ], 0 );</div>
 <div class="line">    }</div>
 <div class="ttc" id="aclassLibCarna_1_1base_1_1Association_html"><div class="ttname"><a href="classLibCarna_1_1base_1_1Association.html">LibCarna::base::Association</a></div><div class="ttdoc">Represents an association.</div><div class="ttdef"><b>Definition</b> <a href="Association_8hpp_source.html#l00047">Association.hpp:48</a></div></div>
 <div class="ttc" id="amath_8hpp_html_a6dc9bbe09f6d893c62b7f83f9c6d1393"><div class="ttname"><a href="math_8hpp.html#a6dc9bbe09f6d893c62b7f83f9c6d1393">LIBCARNA_FOR_VECTOR3UI</a></div><div class="ttdeci">#define LIBCARNA_FOR_VECTOR3UI(vecName, vecLimit)</div><div class="ttdoc">Loops vecName over all  where  is vecLimit.</div><div class="ttdef"><b>Definition</b> <a href="math_8hpp_source.html#l00745">math.hpp:745</a></div></div>
 <div class="ttc" id="anamespaceLibCarna_1_1base_1_1math_html_aef87fe1411df710befbfaa8e5233e207"><div class="ttname"><a href="namespaceLibCarna_1_1base_1_1math.html#aef87fe1411df710befbfaa8e5233e207">LibCarna::base::math::Vector3ui</a></div><div class="ttdeci">Eigen::Matrix&lt; unsigned int, 3, 1 &gt; Vector3ui</div><div class="ttdoc">Defines  vector.</div><div class="ttdef"><b>Definition</b> <a href="math_8hpp_source.html#l00203">math.hpp:203</a></div></div>
 <div class="ttc" id="anamespaceLibCarna_1_1base_html"><div class="ttname"><a href="namespaceLibCarna_1_1base.html">LibCarna::base</a></div><div class="ttdoc">Contains the core framework components.</div><div class="ttdef"><b>Definition</b> <a href="Aggregation_8hpp_source.html#l00028">Aggregation.hpp:29</a></div></div>
-<div class="ttc" id="astructLibCarna_1_1base_1_1HUV_html"><div class="ttname"><a href="structLibCarna_1_1base_1_1HUV.html">LibCarna::base::HUV</a></div><div class="ttdoc">Represents values in .</div><div class="ttdef"><b>Definition</b> <a href="HUV_8hpp_source.html#l00043">HUV.hpp:44</a></div></div>
 </div><!-- fragment --> 
 <p class="definition">Definition at line <a class="el" href="math_8hpp_source.html#l00745">745</a> of file <a class="el" href="math_8hpp_source.html">math.hpp</a>.</p>
 
