@@ -62,7 +62,7 @@ var searchData=
   ['setsource_59',['setSource',['../classLibCarna_1_1base_1_1ShaderManager.html#a680c92f55c2b65157b1d980ba6942bb9',1,'LibCarna::base::ShaderManager']]],
   ['settag_60',['setTag',['../classLibCarna_1_1base_1_1Spatial.html#a2d5894af3eea88979893af31bf323cb5',1,'LibCarna::base::Spatial']]],
   ['settransform_61',['setTransform',['../classLibCarna_1_1base_1_1BoundingVolume.html#a5a2e85e2d5c15f457dabfb9950ac9e82',1,'LibCarna::base::BoundingVolume']]],
-  ['settranslucence_62',['setTranslucence',['../classLibCarna_1_1presets_1_1DVRStage.html#a574eec25ca6c2c09886c2d48c8e30121',1,'LibCarna::presets::DVRStage']]],
+  ['settranslucency_62',['setTranslucency',['../classLibCarna_1_1presets_1_1DVRStage.html#a9f139048c5849b71d491ba0dff7f8074',1,'LibCarna::presets::DVRStage']]],
   ['setuppermultiplier_63',['setUpperMultiplier',['../classLibCarna_1_1presets_1_1DRRStage.html#aa6d1b5c088eed3af80099fc740f77682',1,'LibCarna::presets::DRRStage']]],
   ['setupperthreshold_64',['setUpperThreshold',['../classLibCarna_1_1presets_1_1DRRStage.html#a5127f2492f3411e4754f14ed76b55932',1,'LibCarna::presets::DRRStage']]],
   ['setuserdata_65',['setUserData',['../classLibCarna_1_1base_1_1Spatial.html#a59c3ddcc1f4dc688b79eba69fed752fb',1,'LibCarna::base::Spatial']]],

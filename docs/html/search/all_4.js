@@ -22,7 +22,7 @@ var searchData=
   ['default_5frole_5fmask_19',['DEFAULT_ROLE_MASK',['../classLibCarna_1_1presets_1_1MaskRenderingStage.html#a231a201821e8cf2e241d570a9f89a9da',1,'LibCarna::presets::MaskRenderingStage']]],
   ['default_5frole_5fnormals_20',['DEFAULT_ROLE_NORMALS',['../classLibCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponent.html#a1b17f28a7ece4c21dfb59c568c8833bd',1,'LibCarna::helpers::details::VolumeGridHelper::NormalsComponent']]],
   ['default_5fsample_5frate_21',['DEFAULT_SAMPLE_RATE',['../classLibCarna_1_1presets_1_1VolumeRenderingStage.html#a1ac69633c9ca2a1b0411b8d9d87db67d',1,'LibCarna::presets::VolumeRenderingStage']]],
-  ['default_5ftranslucence_22',['DEFAULT_TRANSLUCENCE',['../classLibCarna_1_1presets_1_1DVRStage.html#ae268fc51f8389ac9bf1bca286bd9679f',1,'LibCarna::presets::DVRStage']]],
+  ['default_5ftranslucency_22',['DEFAULT_TRANSLUCENCY',['../classLibCarna_1_1presets_1_1DVRStage.html#a5c60c2ce8c9e3a30da852a0ff7068dac',1,'LibCarna::presets::DVRStage']]],
   ['default_5fupper_5fmultiplier_23',['DEFAULT_UPPER_MULTIPLIER',['../classLibCarna_1_1presets_1_1DRRStage.html#adb37d1501527a2a83fe68a529c898875',1,'LibCarna::presets::DRRStage']]],
   ['default_5fupper_5fthreshold_24',['DEFAULT_UPPER_THRESHOLD',['../classLibCarna_1_1presets_1_1DRRStage.html#aa6749f1ba21bc94863fa21e9c9105811',1,'LibCarna::presets::DRRStage']]],
   ['default_5fwater_5fattenuation_25',['DEFAULT_WATER_ATTENUATION',['../classLibCarna_1_1presets_1_1DRRStage.html#aa6f704ce7d9c88d45e062d70616f7c4e',1,'LibCarna::presets::DRRStage']]],
