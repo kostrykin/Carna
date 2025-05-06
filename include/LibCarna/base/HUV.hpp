@@ -37,7 +37,7 @@ namespace base
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Represents values in \f$\left[-1024, +3071\right]\f$.
+  * Represents Hounsfield Units Values in \f$\left[-1024, +3071\right]\f$, usually used in CT imaging.
   *
   * \author Leonid Kostrykin
   */
@@ -113,7 +113,7 @@ inline float HUV::intensity() const
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Represents values in \f$\left[-4095, +4095\right]\f$.
+  * Represents offsets to \ref HUV "Hounsfield Units Values".
   *
   * \author Leonid Kostrykin
   */
