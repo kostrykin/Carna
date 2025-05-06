@@ -276,7 +276,7 @@ void Demo::resizeGL( int w, int h )
         dvr->writeColorMap( -400,   0, base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
         dvr->writeColorMap(    0, 400, base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
         dvr->setSampleRate( 500 );
-        dvr->setTranslucence( 2 );
+        dvr->setTranslucency( 2 );
         renderer->appendStage( dvr );
 #else
         /* DRR

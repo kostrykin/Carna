@@ -45,14 +45,14 @@ struct DVRStage::Details
     
     const static unsigned int COLORMAP_TEXTURE_UNIT = base::Texture< 0 >::SETUP_UNIT + 1;
     
-    float translucence;
+    float translucency;
     float diffuseLight;
     bool isLightingUsed;
 };
 
 
 DVRStage::Details::Details()
-    : translucence( DEFAULT_TRANSLUCENCE )
+    : translucency( DEFAULT_TRANSLUCENCY )
     , diffuseLight( DEFAULT_DIFFUSE_LIGHT )
 {
 }
@@ -63,7 +63,7 @@ DVRStage::Details::Details()
 // DVRStage
 // ----------------------------------------------------------------------------------
 
-const float DVRStage::DEFAULT_TRANSLUCENCE = 50;
+const float DVRStage::DEFAULT_TRANSLUCENCY = 50;
 const float DVRStage::DEFAULT_DIFFUSE_LIGHT = 1;
 
 
@@ -81,16 +81,16 @@ DVRStage::~DVRStage()
 }
 
 
-void DVRStage::setTranslucence( float translucence )
+void DVRStage::setTranslucency( float translucency )
 {
-    LIBCARNA_ASSERT( translucence >= 0 );
-    pimpl->translucence = translucence;
+    LIBCARNA_ASSERT( translucency >= 0 );
+    pimpl->translucency = translucency;
 }
 
 
-float DVRStage::translucence() const
+float DVRStage::translucency() const
 {
-    return pimpl->translucence;
+    return pimpl->translucency;
 }
 
 
@@ -227,7 +227,7 @@ const std::string& DVRStage::uniformName( unsigned int role ) const
 void DVRStage::configureShader()
 {
     base::ShaderUniform<   int >( "colorMap", Details::COLORMAP_TEXTURE_UNIT ).upload();
-    base::ShaderUniform< float >( "translucence", pimpl->translucence ).upload();
+    base::ShaderUniform< float >( "translucency", pimpl->translucency ).upload();
     base::ShaderUniform< float >( "diffuseLight", pimpl->diffuseLight ).upload();
         
     /* Bind the color map.

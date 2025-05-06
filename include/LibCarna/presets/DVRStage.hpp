@@ -82,16 +82,16 @@ namespace presets
   * This gives the following rendering:
   * \image html DVRStageTest/withoutLighting.png "exemplary rendering without lighting from code above"
   *
-  * \subsection DVRStageTranslucence Translucence
+  * \subsection DVRStageTranslucency Translucency
   *
-  * The \ref setTranslucence "translucence" scales the opacity values queried from
+  * The \ref setTranslucency "translucency" scales the opacity values queried from
   * the color map. Assuming that \f$\alpha\f$ was the value from the color map, the
-  * translucence \f$t \geq 0\f$ scales the actual opacity to
+  * translucency \f$t \geq 0\f$ scales the actual opacity to
   * \f$\frac{\alpha}{1 + t}\f$.
   *
   * \subsection DVRStageWithLighting With Lighting Enabled
   *
-  * The \ref DEFAULT_TRANSLUCENCE "default translucence" is quite high, which is fine
+  * The \ref DEFAULT_TRANSLUCENCY "default translucency" is quite high, which is fine
   * for rendering without lighting. You might consider setting it down when
   * rendering with lighting enabled:
   *
@@ -123,9 +123,9 @@ public:
     const static unsigned int ROLE_NORMALS = 1;
     
     /** \brief
-      * Holds the default \ref DVRStageTranslucence "translucence".
+      * Holds the default \ref DVRStageTranslucency "translucency".
       */
-    const static float DEFAULT_TRANSLUCENCE;
+    const static float DEFAULT_TRANSLUCENCY;
     
     /** \brief
       * Holds the default diffuse light amount. The ambient light amount is always
@@ -163,14 +163,14 @@ public:
     base::ColorMap colorMap;
     
     /** \brief
-      * Sets the \ref DVRStageTranslucence "translucence" property.
+      * Sets the \ref DVRStageTranslucency "translucency" property.
       */
-    void setTranslucence( float translucence );
+    void setTranslucency( float translucency );
     
     /** \brief
-      * Tells current \ref DVRStageTranslucence "translucence".
+      * Tells current \ref DVRStageTranslucency "translucency".
       */
-    float translucence() const;
+    float translucency() const;
     
     /** \brief
       * Sets the diffuse light amount to \a diffuseLight and the ambient light amount

@@ -34,7 +34,7 @@ uniform sampler1D colorMap;
 uniform mat4      modelTexture;
 uniform mat3      normalsView;
 uniform float     stepLength;
-uniform float     translucence;
+uniform float     translucency;
 uniform float     diffuseLight;
 uniform int       lightingEnabled;
 
@@ -90,6 +90,6 @@ void main()
     vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;
     vec4 color = sampleAt( textureCoordinates.xyz );
     
-    float alpha = color.a * stepLength / ( 1 + translucence );
+    float alpha = color.a * stepLength / ( 1 + translucency );
     _gl_FragColor = vec4( color.rgb * alpha, alpha );
 }
