@@ -76,6 +76,10 @@ public:
       */
     const static unsigned int ROLE_INTENSITIES;
 
+    const unsigned int volumeGeometryType;
+    
+    const unsigned int planeGeometryType;
+
     /** \brief
       * Instantiates.
       */

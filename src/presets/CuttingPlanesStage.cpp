@@ -142,6 +142,8 @@ const unsigned int CuttingPlanesStage::ROLE_INTENSITIES = 0;
 CuttingPlanesStage::CuttingPlanesStage( unsigned int volumeGeometryType, unsigned int planeGeometryType )
     : base::GeometryStage< void >::GeometryStage( volumeGeometryType )
     , pimpl( new Details( planeGeometryType ) )
+    , volumeGeometryType( volumeGeometryType )
+    , planeGeometryType( planeGeometryType )
 {
 }
 
