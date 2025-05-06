@@ -74,7 +74,10 @@ bool DefaultRenderStageOrder::operator()( const base::RenderStage* x, const base
     LIBCARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::OccludedRenderingStage );
     LIBCARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::OpaqueRenderingStage );
     LIBCARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::TransparentRenderingStage );
-    LIBCARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::VolumeRenderingStage );
+    LIBCARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::DRRStage );
+    LIBCARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::DVRStage );
+    LIBCARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::MIPStage );
+    LIBCARNA_DEFAULT_RENDER_STAGE_ORDER_NEXT( presets::MaskRenderingStage );
 
     LIBCARNA_FAIL( "Unknown render stage." );
 }
