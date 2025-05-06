@@ -252,31 +252,31 @@ namespace presets
   * The vertex shader must declare the following GLSL version, uniform variables and
   * \ref CustomVertexFormats "vertex formats":
   *
-  *     \code
-  *     #version 330
-  *     uniform mat4 tangentModel;
-  *     uniform mat4 modelViewProjection;
+  * \code
+  * #version 330
+  * uniform mat4 tangentModel;
+  * uniform mat4 modelViewProjection;
   *
-  *     layout( location = 0 ) in vec4 inPosition;
-  *     \endcode
+  * layout( location = 0 ) in vec4 inPosition;
+  * \endcode
   *
   * Furthermore, it must pass the model-space coordinates to the fragment shader,
   * although the name of the variable used for this is arbitrary:
   *
-  *     \code
-  *     out vec4 modelSpaceCoordinates;
-  *     \endcode
+  * \code
+  * out vec4 modelSpaceCoordinates;
+  * \endcode
   *
   * Most of the time you should be able to stick to this implementation:
   *
-  *     \code
-  *     void main()
-  *     {
-  *         modelSpaceCoordinates = tangentModel * inPosition;
-  *         vec4 clippingCoordinates = modelViewProjection * modelSpaceCoordinates;
-  *         gl_Position = clippingCoordinates;
-  *     }
-  *     \endcode
+  * \code
+  * void main()
+  * {
+  *     modelSpaceCoordinates = tangentModel * inPosition;
+  *     vec4 clippingCoordinates = modelViewProjection * modelSpaceCoordinates;
+  *     gl_Position = clippingCoordinates;
+  * }
+  * \endcode
   *
   * \subsubsection VolumeRenderingFragmentShader Fragment Shader
   *
@@ -284,31 +284,32 @@ namespace presets
   * variables, along with a varying for the model-space coordinates, whose name must
   * match the name used in the vertex shader:
   *
-  *     \code
-  *     #version 330
+  * \code
+  * #version 330
   *
-  *     uniform mat4 modelTexture;
+  * uniform mat4 modelTexture;
   *
-  *     in  vec4 modelSpaceCoordinates;
-  *     out vec4 gl_FragColor;
-  *     \endcode
+  * in  vec4 modelSpaceCoordinates;
+  * layout( location = 0 ) out vec4 _gl_FragColor;
+  * \endcode
   *
-  * The name of the color output variable `gl_FragColor` is arbitrary.
+  * The name of the color output variable `_gl_FragColor` is arbitrary, but it is not allowed to start with `gl_` for
+  * compatibility with newer OpenGL versions.
   *
   * Below is the body of a typical implementation of the fragment shader, that writes
   * the texture coordinates to the color output:
   *
-  *     \code
-  *     void main()
+  * \code
+  * void main()
+  * {
+  *     if( abs( modelSpaceCoordinates.x ) > 0.5 || abs( modelSpaceCoordinates.y ) > 0.5 || abs( modelSpaceCoordinates.z ) > 0.5 )
   *     {
-  *         if( abs( modelSpaceCoordinates.x ) > 0.5 || abs( modelSpaceCoordinates.y ) > 0.5 || abs( modelSpaceCoordinates.z ) > 0.5 )
-  *         {
-  *             discard;
-  *         }
-  *         vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;
-  *         gl_FragColor = vec4( textureCoordinates.rgb, 1 );
+  *         discard;
   *     }
-  *     \endcode
+  *     vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;
+  *     _gl_FragColor = vec4( textureCoordinates.rgb, 1 );
+  * }
+  * \endcode
   *
   * For a full example on how to implement the shader, refer to the files
   * \ref src/res/mip.vert and \ref src/res/mip.frag. These should be

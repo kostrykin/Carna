@@ -58,15 +58,15 @@ std::string LIBCARNA cat( const std::string& file );
   *
   * Example:
   *
-  *     \code
-  *     using LibCarna::base::text::lexical_cast;
+  * \code
+  * using LibCarna::base::text::lexical_cast;
   *
-  *     const unsigned int i = 3;
-  *     const  std::string s = lexical_cast<  std::string >( i );
-  *     const unsigned int j = lexical_cast< unsigned int >( s );
+  * const unsigned int i = 3;
+  * const  std::string s = lexical_cast<  std::string >( i );
+  * const unsigned int j = lexical_cast< unsigned int >( s );
   *
-  *     LIBCARNA_ASSERT( i == j );
-  *     \endcode
+  * LIBCARNA_ASSERT( i == j );
+  * \endcode
   */
 template< typename To, typename From >
 To lexical_cast( const From& from )

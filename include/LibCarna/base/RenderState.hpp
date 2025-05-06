@@ -48,31 +48,31 @@ namespace base
   * context is a thread-local variable as described \ref GLContext "here". This
   * allows us to utilize the execution stack to track the render state:
   *
-  *     \code
-  *     void render()
-  *     {
-  *         RenderState rs;
-  *         rs.setDepthTest( false );
-  *         rs.setBlend( true );
-  *         render1();
-  *         render2();
-  *     }
+  * \code
+  * void render()
+  * {
+  *     RenderState rs;
+  *     rs.setDepthTest( false );
+  *     rs.setBlend( true );
+  *     render1();
+  *     render2();
+  * }
   *
-  *     void render1()
-  *     {
-  *         RenderState rs;
-  *         rs.setDepthTest( false );
-  *         rs.setBlendFunction( BlendFunction( GL_ONE, GL_ONE ) );
-  *         renderSomething();
-  *     }
+  * void render1()
+  * {
+  *     RenderState rs;
+  *     rs.setDepthTest( false );
+  *     rs.setBlendFunction( BlendFunction( GL_ONE, GL_ONE ) );
+  *     renderSomething();
+  * }
   *
-  *     void render2()
-  *     {
-  *         RenderState rs;
-  *         rs.setDepthTest( false );
-  *         renderSomething();
-  *     }
-  *     \endcode
+  * void render2()
+  * {
+  *     RenderState rs;
+  *     rs.setDepthTest( false );
+  *     renderSomething();
+  * }
+  * \endcode
   *
   * The constructor derives a new render state, that immediately becomes the
   * *current* one and equals the previous state. The method `render` disables depth

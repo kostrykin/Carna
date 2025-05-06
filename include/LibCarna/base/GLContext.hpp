@@ -164,11 +164,11 @@ protected:
   *
   * Example:
   *
-  *     \code
-  *     #include <QGLContext>
-  *     #include <QGLFormat>
-  *     typedef LibCarna::base::QGLContextAdapter< QGLContext, QGLFormat > GLContext;
-  *     \endcode
+  * \code
+  * #include <QGLContext>
+  * #include <QGLFormat>
+  * typedef LibCarna::base::QGLContextAdapter< QGLContext, QGLFormat > GLContext;
+  * \endcode
   *
   * \author Leonid Kostrykin
   */

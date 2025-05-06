@@ -94,7 +94,6 @@ namespace base
   *
   * A typical vertex shader looks like this:
   *
-  *     \code{.unparsed}
   *     #version 330
   *     uniform mat4 modelViewProjection;
   *     layout( location = 0 ) in vec4 inPosition;
@@ -103,7 +102,6 @@ namespace base
   *         vec4 clippingCoordinates = modelViewProjection * inPosition;
   *         gl_Position = clippingCoordinates;
   *     }
-  *     \endcode
   *
   * Line 1 specifies the GLSL version that the compiler should use to build the code.
   * Line 2 declares a variable, whose value will be set from code that runs on the
@@ -130,15 +128,15 @@ namespace base
   *
   * Lets take a look at an exemplary fragment shader:
   *
-  *     \code{.unparsed}
-  *     #version 330
-  *     uniform vec4 color;
-  *     out vec4 gl_FragColor;
-  *     void main()
-  *     {
-  *         gl_FragColor = vec4( color );
-  *     }
-  *     \endcode
+  * \code
+  * #version 330
+  * uniform vec4 color;
+  * out vec4 gl_FragColor;
+  * void main()
+  * {
+  *     gl_FragColor = vec4( color );
+  * }
+  * \endcode
   *
   * Line 1 declares the GLSL version, just like it was did for vertex shaders. Vertex
   * and fragment shaders, that are going to be used together as a single
@@ -160,11 +158,11 @@ namespace base
   * requests it. So everything one has to do is to ensure that the `%ShaderManager`
   * will be able to locate the shader sources:
   *
-  *     \code
-  *     using namespace LibCarna;
-  *     base::ShaderManager::instance().setSource( "myShader.vert", srcVert );
-  *     base::ShaderManager::instance().setSource( "myShader.frag", srcFrag );
-  *     \endcode
+  * \code
+  * using namespace LibCarna;
+  * base::ShaderManager::instance().setSource( "myShader.vert", srcVert );
+  * base::ShaderManager::instance().setSource( "myShader.frag", srcFrag );
+  * \endcode
   *
   * This needs to be done *before* the material first tries to acquire the shader,
   * i.e. before the geometry node, the material is attached to, is rendered.

@@ -210,12 +210,12 @@ void VertexColor::setColor( const VectorType& color )
   * type already provides a vertex component for normal vectors, so lets define a
   * component for 2D texture coordinates:
   *
-  *     \code
-  *     struct VertexTexCoord2
-  *     {
-  *         float u, v;
-  *     };
-  *     \endcode
+  * \code
+  * struct VertexTexCoord2
+  * {
+  *     float u, v;
+  * };
+  * \endcode
   *
   * It is necessary that a vertex component is implemented as a POD, i.e. *plain old
   * data type*. Virtual methods would mess up the memory layout. However, you might
@@ -223,33 +223,33 @@ void VertexColor::setColor( const VectorType& color )
   *
   * The next step is to compose the vertex format:
   *
-  *     \code
-  *     using namespace LibCarna::base;
-  *     struct PNT2Vertex // P for Position, N for Normal, T2 for TexCoord2
-  *         : public VertexPosition
-  *         , public VertexNormal
-  *         , public VertexTexCoord2
-  *     {
-  *         static const VertexAttributes attributes;
-  *     };
-  *     \endcode
+  * \code
+  * using namespace LibCarna::base;
+  * struct PNT2Vertex // P for Position, N for Normal, T2 for TexCoord2
+  *     : public VertexPosition
+  *     , public VertexNormal
+  *     , public VertexTexCoord2
+  * {
+  *     static const VertexAttributes attributes;
+  * };
+  * \endcode
   *
   * The order of the base classes is arbitrary, but it must be consistent with what
   * comes next, namely the specification of the vertex format.
   *
-  *     \code
-  *     #include <vector>
-  *     using namespace LibCarna::base;
-  *     const VertexAttributes PNT2Vertex::attributes = []()->VertexAttributes
-  *     {
-  *         using LibCarna::base::VertexAttribute;  // msvc++ requires us to repeat this
-  *         std::vector< VertexAttribute > attributes;
-  *         attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
-  *         attributes.push_back( VertexAttribute( 4, 4, VertexAttribute::TYPE_FLOAT ) );
-  *         attributes.push_back( VertexAttribute( 8, 2, VertexAttribute::TYPE_FLOAT ) );
-  *         return attributes;
-  *     }();
-  *     \endcode
+  * \code
+  * #include <vector>
+  * using namespace LibCarna::base;
+  * const VertexAttributes PNT2Vertex::attributes = []()->VertexAttributes
+  * {
+  *     using LibCarna::base::VertexAttribute;  // msvc++ requires us to repeat this
+  *     std::vector< VertexAttribute > attributes;
+  *     attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
+  *     attributes.push_back( VertexAttribute( 4, 4, VertexAttribute::TYPE_FLOAT ) );
+  *     attributes.push_back( VertexAttribute( 8, 2, VertexAttribute::TYPE_FLOAT ) );
+  *     return attributes;
+  * }();
+  * \endcode
   *
   * You should read the above like:
   *
@@ -262,11 +262,11 @@ void VertexColor::setColor( const VectorType& color )
   *
   * When writing your shader, you must declare the vertex format consistently:
   *
-  *     \code
-  *     layout( location = 0 ) in vec4 inPosition;
-  *     layout( location = 1 ) in vec4 inNormal;
-  *     layout( location = 2 ) in vec2 inTexCoord;
-  *     \endcode
+  * \code
+  * layout( location = 0 ) in vec4 inPosition;
+  * layout( location = 1 ) in vec4 inNormal;
+  * layout( location = 2 ) in vec2 inTexCoord;
+  * \endcode
   *
   * \author Leonid Kostrykin
   */
