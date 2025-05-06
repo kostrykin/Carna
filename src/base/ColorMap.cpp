@@ -212,6 +212,14 @@ void ColorMap::bind( int unit ) const
 }
 
 
+ColorMap& ColorMap::operator=( const ColorMap& other )
+{
+    pimpl->colorMap = other.pimpl->colorMap;
+    pimpl->isDirty = true;
+    return *this;
+}
+
+
 
 }  // namespace LibCarna :: base
 

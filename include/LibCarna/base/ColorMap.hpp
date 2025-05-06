@@ -111,6 +111,11 @@ public:
       */
     void bind( int unit ) const;
 
+    /** \brief
+      * Writes the content the \a other color map into this.
+      */
+    ColorMap& operator=( const ColorMap& other );
+
 }; // base :: ColorMap
 
 
