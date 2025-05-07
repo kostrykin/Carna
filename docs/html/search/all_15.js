@@ -4,7 +4,7 @@ var searchData=
   ['warning_1',['warning',['../classLibCarna_1_1base_1_1Log.html#abd9a95920f9a76b651a2fd7346440ef2ab4fd1b9c91ad2a8b9ec660aa0130f0ce',1,'LibCarna::base::Log']]],
   ['waterattenuation_2',['waterAttenuation',['../classLibCarna_1_1presets_1_1DRRStage.html#a77428dff9dd808ecd6db378e3b47026b',1,'LibCarna::presets::DRRStage']]],
   ['what_3',['what',['../classLibCarna_1_1base_1_1LibCarnaException.html#a7b08d99067361445978e19ad7fea5124',1,'LibCarna::base::LibCarnaException']]],
-  ['white_4',['white',['../classLibCarna_1_1base_1_1Color.html#ac5708bcdc50daa96eb4e9fc2e070ddea',1,'LibCarna::base::Color::WHITE'],['../classLibCarna_1_1base_1_1RotatingColor.html#aeb74d0dea4915748968d830320867033a1b26db07046bfb481a988cebefe118ba',1,'LibCarna::base::RotatingColor::white']]],
+  ['white_4',['white',['../classLibCarna_1_1base_1_1RotatingColor.html#aeb74d0dea4915748968d830320867033a1b26db07046bfb481a988cebefe118ba',1,'LibCarna::base::RotatingColor::white'],['../classLibCarna_1_1base_1_1Color.html#ac5708bcdc50daa96eb4e9fc2e070ddea',1,'LibCarna::base::Color::WHITE']]],
   ['white_5fno_5falpha_5',['WHITE_NO_ALPHA',['../classLibCarna_1_1base_1_1Color.html#acfb2f96bec45761a33cbd0e47adf3291',1,'LibCarna::base::Color']]],
   ['width_6',['width',['../classLibCarna_1_1base_1_1Framebuffer.html#a07a5540f5f8d0b3005fe6b520169d444',1,'LibCarna::base::Framebuffer::width()'],['../classLibCarna_1_1base_1_1Viewport.html#ae642b1348d04745e154ceea76de49551',1,'LibCarna::base::Viewport::width()'],['../classLibCarna_1_1base_1_1FrameRenderer.html#a2b48f04baeee7ec88c867473f8e69b4e',1,'LibCarna::base::FrameRenderer::width()']]],
   ['window_20coordinates_7',['Window Coordinates',['../CoordinateSystems.html#WindowCoordinates',1,'']]],

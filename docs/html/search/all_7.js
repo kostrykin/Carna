@@ -1,7 +1,7 @@
 var searchData=
 [
   ['g_0',['g',['../structLibCarna_1_1base_1_1VertexColor.html#a8c8ada4c793b0dc5e336c7e55fa29c07',1,'LibCarna::base::VertexColor::g'],['../classLibCarna_1_1base_1_1Color.html#aeb606f9e12fff662bc7b7c5f4038827c',1,'LibCarna::base::Color::g']]],
-  ['geometry_1',['geometry',['../classLibCarna_1_1base_1_1Geometry.html',1,'LibCarna::base::Geometry'],['../classLibCarna_1_1base_1_1Geometry.html#a029e2d732bbcc89f722ea5bc03161175',1,'LibCarna::base::Geometry::Geometry()'],['../classLibCarna_1_1base_1_1Renderable.html#adb5e38b640cd941600ecc17072a53b52',1,'LibCarna::base::Renderable::geometry()']]],
+  ['geometry_1',['geometry',['../classLibCarna_1_1base_1_1Geometry.html',1,'LibCarna::base::Geometry'],['../classLibCarna_1_1base_1_1Renderable.html#adb5e38b640cd941600ecc17072a53b52',1,'LibCarna::base::Renderable::geometry()'],['../classLibCarna_1_1base_1_1Geometry.html#a029e2d732bbcc89f722ea5bc03161175',1,'LibCarna::base::Geometry::Geometry()']]],
   ['geometry_20features_2',['geometry features',['../index.html#GeometryFeatures',1,'Geometry Features'],['../index.html#GeometryFeatureLifecycle',1,'The Lifecycle of Geometry Features']]],
   ['geometry_20types_3',['Geometry Types',['../index.html#GeometryTypes',1,'']]],
   ['geometry_2ehpp_4',['Geometry.hpp',['../Geometry_8hpp.html',1,'']]],
@@ -21,7 +21,7 @@ var searchData=
   ['glerror_2ehpp_18',['glError.hpp',['../glError_8hpp.html',1,'']]],
   ['glew_2ehpp_19',['glew.hpp',['../glew_8hpp.html',1,'']]],
   ['graph_20',['The Scene Graph',['../index.html#SceneGraph',1,'']]],
-  ['green_21',['green',['../classLibCarna_1_1base_1_1Color.html#a21ddf14be34f83460d0a448d6f49279e',1,'LibCarna::base::Color::GREEN'],['../classLibCarna_1_1base_1_1RotatingColor.html#aeb74d0dea4915748968d830320867033aa95ab6f9b60a76906c7191889dcf5c6c',1,'LibCarna::base::RotatingColor::green']]],
+  ['green_21',['green',['../classLibCarna_1_1base_1_1RotatingColor.html#aeb74d0dea4915748968d830320867033aa95ab6f9b60a76906c7191889dcf5c6c',1,'LibCarna::base::RotatingColor::green'],['../classLibCarna_1_1base_1_1Color.html#a21ddf14be34f83460d0a448d6f49279e',1,'LibCarna::base::Color::GREEN']]],
   ['green_5fno_5falpha_22',['GREEN_NO_ALPHA',['../classLibCarna_1_1base_1_1Color.html#a7253010b79f6de40a15d04b07dd8dcd8',1,'LibCarna::base::Color']]],
   ['grid_23',['grid',['../classLibCarna_1_1base_1_1VolumeSegment.html#ac6c2504b908ca67efc3acbc6b2812444',1,'LibCarna::base::VolumeSegment::grid'],['../classLibCarna_1_1helpers_1_1VolumeGridHelper.html#abe8e8ea183b97f767573ac9bc6d27f93',1,'LibCarna::helpers::VolumeGridHelper::grid()'],['../classLibCarna_1_1base_1_1VolumeSegment.html#ab3a7f5b808e34e2d2f4de99d221ce57b',1,'LibCarna::base::VolumeSegment::Grid']]],
   ['gridresolution_24',['gridResolution',['../classLibCarna_1_1helpers_1_1details_1_1VolumeGridHelper_1_1NormalsComponentBase.html#a8d6c0d6cfddfd490347169c5b6b5af2d',1,'LibCarna::helpers::details::VolumeGridHelper::NormalsComponentBase']]]

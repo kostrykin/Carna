@@ -126,7 +126,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>uniform mat4      modelTexture;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>uniform mat3      normalsView;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>uniform float     stepLength;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>uniform float     translucence;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>uniform float     translucency;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>uniform float     diffuseLight;</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>uniform int       lightingEnabled;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
@@ -182,7 +182,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    vec4 color = sampleAt( textureCoordinates.xyz );</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    float alpha = color.a * stepLength / ( 1 + translucence );</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    float alpha = color.a * stepLength / ( 1 + translucency );</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    _gl_FragColor = vec4( color.rgb * alpha, alpha );</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
 </div><!-- fragment --></div><!-- contents -->

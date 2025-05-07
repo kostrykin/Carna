@@ -231,8 +231,7 @@ Custom Materials</h1>
 <p>So the first step in creating a new material most likely will be the implementation of a vertex and a fragment shader.</p>
 <h2><a class="anchor" id="GLSL_Vert"></a>
 Vertex Shaders</h2>
-<p>A typical vertex shader looks like this: </p><pre class="fragment">\code{.unparsed}
-#version 330
+<p>A typical vertex shader looks like this: </p><pre class="fragment">#version 330
 uniform mat4 modelViewProjection;
 layout( location = 0 ) in vec4 inPosition;
 void main()
@@ -240,7 +239,6 @@ void main()
     vec4 clippingCoordinates = modelViewProjection * inPosition;
     gl_Position = clippingCoordinates;
 }
-\endcode
 </pre><p> Line 1 specifies the GLSL version that the compiler should use to build the code. Line 2 declares a variable, whose value will be set from code that runs on the CPU. The keyword <code>uniform</code> reflects the fact the value will be the same for each processed vertex. Line 3 declares the <a class="el" href="structLibCarna_1_1base_1_1PVertex.html#CustomVertexFormats">vertex format</a>. The <code>main</code> function is invoked for each processed vertex. The example code above assumes that the vertices are stored in <a class="el" href="CoordinateSystems.html#CoordinateTransformations">model space</a> within the vertex buffer and transforms them to <a class="el" href="CoordinateSystems.html#ClippingCoordinates">clipping coordinates</a>.</p>
 <p>Following uniform variables will be set by the <code>Material</code> class automatically, if declared:</p>
 <ul>
@@ -250,28 +248,28 @@ void main()
 </ul>
 <h2><a class="anchor" id="GLSL_Frag"></a>
 Fragment Shaders</h2>
-<p>Lets take a look at an exemplary fragment shader: </p><pre class="fragment">\code{.unparsed}
-#version 330
-uniform vec4 color;
-out vec4 gl_FragColor;
-void main()
-{
-    gl_FragColor = vec4( color );
-}
-\endcode
-</pre><p> Line 1 declares the GLSL version, just like it was did for vertex shaders. Vertex and fragment shaders, that are going to be used together as a single <a class="el" href="classLibCarna_1_1base_1_1ShaderProgram.html">shader program</a> must also use the same GLSL version. Line 2 declares a variable, whose value will be set <a class="el" href="classLibCarna_1_1base_1_1Material.html#ad9ecd8a948cf72635256f6165a8bf8cb">when the shader is triggered</a>. Note that the keyword <code>uniform</code> reflects the same intuitive meaning as it did in the vertex shader example above. Line 3 declares a variable, that the fragment shader will write its output to. You won't need a different declaration than this, unless you are going to render to multiple color buffers at once, which is an advanced technique. Just like for vertex shaders, the <code>main</code> function of the fragment shader will be executed once for each fragment. The shader code above colors the whole rendered object in a <em>uniform</em> color.</p>
+<p>Lets take a look at an exemplary fragment shader:</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#version 330</span></div>
+<div class="line"><a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">uniform</a> <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">vec4</a> color;</div>
+<div class="line">out <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">vec4</a> <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">gl_FragColor</a>;</div>
+<div class="line"><span class="keywordtype">void</span> <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">main</a>()</div>
+<div class="line">{</div>
+<div class="line">    <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">gl_FragColor</a> = <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">vec4</a>( color );</div>
+<div class="line">}</div>
+<div class="ttc" id="aclassLibCarna_1_1base_1_1Association_html"><div class="ttname"><a href="classLibCarna_1_1base_1_1Association.html">LibCarna::base::Association</a></div><div class="ttdoc">Represents an association.</div><div class="ttdef"><b>Definition</b> <a href="Association_8hpp_source.html#l00047">Association.hpp:48</a></div></div>
+</div><!-- fragment --><p>Line 1 declares the GLSL version, just like it was did for vertex shaders. Vertex and fragment shaders, that are going to be used together as a single <a class="el" href="classLibCarna_1_1base_1_1ShaderProgram.html">shader program</a> must also use the same GLSL version. Line 2 declares a variable, whose value will be set <a class="el" href="classLibCarna_1_1base_1_1Material.html#ad9ecd8a948cf72635256f6165a8bf8cb">when the shader is triggered</a>. Note that the keyword <code>uniform</code> reflects the same intuitive meaning as it did in the vertex shader example above. Line 3 declares a variable, that the fragment shader will write its output to. You won't need a different declaration than this, unless you are going to render to multiple color buffers at once, which is an advanced technique. Just like for vertex shaders, the <code>main</code> function of the fragment shader will be executed once for each fragment. The shader code above colors the whole rendered object in a <em>uniform</em> color.</p>
 <h2><a class="anchor" id="ShaderMaterialIntegration"></a>
 Integration into Materials</h2>
-<p>The <code>Material</code> class acquires its shader objects from the <a class="el" href="classLibCarna_1_1base_1_1ShaderManager.html">ShaderManager</a>, which ensures that each shader is built just once and not each time someone requests it. So everything one has to do is to ensure that the <code>ShaderManager</code> will be able to locate the shader sources: </p><pre class="fragment">\code
-using namespace LibCarna;
-base::ShaderManager::instance().setSource( "myShader.vert", srcVert );
-base::ShaderManager::instance().setSource( "myShader.frag", srcFrag );
-\endcode
-</pre><p> This needs to be done <em>before</em> the material first tries to acquire the shader, i.e. before the geometry node, the material is attached to, is rendered.</p>
+<p>The <code>Material</code> class acquires its shader objects from the <a class="el" href="classLibCarna_1_1base_1_1ShaderManager.html">ShaderManager</a>, which ensures that each shader is built just once and not each time someone requests it. So everything one has to do is to ensure that the <code>ShaderManager</code> will be able to locate the shader sources:</p>
+<div class="fragment"><div class="line"><span class="keyword">using namespace </span>LibCarna;</div>
+<div class="line"><a class="code hl_function" href="classLibCarna_1_1base_1_1Singleton.html#a2349d9abfae9b8291da7dee69fcba513">base::ShaderManager::instance</a>().setSource( <span class="stringliteral">&quot;myShader.vert&quot;</span>, <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">srcVert</a> );</div>
+<div class="line"><a class="code hl_function" href="classLibCarna_1_1base_1_1Singleton.html#a2349d9abfae9b8291da7dee69fcba513">base::ShaderManager::instance</a>().setSource( <span class="stringliteral">&quot;myShader.frag&quot;</span>, <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">srcFrag</a> );</div>
+<div class="ttc" id="aclassLibCarna_1_1base_1_1Singleton_html_a2349d9abfae9b8291da7dee69fcba513"><div class="ttname"><a href="classLibCarna_1_1base_1_1Singleton.html#a2349d9abfae9b8291da7dee69fcba513">LibCarna::base::Singleton&lt; ShaderManager &gt;::instance</a></div><div class="ttdeci">static ShaderManager &amp; instance()</div><div class="ttdoc">Returns the only instance from class InstanceType.</div><div class="ttdef"><b>Definition</b> <a href="Singleton_8hpp_source.html#l00112">Singleton.hpp:112</a></div></div>
+</div><!-- fragment --><p>This needs to be done <em>before</em> the material first tries to acquire the shader, i.e. before the geometry node, the material is attached to, is rendered.</p>
 <p>The suffixes <code>.vert</code> and <code>.frag</code> are important. You will be able to reference the shader from a <code>Material</code> object by setting its <code>shaderName</code> to <code>myShader</code>.</p>
 <dl class="section author"><dt>Author</dt><dd>Leonid Kostrykin </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00177">177</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00175">175</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a05c394e51269a42337027139d605b350" name="a05c394e51269a42337027139d605b350"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a05c394e51269a42337027139d605b350">&#9670;&#160;</a></span>acquireVideoResource()</h2>
@@ -404,7 +402,7 @@ template&lt;<a class="el" href="classLibCarna_1_1base_1_1Association.html">typen
 </div><div class="memdoc">
 <p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. </p>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00308">308</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00306">306</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
@@ -429,7 +427,7 @@ template&lt;<a class="el" href="classLibCarna_1_1base_1_1Association.html">typen
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00189">189</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00187">187</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
@@ -448,7 +446,7 @@ template&lt;<a class="el" href="classLibCarna_1_1base_1_1Association.html">typen
 
 <p>Identifies this material's shader. </p>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00206">206</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00204">204</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
