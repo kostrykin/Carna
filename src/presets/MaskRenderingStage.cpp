@@ -40,7 +40,7 @@ struct MaskRenderingStage::Details
     Details();
 
     base::Color color;
-    bool renderBorders;
+    bool filling;
 
     std::unique_ptr< base::Texture< 2 > > accumulationColorBuffer;
     std::unique_ptr< base::Framebuffer  > accumulationFrameBuffer;
@@ -56,7 +56,7 @@ struct MaskRenderingStage::Details
 
 MaskRenderingStage::Details::Details()
     : color( MaskRenderingStage::DEFAULT_COLOR )
-    , renderBorders( false )
+    , filling( MaskRenderingStage::DEFAULT_FILLING )
     , edgeDetectShader( nullptr )
 {
 }
@@ -69,6 +69,7 @@ MaskRenderingStage::Details::Details()
 
 const base::Color  MaskRenderingStage::DEFAULT_COLOR = base::Color::GREEN;
 const unsigned int MaskRenderingStage::DEFAULT_ROLE_MASK = 2;
+const bool         MaskRenderingStage::DEFAULT_FILLING = true;
 
 
 MaskRenderingStage::MaskRenderingStage( unsigned int geometryType, unsigned int maskRole )
@@ -101,15 +102,15 @@ void MaskRenderingStage::setColor( const base::Color& color )
 }
 
 
-bool MaskRenderingStage::renderBorders() const
+bool MaskRenderingStage::isFilling() const
 {
-    return pimpl->renderBorders;
+    return pimpl->filling;
 }
 
 
-void MaskRenderingStage::setRenderBorders( bool renderBorders )
+void MaskRenderingStage::setFilling( bool filling )
 {
-    pimpl->renderBorders = renderBorders;
+    pimpl->filling = filling;
 }
 
 
@@ -137,7 +138,7 @@ void MaskRenderingStage::renderPass
     , base::RenderTask& rt
     , const base::Viewport& outputViewport )
 {
-    if( pimpl->renderBorders )
+    if( !pimpl->filling )
     {
         /* First, render the projected mask intensities.
          */
@@ -166,7 +167,7 @@ void MaskRenderingStage::renderPass
         rs.setBlend( true );
 
         base::FrameRenderer::RenderTextureParams params( 0 );
-        if( pimpl->renderBorders )
+        if( !pimpl->filling )
         {
             rs.setDepthTest ( false );
             rs.setDepthWrite( false );
@@ -225,8 +226,8 @@ const std::string& MaskRenderingStage::uniformName( unsigned int role ) const
 
 void MaskRenderingStage::configureShader()
 {
-    base::ShaderUniform< bool >( "ignoreColor", pimpl->renderBorders ).upload();
-    if( !pimpl->renderBorders )
+    base::ShaderUniform< bool >( "ignoreColor", !pimpl->filling ).upload();
+    if( pimpl->filling )
     {
         base::ShaderUniform< base::math::Vector4f >( "color", pimpl->color ).upload();
     }

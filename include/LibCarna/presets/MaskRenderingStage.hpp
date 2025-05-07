@@ -74,6 +74,7 @@ public:
 
     const static base::Color  DEFAULT_COLOR;      ///< Holds the default rendering color.
     const static unsigned int DEFAULT_ROLE_MASK;  ///< Holds the default value of \ref maskRole.
+    const static bool         DEFAULT_FILLING;    ///< Holds the default value of \ref filling.
 
     /** \brief
       * Holds the \ref GeometryFeatures "role" that mask volume data is expected to
@@ -116,14 +117,14 @@ public:
     void setColor( const base::Color& color );
 
     /** \brief
-      * Tells whether borders are rendered instead of regions.
+      * Tells whether filled regions are rendered (instead of borders only).
       */
-    bool renderBorders() const;
+    bool isFilling() const;
 
     /** \brief
-      * Sets whether to render \a borders instead of regions.
+      * Sets whether to render \a filled regions (instead of borders only).
       */
-    void setRenderBorders( bool borders );
+    void setFilling( bool filled );
 
 protected:
 

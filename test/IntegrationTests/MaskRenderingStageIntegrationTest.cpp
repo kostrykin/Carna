@@ -166,7 +166,7 @@ void MaskRenderingStageIntegrationTest::test_render_borders()
 
     const static unsigned int GEOMETRY_TYPE_MASK = 4;
     mr = new presets::MaskRenderingStage( GEOMETRY_TYPE_MASK );
-    mr->setRenderBorders( true );
+    mr->setFilling( false );
     renderer->appendStage( mr );
 
     /* Perform global thresholding and configure geometry node for the mask data.
