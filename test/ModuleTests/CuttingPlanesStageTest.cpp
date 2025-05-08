@@ -62,6 +62,9 @@ void CuttingPlanesStageTest::init()
 {
     planes->setWindowingWidth( base::HUVOffset( 2000 ).intensity() );
     planes->setWindowingLevel( base::HUV( -100 ).intensity() );
+    planes->colorMap.writeLinearSegment(
+        0, 1, base::Color( 0, 0, 0, 255 ), base::Color( 255, 255, 255, 255 )
+    );
 }
 
 

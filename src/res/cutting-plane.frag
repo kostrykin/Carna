@@ -15,14 +15,16 @@
  */
 
 uniform sampler3D intensities;
-uniform mat4      modelTexture;
+uniform sampler1D colorMap;
 uniform float     minIntensity;
 uniform float     maxIntensity;
-uniform int       invert;
+uniform mat4      modelTexture;
 
 in vec4 modelSpaceCoordinates;
 
 layout( location = 0 ) out vec4 _gl_FragColor;
+
+#define EPS 1e-16
 
 
 // ----------------------------------------------------------------------------------
@@ -48,9 +50,14 @@ void main()
 
     vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;
     float intensity = intensityAt( textureCoordinates.xyz );
-    float f = step( minIntensity, intensity ) * ( 1 - step( maxIntensity, intensity ) ) * ( intensity - minIntensity ) / ( maxIntensity - minIntensity );
-          f = f + step( maxIntensity, intensity );
-          f = ( 1 - invert ) * f + invert * ( 1 - f );
 
-    _gl_FragColor = vec4( f, f, f, 1 );
+    /* Apply intensity clipping.
+     */
+    intensity = clamp(
+        ( intensity - minIntensity + EPS ) / ( maxIntensity - minIntensity + EPS )
+        , 0.0, 1.0 );
+
+    /* Query color in `colorMap` and write result.
+     */
+    _gl_FragColor = vec4( texture( colorMap, intensity ).rgb, 1 );
 }

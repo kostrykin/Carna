@@ -17,6 +17,7 @@
 
 #include <LibCarna/base/GeometryStage.hpp>
 #include <LibCarna/base/Renderable.hpp>
+#include <LibCarna/base/ColorMap.hpp>
 #include <LibCarna/LibCarna.hpp>
 
 /** \file
@@ -83,12 +84,17 @@ public:
     /** \brief
       * Instantiates.
       */
-    CuttingPlanesStage( unsigned int volumeGeometryType, unsigned int planeGeometryType );
+    CuttingPlanesStage( unsigned int volumeGeometryType, unsigned int planeGeometryType, unsigned int colorMapResolution = base::ColorMap::DEFAULT_RESOLUTION );
 
     /** \brief
       * Deletes.
       */
     virtual ~CuttingPlanesStage();
+
+    /** \brief
+      * The color map used for the rendering.
+      */
+    base::ColorMap colorMap;
 
     virtual void renderPass
         ( const base::math::Matrix4f& viewTransform
@@ -110,11 +116,6 @@ public:
     void setWindowingWidth( unsigned int windowingWidth );
 
     /** \brief
-      * Sets whether brightness shall be inversely proportional to the intensity.
-      */
-    void setRenderingInverse( bool inverse );
-
-    /** \brief
       * Tells the windowing level intensity.
       */
     float windowingLevel() const;
@@ -123,21 +124,6 @@ public:
       * Tells the windowing width.
       */
     float windowingWidth() const;
-
-    /** \brief
-      * Tells the lower bound of the intensity window.
-      */
-    float minimumIntensity() const;
-    
-    /** \brief
-      * Tells the upper bound of the intensity window.
-      */
-    float maximumIntensity() const;
-    
-    /** \brief
-      * Tells whether brightness is inversely proportional to the intensity.
-      */
-    bool isRenderingInverse() const;
 
 protected:
     
