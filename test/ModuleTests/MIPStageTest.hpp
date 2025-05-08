@@ -62,6 +62,8 @@ private slots:
 
     void test_writeLinearSpline();
 
+    void test_colorMapLimits();
+
  // ---------------------------------------------------------------------------------
 
 private:

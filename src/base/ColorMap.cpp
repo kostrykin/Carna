@@ -43,12 +43,17 @@ struct ColorMap::Details
 
     std::size_t locationByIntensity( float intensity );
     void sampleDownTo( unsigned int resolution );
+
+    float minIntensity;
+    float maxIntensity;
 };
 
 
 ColorMap::Details::Details( unsigned int resolution )
     : colorMap( resolution )
     , isDirty( true )
+    , minIntensity( ColorMap::DEFAULT_MINIMUM_INTENSITY )
+    , maxIntensity( ColorMap::DEFAULT_MAXIMUM_INTENSITY )
 {
 }
 
@@ -118,6 +123,10 @@ void ColorMap::Details::sampleDownTo( unsigned int resolution )
 // ----------------------------------------------------------------------------------
 // ColorMap
 // ----------------------------------------------------------------------------------
+
+const float ColorMap::DEFAULT_MINIMUM_INTENSITY = 0.0f;
+const float ColorMap::DEFAULT_MAXIMUM_INTENSITY = 1.0f;
+
 
 ColorMap::ColorMap( unsigned int resolution )
     : pimpl( new Details( resolution ) )
@@ -216,7 +225,63 @@ ColorMap& ColorMap::operator=( const ColorMap& other )
 {
     pimpl->colorMap = other.pimpl->colorMap;
     pimpl->isDirty = true;
+    pimpl->minIntensity = other.minimumIntensity();
+    pimpl->maxIntensity = other.maximumIntensity();
     return *this;
+}
+
+
+void ColorMap::setMinimumIntensity( float minimumIntensity )
+{
+    /* Check pre-conditions.
+     */
+    LIBCARNA_ASSERT( 0 <= minimumIntensity && minimumIntensity <= 1 );
+
+    /* Update intensity limits.
+     */
+    pimpl->minIntensity = minimumIntensity;
+    if( pimpl->maxIntensity < pimpl->minIntensity )
+    {
+        pimpl->maxIntensity = pimpl->minIntensity;
+    }
+
+    /* Check post-conditions.
+     */
+    LIBCARNA_ASSERT( minimumIntensity == this->minimumIntensity() );
+    LIBCARNA_ASSERT( minimumIntensity <= this->maximumIntensity() );
+}
+
+
+float ColorMap::minimumIntensity() const
+{
+    return pimpl->minIntensity;
+}
+
+
+void ColorMap::setMaximumIntensity( float maximumIntensity )
+{
+    /* Check pre-conditions.
+     */
+    LIBCARNA_ASSERT( 0 <= maximumIntensity && maximumIntensity <= 1 );
+
+    /* Update intensity limits.
+     */
+    pimpl->maxIntensity = maximumIntensity;
+    if( pimpl->minIntensity > pimpl->maxIntensity )
+    {
+        pimpl->minIntensity = pimpl->maxIntensity;
+    }
+
+    /* Check post-conditions.
+     */
+    LIBCARNA_ASSERT( this->maximumIntensity() == maximumIntensity );
+    LIBCARNA_ASSERT( this->minimumIntensity() <= maximumIntensity );
+}
+
+
+float ColorMap::maximumIntensity() const
+{
+    return pimpl->maxIntensity;
 }
 
 

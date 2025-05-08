@@ -56,6 +56,10 @@ public:
       */
     const static unsigned int DEFAULT_RESOLUTION = ( 1 << 16 );
 
+    const static float DEFAULT_MINIMUM_INTENSITY;
+
+    const static float DEFAULT_MAXIMUM_INTENSITY;
+
     /** \brief
       * Instantiates.
       *
@@ -115,6 +119,36 @@ public:
       * Writes the content the \a other color map into this.
       */
     ColorMap& operator=( const ColorMap& other );
+
+    /** \brief
+      * Sets the minimum intensity value. Intensity values below this value are treated as 0.
+      * 
+      * \pre `0 <= minimumIntensity <= 1`
+      * 
+      * \post `minimumIntensity() == minimumIntensity`
+      * \post `minimumIntensity() <= maximumIntensity()`
+      */
+    void setMinimumIntensity( float minimumIntensity );
+
+    /** \brief
+      * Returns the minimum intensity value. Intensity values below this value are treated as 0.
+      */
+    float minimumIntensity() const;
+
+    /** \brief
+      * Sets the maximum intensity value. Intensity values above this value are treated as 1.
+      * 
+      * \pre `0 <= maximumIntensity <= 1`
+      * 
+      * \post `maximumIntensity() == maximumIntensity`
+      * \post `minimumIntensity() <= maximumIntensity()`
+      */
+    void setMaximumIntensity( float maximumIntensity );
+
+    /** \brief
+      * Returns the maximum intensity value. Intensity values above this value are treated as 1.
+      */
+    float maximumIntensity() const;
 
 }; // base :: ColorMap
 

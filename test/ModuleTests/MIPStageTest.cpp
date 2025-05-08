@@ -88,3 +88,12 @@ void MIPStageTest::test_writeLinearSpline()
     renderer->render( scene->cam(), *scene->root );
     VERIFY_FRAMEBUFFER( *testFramebuffer );
 }
+
+
+void MIPStageTest::test_colorMapLimits()
+{
+    mip->colorMap.setMinimumIntensity( 0.25f );
+    mip->colorMap.setMaximumIntensity( 0.5f );
+    renderer->render( scene->cam(), *scene->root );
+    VERIFY_FRAMEBUFFER( *testFramebuffer );
+}

@@ -142,6 +142,8 @@ void MIPStage::renderPass
 
     rt.renderer.glContext().setShader( *pimpl->colorizationShader );
     base::ShaderUniform< int >( "colorMap", Details::COLORMAP_TEXTURE_UNIT ).upload();
+    base::ShaderUniform< float >( "minIntensity", colorMap.minimumIntensity() ).upload();
+    base::ShaderUniform< float >( "maxIntensity", colorMap.maximumIntensity() ).upload();
     colorMap.bind( Details::COLORMAP_TEXTURE_UNIT );
 
     pimpl->projectionColorBuffer->bind( 0 );
