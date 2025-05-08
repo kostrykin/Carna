@@ -170,32 +170,36 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages the OpenGL render state. </p>
 <p>Each <a class="el" href="classLibCarna_1_1base_1_1GLContext.html">OpenGL context</a> has a so-called render state. This describes things like whether alpha blending is to be used for rendering primitives or not. The purpose of this class is to reduce the state transitions, that can be quite expansive, and make it easy to enforce a fully-defined state.</p>
-<p>The mechanism behind this class exploits the fact that the <em>current</em> OpenGL context is a thread-local variable as described <a class="el" href="classLibCarna_1_1base_1_1GLContext.html">here</a>. This allows us to utilize the execution stack to track the render state: </p><pre class="fragment">\code
-void render()
-{
-    RenderState rs;
-    rs.setDepthTest( false );
-    rs.setBlend( true );
-    render1();
-    render2();
-}
-
-void render1()
-{
-    RenderState rs;
-    rs.setDepthTest( false );
-    rs.setBlendFunction( BlendFunction( GL_ONE, GL_ONE ) );
-    renderSomething();
-}
-
-void render2()
-{
-    RenderState rs;
-    rs.setDepthTest( false );
-    renderSomething();
-}
-\endcode
-</pre><p> The constructor derives a new render state, that immediately becomes the <em>current</em> one and equals the previous state. The method <code>render</code> disables depth testing and enables alpha blending. Whether state transitions actually happen here depends on how the previous state was configured. When <code>render1</code> turns off depth testing again, nothing happens, because it already was disabled within the previous state. Same is true for <code>render2</code>. The updated blend function of <code>render1</code> does not affect <code>render2</code>. Note that it is forbidden to modify a render state that is not the current one.</p>
+<p>The mechanism behind this class exploits the fact that the <em>current</em> OpenGL context is a thread-local variable as described <a class="el" href="classLibCarna_1_1base_1_1GLContext.html">here</a>. This allows us to utilize the execution stack to track the render state:</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> render()</div>
+<div class="line">{</div>
+<div class="line">    <a class="code hl_class" href="classLibCarna_1_1base_1_1RenderState.html">RenderState</a> <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">rs</a>;</div>
+<div class="line">    <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">rs</a>.setDepthTest( <span class="keyword">false</span> );</div>
+<div class="line">    <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">rs</a>.setBlend( <span class="keyword">true</span> );</div>
+<div class="line">    <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">render1</a>();</div>
+<div class="line">    <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">render2</a>();</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">render1</a>()</div>
+<div class="line">{</div>
+<div class="line">    <a class="code hl_class" href="classLibCarna_1_1base_1_1RenderState.html">RenderState</a> <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">rs</a>;</div>
+<div class="line">    <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">rs</a>.setDepthTest( <span class="keyword">false</span> );</div>
+<div class="line">    <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">rs</a>.setBlendFunction( <a class="code hl_class" href="classLibCarna_1_1base_1_1BlendFunction.html">BlendFunction</a>( <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">GL_ONE</a>, <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">GL_ONE</a> ) );</div>
+<div class="line">    <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">renderSomething</a>();</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> render2()</div>
+<div class="line">{</div>
+<div class="line">    <a class="code hl_function" href="classLibCarna_1_1base_1_1RenderState.html#a6d74ba16c8c924d22559b82fce033f2c">RenderState</a> rs;</div>
+<div class="line">    rs.<a class="code hl_function" href="classLibCarna_1_1base_1_1RenderState.html#aceecbeaa9b249ec9639f37dcfbf9766e">setDepthTest</a>( <span class="keyword">false</span> );</div>
+<div class="line">    renderSomething();</div>
+<div class="line">}</div>
+<div class="ttc" id="aclassLibCarna_1_1base_1_1Association_html"><div class="ttname"><a href="classLibCarna_1_1base_1_1Association.html">LibCarna::base::Association</a></div><div class="ttdoc">Represents an association.</div><div class="ttdef"><b>Definition</b> <a href="Association_8hpp_source.html#l00047">Association.hpp:48</a></div></div>
+<div class="ttc" id="aclassLibCarna_1_1base_1_1BlendFunction_html"><div class="ttname"><a href="classLibCarna_1_1base_1_1BlendFunction.html">LibCarna::base::BlendFunction</a></div><div class="ttdoc">Defines how alpha blending is to be performed.</div><div class="ttdef"><b>Definition</b> <a href="BlendFunction_8hpp_source.html#l00042">BlendFunction.hpp:43</a></div></div>
+<div class="ttc" id="aclassLibCarna_1_1base_1_1RenderState_html"><div class="ttname"><a href="classLibCarna_1_1base_1_1RenderState.html">LibCarna::base::RenderState</a></div><div class="ttdoc">Manages the OpenGL render state.</div><div class="ttdef"><b>Definition</b> <a href="RenderState_8hpp_source.html#l00088">RenderState.hpp:89</a></div></div>
+<div class="ttc" id="aclassLibCarna_1_1base_1_1RenderState_html_a6d74ba16c8c924d22559b82fce033f2c"><div class="ttname"><a href="classLibCarna_1_1base_1_1RenderState.html#a6d74ba16c8c924d22559b82fce033f2c">LibCarna::base::RenderState::RenderState</a></div><div class="ttdeci">RenderState()</div><div class="ttdoc">Derives new render state from the current one of the current OpenGL context.</div></div>
+<div class="ttc" id="aclassLibCarna_1_1base_1_1RenderState_html_aceecbeaa9b249ec9639f37dcfbf9766e"><div class="ttname"><a href="classLibCarna_1_1base_1_1RenderState.html#aceecbeaa9b249ec9639f37dcfbf9766e">LibCarna::base::RenderState::setDepthTest</a></div><div class="ttdeci">void setDepthTest(bool dt)</div><div class="ttdoc">Enables or disables depth testing.</div></div>
+</div><!-- fragment --><p>The constructor derives a new render state, that immediately becomes the <em>current</em> one and equals the previous state. The method <code>render</code> disables depth testing and enables alpha blending. Whether state transitions actually happen here depends on how the previous state was configured. When <code>render1</code> turns off depth testing again, nothing happens, because it already was disabled within the previous state. Same is true for <code>render2</code>. The updated blend function of <code>render1</code> does not affect <code>render2</code>. Note that it is forbidden to modify a render state that is not the current one.</p>
 <dl class="section author"><dt>Author</dt><dd>Leonid Kostrykin </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="RenderState_8hpp_source.html#l00088">88</a> of file <a class="el" href="RenderState_8hpp_source.html">RenderState.hpp</a>.</p>

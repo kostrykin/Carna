@@ -159,48 +159,52 @@ Additional Inherited Members</h2></td></tr>
 <h1><a class="anchor" id="CustomVertexFormats"></a>
 Custom Vertex Formats</h1>
 <p>It is easy to define custom vertex formats. The procedure is best explained with an example. Lets assume you want to define a vertex that has additional properties for normal vectors and 2D texture coordinates.</p>
-<p>The first step is to define the missing vertex components. The <a class="el" href="structLibCarna_1_1base_1_1VertexNormal.html">VertexNormal</a> type already provides a vertex component for normal vectors, so lets define a component for 2D texture coordinates: </p><pre class="fragment">\code
-struct VertexTexCoord2
-{
-    float u, v;
-};
-\endcode
-</pre><p> It is necessary that a vertex component is implemented as a POD, i.e. <em>plain old data type</em>. Virtual methods would mess up the memory layout. However, you might define a constructor that initializes default values, if you wanted.</p>
-<p>The next step is to compose the vertex format: </p><pre class="fragment">\code
-using namespace LibCarna::base;
-struct PNT2Vertex // P for Position, N for Normal, T2 for TexCoord2
-    : public VertexPosition
-    , public VertexNormal
-    , public VertexTexCoord2
-{
-    static const VertexAttributes attributes;
-};
-\endcode
-</pre><p> The order of the base classes is arbitrary, but it must be consistent with what comes next, namely the specification of the vertex format. </p><pre class="fragment">\code
-#include &lt;vector&gt;
-using namespace LibCarna::base;
-const VertexAttributes PNT2Vertex::attributes = []()-&gt;VertexAttributes
-{
-    using LibCarna::base::VertexAttribute;  // msvc++ requires us to repeat this
-    std::vector&lt; VertexAttribute &gt; attributes;
-    attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
-    attributes.push_back( VertexAttribute( 4, 4, VertexAttribute::TYPE_FLOAT ) );
-    attributes.push_back( VertexAttribute( 8, 2, VertexAttribute::TYPE_FLOAT ) );
-    return attributes;
-}();
-\endcode
-</pre><p> You should read the above like:</p>
+<p>The first step is to define the missing vertex components. The <a class="el" href="structLibCarna_1_1base_1_1VertexNormal.html">VertexNormal</a> type already provides a vertex component for normal vectors, so lets define a component for 2D texture coordinates:</p>
+<div class="fragment"><div class="line"><span class="keyword">struct </span><a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">VertexTexCoord2</a></div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordtype">float</span> <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">u</a>, <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">v</a>;</div>
+<div class="line">};</div>
+<div class="ttc" id="aclassLibCarna_1_1base_1_1Association_html"><div class="ttname"><a href="classLibCarna_1_1base_1_1Association.html">LibCarna::base::Association</a></div><div class="ttdoc">Represents an association.</div><div class="ttdef"><b>Definition</b> <a href="Association_8hpp_source.html#l00047">Association.hpp:48</a></div></div>
+</div><!-- fragment --><p>It is necessary that a vertex component is implemented as a POD, i.e. <em>plain old data type</em>. Virtual methods would mess up the memory layout. However, you might define a constructor that initializes default values, if you wanted.</p>
+<p>The next step is to compose the vertex format:</p>
+<div class="fragment"><div class="line"><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespaceLibCarna_1_1base.html">LibCarna::base</a>;</div>
+<div class="line"><span class="keyword">struct </span><a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">PNT2Vertex</a> <span class="comment">// P for Position, N for Normal, T2 for TexCoord2</span></div>
+<div class="line">    : <span class="keyword">public</span> <a class="code hl_struct" href="structLibCarna_1_1base_1_1VertexPosition.html">VertexPosition</a></div>
+<div class="line">    , <span class="keyword">public</span> <a class="code hl_struct" href="structLibCarna_1_1base_1_1VertexNormal.html">VertexNormal</a></div>
+<div class="line">    , <span class="keyword">public</span> <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">VertexTexCoord2</a></div>
+<div class="line">{</div>
+<div class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_typedef" href="namespaceLibCarna_1_1base.html#a8bd63f718c97020ae2fbd824feeb3323">VertexAttributes</a> attributes;</div>
+<div class="line">};</div>
+<div class="ttc" id="anamespaceLibCarna_1_1base_html"><div class="ttname"><a href="namespaceLibCarna_1_1base.html">LibCarna::base</a></div><div class="ttdoc">Contains the core framework components.</div><div class="ttdef"><b>Definition</b> <a href="Aggregation_8hpp_source.html#l00028">Aggregation.hpp:29</a></div></div>
+<div class="ttc" id="anamespaceLibCarna_1_1base_html_a8bd63f718c97020ae2fbd824feeb3323"><div class="ttname"><a href="namespaceLibCarna_1_1base.html#a8bd63f718c97020ae2fbd824feeb3323">LibCarna::base::VertexAttributes</a></div><div class="ttdeci">std::vector&lt; VertexAttribute &gt; VertexAttributes</div><div class="ttdoc">Defines VertexAttribute vector.</div><div class="ttdef"><b>Definition</b> <a href="VertexAttributes_8hpp_source.html#l00104">VertexAttributes.hpp:104</a></div></div>
+<div class="ttc" id="astructLibCarna_1_1base_1_1VertexNormal_html"><div class="ttname"><a href="structLibCarna_1_1base_1_1VertexNormal.html">LibCarna::base::VertexNormal</a></div><div class="ttdoc">Defines vertex component for normal vectors. Usage is explained here.</div><div class="ttdef"><b>Definition</b> <a href="Vertex_8hpp_source.html#l00093">Vertex.hpp:94</a></div></div>
+<div class="ttc" id="astructLibCarna_1_1base_1_1VertexPosition_html"><div class="ttname"><a href="structLibCarna_1_1base_1_1VertexPosition.html">LibCarna::base::VertexPosition</a></div><div class="ttdoc">Defines vertex component for position vectors. Usage is explained here.</div><div class="ttdef"><b>Definition</b> <a href="Vertex_8hpp_source.html#l00045">Vertex.hpp:46</a></div></div>
+</div><!-- fragment --><p>The order of the base classes is arbitrary, but it must be consistent with what comes next, namely the specification of the vertex format.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespaceLibCarna_1_1base.html">LibCarna::base</a>;</div>
+<div class="line"><span class="keyword">const</span> <a class="code hl_typedef" href="namespaceLibCarna_1_1base.html#a8bd63f718c97020ae2fbd824feeb3323">VertexAttributes</a> PNT2Vertex::attributes = []()-&gt;<a class="code hl_typedef" href="namespaceLibCarna_1_1base.html#a8bd63f718c97020ae2fbd824feeb3323">VertexAttributes</a></div>
+<div class="line">{</div>
+<div class="line">    <span class="keyword">using </span><a class="code hl_struct" href="structLibCarna_1_1base_1_1VertexAttribute.html">LibCarna::base::VertexAttribute</a>;  <span class="comment">// msvc++ requires us to repeat this</span></div>
+<div class="line">    std::vector&lt; VertexAttribute &gt; <a class="code hl_variable" href="structLibCarna_1_1base_1_1PVertex.html#a0103b2d5954e8153e0728373a9ebbcd8">attributes</a>;</div>
+<div class="line">    <a class="code hl_variable" href="structLibCarna_1_1base_1_1PVertex.html#a0103b2d5954e8153e0728373a9ebbcd8">attributes</a>.push_back( <a class="code hl_struct" href="structLibCarna_1_1base_1_1VertexAttribute.html">VertexAttribute</a>( 0, 4, <a class="code hl_variable" href="structLibCarna_1_1base_1_1VertexAttribute.html#a25f51ccaa3c2c2c028ed66ec0389684c">VertexAttribute::TYPE_FLOAT</a> ) );</div>
+<div class="line">    <a class="code hl_variable" href="structLibCarna_1_1base_1_1PVertex.html#a0103b2d5954e8153e0728373a9ebbcd8">attributes</a>.push_back( <a class="code hl_struct" href="structLibCarna_1_1base_1_1VertexAttribute.html">VertexAttribute</a>( 4, 4, <a class="code hl_variable" href="structLibCarna_1_1base_1_1VertexAttribute.html#a25f51ccaa3c2c2c028ed66ec0389684c">VertexAttribute::TYPE_FLOAT</a> ) );</div>
+<div class="line">    <a class="code hl_variable" href="structLibCarna_1_1base_1_1PVertex.html#a0103b2d5954e8153e0728373a9ebbcd8">attributes</a>.push_back( <a class="code hl_struct" href="structLibCarna_1_1base_1_1VertexAttribute.html">VertexAttribute</a>( 8, 2, <a class="code hl_variable" href="structLibCarna_1_1base_1_1VertexAttribute.html#a25f51ccaa3c2c2c028ed66ec0389684c">VertexAttribute::TYPE_FLOAT</a> ) );</div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code hl_variable" href="structLibCarna_1_1base_1_1PVertex.html#a0103b2d5954e8153e0728373a9ebbcd8">attributes</a>;</div>
+<div class="line">}();</div>
+<div class="ttc" id="astructLibCarna_1_1base_1_1PVertex_html_a0103b2d5954e8153e0728373a9ebbcd8"><div class="ttname"><a href="structLibCarna_1_1base_1_1PVertex.html#a0103b2d5954e8153e0728373a9ebbcd8">LibCarna::base::PVertex::attributes</a></div><div class="ttdeci">static const VertexAttributes attributes</div><div class="ttdoc">Holds the declaration of the vertex format.</div><div class="ttdef"><b>Definition</b> <a href="Vertex_8hpp_source.html#l00279">Vertex.hpp:279</a></div></div>
+<div class="ttc" id="astructLibCarna_1_1base_1_1VertexAttribute_html"><div class="ttname"><a href="structLibCarna_1_1base_1_1VertexAttribute.html">LibCarna::base::VertexAttribute</a></div><div class="ttdoc">Declares a vertex attribute.</div><div class="ttdef"><b>Definition</b> <a href="VertexAttributes_8hpp_source.html#l00043">VertexAttributes.hpp:44</a></div></div>
+<div class="ttc" id="astructLibCarna_1_1base_1_1VertexAttribute_html_a25f51ccaa3c2c2c028ed66ec0389684c"><div class="ttname"><a href="structLibCarna_1_1base_1_1VertexAttribute.html#a25f51ccaa3c2c2c028ed66ec0389684c">LibCarna::base::VertexAttribute::TYPE_FLOAT</a></div><div class="ttdeci">static const unsigned int TYPE_FLOAT</div><div class="ttdoc">Indicates vertex attribute of GL_FLOAT type.</div><div class="ttdef"><b>Definition</b> <a href="VertexAttributes_8hpp_source.html#l00049">VertexAttributes.hpp:49</a></div></div>
+</div><!-- fragment --><p>You should read the above like:</p>
 <ul>
 <li>Attribute 1 starts at offset 0 and has 4 components, namely the positional <code>x</code>, <code>y</code>, <code>z</code>, <code>w</code>.</li>
 <li>Attribute 2 starts at offset 4 and has 4 components, namely the <code>nx</code>, <code>ny</code>, <code>nz</code>, <code>nw</code> of the normal vector.</li>
 <li>Attribute 3 starts at offset 8 and has 2 components, namely the <code>u</code>, <code>v</code> of the texture coordinates vector.</li>
 </ul>
-<p>When writing your shader, you must declare the vertex format consistently: </p><pre class="fragment">\code
-layout( location = 0 ) in vec4 inPosition;
-layout( location = 1 ) in vec4 inNormal;
-layout( location = 2 ) in vec2 inTexCoord;
-\endcode
-</pre> <dl class="section author"><dt>Author</dt><dd>Leonid Kostrykin </dd></dl>
+<p>When writing your shader, you must declare the vertex format consistently:</p>
+<div class="fragment"><div class="line"><a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">layout</a>( location = 0 ) in <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">vec4</a> <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">inPosition</a>;</div>
+<div class="line"><a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">layout</a>( location = 1 ) in <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">vec4</a> <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">inNormal</a>;</div>
+<div class="line"><a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">layout</a>( location = 2 ) in <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">vec2</a> <a class="code hl_class" href="classLibCarna_1_1base_1_1Association.html">inTexCoord</a>;</div>
+</div><!-- fragment --><dl class="section author"><dt>Author</dt><dd>Leonid Kostrykin </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="Vertex_8hpp_source.html#l00273">273</a> of file <a class="el" href="Vertex_8hpp_source.html">Vertex.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>

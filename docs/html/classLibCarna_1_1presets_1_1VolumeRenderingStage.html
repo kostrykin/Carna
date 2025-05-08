@@ -349,50 +349,45 @@ Writing the Shader</h2>
 <p>Below are a few hints on how to implement the shader. Refer to the <a class="el" href="classLibCarna_1_1base_1_1Material.html#ShaderMaterialIntegration">Integration into Materials</a> section for hints on how to actually load the shader.</p>
 <h3><a class="anchor" id="VolumeRenderingVertexShader"></a>
 Vertex Shader</h3>
-<p>The vertex shader must declare the following GLSL version, uniform variables and <a class="el" href="structLibCarna_1_1base_1_1PVertex.html#CustomVertexFormats">vertex formats</a>: </p><pre class="fragment">\code
-#version 330
-uniform mat4 tangentModel;
-uniform mat4 modelViewProjection;
-
-layout( location = 0 ) in vec4 inPosition;
-\endcode
-</pre><p> Furthermore, it must pass the model-space coordinates to the fragment shader, although the name of the variable used for this is arbitrary: </p><pre class="fragment">\code
-out vec4 modelSpaceCoordinates;
-\endcode
-</pre><p> Most of the time you should be able to stick to this implementation: </p><pre class="fragment">\code
-void main()
-{
-    modelSpaceCoordinates = tangentModel * inPosition;
-    vec4 clippingCoordinates = modelViewProjection * modelSpaceCoordinates;
-    gl_Position = clippingCoordinates;
-}
-\endcode
-</pre> <h3><a class="anchor" id="VolumeRenderingFragmentShader"></a>
+<p>The vertex shader must declare the following GLSL version, uniform variables and <a class="el" href="structLibCarna_1_1base_1_1PVertex.html#CustomVertexFormats">vertex formats</a>:</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#version 330</span></div>
+<div class="line">uniform mat4 tangentModel;</div>
+<div class="line">uniform mat4 modelViewProjection;</div>
+<div class="line"> </div>
+<div class="line">layout( location = 0 ) in vec4 inPosition;</div>
+</div><!-- fragment --><p>Furthermore, it must pass the model-space coordinates to the fragment shader, although the name of the variable used for this is arbitrary:</p>
+<div class="fragment"><div class="line">out vec4 modelSpaceCoordinates;</div>
+</div><!-- fragment --><p>Most of the time you should be able to stick to this implementation:</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> main()</div>
+<div class="line">{</div>
+<div class="line">    modelSpaceCoordinates = tangentModel * inPosition;</div>
+<div class="line">    vec4 clippingCoordinates = modelViewProjection * modelSpaceCoordinates;</div>
+<div class="line">    gl_Position = clippingCoordinates;</div>
+<div class="line">}</div>
+</div><!-- fragment --><h3><a class="anchor" id="VolumeRenderingFragmentShader"></a>
 Fragment Shader</h3>
-<p>The fragment shader must declare the following GLSL version and uniform variables, along with a varying for the model-space coordinates, whose name must match the name used in the vertex shader: </p><pre class="fragment">\code
-#version 330
-
-uniform mat4 modelTexture;
-
-in  vec4 modelSpaceCoordinates;
-out vec4 gl_FragColor;
-\endcode
-</pre><p> The name of the color output variable <code>gl_FragColor</code> is arbitrary.</p>
-<p>Below is the body of a typical implementation of the fragment shader, that writes the texture coordinates to the color output: </p><pre class="fragment">\code
-void main()
-{
-    if( abs( modelSpaceCoordinates.x ) &gt; 0.5 || abs( modelSpaceCoordinates.y ) &gt; 0.5 || abs( modelSpaceCoordinates.z ) &gt; 0.5 )
-    {
-        discard;
-    }
-    vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;
-    gl_FragColor = vec4( textureCoordinates.rgb, 1 );
-}
-\endcode
-</pre><p> For a full example on how to implement the shader, refer to the files <a class="el" href="mip_8vert_source.html">src/res/mip.vert</a> and <a class="el" href="mip_8frag_source.html">src/res/mip.frag</a>. These should be self-explaining.</p>
+<p>The fragment shader must declare the following GLSL version and uniform variables, along with a varying for the model-space coordinates, whose name must match the name used in the vertex shader:</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#version 330</span></div>
+<div class="line"> </div>
+<div class="line">uniform mat4 modelTexture;</div>
+<div class="line"> </div>
+<div class="line">in  vec4 modelSpaceCoordinates;</div>
+<div class="line">layout( location = 0 ) out vec4 _gl_FragColor;</div>
+</div><!-- fragment --><p>The name of the color output variable <code>_gl_FragColor</code> is arbitrary, but it is not allowed to start with <code>gl_</code> for compatibility with newer OpenGL versions.</p>
+<p>Below is the body of a typical implementation of the fragment shader, that writes the texture coordinates to the color output:</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> main()</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordflow">if</span>( abs( modelSpaceCoordinates.x ) &gt; 0.5 || abs( modelSpaceCoordinates.y ) &gt; 0.5 || abs( modelSpaceCoordinates.z ) &gt; 0.5 )</div>
+<div class="line">    {</div>
+<div class="line">        discard;</div>
+<div class="line">    }</div>
+<div class="line">    vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;</div>
+<div class="line">    _gl_FragColor = vec4( textureCoordinates.rgb, 1 );</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>For a full example on how to implement the shader, refer to the files <a class="el" href="mip_8vert_source.html">src/res/mip.vert</a> and <a class="el" href="mip_8frag_source.html">src/res/mip.frag</a>. These should be self-explaining.</p>
 <dl class="section author"><dt>Author</dt><dd>Leonid Kostrykin </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="VolumeRenderingStage_8hpp_source.html#l00319">319</a> of file <a class="el" href="VolumeRenderingStage_8hpp_source.html">VolumeRenderingStage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeRenderingStage_8hpp_source.html#l00320">320</a> of file <a class="el" href="VolumeRenderingStage_8hpp_source.html">VolumeRenderingStage.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="afea2320eed7780f3f687b3422f15f3db" name="afea2320eed7780f3f687b3422f15f3db"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afea2320eed7780f3f687b3422f15f3db">&#9670;&#160;</a></span>acquireShader()</h2>
@@ -714,7 +709,7 @@ void main()
 
 <p>Holds the default number of slices rendered per segment. </p>
 
-<p class="definition">Definition at line <a class="el" href="VolumeRenderingStage_8hpp_source.html#l00333">333</a> of file <a class="el" href="VolumeRenderingStage_8hpp_source.html">VolumeRenderingStage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VolumeRenderingStage_8hpp_source.html#l00334">334</a> of file <a class="el" href="VolumeRenderingStage_8hpp_source.html">VolumeRenderingStage.hpp</a>.</p>
 
 </div>
 </div>
