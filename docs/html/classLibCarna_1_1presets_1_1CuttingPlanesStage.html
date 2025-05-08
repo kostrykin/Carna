@@ -84,6 +84,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classLibCarna_1_1presets_1_1CuttingPlanesStage-members.html">List of all members</a>  </div>
@@ -116,22 +117,24 @@ $(function() {
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="classLibCarna_1_1presets_1_1CuttingPlanesStage__coll__graph.png" border="0" usemap="#aLibCarna_1_1presets_1_1CuttingPlanesStage_coll__map" alt="Collaboration graph"/></div>
 <map name="aLibCarna_1_1presets_1_1CuttingPlanesStage_coll__map" id="aLibCarna_1_1presets_1_1CuttingPlanesStage_coll__map">
-<area shape="rect" title="Renders cutting planes of volume geometries in the scene." alt="" coords="153,197,302,237"/>
+<area shape="rect" title="Renders cutting planes of volume geometries in the scene." alt="" coords="313,211,462,251"/>
 <area shape="rect" href="classLibCarna_1_1base_1_1GeometryStage.html" title=" " alt="" coords="132,108,323,148"/>
-<area shape="poly" title=" " alt="" coords="230,162,230,197,225,197,225,162"/>
+<area shape="poly" title=" " alt="" coords="270,153,359,208,356,213,267,157"/>
 <area shape="rect" href="classLibCarna_1_1base_1_1RenderStage.html" title="Base abstract class of each rendering stage. Refer to the documentation of the rendering process." alt="" coords="5,13,215,38"/>
 <area shape="poly" title=" " alt="" coords="136,45,207,106,204,110,132,49"/>
 <area shape="rect" href="classLibCarna_1_1base_1_1RenderQueue.html" title=" " alt="" coords="239,5,453,45"/>
 <area shape="poly" title=" " alt="" coords="315,56,251,110,248,106,311,52"/>
+<area shape="rect" href="classLibCarna_1_1base_1_1ColorMap.html" title="Represents a mapping of intensity values to RGBA colors, that can be queried in a shader." alt="" coords="347,115,535,141"/>
+<area shape="poly" title=" " alt="" coords="430,154,400,212,395,209,426,152"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2d4bdb894edbab833533bb0301f03889" id="r_a2d4bdb894edbab833533bb0301f03889"><td class="memItemLeft" align="right" valign="top"><a id="a2d4bdb894edbab833533bb0301f03889" name="a2d4bdb894edbab833533bb0301f03889"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>CuttingPlanesStage</b> (unsigned int volumeGeometryType, unsigned int planeGeometryType)</td></tr>
-<tr class="memdesc:a2d4bdb894edbab833533bb0301f03889"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates. <br /></td></tr>
-<tr class="separator:a2d4bdb894edbab833533bb0301f03889"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48742eac37f3036a3de22072631b2c4c" id="r_a48742eac37f3036a3de22072631b2c4c"><td class="memItemLeft" align="right" valign="top"><a id="a48742eac37f3036a3de22072631b2c4c" name="a48742eac37f3036a3de22072631b2c4c"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>CuttingPlanesStage</b> (unsigned int volumeGeometryType, unsigned int planeGeometryType, unsigned int colorMapResolution=<a class="el" href="classLibCarna_1_1base_1_1ColorMap.html#a53e81ef7d6e507889ef40569a23d6267">base::ColorMap::DEFAULT_RESOLUTION</a>)</td></tr>
+<tr class="memdesc:a48742eac37f3036a3de22072631b2c4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates. <br /></td></tr>
+<tr class="separator:a48742eac37f3036a3de22072631b2c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e17ec5a0aa3b32f2fae469134b4c0c7" id="r_a9e17ec5a0aa3b32f2fae469134b4c0c7"><td class="memItemLeft" align="right" valign="top"><a id="a9e17ec5a0aa3b32f2fae469134b4c0c7" name="a9e17ec5a0aa3b32f2fae469134b4c0c7"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~CuttingPlanesStage</b> ()</td></tr>
 <tr class="memdesc:a9e17ec5a0aa3b32f2fae469134b4c0c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes. <br /></td></tr>
@@ -149,10 +152,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setWindowingWidth</b>
 <tr class="separator:a312aa255843e6fba66e2f030e47c58d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f0568647e073701f9baa8873f4fd58a" id="r_a6f0568647e073701f9baa8873f4fd58a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1presets_1_1CuttingPlanesStage.html#a6f0568647e073701f9baa8873f4fd58a">setWindowingWidth</a> (unsigned int <a class="el" href="classLibCarna_1_1presets_1_1CuttingPlanesStage.html#a2715f63e9d339348106251d326f99213">windowingWidth</a>)</td></tr>
 <tr class="separator:a6f0568647e073701f9baa8873f4fd58a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68d197663c4219c1f3c179f101f2741f" id="r_a68d197663c4219c1f3c179f101f2741f"><td class="memItemLeft" align="right" valign="top"><a id="a68d197663c4219c1f3c179f101f2741f" name="a68d197663c4219c1f3c179f101f2741f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setRenderingInverse</b> (bool inverse)</td></tr>
-<tr class="memdesc:a68d197663c4219c1f3c179f101f2741f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether brightness shall be inversely proportional to the intensity. <br /></td></tr>
-<tr class="separator:a68d197663c4219c1f3c179f101f2741f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3049b619075f8e822f6937e13aa9f237" id="r_a3049b619075f8e822f6937e13aa9f237"><td class="memItemLeft" align="right" valign="top"><a id="a3049b619075f8e822f6937e13aa9f237" name="a3049b619075f8e822f6937e13aa9f237"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>windowingLevel</b> () const</td></tr>
 <tr class="memdesc:a3049b619075f8e822f6937e13aa9f237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells the windowing level intensity. <br /></td></tr>
@@ -161,18 +160,6 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>windowingLevel</b> (
 float&#160;</td><td class="memItemRight" valign="bottom"><b>windowingWidth</b> () const</td></tr>
 <tr class="memdesc:a2715f63e9d339348106251d326f99213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells the windowing width. <br /></td></tr>
 <tr class="separator:a2715f63e9d339348106251d326f99213"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc385219ef09ae4510f55ed961a54b90" id="r_acc385219ef09ae4510f55ed961a54b90"><td class="memItemLeft" align="right" valign="top"><a id="acc385219ef09ae4510f55ed961a54b90" name="acc385219ef09ae4510f55ed961a54b90"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>minimumIntensity</b> () const</td></tr>
-<tr class="memdesc:acc385219ef09ae4510f55ed961a54b90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells the lower bound of the intensity window. <br /></td></tr>
-<tr class="separator:acc385219ef09ae4510f55ed961a54b90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab0206554556124d172b187573c375ce" id="r_aab0206554556124d172b187573c375ce"><td class="memItemLeft" align="right" valign="top"><a id="aab0206554556124d172b187573c375ce" name="aab0206554556124d172b187573c375ce"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>maximumIntensity</b> () const</td></tr>
-<tr class="memdesc:aab0206554556124d172b187573c375ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells the upper bound of the intensity window. <br /></td></tr>
-<tr class="separator:aab0206554556124d172b187573c375ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c0f92a5cd082e82261159180794a8e3" id="r_a8c0f92a5cd082e82261159180794a8e3"><td class="memItemLeft" align="right" valign="top"><a id="a8c0f92a5cd082e82261159180794a8e3" name="a8c0f92a5cd082e82261159180794a8e3"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isRenderingInverse</b> () const</td></tr>
-<tr class="memdesc:a8c0f92a5cd082e82261159180794a8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells whether brightness is inversely proportional to the intensity. <br /></td></tr>
-<tr class="separator:a8c0f92a5cd082e82261159180794a8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classLibCarna_1_1base_1_1GeometryStage"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classLibCarna_1_1base_1_1GeometryStage')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html">LibCarna::base::GeometryStage&lt; void &gt;</a></td></tr>
 <tr class="memitem:ae664e79826b92149e367ea760e92fe48 inherit pub_methods_classLibCarna_1_1base_1_1GeometryStage" id="r_ae664e79826b92149e367ea760e92fe48"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html#ae664e79826b92149e367ea760e92fe48">GeometryStage</a> (<a class="el" href="classLibCarna_1_1base_1_1Association.html">unsigned</a> <a class="el" href="classLibCarna_1_1base_1_1Association.html">int</a> geometryType, <a class="el" href="classLibCarna_1_1base_1_1Association.html">unsigned</a> <a class="el" href="classLibCarna_1_1base_1_1Association.html">int</a> geometryTypeMask=<a class="el" href="classLibCarna_1_1base_1_1RenderQueue.html">RenderQueue</a>&lt; <a class="el" href="classLibCarna_1_1base_1_1Association.html">void</a> &gt;::EXACT_MATCH_GEOMETRY_TYPE_MASK)</td></tr>
 <tr class="memdesc:ae664e79826b92149e367ea760e92fe48 inherit pub_methods_classLibCarna_1_1base_1_1GeometryStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates s.t. the <a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html#a1b7295cef301d66e995ef6662d479e7a">predefined rendering queue</a> enqueues such <a class="el" href="classLibCarna_1_1base_1_1Geometry.html">LibCarna::base::Geometry</a> scene graph nodes, whose geometry type <em>AND</em>-linked with <em>geometryTypeMask</em> equals the <em>geometryType</em> specified here.  <br /></td></tr>
@@ -235,6 +222,23 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isRenderingInverse</b
 <tr class="memdesc:a9c11112e0ae815bf5f37b92b8deca0ba inherit pub_methods_classLibCarna_1_1base_1_1RenderStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes <em>listener</em> from the set of listeners this instance notifies in \(\mathcal O\left(\log n\right)\). <br /></td></tr>
 <tr class="separator:a9c11112e0ae815bf5f37b92b8deca0ba inherit pub_methods_classLibCarna_1_1base_1_1RenderStage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a2a96b69b4a05c2b29c5803d092b3ed6e" id="r_a2a96b69b4a05c2b29c5803d092b3ed6e"><td class="memItemLeft" align="right" valign="top">const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1presets_1_1CuttingPlanesStage.html#a2a96b69b4a05c2b29c5803d092b3ed6e">volumeGeometryType</a></td></tr>
+<tr class="separator:a2a96b69b4a05c2b29c5803d092b3ed6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55fd21dd720cba4688c2c963237c4cde" id="r_a55fd21dd720cba4688c2c963237c4cde"><td class="memItemLeft" align="right" valign="top">const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1presets_1_1CuttingPlanesStage.html#a55fd21dd720cba4688c2c963237c4cde">planeGeometryType</a></td></tr>
+<tr class="separator:a55fd21dd720cba4688c2c963237c4cde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51a0687e6bd6cf2c4afb91ff75c97dd3" id="r_a51a0687e6bd6cf2c4afb91ff75c97dd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classLibCarna_1_1base_1_1ColorMap.html">base::ColorMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1presets_1_1CuttingPlanesStage.html#a51a0687e6bd6cf2c4afb91ff75c97dd3">colorMap</a></td></tr>
+<tr class="memdesc:a51a0687e6bd6cf2c4afb91ff75c97dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The color map used for the rendering.  <br /></td></tr>
+<tr class="separator:a51a0687e6bd6cf2c4afb91ff75c97dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_classLibCarna_1_1base_1_1GeometryStage"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classLibCarna_1_1base_1_1GeometryStage')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html">LibCarna::base::GeometryStage&lt; void &gt;</a></td></tr>
+<tr class="memitem:afeebd7b9da40b1991d481fc543cb4572 inherit pub_attribs_classLibCarna_1_1base_1_1GeometryStage" id="r_afeebd7b9da40b1991d481fc543cb4572"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classLibCarna_1_1base_1_1Association.html">const</a> <a class="el" href="classLibCarna_1_1base_1_1Association.html">unsigned</a> <a class="el" href="classLibCarna_1_1base_1_1Association.html">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html#afeebd7b9da40b1991d481fc543cb4572">geometryType</a></td></tr>
+<tr class="memdesc:afeebd7b9da40b1991d481fc543cb4572 inherit pub_attribs_classLibCarna_1_1base_1_1GeometryStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders such geometries whose type <em>AND</em>-linked with <a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html#a3abf545b3c207d085b4c18386f50f5d2">geometryTypeMask</a> equals this.  <br /></td></tr>
+<tr class="separator:afeebd7b9da40b1991d481fc543cb4572 inherit pub_attribs_classLibCarna_1_1base_1_1GeometryStage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3abf545b3c207d085b4c18386f50f5d2 inherit pub_attribs_classLibCarna_1_1base_1_1GeometryStage" id="r_a3abf545b3c207d085b4c18386f50f5d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classLibCarna_1_1base_1_1Association.html">const</a> <a class="el" href="classLibCarna_1_1base_1_1Association.html">unsigned</a> <a class="el" href="classLibCarna_1_1base_1_1Association.html">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html#a3abf545b3c207d085b4c18386f50f5d2">geometryTypeMask</a></td></tr>
+<tr class="memdesc:a3abf545b3c207d085b4c18386f50f5d2 inherit pub_attribs_classLibCarna_1_1base_1_1GeometryStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders such geometries whose type <em>AND</em>-linked with this equals <a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html#afeebd7b9da40b1991d481fc543cb4572">geometryType</a>.  <br /></td></tr>
+<tr class="separator:a3abf545b3c207d085b4c18386f50f5d2 inherit pub_attribs_classLibCarna_1_1base_1_1GeometryStage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a147e52fede7e0f1c71297f8c0c5c4bad" id="r_a147e52fede7e0f1c71297f8c0c5c4bad"><td class="memItemLeft" align="right" valign="top">static const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1presets_1_1CuttingPlanesStage.html#a147e52fede7e0f1c71297f8c0c5c4bad">DEFAULT_WINDOWING_WIDTH</a></td></tr>
@@ -268,13 +272,6 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_attribs_classLibCarna_1_1base_1_1GeometryStage"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classLibCarna_1_1base_1_1GeometryStage')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html">LibCarna::base::GeometryStage&lt; void &gt;</a></td></tr>
-<tr class="memitem:afeebd7b9da40b1991d481fc543cb4572 inherit pub_attribs_classLibCarna_1_1base_1_1GeometryStage" id="r_afeebd7b9da40b1991d481fc543cb4572"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classLibCarna_1_1base_1_1Association.html">const</a> <a class="el" href="classLibCarna_1_1base_1_1Association.html">unsigned</a> <a class="el" href="classLibCarna_1_1base_1_1Association.html">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html#afeebd7b9da40b1991d481fc543cb4572">geometryType</a></td></tr>
-<tr class="memdesc:afeebd7b9da40b1991d481fc543cb4572 inherit pub_attribs_classLibCarna_1_1base_1_1GeometryStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders such geometries whose type <em>AND</em>-linked with <a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html#a3abf545b3c207d085b4c18386f50f5d2">geometryTypeMask</a> equals this.  <br /></td></tr>
-<tr class="separator:afeebd7b9da40b1991d481fc543cb4572 inherit pub_attribs_classLibCarna_1_1base_1_1GeometryStage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3abf545b3c207d085b4c18386f50f5d2 inherit pub_attribs_classLibCarna_1_1base_1_1GeometryStage" id="r_a3abf545b3c207d085b4c18386f50f5d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classLibCarna_1_1base_1_1Association.html">const</a> <a class="el" href="classLibCarna_1_1base_1_1Association.html">unsigned</a> <a class="el" href="classLibCarna_1_1base_1_1Association.html">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html#a3abf545b3c207d085b4c18386f50f5d2">geometryTypeMask</a></td></tr>
-<tr class="memdesc:a3abf545b3c207d085b4c18386f50f5d2 inherit pub_attribs_classLibCarna_1_1base_1_1GeometryStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders such geometries whose type <em>AND</em>-linked with this equals <a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html#afeebd7b9da40b1991d481fc543cb4572">geometryType</a>.  <br /></td></tr>
-<tr class="separator:a3abf545b3c207d085b4c18386f50f5d2 inherit pub_attribs_classLibCarna_1_1base_1_1GeometryStage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classLibCarna_1_1base_1_1GeometryStage"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classLibCarna_1_1base_1_1GeometryStage')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html">LibCarna::base::GeometryStage&lt; void &gt;</a></td></tr>
 <tr class="memitem:a1b7295cef301d66e995ef6662d479e7a inherit pro_attribs_classLibCarna_1_1base_1_1GeometryStage" id="r_a1b7295cef301d66e995ef6662d479e7a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classLibCarna_1_1base_1_1RenderQueue.html">RenderQueue</a>&lt; <a class="el" href="classLibCarna_1_1base_1_1Association.html">void</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1base_1_1GeometryStage.html#a1b7295cef301d66e995ef6662d479e7a">rq</a></td></tr>
 <tr class="memdesc:a1b7295cef301d66e995ef6662d479e7a inherit pro_attribs_classLibCarna_1_1base_1_1GeometryStage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the predefined rendering queue of this rendering stage.  <br /></td></tr>
@@ -287,7 +284,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="line">    <a class="code hl_function" href="classLibCarna_1_1base_1_1RenderStage.html#a891ebd42ca7f81083db9708ab089966c">renderer</a>-&gt;<a class="code hl_function" href="classLibCarna_1_1base_1_1RenderStageSequence.html#a7073abdc923b16f49ab0266a029714fb">appendStage</a>( planes );</div>
 <div class="ttc" id="aclassLibCarna_1_1base_1_1RenderStageSequence_html_a7073abdc923b16f49ab0266a029714fb"><div class="ttname"><a href="classLibCarna_1_1base_1_1RenderStageSequence.html#a7073abdc923b16f49ab0266a029714fb">LibCarna::base::RenderStageSequence::appendStage</a></div><div class="ttdeci">void appendStage(RenderStage *stage)</div><div class="ttdoc">Appends stage to the rendering stages sequence.</div></div>
 <div class="ttc" id="aclassLibCarna_1_1base_1_1RenderStage_html_a891ebd42ca7f81083db9708ab089966c"><div class="ttname"><a href="classLibCarna_1_1base_1_1RenderStage.html#a891ebd42ca7f81083db9708ab089966c">LibCarna::base::RenderStage::renderer</a></div><div class="ttdeci">base::FrameRenderer &amp; renderer()</div><div class="ttdoc">References the renderer this stage belongs to.</div></div>
-<div class="ttc" id="aclassLibCarna_1_1presets_1_1CuttingPlanesStage_html"><div class="ttname"><a href="classLibCarna_1_1presets_1_1CuttingPlanesStage.html">LibCarna::presets::CuttingPlanesStage</a></div><div class="ttdoc">Renders cutting planes of volume geometries in the scene.</div><div class="ttdef"><b>Definition</b> <a href="CuttingPlanesStage_8hpp_source.html#l00059">CuttingPlanesStage.hpp:60</a></div></div>
+<div class="ttc" id="aclassLibCarna_1_1presets_1_1CuttingPlanesStage_html"><div class="ttname"><a href="classLibCarna_1_1presets_1_1CuttingPlanesStage.html">LibCarna::presets::CuttingPlanesStage</a></div><div class="ttdoc">Renders cutting planes of volume geometries in the scene.</div><div class="ttdef"><b>Definition</b> <a href="CuttingPlanesStage_8hpp_source.html#l00060">CuttingPlanesStage.hpp:61</a></div></div>
 </div><!-- fragment --><p>The concept of geometry types is explained <a class="el" href="index.html#GeometryTypes">here</a>.</p>
 <p>The following example code attaches three orthogonal planes to a node named <code>pivot</code>:</p>
 <div class="fragment"><div class="line">    pivot-&gt;localTransform = <a class="code hl_function" href="namespaceLibCarna_1_1base_1_1math.html#a990b6c1537e9f361de43449a74af2ee5">base::math::plane4f</a>( <a class="code hl_typedef" href="namespaceLibCarna_1_1base_1_1math.html#a523993f0edd08ff77f94ea8b86c78446">base::math::Vector3f</a>( 1, 1, 1 ).normalized(), 0 );</div>
@@ -317,7 +314,7 @@ Additional Inherited Members</h2></td></tr>
 rendering result of example code above</div></div>
 <dl class="section author"><dt>Author</dt><dd>Leonid Kostrykin </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CuttingPlanesStage_8hpp_source.html#l00059">59</a> of file <a class="el" href="CuttingPlanesStage_8hpp_source.html">CuttingPlanesStage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CuttingPlanesStage_8hpp_source.html#l00060">60</a> of file <a class="el" href="CuttingPlanesStage_8hpp_source.html">CuttingPlanesStage.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aab611e85d39446710fae8fc7ed6b7cc0" name="aab611e85d39446710fae8fc7ed6b7cc0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aab611e85d39446710fae8fc7ed6b7cc0">&#9670;&#160;</a></span>buildRenderQueues()</h2>
@@ -515,6 +512,24 @@ rendering result of example code above</div></div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a51a0687e6bd6cf2c4afb91ff75c97dd3" name="a51a0687e6bd6cf2c4afb91ff75c97dd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51a0687e6bd6cf2c4afb91ff75c97dd3">&#9670;&#160;</a></span>colorMap</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classLibCarna_1_1base_1_1ColorMap.html">base::ColorMap</a> LibCarna::presets::CuttingPlanesStage::colorMap</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The color map used for the rendering. </p>
+
+<p class="definition">Definition at line <a class="el" href="CuttingPlanesStage_8hpp_source.html#l00097">97</a> of file <a class="el" href="CuttingPlanesStage_8hpp_source.html">CuttingPlanesStage.hpp</a>.</p>
+
+</div>
+</div>
 <a id="ab8a56b3fc243203289eed4e4de4c5d80" name="ab8a56b3fc243203289eed4e4de4c5d80"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab8a56b3fc243203289eed4e4de4c5d80">&#9670;&#160;</a></span>DEFAULT_WINDOWING_LEVEL</h2>
 
@@ -537,7 +552,7 @@ rendering result of example code above</div></div>
 
 <p>Holds the default value for <a class="el" href="classLibCarna_1_1presets_1_1CuttingPlanesStage.html#a82bfe01d4cd6b60286f3678cf885adc3">setWindowingLevel</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="CuttingPlanesStage_8hpp_source.html#l00071">71</a> of file <a class="el" href="CuttingPlanesStage_8hpp_source.html">CuttingPlanesStage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CuttingPlanesStage_8hpp_source.html#l00072">72</a> of file <a class="el" href="CuttingPlanesStage_8hpp_source.html">CuttingPlanesStage.hpp</a>.</p>
 
 </div>
 </div>
@@ -563,7 +578,23 @@ rendering result of example code above</div></div>
 
 <p>Holds the default value for <a class="el" href="classLibCarna_1_1presets_1_1CuttingPlanesStage.html#a312aa255843e6fba66e2f030e47c58d9">setWindowingWidth</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="CuttingPlanesStage_8hpp_source.html#l00070">70</a> of file <a class="el" href="CuttingPlanesStage_8hpp_source.html">CuttingPlanesStage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CuttingPlanesStage_8hpp_source.html#l00071">71</a> of file <a class="el" href="CuttingPlanesStage_8hpp_source.html">CuttingPlanesStage.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a55fd21dd720cba4688c2c963237c4cde" name="a55fd21dd720cba4688c2c963237c4cde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55fd21dd720cba4688c2c963237c4cde">&#9670;&#160;</a></span>planeGeometryType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const unsigned int LibCarna::presets::CuttingPlanesStage::planeGeometryType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="CuttingPlanesStage_8hpp_source.html#l00082">82</a> of file <a class="el" href="CuttingPlanesStage_8hpp_source.html">CuttingPlanesStage.hpp</a>.</p>
 
 </div>
 </div>
@@ -589,7 +620,23 @@ rendering result of example code above</div></div>
 
 <p>Holds the <a class="el" href="index.html#GeometryFeatures">role</a> that intensity volume data is expected to take when attached to <a class="el" href="classLibCarna_1_1base_1_1Geometry.html">base::Geometry</a> nodes. </p>
 
-<p class="definition">Definition at line <a class="el" href="CuttingPlanesStage_8hpp_source.html#l00077">77</a> of file <a class="el" href="CuttingPlanesStage_8hpp_source.html">CuttingPlanesStage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CuttingPlanesStage_8hpp_source.html#l00078">78</a> of file <a class="el" href="CuttingPlanesStage_8hpp_source.html">CuttingPlanesStage.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2a96b69b4a05c2b29c5803d092b3ed6e" name="a2a96b69b4a05c2b29c5803d092b3ed6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a96b69b4a05c2b29c5803d092b3ed6e">&#9670;&#160;</a></span>volumeGeometryType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const unsigned int LibCarna::presets::CuttingPlanesStage::volumeGeometryType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="CuttingPlanesStage_8hpp_source.html#l00080">80</a> of file <a class="el" href="CuttingPlanesStage_8hpp_source.html">CuttingPlanesStage.hpp</a>.</p>
 
 </div>
 </div>
