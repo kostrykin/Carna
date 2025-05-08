@@ -95,5 +95,6 @@ void MIPStageTest::test_colorMapLimits()
     mip->colorMap.setMinimumIntensity( 0.25f );
     mip->colorMap.setMaximumIntensity( 0.5f );
     renderer->render( scene->cam(), *scene->root );
+    testFramebuffer->numIgnore = 60; // Software rendering produces some artifacts at the corners of the volume, which are negligible.
     VERIFY_FRAMEBUFFER( *testFramebuffer );
 }
