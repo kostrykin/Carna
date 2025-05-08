@@ -66,7 +66,7 @@ private slots:
     
     void test_assignment_operator();
     
-}; // mathTest
+}; // ColorTest
 
 
 

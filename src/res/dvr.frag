@@ -17,6 +17,8 @@
 uniform sampler3D intensities;
 uniform sampler3D normalMap;
 uniform sampler1D colorMap;
+uniform float     minIntensity;
+uniform float     maxIntensity;
 uniform mat4      modelTexture;
 uniform mat3      normalsView;
 uniform float     stepLength;
@@ -28,6 +30,8 @@ in vec4 modelSpaceCoordinates;
 
 layout( location = 0 ) out vec4 _gl_FragColor;
 
+#define EPS 1e-16
+
 
 // ----------------------------------------------------------------------------------
 // Basic Sampling
@@ -36,8 +40,19 @@ layout( location = 0 ) out vec4 _gl_FragColor;
 vec4 sampleAt( vec3 p )
 {
     float intensity = texture( intensities, p ).r;
+
+    /* Apply intensity clipping.
+     */
+    intensity = clamp(
+        ( intensity - minIntensity + EPS ) / ( maxIntensity - minIntensity + EPS )
+        , 0.0, 1.0 );
+
+    /* Query color in `colorMap`.
+     */
     vec4 color = texture( colorMap, intensity );
 
+    /* Add lighting.
+     */
     if( lightingEnabled == 1 )
     {
         vec3 normalDirection = texture( normalMap, p ).rgb;

@@ -227,6 +227,8 @@ const std::string& DVRStage::uniformName( unsigned int role ) const
 void DVRStage::configureShader()
 {
     base::ShaderUniform<   int >( "colorMap", Details::COLORMAP_TEXTURE_UNIT ).upload();
+    base::ShaderUniform< float >( "minIntensity", colorMap.minimumIntensity() ).upload();
+    base::ShaderUniform< float >( "maxIntensity", colorMap.maximumIntensity() ).upload();
     base::ShaderUniform< float >( "translucency", pimpl->translucency ).upload();
     base::ShaderUniform< float >( "diffuseLight", pimpl->diffuseLight ).upload();
         

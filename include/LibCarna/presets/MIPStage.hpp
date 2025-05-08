@@ -88,7 +88,7 @@ public:
     virtual ~MIPStage();
 
     /** \brief
-      * The color map used for the layer.
+      * The color map used for the rendering.
       */
     base::ColorMap colorMap;
 

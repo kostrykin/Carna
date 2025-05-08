@@ -64,6 +64,8 @@ private slots:
 
     void test_withoutColormap();
 
+    void test_withColorMapLimits();
+
  // ---------------------------------------------------------------------------------
 
 private:

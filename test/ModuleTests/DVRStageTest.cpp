@@ -87,7 +87,7 @@ void DVRStageTest::test_withLighting()
     dvr->colorMap.writeLinearSegment( base::HUV( -400 ).intensity(), base::HUV(   0 ).intensity(), base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
     dvr->colorMap.writeLinearSegment( base::HUV(    0 ).intensity(), base::HUV( 400 ).intensity(), base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
     dvr->setSampleRate( 1000 );
-    dvr->setTranslucency(  2 );
+    dvr->setTranslucency( 2 );
     //! [dvr_setup_with_lighting]
 
     /* Render and verify.
@@ -130,6 +130,31 @@ void DVRStageTest::test_withoutColormap()
     /* Configure DVR stage.
      */
     dvr->colorMap.clear();
+
+    /* Render and verify.
+     */
+    renderer->render( *cam, *root );
+    VERIFY_FRAMEBUFFER( *testFramebuffer );
+}
+
+
+void DVRStageTest::test_withColorMapLimits()
+{
+    /* Add volume data to scene.
+     */
+    typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16, base::NormalMap3DInt8 > GridHelper;
+    GridHelper gridHelper( data->size );
+    gridHelper.loadIntensities( *data );
+    root->attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( dataSpacings ) ) );
+
+    /* Configure DVR stage (should be equivalent to `test_withLighting`).
+     */
+    dvr->colorMap.writeLinearSegment( 0.0f, 0.5f, base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
+    dvr->colorMap.writeLinearSegment( 0.5f, 1.0f, base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
+    dvr->colorMap.setMinimumIntensity( base::HUV( -400 ).intensity() );
+    dvr->colorMap.setMaximumIntensity( base::HUV( +400 ).intensity() );
+    dvr->setSampleRate( 1000 );
+    dvr->setTranslucency( 2 );
 
     /* Render and verify.
      */
