@@ -8,6 +8,6 @@ var searchData=
   ['transform_5',['transform',['../classLibCarna_1_1base_1_1BoundingVolume.html#a8647dab95d935f2d0aa6347e59d85f63',1,'LibCarna::base::BoundingVolume']]],
   ['translation4f_6',['translation4f',['../namespaceLibCarna_1_1base_1_1math.html#ac449afbd6277425f3824e7f20bef4233',1,'LibCarna::base::math::translation4f(float x, float y, float z)'],['../namespaceLibCarna_1_1base_1_1math.html#afe1463391aae267642be5a6b72222581',1,'LibCarna::base::math::translation4f(const Vector &amp;v)']]],
   ['translationdistance2_7',['translationDistance2',['../namespaceLibCarna_1_1base_1_1math.html#a0de9546b5e826f25c5979054d7fe12ef',1,'LibCarna::base::math']]],
-  ['translucence_8',['translucence',['../classLibCarna_1_1presets_1_1DVRStage.html#af7d2b75046514779593a8c51850359a8',1,'LibCarna::presets::DVRStage']]],
+  ['translucency_8',['translucency',['../classLibCarna_1_1presets_1_1DVRStage.html#a00ff1537d1b2b3154bcbe84d4f5d50ee',1,'LibCarna::presets::DVRStage']]],
   ['transparentrenderingstage_9',['TransparentRenderingStage',['../classLibCarna_1_1presets_1_1TransparentRenderingStage.html#ac5f2fa138cdcc268f3d14aa098d9fc52',1,'LibCarna::presets::TransparentRenderingStage']]]
 ];
