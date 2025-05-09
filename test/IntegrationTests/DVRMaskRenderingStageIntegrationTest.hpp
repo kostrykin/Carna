@@ -1,13 +1,4 @@
 /*
- *  Copyright (C) 2010 - 2016 Leonid Kostrykin
- *
- *  Chair of Medical Engineering (mediTEC)
- *  RWTH Aachen University
- *  Pauwelsstr. 20
- *  52074 Aachen
- *  Germany
- * 
- * 
  *  Copyright (C) 2021 - 2025 Leonid Kostrykin
  * 
  */
@@ -25,16 +16,16 @@ namespace testing
 
 
 // ----------------------------------------------------------------------------------
-// DRRMaskRenderingStageIntegrationTest
+// DVRMaskRenderingStageIntegrationTest
 // ----------------------------------------------------------------------------------
 
 /** \brief
-  * Integration-tests of the \ref LibCarna::presets::DRRStage and the \ref LibCarna::presets::MaskRenderingStage
+  * Integration-tests of the \ref LibCarna::presets::DVRStage and the \ref LibCarna::presets::MaskRenderingStage
   * classes.
   *
   * \author Leonid Kostrykin
   */
-class DRRMaskRenderingStageIntegrationTest : public QObject
+class DVRMaskRenderingStageIntegrationTest : public QObject
 {
 
     Q_OBJECT
@@ -57,31 +48,36 @@ private slots:
       */
     void cleanup();
 
- // ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------
 
-    void test_shared_geometry_node();
+    void test_after1Frame();
 
-    void test_dedicated_geometry_node();
+    void test_after2Frames();
 
-    void test_helper_geometry_node();
+    void test_after3Frames();
 
-    void test_render_borders();
-
- // ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------
 
 private:
 
+    typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt8 > MaskGridHelper;
+
     const static unsigned int GEOMETRY_TYPE_VOLUMETRIC = 0;
+    const static unsigned int GEOMETRY_TYPE_MASK       = 1;
 
     std::unique_ptr< QGLContextHolder > qglContextHolder;
     std::unique_ptr< TestFramebuffer > testFramebuffer;
     std::unique_ptr< TestScene > scene;
     std::unique_ptr< base::FrameRenderer > renderer;
     std::unique_ptr< base::IntensityVolumeUInt8 > mask;
-    
+    std::unique_ptr< MaskGridHelper > maskGridHelper;
+
+    presets::DVRStage* dvr;
     presets::MaskRenderingStage* mr;
 
-}; // DRRMaskRenderingStageIntegrationTest
+    void renderFrames( unsigned int n );
+
+}; // DVRMaskRenderingStageIntegrationTest
 
 
 
