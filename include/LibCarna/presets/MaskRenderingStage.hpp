@@ -41,7 +41,7 @@ namespace presets
   *
   * The `%MaskRenderingStage` constructor takes a geometry type parameter:
   *
-  * \snippet IntegrationTests/MaskRenderingStageIntegrationTest.cpp mask_rendering_setup
+  * \snippet IntegrationTests/DRRMaskRenderingStageIntegrationTest.cpp mask_rendering_setup
   *
   * The concept of geometry types is explained \ref GeometryTypes "here".
   *
@@ -51,12 +51,12 @@ namespace presets
   *
   * A mask can be produced, for example, by threshold a 3D intensity image:
   *
-  * \snippet IntegrationTests/MaskRenderingStageIntegrationTest.cpp create_mask
+  * \snippet IntegrationTests/DRRMaskRenderingStageIntegrationTest.cpp create_mask
   *
   * The mask can then be attached to, for example, an already existing
   * \ref base::Geometry "geometry node":
   *
-  * \snippet IntegrationTests/MaskRenderingStageIntegrationTest.cpp attach_mask
+  * \snippet IntegrationTests/DRRMaskRenderingStageIntegrationTest.cpp attach_mask
   *
   * This will render an image similar to this:
   *

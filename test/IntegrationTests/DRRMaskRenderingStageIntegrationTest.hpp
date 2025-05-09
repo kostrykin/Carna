@@ -25,7 +25,7 @@ namespace testing
 
 
 // ----------------------------------------------------------------------------------
-// MaskRenderingStageIntegrationTest
+// DRRMaskRenderingStageIntegrationTest
 // ----------------------------------------------------------------------------------
 
 /** \brief
@@ -33,7 +33,7 @@ namespace testing
   *
   * \author Leonid Kostrykin
   */
-class MaskRenderingStageIntegrationTest : public QObject
+class DRRMaskRenderingStageIntegrationTest : public QObject
 {
 
     Q_OBJECT
@@ -80,7 +80,7 @@ private:
     
     presets::MaskRenderingStage* mr;
 
-}; // MaskRenderingStageIntegrationTest
+}; // DRRMaskRenderingStageIntegrationTest
 
 
 

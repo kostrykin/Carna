@@ -12,7 +12,7 @@
  * 
  */
 
-#include "MaskRenderingStageIntegrationTest.hpp"
+#include "DRRMaskRenderingStageIntegrationTest.hpp"
 #include <LibCarna/base/Node.hpp>
 #include <LibCarna/base/Color.hpp>
 #include <LibCarna/base/FrameRenderer.hpp>
@@ -20,30 +20,30 @@
 
 
 
-static const unsigned int MaskRenderingStageIntegrationTest_WIDTH  = 640;
-static const unsigned int MaskRenderingStageIntegrationTest_HEIGHT = 480;
+static const unsigned int DRRMaskRenderingStageIntegrationTest_WIDTH  = 640;
+static const unsigned int DRRMaskRenderingStageIntegrationTest_HEIGHT = 480;
 
 
 
 // ----------------------------------------------------------------------------------
-// MaskRenderingStageIntegrationTest
+// DRRMaskRenderingStageIntegrationTest
 // ----------------------------------------------------------------------------------
 
-void MaskRenderingStageIntegrationTest::initTestCase()
+void DRRMaskRenderingStageIntegrationTest::initTestCase()
 {
     qglContextHolder.reset( new QGLContextHolder() );
-    testFramebuffer.reset( new TestFramebuffer( qglContextHolder->glContext(), MaskRenderingStageIntegrationTest_WIDTH, MaskRenderingStageIntegrationTest_HEIGHT ) );
+    testFramebuffer.reset( new TestFramebuffer( qglContextHolder->glContext(), DRRMaskRenderingStageIntegrationTest_WIDTH, DRRMaskRenderingStageIntegrationTest_HEIGHT ) );
 }
 
 
-void MaskRenderingStageIntegrationTest::cleanupTestCase()
+void DRRMaskRenderingStageIntegrationTest::cleanupTestCase()
 {
     testFramebuffer.reset();
     qglContextHolder.reset();
 }
 
 
-void MaskRenderingStageIntegrationTest::init()
+void DRRMaskRenderingStageIntegrationTest::init()
 {
     presets::DRRStage* const drr = new presets::DRRStage( GEOMETRY_TYPE_VOLUMETRIC );
     drr->setSampleRate( 200 );
@@ -54,7 +54,7 @@ void MaskRenderingStageIntegrationTest::init()
     drr->setUpperMultiplier( 1.5f );
     drr->setRenderingInverse( false );
 
-    renderer.reset( new base::FrameRenderer( qglContextHolder->glContext(), MaskRenderingStageIntegrationTest_WIDTH, MaskRenderingStageIntegrationTest_HEIGHT, true ) );
+    renderer.reset( new base::FrameRenderer( qglContextHolder->glContext(), DRRMaskRenderingStageIntegrationTest_WIDTH, DRRMaskRenderingStageIntegrationTest_HEIGHT, true ) );
     renderer->setBackgroundColor( base::Color::BLACK_NO_ALPHA );
     renderer->appendStage( drr );
 
@@ -62,14 +62,14 @@ void MaskRenderingStageIntegrationTest::init()
 }
 
 
-void MaskRenderingStageIntegrationTest::cleanup()
+void DRRMaskRenderingStageIntegrationTest::cleanup()
 {
     scene.reset();
     renderer.reset();
 }
 
 
-void MaskRenderingStageIntegrationTest::test_shared_geometry_node()
+void DRRMaskRenderingStageIntegrationTest::test_shared_geometry_node()
 {
     base::Geometry& geometry = scene->volumeGeometry();
 
@@ -101,7 +101,7 @@ void MaskRenderingStageIntegrationTest::test_shared_geometry_node()
 }
 
 
-void MaskRenderingStageIntegrationTest::test_dedicated_geometry_node()
+void DRRMaskRenderingStageIntegrationTest::test_dedicated_geometry_node()
 {
     const static unsigned int GEOMETRY_TYPE_MASK = 4;
     mr = new presets::MaskRenderingStage( GEOMETRY_TYPE_MASK );
@@ -130,7 +130,7 @@ void MaskRenderingStageIntegrationTest::test_dedicated_geometry_node()
 }
 
 
-void MaskRenderingStageIntegrationTest::test_helper_geometry_node()
+void DRRMaskRenderingStageIntegrationTest::test_helper_geometry_node()
 {
     const TestScene& scene = *( this->scene );
     const base::math::Vector3f spacings = scene.getSpacings();
@@ -159,7 +159,7 @@ void MaskRenderingStageIntegrationTest::test_helper_geometry_node()
 }
 
 
-void MaskRenderingStageIntegrationTest::test_render_borders()
+void DRRMaskRenderingStageIntegrationTest::test_render_borders()
 {
     const TestScene& scene = *( this->scene );
     const base::math::Vector3f spacings = scene.getSpacings();
