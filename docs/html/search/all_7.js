@@ -1,7 +1,7 @@
 var searchData=
 [
   ['g_0',['g',['../structLibCarna_1_1base_1_1VertexColor.html#a8c8ada4c793b0dc5e336c7e55fa29c07',1,'LibCarna::base::VertexColor::g'],['../classLibCarna_1_1base_1_1Color.html#aeb606f9e12fff662bc7b7c5f4038827c',1,'LibCarna::base::Color::g']]],
-  ['geometry_1',['geometry',['../classLibCarna_1_1base_1_1Geometry.html',1,'LibCarna::base::Geometry'],['../classLibCarna_1_1base_1_1Geometry.html#a029e2d732bbcc89f722ea5bc03161175',1,'LibCarna::base::Geometry::Geometry()'],['../classLibCarna_1_1base_1_1Renderable.html#adb5e38b640cd941600ecc17072a53b52',1,'LibCarna::base::Renderable::geometry()']]],
+  ['geometry_1',['geometry',['../classLibCarna_1_1base_1_1Geometry.html',1,'LibCarna::base::Geometry'],['../classLibCarna_1_1base_1_1Renderable.html#adb5e38b640cd941600ecc17072a53b52',1,'LibCarna::base::Renderable::geometry()'],['../classLibCarna_1_1base_1_1Geometry.html#a029e2d732bbcc89f722ea5bc03161175',1,'LibCarna::base::Geometry::Geometry()']]],
   ['geometry_20features_2',['geometry features',['../index.html#GeometryFeatures',1,'Geometry Features'],['../index.html#GeometryFeatureLifecycle',1,'The Lifecycle of Geometry Features']]],
   ['geometry_20types_3',['Geometry Types',['../index.html#GeometryTypes',1,'']]],
   ['geometry_2ehpp_4',['Geometry.hpp',['../Geometry_8hpp.html',1,'']]],
