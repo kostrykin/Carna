@@ -47,7 +47,7 @@ void MeshColorCodingStageTest::initTestCase()
 
     //! [MeshColorCodingStage_instantiation]
     mccs = new presets::MeshColorCodingStage();
-    mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH );
+    mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH );
     renderer->appendStage( mccs );
     //! [MeshColorCodingStage_instantiation]
 
@@ -62,11 +62,11 @@ void MeshColorCodingStageTest::initTestCase()
     objRed   = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
     objGreen = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
 
-    objRed  ->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
-    objGreen->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
+    objRed  ->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH, boxMesh );
+    objGreen->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH, boxMesh );
 
-    objRed  ->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL,   redMaterial );
-    objGreen->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, greenMaterial );
+    objRed  ->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL,   redMaterial );
+    objGreen->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL, greenMaterial );
 
     boxMesh.release();
     redMaterial.release();

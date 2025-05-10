@@ -54,11 +54,11 @@ void TransparentRenderingStageTest::initTestCase()
     base::Geometry* const box1 = new base::Geometry( GEOMETRY_TYPE_TRANSPARENT );
     base::Geometry* const box2 = new base::Geometry( GEOMETRY_TYPE_TRANSPARENT );
 
-    box1->putFeature( presets::TransparentRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
-    box2->putFeature( presets::TransparentRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
+    box1->putFeature( presets::TransparentRenderingStage::DEFAULT_ROLE_MESH, boxMesh );
+    box2->putFeature( presets::TransparentRenderingStage::DEFAULT_ROLE_MESH, boxMesh );
 
-    box1->putFeature( presets::TransparentRenderingStage::ROLE_DEFAULT_MATERIAL,   redMaterial );
-    box2->putFeature( presets::TransparentRenderingStage::ROLE_DEFAULT_MATERIAL, greenMaterial );
+    box1->putFeature( presets::TransparentRenderingStage::DEFAULT_ROLE_MATERIAL,   redMaterial );
+    box2->putFeature( presets::TransparentRenderingStage::DEFAULT_ROLE_MATERIAL, greenMaterial );
 
     boxMesh.release();
     redMaterial.release();

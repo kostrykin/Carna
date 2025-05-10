@@ -60,7 +60,7 @@ namespace presets
   *
   * \author Leonid Kostrykin
   */
-typedef base::MeshRenderingStage< base::Renderable::VideoResourcesOrder< base::MeshRenderingMixin::ROLE_DEFAULT_MATERIAL > >
+typedef base::MeshRenderingStage< base::Renderable::VideoResourcesOrder< base::MeshRenderingMixin::DEFAULT_ROLE_MATERIAL > >
     OpaqueRenderingStage;
 
 

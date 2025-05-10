@@ -171,8 +171,8 @@ void FrameRendererHelper< RenderStageOrder >::commit( bool clear )
         base::MeshRenderingMixin* const meshRenderer = dynamic_cast< base::MeshRenderingMixin* >( rs );
         if( meshRenderer != nullptr && mccs != nullptr )
         {
-            mccs->putGeometryType( meshRenderer->geometryType, meshRenderer->ROLE_DEFAULT_MESH );
-            mccs->enableMaterials( meshRenderer->geometryType, meshRenderer->ROLE_DEFAULT_MATERIAL );
+            mccs->putGeometryType( meshRenderer->geometryType, meshRenderer->DEFAULT_ROLE_MESH );
+            mccs->enableMaterials( meshRenderer->geometryType, meshRenderer->DEFAULT_ROLE_MATERIAL );
             ++registeredMeshColorCodingStages;
         }
         if( meshRenderer != nullptr && occluded != nullptr )

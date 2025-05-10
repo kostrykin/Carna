@@ -47,8 +47,8 @@ void ParallaxStageIntegrationTest::initTestCase()
     material.setParameter( "color", base::Color::RED );
     
     base::Geometry* const box = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
-    box->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
-    box->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, material );
+    box->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH, boxMesh );
+    box->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL, material );
     scene->root->attachChild( box );
 
     boxMesh.release();

@@ -122,13 +122,13 @@ void FrameRendererIntegrationTest::test_typical()
     lineMaterial.setParameter( "color", base::Color::RED );
     lineMaterial.setLineWidth( 5 );
     base::Geometry* const boxGeometry = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
-    boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
-    boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
+    boxGeometry->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL, boxMaterial );
+    boxGeometry->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH, boxMesh );
     boxGeometry->localTransform = base::math::translation4f( 0, -15, 0 );
     root.attachChild( boxGeometry );
     base::Geometry* const lineGeometry = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
-    lineGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, lineMaterial );
-    lineGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, lineMesh );
+    lineGeometry->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL, lineMaterial );
+    lineGeometry->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH, lineMesh );
     lineGeometry->localTransform = boxGeometry->localTransform * base::math::scaling4f( 100 );
     lineGeometry->localTransform = base::math::scaling4f( 100 );
     root.attachChild( lineGeometry );
@@ -211,8 +211,8 @@ void FrameRendererIntegrationTest::test_8bit()
     base::Material& boxMaterial = base::Material::create( "solid" );
     boxMaterial.setParameter( "color", base::Color::GREEN );
     base::Geometry* const boxGeometry = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
-    boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
-    boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
+    boxGeometry->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL, boxMaterial );
+    boxGeometry->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH, boxMesh );
     boxGeometry->localTransform = base::math::translation4f( 0, -15, 0 );
     root.attachChild( boxGeometry );
 

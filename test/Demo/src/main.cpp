@@ -215,8 +215,8 @@ void Demo::initializeGL()
     base::Material& boxMaterial = base::Material::create( "unshaded" );
     boxMaterial.setParameter( "color", base::math::Vector4f( 1, 0, 0, 1 ) );
     base::Geometry* const boxGeometry = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
-    boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
-    boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
+    boxGeometry->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL, boxMaterial );
+    boxGeometry->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH, boxMesh );
     boxGeometry->localTransform = base::math::translation4f( 0, 30, 50 );
 
     gridHelper->releaseGeometryFeatures();
@@ -247,7 +247,7 @@ void Demo::resizeGL( int w, int h )
         /* Picking
          */
         mccs = new presets::MeshColorCodingStage();
-        mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH );
+        mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH );
         renderer->appendStage( mccs );
 
 #if 0

@@ -92,8 +92,8 @@ base::Geometry* PointMarkerHelper::Details::createGeometry( unsigned int geometr
 PointMarkerHelper::PointMarkerHelper( unsigned int geometryType, unsigned int pointSize )
     : pimpl( new Details() )
     , geometryType( geometryType )
-    , meshRole( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH )
-    , materialRole( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL )
+    , meshRole( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH )
+    , materialRole( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL )
     , pointSize( pointSize )
 {
 }

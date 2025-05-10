@@ -68,13 +68,13 @@ public:
       * Identifies the \ref Mesh object that \ref MeshRenderingStage uses for
       * rendering.
       */
-    const static unsigned int ROLE_DEFAULT_MESH = 0;
+    const static unsigned int DEFAULT_ROLE_MESH = 0;
     
     /** \brief
       * Identifies the \ref Material object that \ref MeshRenderingStage uses for
       * rendering.
       */
-    const static unsigned int ROLE_DEFAULT_MATERIAL = 1;
+    const static unsigned int DEFAULT_ROLE_MATERIAL = 1;
 
     /** \brief
       * Holds the \ref QuickStart_FrameRenderer "geometry type" rendered by this
@@ -101,8 +101,8 @@ public:
   * An instance of this rendering stage expects two features from the \ref Geometry
   * objects it processes:
   *
-  * - \ref ROLE_DEFAULT_MESH must be a \ref Mesh object.
-  * - \ref ROLE_DEFAULT_MATERIAL must be a \ref Material object.
+  * - \ref DEFAULT_ROLE_MESH must be a \ref Mesh object.
+  * - \ref DEFAULT_ROLE_MATERIAL must be a \ref Material object.
   *
   * \author Leonid Kostrykin
   */
@@ -154,7 +154,7 @@ template< typename RenderableCompare >
 void MeshRenderingStage< RenderableCompare >::render( const Renderable& renderable )
 {
     RenderState rs;
-    const Material& material = static_cast< Material& >( renderable.geometry().feature( ROLE_DEFAULT_MATERIAL ) );
+    const Material& material = static_cast< Material& >( renderable.geometry().feature( DEFAULT_ROLE_MATERIAL ) );
     this->videoResource( material ).activate( rs );
 
     ShaderUniform< math::Matrix4f >( "modelView", renderable.modelViewTransform() ).upload();
@@ -162,7 +162,7 @@ void MeshRenderingStage< RenderableCompare >::render( const Renderable& renderab
     ShaderUniform< math::Matrix4f >( "modelViewProjection", renderTask->projection * renderable.modelViewTransform() ).upload();
     ShaderUniform< math::Matrix4f >( "normalsView", renderable.viewModelTransform().transpose() ).upload();
 
-    const ManagedMeshBase& mesh = static_cast< ManagedMeshBase& >( renderable.geometry().feature( ROLE_DEFAULT_MESH ) );
+    const ManagedMeshBase& mesh = static_cast< ManagedMeshBase& >( renderable.geometry().feature( DEFAULT_ROLE_MESH ) );
     this->videoResource( mesh ).get().render();
 }
 
