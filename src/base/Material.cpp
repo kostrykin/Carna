@@ -35,7 +35,17 @@ struct Material::Details
 
     std::map< std::string, ShaderUniformBase* > uniforms;
 
+    float lineWidth;
+
+    Details();
+
 }; // Material :: Details
+
+
+Material::Details::Details()
+    : lineWidth( 1.0f )
+{
+}
 
 
 
@@ -88,6 +98,10 @@ void Material::ManagedInterface::activate( RenderState& rs ) const
     {
         uniformItr->second->upload();
     }
+
+    /* Update render states.
+     */
+    rs.setLineWidth( material.pimpl->lineWidth );
 }
 
 
@@ -175,6 +189,18 @@ const ShaderUniformBase& Material::parameter( const std::string& name ) const
     const auto uniformItr = pimpl->uniforms.find( name );
     LIBCARNA_ASSERT( uniformItr != pimpl->uniforms.end() );
     return *uniformItr->second;
+}
+
+
+float Material::lineWidth() const
+{
+    return pimpl->lineWidth;
+}
+
+
+void Material::setLineWidth( float lineWidth )
+{
+    pimpl->lineWidth = lineWidth;
 }
 
 

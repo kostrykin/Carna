@@ -50,6 +50,7 @@ struct RenderState::Details
     CullFace cullFace;
     bool     frontFaceCCW;
     float    pointSize;
+    float    lineWidth;
 
 }; // RenderState :: Details
 
@@ -109,6 +110,7 @@ RenderState::RenderState()
     pimpl->cullFace                       = parent.pimpl->cullFace;
     pimpl->frontFaceCCW                   = parent.pimpl->frontFaceCCW;
     pimpl->pointSize                      = parent.pimpl->pointSize;
+    pimpl->lineWidth                      = parent.pimpl->lineWidth;
 }
 
 
@@ -127,6 +129,7 @@ RenderState::~RenderState()
         setCullFace( parent.cullFace );
         setFrontFace( parent.frontFaceCCW );
         setPointSize( parent.pointSize );
+        setLineWidth( parent.lineWidth );
 
         pimpl->glc->popRenderState();
     }
@@ -144,6 +147,7 @@ void RenderState::commit() const
     commitCullFace();
     commitFrontFace();
     commitPointSize();
+    commitLineWidth();
 }
 
 
@@ -247,6 +251,17 @@ void RenderState::setPointSize( float pointSize )
 }
 
 
+void RenderState::setLineWidth( float lineWidth )
+{
+    Details::assertCurrent( this );
+    if( lineWidth > 0 && !base::math::isEqual( lineWidth, pimpl->lineWidth ) )
+    {
+        pimpl->lineWidth = lineWidth;
+        commitLineWidth();
+    }
+}
+
+
 void RenderState::commitDepthTest() const
 {
     if( pimpl->depthTest )
@@ -337,6 +352,12 @@ void RenderState::commitPointSize() const
         glDisable( GL_PROGRAM_POINT_SIZE );
         glPointSize( pimpl->pointSize );
     }
+}
+
+
+void RenderState::commitLineWidth() const
+{
+    glLineWidth( pimpl->lineWidth );
 }
 
 

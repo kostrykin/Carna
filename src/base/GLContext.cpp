@@ -94,6 +94,10 @@ GLContext::GLContext( bool isDoubleBuffered )
      */
     defaultRenderState.setPointSize( -1 );
 
+    /* Set default line width.
+     */
+    defaultRenderState.setLineWidth( 1.f );
+
     /* Set default render state.
      */
     defaultRenderState.commit();

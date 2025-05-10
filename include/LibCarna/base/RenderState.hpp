@@ -192,11 +192,15 @@ public:
     void setFrontFace( bool ccw );
     
     /** \brief
-      * Sets `glPointSize` to \a pointSize if \a point size is non-negative. Enables
-      * `GL_PROGRAM_POINT_SIZE` and leaves `glPointSize` unchanged otherwise. This
-      * enables support for `gl_PointSize` in shaders.
+      * Sets `glPointSize` to \a pointSize if \a point size is non-negative. Enables `GL_PROGRAM_POINT_SIZE` and leaves
+      * `glPointSize` unchanged otherwise. This enables support for `gl_PointSize` in shaders.
       */
     void setPointSize( float pointSize );
+
+    /** \brief
+      * Sets `glLineWidth` to \a lineWidth if \a lineWidth is positive.
+      */
+    void setLineWidth( float lineWidth );
 
 private:
 
@@ -217,6 +221,8 @@ private:
     void commitFrontFace() const;
     
     void commitPointSize() const;
+
+    void commitLineWidth() const;
 
 }; // RenderState
 

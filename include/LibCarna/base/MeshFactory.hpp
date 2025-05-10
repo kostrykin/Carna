@@ -87,6 +87,11 @@ public:
     static ManagedMesh< VertexType, uint8_t >& createPoint();
 
     /** \brief
+      * Creates a line strip.
+      */
+    static ManagedMesh< VertexType, uint16_t >& createLineStrip( const std::vector< math::Vector3f >& points );
+
+    /** \brief
       * Creates mesh from an STL file.
       *
       * \author Tim Schroeder
@@ -266,6 +271,7 @@ ManagedMesh< VertexType, uint8_t >& MeshFactory< VertexType >::createPoint()
     return MeshInstance::create( IndexBufferBase::PRIMITIVE_TYPE_POINTS, &vertex, 1, &index, 1 );
 }
 
+
 template< typename VertexType >
 inline ManagedMesh< VertexType, uint32_t >& MeshFactory< VertexType >::createFromSTL(const std::string& path)
 {
@@ -359,6 +365,36 @@ ManagedMesh< VertexType, uint32_t >& MeshFactory< VertexType >::createFromSTL( s
         (IndexBufferBase::PRIMITIVE_TYPE_TRIANGLES
         , vertices.get(), verticesItCount
         , indices.get(), indicesCount);
+}
+
+
+template< typename VertexType >
+ManagedMesh< VertexType, uint16_t >& MeshFactory< VertexType >::createLineStrip( const std::vector< math::Vector3f >& points )
+{
+    LIBCARNA_ASSERT( points.size() >= 2 );
+
+    typedef ManagedMesh< VertexType, uint16_t > MeshInstance;
+    typedef typename MeshInstance::Vertex Vertex;
+    typedef typename MeshInstance:: Index  Index;
+    Vertex vertices[ points.size() ];
+    Index   indices[ points.size() ];
+
+    int lastVertex = -1;
+    int lastIndex  = -1;
+
+    /* Create vertices and indices.
+     */
+    for( unsigned int pointIndex = 0; pointIndex < points.size(); ++pointIndex )
+    {
+        const auto pos = points[ pointIndex ];
+        vertices[ pointIndex ] = vertex< math::Vector4f >( math::Vector4f( pos.x(), pos.y(), pos.z(), 1 ) );
+        indices [ pointIndex ] = pointIndex;
+    }
+
+    return MeshInstance::create
+        ( IndexBufferBase::PRIMITIVE_TYPE_LINE_STRIP
+        , vertices, points.size()
+        ,  indices, points.size() );
 }
 
 

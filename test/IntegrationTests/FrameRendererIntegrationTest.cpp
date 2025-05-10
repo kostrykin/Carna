@@ -108,13 +108,30 @@ void FrameRendererIntegrationTest::test_typical()
     /* Configure opaque geometries.
      */
     base::ManagedMeshBase& boxMesh = base::MeshFactory< base::PNVertex >::createBox( 40, 40, 40 );
+    base::ManagedMeshBase& lineMesh = base::MeshFactory< base::PVertex >::createLineStrip(
+        {
+            base::math::Vector3f(  0, -1, +1 ),
+            base::math::Vector3f( -1,  0, +1 ),
+            base::math::Vector3f( +1,  0, -1 ),
+            base::math::Vector3f(  0,  1, -1 ),
+        }
+    );
     base::Material& boxMaterial = base::Material::create( "solid" );
     boxMaterial.setParameter( "color", base::Color::GREEN );
+    base::Material& lineMaterial = base::Material::create( "unshaded" );
+    lineMaterial.setParameter( "color", base::Color::RED );
+    lineMaterial.setLineWidth( 5 );
     base::Geometry* const boxGeometry = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
     boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
     boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
     boxGeometry->localTransform = base::math::translation4f( 0, -15, 0 );
     root.attachChild( boxGeometry );
+    base::Geometry* const lineGeometry = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
+    lineGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, lineMaterial );
+    lineGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, lineMesh );
+    lineGeometry->localTransform = boxGeometry->localTransform * base::math::scaling4f( 100 );
+    lineGeometry->localTransform = base::math::scaling4f( 100 );
+    root.attachChild( lineGeometry );
 
     /* Release geometry features.
      */

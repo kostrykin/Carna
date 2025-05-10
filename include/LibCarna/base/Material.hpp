@@ -238,6 +238,10 @@ public:
       */
     const ShaderUniformBase& parameter( const std::string& name ) const;
 
+    float lineWidth() const;
+
+    void setLineWidth( float lineWidth );
+
     /** \brief
       * Instantiates. Call \ref release when you do not need the object any longer.
       */
