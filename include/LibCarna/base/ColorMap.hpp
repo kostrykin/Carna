@@ -56,9 +56,9 @@ public:
       */
     const static unsigned int DEFAULT_RESOLUTION = ( 1 << 16 );
 
-    const static float DEFAULT_MINIMUM_INTENSITY;
+    const static float DEFAULT_MINIMUM_INTENSITY; ///< Holds the default value for \ref minimumIntensity.
 
-    const static float DEFAULT_MAXIMUM_INTENSITY;
+    const static float DEFAULT_MAXIMUM_INTENSITY; ///< Holds the default value for \ref maximumIntensity.
 
     /** \brief
       * Instantiates.

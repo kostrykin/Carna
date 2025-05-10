@@ -65,7 +65,7 @@ public:
 
     const static base::Color  DEFAULT_COLOR;      ///< Holds the default rendering color.
     const static unsigned int DEFAULT_ROLE_MASK;  ///< Holds the default value of \ref maskRole.
-    const static bool         DEFAULT_FILLING;    ///< Holds the default value of \ref filling.
+    const static bool         DEFAULT_FILLING;    ///< Holds the default value of \ref isFilling.
 
     /** \brief
       * Holds the \ref GeometryFeatures "role" that mask volume data is expected to

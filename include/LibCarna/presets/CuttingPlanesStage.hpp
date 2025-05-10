@@ -77,9 +77,9 @@ public:
       */
     const static unsigned int ROLE_INTENSITIES;
 
-    const unsigned int volumeGeometryType;
+    const unsigned int volumeGeometryType; ///< Renders such volume geometries whose type equals this.
     
-    const unsigned int planeGeometryType;
+    const unsigned int planeGeometryType; ///< Renders such plane geometries whose type equals this.
 
     /** \brief
       * Instantiates.

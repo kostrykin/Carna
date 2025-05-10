@@ -103,8 +103,8 @@ public:
   * }; // MyCopyableClass
   * \endcode
   *
-  * This example also shows why the macro variant is to be preferred in place of the \ref noncopyable super-class: In
-  * case some derivation becomes copyable, the \em "is" semantics stay valid.
+  * This example also shows why the macro variant is to be preferred in place of the \ref LibCarna::base::noncopyable
+  * base class: In case some derivation becomes copyable, the \em "is" semantics stay valid.
   */
 #define NON_COPYABLE private: ::LibCarna::base::noncopyable __noncopyable;
 
