@@ -59,7 +59,7 @@ void LibCarnaException::Details::reportException( LibCarnaException* self )
     {
         msg << self->details;
     }
-    Log::instance().record( Log::fatal, msg.str() );
+    Log::instance().record( Log::error, msg.str() );
 }
 
 

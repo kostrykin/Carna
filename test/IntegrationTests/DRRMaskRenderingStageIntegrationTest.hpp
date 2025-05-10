@@ -67,6 +67,8 @@ private slots:
 
     void test_render_borders();
 
+    void test_wrong_mask_role();
+
  // ---------------------------------------------------------------------------------
 
 private:

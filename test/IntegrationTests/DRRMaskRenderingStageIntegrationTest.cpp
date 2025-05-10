@@ -187,3 +187,35 @@ void DRRMaskRenderingStageIntegrationTest::test_render_borders()
     renderer->render( scene.cam(), *scene.root );
     VERIFY_FRAMEBUFFER( *testFramebuffer );
 }
+
+
+void DRRMaskRenderingStageIntegrationTest::test_wrong_mask_role()
+{
+    const TestScene& scene = *( this->scene );
+    const base::math::Vector3f spacings = scene.getSpacings();
+
+    const static unsigned int GEOMETRY_TYPE_MASK = 4;
+    mr = new presets::MaskRenderingStage( GEOMETRY_TYPE_MASK, 100 ); // <-- role is 100
+    mr->setFilling( false );
+    renderer->appendStage( mr );
+
+    /* Perform global thresholding and configure geometry node for the mask data.
+     */
+    typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt8 > UInt8GridHelper;
+    UInt8GridHelper gridHelper( scene.volume().size );
+    gridHelper.setIntensitiesRole( 0 ); // <-- role is 0
+    gridHelper.loadIntensities( [&scene]( const base::math::Vector3ui& voxel )
+        {
+            const base::HUV huv = base::HUV( scene.volume()( voxel ) );
+            return huv >= -400 ? 1.f : 0.f;
+        }
+    );
+    base::Node* const geometry = gridHelper.createNode( GEOMETRY_TYPE_MASK, UInt8GridHelper::Spacing( spacings ) );
+    scene.root->attachChild( geometry );
+    gridHelper.releaseGeometryFeatures();
+
+    QVERIFY_EXCEPTION_THROWN(
+        renderer->render( scene.cam(), *scene.root ),
+        base::AssertionFailure
+    );
+}

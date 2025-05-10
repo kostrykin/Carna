@@ -240,6 +240,12 @@ void DVRStage::configureShader()
 
 void DVRStage::configureShader( const base::Renderable& renderable )
 {
+    /* Verify that the renderable has the required features.
+     */
+    LIBCARNA_ASSERT( renderable.geometry().hasFeature( ROLE_INTENSITIES ) );
+
+    /* Configure the shader for lighting.
+     */
     if( renderable.geometry().hasFeature( ROLE_NORMALS ) )
     {
         /* Compute the matrix that transforms the normals to view space.

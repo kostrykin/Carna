@@ -285,8 +285,9 @@ void DRRStage::configureShader()
 }
 
 
-void DRRStage::configureShader( const base::Renderable& )
+void DRRStage::configureShader( const base::Renderable& renderable )
 {
+    LIBCARNA_ASSERT( renderable.geometry().hasFeature( ROLE_INTENSITIES ) );
 }
 
 

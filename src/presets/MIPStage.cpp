@@ -189,8 +189,9 @@ void MIPStage::configureShader()
 }
 
 
-void MIPStage::configureShader( const base::Renderable& )
+void MIPStage::configureShader( const base::Renderable& renderable )
 {
+    LIBCARNA_ASSERT( renderable.geometry().hasFeature( ROLE_INTENSITIES ) );
 }
 
 

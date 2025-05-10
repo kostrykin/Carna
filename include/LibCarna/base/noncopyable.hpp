@@ -32,10 +32,10 @@ namespace base
 // noncopyable
 // ----------------------------------------------------------------------------------
 
-/** \brief  Objects from classes inheriting this cannot be copied.
+/** \brief
+  * Objects from classes inheriting this cannot be copied.
   *
-  * In application, \ref NON_COPYABLE is to be preferred.
-  * See documentation for reasons.
+  * In application, \ref NON_COPYABLE is to be preferred. See documentation for reasons.
   *
   * Inspired by boost::noncopyable.
   *
@@ -72,7 +72,8 @@ public:
 
 
 
-/** \brief  Features class it is placed in as non-copyable.
+/** \brief
+  * Marks the class that it is placed in as non-copyable.
   *
   * Example:
   *
@@ -102,9 +103,8 @@ public:
   * }; // MyCopyableClass
   * \endcode
   *
-  * This example also shows why the macro variant is to be preferred in place of the
-  * \ref LibCarna::base::noncopyable "noncopyable" super-class: In case some derivation
-  * becomes copyable, the \em "is" semantics stay valid.
+  * This example also shows why the macro variant is to be preferred in place of the \ref noncopyable super-class: In
+  * case some derivation becomes copyable, the \em "is" semantics stay valid.
   */
 #define NON_COPYABLE private: ::LibCarna::base::noncopyable __noncopyable;
 
