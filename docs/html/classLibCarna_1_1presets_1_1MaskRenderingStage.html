@@ -261,7 +261,7 @@ Static Public Attributes</h2></td></tr>
 <tr class="memdesc:a231a201821e8cf2e241d570a9f89a9da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the default value of <a class="el" href="classLibCarna_1_1presets_1_1MaskRenderingStage.html#ab1e17930941901bfb8f0933ac541cb0c">maskRole</a>.  <br /></td></tr>
 <tr class="separator:a231a201821e8cf2e241d570a9f89a9da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5fde5a2dcbaa38e600fbb8a49ed0ec3" id="r_aa5fde5a2dcbaa38e600fbb8a49ed0ec3"><td class="memItemLeft" align="right" valign="top">static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1presets_1_1MaskRenderingStage.html#aa5fde5a2dcbaa38e600fbb8a49ed0ec3">DEFAULT_FILLING</a></td></tr>
-<tr class="memdesc:aa5fde5a2dcbaa38e600fbb8a49ed0ec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the default value of filling.  <br /></td></tr>
+<tr class="memdesc:aa5fde5a2dcbaa38e600fbb8a49ed0ec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the default value of <a class="el" href="classLibCarna_1_1presets_1_1MaskRenderingStage.html#acb82f59780c77dca745c7d67c2066be0">isFilling</a>.  <br /></td></tr>
 <tr class="separator:aa5fde5a2dcbaa38e600fbb8a49ed0ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_attribs_classLibCarna_1_1presets_1_1VolumeRenderingStage"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classLibCarna_1_1presets_1_1VolumeRenderingStage')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="classLibCarna_1_1presets_1_1VolumeRenderingStage.html">LibCarna::presets::VolumeRenderingStage</a></td></tr>
 <tr class="memitem:a1ac69633c9ca2a1b0411b8d9d87db67d inherit pub_static_attribs_classLibCarna_1_1presets_1_1VolumeRenderingStage" id="r_a1ac69633c9ca2a1b0411b8d9d87db67d"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLibCarna_1_1presets_1_1VolumeRenderingStage.html#a1ac69633c9ca2a1b0411b8d9d87db67d">DEFAULT_SAMPLE_RATE</a> = 200</td></tr>
@@ -320,7 +320,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="line">    <a class="code hl_function" href="classLibCarna_1_1base_1_1RenderStage.html#a891ebd42ca7f81083db9708ab089966c">renderer</a>-&gt;<a class="code hl_function" href="classLibCarna_1_1base_1_1RenderStageSequence.html#a7073abdc923b16f49ab0266a029714fb">appendStage</a>( mr );</div>
 <div class="ttc" id="aclassLibCarna_1_1base_1_1RenderStageSequence_html_a7073abdc923b16f49ab0266a029714fb"><div class="ttname"><a href="classLibCarna_1_1base_1_1RenderStageSequence.html#a7073abdc923b16f49ab0266a029714fb">LibCarna::base::RenderStageSequence::appendStage</a></div><div class="ttdeci">void appendStage(RenderStage *stage)</div><div class="ttdoc">Appends stage to the rendering stages sequence.</div></div>
 <div class="ttc" id="aclassLibCarna_1_1base_1_1RenderStage_html_a891ebd42ca7f81083db9708ab089966c"><div class="ttname"><a href="classLibCarna_1_1base_1_1RenderStage.html#a891ebd42ca7f81083db9708ab089966c">LibCarna::base::RenderStage::renderer</a></div><div class="ttdeci">base::FrameRenderer &amp; renderer()</div><div class="ttdoc">References the renderer this stage belongs to.</div></div>
-<div class="ttc" id="aclassLibCarna_1_1presets_1_1MaskRenderingStage_html"><div class="ttname"><a href="classLibCarna_1_1presets_1_1MaskRenderingStage.html">LibCarna::presets::MaskRenderingStage</a></div><div class="ttdoc">Renders 3D masks.</div><div class="ttdef"><b>Definition</b> <a href="MaskRenderingStage_8hpp_source.html#l00067">MaskRenderingStage.hpp:68</a></div></div>
+<div class="ttc" id="aclassLibCarna_1_1presets_1_1MaskRenderingStage_html"><div class="ttname"><a href="classLibCarna_1_1presets_1_1MaskRenderingStage.html">LibCarna::presets::MaskRenderingStage</a></div><div class="ttdoc">Renders 3D masks.</div><div class="ttdef"><b>Definition</b> <a href="MaskRenderingStage_8hpp_source.html#l00058">MaskRenderingStage.hpp:59</a></div></div>
 </div><!-- fragment --><p>The concept of geometry types is explained <a class="el" href="index.html#GeometryTypes">here</a>.</p>
 <dl class="section note"><dt>Note</dt><dd>In the <a class="el" href="classLibCarna_1_1base_1_1FrameRenderer.html#RenderingProcess">rendering process</a> this stage will usually be inserted as the last stage.</dd></dl>
 <p>A mask can be produced, for example, by threshold a 3D intensity image:</p>
@@ -344,7 +344,7 @@ Additional Inherited Members</h2></td></tr>
 exemplary rendering from code above</div></div>
 <dl class="section author"><dt>Author</dt><dd>Leonid Kostrykin </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="MaskRenderingStage_8hpp_source.html#l00067">67</a> of file <a class="el" href="MaskRenderingStage_8hpp_source.html">MaskRenderingStage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MaskRenderingStage_8hpp_source.html#l00058">58</a> of file <a class="el" href="MaskRenderingStage_8hpp_source.html">MaskRenderingStage.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8ca3e0cdd81ba8d812436abaeb46b867" name="a8ca3e0cdd81ba8d812436abaeb46b867"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8ca3e0cdd81ba8d812436abaeb46b867">&#9670;&#160;</a></span>MaskRenderingStage()</h2>
@@ -688,7 +688,7 @@ exemplary rendering from code above</div></div>
 
 <p>Holds the default rendering color. </p>
 
-<p class="definition">Definition at line <a class="el" href="MaskRenderingStage_8hpp_source.html#l00075">75</a> of file <a class="el" href="MaskRenderingStage_8hpp_source.html">MaskRenderingStage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MaskRenderingStage_8hpp_source.html#l00066">66</a> of file <a class="el" href="MaskRenderingStage_8hpp_source.html">MaskRenderingStage.hpp</a>.</p>
 
 </div>
 </div>
@@ -712,9 +712,9 @@ exemplary rendering from code above</div></div>
 </table>
 </div><div class="memdoc">
 
-<p>Holds the default value of filling. </p>
+<p>Holds the default value of <a class="el" href="classLibCarna_1_1presets_1_1MaskRenderingStage.html#acb82f59780c77dca745c7d67c2066be0">isFilling</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="MaskRenderingStage_8hpp_source.html#l00077">77</a> of file <a class="el" href="MaskRenderingStage_8hpp_source.html">MaskRenderingStage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MaskRenderingStage_8hpp_source.html#l00068">68</a> of file <a class="el" href="MaskRenderingStage_8hpp_source.html">MaskRenderingStage.hpp</a>.</p>
 
 </div>
 </div>
@@ -740,7 +740,7 @@ exemplary rendering from code above</div></div>
 
 <p>Holds the default value of <a class="el" href="classLibCarna_1_1presets_1_1MaskRenderingStage.html#ab1e17930941901bfb8f0933ac541cb0c">maskRole</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="MaskRenderingStage_8hpp_source.html#l00076">76</a> of file <a class="el" href="MaskRenderingStage_8hpp_source.html">MaskRenderingStage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MaskRenderingStage_8hpp_source.html#l00067">67</a> of file <a class="el" href="MaskRenderingStage_8hpp_source.html">MaskRenderingStage.hpp</a>.</p>
 
 </div>
 </div>
@@ -758,7 +758,7 @@ exemplary rendering from code above</div></div>
 
 <p>Holds the <a class="el" href="index.html#GeometryFeatures">role</a> that mask volume data is expected to take when attached to <a class="el" href="classLibCarna_1_1base_1_1Geometry.html">base::Geometry</a> nodes. </p>
 
-<p class="definition">Definition at line <a class="el" href="MaskRenderingStage_8hpp_source.html#l00083">83</a> of file <a class="el" href="MaskRenderingStage_8hpp_source.html">MaskRenderingStage.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="MaskRenderingStage_8hpp_source.html#l00074">74</a> of file <a class="el" href="MaskRenderingStage_8hpp_source.html">MaskRenderingStage.hpp</a>.</p>
 
 </div>
 </div>
