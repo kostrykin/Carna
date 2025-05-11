@@ -58,4 +58,4 @@ See *test_cmake/CMakeLists.txt* as a starting point.
 ---
 ## 4. See also
 
-* [libcarna-python](https://github.com/kostrykin/libcarna-python) provides Python bindings.
+* [LibCarna-Python](https://github.com/kostrykin/LibCarna-Python) provides Python bindings.
