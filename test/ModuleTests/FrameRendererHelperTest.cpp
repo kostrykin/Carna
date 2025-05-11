@@ -1,23 +1,26 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include "FrameRendererHelperTest.h"
-#include <Carna/presets/OpaqueRenderingStage.h>
-#include <Carna/presets/TransparentRenderingStage.h>
-#include <Carna/presets/CuttingPlanesStage.h>
-#include <Carna/presets/DRRStage.h>
-#include <Carna/presets/OccludedRenderingStage.h>
-#include <Carna/presets/MeshColorCodingStage.h>
-#include <Carna/presets/ParallaxStage.h>
-#include <Carna/helpers/FrameRendererHelper.h>
+#include "FrameRendererHelperTest.hpp"
+#include <LibCarna/presets/OpaqueRenderingStage.hpp>
+#include <LibCarna/presets/TransparentRenderingStage.hpp>
+#include <LibCarna/presets/CuttingPlanesStage.hpp>
+#include <LibCarna/presets/DRRStage.hpp>
+#include <LibCarna/presets/OccludedRenderingStage.hpp>
+#include <LibCarna/presets/MeshColorCodingStage.hpp>
+#include <LibCarna/presets/ParallaxStage.hpp>
+#include <LibCarna/helpers/FrameRendererHelper.hpp>
 
 
 

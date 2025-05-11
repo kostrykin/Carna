@@ -1,26 +1,29 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/glError.h>
-#include <Carna/base/GLContext.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/CarnaException.h>
-#include <Carna/base/Texture.h>
-#include <Carna/base/text.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/glError.hpp>
+#include <LibCarna/base/GLContext.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
+#include <LibCarna/base/Texture.hpp>
+#include <LibCarna/base/text.hpp>
 #include <stdexcept>
 #include <sstream>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -146,7 +149,7 @@ Framebuffer::MinimalBinding& Framebuffer::BindingStack::top()
 {
     const auto& bindings = current()->second->bindings;
 
-    CARNA_ASSERT( !bindings.empty() );
+    LIBCARNA_ASSERT( !bindings.empty() );
 
     return *bindings.top();
 }
@@ -157,7 +160,7 @@ void Framebuffer::BindingStack::pop()
     const auto it = current();
     auto& bindings = it->second->bindings;
 
-    CARNA_ASSERT( !bindings.empty() );
+    LIBCARNA_ASSERT( !bindings.empty() );
 
     bindings.pop();
 
@@ -258,8 +261,8 @@ void Framebuffer::resize( const math::Vector2ui& size )
 
 void Framebuffer::resize( unsigned int w, unsigned int h )
 {
-    CARNA_ASSERT_EX( w > 0, "Framebuffer width must be positive!" );
-    CARNA_ASSERT_EX( h > 0, "Framebuffer height must be positive!" );
+    LIBCARNA_ASSERT_EX( w > 0, "Framebuffer width must be positive!" );
+    LIBCARNA_ASSERT_EX( h > 0, "Framebuffer height must be positive!" );
 
     /* Update the size.
      */
@@ -424,8 +427,8 @@ void Framebuffer::MinimalBinding::bindFBO() const
 
 void Framebuffer::MinimalBinding::setColorComponent( Texture< 2 >& renderTexture, unsigned int location )
 {
-    CARNA_ASSERT( &BindingStack::top() == this );
-    CARNA_ASSERT( location < MAXIMUM_ALLOWED_COLOR_COMPONENTS );
+    LIBCARNA_ASSERT( &BindingStack::top() == this );
+    LIBCARNA_ASSERT( location < MAXIMUM_ALLOWED_COLOR_COMPONENTS );
 
     /* Denote that 'renderTexture' is a color attachment now.
      */
@@ -455,7 +458,7 @@ void Framebuffer::MinimalBinding::setColorComponent( Texture< 2 >& renderTexture
 
 void Framebuffer::MinimalBinding::removeColorComponent( unsigned int location )
 {
-    CARNA_ASSERT( &BindingStack::top() == this );
+    LIBCARNA_ASSERT( &BindingStack::top() == this );
     const auto itr = fbo.boundColorBuffers.find( location );
     if( itr != fbo.boundColorBuffers.end() )
     {
@@ -487,8 +490,8 @@ const Framebuffer& Framebuffer::MinimalBinding::framebuffer() const
 
 Color Framebuffer::MinimalBinding::readPixel( unsigned int x, unsigned int y, unsigned int location ) const
 {
-    CARNA_ASSERT( &BindingStack::top() == this );
-    CARNA_ASSERT( location < MAXIMUM_ALLOWED_COLOR_COMPONENTS );
+    LIBCARNA_ASSERT( &BindingStack::top() == this );
+    LIBCARNA_ASSERT( location < MAXIMUM_ALLOWED_COLOR_COMPONENTS );
     
     unsigned char data[ 4 ];
     glReadBuffer( GL_COLOR_ATTACHMENT0_EXT + location );
@@ -499,7 +502,7 @@ Color Framebuffer::MinimalBinding::readPixel( unsigned int x, unsigned int y, un
 
 void Framebuffer::MinimalBinding::refresh() const
 {
-    CARNA_ASSERT( &BindingStack::top() == this );
+    LIBCARNA_ASSERT( &BindingStack::top() == this );
     bindFBO();
 }
 
@@ -527,16 +530,16 @@ void Framebuffer::Binding::refresh()
     {
 
     case GL_FRAMEBUFFER_UNSUPPORTED_EXT:
-        CARNA_FAIL( "Framebuffer configuration not supported!" );
+        LIBCARNA_FAIL( "Framebuffer configuration not supported!" );
 
     case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT:
-        CARNA_FAIL( "Framebuffer misses color attachment!" );
+        LIBCARNA_FAIL( "Framebuffer misses color attachment!" );
 
     case GL_FRAMEBUFFER_COMPLETE_EXT:
         break;
 
     default:
-        CARNA_FAIL( "Unknown Framebuffer error! Error code: " + text::lexical_cast< std::string >( error ) );
+        LIBCARNA_FAIL( "Unknown Framebuffer error! Error code: " + text::lexical_cast< std::string >( error ) );
 
     }
 
@@ -550,7 +553,7 @@ void Framebuffer::Binding::refresh()
                                                       it != fbo.boundColorBuffers.end();
                                                     ++it, ++index )
         {
-            CARNA_ASSERT_EX( index < buffers.size(), "Color attachments are not bound continuously!" );
+            LIBCARNA_ASSERT_EX( index < buffers.size(), "Color attachments are not bound continuously!" );
             buffers[ index ] = GL_COLOR_ATTACHMENT0_EXT + index;
         }
         glDrawBuffers( buffers.size(), &buffers[ 0 ] );
@@ -563,6 +566,6 @@ void Framebuffer::Binding::refresh()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

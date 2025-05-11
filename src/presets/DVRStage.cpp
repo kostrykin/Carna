@@ -1,27 +1,31 @@
 ﻿/*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/presets/DVRStage.h>
-#include <Carna/base/glew.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/math.h>
-#include <Carna/base/CarnaException.h>
-#include <Carna/base/Log.h>
+#include <LibCarna/presets/DVRStage.hpp>
+#include <LibCarna/base/math/Span.hpp>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/RenderState.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/math.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
+#include <LibCarna/base/Log.hpp>
 #include <algorithm>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -30,69 +34,27 @@ namespace presets
 
 
 // ----------------------------------------------------------------------------------
-// DVRStage :: DVRStage
+// DVRStage :: Details
 // ----------------------------------------------------------------------------------
 
 struct DVRStage::Details
 {
-    Details( unsigned int colorMapResolution );
+    Details();
     std::unique_ptr< base::Texture< 2 > > accumulationColorBuffer;
     std::unique_ptr< base::Framebuffer  > accumulationFrameBuffer;
     
     const static unsigned int COLORMAP_TEXTURE_UNIT = base::Texture< 0 >::SETUP_UNIT + 1;
-    std::vector< base::Color > colorMap;
-    std::unique_ptr< base::Texture< 1 > > colorMapTexture;
-    std::unique_ptr< base::Sampler      > colorMapSampler;
-    bool isColorMapDirty;
-    void updateColorMap();
     
-    float translucence;
+    float translucency;
     float diffuseLight;
     bool isLightingUsed;
-
-    std::size_t colorMapLocationByIntensity( float intensity );
 };
 
 
-DVRStage::Details::Details( unsigned int colorMapResolution )
-    : colorMap( colorMapResolution )
-    , isColorMapDirty( true )
-    , translucence( DEFAULT_TRANSLUCENCE )
+DVRStage::Details::Details()
+    : translucency( DEFAULT_TRANSLUCENCY )
     , diffuseLight( DEFAULT_DIFFUSE_LIGHT )
 {
-}
-
-
-std::size_t DVRStage::Details::colorMapLocationByIntensity( float intensity )
-{
-    if( intensity < 0 ) intensity = 0;
-    if( intensity > 1 ) intensity = 1;
-    const std::size_t maxLocation = colorMap.size() - 1;
-    float location = intensity * maxLocation + 0.5;
-    if( location > maxLocation ) location = maxLocation;
-    return static_cast< std::size_t >( location );
-}
-
-
-void DVRStage::Details::updateColorMap()
-{
-    if( isColorMapDirty )
-    {
-        /* Create the texture if it was not created yet.
-         */
-        if( colorMapTexture.get() == nullptr )
-        {
-            colorMapTexture.reset( new base::Texture< 1 >( GL_RGBA8, GL_RGBA ) );
-        }
-        
-        /* Update the texture.
-         */
-        base::Texture< 1 >::Resolution textureSize;
-        textureSize.x() = colorMap.size();
-        colorMapTexture->update( textureSize, GL_UNSIGNED_BYTE, &colorMap[ 0 ] );
-        isColorMapDirty = false;
-        base::Log::instance().record( base::Log::debug, "DVRStage: Color map updated." );
-    }
 }
 
 
@@ -101,13 +63,14 @@ void DVRStage::Details::updateColorMap()
 // DVRStage
 // ----------------------------------------------------------------------------------
 
-const float DVRStage::DEFAULT_TRANSLUCENCE = 50;
+const float DVRStage::DEFAULT_TRANSLUCENCY = 50;
 const float DVRStage::DEFAULT_DIFFUSE_LIGHT = 1;
 
 
 DVRStage::DVRStage( unsigned int geometryType, unsigned int colorMapResolution )
     : VolumeRenderingStage( geometryType )
-    , pimpl( new Details( colorMapResolution ) )
+    , pimpl( new Details() )
+    , colorMap( colorMapResolution )
 {
 }
 
@@ -118,63 +81,22 @@ DVRStage::~DVRStage()
 }
 
 
-DVRStage* DVRStage::clone() const
+void DVRStage::setTranslucency( float translucency )
 {
-    DVRStage* const result = new DVRStage( geometryType );
-    result->setEnabled( isEnabled() );
-    return result;
+    LIBCARNA_ASSERT( translucency >= 0 );
+    pimpl->translucency = translucency;
 }
 
 
-void DVRStage::clearColorMap()
+float DVRStage::translucency() const
 {
-    std::fill( pimpl->colorMap.begin(), pimpl->colorMap.end(), base::Color::BLACK_NO_ALPHA );
-    pimpl->isColorMapDirty = true;
-}
-
-
-void DVRStage::writeColorMap( const base::math::Span< float >& intensityRange, const base::math::Span< base::Color > colorRange )
-{
-    const std::size_t locFirst = pimpl->colorMapLocationByIntensity( intensityRange.first );
-    const std::size_t locLast  = pimpl->colorMapLocationByIntensity( intensityRange.last  );
-    const int rangeSize = locLast - locFirst + 1;
-    const base::math::Vector4f color0 = colorRange.first;
-    const base::math::Vector4f color1 = colorRange.last;
-    if( rangeSize > 0 )
-    {
-        for( std::size_t offset = 0; offset < rangeSize; ++offset )
-        {
-            const float lambda = rangeSize == 1 ? 0.5f : offset / static_cast< float >( rangeSize - 1 );
-            const base::Color color = base::math::mix< base::math::Vector4f >( color0, color1, lambda );
-            pimpl->colorMap[ locFirst + offset ] = color;
-        }
-        pimpl->isColorMapDirty = true;
-    }
-}
-
-
-void DVRStage::writeColorMap( float intensityFirst, float intensityLast, const base::Color& colorFirst, const base::Color& colorLast )
-{
-    writeColorMap( base::math::Span< float >( intensityFirst, intensityLast ), base::math::Span< base::Color >( colorFirst, colorLast ) );
-}
-
-
-void DVRStage::setTranslucence( float translucence )
-{
-    CARNA_ASSERT( translucence >= 0 );
-    pimpl->translucence = translucence;
-}
-
-
-float DVRStage::translucence() const
-{
-    return pimpl->translucence;
+    return pimpl->translucency;
 }
 
 
 void DVRStage::setDiffuseLight( float diffuseLight )
 {
-    CARNA_ASSERT( diffuseLight >= 0 && diffuseLight <= 1 );
+    LIBCARNA_ASSERT( diffuseLight >= 0 && diffuseLight <= 1 );
     pimpl->diffuseLight = diffuseLight;
 }
 
@@ -202,9 +124,6 @@ void DVRStage::reshape( base::FrameRenderer& fr, unsigned int width, unsigned in
 unsigned int DVRStage::loadVideoResources()
 {
     VolumeRenderingStage::loadVideoResources();
-    pimpl->colorMapSampler.reset( new base::Sampler
-        ( base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP, base::Sampler::WRAP_MODE_CLAMP
-        , base::Sampler::FILTER_NEAREST, base::Sampler::FILTER_NEAREST ) );
     return Details::COLORMAP_TEXTURE_UNIT + 1;
 }
 
@@ -214,8 +133,6 @@ void DVRStage::renderPass
     , base::RenderTask& rt
     , const base::Viewport& outputViewport )
 {
-    pimpl->updateColorMap();
-        
     /* Reset whether lighting was used for rendering.
      */
     pimpl->isLightingUsed = false;
@@ -238,7 +155,7 @@ void DVRStage::renderPass
     /* We will render to a dedicated render target first, s.t. the depth buffer is
      * not contaminated by the slices.
      */
-    CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->accumulationFrameBuffer,
+    LIBCARNA_RENDER_TO_FRAMEBUFFER( *pimpl->accumulationFrameBuffer,
 
         /* Configure OpenGL state for accumulation pass.
          */
@@ -289,7 +206,7 @@ const base::ShaderProgram& DVRStage::acquireShader()
 
 const std::string& DVRStage::uniformName( unsigned int role ) const
 {
-    const static std::string ROLE_INTENSITIES_NAME = "huVolume";
+    const static std::string ROLE_INTENSITIES_NAME = "intensities";
     const static std::string ROLE_NORMALS_NAME     = "normalMap";
     switch( role )
     {
@@ -301,7 +218,7 @@ const std::string& DVRStage::uniformName( unsigned int role ) const
         return ROLE_NORMALS_NAME;
 
     default:
-        CARNA_FAIL( "Unknown role: " + base::text::lexical_cast< std::string >( role ) );
+        LIBCARNA_FAIL( "Unknown role: " + base::text::lexical_cast< std::string >( role ) );
 
     }
 }
@@ -310,18 +227,25 @@ const std::string& DVRStage::uniformName( unsigned int role ) const
 void DVRStage::configureShader()
 {
     base::ShaderUniform<   int >( "colorMap", Details::COLORMAP_TEXTURE_UNIT ).upload();
-    base::ShaderUniform< float >( "translucence", pimpl->translucence ).upload();
+    base::ShaderUniform< float >( "minIntensity", colorMap.minimumIntensity() ).upload();
+    base::ShaderUniform< float >( "maxIntensity", colorMap.maximumIntensity() ).upload();
+    base::ShaderUniform< float >( "translucency", pimpl->translucency ).upload();
     base::ShaderUniform< float >( "diffuseLight", pimpl->diffuseLight ).upload();
         
     /* Bind the color map.
      */
-    pimpl->colorMapTexture->bind( Details::COLORMAP_TEXTURE_UNIT );
-    pimpl->colorMapSampler->bind( Details::COLORMAP_TEXTURE_UNIT );
+    colorMap.bind( Details::COLORMAP_TEXTURE_UNIT );
 }
 
 
 void DVRStage::configureShader( const base::Renderable& renderable )
 {
+    /* Verify that the renderable has the required features.
+     */
+    LIBCARNA_ASSERT( renderable.geometry().hasFeature( ROLE_INTENSITIES ) );
+
+    /* Configure the shader for lighting.
+     */
     if( renderable.geometry().hasFeature( ROLE_NORMALS ) )
     {
         /* Compute the matrix that transforms the normals to view space.
@@ -355,6 +279,6 @@ void DVRStage::configureShader( const base::Renderable& renderable )
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

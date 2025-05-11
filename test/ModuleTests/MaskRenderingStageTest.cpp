@@ -1,13 +1,22 @@
 /*
- *  Copyright (C) 2021 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
+ *  Chair of Medical Engineering (mediTEC)
+ *  RWTH Aachen University
+ *  Pauwelsstr. 20
+ *  52074 Aachen
+ *  Germany
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include "MaskRenderingStageTest.h"
-#include <Carna/base/Node.h>
-#include <Carna/base/Color.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/presets/MaskRenderingStage.h>
+#include "MaskRenderingStageTest.hpp"
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/Color.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/presets/MaskRenderingStage.hpp>
 
 
 

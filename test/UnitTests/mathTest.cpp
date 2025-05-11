@@ -1,18 +1,21 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include "mathTest.h"
-#include <Carna/base/math.h>
+#include "mathTest.hpp"
+#include <LibCarna/base/math.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -46,7 +49,7 @@ void mathTest::cleanup()
 
 void mathTest::test_epsilon()
 {
-    using namespace Carna::base;
+    using namespace LibCarna::base;
 
     QCOMPARE( math::epsilon< int >(), 0 );
     QCOMPARE( math::epsilon< unsigned int >(), 0u );
@@ -61,7 +64,7 @@ void mathTest::test_epsilon()
 
 void mathTest::test_length2()
 {
-    using namespace Carna::base;
+    using namespace LibCarna::base;
 
     QCOMPARE( math::length2< signed int >(  0 ), 0 );
     QCOMPARE( math::length2< signed int >( -1 ), 1 );
@@ -82,7 +85,7 @@ void mathTest::test_length2()
 
 void mathTest::test_isEqual()
 {
-    using namespace Carna::base;
+    using namespace LibCarna::base;
 
     QVERIFY(  math::isEqual(  true,  true ) );
     QVERIFY( !math::isEqual(  true, false ) );
@@ -102,7 +105,7 @@ void mathTest::test_isEqual()
 
 void mathTest::test_identity4f()
 {
-    using namespace Carna::base;
+    using namespace LibCarna::base;
 
     const math::Matrix4f m( math::identity4f() );
     for( int i = 0; i < m.rows(); ++i )
@@ -115,7 +118,7 @@ void mathTest::test_identity4f()
 
 void mathTest::test_zeros()
 {
-    using namespace Carna::base;
+    using namespace LibCarna::base;
 
     const math::Matrix4f m( math::zeros< math::Matrix4f >() );
     for( int i = 0; i < m.rows(); ++i )
@@ -128,7 +131,7 @@ void mathTest::test_zeros()
 
 void mathTest::test_basis4f()
 {
-    using namespace Carna::base;
+    using namespace LibCarna::base;
     const float pi = 4 * std::atan( 1.f );
 
     /* Create directional vectors:
@@ -172,7 +175,7 @@ void mathTest::test_basis4f()
 
 void mathTest::test_translation4f()
 {
-    using namespace Carna::base;
+    using namespace LibCarna::base;
     const math::Matrix4f m( math::translation4f( -1, 2, -3 ) );
 
     QVERIFY( math::isEqual< math::Vector4f >( m * math::Vector4f( 0, 0, 0, 1 ), math::Vector4f( -1,  2, -3, 1 ) ) );
@@ -182,7 +185,7 @@ void mathTest::test_translation4f()
 
 void mathTest::test_scaling4f()
 {
-    using namespace Carna::base;
+    using namespace LibCarna::base;
 
     QVERIFY( math::isEqual< math::Vector4f >
         ( math::scaling4f( 0 ) * math::Vector4f( 1, 2, 3, 1 )
@@ -196,10 +199,10 @@ void mathTest::test_scaling4f()
 
 void mathTest::test_orthogonal3f()
 {
-    using namespace Carna::base;
+    using namespace LibCarna::base;
     const auto dotOrtho = []( const math::Vector3f& v )->float
     {
-        using namespace Carna::base;
+        using namespace LibCarna::base;
         const math::Vector3f u = math::orthogonal3f( v );
         return u.dot( v );
     };
@@ -246,31 +249,30 @@ void mathTest::test_mix()
 }
 
 
-void mathTest::test_CARNA_FOR_VECTOR3UI()
+void mathTest::test_LIBCARNA_FOR_VECTOR3UI()
 {
-    //! [example_CARNA_FOR_VECTOR3UI]
-    using namespace Carna::base;
-    HUVolumeUInt16 data( math::Vector3ui( 100, 100, 30 ) );
+    //! [example_LIBCARNA_FOR_VECTOR3UI]
+    using namespace LibCarna::base;
+    IntensityVolumeUInt16 data( math::Vector3ui( 100, 100, 30 ) );
   
-    /* Initialize all 'data' voxels with '-1024'.
+    /* Initialize all 'data' voxels with the lowest possible value.
      */
-    const HUV expected = HUV::abs( -1024 );
-    CARNA_FOR_VECTOR3UI( p, data.size )
+    LIBCARNA_FOR_VECTOR3UI( p, data.size )
     {
-        data.setVoxel( p, expected );
+        data.setVoxel( p, 0.f );
     }
   
     /* Verify the result.
      */
     for( std::size_t i = 0; i < data.buffer().size(); ++i )
     {
-        QCOMPARE( data.buffer()[ i ], HUVolumeUInt16::HUVToBufferValue( expected ) );
+        QCOMPARE( data.buffer()[ i ], 0 );
     }
-    //! [example_CARNA_FOR_VECTOR3UI]
+    //! [example_LIBCARNA_FOR_VECTOR3UI]
 };
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna

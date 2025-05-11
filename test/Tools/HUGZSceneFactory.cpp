@@ -1,17 +1,21 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include "HUGZSceneFactory.h"
+#include <LibCarna/base/HUV.hpp>
+#include "HUGZSceneFactory.hpp"
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -35,20 +39,20 @@ void stream_read( StreamType& in, ValueType& out )
 // HUGZSceneFactory
 // ----------------------------------------------------------------------------------
 
-Carna::base::HUVolumeUInt16* HUGZSceneFactory::importVolume( const std::string& filename, Carna::base::math::Vector3f& spacing )
+LibCarna::base::IntensityVolumeUInt16* HUGZSceneFactory::importVolume( const std::string& filename, LibCarna::base::math::Vector3f& spacing, bool stretchIntensities )
 {
     std::ifstream file( filename, std::ios::in | std::ios::binary );
-    CARNA_ASSERT( file.is_open() && !file.fail() );
+    LIBCARNA_ASSERT( file.is_open() && !file.fail() );
     boost::iostreams::filtering_istream in;
     in.push( boost::iostreams::gzip_decompressor() );
     in.push( file );
 
-    Carna::base::math::Vector3ui size;
+    LibCarna::base::math::Vector3ui size;
     stream_read( in, size.x() );
     stream_read( in, size.y() );
     stream_read( in, size.z() );
 
-    Carna::base::HUVolumeUInt16* const volume = new Carna::base::HUVolumeUInt16( size );
+    LibCarna::base::IntensityVolumeUInt16* const volume = new LibCarna::base::IntensityVolumeUInt16( size );
 
     stream_read( in, spacing.x() );
     stream_read( in, spacing.y() );
@@ -60,7 +64,23 @@ Carna::base::HUVolumeUInt16* HUGZSceneFactory::importVolume( const std::string& 
     for( unsigned int x = 0; x < size.x(); ++x )
     {
         const signed short huv = reader.read();
-        volume->setVoxel( x, y, z, Carna::base::HUV::abs( huv ) );
+        volume->setVoxel( x, y, z, LibCarna::base::HUV( huv ).intensity() );
+    }
+
+    if( stretchIntensities )
+    {
+        const unsigned short minValue = *std::min_element( volume->buffer().begin(), volume->buffer().end() );
+        for( auto& value : volume->buffer() )
+        {
+            value -= minValue;
+        }
+        const unsigned short maxValue = *std::max_element( volume->buffer().begin(), volume->buffer().end() );
+        for( auto& value : volume->buffer() )
+        {
+            value = static_cast< unsigned short >( value * static_cast< float >( 0xFFFF ) / maxValue + 0.5f );
+        }
+        LIBCARNA_ASSERT( *std::min_element( volume->buffer().begin(), volume->buffer().end() ) == 0 );
+        LIBCARNA_ASSERT( *std::max_element( volume->buffer().begin(), volume->buffer().end() ) == 0xFFFF );
     }
 
     return volume;
@@ -68,6 +88,6 @@ Carna::base::HUVolumeUInt16* HUGZSceneFactory::importVolume( const std::string& 
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna

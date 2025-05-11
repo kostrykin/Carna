@@ -1,6 +1,8 @@
 /build
 /test_cmake/build
-/include/Carna/Version.h
+/include/LibCarna/Version.hpp
 /src/doc/Doxyfile
 *~
 *.swp
+/docs/**/*.md5
+/docs/**/*.map

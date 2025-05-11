@@ -1,20 +1,23 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include "DVRStageTest.h"
-#include <Carna/base/Node.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/base/BufferedIntensityVolume.h>
-#include <Carna/helpers/VolumeGridHelper.h>
-#include <Carna/presets/DVRStage.h>
+#include "DVRStageTest.hpp"
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/base/BufferedIntensityVolume.hpp>
+#include <LibCarna/helpers/VolumeGridHelper.hpp>
+#include <LibCarna/presets/DVRStage.hpp>
 
 
 
@@ -75,16 +78,16 @@ void DVRStageTest::test_withLighting()
      */
     typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16, base::NormalMap3DInt8 > GridHelper;
     GridHelper gridHelper( data->size );
-    gridHelper.loadHUData( *data );
+    gridHelper.loadIntensities( *data );
     root->attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( dataSpacings ) ) );
 
     /* Configure DVR stage.
      */
     //! [dvr_setup_with_lighting]
-    dvr->writeColorMap( base::HUV( -400 ).absIntensity(), base::HUV(   0 ).absIntensity(), base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
-    dvr->writeColorMap( base::HUV(    0 ).absIntensity(), base::HUV( 400 ).absIntensity(), base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
+    dvr->colorMap.writeLinearSegment( base::HUV( -400 ).intensity(), base::HUV(   0 ).intensity(), base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
+    dvr->colorMap.writeLinearSegment( base::HUV(    0 ).intensity(), base::HUV( 400 ).intensity(), base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
     dvr->setSampleRate( 1000 );
-    dvr->setTranslucence(  2 );
+    dvr->setTranslucency( 2 );
     //! [dvr_setup_with_lighting]
 
     /* Render and verify.
@@ -100,14 +103,14 @@ void DVRStageTest::test_withoutLighting()
      */
     typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16 > GridHelper;
     GridHelper gridHelper( data->size );
-    gridHelper.loadHUData( *data );
+    gridHelper.loadIntensities( *data );
     root->attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( dataSpacings ) ) );
 
     /* Configure DVR stage.
      */
     //! [dvr_setup_without_lighting]
-    dvr->writeColorMap( base::HUV( -400 ).absIntensity(), base::HUV(   0 ).absIntensity(), base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
-    dvr->writeColorMap( base::HUV(    0 ).absIntensity(), base::HUV( 400 ).absIntensity(), base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
+    dvr->colorMap.writeLinearSegment( base::HUV( -400 ).intensity(), base::HUV(   0 ).intensity(), base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
+    dvr->colorMap.writeLinearSegment( base::HUV(    0 ).intensity(), base::HUV( 400 ).intensity(), base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
     dvr->setDiffuseLight( 0 );
     //! [dvr_setup_without_lighting]
 
@@ -126,7 +129,32 @@ void DVRStageTest::test_withoutColormap()
 
     /* Configure DVR stage.
      */
-    dvr->clearColorMap();
+    dvr->colorMap.clear();
+
+    /* Render and verify.
+     */
+    renderer->render( *cam, *root );
+    VERIFY_FRAMEBUFFER( *testFramebuffer );
+}
+
+
+void DVRStageTest::test_withColorMapLimits()
+{
+    /* Add volume data to scene.
+     */
+    typedef helpers::VolumeGridHelper< base::IntensityVolumeUInt16, base::NormalMap3DInt8 > GridHelper;
+    GridHelper gridHelper( data->size );
+    gridHelper.loadIntensities( *data );
+    root->attachChild( gridHelper.createNode( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( dataSpacings ) ) );
+
+    /* Configure DVR stage (should be equivalent to `test_withLighting`).
+     */
+    dvr->colorMap.writeLinearSegment( 0.0f, 0.5f, base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
+    dvr->colorMap.writeLinearSegment( 0.5f, 1.0f, base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
+    dvr->colorMap.setMinimumIntensity( base::HUV( -400 ).intensity() );
+    dvr->colorMap.setMaximumIntensity( base::HUV( +400 ).intensity() );
+    dvr->setSampleRate( 1000 );
+    dvr->setTranslucency( 2 );
 
     /* Render and verify.
      */

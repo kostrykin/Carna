@@ -1,19 +1,19 @@
 ﻿/*
- *  Copyright (C) 2021 Leonid Kostrykin
- *
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/presets/MaskRenderingStage.h>
-#include <Carna/base/glew.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/math.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/presets/MaskRenderingStage.hpp>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/RenderState.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/math.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -31,7 +31,7 @@ struct MaskRenderingStage::Details
     Details();
 
     base::Color color;
-    bool renderBorders;
+    bool filling;
 
     std::unique_ptr< base::Texture< 2 > > accumulationColorBuffer;
     std::unique_ptr< base::Framebuffer  > accumulationFrameBuffer;
@@ -47,7 +47,7 @@ struct MaskRenderingStage::Details
 
 MaskRenderingStage::Details::Details()
     : color( MaskRenderingStage::DEFAULT_COLOR )
-    , renderBorders( false )
+    , filling( MaskRenderingStage::DEFAULT_FILLING )
     , edgeDetectShader( nullptr )
 {
 }
@@ -60,6 +60,7 @@ MaskRenderingStage::Details::Details()
 
 const base::Color  MaskRenderingStage::DEFAULT_COLOR = base::Color::GREEN;
 const unsigned int MaskRenderingStage::DEFAULT_ROLE_MASK = 2;
+const bool         MaskRenderingStage::DEFAULT_FILLING = true;
 
 
 MaskRenderingStage::MaskRenderingStage( unsigned int geometryType, unsigned int maskRole )
@@ -80,14 +81,6 @@ MaskRenderingStage::~MaskRenderingStage()
 }
 
 
-MaskRenderingStage* MaskRenderingStage::clone() const
-{
-    MaskRenderingStage* const result = new MaskRenderingStage( geometryType, maskRole );
-    result->setEnabled( isEnabled() );
-    return result;
-}
-
-
 const base::Color& MaskRenderingStage::color() const
 {
     return pimpl->color;
@@ -100,15 +93,15 @@ void MaskRenderingStage::setColor( const base::Color& color )
 }
 
 
-bool MaskRenderingStage::renderBorders() const
+bool MaskRenderingStage::isFilling() const
 {
-    return pimpl->renderBorders;
+    return pimpl->filling;
 }
 
 
-void MaskRenderingStage::setRenderBorders( bool renderBorders )
+void MaskRenderingStage::setFilling( bool filling )
 {
-    pimpl->renderBorders = renderBorders;
+    pimpl->filling = filling;
 }
 
 
@@ -136,12 +129,12 @@ void MaskRenderingStage::renderPass
     , base::RenderTask& rt
     , const base::Viewport& outputViewport )
 {
-    if( pimpl->renderBorders )
+    if( !pimpl->filling )
     {
         /* First, render the projected mask intensities.
          */
         const base::Viewport framebufferViewport( *pimpl->accumulationFrameBuffer );
-        CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->accumulationFrameBuffer,
+        LIBCARNA_RENDER_TO_FRAMEBUFFER( *pimpl->accumulationFrameBuffer,
 
             /* Configure OpenGL state for accumulation pass.
              */
@@ -165,7 +158,7 @@ void MaskRenderingStage::renderPass
         rs.setBlend( true );
 
         base::FrameRenderer::RenderTextureParams params( 0 );
-        if( pimpl->renderBorders )
+        if( !pimpl->filling )
         {
             rs.setDepthTest ( false );
             rs.setDepthWrite( false );
@@ -217,27 +210,28 @@ const std::string& MaskRenderingStage::uniformName( unsigned int role ) const
     }
     else
     {
-        CARNA_FAIL( "Unknown role: " + base::text::lexical_cast< std::string >( role ) );
+        LIBCARNA_FAIL( "Unknown role: " + base::text::lexical_cast< std::string >( role ) );
     }
 }
 
 
 void MaskRenderingStage::configureShader()
 {
-    base::ShaderUniform< bool >( "ignoreColor", pimpl->renderBorders ).upload();
-    if( !pimpl->renderBorders )
+    base::ShaderUniform< bool >( "ignoreColor", !pimpl->filling ).upload();
+    if( pimpl->filling )
     {
         base::ShaderUniform< base::math::Vector4f >( "color", pimpl->color ).upload();
     }
 }
 
 
-void MaskRenderingStage::configureShader( const base::Renderable& )
+void MaskRenderingStage::configureShader( const base::Renderable& renderable )
 {
+    LIBCARNA_ASSERT( renderable.geometry().hasFeature( maskRole ) );
 }
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

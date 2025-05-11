@@ -1,27 +1,30 @@
 ﻿/*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/presets/MeshColorCodingStage.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/GLContext.h>
-#include <Carna/base/RenderTask.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Log.h>
+#include <LibCarna/presets/MeshColorCodingStage.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/GLContext.hpp>
+#include <LibCarna/base/RenderTask.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Log.hpp>
 #include <map>
 #include <vector>
 #include <climits>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -78,14 +81,14 @@ unsigned int MeshColorCodingStage::Details::colorToId( const base::Color& color 
     key |= color.b <<  8;
     key |= color.g << 16;
     key |= color.r << 24;
-    CARNA_ASSERT( key >= FIRST_COLOR_CODING_ID + 1 );
+    LIBCARNA_ASSERT( key >= FIRST_COLOR_CODING_ID + 1 );
     return key - 1;
 }
 
 
 base::Color MeshColorCodingStage::Details::idToColor( unsigned int id )
 {
-    CARNA_ASSERT( id <= LAST_COLOR_CODING_ID );
+    LIBCARNA_ASSERT( id <= LAST_COLOR_CODING_ID );
     const unsigned int key = id + 1;
     unsigned char a = static_cast< unsigned char >( key );
     unsigned char b = static_cast< unsigned char >( key >> 8 );
@@ -142,14 +145,6 @@ MeshColorCodingStage::~MeshColorCodingStage()
 }
 
 
-MeshColorCodingStage* MeshColorCodingStage::clone() const
-{
-    MeshColorCodingStage* const result = new MeshColorCodingStage();
-    result->setEnabled( isEnabled() );
-    return result;
-}
-
-
 base::Aggregation< const base::Geometry > MeshColorCodingStage::pick( const base::math::Vector2ui& v ) const
 {
     return pick( v.x(), v.y() );
@@ -195,7 +190,7 @@ base::Aggregation< const base::Geometry > MeshColorCodingStage::pick( unsigned i
                 else
                 {
                     const unsigned int id = Details::colorToId( color );
-                    CARNA_ASSERT( id < pimpl->geometryById.size() );
+                    LIBCARNA_ASSERT( id < pimpl->geometryById.size() );
                     return Aggregation< const Geometry >( *pimpl->geometryById[ id ] );
                 }
             }
@@ -241,7 +236,7 @@ void MeshColorCodingStage::renderPass( const base::math::Matrix4f& viewTransform
          */
         Viewport fboViewport( vp, 0, 0, vr->fbo.width(), vr->fbo.height() );
         fboViewport.makeActive();
-        CARNA_RENDER_TO_FRAMEBUFFER( vr->fbo,
+        LIBCARNA_RENDER_TO_FRAMEBUFFER( vr->fbo,
             rt.renderer.glContext().clearBuffers( GLContext::COLOR_BUFFER_BIT | GLContext::DEPTH_BUFFER_BIT );
             GeometryStage< void >::renderPass( viewTransform, rt, vp );
         );
@@ -297,7 +292,7 @@ void MeshColorCodingStage::render( const base::Renderable& renderable )
 
         /* Update rendering state.
          */
-        CARNA_ASSERT( pimpl->nextColorCodingId == pimpl->geometryById.size() );
+        LIBCARNA_ASSERT( pimpl->nextColorCodingId == pimpl->geometryById.size() );
         pimpl->geometryById.push_back( &renderable.geometry() );
         if( pimpl->nextColorCodingId == Details::LAST_COLOR_CODING_ID )
         {
@@ -349,6 +344,6 @@ void MeshColorCodingStage::clearGeometryTypes()
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

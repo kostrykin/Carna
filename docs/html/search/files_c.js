@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['parallaxstage_2eh_0',['ParallaxStage.h',['../ParallaxStage_8h.html',1,'']]],
-  ['perspectivecontrol_2eh_1',['PerspectiveControl.h',['../PerspectiveControl_8h.html',1,'']]],
-  ['pointmarkerhelper_2eh_2',['PointMarkerHelper.h',['../PointMarkerHelper_8h.html',1,'']]],
-  ['projectioncontrol_2eh_3',['ProjectionControl.h',['../ProjectionControl_8h.html',1,'']]]
+  ['parallaxstage_2ehpp_0',['ParallaxStage.hpp',['../ParallaxStage_8hpp.html',1,'']]],
+  ['perspectivecontrol_2ehpp_1',['PerspectiveControl.hpp',['../PerspectiveControl_8hpp.html',1,'']]],
+  ['pointmarkerhelper_2ehpp_2',['PointMarkerHelper.hpp',['../PointMarkerHelper_8hpp.html',1,'']]],
+  ['projectioncontrol_2ehpp_3',['ProjectionControl.hpp',['../ProjectionControl_8hpp.html',1,'']]]
 ];

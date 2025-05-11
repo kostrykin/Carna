@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['drrstage_2eh_0',['DRRStage.h',['../DRRStage_8h.html',1,'']]],
-  ['dvrstage_2eh_1',['DVRStage.h',['../DVRStage_8h.html',1,'']]]
+  ['drrstage_2ehpp_0',['DRRStage.hpp',['../DRRStage_8hpp.html',1,'']]],
+  ['dvrstage_2ehpp_1',['DVRStage.hpp',['../DVRStage_8hpp.html',1,'']]]
 ];

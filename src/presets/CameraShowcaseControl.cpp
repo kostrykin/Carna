@@ -1,20 +1,23 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/presets/CameraShowcaseControl.h>
-#include <Carna/base/Camera.h>
-#include <Carna/base/math.h>
-#include <Carna/base/Log.h>
+#include <LibCarna/presets/CameraShowcaseControl.hpp>
+#include <LibCarna/base/Camera.hpp>
+#include <LibCarna/base/math.hpp>
+#include <LibCarna/base/Log.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -68,7 +71,7 @@ CameraShowcaseControl::~CameraShowcaseControl()
 
 void CameraShowcaseControl::setMinDistance( float minDistance )
 {
-    CARNA_ASSERT( minDistance >= 0 );
+    LIBCARNA_ASSERT( minDistance >= 0 );
     pimpl->minDistance = minDistance;
     if( pimpl->cam != nullptr )
     {
@@ -79,7 +82,7 @@ void CameraShowcaseControl::setMinDistance( float minDistance )
 
 void CameraShowcaseControl::setMaxDistance( float maxDistance )
 {
-    CARNA_ASSERT( maxDistance >= 0 );
+    LIBCARNA_ASSERT( maxDistance >= 0 );
     pimpl->maxDistance = maxDistance;
     if( pimpl->cam != nullptr )
     {
@@ -108,7 +111,7 @@ void CameraShowcaseControl::setCamera( base::Spatial& cam )
 
 void CameraShowcaseControl::rotateHorizontally( float radians )
 {
-    CARNA_ASSERT( pimpl->cam != nullptr );
+    LIBCARNA_ASSERT( pimpl->cam != nullptr );
 
     const base::math::Matrix4f newRotation = base::math::rotation4f( 0, 1, 0, radians );
     pimpl->cam->localTransform = newRotation * pimpl->cam->localTransform;
@@ -117,7 +120,7 @@ void CameraShowcaseControl::rotateHorizontally( float radians )
 
 void CameraShowcaseControl::rotateVertically( float radians )
 {
-    CARNA_ASSERT( pimpl->cam != nullptr );
+    LIBCARNA_ASSERT( pimpl->cam != nullptr );
     
     const base::math::Vector4f rotAxis  = pimpl->cam->localTransform * base::math::Vector4f( 1, 0, 0, 0 );
     const base::math::Matrix4f rotation = base::math::rotation4f( base::math::vector3( rotAxis ), radians );
@@ -127,7 +130,7 @@ void CameraShowcaseControl::rotateVertically( float radians )
 
 void CameraShowcaseControl::moveAxially( float units )
 {
-    CARNA_ASSERT( pimpl->cam != nullptr );
+    LIBCARNA_ASSERT( pimpl->cam != nullptr );
     if( pimpl->minDistance > pimpl->maxDistance )
     {
         base::Log::instance().record( base::Log::error, "CameraShowcaseControl: 'minDistance' > 'maxDistance'" );
@@ -157,6 +160,6 @@ void CameraShowcaseControl::moveLaterally( float unitsX, float unitsY )
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

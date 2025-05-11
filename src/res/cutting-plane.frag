@@ -1,25 +1,30 @@
 #version 330
 
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-uniform sampler3D huVolume;
-uniform mat4      modelTexture;
+uniform sampler3D intensities;
+uniform sampler1D colorMap;
 uniform float     minIntensity;
 uniform float     maxIntensity;
-uniform int       invert;
+uniform mat4      modelTexture;
 
 in vec4 modelSpaceCoordinates;
 
 layout( location = 0 ) out vec4 _gl_FragColor;
+
+#define EPS 1e-16
 
 
 // ----------------------------------------------------------------------------------
@@ -28,7 +33,7 @@ layout( location = 0 ) out vec4 _gl_FragColor;
 
 float intensityAt( vec3 p )
 {
-    return texture( huVolume, p ).r;
+    return texture( intensities, p ).r;
 }
 
 
@@ -45,9 +50,14 @@ void main()
 
     vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;
     float intensity = intensityAt( textureCoordinates.xyz );
-    float f = step( minIntensity, intensity ) * ( 1 - step( maxIntensity, intensity ) ) * ( intensity - minIntensity ) / ( maxIntensity - minIntensity );
-          f = f + step( maxIntensity, intensity );
-          f = ( 1 - invert ) * f + invert * ( 1 - f );
 
-    _gl_FragColor = vec4( f, f, f, 1 );
+    /* Apply intensity clipping.
+     */
+    intensity = clamp(
+        ( intensity - minIntensity + EPS ) / ( maxIntensity - minIntensity + EPS )
+        , 0.0, 1.0 );
+
+    /* Query color in `colorMap` and write result.
+     */
+    _gl_FragColor = vec4( texture( colorMap, intensity ).rgb, 1 );
 }

@@ -1,19 +1,22 @@
 ﻿/*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/RenderStage.h>
-#include <Carna/base/RenderStageListener.h>
+#include <LibCarna/base/RenderStage.hpp>
+#include <LibCarna/base/RenderStageListener.hpp>
 #include <set>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -76,14 +79,14 @@ bool RenderStage::isInitialized() const
 
 base::FrameRenderer& RenderStage::renderer()
 {
-    CARNA_ASSERT( isInitialized() );
+    LIBCARNA_ASSERT( isInitialized() );
     return *pimpl->fr;
 }
 
 
 const base::FrameRenderer& RenderStage::renderer() const
 {
-    CARNA_ASSERT( isInitialized() );
+    LIBCARNA_ASSERT( isInitialized() );
     return *pimpl->fr;
 }
 
@@ -106,7 +109,7 @@ void RenderStage::reshape( FrameRenderer& fr, unsigned int width, unsigned int h
     }
     else
     {
-        CARNA_ASSERT( pimpl->fr == &fr );
+        LIBCARNA_ASSERT( pimpl->fr == &fr );
     }
 }
 
@@ -154,6 +157,6 @@ void RenderStage::removeRenderStageListener( RenderStageListener& listener )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

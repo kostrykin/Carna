@@ -1,22 +1,25 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include "OpaqueRenderingStageTest.h"
-#include <Carna/base/Node.h>
-#include <Carna/base/Geometry.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/base/Vertex.h>
-#include <Carna/base/Material.h>
-#include <Carna/base/Mesh.h>
-#include <Carna/base/MeshFactory.h>
+#include "OpaqueRenderingStageTest.hpp"
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/Geometry.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/base/Vertex.hpp>
+#include <LibCarna/base/Material.hpp>
+#include <LibCarna/base/Mesh.hpp>
+#include <LibCarna/base/MeshFactory.hpp>
 
 
 
@@ -51,11 +54,11 @@ void OpaqueRenderingStageTest::initTestCase()
     base::Geometry* const box1 = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
     base::Geometry* const box2 = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
 
-    box1->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
-    box2->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
+    box1->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH, boxMesh );
+    box2->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH, boxMesh );
 
-    box1->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL,   redMaterial );
-    box2->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, greenMaterial );
+    box1->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL,   redMaterial );
+    box2->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL, greenMaterial );
 
     boxMesh.release();
     redMaterial.release();

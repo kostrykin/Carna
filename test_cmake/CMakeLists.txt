@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 3.5 )
 
-project( CarnaTest )
+project( LibCarnaTest )
 
 include( FindPackageHandleStandardArgs )
 
@@ -13,9 +13,9 @@ elseif( BUILD STREQUAL "release" )
     set( CMAKE_BUILD_TYPE Release )
 endif()
 
-find_package( Carna 3.3 REQUIRED COMPONENTS ${BUILD} )
-include_directories( ${Carna_INCLUDE_DIR} )
-set( Carna_VERSION ${FOUND_VERSION} )
+find_package( LibCarna 3.4 MODULE REQUIRED COMPONENTS ${BUILD} )
+include_directories( ${LibCarna_INCLUDE_DIR} )
+set( LibCarna_VERSION ${FOUND_VERSION} )
 
 add_executable( test test.cpp )
-target_link_libraries( test -lGLU ${Carna_LIBRARIES} )
+target_link_libraries( test -lGLU ${LibCarna_LIBRARIES} )

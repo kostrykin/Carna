@@ -1,18 +1,21 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/presets/PerspectiveControl.h>
-#include <Carna/base/math.h>
+#include <LibCarna/presets/PerspectiveControl.hpp>
+#include <LibCarna/base/math.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -59,7 +62,7 @@ PerspectiveControl::~PerspectiveControl()
 
 void PerspectiveControl::setFovHorizontal( float radians )
 {
-    CARNA_ASSERT( radians > 0 );
+    LIBCARNA_ASSERT( radians > 0 );
     if( !base::math::isEqual( pimpl->fovHorizontal, radians ) )
     {
         pimpl->fovHorizontal = radians;
@@ -76,7 +79,7 @@ float PerspectiveControl::fovHorizontal() const
 
 void PerspectiveControl::updateProjection( base::math::Matrix4f& projection ) const
 {
-    CARNA_ASSERT_EX
+    LIBCARNA_ASSERT_EX
         ( minimumVisibleDistance() > 0
         , "PerspectiveControl does not support 'minimumVisibleDistance' set to 0!" );
     
@@ -89,7 +92,6 @@ void PerspectiveControl::updateProjection( base::math::Matrix4f& projection ) co
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
-
+}  // namespace LibCarna

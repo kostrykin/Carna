@@ -1,24 +1,27 @@
 ﻿/*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/presets/CuttingPlanesStage.h>
-#include <Carna/base/Mesh.h>
-#include <Carna/base/Vertex.h>
-#include <Carna/base/IndexBuffer.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/math.h>
+#include <LibCarna/presets/CuttingPlanesStage.hpp>
+#include <LibCarna/base/Mesh.hpp>
+#include <LibCarna/base/Vertex.hpp>
+#include <LibCarna/base/IndexBuffer.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/RenderState.hpp>
+#include <LibCarna/base/math.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -41,7 +44,11 @@ struct CuttingPlanesStage::Details
 
     float windowingLevel;
     float windowingWidth;
-    bool renderingInverse;
+
+    void updateColorMap( base::ColorMap& colorMap ) const;
+    
+    const static unsigned int   VOLUME_TEXTURE_UNIT = base::Texture< 0 >::SETUP_UNIT + 1;
+    const static unsigned int COLORMAP_TEXTURE_UNIT = base::Texture< 0 >::SETUP_UNIT + 2;
 };
 
 
@@ -51,8 +58,14 @@ CuttingPlanesStage::Details::Details( unsigned int planeGeometryType )
     , viewPort( nullptr )
     , windowingLevel( DEFAULT_WINDOWING_LEVEL )
     , windowingWidth( DEFAULT_WINDOWING_WIDTH )
-    , renderingInverse( false )
 {
+}
+
+
+void CuttingPlanesStage::Details::updateColorMap( base::ColorMap& colorMap ) const
+{
+    colorMap.setMinimumIntensity( base::math::clamp< float >( windowingLevel - windowingWidth / 2, 0, 1 ) );
+    colorMap.setMaximumIntensity( base::math::clamp< float >( windowingLevel + windowingWidth / 2, 0, 1 ) );
 }
 
 
@@ -136,10 +149,14 @@ const float CuttingPlanesStage::DEFAULT_WINDOWING_LEVEL = 0.5f;
 const unsigned int CuttingPlanesStage::ROLE_INTENSITIES = 0;
 
 
-CuttingPlanesStage::CuttingPlanesStage( unsigned int volumeGeometryType, unsigned int planeGeometryType )
+CuttingPlanesStage::CuttingPlanesStage( unsigned int volumeGeometryType, unsigned int planeGeometryType, unsigned int colorMapResolution )
     : base::GeometryStage< void >::GeometryStage( volumeGeometryType )
     , pimpl( new Details( planeGeometryType ) )
+    , volumeGeometryType( volumeGeometryType )
+    , planeGeometryType( planeGeometryType )
+    , colorMap( colorMapResolution )
 {
+    pimpl->updateColorMap( colorMap );
 }
 
 
@@ -155,29 +172,17 @@ CuttingPlanesStage::~CuttingPlanesStage()
 }
 
 
-CuttingPlanesStage* CuttingPlanesStage::clone() const
-{
-    CuttingPlanesStage* const result = new CuttingPlanesStage( geometryType, pimpl->planes.geometryType );
-    result->setEnabled( isEnabled() );
-    return result;
-}
-
-
 void CuttingPlanesStage::setWindowingLevel( float windowingLevel )
 {
     pimpl->windowingLevel = windowingLevel;
+    pimpl->updateColorMap( colorMap );
 }
 
 
 void CuttingPlanesStage::setWindowingWidth( float windowingWidth )
 {
     pimpl->windowingWidth = windowingWidth;
-}
-
-
-void CuttingPlanesStage::setRenderingInverse( bool inverse )
-{
-    pimpl->renderingInverse = inverse;
+    pimpl->updateColorMap( colorMap );
 }
 
 
@@ -190,24 +195,6 @@ float CuttingPlanesStage::windowingLevel() const
 float CuttingPlanesStage::windowingWidth() const
 {
     return pimpl->windowingWidth;
-}
-
-
-float CuttingPlanesStage::minimumIntensity() const
-{
-    return pimpl->windowingLevel - pimpl->windowingWidth / 2;
-}
-
-
-float CuttingPlanesStage::maximumIntensity() const
-{
-    return pimpl->windowingLevel + pimpl->windowingWidth / 2;
-}
-
-
-bool CuttingPlanesStage::isRenderingInverse() const
-{
-    return pimpl->renderingInverse;
 }
 
     
@@ -236,10 +223,9 @@ void CuttingPlanesStage::render( const base::Renderable& volume )
 {
     /* Bind texture and volumeSampler to free texture unit.
      */
-    const static unsigned int TEXTURE_UNIT = base::Texture< 0 >::SETUP_UNIT + 1;
     const base::ManagedTexture3D& texture = static_cast< const base::ManagedTexture3D& >( volume.geometry().feature( ROLE_INTENSITIES ) );
-    this->videoResource( texture ).get().bind( TEXTURE_UNIT );
-    vr->volumeSampler.bind( TEXTURE_UNIT );
+    this->videoResource( texture ).get().bind( Details::VOLUME_TEXTURE_UNIT );
+    vr->volumeSampler.bind( Details::VOLUME_TEXTURE_UNIT );
     
     /* Upload volume-specific uniforms that are equal for all planes.
      */
@@ -247,7 +233,7 @@ void CuttingPlanesStage::render( const base::Renderable& volume )
     const base::math::Matrix4f modelTexture = texture.textureCoordinatesCorrection * base::math::translation4f( 0.5f, 0.5f, 0.5f );
     base::ShaderUniform< base::math::Matrix4f >( "modelViewProjection", modelViewProjection ).upload();
     base::ShaderUniform< base::math::Matrix4f >( "modelTexture", modelTexture ).upload();
-    base::ShaderUniform< int >( "huVolume", TEXTURE_UNIT ).upload();
+    base::ShaderUniform< int >( "intensities", Details::VOLUME_TEXTURE_UNIT ).upload();
 
     /* Compute 'volume' scale in world space.
      */
@@ -321,9 +307,10 @@ void CuttingPlanesStage::renderPass
 
     /* Set shader and upload all uniforms that are same for all planes and volumes.
      */
-    base::ShaderUniform< float >( "minIntensity", minimumIntensity() ).upload();
-    base::ShaderUniform< float >( "maxIntensity", maximumIntensity() ).upload();
-    base::ShaderUniform<   int >(       "invert", pimpl->renderingInverse ? 1 : 0 ).upload();
+    base::ShaderUniform< float >( "minIntensity", colorMap.minimumIntensity() ).upload();
+    base::ShaderUniform< float >( "maxIntensity", colorMap.maximumIntensity() ).upload();
+    base::ShaderUniform<   int >( "colorMap", Details::COLORMAP_TEXTURE_UNIT ).upload();
+    colorMap.bind( Details::COLORMAP_TEXTURE_UNIT );
     
     /* Set shader and do the rendering.
      */
@@ -337,6 +324,6 @@ void CuttingPlanesStage::renderPass
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

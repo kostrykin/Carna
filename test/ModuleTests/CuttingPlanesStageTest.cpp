@@ -1,19 +1,22 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include "CuttingPlanesStageTest.h"
-#include <Carna/base/Node.h>
-#include <Carna/base/Geometry.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/presets/CuttingPlanesStage.h>
+#include "CuttingPlanesStageTest.hpp"
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/Geometry.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/presets/CuttingPlanesStage.hpp>
 
 
 
@@ -57,8 +60,11 @@ void CuttingPlanesStageTest::cleanupTestCase()
 
 void CuttingPlanesStageTest::init()
 {
-    planes->setWindowingWidth( base::HUV::rel( 2000 ).relIntensity() );
-    planes->setWindowingLevel( base::HUV::abs( -100 ).absIntensity() );
+    planes->setWindowingWidth( base::HUVOffset( 2000 ).intensity() );
+    planes->setWindowingLevel( base::HUV( -100 ).intensity() );
+    planes->colorMap.writeLinearSegment(
+        0, 1, base::Color( 0, 0, 0, 255 ), base::Color( 255, 255, 255, 255 )
+    );
 }
 
 

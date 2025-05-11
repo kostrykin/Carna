@@ -1,19 +1,22 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <TestApplication.h>
-#include <Carna/base/Log.h>
+#include <TestApplication.hpp>
+#include <LibCarna/base/Log.hpp>
 #include <QDebug>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -83,7 +86,7 @@ void QDebugLogWriter::writeLine( base::Log::Severity severity, const std::string
 TestApplication::TestApplication( int& argc, char** argv )
     : QApplication( argc, argv )
 {
-    Carna::base::Log::instance().setWriter( new Carna::testing::QDebugLogWriter() );
+    LibCarna::base::Log::instance().setWriter( new LibCarna::testing::QDebugLogWriter() );
 }
 
 
@@ -102,7 +105,7 @@ bool TestApplication::notify( QObject* receiver, QEvent* ev )
     {
         return QApplication::notify( receiver, ev );
     }
-    catch( base::CarnaException& ex )
+    catch( base::LibCarnaException& ex )
     {
         std::stringstream msg;
         msg << ex.message << " (" << ex.details << ")";
@@ -114,6 +117,6 @@ bool TestApplication::notify( QObject* receiver, QEvent* ev )
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna

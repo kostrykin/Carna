@@ -1,17 +1,20 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/helpers/VolumeGridHelper.h>
+#include <LibCarna/helpers/VolumeGridHelper.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace helpers
@@ -34,32 +37,19 @@ VolumeGridHelperBase::~VolumeGridHelperBase()
 }
 
 
-VolumeGridHelperBase::Spacing::Spacing( const base::math::Vector3f& millimeters )
-    : millimeters( millimeters )
+VolumeGridHelperBase::Spacing::Spacing( const base::math::Vector3f& units )
+    : units( units )
 {
 }
 
 
-VolumeGridHelperBase::Dimensions::Dimensions( const base::math::Vector3f& millimeters )
-    : millimeters( millimeters )
+VolumeGridHelperBase::Extent::Extent( const base::math::Vector3f& units )
+    : units( units )
 {
 }
 
 
-void VolumeGridHelperBase::loadHUData( const std::function< base::HUV( const base::math::Vector3ui& ) >& huData )
-{
-    loadIntensities( [&huData]( const base::math::Vector3ui& loc )
-        {
-            auto intensity = ( huData( loc ) + 1024 ) / 4095.f;
-            if( intensity < 0 ) intensity = 0;
-            if( intensity > 1 ) intensity = 1;
-            return intensity;
-        }
-    );
-}
 
+}  // namespace LibCarna :: helpers
 
-
-}  // namespace Carna :: helpers
-
-}  // namespace Carna
+}  // namespace LibCarna

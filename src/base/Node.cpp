@@ -1,20 +1,23 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/Node.h>
-#include <Carna/base/NodeListener.h>
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/NodeListener.hpp>
 #include <algorithm>
 #include <set>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -180,8 +183,8 @@ bool Node::hasChild( const Spatial& child ) const
 
 void Node::attachChild( Spatial* child )
 {
-    CARNA_ASSERT( child != nullptr );
-    CARNA_ASSERT( child != this );
+    LIBCARNA_ASSERT( child != nullptr );
+    LIBCARNA_ASSERT( child != this );
     if( !child->hasParent() || &child->parent() != this )
     {
         if( child->hasParent() )
@@ -200,7 +203,7 @@ Spatial* Node::detachChild( Spatial& child )
     const auto childItr = pimpl->children.find( &child );
     if( childItr != pimpl->children.end() )
     {
-        CARNA_ASSERT( child.hasParent() && &child.parent() == this );
+        LIBCARNA_ASSERT( child.hasParent() && &child.parent() == this );
         pimpl->children.erase( &child );
         child.detachFromParent();
         pimpl->notifyTreeChanges( true );
@@ -274,6 +277,6 @@ void Node::updateWorldTransform()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

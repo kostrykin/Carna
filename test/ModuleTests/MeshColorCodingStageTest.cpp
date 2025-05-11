@@ -1,25 +1,28 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include "MeshColorCodingStageTest.h"
-#include <Carna/base/Node.h>
-#include <Carna/base/Geometry.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/base/Vertex.h>
-#include <Carna/base/Material.h>
-#include <Carna/base/Mesh.h>
-#include <Carna/base/MeshFactory.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/Aggregation.h>
-#include <Carna/presets/MeshColorCodingStage.h>
+#include "MeshColorCodingStageTest.hpp"
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/Geometry.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/base/Vertex.hpp>
+#include <LibCarna/base/Material.hpp>
+#include <LibCarna/base/Mesh.hpp>
+#include <LibCarna/base/MeshFactory.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/Aggregation.hpp>
+#include <LibCarna/presets/MeshColorCodingStage.hpp>
 
 
 
@@ -44,7 +47,7 @@ void MeshColorCodingStageTest::initTestCase()
 
     //! [MeshColorCodingStage_instantiation]
     mccs = new presets::MeshColorCodingStage();
-    mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH );
+    mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH );
     renderer->appendStage( mccs );
     //! [MeshColorCodingStage_instantiation]
 
@@ -59,11 +62,11 @@ void MeshColorCodingStageTest::initTestCase()
     objRed   = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
     objGreen = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
 
-    objRed  ->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
-    objGreen->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
+    objRed  ->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH, boxMesh );
+    objGreen->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH, boxMesh );
 
-    objRed  ->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL,   redMaterial );
-    objGreen->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, greenMaterial );
+    objRed  ->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL,   redMaterial );
+    objGreen->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL, greenMaterial );
 
     boxMesh.release();
     redMaterial.release();
@@ -96,7 +99,7 @@ void MeshColorCodingStageTest::cleanup()
 }
 
 
-Carna::base::math::Vector2ui MeshColorCodingStageTest::computeFrameLocation( const Carna::base::Spatial& obj ) const
+LibCarna::base::math::Vector2ui MeshColorCodingStageTest::computeFrameLocation( const LibCarna::base::Spatial& obj ) const
 {
     const base::Viewport& vp = renderer->viewport();
 

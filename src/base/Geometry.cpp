@@ -1,23 +1,26 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/Geometry.h>
-#include <Carna/base/GeometryFeature.h>
-#include <Carna/base/CarnaException.h>
-#include <Carna/base/Association.h>
-#include <Carna/base/Node.h>
+#include <LibCarna/base/Geometry.hpp>
+#include <LibCarna/base/GeometryFeature.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
+#include <LibCarna/base/Association.hpp>
+#include <LibCarna/base/Node.hpp>
 #include <vector>
 #include <map>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -165,7 +168,7 @@ bool Geometry::hasFeature( unsigned int role ) const
 GeometryFeature& Geometry::feature( unsigned int role ) const
 {
     const auto featureItr = pimpl->featureByRole.find( role );
-    CARNA_ASSERT( featureItr != pimpl->featureByRole.end() );
+    LIBCARNA_ASSERT( featureItr != pimpl->featureByRole.end() );
     return *featureItr->second;
 }
 
@@ -201,6 +204,6 @@ const BoundingVolume& Geometry::boundingVolume() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

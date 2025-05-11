@@ -1,23 +1,26 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/presets/OccludedRenderingStage.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/RenderTask.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Viewport.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/presets/OccludedRenderingStage.hpp>
+#include <LibCarna/base/RenderState.hpp>
+#include <LibCarna/base/RenderTask.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Viewport.hpp>
 #include <set>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -136,14 +139,6 @@ OccludedRenderingStage::~OccludedRenderingStage()
 }
 
 
-OccludedRenderingStage* OccludedRenderingStage::clone() const
-{
-    OccludedRenderingStage* const result = new OccludedRenderingStage();
-    result->setEnabled( isEnabled() );
-    return result;
-}
-
-
 void OccludedRenderingStage::disableAllStages()
 {
     pimpl->enabledStages.clear();
@@ -188,7 +183,7 @@ void OccludedRenderingStage::renderPass
      */
     const Viewport forkViewport( vp, 0, 0, vr->fbo.width(), vr->fbo.height() );
     const unsigned int outputFramebufferId = base::Framebuffer::currentId();
-    CARNA_RENDER_TO_FRAMEBUFFER( vr->fbo,
+    LIBCARNA_RENDER_TO_FRAMEBUFFER( vr->fbo,
 
         base::Framebuffer::copyDepthAttachment( outputFramebufferId, vr->fbo.id, vp, forkViewport );
 
@@ -245,6 +240,6 @@ float OccludedRenderingStage::occlusionTranslucency() const
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

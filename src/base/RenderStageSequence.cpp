@@ -1,19 +1,22 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/RenderStageSequence.h>
-#include <Carna/base/RenderStage.h>
+#include <LibCarna/base/RenderStageSequence.hpp>
+#include <LibCarna/base/RenderStage.hpp>
 #include <vector>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -69,7 +72,7 @@ void RenderStageSequence::clearStages()
 
 RenderStage& RenderStageSequence::stageAt( std::size_t position ) const
 {
-    CARNA_ASSERT( position < stages() );
+    LIBCARNA_ASSERT( position < stages() );
     return *pimpl->stages[ position ];
 }
 
@@ -81,6 +84,6 @@ void RenderStageSequence::releaseStages()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['text_2eh_0',['text.h',['../text_8h.html',1,'']]],
-  ['texture_2eh_1',['Texture.h',['../Texture_8h.html',1,'']]],
-  ['transparentrenderingstage_2eh_2',['TransparentRenderingStage.h',['../TransparentRenderingStage_8h.html',1,'']]]
+  ['text_2ehpp_0',['text.hpp',['../text_8hpp.html',1,'']]],
+  ['texture_2ehpp_1',['Texture.hpp',['../Texture_8hpp.html',1,'']]],
+  ['transparentrenderingstage_2ehpp_2',['TransparentRenderingStage.hpp',['../TransparentRenderingStage_8hpp.html',1,'']]]
 ];

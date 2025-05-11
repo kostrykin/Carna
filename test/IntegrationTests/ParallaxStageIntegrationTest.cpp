@@ -1,24 +1,27 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include "ParallaxStageIntegrationTest.h"
-#include <Carna/base/Node.h>
-#include <Carna/base/Geometry.h>
-#include <Carna/base/Vertex.h>
-#include <Carna/base/Material.h>
-#include <Carna/base/Mesh.h>
-#include <Carna/base/MeshFactory.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/presets/DRRStage.h>
-#include <Carna/presets/ParallaxStage.h>
+#include "ParallaxStageIntegrationTest.hpp"
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/Geometry.hpp>
+#include <LibCarna/base/Vertex.hpp>
+#include <LibCarna/base/Material.hpp>
+#include <LibCarna/base/Mesh.hpp>
+#include <LibCarna/base/MeshFactory.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/presets/DRRStage.hpp>
+#include <LibCarna/presets/ParallaxStage.hpp>
 
 
 
@@ -44,8 +47,8 @@ void ParallaxStageIntegrationTest::initTestCase()
     material.setParameter( "color", base::Color::RED );
     
     base::Geometry* const box = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
-    box->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
-    box->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, material );
+    box->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH, boxMesh );
+    box->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL, material );
     scene->root->attachChild( box );
 
     boxMesh.release();
@@ -88,8 +91,8 @@ void ParallaxStageIntegrationTest::init()
     drr->setSampleRate( 100 );
     drr->setWaterAttenuation( 5e-3f );
     drr->setBaseIntensity( 1.f );
-    drr->setLowerThreshold( base::HUV::abs( -400 ) );
-    drr->setUpperThreshold( base::HUV::abs( +400 ) );
+    drr->setLowerThreshold( base::HUV( -400 ) );
+    drr->setUpperThreshold( base::HUV( +400 ) );
     drr->setUpperMultiplier( 1.5f );
     //! [parallax_instantiation_others]
 }

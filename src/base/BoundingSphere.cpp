@@ -1,17 +1,20 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/BoundingSphere.h>
+#include <LibCarna/base/BoundingSphere.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -37,7 +40,7 @@ struct BoundingSphere::Details
 BoundingSphere::BoundingSphere( float radius )
     : pimpl( new Details() )
 {
-    CARNA_ASSERT( radius > 0 );
+    LIBCARNA_ASSERT( radius > 0 );
     pimpl->radius = radius;
 }
 
@@ -55,7 +58,7 @@ float BoundingSphere::radius() const
 
 void BoundingSphere::setRadius( float radius )
 {
-    CARNA_ASSERT( radius > 0 );
+    LIBCARNA_ASSERT( radius > 0 );
     pimpl->radius = radius;
 }
 
@@ -86,6 +89,6 @@ void BoundingSphere::computeClosemostPoint( math::Vector3f& out, const math::Vec
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

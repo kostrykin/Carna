@@ -1,17 +1,20 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include "VolumeGridHelperTest.h"
-#include <Carna/base/BufferedIntensityVolume.h>
-#include <Carna/helpers/VolumeGridHelper.h>
+#include "VolumeGridHelperTest.hpp"
+#include <LibCarna/base/BufferedIntensityVolume.hpp>
+#include <LibCarna/helpers/VolumeGridHelper.hpp>
 
 
 
@@ -22,9 +25,9 @@
 template< typename TestedHelperType >
 void verifyPartitioning( const TestedHelperType& helper )
 {
-    CARNA_FOR_VECTOR3UI( coord, helper.grid().segmentCounts )
+    LIBCARNA_FOR_VECTOR3UI( coord, helper.grid().segmentCounts )
     {
-        const Carna::base::math::Vector3ui& size = helper.grid().segmentAt( coord ).intensities().size;
+        const LibCarna::base::math::Vector3ui& size = helper.grid().segmentAt( coord ).intensities().size;
         QCOMPARE( size.x() % 2, 0u );
         QCOMPARE( size.y() % 2, 0u );
         QCOMPARE( size.z() % 2, 0u );

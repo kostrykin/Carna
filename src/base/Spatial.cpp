@@ -1,19 +1,22 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/Spatial.h>
-#include <Carna/base/Node.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/base/Spatial.hpp>
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -42,8 +45,8 @@ Spatial::~Spatial()
 
 void Spatial::updateParent( Node& parent )
 {
-    CARNA_ASSERT( &parent != this );
-    CARNA_ASSERT( parent.hasChild( *this ) );
+    LIBCARNA_ASSERT( &parent != this );
+    LIBCARNA_ASSERT( parent.hasChild( *this ) );
     myParent = &parent;
 }
 
@@ -71,14 +74,14 @@ Spatial* Spatial::detachFromParent()
     
 Node& Spatial::parent()
 {
-    CARNA_ASSERT( hasParent() );
+    LIBCARNA_ASSERT( hasParent() );
     return *myParent;
 }
 
 
 const Node& Spatial::parent() const
 {
-    CARNA_ASSERT( hasParent() );
+    LIBCARNA_ASSERT( hasParent() );
     return *myParent;
 }
 
@@ -92,7 +95,7 @@ Node& Spatial::findRoot()
     else
     {
         Node* const node = dynamic_cast< Node* >( this );
-        CARNA_ASSERT( node != nullptr );
+        LIBCARNA_ASSERT( node != nullptr );
         return *node;
     }
 }
@@ -107,7 +110,7 @@ const Node& Spatial::findRoot() const
     else
     {
         const Node* const node = dynamic_cast< const Node* >( this );
-        CARNA_ASSERT( node != nullptr );
+        LIBCARNA_ASSERT( node != nullptr );
         return *node;
     }
 }
@@ -135,7 +138,7 @@ const math::Matrix4f& Spatial::worldTransform() const
 void Spatial::removeUserData()
 {
     myUserData = nullptr;
-    CARNA_ASSERT( !hasUserData() );
+    LIBCARNA_ASSERT( !hasUserData() );
 }
 
 
@@ -179,6 +182,6 @@ const std::string& Spatial::tag() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

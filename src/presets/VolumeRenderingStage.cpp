@@ -1,28 +1,31 @@
 ﻿/*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/presets/VolumeRenderingStage.h>
-#include <Carna/base/Mesh.h>
-#include <Carna/base/ManagedTexture3D.h>
-#include <Carna/base/ManagedTexture3DInterface.h>
-#include <Carna/base/Vertex.h>
-#include <Carna/base/IndexBuffer.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/Log.h>
-#include <Carna/base/math.h>
-#include <Carna/base/text.h>
+#include <LibCarna/presets/VolumeRenderingStage.hpp>
+#include <LibCarna/base/Mesh.hpp>
+#include <LibCarna/base/ManagedTexture3D.hpp>
+#include <LibCarna/base/ManagedTexture3DInterface.hpp>
+#include <LibCarna/base/Vertex.hpp>
+#include <LibCarna/base/IndexBuffer.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/RenderState.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/Log.hpp>
+#include <LibCarna/base/math.hpp>
+#include <LibCarna/base/text.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -357,7 +360,7 @@ unsigned int VolumeRenderingStage::loadVideoResources()
     vr.reset( new VideoResources( shader, pimpl->sampleRate ) );
     createVolumeSamplers( [&]( unsigned int role, base::Sampler* sampler )
         {
-            CARNA_ASSERT( vr->samplers.find( role ) == vr->samplers.end() );
+            LIBCARNA_ASSERT( vr->samplers.find( role ) == vr->samplers.end() );
             vr->samplers[ role ] = sampler;
         }
     );
@@ -393,7 +396,7 @@ void VolumeRenderingStage::renderPass
 
 void VolumeRenderingStage::setSampleRate( unsigned int sampleRate )
 {
-    CARNA_ASSERT( sampleRate >= 2 );
+    LIBCARNA_ASSERT( sampleRate >= 2 );
     pimpl->sampleRate = sampleRate;
 }
 
@@ -405,6 +408,6 @@ unsigned int VolumeRenderingStage::sampleRate() const
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

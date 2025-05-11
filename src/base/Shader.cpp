@@ -1,22 +1,25 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/Shader.h>
-#include <Carna/base/ShaderCompilationError.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/Shader.hpp>
+#include <LibCarna/base/ShaderCompilationError.hpp>
 #include <cstdlib>
 #include <memory>
 #include <sstream>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -39,7 +42,7 @@ Shader::Shader( unsigned int type, const std::string& src )
 {
     try
     {
-        CARNA_ASSERT_EX( id != 0, "Failed to acquire shader object!" );
+        LIBCARNA_ASSERT_EX( id != 0, "Failed to acquire shader object!" );
 
         const char* pcSrc = src.c_str();
         const GLint nSrcLength = src.length();
@@ -86,6 +89,6 @@ void Shader::release()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

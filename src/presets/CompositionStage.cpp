@@ -1,25 +1,28 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/presets/CompositionStage.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Texture.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/RenderState.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/presets/CompositionStage.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Texture.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/RenderState.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -89,12 +92,12 @@ void CompositionStage::Details::renderInterleavedPass
     , bool isFirstInvocation
     , bool isFirstSource )
 {
-    CARNA_ASSERT( interleaveShader != nullptr );
+    LIBCARNA_ASSERT( interleaveShader != nullptr );
     
     /* Render to intermediate buffer.
      */
     const base::Viewport framebufferViewport( *intermediateBuffer );
-    CARNA_RENDER_TO_FRAMEBUFFER( *intermediateBuffer,
+    LIBCARNA_RENDER_TO_FRAMEBUFFER( *intermediateBuffer,
         
         glClearColor( 0, 0, 0, 0 );
         rt.renderer.glContext().clearBuffers( base::GLContext::COLOR_BUFFER_BIT | base::GLContext::DEPTH_BUFFER_BIT );
@@ -221,7 +224,7 @@ void CompositionStage::renderPass
         break;
         
     default:
-        CARNA_FAIL( "Unknown composition mode!" );
+        LIBCARNA_FAIL( "Unknown composition mode!" );
     
     }
 }
@@ -233,6 +236,6 @@ void CompositionStage::prepareFrame( base::Node& root )
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

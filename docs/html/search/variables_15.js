@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['z_0',['z',['../structCarna_1_1base_1_1VertexPosition.html#af3a153582a3ba3fb63654e702b38b444',1,'Carna::base::VertexPosition']]]
+  ['z_0',['z',['../structLibCarna_1_1base_1_1VertexPosition.html#a878c7edfbdc278683ab8a676bd32272e',1,'LibCarna::base::VertexPosition']]]
 ];

@@ -1,23 +1,26 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/helpers/PointMarkerHelper.h>
-#include <Carna/presets/OpaqueRenderingStage.h>
-#include <Carna/base/MeshFactory.h>
-#include <Carna/base/Vertex.h>
-#include <Carna/base/Geometry.h>
-#include <Carna/base/Material.h>
-#include <Carna/base/RotatingColor.h>
+#include <LibCarna/helpers/PointMarkerHelper.hpp>
+#include <LibCarna/presets/OpaqueRenderingStage.hpp>
+#include <LibCarna/base/MeshFactory.hpp>
+#include <LibCarna/base/Vertex.hpp>
+#include <LibCarna/base/Geometry.hpp>
+#include <LibCarna/base/Material.hpp>
+#include <LibCarna/base/RotatingColor.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace helpers
@@ -89,8 +92,8 @@ base::Geometry* PointMarkerHelper::Details::createGeometry( unsigned int geometr
 PointMarkerHelper::PointMarkerHelper( unsigned int geometryType, unsigned int pointSize )
     : pimpl( new Details() )
     , geometryType( geometryType )
-    , meshRole( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH )
-    , materialRole( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL )
+    , meshRole( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH )
+    , materialRole( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL )
     , pointSize( pointSize )
 {
 }
@@ -170,6 +173,6 @@ base::Geometry* PointMarkerHelper::createPointMarker( unsigned int pointSize ) c
 
 
 
-}  // namespace Carna :: helpers
+}  // namespace LibCarna :: helpers
 
-}  // namespace Carna
+}  // namespace LibCarna

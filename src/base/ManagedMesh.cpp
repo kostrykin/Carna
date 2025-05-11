@@ -1,18 +1,21 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/ManagedMesh.h>
-#include <Carna/base/Aggregation.h>
+#include <LibCarna/base/ManagedMesh.hpp>
+#include <LibCarna/base/Aggregation.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -96,7 +99,7 @@ void ManagedMeshBase::acquireMesh()
      */
     if( videoResourceAcquisitionsCount() == 1 )
     {
-        CARNA_ASSERT( pimpl->acquisitions.empty() );
+        LIBCARNA_ASSERT( pimpl->acquisitions.empty() );
         pimpl->vertexBuffer.reset( loadVertexBuffer() );
         pimpl-> indexBuffer.reset( loadIndexBuffer () );
     }
@@ -129,9 +132,9 @@ void ManagedMeshBase::releaseMesh()
      */
     const GLContext& glc = GLContext::current();
     const auto infoItr = pimpl->acquisitions.find( &glc );
-    CARNA_ASSERT( infoItr != pimpl->acquisitions.end() );
+    LIBCARNA_ASSERT( infoItr != pimpl->acquisitions.end() );
     unsigned int& acquisitionCount = infoItr->second->acquisitionCount;
-    CARNA_ASSERT( acquisitionCount > 0 );
+    LIBCARNA_ASSERT( acquisitionCount > 0 );
     if( --acquisitionCount == 0 )
     {
         /* Delete the mesh within the current OpenGL context.
@@ -144,7 +147,7 @@ void ManagedMeshBase::releaseMesh()
      */
     if( videoResourceAcquisitionsCount() == 1 )
     {
-        CARNA_ASSERT( pimpl->acquisitions.empty() );
+        LIBCARNA_ASSERT( pimpl->acquisitions.empty() );
         pimpl->vertexBuffer.reset();
         pimpl-> indexBuffer.reset();
     }
@@ -155,12 +158,12 @@ const MeshBase& ManagedMeshBase::mesh() const
 {
     const GLContext& glc = GLContext::current();
     const auto infoItr = pimpl->acquisitions.find( &glc );
-    CARNA_ASSERT( infoItr != pimpl->acquisitions.end() );
+    LIBCARNA_ASSERT( infoItr != pimpl->acquisitions.end() );
     return *infoItr->second->mesh;
 }
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

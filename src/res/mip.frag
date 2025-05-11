@@ -1,35 +1,25 @@
 #version 330
 
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-uniform sampler3D huVolume;
+uniform sampler3D intensities;
 uniform mat4      modelTexture;
-uniform float     minIntensity;
-uniform float     maxIntensity;
-uniform vec4      color;
 
 in vec4 modelSpaceCoordinates;
 
 layout( location = 0 ) out vec4 _gl_FragColor;
-
-
-// ----------------------------------------------------------------------------------
-// Basic Sampling
-// ----------------------------------------------------------------------------------
-
-float intensityAt( vec3 p )
-{
-    return texture( huVolume, p ).r;
-}
 
 
 // ----------------------------------------------------------------------------------
@@ -44,8 +34,7 @@ void main()
     }
     
     vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;
-    float intensity = intensityAt( textureCoordinates.xyz );
-    float f = step( minIntensity, intensity ) * ( 1 - step( maxIntensity, intensity ) ) * ( intensity - minIntensity ) / ( maxIntensity - minIntensity );
+    float intensity = texture( intensities, textureCoordinates.xyz ).r;
     
-    _gl_FragColor = vec4( color.rgb, color.a * f );
+    _gl_FragColor = vec4( intensity, 0, 0, 1 );
 }

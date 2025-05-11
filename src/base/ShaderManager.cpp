@@ -1,21 +1,24 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/Shader.h>
-#include <Carna/base/ShaderProgram.h>
-#include <Carna/base/Log.h>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/Shader.hpp>
+#include <LibCarna/base/ShaderProgram.hpp>
+#include <LibCarna/base/Log.hpp>
 #include <sstream>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -82,8 +85,8 @@ const ShaderProgram& ShaderManager::Details::loadShader( const std::string& name
     
     /* Assure the required sources were found.
      */
-    CARNA_ASSERT_EX( srcVertPtr != nullptr,   "Vertex shader sources \"" + name + "\" not found!" );
-    CARNA_ASSERT_EX( srcFragPtr != nullptr, "Fragment shader sources \"" + name + "\" not found!" );
+    LIBCARNA_ASSERT_EX( srcVertPtr != nullptr,   "Vertex shader sources \"" + name + "\" not found!" );
+    LIBCARNA_ASSERT_EX( srcFragPtr != nullptr, "Fragment shader sources \"" + name + "\" not found!" );
     
     /* Also look up the optional geometry shader definition.
      */
@@ -185,7 +188,7 @@ ShaderManager::~ShaderManager()
 
 const ShaderProgram& ShaderManager::acquireShader( const std::string& shaderName )
 {
-    CARNA_ASSERT( !shaderName.empty() );
+    LIBCARNA_ASSERT( !shaderName.empty() );
     const auto infoItr = pimpl->loadedShaders.find( shaderName );
     if( infoItr == pimpl->loadedShaders.end() )
     {
@@ -201,7 +204,7 @@ const ShaderProgram& ShaderManager::acquireShader( const std::string& shaderName
 void ShaderManager::releaseShader( const ShaderProgram& shader )
 {
     const auto nameItr = pimpl->loadedShaderNames.find( const_cast< ShaderProgram* >( &shader ) );
-    CARNA_ASSERT_EX( nameItr != pimpl->loadedShaderNames.end(), "Shader not loaded!" );
+    LIBCARNA_ASSERT_EX( nameItr != pimpl->loadedShaderNames.end(), "Shader not loaded!" );
     const std::string& shaderName = nameItr->second;
     Details::ShaderInfo& info = *pimpl->loadedShaders[ shaderName ];
     if( --info.acquisitionsCount == 0 )
@@ -226,6 +229,6 @@ void ShaderManager::removeSource( const std::string& srcName )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

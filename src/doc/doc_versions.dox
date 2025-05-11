@@ -1,0 +1,22 @@
+namespace LibCarna
+{
+
+/** \page versions Versions
+  *
+  * \section VersioningPolicies Versioning Policy
+  *
+  *   - The *major version number* names the overall API version. It is incremented on wide-ranged API changes. There
+  *     is no downward compatibility guaranteed: The compatibility of the API is usually broken when this version
+  *     number is incremented.
+  *   - The *minor version number* is incremeted on API changes that might break downward compatibility, but only
+  *     locally, so that only a few tweaks are neccessary (if any) in order to upgrade.
+  *   - The *patch version number* is incremeted on such changes that neither of the two prior rules apply to: Full
+  *     downward compatibility is guaranteed both on API and ABI level, thus one should always try to use the most
+  *     recent patch version.
+  *
+  * \section Changelog Changelog
+  *
+  * The changelog has moved to: <https://github.com/kostrykin/CarnaLib/releases>
+  */
+  
+}  // namespace LibCarna

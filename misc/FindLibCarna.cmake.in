@@ -1,0 +1,39 @@
+set(FOUND_VERSION @FULL_VERSION@)
+
+# set directory where headers are located
+get_filename_component(@PROJECT_NAME@_INCLUDE_DIR "@CMAKE_INSTALL_PREFIX@/@INSTALL_HEADERS_DIR@" ABSOLUTE)
+
+# set path to RELEASE library file
+find_library( @PROJECT_NAME@_LIBRARY_RELEASE
+				NAMES @TARGET_NAME@
+				PATHS "@CMAKE_INSTALL_PREFIX@/@INSTALL_LIBRARY_DIR@"
+				DOC "@PROJECT_NAME@ library (Release)"
+				NO_DEFAULT_PATH )
+
+# set path to DEBUG library file
+find_library( @PROJECT_NAME@_LIBRARY_DEBUG
+				NAMES @TARGET_NAME@@CMAKE_DEBUG_POSTFIX@
+				PATHS "@CMAKE_INSTALL_PREFIX@/@INSTALL_LIBRARY_DIR@"
+				DOC "@PROJECT_NAME@ library (Debug)"
+				NO_DEFAULT_PATH )
+
+# set which components were found
+set( @PROJECT_NAME@_LIBRARIES "" )
+if( @PROJECT_NAME@_LIBRARY_RELEASE )
+    set( @PROJECT_NAME@_release_FOUND TRUE )
+    set( @PROJECT_NAME@_LIBRARIES ${@PROJECT_NAME@_LIBRARIES} optimized ${@PROJECT_NAME@_LIBRARY_RELEASE} )
+endif()
+if( @PROJECT_NAME@_LIBRARY_DEBUG )
+    set( @PROJECT_NAME@_debug_FOUND TRUE )
+    set( @PROJECT_NAME@_LIBRARIES ${@PROJECT_NAME@_LIBRARIES} debug ${@PROJECT_NAME@_LIBRARY_DEBUG} )
+endif()
+
+# set path to license files
+set( @PROJECT_NAME@_LICENSE_DIR "@CMAKE_INSTALL_PREFIX@/@INSTALL_LICENSE_DIR@" )
+
+# handles REQUIRED, QUIET and version-related
+# arguments and also sets the _FOUND variable
+find_package_handle_standard_args( @PROJECT_NAME@
+	REQUIRED_VARS @PROJECT_NAME@_INCLUDE_DIR
+        HANDLE_COMPONENTS
+	VERSION_VAR FOUND_VERSION )

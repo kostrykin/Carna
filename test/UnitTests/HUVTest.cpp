@@ -1,12 +1,21 @@
 /*
- *  Copyright (C) 2021 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
+ *  Chair of Medical Engineering (mediTEC)
+ *  RWTH Aachen University
+ *  Pauwelsstr. 20
+ *  52074 Aachen
+ *  Germany
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include "HUVTest.h"
-#include <Carna/base/HUV.h>
+#include "HUVTest.hpp"
+#include <LibCarna/base/HUV.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -38,23 +47,51 @@ void HUVTest::cleanup()
 }
 
 
-void HUVTest::test_HUV_rel()
+void HUVTest::test_HUVOffset()
 {
-    QCOMPARE( int( base::HUV::rel(  100 ).value ),  100 );
-    QCOMPARE( int( base::HUV::rel( -100 ).value ), -100 );
-    QCOMPARE(      base::HUV::rel(  100 ).relIntensity(), 100 / 4095.f );
+    /* Test HUV constructor.
+     */
+    QCOMPARE( int( base::HUVOffset(  100 ).value ),  100 );
+    QCOMPARE( int( base::HUVOffset( -100 ).value ), -100 );
+    QCOMPARE( int( base::HUVOffset(  5000 ).value ), +4095 );
+    QCOMPARE( int( base::HUVOffset( -5000 ).value ), -4095 );
+
+    /* Test intensity constructor.
+     */
+    QCOMPARE( int( base::HUVOffset( +0.5f ).value ), +2048 ); // round(4095 * +0.5) = +2048
+    QCOMPARE( int( base::HUVOffset( -0.5f ).value ), -2048 ); // round(4095 * -0.5) = -2048
+    QCOMPARE( int( base::HUVOffset( +1.5f ).value ), +4095 );
+    QCOMPARE( int( base::HUVOffset( -1.5f ).value ), -4095 );
+
+    /* Test `.intensity()` method.
+     */
+    QCOMPARE( base::HUVOffset(  100 ).intensity(), 100 / 4095.f );
 }
 
 
-void HUVTest::test_HUV_abs()
+void HUVTest::test_HUV()
 {
-    QCOMPARE( int( base::HUV::abs(  100 ).value ),  100 );
-    QCOMPARE( int( base::HUV::abs( -100 ).value ), -100 );
-    QCOMPARE(      base::HUV::abs( -100 ).absIntensity(), ( -100 + 1024 ) / 4095.f );
+    /* Test HUV constructor.
+     */
+    QCOMPARE( int( base::HUV(  100 ).value ),  100 );
+    QCOMPARE( int( base::HUV( -100 ).value ), -100 );
+    QCOMPARE( int( base::HUV( +4000 ).value ), +3071 );
+    QCOMPARE( int( base::HUV( -2000 ).value ), -1024 );
+
+    /* Test intensity constructor.
+     */
+    QCOMPARE( int( base::HUV( 0.75f ).value ), 2047 ); // round(4095 * 0.75) - 1024 = 2047
+    QCOMPARE( int( base::HUV( 0.25f ).value ),    0 ); // round(4095 * 0.25) - 1024 = 0
+    QCOMPARE( int( base::HUV( +1.5f ).value ), +3071 );
+    QCOMPARE( int( base::HUV( -0.5f ).value ), -1024 ); // !!!
+
+    /* Test `.intensity()` method.
+     */
+    QCOMPARE( base::HUV( -100 ).intensity(), ( -100 + 1024 ) / 4095.f );
 }
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna

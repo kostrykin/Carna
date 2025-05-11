@@ -1,21 +1,24 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/SpatialMovement.h>
-#include <Carna/base/Spatial.h>
-#include <Carna/base/CarnaException.h>
-#include <Carna/base/math/Ray.h>
-#include <Carna/base/math/RayPlaneHitTest.h>
+#include <LibCarna/base/SpatialMovement.hpp>
+#include <LibCarna/base/Spatial.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
+#include <LibCarna/base/math/Ray.hpp>
+#include <LibCarna/base/math/RayPlaneHitTest.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -85,7 +88,7 @@ math::Vector3f SpatialMovement::Details::computeMovementPlaneHitLocation
      */
     math::RayPlaneHitTest< math::Vector3f > hitTest;
     hitTest.compute( ray, movementPlaneNormal, movementPlaneOriginOffset );
-    CARNA_ASSERT( hitTest.hitExists() );
+    LIBCARNA_ASSERT( hitTest.hitExists() );
     return hitTest.hitLocation();
 }
 
@@ -223,12 +226,12 @@ bool SpatialMovement::hasMovedSpatial() const
 
 Spatial& SpatialMovement::movedSpatial() const
 {
-    CARNA_ASSERT( hasMovedSpatial() );
+    LIBCARNA_ASSERT( hasMovedSpatial() );
     return *pimpl->movedSpatial;
 }
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

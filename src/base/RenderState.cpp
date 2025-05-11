@@ -1,20 +1,23 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/BlendFunction.h>
-#include <Carna/base/GLContext.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/RenderState.hpp>
+#include <LibCarna/base/BlendFunction.hpp>
+#include <LibCarna/base/GLContext.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -47,6 +50,7 @@ struct RenderState::Details
     CullFace cullFace;
     bool     frontFaceCCW;
     float    pointSize;
+    float    lineWidth;
 
 }; // RenderState :: Details
 
@@ -60,7 +64,7 @@ RenderState::Details::Details( const RenderState* parent, GLContext* glc )
 
 bool RenderState::Details::isCurrent( RenderState* self )
 {
-    CARNA_ASSERT( self->pimpl->glc != nullptr );
+    LIBCARNA_ASSERT( self->pimpl->glc != nullptr );
     if( self->pimpl->glc->isCurrent() )
     {
         return &self->pimpl->glc->currentRenderState() == self;
@@ -74,7 +78,7 @@ bool RenderState::Details::isCurrent( RenderState* self )
 
 void RenderState::Details::assertCurrent( RenderState* self )
 {
-    CARNA_ASSERT_EX( isCurrent( self ), "RenderState instance is locked, because it is not the current one." );
+    LIBCARNA_ASSERT_EX( isCurrent( self ), "RenderState instance is locked, because it is not the current one." );
 }
 
 
@@ -106,6 +110,7 @@ RenderState::RenderState()
     pimpl->cullFace                       = parent.pimpl->cullFace;
     pimpl->frontFaceCCW                   = parent.pimpl->frontFaceCCW;
     pimpl->pointSize                      = parent.pimpl->pointSize;
+    pimpl->lineWidth                      = parent.pimpl->lineWidth;
 }
 
 
@@ -124,6 +129,7 @@ RenderState::~RenderState()
         setCullFace( parent.cullFace );
         setFrontFace( parent.frontFaceCCW );
         setPointSize( parent.pointSize );
+        setLineWidth( parent.lineWidth );
 
         pimpl->glc->popRenderState();
     }
@@ -141,6 +147,7 @@ void RenderState::commit() const
     commitCullFace();
     commitFrontFace();
     commitPointSize();
+    commitLineWidth();
 }
 
 
@@ -244,6 +251,17 @@ void RenderState::setPointSize( float pointSize )
 }
 
 
+void RenderState::setLineWidth( float lineWidth )
+{
+    Details::assertCurrent( this );
+    if( lineWidth > 0 && !base::math::isEqual( lineWidth, pimpl->lineWidth ) )
+    {
+        pimpl->lineWidth = lineWidth;
+        commitLineWidth();
+    }
+}
+
+
 void RenderState::commitDepthTest() const
 {
     if( pimpl->depthTest )
@@ -337,7 +355,13 @@ void RenderState::commitPointSize() const
 }
 
 
+void RenderState::commitLineWidth() const
+{
+    glLineWidth( pimpl->lineWidth );
+}
 
-}  // namespace Carna :: base
 
-}  // namespace Carna
+
+}  // namespace LibCarna :: base
+
+}  // namespace LibCarna

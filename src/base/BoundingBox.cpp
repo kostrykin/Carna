@@ -1,17 +1,20 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/BoundingBox.h>
+#include <LibCarna/base/BoundingBox.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -56,7 +59,7 @@ BoundingBox::~BoundingBox()
 
 void BoundingBox::setSize( const math::Vector3f& size )
 {
-    CARNA_ASSERT( size.x() > 0 && size.y() > 0 && size.z() > 0 );
+    LIBCARNA_ASSERT( size.x() > 0 && size.y() > 0 && size.z() > 0 );
     pimpl->size = size;
 }
 
@@ -85,6 +88,6 @@ void BoundingBox::computeClosemostPoint( math::Vector3f& out, const math::Vector
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

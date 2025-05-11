@@ -1,15 +1,17 @@
 include_directories( ${CMAKE_PROJECT_DIR}IntegrationTests )
 
 list( APPEND TESTS
+        DRRMaskRenderingStageIntegrationTest
+        DVRMaskRenderingStageIntegrationTest
 		FrameRendererIntegrationTest
 		ParallaxStageIntegrationTest
-        MaskRenderingStageIntegrationTest
 	)
 
 list( APPEND TESTS_QOBJECT_HEADERS
-		IntegrationTests/FrameRendererIntegrationTest.h
-		IntegrationTests/ParallaxStageIntegrationTest.h
-        IntegrationTests/MaskRenderingStageIntegrationTest.h
+        IntegrationTests/DRRMaskRenderingStageIntegrationTest.hpp
+        IntegrationTests/DVRMaskRenderingStageIntegrationTest.hpp
+		IntegrationTests/FrameRendererIntegrationTest.hpp
+		IntegrationTests/ParallaxStageIntegrationTest.hpp
 	)
 
 list( APPEND TESTS_HEADERS
@@ -17,7 +19,8 @@ list( APPEND TESTS_HEADERS
 	)
 
 list( APPEND TESTS_SOURCES
+        IntegrationTests/DRRMaskRenderingStageIntegrationTest.cpp
+        IntegrationTests/DVRMaskRenderingStageIntegrationTest.cpp
 		IntegrationTests/FrameRendererIntegrationTest.cpp
 		IntegrationTests/ParallaxStageIntegrationTest.cpp
-        IntegrationTests/MaskRenderingStageIntegrationTest.cpp
 	)

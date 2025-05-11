@@ -1,49 +1,63 @@
+/*
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
+ *
+ *  Chair of Medical Engineering (mediTEC)
+ *  RWTH Aachen University
+ *  Pauwelsstr. 20
+ *  52074 Aachen
+ *  Germany
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
+ */
+
 #include <QGLWidget>
 #include <QGLFormat>
 #include <QMouseEvent>
 #include <QWheelEvent>
 
-#include <Carna/Version.h>
-#include <Carna/base/text.h>
-#include <Carna/base/Log.h>
-#include <Carna/base/GLContext.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/base/Color.h>
-#include <Carna/base/Node.h>
-#include <Carna/base/Camera.h>
-#include <Carna/base/Geometry.h>
-#include <Carna/base/GeometryFeature.h>
-#include <Carna/base/BufferedVectorFieldTexture.h>
-#include <Carna/base/Material.h>
-#include <Carna/base/MeshFactory.h>
-#include <Carna/base/Vertex.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/BufferedIntensityVolume.h>
-#include <Carna/base/SpatialMovement.h>
-#include <Carna/presets/CameraShowcaseControl.h>
-#include <Carna/presets/OccludedRenderingStage.h>
-#include <Carna/presets/OpaqueRenderingStage.h>
-#include <Carna/presets/MeshColorCodingStage.h>
-#include <Carna/presets/DVRStage.h>
-#include <Carna/presets/DRRStage.h>
-#include <Carna/presets/CuttingPlanesStage.h>
-#include <Carna/helpers/VolumeGridHelper.h>
+#include <LibCarna/Version.hpp>
+#include <LibCarna/base/text.hpp>
+#include <LibCarna/base/Log.hpp>
+#include <LibCarna/base/GLContext.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/base/Color.hpp>
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/Camera.hpp>
+#include <LibCarna/base/Geometry.hpp>
+#include <LibCarna/base/GeometryFeature.hpp>
+#include <LibCarna/base/BufferedVectorFieldTexture.hpp>
+#include <LibCarna/base/Material.hpp>
+#include <LibCarna/base/MeshFactory.hpp>
+#include <LibCarna/base/Vertex.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/BufferedIntensityVolume.hpp>
+#include <LibCarna/base/SpatialMovement.hpp>
+#include <LibCarna/presets/CameraShowcaseControl.hpp>
+#include <LibCarna/presets/OccludedRenderingStage.hpp>
+#include <LibCarna/presets/OpaqueRenderingStage.hpp>
+#include <LibCarna/presets/MeshColorCodingStage.hpp>
+#include <LibCarna/presets/DVRStage.hpp>
+#include <LibCarna/presets/DRRStage.hpp>
+#include <LibCarna/presets/CuttingPlanesStage.hpp>
+#include <LibCarna/helpers/VolumeGridHelper.hpp>
 
-#include <TestApplication.h>
-#include <HUGZSceneFactory.h>
+#include <TestApplication.hpp>
+#include <HUGZSceneFactory.hpp>
 
 #include <memory>
 #include <iomanip>
 
 // ----------------------------------------------------------------------------------
 
-CARNA_ASSERT_API_VERSION( EXPECTED_MAJOR_VERSION, EXPECTED_MINOR_VERSION, EXPECTED_RELEASE_VERSION )
+LIBCARNA_ASSERT_API_VERSION( EXPECTED_MAJOR_VERSION, EXPECTED_MINOR_VERSION, EXPECTED_RELEASE_VERSION )
 
 // ----------------------------------------------------------------------------------
 
 
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -62,7 +76,7 @@ class Demo : public QGLWidget
     const static int GEOMETRY_TYPE_OPAQUE        = 1;
     const static int GEOMETRY_TYPE_CUTTING_PLANE = 2;
 
-    typedef Carna::helpers::VolumeGridHelper< Carna::base::IntensityVolumeUInt16, Carna::base::NormalMap3DInt8 > GridHelper;
+    typedef LibCarna::helpers::VolumeGridHelper< LibCarna::base::IntensityVolumeUInt16, LibCarna::base::NormalMap3DInt8 > GridHelper;
 
     std::unique_ptr< GridHelper > gridHelper;
     std::unique_ptr< base::GLContext > glContext;
@@ -102,7 +116,7 @@ protected:
 
 
 Demo::Demo()
-    : QGLWidget( Carna::base::QGLContextAdapter< QGLContext, QGLFormat >::desiredFormat() )
+    : QGLWidget( LibCarna::base::QGLContextAdapter< QGLContext, QGLFormat >::desiredFormat() )
     , mouseInteraction( false )
 {
     setMouseTracking( true );
@@ -177,7 +191,7 @@ void Demo::mouseReleaseEvent( QMouseEvent* ev )
 void Demo::wheelEvent( QWheelEvent* ev )
 {
     const static float SPEED = -5e-2f;
-    cameraControl.moveAxially( ev->delta() * SPEED );
+    cameraControl.moveAxially( ev->angleDelta().y() * SPEED );
     updateGL();
     ev->accept();
 }
@@ -189,20 +203,20 @@ void Demo::initializeGL()
     root.reset( new base::Node() );
 
     base::math::Vector3f spacing;
-    std::unique_ptr< base::HUVolumeUInt16 > baseVolume
+    std::unique_ptr< base::IntensityVolumeUInt16 > baseVolume
         ( HUGZSceneFactory::importVolume( std::string( SOURCE_PATH ) + "/../res/pelves_reduced.hugz", spacing ) );
     gridHelper.reset( new GridHelper
         ( baseVolume->size
         , baseVolume->size.x() * baseVolume->size.y() * baseVolume->size.z() * sizeof( base::IntensityVolumeUInt16::Voxel ) / 50 ) );
-    gridHelper->loadHUData( *baseVolume );
+    gridHelper->loadIntensities( *baseVolume );
     base::Node* const volumeNode = gridHelper->createNode( GEOMETRY_TYPE_VOLUMETRIC, GridHelper::Spacing( spacing ) );
 
     base::ManagedMeshBase& boxMesh = base::MeshFactory< base::PVertex >::createBox( 10, 10, 10 );
     base::Material& boxMaterial = base::Material::create( "unshaded" );
     boxMaterial.setParameter( "color", base::math::Vector4f( 1, 0, 0, 1 ) );
     base::Geometry* const boxGeometry = new base::Geometry( GEOMETRY_TYPE_OPAQUE );
-    boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MATERIAL, boxMaterial );
-    boxGeometry->putFeature( presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH, boxMesh );
+    boxGeometry->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MATERIAL, boxMaterial );
+    boxGeometry->putFeature( presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH, boxMesh );
     boxGeometry->localTransform = base::math::translation4f( 0, 30, 50 );
 
     gridHelper->releaseGeometryFeatures();
@@ -233,7 +247,7 @@ void Demo::resizeGL( int w, int h )
         /* Picking
          */
         mccs = new presets::MeshColorCodingStage();
-        mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, presets::OpaqueRenderingStage::ROLE_DEFAULT_MESH );
+        mccs->putGeometryType( GEOMETRY_TYPE_OPAQUE, presets::OpaqueRenderingStage::DEFAULT_ROLE_MESH );
         renderer->appendStage( mccs );
 
 #if 0
@@ -262,7 +276,7 @@ void Demo::resizeGL( int w, int h )
         dvr->writeColorMap( -400,   0, base::Color:: BLUE_NO_ALPHA, base::Color:: BLUE );
         dvr->writeColorMap(    0, 400, base::Color::GREEN_NO_ALPHA, base::Color::GREEN );
         dvr->setSampleRate( 500 );
-        dvr->setTranslucence( 2 );
+        dvr->setTranslucency( 2 );
         renderer->appendStage( dvr );
 #else
         /* DRR
@@ -292,9 +306,9 @@ void Demo::paintGL()
 }
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna
 
 
 
@@ -304,8 +318,8 @@ void Demo::paintGL()
 
 int main( int argc, char** argv )
 {
-    Carna::testing::TestApplication app( argc, argv );
-    Carna::testing::Demo demo;
+    LibCarna::testing::TestApplication app( argc, argv );
+    LibCarna::testing::Demo demo;
     demo.show();
     return QApplication::exec();
 }

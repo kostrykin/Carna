@@ -1,18 +1,21 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/ProjectionControl.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/base/ProjectionControl.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -68,7 +71,7 @@ ProjectionControl::~ProjectionControl()
 
 void ProjectionControl::setViewportWidth( unsigned int width )
 {
-    CARNA_ASSERT( width > 0 );
+    LIBCARNA_ASSERT( width > 0 );
     if( pimpl->viewportWidth != width )
     {
         pimpl->viewportWidth = width;
@@ -79,7 +82,7 @@ void ProjectionControl::setViewportWidth( unsigned int width )
 
 void ProjectionControl::setViewportHeight( unsigned int height )
 {
-    CARNA_ASSERT( height > 0 );
+    LIBCARNA_ASSERT( height > 0 );
     if( pimpl->viewportHeight != height )
     {
         pimpl->viewportHeight = height;
@@ -102,7 +105,7 @@ unsigned int ProjectionControl::viewportHeight() const
 
 void ProjectionControl::setMinimumVisibleDistance( float minimumVisibleDistance )
 {
-    CARNA_ASSERT( minimumVisibleDistance >= 0 );
+    LIBCARNA_ASSERT( minimumVisibleDistance >= 0 );
     if( !math::isEqual( pimpl->minimumVisibleDistance, minimumVisibleDistance ) )
     {
         pimpl->minimumVisibleDistance = minimumVisibleDistance;
@@ -113,7 +116,7 @@ void ProjectionControl::setMinimumVisibleDistance( float minimumVisibleDistance 
 
 void ProjectionControl::setMaximumVisibleDistance( float maximumVisibleDistance )
 {
-    CARNA_ASSERT( maximumVisibleDistance > 0 );
+    LIBCARNA_ASSERT( maximumVisibleDistance > 0 );
     if( !math::isEqual( pimpl->maximumVisibleDistance, maximumVisibleDistance ) )
     {
         pimpl->maximumVisibleDistance = maximumVisibleDistance;
@@ -153,7 +156,6 @@ void ProjectionControl::setProjectionValidated() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
-
+}  // namespace LibCarna

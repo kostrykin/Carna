@@ -1,28 +1,30 @@
 ﻿/*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/presets/MIPStage.h>
-#include <Carna/presets/MIPLayer.h>
-#include <Carna/base/glew.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/math.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/presets/MIPStage.hpp>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/RenderState.hpp>
+#include <LibCarna/base/math.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
 #include <vector>
 #include <algorithm>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -39,17 +41,18 @@ struct MIPStage::Details
 
     Details();
 
-    MIPLayer* currentLayer;
-    std::vector< MIPLayer* > layers;
+    std::unique_ptr< base::Texture< 2 > > projectionColorBuffer;
+    std::unique_ptr< base::Framebuffer  > projectionFrameBuffer;
 
-    std::unique_ptr< base::Texture< 2 > > layerColorBuffer;
-    std::unique_ptr< base::Framebuffer  > layerFrameBuffer;
+    const base::ShaderProgram* colorizationShader;
+    
+    const static unsigned int COLORMAP_TEXTURE_UNIT = base::Texture< 0 >::SETUP_UNIT + 1;
 
 }; // MIPStage :: Details
 
 
 MIPStage::Details::Details()
-    : currentLayer( nullptr )
+    : colorizationShader( nullptr )
 {
 }
 
@@ -59,88 +62,38 @@ MIPStage::Details::Details()
 // MIPStage
 // ----------------------------------------------------------------------------------
 
-MIPStage::MIPStage( unsigned int geometryType )
+MIPStage::MIPStage( unsigned int geometryType, unsigned int colorMapResolution )
     : VolumeRenderingStage( geometryType )
     , pimpl( new Details() )
+    , colorMap( colorMapResolution )
 {
 }
 
 
 MIPStage::~MIPStage()
 {
-    clearLayers();
-}
+    activateGLContext();
 
-
-MIPStage* MIPStage::clone() const
-{
-    MIPStage* const result = new MIPStage( geometryType );
-    result->setEnabled( isEnabled() );
-    return result;
-}
-
-
-void MIPStage::appendLayer( MIPLayer* layer )
-{
-    CARNA_ASSERT( std::find( pimpl->layers.begin(), pimpl->layers.end(), layer ) == pimpl->layers.end() );
-    pimpl->layers.push_back( layer );
-}
-
-
-MIPLayer* MIPStage::removeLayer( const MIPLayer& layer )
-{
-    const auto layerItr = std::find( pimpl->layers.begin(), pimpl->layers.end(), const_cast< MIPLayer* >( &layer ) );
-    CARNA_ASSERT( layerItr != pimpl->layers.end() );
-    MIPLayer* const ownedLayer = *layerItr;
-    pimpl->layers.erase( layerItr );
-    return ownedLayer;
-}
-
-
-void MIPStage::ascendLayer( const MIPLayer& layer )
-{
-    const auto layerItr = std::find( pimpl->layers.begin(), pimpl->layers.end(), const_cast< MIPLayer* >( &layer ) );
-    CARNA_ASSERT( layerItr != pimpl->layers.end() );
-    const auto nextLayerItr = layerItr + 1;
-    if( nextLayerItr != pimpl->layers.end() )
+    if( pimpl->colorizationShader != nullptr )
     {
-        std::swap( *layerItr, *nextLayerItr );
+        base::ShaderManager::instance().releaseShader( *pimpl->colorizationShader );
     }
-}
-
-
-void MIPStage::clearLayers()
-{
-    std::for_each( pimpl->layers.begin(), pimpl->layers.end(), std::default_delete< MIPLayer >() );
-    pimpl->layers.clear();
-}
-
-
-std::size_t MIPStage::layersCount() const
-{
-    return pimpl->layers.size();
-}
-
-
-MIPLayer& MIPStage::layer( std::size_t layerIndex )
-{
-    CARNA_ASSERT( layerIndex < layersCount() );
-    return *pimpl->layers[ layerIndex ];
-}
-
-
-const MIPLayer& MIPStage::layer( std::size_t layerIndex ) const
-{
-    CARNA_ASSERT( layerIndex < layersCount() );
-    return *pimpl->layers[ layerIndex ];
 }
 
 
 void MIPStage::reshape( base::FrameRenderer& fr, unsigned int width, unsigned int height )
 {
     base::RenderStage::reshape( fr, width, height );
-    pimpl->layerColorBuffer.reset( base::Framebuffer::createRenderTexture() );
-    pimpl->layerFrameBuffer.reset( new base::Framebuffer( width, height, *pimpl->layerColorBuffer ) );
+    pimpl->projectionColorBuffer.reset( base::Framebuffer::createRenderTexture( true ) );
+    pimpl->projectionFrameBuffer.reset( new base::Framebuffer( width, height, *pimpl->projectionColorBuffer ) );
+}
+
+
+unsigned int MIPStage::loadVideoResources()
+{
+    pimpl->colorizationShader = &base::ShaderManager::instance().acquireShader( "mip_colorization" );
+    VolumeRenderingStage::loadVideoResources();
+    return Details::COLORMAP_TEXTURE_UNIT + 1;
 }
 
 
@@ -158,50 +111,46 @@ void MIPStage::renderPass
 
     /* Copy depth buffer from output to dedicated frame buffer.
      */
-    const base::Viewport framebufferViewport( *pimpl->layerFrameBuffer );
+    const base::Viewport framebufferViewport( *pimpl->projectionFrameBuffer );
     const unsigned int outputFramebufferId = base::Framebuffer::currentId();
     base::Framebuffer::copyDepthAttachment
         ( outputFramebufferId
-        , pimpl->layerFrameBuffer->id
+        , pimpl->projectionFrameBuffer->id
         , outputViewport
         , framebufferViewport );
 
-    /* For each layer: First render the layer-specific MIP result to the dedicated framebuffer,
-     * than render the result to the output framebuffer w.r.t. the layer function.
+    /* First render the projection of the intensities into the dedicated framebuffer.
      */
-    for( auto layerItr = pimpl->layers.begin(); layerItr != pimpl->layers.end(); ++layerItr )
-    {
-        pimpl->currentLayer = *layerItr;
+    LIBCARNA_RENDER_TO_FRAMEBUFFER( *pimpl->projectionFrameBuffer,
 
-        /* Render to dedicated framebuffer.
-         */
-        CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->layerFrameBuffer,
-
-            base::RenderState rs;
-            rs.setBlendEquation( GL_MAX );
-            rs.setDepthTest( true );
-
-            glClearColor( 0, 0, 0, 0 );
-            rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT );
-
-            framebufferViewport.makeActive();
-            VolumeRenderingStage::renderPass( vt, rt, framebufferViewport );
-            framebufferViewport.done();
-
-        );
-
-        /* Render result to output framebuffer.
-         */
         base::RenderState rs;
-        rs.setBlendFunction( pimpl->currentLayer->function() );
+        rs.setBlendEquation( GL_MAX );
+        rs.setDepthTest( true );
 
-        pimpl->layerColorBuffer->bind( 0 );
-        rt.renderer.renderTexture( base::FrameRenderer::RenderTextureParams( 0 ) );
-    }
+        glClearColor( -1, 0, 0, 0 );
+        rt.renderer.glContext().clearBuffers( GL_COLOR_BUFFER_BIT );
 
-    /* Denote that we're finished with rendering.
+        framebufferViewport.makeActive();
+        VolumeRenderingStage::renderPass( vt, rt, framebufferViewport );
+        framebufferViewport.done();
+
+    );
+
+    /* Render result to output framebuffer w.r.t. the color map.
      */
-    pimpl->currentLayer = nullptr;
+    rs.setBlendFunction( base::BlendFunction( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ) );
+
+    rt.renderer.glContext().setShader( *pimpl->colorizationShader );
+    base::ShaderUniform< int >( "colorMap", Details::COLORMAP_TEXTURE_UNIT ).upload();
+    base::ShaderUniform< float >( "minIntensity", colorMap.minimumIntensity() ).upload();
+    base::ShaderUniform< float >( "maxIntensity", colorMap.maximumIntensity() ).upload();
+    colorMap.bind( Details::COLORMAP_TEXTURE_UNIT );
+
+    pimpl->projectionColorBuffer->bind( 0 );
+    base::FrameRenderer::RenderTextureParams params( 0 );
+    params.useDefaultShader = false;
+    params.textureUniformName = "mip";
+    rt.renderer.renderTexture( params );
 }
 
 
@@ -221,7 +170,7 @@ const base::ShaderProgram& MIPStage::acquireShader()
 
 const std::string& MIPStage::uniformName( unsigned int role ) const
 {
-    const static std::string ROLE_INTENSITIES_NAME = "huVolume";
+    const static std::string ROLE_INTENSITIES_NAME = "intensities";
     switch( role )
     {
 
@@ -229,7 +178,7 @@ const std::string& MIPStage::uniformName( unsigned int role ) const
         return ROLE_INTENSITIES_NAME;
 
     default:
-        CARNA_FAIL( "unknown role" );
+        LIBCARNA_FAIL( "unknown role" );
 
     }
 }
@@ -237,21 +186,16 @@ const std::string& MIPStage::uniformName( unsigned int role ) const
 
 void MIPStage::configureShader()
 {
-    CARNA_ASSERT( pimpl->currentLayer != nullptr );
-    const MIPLayer& ch = *pimpl->currentLayer;
-
-    base::ShaderUniform< float >( "minIntensity", ch.intensityRange.first ).upload();
-    base::ShaderUniform< float >( "maxIntensity", ch.intensityRange.last  ).upload();
-    base::ShaderUniform< base::math::Vector4f >( "color", ch.color ).upload();
 }
 
 
-void MIPStage::configureShader( const base::Renderable& )
+void MIPStage::configureShader( const base::Renderable& renderable )
 {
+    LIBCARNA_ASSERT( renderable.geometry().hasFeature( ROLE_INTENSITIES ) );
 }
 
 
 
-}  // namespace Carna :: VolumeRenderings
+}  // namespace LibCarna :: VolumeRenderings
 
-}  // namespace Carna
+}  // namespace LibCarna

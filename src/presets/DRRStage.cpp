@@ -1,25 +1,28 @@
 ﻿/*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/presets/DRRStage.h>
-#include <Carna/base/glew.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/Framebuffer.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/math.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/presets/DRRStage.hpp>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/Framebuffer.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/RenderState.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/math.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -75,8 +78,8 @@ DRRStage::Details::Details()
 
 const float     DRRStage::DEFAULT_WATER_ATTENUATION = 5e-3f;
 const float     DRRStage::DEFAULT_BASE_INTENSITY    = 1;
-const base::HUV DRRStage::DEFAULT_LOWER_THRESHOLD   = base::HUV::abs( -400 );
-const base::HUV DRRStage::DEFAULT_UPPER_THRESHOLD   = base::HUV::abs( +400 );
+const base::HUV DRRStage::DEFAULT_LOWER_THRESHOLD   = base::HUV( -400 );
+const base::HUV DRRStage::DEFAULT_UPPER_THRESHOLD   = base::HUV( +400 );
 const float     DRRStage::DEFAULT_UPPER_MULTIPLIER  = 1.5f;
 const bool      DRRStage::DEFAULT_RENDER_INVERSE    = false;
 
@@ -95,14 +98,6 @@ DRRStage::~DRRStage()
         activateGLContext();
         base::ShaderManager::instance().releaseShader( *pimpl->exponentialShader );
     }
-}
-
-
-DRRStage* DRRStage::clone() const
-{
-    DRRStage* const result = new DRRStage( geometryType );
-    result->setEnabled( isEnabled() );
-    return result;
 }
 
 
@@ -144,35 +139,35 @@ bool DRRStage::isRenderingInverse() const
 
 void DRRStage::setWaterAttenuation( float muWater )
 {
-    CARNA_ASSERT( muWater > 0 );
+    LIBCARNA_ASSERT( muWater > 0 );
     pimpl->waterAttenuation = muWater;
 }
 
 
 void DRRStage::setBaseIntensity( float baseIntensity )
 {
-    CARNA_ASSERT( baseIntensity > 0 );
+    LIBCARNA_ASSERT( baseIntensity > 0 );
     pimpl->baseIntensity = baseIntensity;
 }
 
 
 void DRRStage::setLowerThreshold( base::HUV lower )
 {
-    CARNA_ASSERT( lower >= -1024 && lower <= 3071 );
+    LIBCARNA_ASSERT( lower >= -1024 && lower <= 3071 );
     pimpl->lowerThreshold = lower;
 }
 
 
 void DRRStage::setUpperThreshold( base::HUV upper )
 {
-    CARNA_ASSERT( upper >= -1024 && upper <= 3071 );
+    LIBCARNA_ASSERT( upper >= -1024 && upper <= 3071 );
     pimpl->upperThreshold = upper;
 }
 
 
 void DRRStage::setUpperMultiplier( float multiplier )
 {
-    CARNA_ASSERT( multiplier >= 0 );
+    LIBCARNA_ASSERT( multiplier >= 0 );
     pimpl->upperMultiplier = multiplier;
 }
 
@@ -220,7 +215,7 @@ void DRRStage::renderPass
 
     /* First, evaluate the integral by rendering to the accumulation buffer.
      */
-    CARNA_RENDER_TO_FRAMEBUFFER( *pimpl->accumulationFrameBuffer,
+    LIBCARNA_RENDER_TO_FRAMEBUFFER( *pimpl->accumulationFrameBuffer,
 
         /* Configure OpenGL state for accumulation pass.
          */
@@ -275,7 +270,7 @@ const std::string& DRRStage::uniformName( unsigned int role ) const
         return ROLE_INTENSITIES_NAME;
 
     default:
-        CARNA_FAIL( "unknown role" );
+        LIBCARNA_FAIL( "unknown role" );
 
     }
 }
@@ -290,12 +285,13 @@ void DRRStage::configureShader()
 }
 
 
-void DRRStage::configureShader( const base::Renderable& )
+void DRRStage::configureShader( const base::Renderable& renderable )
 {
+    LIBCARNA_ASSERT( renderable.geometry().hasFeature( ROLE_INTENSITIES ) );
 }
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

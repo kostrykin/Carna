@@ -1,21 +1,24 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/Material.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/GLContext.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/base/Material.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/GLContext.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
 #include <map>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -32,7 +35,17 @@ struct Material::Details
 
     std::map< std::string, ShaderUniformBase* > uniforms;
 
+    float lineWidth;
+
+    Details();
+
 }; // Material :: Details
+
+
+Material::Details::Details()
+    : lineWidth( 1.0f )
+{
+}
 
 
 
@@ -67,7 +80,7 @@ Material::ManagedInterface::~ManagedInterface()
 
 const ShaderProgram& Material::ManagedInterface::shader() const
 {
-    CARNA_ASSERT( material.shader != nullptr );
+    LIBCARNA_ASSERT( material.shader != nullptr );
     return *material.shader;
 }
 
@@ -85,6 +98,10 @@ void Material::ManagedInterface::activate( RenderState& rs ) const
     {
         uniformItr->second->upload();
     }
+
+    /* Update render states.
+     */
+    rs.setLineWidth( material.pimpl->lineWidth );
 }
 
 
@@ -129,7 +146,7 @@ bool Material::controlsSameVideoResource( const GeometryFeature& other ) const
 
 void Material::addParameter( ShaderUniformBase* uniform )
 {
-    CARNA_ASSERT( !uniform->name.empty() );
+    LIBCARNA_ASSERT( !uniform->name.empty() );
     const auto uniformItr = pimpl->uniforms.find( uniform->name );
     if( uniformItr != pimpl->uniforms.end() )
     {
@@ -170,8 +187,20 @@ bool Material::hasParameter( const std::string& name ) const
 const ShaderUniformBase& Material::parameter( const std::string& name ) const
 {
     const auto uniformItr = pimpl->uniforms.find( name );
-    CARNA_ASSERT( uniformItr != pimpl->uniforms.end() );
+    LIBCARNA_ASSERT( uniformItr != pimpl->uniforms.end() );
     return *uniformItr->second;
+}
+
+
+float Material::lineWidth() const
+{
+    return pimpl->lineWidth;
+}
+
+
+void Material::setLineWidth( float lineWidth )
+{
+    pimpl->lineWidth = lineWidth;
 }
 
 
@@ -182,6 +211,6 @@ Material::ManagedInterface* Material::acquireVideoResource()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

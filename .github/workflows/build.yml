@@ -55,7 +55,7 @@ jobs:
         name: ${{ matrix.variant }}-${{ matrix.build }}-test_output
         path: build/make_${{ matrix.build }}/test/test_output/
 
-    - name: Test FindCarna.cmake
+    - name: Test FindLibCarna.cmake
       if: ${{ matrix.variant == 'egl' }}
       run: ./test.sh ${{ matrix.build }}
       working-directory: test_cmake
@@ -75,13 +75,14 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Install dependencies
-      run: sudo apt-get install libeigen3-dev libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev libglew-dev doxygen
+      run: sudo apt-get install libeigen3-dev libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev libglew-dev doxygen graphviz
 
     - run: rm -rf docs
 
     - run: ./linux_build-egl.bash
       env:
         BUILD: only_release
+        LIBCARNA_BUILD_DOCS: 1
 
     - uses: peter-evans/create-pull-request@v7
       if: ${{ github.event_name == 'push' }}

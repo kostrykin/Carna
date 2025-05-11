@@ -1,19 +1,22 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/GeometryFeature.h>
-#include <Carna/base/Log.h>
+#include <LibCarna/base/GeometryFeature.hpp>
+#include <LibCarna/base/Log.hpp>
 #include <set>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -135,9 +138,9 @@ GeometryFeature::ManagedInterface::ManagedInterface( GeometryFeature& manager )
 }
 
 
-GeometryFeature::ManagedInterface::~ManagedInterface()
+GeometryFeature::ManagedInterface::~ManagedInterface() noexcept( false )
 {
-    CARNA_ASSERT( geometryFeature.pimpl->videoResourceAcquisitions > 0 );
+    LIBCARNA_ASSERT( geometryFeature.pimpl->videoResourceAcquisitions > 0 );
     if( --geometryFeature.pimpl->videoResourceAcquisitions == 0 )
     {
         if( geometryFeature.pimpl->released )
@@ -181,7 +184,7 @@ unsigned int GeometryFeature::videoResourceAcquisitionsCount() const
 
 void GeometryFeature::release()
 {
-    CARNA_ASSERT( !pimpl->released );
+    LIBCARNA_ASSERT( !pimpl->released );
     if( !pimpl->deleteIfAllowed( this ) )
     {
         pimpl->released = true;
@@ -216,6 +219,6 @@ void GeometryFeature::removeFrom( Geometry& sceneGraphNode )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

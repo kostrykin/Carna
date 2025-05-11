@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.5)
 
 ############################################
 # It is important to use the root binary directory,
@@ -17,7 +17,7 @@ set( LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/bin )
 ############################################
 # Project name
 ############################################
-project( CarnaDemo )
+project( LibCarnaDemo )
 set( TARGET_NAME	${PROJECT_NAME}-${FULL_VERSION} )
 ############################################
 
@@ -70,8 +70,8 @@ include_directories( ${EIGEN3_INCLUDE_DIR} )
 include_directories(${CMAKE_PROJECT_DIR}src)
 include_directories(${CMAKE_PROJECT_DIR}../Tools)
 set( HEADERS
-        ../Tools/HUGZSceneFactory.h
-        ../Tools/HUIO.h
+        ../Tools/HUGZSceneFactory.hpp
+        ../Tools/HUIO.hpp
     )
 set( QOBJECT_HEADERS
         ""
@@ -113,7 +113,7 @@ if(Boost_FOUND)
             -DEXPECTED_RELEASE_VERSION=${PATCH_VERSION}
             -DSOURCE_PATH="${CMAKE_CURRENT_SOURCE_DIR}"
     	)
-    remove_definitions( -DCARNA_EXPORT )
+    remove_definitions( -DLIBCARNA_EXPORT )
     
     add_executable( ${TARGET_NAME} WIN32
             ${SRC}
@@ -130,8 +130,8 @@ if(Boost_FOUND)
             ${OPENGL_LIBRARIES}
             ${QT_LIBRARIES}
             ${Boost_LIBRARIES}
-            optimized   Carna-${FULL_VERSION}
-            debug       Carna-${FULL_VERSION}${CMAKE_DEBUG_POSTFIX}
+            optimized   carna-${FULL_VERSION}
+            debug       carna-${FULL_VERSION}${CMAKE_DEBUG_POSTFIX}
     	)
     
     if(MSVC)

@@ -1,21 +1,24 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/glError.h>
-#include <Carna/base/Texture.h>
-#include <Carna/base/CarnaException.h>
-#include <Carna/base/text.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/glError.hpp>
+#include <LibCarna/base/Texture.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
+#include <LibCarna/base/text.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -96,6 +99,14 @@ TextureBase::~TextureBase()
 }
 
 
+unsigned int TextureBase::maxTextureSize()
+{
+    GLint maxSize;
+    glGetIntegerv( GL_MAX_TEXTURE_SIZE, &maxSize );
+    return static_cast< unsigned int >( maxSize );
+}
+
+
 void TextureBase::uploadGLTextureData
     ( const Eigen::Matrix< unsigned int, 1, 1 >& size
     , int internalFormat
@@ -130,7 +141,7 @@ void TextureBase::uploadGLTextureData
     , int bufferType
     , const void* bufferPtr )
 {
-    GLint unpackAlignment; // TODO: in the future it will be better to use unpackAlignment as a parameter along of bufferPtr
+    GLint unpackAlignment; // TODO: in the future it will be better to use unpackAlignment as a parameter along with bufferPtr
     glGetIntegerv( GL_UNPACK_ALIGNMENT, &unpackAlignment );
     if( bufferType == GL_UNSIGNED_BYTE && pixelFormat == GL_RED )
     {
@@ -144,6 +155,6 @@ void TextureBase::uploadGLTextureData
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

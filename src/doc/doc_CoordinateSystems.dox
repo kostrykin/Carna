@@ -1,4 +1,4 @@
-namespace Carna
+namespace LibCarna
 {
 
 /** \page CoordinateSystems Coordinate Systems

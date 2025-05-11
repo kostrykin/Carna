@@ -1,29 +1,36 @@
 #version 330
 
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-uniform sampler3D huVolume;
+uniform sampler3D intensities;
 uniform sampler3D normalMap;
 uniform sampler1D colorMap;
+uniform float     minIntensity;
+uniform float     maxIntensity;
 uniform mat4      modelTexture;
 uniform mat3      normalsView;
 uniform float     stepLength;
-uniform float     translucence;
+uniform float     translucency;
 uniform float     diffuseLight;
 uniform int       lightingEnabled;
 
 in vec4 modelSpaceCoordinates;
 
 layout( location = 0 ) out vec4 _gl_FragColor;
+
+#define EPS 1e-16
 
 
 // ----------------------------------------------------------------------------------
@@ -32,9 +39,20 @@ layout( location = 0 ) out vec4 _gl_FragColor;
 
 vec4 sampleAt( vec3 p )
 {
-    float intensity = texture( huVolume, p ).r;
+    float intensity = texture( intensities, p ).r;
+
+    /* Apply intensity clipping.
+     */
+    intensity = clamp(
+        ( intensity - minIntensity + EPS ) / ( maxIntensity - minIntensity + EPS )
+        , 0.0, 1.0 );
+
+    /* Query color in `colorMap`.
+     */
     vec4 color = texture( colorMap, intensity );
 
+    /* Add lighting.
+     */
     if( lightingEnabled == 1 )
     {
         vec3 normalDirection = texture( normalMap, p ).rgb;
@@ -73,6 +91,6 @@ void main()
     vec4 textureCoordinates = modelTexture * modelSpaceCoordinates;
     vec4 color = sampleAt( textureCoordinates.xyz );
     
-    float alpha = color.a * stepLength / ( 1 + translucence );
+    float alpha = color.a * stepLength / ( 1 + translucency );
     _gl_FragColor = vec4( color.rgb * alpha, alpha );
 }

@@ -1,18 +1,21 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include "ColorTest.h"
-#include <Carna/base/Color.h>
+#include "ColorTest.hpp"
+#include <LibCarna/base/Color.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -76,6 +79,6 @@ void ColorTest::test_assignment_operator()
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna

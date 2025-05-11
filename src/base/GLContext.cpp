@@ -1,24 +1,27 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/glError.h>
-#include <Carna/base/GLContext.h>
-#include <Carna/base/ShaderProgram.h>
-#include <Carna/base/RenderState.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/glError.hpp>
+#include <LibCarna/base/GLContext.hpp>
+#include <LibCarna/base/ShaderProgram.hpp>
+#include <LibCarna/base/RenderState.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
 #include <set>
 #include <stack>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -66,7 +69,7 @@ GLContext::GLContext( bool isDoubleBuffered )
     pimpl->defaultRenderState.reset( new RenderState( *this ) );
     RenderState& defaultRenderState = *pimpl->defaultRenderState;
 
-    CARNA_GLEW_INIT;
+    LIBCARNA_GLEW_INIT;
     glContextInstances.insert( this );
     currentGLContext = this;
 
@@ -90,6 +93,10 @@ GLContext::GLContext( bool isDoubleBuffered )
     /* Enable support for 'gl_PointSize' in shader.
      */
     defaultRenderState.setPointSize( -1 );
+
+    /* Set default line width.
+     */
+    defaultRenderState.setLineWidth( 1.f );
 
     /* Set default render state.
      */
@@ -127,21 +134,21 @@ void GLContext::pushRenderState( const RenderState& rs )
 
 void GLContext::popRenderState()
 {
-    CARNA_ASSERT( !pimpl->renderStates.empty() );
+    LIBCARNA_ASSERT( !pimpl->renderStates.empty() );
     pimpl->renderStates.pop();
 }
 
 
 const RenderState& GLContext::currentRenderState() const
 {
-    CARNA_ASSERT( !pimpl->renderStates.empty() );
+    LIBCARNA_ASSERT( !pimpl->renderStates.empty() );
     return *pimpl->renderStates.top();
 }
 
 
 GLContext& GLContext::current()
 {
-    CARNA_ASSERT( currentGLContext != nullptr );
+    LIBCARNA_ASSERT( currentGLContext != nullptr );
     return *currentGLContext;
 }
 
@@ -163,7 +170,7 @@ void GLContext::setShader( const ShaderProgram& shader )
 {
     if( pimpl->shader != &shader )
     {
-        CARNA_ASSERT( isCurrent() );
+        LIBCARNA_ASSERT( isCurrent() );
         pimpl->shader = &shader;
         glUseProgram( shader.id );
         REPORT_GL_ERROR;
@@ -173,14 +180,14 @@ void GLContext::setShader( const ShaderProgram& shader )
 
 const ShaderProgram& GLContext::shader() const
 {
-    CARNA_ASSERT( pimpl->shader != nullptr );
+    LIBCARNA_ASSERT( pimpl->shader != nullptr );
     return *pimpl->shader;
 }
 
 
 void GLContext::clearBuffers( unsigned int flags )
 {
-    CARNA_ASSERT( isCurrent() );
+    LIBCARNA_ASSERT( isCurrent() );
     RenderState rs;
     if( flags & GL_DEPTH_BUFFER_BIT )
     {
@@ -191,6 +198,6 @@ void GLContext::clearBuffers( unsigned int flags )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

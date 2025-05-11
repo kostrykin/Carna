@@ -1,19 +1,22 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/GLContext.h>
-#include <QGLContextHolder.h>
+#include <LibCarna/base/GLContext.hpp>
+#include <QGLContextHolder.hpp>
 #include <QGLPixelBuffer>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace testing
@@ -27,17 +30,18 @@ namespace testing
 
 const QGLFormat QGLContextHolder::format = []()->QGLFormat
     {
-        QGLFormat format = Carna::base::QGLContextAdapter< QGLContext, QGLFormat >::desiredFormat();
+        QGLFormat format = LibCarna::base::QGLContextAdapter< QGLContext, QGLFormat >::desiredFormat();
         format.setDoubleBuffer( false );
         return format;
     }
 ();
 
 
-Carna::base::GLContext* QGLContextHolder::createGLContextWrapper( QGLPixelBuffer& pbuffer )
+LibCarna::base::GLContext* QGLContextHolder::createGLContextWrapper( QGLPixelBuffer& pbuffer )
 {
-    pbuffer.makeCurrent();
-    return new Carna::base::QGLContextAdapter< QGLContext, QGLFormat >();
+    const bool success = pbuffer.makeCurrent();
+    LIBCARNA_ASSERT( success );
+    return new LibCarna::base::QGLContextAdapter< QGLContext, QGLFormat >();
 }
 
 
@@ -48,13 +52,13 @@ QGLContextHolder::QGLContextHolder()
 }
 
 
-Carna::base::GLContext& QGLContextHolder::glContext()
+LibCarna::base::GLContext& QGLContextHolder::glContext()
 {
     return *glContextWrapper;
 }
 
 
 
-}  // namespace Carna :: testing
+}  // namespace LibCarna :: testing
 
-}  // namespace Carna
+}  // namespace LibCarna

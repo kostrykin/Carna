@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['opaquerenderingstage_0',['OpaqueRenderingStage',['../namespaceCarna_1_1presets.html#a544f1850fe5eb21b67d35bec55e6a9dd',1,'Carna::presets']]]
+  ['resolution_0',['Resolution',['../classLibCarna_1_1base_1_1Texture.html#a50ef5d29e2d5ce86e571b1093415b008',1,'LibCarna::base::Texture']]]
 ];

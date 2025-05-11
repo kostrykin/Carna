@@ -1,20 +1,23 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/Log.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/base/Log.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
 #include <iostream>
 #include <stack>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -103,7 +106,7 @@ void Log::pushTag( const std::string& tag )
 
 void Log::popTag()
 {
-    CARNA_ASSERT( !pimpl->tags.empty() );
+    LIBCARNA_ASSERT( !pimpl->tags.empty() );
     pimpl->tags.pop();
 }
 
@@ -123,7 +126,7 @@ const std::string& Log::tag() const
 
 void Log::setWriter( Writer* writer )
 {
-    CARNA_ASSERT( writer != nullptr )
+    LIBCARNA_ASSERT( writer != nullptr )
     pimpl->writer.reset( writer );
 }
 
@@ -256,6 +259,6 @@ Log::OnShutdownListener::~OnShutdownListener()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

@@ -1,18 +1,21 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/Mesh.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/Mesh.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -88,26 +91,26 @@ MeshBase::MeshBase
 }
 
 
-MeshBase::~MeshBase()
+MeshBase::~MeshBase() noexcept( false )
 {
-    CARNA_ASSERT( &GLContext::current() == &glContext );
+    LIBCARNA_ASSERT( &GLContext::current() == &glContext );
     glDeleteVertexArrays( 1, &id );
 }
 
 
 void MeshBase::bind() const
 {
-    CARNA_ASSERT( &GLContext::current() == &glContext );
+    LIBCARNA_ASSERT( &GLContext::current() == &glContext );
     glBindVertexArray( id );
 }
 
 
 void MeshBase::render() const
 {
-    CARNA_ASSERT( &GLContext::current() == &glContext );
+    LIBCARNA_ASSERT( &GLContext::current() == &glContext );
     
-    CARNA_ASSERT_EX( vertexBuffer().isValid(), "Vertex buffer is invalid." );
-    CARNA_ASSERT_EX(  indexBuffer().isValid(),  "Index buffer is invalid." );
+    LIBCARNA_ASSERT_EX( vertexBuffer().isValid(), "Vertex buffer is invalid." );
+    LIBCARNA_ASSERT_EX(  indexBuffer().isValid(),  "Index buffer is invalid." );
 
     this->bind();
     indexBuffer().bind();
@@ -140,6 +143,6 @@ IndexBufferBase& MeshBase::indexBuffer()
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Carna: Coordinate Systems</title>
+<title>LibCarna: Coordinate Systems</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@ MathJax.Hub.Config({
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">Carna<span id="projectnumber">&#160;Version 3.3.3</span>
+   <div id="projectname">LibCarna<span id="projectnumber">&#160;Version 3.4.0</span>
    </div>
   </td>
  </tr>
@@ -81,7 +81,7 @@ $(function() {
   <div class="headertitle"><div class="title">Coordinate Systems</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>This page explains the typical OpenGL coordinate systems. If you are interested in how these coordinate systems are related to the <a class="el" href="classCarna_1_1base_1_1Material.html#RenderingPipeline">rendering pipeline</a>, refer to its documentation.</p>
+<div class="textblock"><p>This page explains the typical OpenGL coordinate systems. If you are interested in how these coordinate systems are related to the <a class="el" href="classLibCarna_1_1base_1_1Material.html#RenderingPipeline">rendering pipeline</a>, refer to its documentation.</p>
 <h1><a class="anchor" id="HomogeneousCoordinates"></a>
 Homogeneous Coordinates</h1>
 <p>The <em>projective space</em> \(\mathbb R\mathrm P^3\) is the set of all vectors \(\vec p&#39; \in \mathbb R^4\), that represents each vector \(\vec p = \left(x, y, z\right)^\mathrm T \in \mathbb R^3\) with the straight line of points \(\vec p&#39; = \left(wx, wy, wz, w\right)^\mathrm T, w \in \mathbb R\) and obeys the following rules:</p>
@@ -103,7 +103,7 @@ Coordinate Transformations</h1>
 <p class="formulaDsp">
 \[ \vec p_W = A \vec p_{T_A} \]
 </p>
-<p>The matrix \(A\), that maps from the local <em>model space</em> to world space, is called the <em>model matrix</em>. For a particular node \(x\) with a parent \(p\) it is \(A_x = A_p \, L_x\), where \(L_x\) denotes the <a class="el" href="classCarna_1_1base_1_1Spatial.html#ad2ded1c9a07d166893d753d212b731df">local transform</a> of node \(x\) relatively to its parent. Now lets further assume that \(\vec p_{T_A}\) and \(\vec p_{T_B}\) were representations of the same point, given in the coordinate systems \(T_A\) and \(T_B\) respectively:</p>
+<p>The matrix \(A\), that maps from the local <em>model space</em> to world space, is called the <em>model matrix</em>. For a particular node \(x\) with a parent \(p\) it is \(A_x = A_p \, L_x\), where \(L_x\) denotes the <a class="el" href="classLibCarna_1_1base_1_1Spatial.html#af4fd34a9c683b012bd0f9c91230f80a1">local transform</a> of node \(x\) relatively to its parent. Now lets further assume that \(\vec p_{T_A}\) and \(\vec p_{T_B}\) were representations of the same point, given in the coordinate systems \(T_A\) and \(T_B\) respectively:</p>
 <p class="formulaDsp">
 \[ A \vec p_{T_A} = B \vec p_{T_B} \]
 </p>
@@ -151,23 +151,26 @@ Normalized Device Coordinates</h2>
 Window Coordinates</h2>
 <p>The normalized window coordinates are mapped linearly to pixel-based window coordinates, s.t.:</p>
 <ul>
-<li>\(\left(-1, 0, z_\text{nd}\right)^\mathrm T\) maps to the left edge of the <a class="el" href="classCarna_1_1base_1_1Viewport.html">viewport</a>.</li>
-<li>\(\left(0, -1, z_\text{nd}\right)^\mathrm T\) maps to the top edge of the <a class="el" href="classCarna_1_1base_1_1Viewport.html">viewport</a>.</li>
-<li>\(\left(+1, 0, z_\text{nd}\right)^\mathrm T\) maps to the right edge of the <a class="el" href="classCarna_1_1base_1_1Viewport.html">viewport</a>.</li>
-<li>\(\left(0, +1, z_\text{nd}\right)^\mathrm T\) maps to the bottom edge of the <a class="el" href="classCarna_1_1base_1_1Viewport.html">viewport</a>.</li>
+<li>\(\left(-1, 0, z_\text{nd}\right)^\mathrm T\) maps to the left edge of the <a class="el" href="classLibCarna_1_1base_1_1Viewport.html">viewport</a>.</li>
+<li>\(\left(0, -1, z_\text{nd}\right)^\mathrm T\) maps to the top edge of the <a class="el" href="classLibCarna_1_1base_1_1Viewport.html">viewport</a>.</li>
+<li>\(\left(+1, 0, z_\text{nd}\right)^\mathrm T\) maps to the right edge of the <a class="el" href="classLibCarna_1_1base_1_1Viewport.html">viewport</a>.</li>
+<li>\(\left(0, +1, z_\text{nd}\right)^\mathrm T\) maps to the bottom edge of the <a class="el" href="classLibCarna_1_1base_1_1Viewport.html">viewport</a>.</li>
 </ul>
 <p>Note that the direction of the y-axis is flipped in comparison to the coordinate systems before.</p>
 <h2><a class="anchor" id="FrameCoordinates"></a>
 Frame Coordinates</h2>
-<p>The frame coordinates are obtained from the window coordinates by shifting the viewport's <a class="el" href="classCarna_1_1base_1_1Viewport.html#a686f664322df9118a6010bde2720b172">base::Viewport::marginLeft</a> and <a class="el" href="classCarna_1_1base_1_1Viewport.html#a0b6206ff5e96aae4d87ea207ff3bfd8f">base::Viewport::marginTop</a> location. </p>
+<p>The frame coordinates are obtained from the window coordinates by shifting the viewport's <a class="el" href="classLibCarna_1_1base_1_1Viewport.html#a97d8bf56c4c2a6dde32a528f18c3ebf6">base::Viewport::marginLeft</a> and <a class="el" href="classLibCarna_1_1base_1_1Viewport.html#a5ac3fb15f61a6a49757f83e21913bdf1">base::Viewport::marginTop</a> location. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <hr class="footer"/>
     <address class="footer">
+        <p>
+            <small>
+                Written by Leonid Kostrykin &copy; 2021&ndash;2025.
+                Based on <a href="https://github.com/RWTHmediTEC/Carna">Carna</a> (&copy; 2010-2016).
+            </small>
+        </p>
         <small>
-			Written by <a href="http://evoid.de">Leonid Kostrykin</a> at the
-            Chair of Medical Engineering (mediTEC),
-            RWTH Aachen University <p>
             Documentation generated by <a href="http://www.doxygen.org/index.html"> Doxygen </a>
         </small>
     </address>

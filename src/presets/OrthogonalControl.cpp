@@ -1,18 +1,21 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/presets/OrthogonalControl.h>
-#include <Carna/base/math.h>
+#include <LibCarna/presets/OrthogonalControl.hpp>
+#include <LibCarna/base/math.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -70,7 +73,7 @@ const float OrthogonalControl::DEFAULT_ZOOM_STRENGTH = 1e-1f;
 OrthogonalControl::OrthogonalControl( base::CameraControl* cc )
     : pimpl( new Details( cc ) )
 {
-    CARNA_ASSERT( cc != nullptr );
+    LIBCARNA_ASSERT( cc != nullptr );
 }
 
 
@@ -81,7 +84,7 @@ OrthogonalControl::~OrthogonalControl()
 
 void OrthogonalControl::setZoomStrength( float zoomStrength )
 {
-    CARNA_ASSERT( zoomStrength > 0 );
+    LIBCARNA_ASSERT( zoomStrength > 0 );
     if( !base::math::isEqual( pimpl->zoomStrength, zoomStrength ) )
     {
         pimpl->zoomStrength = zoomStrength;
@@ -177,7 +180,6 @@ bool OrthogonalControl::isRotationEnabled() const
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
-
+}  // namespace LibCarna

@@ -1,21 +1,24 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/glError.h>
-#include <Carna/base/Sampler.h>
-#include <Carna/base/Texture.h>
-#include <Carna/base/CarnaException.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/glError.hpp>
+#include <LibCarna/base/Sampler.hpp>
+#include <LibCarna/base/Texture.hpp>
+#include <LibCarna/base/LibCarnaException.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -29,7 +32,7 @@ namespace base
 
 static inline void validateWrapMode( unsigned int wrapMode )
 {
-    CARNA_ASSERT_EX
+    LIBCARNA_ASSERT_EX
         (  wrapMode == Sampler::WRAP_MODE_CLAMP
         || wrapMode == Sampler::WRAP_MODE_REPEAT
         || wrapMode == Sampler::WRAP_MODE_MIRRORED_REPEAT
@@ -44,7 +47,7 @@ static inline void validateWrapMode( unsigned int wrapMode )
 
 static inline void validateTextureFilter( unsigned int filter )
 {
-    CARNA_ASSERT_EX
+    LIBCARNA_ASSERT_EX
         (  filter == Sampler::FILTER_NEAREST
         || filter == Sampler::FILTER_LINEAR
         , "Unknown texture filter." );
@@ -139,6 +142,6 @@ void Sampler::setMagFilter( unsigned int magFilter )
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

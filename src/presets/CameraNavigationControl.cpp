@@ -1,20 +1,23 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/presets/CameraNavigationControl.h>
-#include <Carna/base/Camera.h>
-#include <Carna/base/math.h>
-#include <Carna/base/Log.h>
+#include <LibCarna/presets/CameraNavigationControl.hpp>
+#include <LibCarna/base/Camera.hpp>
+#include <LibCarna/base/math.hpp>
+#include <LibCarna/base/Log.hpp>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace presets
@@ -73,33 +76,33 @@ void CameraNavigationControl::setCamera( base::Spatial& cam )
 
 void CameraNavigationControl::rotateHorizontally( float radians )
 {
-    CARNA_ASSERT( pimpl->cam != nullptr );
+    LIBCARNA_ASSERT( pimpl->cam != nullptr );
     pimpl->rotate( 0, 1, 0, radians );
 }
 
 
 void CameraNavigationControl::rotateVertically( float radians )
 {
-    CARNA_ASSERT( pimpl->cam != nullptr );
+    LIBCARNA_ASSERT( pimpl->cam != nullptr );
     pimpl->rotate( 1, 0, 0, radians );
 }
 
 
 void CameraNavigationControl::moveAxially( float units )
 {
-    CARNA_ASSERT( pimpl->cam != nullptr );
+    LIBCARNA_ASSERT( pimpl->cam != nullptr );
     pimpl->cam->localTransform = pimpl->cam->localTransform * base::math::translation4f( 0, 0, units );
 }
 
 
 void CameraNavigationControl::moveLaterally( float unitsX, float unitsY )
 {
-    CARNA_ASSERT( pimpl->cam != nullptr );
+    LIBCARNA_ASSERT( pimpl->cam != nullptr );
     pimpl->cam->localTransform = pimpl->cam->localTransform * base::math::translation4f( unitsX, unitsY, 0 );
 }
 
 
 
-}  // namespace Carna :: presets
+}  // namespace LibCarna :: presets
 
-}  // namespace Carna
+}  // namespace LibCarna

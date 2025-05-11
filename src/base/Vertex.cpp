@@ -1,18 +1,21 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/Vertex.h>
+#include <LibCarna/base/Vertex.hpp>
 #include <vector>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -68,7 +71,7 @@ VertexColor::VertexColor()
 
 const VertexAttributes PVertex::attributes = []()->VertexAttributes
 {
-    using Carna::base::VertexAttribute;
+    using LibCarna::base::VertexAttribute;
     std::vector< VertexAttribute > attributes;
     attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
     return attributes;
@@ -82,7 +85,7 @@ const VertexAttributes PVertex::attributes = []()->VertexAttributes
 
 const VertexAttributes PNVertex::attributes = []()->VertexAttributes
 {
-    using Carna::base::VertexAttribute;
+    using LibCarna::base::VertexAttribute;
     std::vector< VertexAttribute > attributes;
     attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
     attributes.push_back( VertexAttribute( 1, 4, VertexAttribute::TYPE_FLOAT ) );
@@ -97,7 +100,7 @@ const VertexAttributes PNVertex::attributes = []()->VertexAttributes
 
 const VertexAttributes PCVertex::attributes = []()->VertexAttributes
 {
-    using Carna::base::VertexAttribute;
+    using LibCarna::base::VertexAttribute;
     std::vector< VertexAttribute > attributes;
     attributes.push_back( VertexAttribute( 0, 4, VertexAttribute::TYPE_FLOAT ) );
     attributes.push_back( VertexAttribute( 1, 4, VertexAttribute::TYPE_FLOAT ) );
@@ -106,6 +109,6 @@ const VertexAttributes PCVertex::attributes = []()->VertexAttributes
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna

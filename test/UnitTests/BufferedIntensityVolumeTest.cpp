@@ -1,9 +1,18 @@
 /*
- *  Copyright (C) 2021 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
+ *  Chair of Medical Engineering (mediTEC)
+ *  RWTH Aachen University
+ *  Pauwelsstr. 20
+ *  52074 Aachen
+ *  Germany
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include "BufferedIntensityVolumeTest.h"
+#include "BufferedIntensityVolumeTest.hpp"
 
 
 
@@ -41,7 +50,7 @@ void BufferedIntensityVolumeTest::test_instantiation()
 }
 
 
-unsigned int BufferedIntensityVolumeTest::indexByPosition( const Carna::base::math::Vector3ui& pos ) const
+unsigned int BufferedIntensityVolumeTest::indexByPosition( const LibCarna::base::math::Vector3ui& pos ) const
 {
     return pos.x() + pos.y() * volume->size.x() + pos.z() * volume->size.x() * volume->size.y();
 }

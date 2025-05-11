@@ -2,7 +2,7 @@
 
 set -ex
 
-if command -v doxygen >/dev/null; then
+if [ -v LIBCARNA_BUILD_DOCS ] && command -v doxygen >/dev/null; then
     export BUILD_DOC="ON"
 else
     export BUILD_DOC="OFF"
@@ -27,7 +27,7 @@ fi
 echo
 echo "** Ready to install."
 
-if [ "$INSTALL" != "off" ]; then
+if [ -z "$LIBCARNA_NO_INSTALL" ]; then
     if [ "$BUILD" != "only_release" ]; then
         cd ../make_debug
         sudo make install

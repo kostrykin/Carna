@@ -31,16 +31,16 @@
 */
 
 #ifndef GLEW_INCLUDE
-#include <Carna/base/GL/glew.h>
+#include <LibCarna/base/GL/glew.h>
 #else
 #include GLEW_INCLUDE
 #endif
 
 #if defined(GLEW_OSMESA)
 #  define GLAPI extern
-#  include <Carna/base/GL/osmesa.h>
+#  include <LibCarna/base/GL/osmesa.h>
 #elif defined(GLEW_EGL)
-#  include <Carna/base/GL/eglew.h>
+#  include <LibCarna/base/GL/eglew.h>
 #elif defined(_WIN32)
 /*
  * If NOGDI is defined, wingdi.h won't be included by windows.h, and thus
@@ -50,9 +50,9 @@
 #  if defined(NOGDI)
 #    undef NOGDI
 #  endif
-#  include <Carna/base/GL/wglew.h>
+#  include <LibCarna/base/GL/wglew.h>
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
-#  include <Carna/base/GL/glxew.h>
+#  include <LibCarna/base/GL/glxew.h>
 #endif
 
 #include <stddef.h>  /* For size_t */

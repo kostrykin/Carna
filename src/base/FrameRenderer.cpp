@@ -1,34 +1,37 @@
 /*
- *  Copyright (C) 2010 - 2015 Leonid Kostrykin
+ *  Copyright (C) 2010 - 2016 Leonid Kostrykin
  *
  *  Chair of Medical Engineering (mediTEC)
  *  RWTH Aachen University
  *  Pauwelsstr. 20
  *  52074 Aachen
  *  Germany
- *
+ * 
+ * 
+ *  Copyright (C) 2021 - 2025 Leonid Kostrykin
+ * 
  */
 
-#include <Carna/base/glew.h>
-#include <Carna/base/glError.h>
-#include <Carna/base/FrameRenderer.h>
-#include <Carna/base/Camera.h>
-#include <Carna/base/RenderTask.h>
-#include <Carna/base/RenderStage.h>
-#include <Carna/base/Node.h>
-#include <Carna/base/Viewport.h>
-#include <Carna/base/ShaderManager.h>
-#include <Carna/base/ShaderUniform.h>
-#include <Carna/base/Vertex.h>
-#include <Carna/base/Mesh.h>
-#include <Carna/base/VertexBuffer.h>
-#include <Carna/base/IndexBuffer.h>
-#include <Carna/base/Sampler.h>
-#include <Carna/base/Stopwatch.h>
-#include <Carna/base/Composition.h>
+#include <LibCarna/base/glew.hpp>
+#include <LibCarna/base/glError.hpp>
+#include <LibCarna/base/FrameRenderer.hpp>
+#include <LibCarna/base/Camera.hpp>
+#include <LibCarna/base/RenderTask.hpp>
+#include <LibCarna/base/RenderStage.hpp>
+#include <LibCarna/base/Node.hpp>
+#include <LibCarna/base/Viewport.hpp>
+#include <LibCarna/base/ShaderManager.hpp>
+#include <LibCarna/base/ShaderUniform.hpp>
+#include <LibCarna/base/Vertex.hpp>
+#include <LibCarna/base/Mesh.hpp>
+#include <LibCarna/base/VertexBuffer.hpp>
+#include <LibCarna/base/IndexBuffer.hpp>
+#include <LibCarna/base/Sampler.hpp>
+#include <LibCarna/base/Stopwatch.hpp>
+#include <LibCarna/base/Composition.hpp>
 #include <vector>
 
-namespace Carna
+namespace LibCarna
 {
 
 namespace base
@@ -161,7 +164,7 @@ std::size_t circular_buffer< T >::size() const
 template< typename T >
 const T& circular_buffer< T >::operator[]( std::size_t idx ) const
 {
-    CARNA_ASSERT( idx < size() );
+    LIBCARNA_ASSERT( idx < size() );
     if( saturated )
     {
         return buffer[ ( nextIdx + idx ) % buffer.size() ];
@@ -314,7 +317,7 @@ void FrameRenderer::reshape( unsigned int width, unsigned int height )
 void FrameRenderer::render( Camera& cam ) const
 {
     Node& root = cam.findRoot();
-    CARNA_ASSERT( static_cast< Spatial* >( &root ) != static_cast< Spatial* >( &cam ) );
+    LIBCARNA_ASSERT( static_cast< Spatial* >( &root ) != static_cast< Spatial* >( &cam ) );
     render( cam, root );
 }
 
@@ -429,6 +432,6 @@ const math::Statistics< double >& FrameRenderer::framesPerSecond() const
 
 
 
-}  // namespace Carna :: base
+}  // namespace LibCarna :: base
 
-}  // namespace Carna
+}  // namespace LibCarna
