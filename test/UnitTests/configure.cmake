@@ -8,6 +8,7 @@ list( APPEND TESTS
 		ColorTest
 		HUVTest
 		VolumeGridHelperTest
+        GLContextTest
 	)
 
 list( APPEND TESTS_QOBJECT_HEADERS
@@ -18,6 +19,7 @@ list( APPEND TESTS_QOBJECT_HEADERS
 		UnitTests/ColorTest.hpp
 		UnitTests/HUVTest.hpp
 		UnitTests/VolumeGridHelperTest.hpp
+        UnitTests/GLContextTest.hpp
 	)
 
 list( APPEND TESTS_HEADERS
@@ -32,4 +34,5 @@ list( APPEND TESTS_SOURCES
 		UnitTests/ColorTest.cpp
 		UnitTests/HUVTest.cpp
 		UnitTests/VolumeGridHelperTest.cpp
+        UnitTests/GLContextTest.cpp
 	)

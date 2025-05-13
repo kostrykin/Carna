@@ -36,6 +36,8 @@ namespace base
 struct GLContext::Details
 {
     Details();
+    const std::string vendor;
+    const std::string renderer;
     const ShaderProgram* shader;
     std::unique_ptr< RenderState > defaultRenderState;
     std::stack< const RenderState* > renderStates;
@@ -43,7 +45,9 @@ struct GLContext::Details
 
 
 GLContext::Details::Details()
-    : shader( nullptr )
+    : vendor  ( reinterpret_cast< const char* >( glGetString( GL_VENDOR   ) ) )
+    , renderer( reinterpret_cast< const char* >( glGetString( GL_RENDERER ) ) )
+    , shader( nullptr )
 {
 }
 
@@ -124,7 +128,19 @@ GLContext::~GLContext()
         }
     }
 }
-    
+
+
+const std::string& GLContext::vendor() const
+{
+    return pimpl->vendor;
+}
+
+
+const std::string& GLContext::renderer() const
+{
+    return pimpl->renderer;
+}
+
     
 void GLContext::pushRenderState( const RenderState& rs )
 {
