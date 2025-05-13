@@ -100,14 +100,18 @@ public:
     const static unsigned int COLOR_BUFFER_BIT; ///< Wraps `GL_COLOR_BUFFER_BIT`
 
     /** \brief
+      * Tells whether the represented OpenGL context uses double buffering.
+      */
+    const bool isDoubleBuffered;
+
+    /** \brief
       * Deletes.
       */
     virtual ~GLContext();
 
-    /** \brief
-      * Tells whether the represented OpenGL context uses double buffering.
-      */
-    const bool isDoubleBuffered;
+    const std::string& vendor() const; ///< Wraps `glGetString( GL_VENDOR )`.
+
+    const std::string& renderer() const; ///< Wraps `glGetString( GL_RENDERER )`.
 
     /** \brief
       * References the current OpenGL context wrapper.
